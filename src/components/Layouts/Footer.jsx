@@ -6,9 +6,9 @@ const Footer = () => {
                     <h2 className="text-3xl font-bold">Join the Comunity</h2>
                     <p className="text-lg mb-4">Lorem ipsum dolor sit amet consectetur adipisicing elit. Expedita nobis sed excepturi tenetur! Delectus praesentium tempora veritatis debitis possimus aliquid!</p>
                 </div>
-                <div className="flex items-center"> 
-                    <input type="email" placeholder="Enter your email" className="p-4 w-2/3 mr-2 md:mr-2 rounded-lg" />
-                    <button className="p-4 bg-[#a85d08] text-white font-semibold rounded-lg">
+                <div className="flex items-center">
+                    <input type="email" placeholder="Enter your email" className="p-4 w-2/3 mr-2 md:mr-2 rounded-lg focus:border-[#fa440a] focus:ring-[#fa440a] focus:ring-2 focus:outline-none" />
+                    <button className="p-4 bg-[#a85d08] text-white font-semibold rounded-lg hover:bg-[#ff9f30]">
                         Submit
                     </button>
                 </div>
