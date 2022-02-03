@@ -1,65 +1,44 @@
 import Link from "next/link";
-import { BeakerIcon } from '@heroicons/react/solid'
+import { useState } from "react";
 
 const NavBar = () => {
-    const categories = [1,2,3,4,5,6,7];
+    let links = [
+        { name: 'home', link: '/' },
+        { name: 'products', link: '/' },
+        { name: 'categories', link: '/' },
+        { name: 'contact', link: '/' },
+    ]
+    let [open, setOpen] = useState(false);
     return (
-        <section>
-            <nav className="flex items-center justify-between flex-wrap bg-[#ff9f30] py-6 px-12">
-                <div className="flex items-center flex-shrink-0 text-black mr-6">
-                    <span className="font-semibold text-xl tracking-tight cursor-pointer">Lorem</span>
+        <nav className=" w-full fixed top-0 left-0 bg-[#f58d16] z-10">
+            <div className="md:flex items-center justify-between bg-[#f58d16] py-4 md:px-10 px-7">
+                <div className="font-bold text-2xl cursor-pointer flex items-center text-white">
+                    Lorem
                 </div>
-                <div className="w-full block flex-grow lg:flex lg:items-center container">
-                    <div className="lg:flex-grow flex items-center">
-                        <input type="text" className="rounded-lg md:w-2/3 py-2 px-4 focus:border-[#fa440a] focus:ring-[#fa440a] focus:ring-1 focus:outline-none" placeholder="Search..,"/>
-                        <button className="mx-2 p-2 bg-[#a85d08] text-white font-semibold rounded-lg hover:bg-[#ff9f30]">
-                            <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-                            </svg>
-                        </button>
-                    </div>
-                    <div className="cursor-pointer">
-                        My acount
-                    </div>
-                </div>
-            </nav>
-            <header className="px-10 bg-[#ff9f30] py-1 flex justify-between">
-                <ul className="flex flex-row">
-                    <li className="flex items-center mx-2 hover:bg-[#a85d08] hover:rounded cursor-pointer">
-                        categorias
-                        <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                        </svg>
-                    </li>
-                    <li className="flex items-center mx-2 hover:bg-[#a85d08] hover:rounded cursor-pointer relative">
-                        ofertas
-                        <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                        </svg>
-                    </li>
-                    <div className="absolute mt-6 z-10 mx-2 bg-[#ff9f30]">
-                        <ul>
-                            {
-                                categories.map(cat=>(
-                                    <li className="hover:text-white hover:bg-[#a85d08] cursor-pointer p-2">Lorem ipsum dolor sit</li>
-                                ))
-                            }
-                        </ul>
-                    </div>
-                    <li className="flex items-center mx-2 hover:bg-[#a85d08] hover:rounded cursor-pointer">
-                        cupones
-                        <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                        </svg>
-                    </li>
-                </ul>
-                <span>
+                <div onClick={()=>setOpen(!open)} className="text-3xl absolute right-8 top-6 cursor-pointer md:hidden">
                     <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
                     </svg>
-                </span>
-            </header>
-        </section >
+                </div>
+                <div className="mt-5 md:mt-0">
+                    <input type="text" placeholder="Search.." className="rounded-lg w-full py-2" />
+                </div>
+                <ul className={`md:flex md:items-center md:pb-0 pb-12 absolute md:static bg-[#f58d16] md:z-auto z-[-1] left-0 w-full md:w-auto md:pl-0 pl-9 transition-all duration-500 ease-in ${open ? ' opacity-100' : 'top-[-2]'} md:opacity-100 opacity-0`}>
+                    {
+                        links.map(link => (
+                            <Link href={link.link}>
+                                <li className="md:ml-8 text-xl md:my-0  my-7">
+                                    <a className="cursor-pointer text-white hover:text-gray-400 duration-500">{link.name}</a>
+                                </li>
+                            </Link>
+                        ))
+                    }
+                    <span className="bg-indigo py-2 px-6 rounded md:ml-8 cursor-pointer">
+                        Sign In
+                    </span>
+                </ul>
+            </div>
+        </nav>
     )
 }
 export default NavBar;
