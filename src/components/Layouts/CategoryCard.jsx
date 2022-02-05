@@ -4,7 +4,7 @@ import "swiper/css/pagination";
 import "swiper/css/navigation";
 
 
-const Categories = () => {
+const CategoryCard = () => {
     return (
         <section className="px-6">
             <Swiper
@@ -29,7 +29,7 @@ const Categories = () => {
                 }}
             >
                 <SwiperSlide>
-                    <div className="bg-[#f58d16] text-center py-12 rounded-lg text-white">
+                    <div className="bg-[#f58d16] text-center py-12 rounded-lg text-white cursor-pointer">
                         <h2 className="text-2xl">Categories</h2>
                     </div>
                 </SwiperSlide>
@@ -63,4 +63,4 @@ const Categories = () => {
     )
 }
 
-export default Categories;
+export default CategoryCard;
