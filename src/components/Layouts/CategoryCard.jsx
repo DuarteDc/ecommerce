@@ -5,6 +5,7 @@ import "swiper/css/navigation";
 
 
 const CategoryCard = () => {
+    const categories = [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1];
     return (
         <section className="px-6">
             <Swiper
@@ -28,36 +29,15 @@ const CategoryCard = () => {
                     },
                 }}
             >
-                <SwiperSlide>
-                    <div className="bg-[#f58d16] text-center py-12 rounded-lg text-white cursor-pointer">
-                        <h2 className="text-2xl">Categories</h2>
-                    </div>
-                </SwiperSlide>
-                <SwiperSlide>
-                    <div className="bg-[#f58d16] text-center py-12 rounded-lg text-white">
-                        <h2 className="text-2xl">Categories</h2>
-                    </div>
-                </SwiperSlide>
-                <SwiperSlide>
-                    <div className="bg-[#f58d16] text-center py-12 rounded-lg text-white">
-                        <h2 className="text-2xl">Categories</h2>
-                    </div>
-                </SwiperSlide>
-                <SwiperSlide>
-                    <div className="bg-[#f58d16] text-center py-12 rounded-lg text-white">
-                        <h2 className="text-2xl">Categories</h2>
-                    </div>
-                </SwiperSlide>
-                <SwiperSlide>
-                    <div className="bg-[#f58d16] text-center py-12 rounded-lg text-white">
-                        <h2 className="text-2xl">Categories</h2>
-                    </div>
-                </SwiperSlide>
-                <SwiperSlide>
-                    <div className="bg-[#f58d16] text-center py-12 rounded-lg text-white">
-                        <h2 className="text-2xl">Categories</h2>
-                    </div>
-                </SwiperSlide>
+                {
+                    categories.map(cat => (
+                        <SwiperSlide>
+                            <div className="bg-[#f58d16] text-center py-12 rounded-lg text-white cursor-pointer">
+                                <h2 className="text-2xl">Categories</h2>
+                            </div>
+                        </SwiperSlide>
+                    ))
+                }
             </Swiper>
         </section >
     )

@@ -7,6 +7,7 @@ import Select from '@mui/material/Select';
 import Footer from "../../src/components/Layouts/Footer";
 import Slider from "../../src/components/Layouts/Slider";
 import Link from "next/link";
+import AsideBar from "../../src/components/categories/AsideBar";
 
 const Category = () => {
     const products = [
@@ -51,16 +52,7 @@ const Category = () => {
                 </div>
                 <div className="grid grid-cols-1 md:grid-cols-5">
                     <div class="h-screen bg-gray-100 hidden md:block p-4 border-gray-50">
-                        <p>Categories</p>
-                        <ul class="relative">
-                            {
-                                categories.map((cat, i) => (
-                                    <li class="relative">
-                                        <a class="cursor-pointer flex items-center text-sm py-4 px-6 h-12 overflow-hidden text-gray-700 text-ellipsis whitespace-nowrap rounded hover:text-gray-900 hover:bg-gray-300 transition duration-300 ease-in-out" data-mdb-ripple="true" data-mdb-ripple-color="dark">category {i + 1}</a>
-                                    </li>
-                                ))
-                            }
-                        </ul>
+                        <AsideBar />
                     </div>
                     <div className="col-span-4">
                         {
