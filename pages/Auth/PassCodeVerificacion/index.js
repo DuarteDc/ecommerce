@@ -86,7 +86,7 @@ export default function PassCodeVeri() {
                                     </div>    
                                 </form>
                                 <div className="text-center text-principal-300 text-sm italic">
-                                    <Link href='/Forgot-Password'>
+                                    <Link href=''>
                                         <a>¿No recibiste ningún código?</a>
                                     </Link>
                             </div>
