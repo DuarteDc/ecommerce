@@ -9,7 +9,7 @@ import { Pagination, Autoplay } from "swiper";
 
 const Slider = () => {
     return (
-        <section className="mb-10">
+        <section className="mb-10 cursor-pointer overflow-hidden">
             <Swiper
                 slidesPerView={1}
                 spaceBetween={30}
@@ -26,17 +26,19 @@ const Slider = () => {
             >
                 <SwiperSlide>
                     <img src="https://assets.hongkiat.com/uploads/minimalist-dekstop-wallpapers/4k/original/06.jpg" alt=""
-                        className="h-full w-full" />
+                        className="h-full w-full"/>
                 </SwiperSlide>
                 <SwiperSlide>
-                    <img src="https://media.kingston.com/hyperx/downloads/logo-products-screensaver-3840x2160.jpg" alt="" />
+                    <img src="https://media.kingston.com/hyperx/downloads/logo-products-screensaver-3840x2160.jpg" alt=""
+                    className="h-full w-full object-fill"/>
                 </SwiperSlide>
                 <SwiperSlide>
                     <img src="https://assets.hongkiat.com/uploads/minimalist-dekstop-wallpapers/4k/original/06.jpg" alt=""
-                        className="h-full w-full" />
+                        className="h-full w-full"/>
                 </SwiperSlide>
                 <SwiperSlide>
-                    <img src="https://media.kingston.com/hyperx/downloads/logo-products-screensaver-3840x2160.jpg" alt="" />
+                    <img src="https://media.kingston.com/hyperx/downloads/logo-products-screensaver-3840x2160.jpg" alt=""
+                    className="h-full w-full object-fill"/>
                 </SwiperSlide>
             </Swiper>
         </section>
