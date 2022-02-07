@@ -5,7 +5,7 @@ import { useState } from "react";
 const NavBar = () => {
     let links = [
         { name: 'home', link: '/' },
-        { name: 'products', link: '/' },
+        { name: 'products', link: '/products' },
         { name: 'categories', link: '/categories' },
         { name: 'contact', link: '/' },
     ]
@@ -41,7 +41,7 @@ const NavBar = () => {
                                 Sign In
                             </span>
                         </Link>
-                        <span>
+                        <span className="cursor-pointer">
                             <ShoppingCartIcon />
                         </span>
                     </div>
