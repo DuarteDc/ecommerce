@@ -1,20 +1,21 @@
+import { useEffect, useState } from "react";
 import AsideBar from "../../src/components/categories/AsideBar";
 import Card from "../../src/components/Layouts/Card";
 import Footer from "../../src/components/Layouts/Footer";
 import NavBar from "../../src/components/Layouts/NavBar";
 
-const Products = () => {
-    const products = [
-        { id: "1", name: "hola mundo", description: "some description some description some description some description ", price: "800", img: "http://animation.com.mx/img/productos/P%C3%B3steres.png", available: "9", discount: "20" },
-        { id: "2", name: "hola mundo", description: "some description some description some description some description ", price: "800", img: "http://animation.com.mx/img/productos/P%C3%B3steres.png", available: "9", discount: "20" },
-        { id: "3", name: "hola mundo", description: "some description some description some description some description ", price: "800", img: "http://animation.com.mx/img/productos/P%C3%B3steres.png", available: "9", discount: "20" },
-        { id: "4", name: "hola mundo", description: "some description some description some description some description ", price: "800", img: "http://animation.com.mx/img/productos/P%C3%B3steres.png", available: "9", discount: "20" },
-        { id: "5", name: "hola mundo", description: "some description some description some description some description ", price: "800", img: "http://animation.com.mx/img/productos/P%C3%B3steres.png", available: "9", discount: "20" },
-        { id: "6", name: "hola mundo", description: "some description some description some description some description ", price: "800", img: "http://animation.com.mx/img/productos/P%C3%B3steres.png", available: "9", discount: "20" },
-        { id: "7", name: "hola mundo", description: "some description some description some description some description ", price: "800", img: "http://animation.com.mx/img/productos/P%C3%B3steres.png", available: "9", discount: "20" },
-        { id: "8", name: "hola mundo", description: "some description some description some description some description ", price: "800", img: "http://animation.com.mx/img/productos/P%C3%B3steres.png", available: "9", discount: "20" },
-        { id: "9", name: "hola mundo", description: "some description some description some description some description ", price: "800", img: "http://animation.com.mx/img/productos/P%C3%B3steres.png", available: "9", discount: "20" },
-    ];
+import { getProducts } from "../../src/actions/productActions";
+
+const Products = ({ products }) => {
+    /* const [products, setProducts] = useState(null);
+     const getData = async () => {
+         const _products = await getProducts();
+         setProducts(_products);
+     }
+     useEffect(() => {
+         getData();
+     }, []);*/
+
     return (
         <>
             <NavBar />
@@ -33,8 +34,8 @@ const Products = () => {
                     </div>
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 border-2 border-gray-200">
                         {
-                            products.map(product => (
-                                <Card product={product} />
+                            products?.map((product) => (
+                                <Card key={product._id} product={product} />
                             ))
                         }
                     </div>
@@ -45,4 +46,12 @@ const Products = () => {
     )
 }
 
+export const getServerSideProps = async () => {
+    const products = await getProducts();
+    return {
+        props: {
+            products
+        }
+    }
+}
 export default Products;
