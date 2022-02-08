@@ -1,5 +1,4 @@
 import {  useState, useEffect } from "react";
-import { getProduct } from "../../actions/productActions";
 
 import CloseIcon from '@mui/icons-material/Close';
 import Backdrop from '@mui/material/Backdrop';
@@ -14,7 +13,7 @@ const ShowProduct = ({ isOpen, closeModal, product_id }) => {
     const [product, setProduct] = useState(null);
 
     const loadProduct = async () => {
-        const _product = await getProduct(product_id);
+        const _product =  21
         setProduct(_product);
     }
     useEffect(() => {

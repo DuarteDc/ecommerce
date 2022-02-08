@@ -13,7 +13,6 @@ export const startLoadProducts = () =>{
     }
 }
 
-
 export const loadProducts = (products) =>({
     type: types.loadProducts,
     payload:products

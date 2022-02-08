@@ -9,7 +9,7 @@ const NavBar = () => {
         { name: 'categories', link: '/categories' },
         { name: 'contact', link: '/' },
     ]
-    let [open, setOpen] = useState(false);
+    const [open, setOpen] = useState(true);
     return (
         <nav className=" w-full top-0 left-0 bg-[#f58d16] z-10">
             <div className="md:flex items-center justify-between bg-[#f58d16] py-4 md:px-10 px-7">
@@ -34,7 +34,6 @@ const NavBar = () => {
                             </Link>
                         ))
                     }
-
                     <div className="text-white">
                         <Link href="/Auth/Sign-In">
                             <span className="py-2 px-6 rounded md:ml-8 cursor-pointer">
@@ -46,6 +45,11 @@ const NavBar = () => {
                         </span>
                     </div>
                 </ul>
+            </div>
+            <div className="justify-center pb-5 hidden md:flex">
+                <div className="w-2/4">
+                    <input type="text" placeholder="Search.." className="rounded-lg w-full py-2 px-4" />
+                </div>
             </div>
         </nav>
     )
