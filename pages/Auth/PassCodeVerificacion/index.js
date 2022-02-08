@@ -79,7 +79,7 @@ export default function PassCodeVeri() {
                                             />
                                         </div>
                                         <div className="col-start-1 col-span-6 py-3 peque:col-start-1">
-                                            <button type='submit'class="        
+                                            <button type='submit'className="        
                                                                 bg-principal-100 rounded-full font-bold text-white w-full py-3 transition duration-300 ease-in-out hover:bg-principal-200
                                             ">Verificar Codigo</button>
                                         </div>

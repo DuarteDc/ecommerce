@@ -3,6 +3,7 @@ import ShowProduct from "../products/ShowProduct";
 
 const Card = ({ product }) => {
     const [isOpen, openModal, closeModal] = useModal();
+
     return (
         <>
             <article className="my-12 overflow-hidden w-10/12 border-2 mx-auto rounded-xl relative hover:scale-[1.01]">

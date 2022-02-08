@@ -8,7 +8,6 @@ const initialState = {
 export const authReducer = (state = initialState , {payload , type}) =>{
     switch (type) {
         case types.login:
-          console.log(payload);
           localStorage.setItem('token',payload.token);
           return{
             ...state,

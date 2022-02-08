@@ -1,15 +1,9 @@
-import { Provider } from 'react-redux'
-import '../src/assets/styles/globals.css'
-import { makeStore } from '../src/store'
+import '../src/assets/styles/globals.css';
+import {wrapper} from '../src/store';
 
-const MyApp = ({ Component, pageProps } ) => {
-  return(
-    <Provider store={makeStore}>
-      <Component {...pageProps} />
-    </Provider>
-     
-  )
-}
-
-export default MyApp
+const MyApp = ({ Component, pageProps } ) => (
+  <Component {...pageProps} />
+)
+ 
+export default wrapper.withRedux(MyApp);
 
