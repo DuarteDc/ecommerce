@@ -4,13 +4,12 @@ const initalState = {
     products:[]
 }
 
-export const productsReducer = (state = initalState , {type , payload}) =>{
-
-    switch (type) {
+export const productsReducer = (state = initalState , action) =>{
+    switch (action.type) {
         case types.loadProducts:
           return {
               ...state,
-              products:payload
+              products:action.payload
           }
         default:
            return state;
