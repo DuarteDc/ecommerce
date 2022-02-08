@@ -4,4 +4,7 @@ export const types = {
     logout:'[AUTH] logout ecommerce start',
     resetPassword:'[AUTH] reset password client',
     forgotPassword:'[AUTH] forgot password client',
+
+
+    loadProducts:'[PRODUCTS] start load products'
 }

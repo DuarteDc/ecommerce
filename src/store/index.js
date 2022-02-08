@@ -1,13 +1,17 @@
+import { createWrapper } from "next-redux-wrapper";
 import { createStore , applyMiddleware, combineReducers } from "redux";
 import { composeWithDevTools } from "redux-devtools-extension";
 import thunk from "redux-thunk";
-import { authReducer } from "../reducers";
+
+import { authReducer, productsReducer } from "../reducers";
 
 const reducers = combineReducers({
-   auth: authReducer
+  auth: authReducer,
+  products: productsReducer
 });
 
-export const makeStore =  createStore(
-    reducers,
-    composeWithDevTools(applyMiddleware(thunk))
-);
+const middleware = [thunk]
+const makeStore = () => createStore(reducers , composeWithDevTools(applyMiddleware(...middleware)));
+
+export const wrapper = createWrapper(makeStore);
+
