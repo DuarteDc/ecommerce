@@ -17,9 +17,9 @@ const Card = ({ product }) => {
                     <p className="text-md font-light">{product?.short_description}</p>
                     <p className="text-lg font-bold">${product?.price}</p>
                     {
-                        product?.quantity > 0 ?
-                            <p className="float-right semibold">Disponible</p>
-                            : <p className="float-right semibold">Agotado</p>
+                        product?.quantity > 0 ? 
+                        <p className="float-right semibold">Disponible</p>
+                        : <p className="float-right semibold">Agotado</p>
                     }
                     <button className="w-full bg-[#f58d16] py-2 mt-2 text-white font-bold hover:bg-[#ff9f30] rounded-lg">
                         Add to card
