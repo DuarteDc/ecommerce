@@ -1,37 +1,39 @@
-import {  useState, useEffect } from "react";
-
+import { useState, useEffect, useRef } from "react";
 import CloseIcon from '@mui/icons-material/Close';
 import Backdrop from '@mui/material/Backdrop';
-import LoadingIcon from "../LoadingIcon";
 import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
 import Fade from '@mui/material/Fade';
 import { useSelector } from "react-redux";
 import { priceFormat } from "../../helpers/helpers";
 import { useCounter } from "../../hooks/useCounter";
+import Link from "next/link";
+import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 
 const ShowProduct = ({ isOpen, CloseModal }) => {
     const img = useRef(null);
-    const {productSelected} = useSelector((state)=>state.products);
-    const { counter , increaseBy } = useCounter(1);
+    const { productSelected } = useSelector((state) => state.products);
+    const { counter, increaseBy} = useCounter(1);
+    const [addProduct, setAddProduct] = useState([]);
     const price = priceFormat(productSelected?.price || 0);
 
     const showImage = (newImg) => {
         img.current.src = newImg
     }
-    useEffect(() => {
-        setLoading(true);
-        loadProduct();
-        setLoading(false);
-    }, []);
+
+    const addCartShop = (product, value) =>{
+        setAddProduct([...addProduct, product._id])
+        console.log(addProduct)
+    }   
+
 
     return (
         <section>
             <Modal
                 aria-labelledby="transition-modal-title"
                 aria-describedby="transition-modal-description"
-                open={true}
-                onClose={closeModal}
+                open={isOpen}
+                onClose={CloseModal}
                 closeAfterTransition
                 BackdropComponent={Backdrop}
                 BackdropProps={{
@@ -45,24 +47,34 @@ const ShowProduct = ({ isOpen, CloseModal }) => {
                         </span>
                         <div className="grid grid-cols-1 md:grid-cols-2 ">
                             <div>
-                                <div className="max-h-px">
-                                    <img src={productSelected?.principal_image} 
-                                    className="object-contain w-full h-64 p-2" ref={img}
+                                <div className="w-full">
+                                    <img src={productSelected?.principal_image}
+                                        className="object-contain w-full h-64 p-2" ref={img}
                                     />
                                 </div>
                                 <div>
                                     <div className="flex">
+                                        <div
+                                            className="border-2 border-gray-300 w-24 h-24 mx-1 cursor-pointer overflow-hidden"
+                                        >
+                                            <img
+                                                src={productSelected?.principal_image}
+                                                alt=""
+                                                onClick={e => showImage(e.target.src)}
+                                            />
+                                        </div>
                                         {
-                                            productSelected?.multimedia.map(multimedia=>(
-                                               <div 
-                                                 className="border-2 border-gray-300 w-24 h-24 mx-1 cursor-pointer"
-                                               >
-                                                    <img 
-                                                    src={multimedia.path}
-                                                    alt="" 
-                                                    onClick={e => showImage(e.target.src)} 
+                                            productSelected?.multimedia.map(multimedia => (
+                                                <div
+                                                    className="overflow-hidden border-2 border-gray-300 w-24 h-24 mx-1 cursor-pointer"
+                                                >
+                                                    <img
+                                                        src={multimedia.path}
+                                                        alt=""
+                                                        onClick={e => showImage(e.target.src)}
+                                                        className="w-full h-full"
                                                     />
-                                                </div>  
+                                                </div>
                                             ))
                                         }
                                     </div>
@@ -71,14 +83,14 @@ const ShowProduct = ({ isOpen, CloseModal }) => {
                             <div className="px-5 mt-10">
                                 <h2 className="text-2xl">{productSelected?.name}</h2>
                                 <p className="mt-4 text-xl">
-                                  {productSelected?.description}
+                                    {productSelected?.description}
                                 </p>
                                 <div className="mt-10 flex flex-row items-center">
                                     <p className="font-bold text-3xl text-[#fa440a] mr-12">
                                         {price}
                                     </p>
                                     <p className="text-lg">
-                                        4 Disponibles
+                                        {productSelected?.quantity} Disponibles
                                     </p>
                                 </div>
                                 <div className="mt-12">
@@ -97,14 +109,14 @@ const ShowProduct = ({ isOpen, CloseModal }) => {
                                 </div>
                                 <div className="mt-12 lg:mt-20">
                                     <div className="flex items-center">
-                                        <button 
-                                         className="rounded-lg text-white mx-1 bg-[#f58d16] font-bold p-4 hover:bg-[#ff9f30]" onClick={() => increaseBy(-1)}
+                                        <button
+                                            className="rounded-lg text-white mx-1 bg-[#f58d16] font-bold p-4 hover:bg-[#ff9f30]" onClick={() => increaseBy(-1)}
                                         >
-                                         -
+                                            -
                                         </button>
                                         <button className="rounded-lg text-white mx-1 bg-[#f58d16] font-bold p-4 hover:bg-[#ff9f30]" onClick={() => increaseBy(+1)}>+</button>
                                         <input value={counter} type="text" placeholder="quantity" className="rounded-lg py-4 border-2 border-gray-800 px-4 w-full md:w-1/3" />
-                                        <button className="w-full mx-2 md:w-4/12 rounded-lg text-white mx-1 bg-[#f58d16] font-bold p-4 hover:bg-[#ff9f30]">
+                                        <button className="w-full mx-2 md:w-4/12 rounded-lg text-white mx-1 bg-[#f58d16] font-bold p-4 hover:bg-[#ff9f30]" onClick={()=>addCartShop(productSelected, counter)}>
                                             <ShoppingCartIcon />
                                         </button>
                                     </div>

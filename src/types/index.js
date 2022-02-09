@@ -10,5 +10,8 @@ export const types = {
 
     loadCategories:'[CATEGORIES] start load categories',
     addProductSelected:'[PRODUCTS] add product selected',
+
+    getProducts:'[SHOPPINGCART] get products',
+    deleteProduct:'[SHOPPINGCART] delete from shopping cart products',
     
 }

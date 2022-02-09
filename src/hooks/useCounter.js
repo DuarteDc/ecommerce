@@ -9,7 +9,7 @@ export const useCounter = (initialNumber = 0) =>{
 
     return {
         counter,
-        increaseBy
+        increaseBy,        
     }
 }
 
