@@ -6,5 +6,7 @@ export const types = {
     forgotPassword:'[AUTH] forgot password client',
 
 
-    loadProducts:'[PRODUCTS] start load products'
+    loadProducts:'[PRODUCTS] start load products',
+    addProductSelected:'[PRODUCTS] add product selected',
+    
 }

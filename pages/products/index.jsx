@@ -9,10 +9,6 @@ import { wrapper } from "../../src/store";
 const Products = () => {
 
     const {products} = useSelector((state)=>state.products);
-    console.log(products);
-    // const products = [
-    //     { id: "1", name: "hola mundo", description: "some description some description some description some description ", price: "800", img: "http://animation.com.mx/img/productos/P%C3%B3steres.png", available: "9", discount: "20" }
-    // ];
     return (
         <>
             <NavBar />
