@@ -8,5 +8,7 @@ export const types = {
 
     loadProducts:'[PRODUCTS] start load products',
 
-    loadCategories:'[CATEGORIES] start load categories'
+    loadCategories:'[CATEGORIES] start load categories',
+    addProductSelected:'[PRODUCTS] add product selected',
+    
 }

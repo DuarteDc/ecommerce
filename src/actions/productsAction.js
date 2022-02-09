@@ -17,3 +17,9 @@ export const loadProducts = (products) =>({
     type: types.loadProducts,
     payload:products
 });
+
+
+export const addProductSelected = (product) =>({
+    type:types.addProductSelected,
+    payload:product
+})
