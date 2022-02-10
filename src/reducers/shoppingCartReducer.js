@@ -27,6 +27,13 @@ export const shoppingCartReducer = (state = initialState, { type, payload }) => 
                 cart: [...removeAll]
             }
         }
+        case types.add_one_more_to_cart: {
+            let addOneMore = state.cart.filter((item) => item.product._id = payload.product._id);
+            console.log(addOneMore);
+            return {
+                ...state,
+            }
+        }
         case types.clear_cart: {
             return initialState
         }
