@@ -9,24 +9,22 @@ import { priceFormat } from "../../helpers/helpers";
 import { useCounter } from "../../hooks/useCounter";
 import Link from "next/link";
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+import { useDispatch } from "react-redux";
+import { newProduct } from "../../actions/shoppingCartActions";
 
 const ShowProduct = ({ isOpen, CloseModal }) => {
+    const dispatch = useDispatch();
     const img = useRef(null);
     const { productSelected } = useSelector((state) => state.products);
-    const { counter, increaseBy} = useCounter(1);
-    const [addProduct, setAddProduct] = useState([]);
+    const { counter, increaseBy, setCounter} = useCounter(1);    
     const price = priceFormat(productSelected?.price || 0);
 
     const showImage = (newImg) => {
         img.current.src = newImg
     }
-
-    const addCartShop = (product, value) =>{
-        setAddProduct([...addProduct, product._id])
-        console.log(addProduct)
-    }   
-
-
+    const addCart = (product, value) =>{
+        dispatch(newProduct(product, value));
+    }
     return (
         <section>
             <Modal
@@ -116,7 +114,7 @@ const ShowProduct = ({ isOpen, CloseModal }) => {
                                         </button>
                                         <button className="rounded-lg text-white mx-1 bg-[#f58d16] font-bold p-4 hover:bg-[#ff9f30]" onClick={() => increaseBy(+1)}>+</button>
                                         <input value={counter} type="text" placeholder="quantity" className="rounded-lg py-4 border-2 border-gray-800 px-4 w-full md:w-1/3" />
-                                        <button className="w-full mx-2 md:w-4/12 rounded-lg text-white mx-1 bg-[#f58d16] font-bold p-4 hover:bg-[#ff9f30]" onClick={()=>addCartShop(productSelected, counter)}>
+                                        <button className="w-full mx-2 md:w-4/12 rounded-lg text-white mx-1 bg-[#f58d16] font-bold p-4 hover:bg-[#ff9f30]" onClick={()=>{addCart(productSelected, counter), CloseModal(), setCounter(1)}}>
                                             <ShoppingCartIcon />
                                         </button>
                                     </div>

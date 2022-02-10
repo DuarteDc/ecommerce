@@ -11,7 +11,8 @@ export const types = {
     loadCategories:'[CATEGORIES] start load categories',
     addProductSelected:'[PRODUCTS] add product selected',
 
-    getProducts:'[SHOPPINGCART] get products',
-    deleteProduct:'[SHOPPINGCART] delete from shopping cart products',
+    add_to_cart:'[CART] add to cart',    
+    remove_all_from_cart:'[CART] remove all from cart',
+    clear_cart: '[CART] clear_cart'
     
 }

@@ -1,7 +1,7 @@
 import Link from "next/link";
-import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import { useState } from "react";
-
+import { useModal } from '../../hooks/useModal'
+import Cart from "../cart/Cart";
 const NavBar = () => {
     let links = [
         { name: 'home', link: '/' },
@@ -9,7 +9,7 @@ const NavBar = () => {
         { name: 'categories', link: '/categories' },
         { name: 'contact', link: '/' },
     ]
-    const [open, setOpen] = useState(true);
+    const [open, setOpen] = useState(true);    
     return (
         <nav className=" w-full top-0 left-0 bg-[#f58d16] z-10">
             <div className="md:flex items-center justify-between bg-[#f58d16] py-4 md:px-10 px-7">
@@ -34,14 +34,14 @@ const NavBar = () => {
                             </Link>
                         ))
                     }
-                    <div className="text-white">
+                    <div className="text-white flex items-center">
                         <Link href="/Auth/Sign-In">
                             <span className="py-2 px-6 rounded md:ml-8 cursor-pointer">
                                 Sign In
                             </span>
                         </Link>
                         <span className="cursor-pointer">
-                            <ShoppingCartIcon />
+                            <Cart />
                         </span>
                     </div>
                 </ul>
