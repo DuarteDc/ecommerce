@@ -1,13 +1,11 @@
 import { Swiper, SwiperSlide } from "swiper/react";
-
-// Import Swiper styles
 import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
 
 import { Pagination, Autoplay } from "swiper";
 
-const Slider = () => {
+const Slider = ({ offers }) => {
     return (
         <section className="mb-10 cursor-pointer overflow-hidden">
             <Swiper
@@ -24,22 +22,14 @@ const Slider = () => {
                 modules={[Pagination, Autoplay]}
                 className="mySwiper"
             >
-                <SwiperSlide>
-                    <img src="https://assets.hongkiat.com/uploads/minimalist-dekstop-wallpapers/4k/original/06.jpg" alt=""
-                        className="h-full w-full"/>
-                </SwiperSlide>
-                <SwiperSlide>
-                    <img src="https://media.kingston.com/hyperx/downloads/logo-products-screensaver-3840x2160.jpg" alt=""
-                    className="h-full w-full object-fill"/>
-                </SwiperSlide>
-                <SwiperSlide>
-                    <img src="https://assets.hongkiat.com/uploads/minimalist-dekstop-wallpapers/4k/original/06.jpg" alt=""
-                        className="h-full w-full"/>
-                </SwiperSlide>
-                <SwiperSlide>
-                    <img src="https://media.kingston.com/hyperx/downloads/logo-products-screensaver-3840x2160.jpg" alt=""
-                    className="h-full w-full object-fill"/>
-                </SwiperSlide>
+                {
+                    offers.map((offer) => (
+                        <SwiperSlide>
+                            <img src="https://assets.hongkiat.com/uploads/minimalist-dekstop-wallpapers/4k/original/06.jpg" alt=""
+                                className="h-full w-full" />
+                        </SwiperSlide>
+                    ))
+                }
             </Swiper>
         </section>
     )

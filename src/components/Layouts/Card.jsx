@@ -20,7 +20,7 @@ const Card = ({ product }) => {
 
     return (
         <>
-            <article className="my-12 overflow-hidden w-10/12 border-2 mx-auto rounded-xl relative hover:scale-[1.01]">
+            <article className="my-12 overflow-hidden w-10/12 border-2 mx-auto rounded-xl relative hover:scale-[1.01] shadow-md">
                 <div className="overflow-hidden cursor-pointer" onClick={()=>handleClickModal(product)}>
                     <span className="absolute bg-[#fa440a] text-white p-2 font-bold">
                         {product?.discount} %

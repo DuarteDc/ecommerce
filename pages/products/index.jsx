@@ -1,5 +1,6 @@
 import { useSelector } from "react-redux";
 import { startLoadProducts } from "../../src/actions/productsAction";
+import { startLoadCategories } from "../../src/actions/categoryActions";
 import AsideBar from "../../src/components/categories/AsideBar";
 import Card from "../../src/components/Layouts/Card";
 import Footer from "../../src/components/Layouts/Footer";
@@ -8,7 +9,8 @@ import { wrapper } from "../../src/store";
 
 const Products = () => {
 
-    const {products} = useSelector((state)=>state.products);
+    const { products } = useSelector((state) => state.products);
+    const { categories } = useSelector((state) => state.categories);
     return (
         <>
             <NavBar />
@@ -17,7 +19,7 @@ const Products = () => {
             </div>
             <section className="grid grid-cols-1 md:grid-cols-3 mt-20 lg:grid-cols-4">
                 <div className="hidden md:block">
-                    <AsideBar />
+                    <AsideBar categories={categories} />
                 </div>
                 <div className="col-span-4 md:col-span-2 lg:col-span-3 -mt-6">
                     <div className="flex">
@@ -48,7 +50,7 @@ const Products = () => {
 export const getServerSideProps = wrapper.getServerSideProps((store) =>
     async () => {
         await store.dispatch(startLoadProducts())
-
+        await store.dispatch(startLoadCategories())
     })
 
 export default Products;

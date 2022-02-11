@@ -1,7 +1,17 @@
+import { useSelector } from "react-redux";
+import { startLoadOffers } from "../src/actions/offersActions";
 import Content from "../src/components/Layouts/Content";
+import { wrapper } from "../src/store";
 
-export default function Home() {
+const Home = () => {
+  const { offers } = useSelector((state) => state.offers);
   return (
-    <Content />
+    <Content offers={offers} />
   )
 }
+export const getServerSideProps = wrapper.getServerSideProps((store) =>
+  async () => {
+    await store.dispatch(startLoadOffers())
+  })
+
+export default Home;

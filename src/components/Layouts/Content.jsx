@@ -3,10 +3,8 @@ import Slider from "./Slider";
 import CategoryCard from "./CategoryCard";
 import Card from "./Card";
 import Footer from "./Footer";
-import ShowProduct from "../products/ShowProduct";
-import CartShop from "./CartShop";
 
-const Content = ({ children }) => {
+const Content = ({ children, offers }) => {
     const products = [
         { id: "1", name: "hola mundo", description: "some description", price: "800", img: "http://animation.com.mx/img/productos/P%C3%B3steres.png", available: "9", discount: "20" },
         { id: "2", name: "hola mundo", description: "some description", price: "800", img: "http://animation.com.mx/img/productos/P%C3%B3steres.png", available: "9", discount: "20" },
@@ -21,7 +19,7 @@ const Content = ({ children }) => {
     return (
         <>
             <NavBar />
-            <Slider />
+            <Slider offers={offers} />
             <CategoryCard />
             <section className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
                 {
