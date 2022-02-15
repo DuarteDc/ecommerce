@@ -1,6 +1,6 @@
 import React from 'react';
 import Link from 'next/link';
-import { FormSignUp } from '../../../src/components/auth/formSignUp';
+import { FormSignIn } from '../../../src/components/auth/FormSignIn';
 
 
 export default function LoginView(props) {
@@ -31,7 +31,7 @@ export default function LoginView(props) {
                         <div className='py-5'>
                             <h1 className="text-center text-2xl font-semibold text-black">Bienvenido</h1>
                         </div>
-                        <FormSignUp/>
+                        <FormSignIn />
                     </div>
                 </div>
             </div>

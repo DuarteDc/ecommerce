@@ -7,7 +7,7 @@ import * as Yup from 'yup';
 import { startLoginEmailPassword } from "../../actions/authActions";
 
 
-export const FormSignUp = () => {
+export const FormSignIn = () => {
 
     const dispatch = useDispatch();
 

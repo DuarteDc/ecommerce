@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { addProductSelected } from "../../actions/productsAction";
 import { priceFormat } from "../../helpers/helpers";
@@ -16,8 +17,6 @@ const Card = ({ product }) => {
       openModal();
       dispatch(addProductSelected(product));
     } 
-  
-
     return (
         <>
             <article className="my-12 overflow-hidden w-10/12 border-2 mx-auto rounded-xl relative hover:scale-[1.01] shadow-md">

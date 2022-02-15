@@ -2,6 +2,7 @@ import Link from "next/link";
 import { useState } from "react";
 import { useSelector } from "react-redux";
 import Cart from "../cart/Cart";
+import PersonIcon from '@mui/icons-material/Person';
 
 const NavBar = () => {
     let links = [
@@ -10,7 +11,7 @@ const NavBar = () => {
         { name: 'categories', link: '/categories' },
         { name: 'contact', link: '/' },
     ]
-    const [open, setOpen] = useState(true);
+    const [open, setOpen] = useState(false);
     const { cart } = useSelector((state) => state.cart);
     return (
         <nav className=" w-full top-0 left-0 bg-[#f58d16] z-10">
