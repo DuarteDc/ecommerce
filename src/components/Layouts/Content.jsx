@@ -3,6 +3,8 @@ import Slider from "./Slider";
 import CategoryCard from "./CategoryCard";
 import Card from "./Card";
 import Footer from "./Footer";
+import { TabBar } from "./TabBar";
+import Layout from "./";
 
 const Content = ({ children, offers }) => {
     const products = [
@@ -17,8 +19,7 @@ const Content = ({ children, offers }) => {
         { id: "9", name: "hola mundo", description: "some description", price: "800", img: "http://animation.com.mx/img/productos/P%C3%B3steres.png", available: "9", discount: "20" },
     ];
     return (
-        <>
-            <NavBar />
+        <Layout>
             <Slider offers={offers} />
             <CategoryCard />
             <section className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
@@ -29,7 +30,7 @@ const Content = ({ children, offers }) => {
                 }
             </section>
             <Footer />
-        </>
+        </Layout>
     )
 }
 

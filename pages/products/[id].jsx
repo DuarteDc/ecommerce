@@ -1,9 +1,9 @@
 import { useRef, useState } from "react";
 import Link from "next/link";
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
-import NavBar from "../../src/components/Layouts/NavBar";
 import Card from "../../src/components/Layouts/Card";
 import AsideBar from "../../src/components/categories/AsideBar";
+import Layout from "../../src/components/Layouts";
 
 const Show = () => {
     const img = useRef(null);
@@ -24,8 +24,7 @@ const Show = () => {
     const [quantity, setQuantity] = useState(null);
 
     return (
-        <>
-            <NavBar />
+        <Layout>
             <section className="container mx-auto px-0 lg:px-32 mt-12">
                 <div className="grid grid-cols-1 md:grid-cols-4">
                     <div className="hidden lg:block">
@@ -105,7 +104,7 @@ const Show = () => {
                     </div>
                 </div>
             </section>
-        </>
+        </Layout>
     )
 }
 

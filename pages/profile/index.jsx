@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
-import NavBar from "../../src/components/Layouts/NavBar";
 import LocationOnIcon from '@mui/icons-material/LocationOn';
 import EmailIcon from '@mui/icons-material/Email';
 import LocalPhoneIcon from '@mui/icons-material/LocalPhone';
 import SettingsIcon from '@mui/icons-material/Settings';
+import Layout from "../../src/components/Layouts";
 
 const Profile = () => {
     const [user, setUser] = useState(null);
@@ -13,8 +13,7 @@ const Profile = () => {
     }, []);
     console.log(user);
     return (
-        <>
-            <NavBar />
+        <Layout>
             <section className="container mx-auto mt-10 bg-gray-200 p-10">
                 <div className="grid grid-cols-1 md:grid-cols-3">
                     <div className="w-full flex justify-center">
@@ -71,7 +70,7 @@ const Profile = () => {
                     </table>
                 </div>
             </section>
-        </>
+        </Layout>
     )
 }
 

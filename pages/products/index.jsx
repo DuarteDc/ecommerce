@@ -3,17 +3,15 @@ import { startLoadProducts } from "../../src/actions/productsAction";
 import { startLoadCategories } from "../../src/actions/categoryActions";
 import AsideBar from "../../src/components/categories/AsideBar";
 import Card from "../../src/components/Layouts/Card";
-import Footer from "../../src/components/Layouts/Footer";
-import NavBar from "../../src/components/Layouts/NavBar";
 import { wrapper } from "../../src/store";
+import Layout from "../../src/components/Layouts";
 
 const Products = () => {
 
     const { products } = useSelector((state) => state.products);
     const { categories } = useSelector((state) => state.categories);
     return (
-        <>
-            <NavBar />
+        <Layout>
             <div className="w-full container mx-auto h-36 overflow-hidden mt-12">
                 <img src="https://images.ctfassets.net/hrltx12pl8hq/7yQR5uJhwEkRfjwMFJ7bUK/dc52a0913e8ff8b5c276177890eb0129/offset_comp_772626-opt.jpg?fit=fill&w=800&h=300" className="w-full object-fill" alt="" />
             </div>
@@ -42,8 +40,7 @@ const Products = () => {
                     </div>
                 </div>
             </section>
-            <Footer />
-        </>
+        </Layout>
     )
 }
 

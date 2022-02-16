@@ -32,7 +32,7 @@ export const startRegister = (data) => {
             const { user, token } = res.data;
             dispatch(register(user, token))
         } catch (error) {
-            alert( errorHandler(error));
+            return errorHandler(error);
         }
     }
 }

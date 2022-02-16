@@ -1,17 +1,13 @@
 import { Box, FormControl, TextField , Button} from "@mui/material";
 import {  useFormik } from "formik";
 import Link from "next/link";
-import { useRouter } from "next/router";
 import { useDispatch } from "react-redux";
 import { Form } from "semantic-ui-react";
 import * as Yup from 'yup';
 import { startRegister } from "../../actions/authActions";
 
 const FormSignUp = () => {
-
     const dispatch = useDispatch();
-    const router = useRouter();
-
 
     const initialValues = {
         fullname:'',
@@ -29,10 +25,8 @@ const FormSignUp = () => {
         validationSchema: Yup.object(validationSchema),
         onSubmit: (formData) => {
             dispatch(startRegister(formData));
-            router.push('/PassFV');
         }
     });
-    
 
     return (
         <Form onSubmit={formik.handleSubmit}>

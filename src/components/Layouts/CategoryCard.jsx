@@ -30,8 +30,8 @@ const CategoryCard = () => {
                 }}
             >
                 {
-                    categories.map(cat => (
-                        <SwiperSlide key={cat}>
+                    categories.map((cat, i) => (
+                        <SwiperSlide key={i}>
                             <div className="bg-[#f58d16] text-center py-12 rounded-lg text-white cursor-pointer">
                                 <h2 className="text-2xl">Categories</h2>
                             </div>

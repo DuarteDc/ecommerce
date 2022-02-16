@@ -17,7 +17,8 @@ module.exports = {
         'imgcreateaccount': "url('/assets/images/login.jpeg')",
         'imgcreateaccountc': "url('/assets/images/createAccount.jpeg')",
         'imgpasswvalidation': "url('/assets/images/imgPWV.png')",
-        'imgverification': "url('/assets/images/imgverification.png')"
+        'imgverification': "url('/assets/images/imgverification.png')",
+        'shop-cart': "url('/assets/images/shop-cart.png')"
       },
       screens: {
         'peque': { 'max': '639px' },

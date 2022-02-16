@@ -1,15 +1,13 @@
 import Link from 'next/link';
 import { useSelector } from "react-redux";
-import NavBar from '../../src/components/Layouts/NavBar'
 import { startLoadCategories } from "../../src/actions/categoryActions";
 import { wrapper } from '../../src/store';
+import Layout from '../../src/components/Layouts';
 
 const Categories = () => {
     const { categories } = useSelector((state) => state.categories);
-    console.log(categories);
     return (
-        <>
-            <NavBar />
+        <Layout>
             <header className='bg-[#f58d16] py-8 absolute w-full'>
                 <h1 className="text-xl lg:text-3xl ml-8 text-white font-bold uppercase mb-12">Categories</h1>
             </header>
@@ -27,7 +25,7 @@ const Categories = () => {
                     ))}
                 </section>
             </Link>
-        </>
+        </Layout>
     )
 }
 

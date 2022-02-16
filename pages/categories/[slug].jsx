@@ -1,4 +1,3 @@
-import NavBar from "../../src/components/Layouts/NavBar";
 import Box from '@mui/material/Box';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
@@ -8,6 +7,7 @@ import Footer from "../../src/components/Layouts/Footer";
 import Slider from "../../src/components/Layouts/Slider";
 import Link from "next/link";
 import AsideBar from "../../src/components/categories/AsideBar";
+import Layout from "../../src/components/Layouts";
 
 const Category = () => {
     const products = [
@@ -23,8 +23,7 @@ const Category = () => {
     ];
     const categories = [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1];
     return (
-        <>
-            <NavBar />
+        <Layout>
             <div className="h-96 overflow-hidden hidden md:block">
                 <Slider />
             </div>
@@ -76,8 +75,7 @@ const Category = () => {
                     </div>
                 </div>
             </section>
-            <Footer />
-        </>
+        </Layout>
     )
 }
 export default Category;

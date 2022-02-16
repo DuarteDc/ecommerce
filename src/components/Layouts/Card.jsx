@@ -19,12 +19,9 @@ const Card = ({ product }) => {
     } 
     return (
         <>
-            <article className="my-12 overflow-hidden w-10/12 border-2 mx-auto rounded-xl relative hover:scale-[1.01] shadow-md">
+            <article className="my-12 overflow-hidden w-10/12 rounded-xl border-2 mx-auto relative hover:scale-[1.01] shadow-md bg-gray-50">
                 <div className="overflow-hidden cursor-pointer" onClick={()=>handleClickModal(product)}>
-                    <span className="absolute bg-[#fa440a] text-white p-2 font-bold">
-                        {product?.discount} %
-                    </span>
-                    <img src={product.principal_image} className="object-contain w-full h-full" />
+                    <img src="http://animation.com.mx/img/productos/P%C3%B3steres.png" className="object-contain" />
                 </div>
                 <div className="px-4 mt-4 mb-4">
                     <p className="text-xl">{product?.name}</p>
