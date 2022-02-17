@@ -13,11 +13,11 @@ const TabBar = () => {
         { icon: <PersonIcon className={`${pathname === '/profile' ? 'text-4xl rounded-full bg-[#f58d16] p-2' : 'text-[#fa440a]'}`} />, link: '/profile', name: 'Perfil' },
         { icon: <CategoryIcon className={`${pathname === '/categories' ? 'text-4xl rounded-full bg-[#f58d16] p-2' : 'text-[#fa440a]'}`} />, link: '/categories', name: 'Categorias' },
         { icon: <HomeIcon className={`${pathname === '/' ? 'text-4xl rounded-full bg-[#f58d16] p-2' : 'text-[#fa440a]'}`} />, link: '/', name: 'Inicio' },
-        { icon: <Inventory2Icon className={`${pathname === '/products/*' ? 'text-4xl rounded-full bg-[#f58d16] p-2' : 'text-[#fa440a]'}`} />, link: '/products', name: 'Productos' },
+        { icon: <Inventory2Icon className={`${pathname === '/products' ? 'text-4xl rounded-full bg-[#f58d16] p-2' : 'text-[#fa440a]'}`} />, link: '/products', name: 'Productos' },
         { icon: <ImportContactsIcon className={`${pathname === '/contact' ? 'text-4xl rounded-full bg-[#f58d16] p-2' : 'text-[#fa440a]'}`} />, link: '/contact', name: 'Contacto' },
     ]
     return (
-        <div className="w-full bottom-0 left-0 z-20 fixed drop-shadow-2xl drop-shadow-2xl bg-gradient-to-b from-gray-50 via-gray-100 to-gray-200 md:hidden">
+        <div className="w-full -bottom-1 left-0 z-20 fixed drop-shadow-2xl drop-shadow-2xl bg-gradient-to-b from-gray-50 via-gray-100 to-gray-200 md:hidden">
             <div className="px-4 flex justify-center items-center py-1 justify-between">
                 {links.map((link, index) => (
                     <span className="flex flex-col items-center">

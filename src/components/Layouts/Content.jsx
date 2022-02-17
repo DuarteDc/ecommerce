@@ -29,7 +29,6 @@ const Content = ({ children, offers }) => {
                     ))
                 }
             </section>
-            <Footer />
         </Layout>
     )
 }
