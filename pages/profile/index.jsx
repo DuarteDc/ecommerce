@@ -12,23 +12,23 @@ const Profile = () => {
     return (
         <Layout>
             <section className="container mx-auto mt-10 p-10 mb-16 md:mb-10">
-                <h2 className="text-3xl text-center uppercase">Profile</h2>
+                <h2 className="text-3xl text-center uppercase my-10">Profile</h2>
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                    <div className="w-full flex flex-col items-center p-4 bg-gray-100 rounded-lg drop-shadow-xl">
+                    <div className="w-full flex flex-col items-center p-4 bg-gray-50 drop-shadow-md">
                         <img src="https://media.istockphoto.com/photos/gingerbread-man-3d-rendering-isolated-on-white-background-picture-id1250677513?k=20&m=1250677513&s=612x612&w=0&h=KVAes7pQUH0XRDhRGqXy0na2tyaTWbCCpZ8U1r1EpNw=" alt="" className="w-full md:w-2/3 rounded-full" />
                         <p className="text-2xl uppercase mt-5 text-center">Lorem ipsum dolor sit amet</p>
-                        <button className="py-2 px-4 bg-red-500 rounded-lg text-white font-bold my-5 hover:bg-red-600">
+                        <button className="py-2 px-4 bg-black text-white font-bold my-5 hover:bg-white hover:text-black border-4 border-black transition-all duration-700 ease-in-out">
                             Cerrar Sessión
                         </button>
                     </div>
-                    <div className="col-span-1 md:col-span-2 relative bg-gray-100 rounded-lg drop-shadow-xl overflow-hidden">
+                    <div className="col-span-1 md:col-span-2 relative bg-gray-50  drop-shadow-md overflow-hidden">
                         <FormProfile />
                     </div>
                 </div>
-                <div className="w-full bg-gray-100 mt-10 rounded-lg p-8 drop-shadow-xl">
+                <div className="w-full bg-gray-50 mt-10 p-8 drop-shadow-md">
                     <div className="flex items-center justify-between">
                         <p className="text-xl font-bold">Address Settings</p>
-                        <EditIcon className="text-[#fa440a] cursor-pointer" />
+                        <EditIcon className="text-second-100 cursor-pointer" />
                     </div>
                     <div className="flex mt-4 md:ml-20">
                         <p className="font-light">Address (Primary):</p>
@@ -43,10 +43,10 @@ const Profile = () => {
                         <p>Direccion #213 col. Lorem ipsum Lorem ipsum dolor sit amet.</p>
                     </div>
                 </div>
-                <div className="w-full bg-gray-100 mt-10 rounded-lg p-8 drop-shadow-xl">
+                <div className="w-full bg-gray-50 mt-10 p-8 drop-shadow-md">
                     <div className="flex items-center justify-between">
                         <p className="text-xl font-bold">Security</p>
-                        <EditIcon className="text-[#fa440a] cursor-pointer"
+                        <EditIcon className="text-second-100 cursor-pointer"
                             onClick={openModal}
                         />
                     </div>
@@ -63,11 +63,11 @@ const Profile = () => {
                         />
                     )
                 }
-                <div className="w-full bg-gray-100 mt-10 rounded-lg p-8 drop-shadow-xl">
+                <div className="w-full bg-gray-50 mt-10 p-8 drop-shadow-md">
                     <p className="text-lg font-bold my-4 font-bold">Mis Pedidos</p>
                     <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
                         <div>
-                            <article className="border-2 border-[#fa4401] p-5 rounded-lg cursor-pointer mb-3"
+                            <article className="border-4 border-second-100 p-5 cursor-pointer mb-3"
                                 onClick={() => setOpen(!open)}
                             >
                                 <p className="text-center font-bold">Pedido #12</p>
@@ -85,7 +85,7 @@ const Profile = () => {
                                     <p>$500</p>
                                 </div>
                             </article>
-                            <article className="border-2 border-[#fa4401] p-5 rounded-lg cursor-pointer"
+                            <article className="border-2 p-5 cursor-pointer"
                                 onClick={() => setOpen(!open)}
                             >
                                 <p className="text-center font-bold">Pedido #12</p>
@@ -115,7 +115,7 @@ const Profile = () => {
                                             <p className="font-bold">Dirección de envio:</p>
                                             <p className="font-light">Direccion #213 col. Lorem ipsum</p>
                                         </div>
-                                        <div className="justify-self-end text-right">
+                                        <div className="justify-self-e4d text-right">
                                             <p className="font-light mt-2">Monto: $200</p>
                                             <p className="font-light mt-2">Descuento: $0</p>
                                             <p className="font-light mt-2">Envio: $300</p>
@@ -137,7 +137,7 @@ const Profile = () => {
                                                         <img src="http://animation.com.mx/img/productos/P%C3%B3steres.png" className="object-contain" width="100px" />
                                                         <div>
                                                             <p className="font-light text-xs md:text-base">Name product</p>
-                                                            <p className="text-[#fa440a] font-bold">$200</p>
+                                                            <p className="text-second-100 font-bold">$200</p>
                                                         </div>
                                                     </td>
                                                     <td className="text-center">1</td>

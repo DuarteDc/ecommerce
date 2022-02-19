@@ -51,7 +51,7 @@ const FormProfile = () => {
                             color="warning" />
                     </FormControl>
                 </span>
-                <button className="my-5 ml-8 bg-[#fa440a] py-2 px-4 rounded-lg text-white font-bold">
+                <button className="my-5 ml-8 hover:bg-black py-2 px-4 hover:text-white font-bold border-4 border-black transition-all duration-700 ease-in-out">
                     update Acount
                 </button>
             </div>
