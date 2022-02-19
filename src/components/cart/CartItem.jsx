@@ -18,22 +18,27 @@ const CartItem = ({ item }) => {
     }
 
     return (
-        <div className="w-full overflow-hidden mb-2">
-            <div className="border-4 border-[#fa440a] rounded-lg">
+        <div className="w-full overflow-hidden mb-2 flex items-center">
+            <div className="bg-second-100 w-1 h-1/3">
+            </div>
+            <div className="mt-5">
                 <div className='flex justify-between'>
                     <div className='flex flex-row'>
-                        <div className="w-24 mr-4">
-                            <img src={product?.principal_image} alt={product?.name} className="w-full h-full" />
+                        <div className="w-32">
+                            <img src="https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/MX472_AV4?wid=2000&hei=2000&fmt=jpeg&qlt=95&.v=1570119352353" alt={product?.name} className="w-full h-full object-fill" />
                         </div>
-                        <div className="py-4 flex flex-col justify-between">
-                            <p className="font-bold text-xl">{product?.name}</p>
-                            <p className="font-light">{product?.short_description}</p>
-                            <p className="font-bold">${product?.price} x {item?.value} = ${product.price * item.value}</p>
+                        <div className="py-4 flex flex-col">
+                            <p className="font-bold sm:text-sm">{product?.name}</p>
+                            <p className="font-semibold text-sm mt-3">${product?.price} x {item?.value} = ${product.price * item.value}</p>
                         </div>
                     </div>
                     <div className="flex justify-center flex-col p-2 float-right">
-                        <button onClick={() => addOneFromCart(item)} className=" my-b bg-[#f58d16] font-bold py-2 px-4 text-white rounded">+</button>
-                        <button onClick={() => removeOneFromCart(item)} className="bg-[#f58d16] font-bold py-2 px-4 text-white rounded mt-1">-</button>
+                        <button className="hover:text-white mx-1 hover:bg-black font-bold px-3 py-2 border-2 border-black transition-all duration-700 ease-in-out my-1" onClick={() => addOneFromCart(item)}
+                        >+</button>
+                        <button
+                            className="hover:text-white mx-1 hover:bg-black font-bold px-3 py-2 border-2 border-black transition-all duration-700 ease-in-out my1"
+                            onClick={() => removeOneFromCart(item)}
+                        >-</button>
                     </div>
                     <div>
                         <span className="flex flex-row-reverse cursor-pointer pr-1" onClick={() => deleteToCart(product._id)}>

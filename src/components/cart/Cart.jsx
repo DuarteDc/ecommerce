@@ -46,7 +46,7 @@ const Cart = () => {
                     </span>
                     <div className="flex justify-between items-center">
                         <h2 className="text-2xl font-bold mb-4">Shopping Cart</h2>
-                        <p className="text-xl font-bold text-[#fa440a]">
+                        <p className="text-xl font-bold text-second-100">
                             <span>
                                 <ShoppingBagIcon />
                             </span>
@@ -75,11 +75,9 @@ const Cart = () => {
                     }
                     {
                         cart.length > 0 && (
-                            <div className="flex p-5 bg-red-500 rounded-lg items-center justify-between hover:bg-red-600 cursor-pointer" onClick={()=> console.log("Quiero pagar")}>
-                                <p className="text-white font-bold">Proceder a pagar</p>
-                                <span className="bg-white rounded-full text-center p-2 flex items-center">
-                                    <ArrowForwardIcon />
-                                </span>
+                            <div className="flex p-6 bg-black text-white items-center justify-between hover:bg-white hover:border-2 border-black hover:text-black cursor-pointer transition-all duration-700 ease-in-out border-2" onClick={() => console.log("Quiero pagar")}>
+                                <p className="font-bold">Proceder a pagar</p>
+                                <ArrowForwardIcon />
                             </div>
                         )
                     }

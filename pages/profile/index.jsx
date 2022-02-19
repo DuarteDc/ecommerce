@@ -1,14 +1,14 @@
-import { useEffect, useState } from "react";
-import LocationOnIcon from '@mui/icons-material/LocationOn';
-import EmailIcon from '@mui/icons-material/Email';
-import LocalPhoneIcon from '@mui/icons-material/LocalPhone';
-import PersonIcon from '@mui/icons-material/Person';
+import { useState } from "react";
 import Layout from "../../src/components/Layouts";
 import EditIcon from '@mui/icons-material/Edit';
-import { Box, FormControl, TextField } from "@mui/material";
+import { useModal } from '../../src/hooks/useModal';
+
+import FormChangePassword from "../../src/components/profile/FormChangePassword";
+import FormProfile from "../../src/components/profile/FormProfile";
 
 const Profile = () => {
     const [open, setOpen] = useState(false);
+    const [isOpen, openModal, closeModal] = useModal();
     return (
         <Layout>
             <section className="container mx-auto mt-10 p-10 mb-16 md:mb-10">
@@ -22,54 +22,7 @@ const Profile = () => {
                         </button>
                     </div>
                     <div className="col-span-1 md:col-span-2 relative bg-gray-100 rounded-lg drop-shadow-xl overflow-hidden">
-                        <div>
-                            <p className="p-4 text-center font-bold">Acount Details</p>
-                        </div>
-                        <div className="mt-10 md:mt-0 px-6">
-                            <span className="flex mt-4 items-center">
-                                <PersonIcon className="mr-2" />
-                                <FormControl fullWidth>
-                                    <TextField
-                                        id="standard-name"
-                                        value="LorLorem ipsum dolor sit ametem "
-                                        name="fullname"
-                                        color="warning" />
-                                </FormControl>
-                            </span>
-                            <span className="flex mt-4 items-center">
-                                <EmailIcon className="mr-2" />
-                                <FormControl fullWidth>
-                                    <TextField
-                                        id="standard-name"
-                                        value="algo@gmail.com.mx"
-                                        name="fullname"
-                                        color="warning" />
-                                </FormControl>
-                            </span>
-                            <span className="flex mt-4 items-center">
-                                <LocalPhoneIcon className="mr-2" />
-                                <FormControl fullWidth>
-                                    <TextField
-                                        id="standard-name"
-                                        value="8383918408"
-                                        name="fullname"
-                                        color="warning" />
-                                </FormControl>
-                            </span>
-                            <span className="flex mt-4 items-center">
-                                <LocationOnIcon className="mr-2" />
-                                <FormControl fullWidth>
-                                    <TextField
-                                        id="standard-name"
-                                        value="Direccion #213 col. Lorem ipsum"
-                                        name="fullname"
-                                        color="warning" />
-                                </FormControl>
-                            </span>
-                            <button className="my-5 ml-8 bg-[#fa440a] py-2 px-4 rounded-lg text-white font-bold">
-                                update Acount
-                            </button>
-                        </div>
+                        <FormProfile />
                     </div>
                 </div>
                 <div className="w-full bg-gray-100 mt-10 rounded-lg p-8 drop-shadow-xl">
@@ -93,13 +46,23 @@ const Profile = () => {
                 <div className="w-full bg-gray-100 mt-10 rounded-lg p-8 drop-shadow-xl">
                     <div className="flex items-center justify-between">
                         <p className="text-xl font-bold">Security</p>
-                        <EditIcon className="text-[#fa440a] cursor-pointer" />
+                        <EditIcon className="text-[#fa440a] cursor-pointer"
+                            onClick={openModal}
+                        />
                     </div>
                     <div className="flex mt-4 md:ml-20">
                         <p className="font-light">Password:</p>
                         <p>•••••••••••••••••••</p>
                     </div>
                 </div>
+                {
+                    isOpen && (
+                        <FormChangePassword
+                            isOpen={isOpen}
+                            closeModal={closeModal}
+                        />
+                    )
+                }
                 <div className="w-full bg-gray-100 mt-10 rounded-lg p-8 drop-shadow-xl">
                     <p className="text-lg font-bold my-4 font-bold">Mis Pedidos</p>
                     <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
@@ -140,7 +103,7 @@ const Profile = () => {
                                     <p>$500</p>
                                 </div>
                             </article>
-                            
+
                         </div>
                         {
                             (open) && (

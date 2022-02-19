@@ -24,7 +24,7 @@ const ShowProduct = ({ isOpen, CloseModal }) => {
                 }}
             >
                 <Fade in={isOpen}>
-                    <Box className="overflow-hidden drop-shadow-2xl w-11/12 md:w-8/12 rounded-xl border-2 mx-auto p-8 bg-white mt-5">
+                    <Box className="overflow-hidden drop-shadow-2xl w-11/12 md:w-7/12 border-2 mx-auto p-8 bg-white mt-5">
                         <span className="flex flex-row-reverse cursor-pointer" onClick={CloseModal}>
                             <CloseIcon />
                         </span>

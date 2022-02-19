@@ -1,3 +1,6 @@
+
+//import Countdown from 'react-countdown';
+import Countdown from "../../src/components/cart/Countdown";
 import Layout from "../../src/components/Layouts"
 
 const Checkout = () => {
@@ -41,22 +44,24 @@ const Checkout = () => {
                             </tbody>
                         </table>
                     </div>
-                    <div className="bg-red-600 p-10">
-                        <h2 className="uppercase font-bold text-2xl">Order Summary</h2>
+                    <div className="p-10">
+                        <h2 className="uppercase font-bold text-2xl mb-6">Order Summary</h2>
                         <hr />
                         <p className="text-xl font-bold text-[#fa440a] mt-5">
                             Items 4
                         </p>
-                        <div className="mt-5 font-bold text-xl">
-                            <p>Tienes 5 minutos para finalizar la compra</p>
-                            
-                        </div>
+                        <Countdown />
                         <p className="mt-10">PROMO CODE</p>
-                        <input type="text" className="w-full py-3 mt-4 rounded-lg" />
+                        <input type="text" className="px-4 py-2 w-2/3 mr-2 md:mr-2 rounded-lg border-[#fa440a] ring-[#fa440a] ring-2 focus:outline-none" />
                         <button className="my-5 bg-[#fa440a] py-2 px-4 rounded-lg text-white font-bold">
                             APPLY
                         </button>
                         <hr />
+                        <div className="">
+                            <span>
+                                Pagar
+                            </span>
+                        </div>
                         <div className="flex justify-between font-bold mt-10">
                             <p>TOTAL COST</p>
                             <p>$1300.00</p>
@@ -64,7 +69,7 @@ const Checkout = () => {
                     </div>
                 </div>
             </section>
-        </Layout>
+        </Layout >
     )
 }
 
