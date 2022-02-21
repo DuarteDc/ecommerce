@@ -6,10 +6,40 @@ import "swiper/css/pagination";
 import "swiper/css/navigation";
 
 import { Pagination, Autoplay } from "swiper";
+import Image from "next/image";
+import ImageSlider from '../../../public/assets/images/love-nails.jpg';
+import SliderImage from "./SliderImage";
+
+const images = [
+    {'id':'1',
+     'image':'/assets/images/back.png',
+     'title':'Aqui va un titulo',
+     'description':'Aqui la descripcion corta',
+     'url':'localhost:3000/ofertas'
+    },
+    {'id':'2',
+     'image':'/assets/images/back.png',
+     'title':'Aqui va un titulo',
+     'description':'Aqui la descripcion corta',
+     'url':'localhost:3000/ofertas'
+    },
+    {'id':'3',
+     'image':'/assets/images/back.png',
+     'title':'Aqui va un titulo',
+     'description':'Aqui la descripcion corta',
+     'url':'localhost:3000/ofertas'
+    },
+    {'id':'4',
+     'image':'/assets/images/back.png',
+     'title':'Aqui va un titulo',
+     'description':'Aqui la descripcion corta',
+     'url':'localhost:3000/ofertas'
+    }
+]
 
 const Slider = () => {
     return (
-        <section className="mb-10 cursor-pointer overflow-hidden">
+        <section className="mb-0 cursor-pointer overflow-hidden">
             <Swiper
                 slidesPerView={1}
                 spaceBetween={30}
@@ -24,22 +54,18 @@ const Slider = () => {
                 modules={[Pagination, Autoplay]}
                 className="mySwiper"
             >
-                <SwiperSlide>
-                    <img src="https://assets.hongkiat.com/uploads/minimalist-dekstop-wallpapers/4k/original/06.jpg" alt=""
-                        className="h-full w-full"/>
-                </SwiperSlide>
-                <SwiperSlide>
-                    <img src="https://media.kingston.com/hyperx/downloads/logo-products-screensaver-3840x2160.jpg" alt=""
-                    className="h-full w-full object-fill"/>
-                </SwiperSlide>
-                <SwiperSlide>
-                    <img src="https://assets.hongkiat.com/uploads/minimalist-dekstop-wallpapers/4k/original/06.jpg" alt=""
-                        className="h-full w-full"/>
-                </SwiperSlide>
-                <SwiperSlide>
-                    <img src="https://media.kingston.com/hyperx/downloads/logo-products-screensaver-3840x2160.jpg" alt=""
-                    className="h-full w-full object-fill"/>
-                </SwiperSlide>
+                {
+                    images.map(image=>(
+                        <SwiperSlide key={image.id}>
+                        <SliderImage
+                        
+                         image={image}
+                        />
+                        </SwiperSlide>
+                    ))
+                }
+               
+               
             </Swiper>
         </section>
     )
