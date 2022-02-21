@@ -1,59 +1,81 @@
 import Link from "next/link";
-import { useSelector } from "react-redux";
-import Cart from "../cart/Cart";
-
+import Image from "next/image";
+import Logo from "../../../public/assets/logo.png"
+import { useEffect, useState } from "react";
 const NavBar = () => {
-    let links = [
-        { name: 'home', link: '/' },
-        { name: 'products', link: '/products' },
-        { name: 'categories', link: '/categories' },
-        { name: 'contact', link: '/' },
-    ];
-    const { cart } = useSelector((state) => state.cart);
-    return (
-        <nav className=" w-full top-0 left-0 bg-black z-20">
-            <div className="md:flex items-center justify-between bg-black py-4 md:px-10 px-7">
-                <div className="font-bold text-2xl cursor-pointer flex items-center text-white">
-                    Lorem
-                </div>
+  const [scrollPosition, setScrollPosition] = useState(0);
+  const handleScroll = () => {
+      const position = window.pageYOffset;
+      setScrollPosition(position);
+  };
 
-                <div className="flex items-center absolute right-8 top-3 cursor-pointer md:hidden text-white">
-                    <Link href="/Auth/Sign-In">
-                        <span className="py-2 rounded md:ml-8 cursor-pointer">
-                            Sign In
-                        </span>
-                    </Link>
-                    <span className="cursor-pointer pl-2">
-                        <Cart cart={cart} />
-                    </span>
-                </div>
+  useEffect(() => {
+      window.addEventListener('scroll', handleScroll, { passive: true });
+      return () => {
+          window.removeEventListener('scroll', handleScroll);
+      };
+  }, []);
 
-                <ul className="md:flex md:items-center md:pb-0 pb-12 z-20 absolute md:static bg-black md:z-auto left-0 w-full md:w-auto md:pl-0 pl-9 transition-all duration-500 ease-in hidden  md:opacity-100 opacity-0">
-                    {
-                        links.map((link) => (
-                            <li key={link.name} className="md:ml-8 font-light md:my-0 my-7">
-                                <a href={link.link} className="text-white hover:text-gray-400 duration-500">{link.name}</a>
-                            </li>
-                        ))
-                    }
-                    <div className="text-white flex items-center justify-between">
-                        <Link href="/Auth/Sign-In">
-                            <span className="py-2 rounded md:ml-8 cursor-pointer font-light">
-                                Sign In
-                            </span>
-                        </Link>
-                        <span className="cursor-pointer px-6">
-                            <Cart cart={cart} />
-                        </span>
-                    </div>
-                </ul>
+
+  return (
+    <div className={`bg-luz py-2 shadow-sm  w-full z-[2] ${scrollPosition >= 130 && 'fixed top-0'}`}>
+      <div className="w-full px-10  lg:px-16 xl:px-28 2xl:px-28">
+        <nav className="flex max-h-16 justify-between" >
+          <a href="/">
+            <Image
+             src={Logo}
+             alt="Picture of the author"
+            />
+          </a>
+          <button className="space-y-2  lg:hidden">
+            <span className="block w-8 h-0.5 bg-gray-600"></span>
+            <span className="block w-8 h-0.5 bg-gray-600"></span>
+            <span className="block w-8 h-0.5 bg-gray-600"></span>
+          </button>
+
+          <div className="hidden lg:flex justify-between items-center w-full">
+            <div className="px-12">
+              <Link href="/" >
+                  <span className="border-transparent border-b-2 hover:border-red-900  mx-4 cursor-pointer text-sm font-['Poppins'] font-normal transition duration-700 ease-in-out">
+                     Inicio  
+                  </span> 
+              </Link>
+              <Link href="/products">
+                <span className="border-transparent border-b-2 hover:border-red-900  mx-4 cursor-pointer text-sm font-['Poppins'] font-normal transition duration-700 ease-in-out">
+                 Productos   
+                </span>
+                  
+              </Link>
+              <Link href="/home">
+                <span className="border-transparent border-b-2 hover:border-red-900  mx-4 cursor-pointer text-sm font-['Poppins'] font-normal transition duration-700 ease-in-out">
+                  Blog   
+                </span>
+              </Link>
+              <Link href="/home">
+                <span className="border-transparent border-b-2 hover:border-red-900  mx-4 cursor-pointer text-sm font-['Poppins'] font-normal transition duration-700 ease-in-out">Contácto</span>
+              </Link>
+              
             </div>
-            <div className="justify-center pb-5 flex">
-                <div className="w-10/12 md:w-2/4">
-                    <input type="text" placeholder="Search..." className="px-4 py-3 font-bold  mr-2 md:mr-2 w-full outline-none" />
-                </div>
+
+            <div className="px-6">
+              <Link href="/auth">
+              <span className="border-transparent border-b-2 hover:border-red-900  mx-4 cursor-pointer text-sm font-['Poppins'] font-normal transition duration-700 ease-in-out">
+                Inicia Sesión
+              </span>
+              </Link>
+              <Link href="/home">
+              <span className="border-transparent border-b-2 hover:border-red-900  mx-4 cursor-pointer text-sm font-['Poppins'] font-normal transition duration-700 ease-in-out">
+                  Mi carrito
+                  (0)
+                 
+              </span>
+              </Link>
             </div>
+          </div>
         </nav>
-    )
-}
+      </div>
+    </div>
+  );
+};
+
 export default NavBar;

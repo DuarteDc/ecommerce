@@ -18,9 +18,9 @@ const Card = ({ product }) => {
         dispatch(addProductSelected(product));
     }
     return (
-        <article className="my-10 w-10/12 mx-auto relative border-gray-200 h-[38rem] hover:scale-[1.02] transition-all duration-500 ease-in-out border-2 border-gray-200">
-            <div className="overflow-hidden cursor-pointer h-2/3 w-full" onClick={() => handleClickModal(product)}>
-                <img src="https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/MX472_AV4?wid=2000&hei=2000&fmt=jpeg&qlt=95&.v=1570119352353" className="object-fill w-full h-full" />
+        <article className="my-10 w-10/12 mx-auto relative border-gray-200 h-[38rem] hover:scale-[1.01] transition-all duration-500 ease-in-out border-2 border-gray-200">
+            <div className="overflow-hidden cursor-pointer h-2/3 w-full h-full" onClick={() => handleClickModal(product)}>
+                <img src={product.img} className="object-fill w-full h-full" />
             </div>
             <div className="px-4 mt-8 mb-4">
                 <p className="text-xl font-bold">{product?.name}</p>

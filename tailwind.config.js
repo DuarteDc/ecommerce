@@ -9,7 +9,9 @@ module.exports = {
         'second': {
           100: '#47000e',
         },
-        'luz': '#FFFFFF'
+        'luz': '#FFFFFF',
+        'white-dg':'#f1f1f1',
+        'wine':'#47000E'
       },
       backgroundImage: {
         'imgcreateaccount': "url('/assets/images/login.jpeg')",
