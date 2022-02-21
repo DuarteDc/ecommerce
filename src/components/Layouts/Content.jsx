@@ -42,7 +42,7 @@ const Content = ({ children, offers }) => {
                     ))
                 }
             </section>
-        </Layout>
+        </>
     )
 }
 
