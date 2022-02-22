@@ -1,18 +1,20 @@
+import Image from "next/image";
 import { Autoplay, Pagination } from "swiper";
 import { SwiperSlide } from "swiper/react";
 import CarrouselUI from "../ui/carrousel";
+import Partner from '../../../public/assets/images/partner.png';
 
 const PartnerArea = () => {
     return (
         <section className="bg-[#f5f5f5] py-8">
             <div className="w-full m-auto px-6">
               <CarrouselUI
-               slidesPerView={6}
+               slidesPerView={4}
                spaceBetween={10}
                loop={true}
                autoplay={{
-                delay: 2500,
-                disableOnInteraction: true,
+                delay: 1500,
+                disableOnInteraction: false,
                }}
                pagination={{
                 clickable: true,
@@ -21,19 +23,54 @@ const PartnerArea = () => {
                className={"mySwiper"}
               >
                   <SwiperSlide>
-                      hola
+                      <div class="text-center h-28">
+                          <a href="/">
+                            <Image
+                             src={Partner}
+                             className="w-auto inline-block"
+                            />
+                          </a>
+                      </div>
                   </SwiperSlide>
                   <SwiperSlide>
-                      hola
+                      <div class="text-center h-28">
+                          <a href="/">
+                            <Image
+                             src={Partner}
+                             className="w-auto inline-block"
+                            />
+                          </a>
+                      </div>
                   </SwiperSlide>
                   <SwiperSlide>
-                      hola
+                      <div class="text-center h-28">
+                          <a href="/">
+                            <Image
+                             src={Partner}
+                             className="w-auto inline-block"
+                            />
+                          </a>
+                      </div>
                   </SwiperSlide>
                   <SwiperSlide>
-                      hola
+                      <div class="text-center h-28">
+                          <a href="/">
+                            <Image
+                             src={Partner}
+                             className="w-auto inline-block"
+                            />
+                          </a>
+                      </div>
                   </SwiperSlide>
                   <SwiperSlide>
-                      hola
+                      <div class="text-center h-28">
+                          <a href="/">
+                            <Image
+                             src={Partner}
+                             className="w-auto inline-block"
+                            />
+                          </a>
+                      </div>
                   </SwiperSlide>
               </CarrouselUI>
             </div>
