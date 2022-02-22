@@ -43,7 +43,7 @@ const CategoryCard = () => {
                 <div className="absolute left-8 top-0 translate-y-2/4">
                   <h3 className="text-luz text-base font-bold mb-0">Categoria {index}</h3>
                   <p className="text-luz mt-3">130 productos</p>
-                  <button className="text-luz mt-4 border-solid inline-block py-3 px-6 leading-normal rounded-sm uppercase font-normal text-sm border-2 border-luz hover:bg-black hover:border-black transition duration-700 ease-in-out">Comprar ahora</button>
+                  <button className="text-luz mt-4 border-solid inline-block py-3 px-6 leading-normal rounded-sm uppercase font-normal text-sm border-2 border-luz hover:bg-[#0f0f0f] hover:border-[#0f0f0f] transition duration-700 ease-in-out">Comprar ahora</button>
                 </div>
               </div>
             </SwiperSlide>

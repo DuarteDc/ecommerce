@@ -13,7 +13,7 @@ module.exports = {
         },
         'luz': '#FFFFFF',
         'white-dg':'#f1f1f1',
-        'wine':'#47000E'
+        'wine':'#ff0000'
       },
       backgroundImage: {
         'imgcreateaccount': "url('/assets/images/login.jpeg')",

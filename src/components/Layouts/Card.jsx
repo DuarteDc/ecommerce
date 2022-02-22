@@ -32,7 +32,7 @@ const Card = ({ product }) => {
                     <p className="text-md font-light">{product?.short_description}</p>
                     <p className="text-lg font-bold">{price}</p>
                     <p className="float-right semibold">{product?.quantity}</p>
-                    <button className="w-full bg-[#f58d16] py-2 mt-2 text-white font-bold hover:bg-[#ff9f30] rounded-lg">
+                    <button className="w-full bg-wine py-2 mt-2 text-white font-bold hover:bg-[#ff9f30] rounded-lg">
                         Add to card
                     </button>
                 </div>

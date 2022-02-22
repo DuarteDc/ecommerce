@@ -8,6 +8,7 @@ import CartShop from "./CartShop";
 import TopHeader from "./TopHeader";
 import FacilityArea from "./FacilityArea";
 import Head from "next/head";
+import PartnerArea from "./PartnerArea";
 
 const Content = ({ children }) => {
     const products = [
@@ -42,6 +43,7 @@ const Content = ({ children }) => {
                     ))
                 }
             </section>
+            <PartnerArea/>
             <Footer />
         </>
     )
