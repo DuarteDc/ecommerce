@@ -2,19 +2,25 @@ import Link from "next/link";
 import Image from "next/image";
 import Logo from "../../../public/assets/logo.png"
 import { useEffect, useState } from "react";
+import Cart from "../cart/Cart";
+import { useSelector } from "react-redux";
+
 const NavBar = () => {
   const [scrollPosition, setScrollPosition] = useState(0);
   const handleScroll = () => {
-      const position = window.pageYOffset;
-      setScrollPosition(position);
+    const position = window.pageYOffset;
+    setScrollPosition(position);
   };
 
   useEffect(() => {
-      window.addEventListener('scroll', handleScroll, { passive: true });
-      return () => {
-          window.removeEventListener('scroll', handleScroll);
-      };
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
   }, []);
+
+
+  const { cart } = useSelector((state) => state.cart);
 
 
   return (
@@ -23,8 +29,8 @@ const NavBar = () => {
         <nav className="flex max-h-16 justify-between" >
           <a href="/">
             <Image
-             src={Logo}
-             alt="Picture of the author"
+              src={Logo}
+              alt="Picture of the author"
             />
           </a>
           <button className="space-y-2  lg:hidden">
@@ -36,40 +42,36 @@ const NavBar = () => {
           <div className="hidden lg:flex justify-between items-center w-full">
             <div className="px-12">
               <Link href="/" >
-                  <span className="border-transparent border-b-2 hover:border-red-900  mx-4 cursor-pointer text-sm font-['Poppins'] font-normal transition duration-700 ease-in-out">
-                     Inicio  
-                  </span> 
+                <span className="border-transparent border-b-2 hover:border-red-900  mx-4 cursor-pointer text-sm font-['Poppins'] font-normal transition duration-700 ease-in-out">
+                  Inicio
+                </span>
               </Link>
               <Link href="/products">
                 <span className="border-transparent border-b-2 hover:border-red-900  mx-4 cursor-pointer text-sm font-['Poppins'] font-normal transition duration-700 ease-in-out">
-                 Productos   
+                  Productos
                 </span>
-                  
+
               </Link>
               <Link href="/home">
                 <span className="border-transparent border-b-2 hover:border-red-900  mx-4 cursor-pointer text-sm font-['Poppins'] font-normal transition duration-700 ease-in-out">
-                  Blog   
+                  Blog
                 </span>
               </Link>
               <Link href="/home">
                 <span className="border-transparent border-b-2 hover:border-red-900  mx-4 cursor-pointer text-sm font-['Poppins'] font-normal transition duration-700 ease-in-out">Contácto</span>
               </Link>
-              
+
             </div>
 
-            <div className="px-6">
+            <div className="px-6 flex">
               <Link href="/auth">
-              <span className="border-transparent border-b-2 hover:border-red-900  mx-4 cursor-pointer text-sm font-['Poppins'] font-normal transition duration-700 ease-in-out">
-                Inicia Sesión
-              </span>
+                <span className="border-transparent border-b-2 hover:border-red-900  mx-4 cursor-pointer text-sm font-['Poppins'] font-normal transition duration-700 ease-in-out">
+                  Inicia Sesión
+                </span>
               </Link>
-              <Link href="/home">
               <span className="border-transparent border-b-2 hover:border-red-900  mx-4 cursor-pointer text-sm font-['Poppins'] font-normal transition duration-700 ease-in-out">
-                  Mi carrito
-                  (0)
-                 
+                <Cart cart={cart} />
               </span>
-              </Link>
             </div>
           </div>
         </nav>

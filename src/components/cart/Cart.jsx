@@ -2,7 +2,6 @@ import { useState } from "react";
 
 import Box from '@mui/material/Box';
 import Drawer from '@mui/material/Drawer';
-import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import CartItem from "./CartItem";
 import CloseIcon from '@mui/icons-material/Close';
 import { useDispatch, useSelector } from "react-redux";
@@ -32,9 +31,10 @@ const Cart = () => {
         dispatch(clearCart());
     }
 
+
     return (
-        <div>
-            <ShoppingCartIcon onClick={toggleDrawer('right', true)} />
+        <>
+            <p onClick={toggleDrawer('right', true)}>Mi carrito ({cart.length})</p>
             <Drawer
                 anchor={'right'}
                 open={state['right']}
@@ -83,7 +83,7 @@ const Cart = () => {
                     }
                 </Box>
             </Drawer>
-        </div>
+        </>
     )
 }
 

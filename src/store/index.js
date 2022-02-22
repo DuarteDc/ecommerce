@@ -3,14 +3,16 @@ import { createStore, applyMiddleware, combineReducers } from "redux";
 import { composeWithDevTools } from "redux-devtools-extension";
 import thunk from "redux-thunk";
 
-import { authReducer, productsReducer, categoryReducer, shoppingCartReducer, offersReducer } from "../reducers";
+import { authReducer, productsReducer, categoryReducer, shoppingCartReducer, offersReducer, tagsReducer, brandsReducer } from "../reducers";
 
 const reducers = combineReducers({
   auth: authReducer,
   products: productsReducer,
   categories: categoryReducer,
   cart: shoppingCartReducer,
-  offers: offersReducer
+  offers: offersReducer,
+  tags: tagsReducer,
+  brands: brandsReducer,
 });
 
 const reducer = (state, action) => {

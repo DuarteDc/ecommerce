@@ -23,7 +23,7 @@ const ProductInfo = ({ productSelected, CloseModal }) => {
             <div className="grid grid-cols-1 md:grid-cols-2 ">
                 <div>
                     <div className="w-full h-[15rem] md:h-[25rem]">
-                        <img src="https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/MX472_AV4?wid=2000&hei=2000&fmt=jpeg&qlt=95&.v=1570119352353"
+                        <img src={productSelected.principal_image}
                             className="object-contain w-full h-full p-2" ref={img}
                         />
                     </div>
@@ -99,6 +99,7 @@ const ProductInfo = ({ productSelected, CloseModal }) => {
                             </button>
                         </div>
                     </div>
+                    <p className="">Ver detalle</p>
                 </div>
             </div>
         </div>
