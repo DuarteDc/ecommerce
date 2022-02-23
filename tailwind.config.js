@@ -6,12 +6,11 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        'principal': {
-          100: '#f68e16',
-          200: '#FF8900',
-          300: '#f68e15'
+        'second': {
+          100: '#47000e',
         },
         'luz': '#FFFFFF',
+        'black':'#880e4f',
         'white-dg':'#f1f1f1',
         'wine':'#ff0000'
       },
@@ -19,7 +18,8 @@ module.exports = {
         'imgcreateaccount': "url('/assets/images/login.jpeg')",
         'imgcreateaccountc': "url('/assets/images/createAccount.jpeg')",
         'imgpasswvalidation': "url('/assets/images/imgPWV.png')",
-        'imgverification': "url('/assets/images/imgverification.png')"
+        'imgverification': "url('/assets/images/imgverification.png')",
+        'shop-cart': "url('/assets/images/shop-cart.png')"
       },
       screens: {
         'peque': { 'max': '639px' },

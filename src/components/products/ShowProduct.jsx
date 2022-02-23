@@ -1,25 +1,15 @@
-import { useRef, useState } from "react";
-import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import CloseIcon from '@mui/icons-material/Close';
-import Link from "next/link";
 import Backdrop from '@mui/material/Backdrop';
 import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
 import Fade from '@mui/material/Fade';
+import ProductInfo from "./ProductInfo";
+import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
-import { priceFormat } from "../../helpers/helpers";
-import { useCounter } from "../../hooks/useCounter";
 
 const ShowProduct = ({ isOpen, CloseModal }) => {
-    const img = useRef(null);
-    const {productSelected} = useSelector((state)=>state.products);
-    const { counter , increaseBy } = useCounter(1);
-    const price = priceFormat(productSelected?.price || 0);
-
-    const showImage = (newImg) => {
-        img.current.src = newImg
-    }
-    const [quantity, setQuantity] = useState(null);
+    const dispatch = useDispatch();
+    const { productSelected } = useSelector((state) => state.products);
     return (
         <section>
             <Modal
@@ -34,82 +24,15 @@ const ShowProduct = ({ isOpen, CloseModal }) => {
                 }}
             >
                 <Fade in={isOpen}>
-                    <Box className="overflow-hidden drop-shadow-2xl w-11/12 md:w-8/12 rounded-xl border-2 mx-auto p-8 bg-white mt-5">
+                    <Box className="overflow-hidden drop-shadow-2xl w-11/12 md:w-7/12 border-2 mx-auto p-8 bg-white mt-5">
                         <span className="flex flex-row-reverse cursor-pointer" onClick={CloseModal}>
                             <CloseIcon />
                         </span>
-                        <div className="grid grid-cols-1 md:grid-cols-2 ">
-                            <div>
-                                <div className="max-h-px">
-                                    <img src={productSelected?.principal_image} 
-                                    className="object-contain w-full h-64 p-2" ref={img}
-                                    />
-                                </div>
-                                <div>
-                                    <div className="flex">
-                                        {
-                                            productSelected?.multimedia.map(multimedia=>(
-                                               <div 
-                                                 className="border-2 border-gray-300 w-24 h-24 mx-1 cursor-pointer"
-                                               >
-                                                    <img 
-                                                    src={multimedia.path}
-                                                    alt="" 
-                                                    onClick={e => showImage(e.target.src)} 
-                                                    />
-                                                </div>  
-                                            ))
-                                        }
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="px-5 mt-10">
-                                <h2 className="text-2xl">{productSelected?.name}</h2>
-                                <p className="mt-4 text-xl">
-                                  {productSelected?.description}
-                                </p>
-                                <div className="mt-10 flex flex-row items-center">
-                                    <p className="font-bold text-3xl text-[#fa440a] mr-12">
-                                        {price}
-                                    </p>
-                                    <p className="text-lg">
-                                        4 Disponibles
-                                    </p>
-                                </div>
-                                <div className="mt-12">
-                                    <h3 className="text-xl font-semibold">Categorias</h3>
-                                    <div className="flex">
-                                        <Link href="/">
-                                            <p className="text-[#fa440a] mr-4 cursor-pointer text-lg hover:text-gray-700 duration-500">hola mundo</p>
-                                        </Link>
-                                        <Link href="/">
-                                            <p className="text-[#fa440a] mr-4 cursor-pointer text-lg hover:text-gray-700 duration-500">hola mundo</p>
-                                        </Link>
-                                        <Link href="/">
-                                            <p className="text-[#fa440a] mr-4 cursor-pointer text-lg hover:text-gray-700 duration-500">hola mundo</p>
-                                        </Link>
-                                    </div>
-                                </div>
-                                <div className="mt-12 lg:mt-20">
-                                    <div className="flex items-center">
-                                        <button 
-                                         className="rounded-lg text-white mx-1 bg-[#f58d16] font-bold p-4 hover:bg-[#ff9f30]" onClick={() => increaseBy(-1)}
-                                        >
-                                         -
-                                        </button>
-                                        <button className="rounded-lg text-white mx-1 bg-[#f58d16] font-bold p-4 hover:bg-[#ff9f30]" onClick={() => increaseBy(+1)}>+</button>
-                                        <input value={counter} type="text" placeholder="quantity" className="rounded-lg py-4 border-2 border-gray-800 px-4 w-full md:w-1/3" />
-                                        <button className="w-full mx-2 md:w-4/12 rounded-lg text-white mx-1 bg-[#f58d16] font-bold p-4 hover:bg-[#ff9f30]">
-                                            <ShoppingCartIcon />
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                        <ProductInfo productSelected={productSelected} CloseModal={CloseModal} />
                     </Box>
                 </Fade>
             </Modal>
-        </section>
+        </section >
     )
 }
 

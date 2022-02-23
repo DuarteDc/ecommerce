@@ -1,6 +1,4 @@
 import { Swiper, SwiperSlide } from "swiper/react";
-
-// Import Swiper styles
 import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
@@ -37,7 +35,7 @@ const images = [
     }
 ]
 
-const Slider = () => {
+const Slider = ({ offers }) => {
     return (
         <section className="mb-0 cursor-pointer overflow-hidden">
             <Swiper

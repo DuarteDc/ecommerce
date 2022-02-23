@@ -1,14 +1,14 @@
 const Footer = () => {
     return (
-        <footer className="h-5/6 py-20 px-11 md:px-32 bg-[#f58d16]">
+        <footer className="h-5/6 py-20 px-11 md:px-32 bg-black mb-10 md:mb-0 text-white">
             <div className="grid grid-cols-1 md:grid-cols-2 mb-12">
-                <div>
-                    <h2 className="text-3xl font-bold">Join the Comunity</h2>
-                    <p className="text-lg mb-4">Lorem ipsum dolor sit amet consectetur adipisicing elit. Expedita nobis sed excepturi tenetur! Delectus praesentium tempora veritatis debitis possimus aliquid!</p>
+                <div className="pr-2">
+                    <h2 className="text-3xl font-bold">Suscribete a Nuestro Newlatter</h2>
+                    <p className="text-lg mb-4">Suscribete para recibir nuestras promociones , ofertas y nuevos productos que están por salir.</p>
                 </div>
                 <div className="flex items-center">
-                    <input type="email" placeholder="Enter your email" className="p-4 w-2/3 mr-2 md:mr-2 rounded-lg focus:border-[#fa440a] focus:ring-[#fa440a] focus:ring-2 focus:outline-none" />
-                    <button className="p-4 bg-[#a85d08] text-white font-semibold rounded-lg hover:bg-[#ff9f30]">
+                    <input type="email" placeholder="Enter your email" className="p-4 w-2/3 mr-2 md:mr-2 outline-none text-black border-2" />
+                    <button className="px-4 py-4 font-semibold border-white bg-black hover:bg-white hover:text-black transition-all duration-700 ease-in-out border-2">
                         Submit
                     </button>
                 </div>

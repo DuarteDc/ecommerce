@@ -1,19 +1,42 @@
-import CategoryIcon from '@mui/icons-material/Category';
-const AsideBar = () => {
-    const categories = [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1];
+const AsideBar = ({ categories }) => {
+    const tags = [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1];
     return (
-        <div class="bg-gray-100 hidden md:block p-4 border-gray-50">
-            <p className="text-bold text-md lg:text-xl">Categories</p>
-            <ul class="relative">
+        <div className="hidden md:block p-4 overflow-hidden h-screen">
+            <h2 className="text-xl font-bold uppercase">Tags</h2>
+            <div>
                 {
-                    categories.map((cat, i) => (
-                        <li class="relative">
-                            <a class="cursor-pointer flex items-center text-sm py-4 px-6 h-12 overflow-hidden text-gray-700 text-ellipsis whitespace-nowrap rounded hover:text-gray-900 hover:bg-gray-300 transition duration-300 ease-in-out" data-mdb-ripple="true" data-mdb-ripple-color="dark"><span><CategoryIcon /></span>
-                                subcategory {i + 1}</a>
-                        </li>
+                    tags?.map((tag) => (
+                        <span className="px-3 py-2 border-2 border-gray-200 mr-2 w-5 overflow-hidden">Hola mundo</span>
                     ))
                 }
-            </ul>
+            </div>
+            <h2 className="text-xl font-bold uppercase">Categorias</h2>
+            {
+                categories?.map((category) => (
+                    <ul className="relative">
+                        <li className="relative" id="sidenavEx1">
+                            <a className="flex items-center text-sm py-4 px-6 h-12 overflow-hidden text-gray-700 text-ellipsis rounded cursor-pointer " data-mdb-ripple="true" data-bs-toggle="collapse" data-bs-target="#collapseSidenavEx1" aria-expanded="true" aria-controls="collapseSidenavEx1">
+                                <span>{category?.name}</span>
+                            </a>
+                        </li>
+                    </ul>
+
+                ))
+            }
+            <h2 className="text-xl font-bold uppercase">Marcas</h2>
+            {
+                categories?.map((category) => (
+                    <ul className="relative">
+                        <li className="relative" id="sidenavEx1">
+                            <a className="flex items-center text-sm py-4 px-6 h-12 overflow-hidden text-gray-700 text-ellipsis rounded cursor-pointer " data-mdb-ripple="true" data-bs-toggle="collapse" data-bs-target="#collapseSidenavEx1" aria-expanded="true" aria-controls="collapseSidenavEx1">
+                                <span>{category?.name}</span>
+                            </a>
+                        </li>
+                    </ul>
+
+                ))
+            }
+            <h2 className="text-xl font-bold uppercase">Precio</h2>
         </div>
     )
 }

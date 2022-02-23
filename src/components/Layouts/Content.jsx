@@ -9,8 +9,9 @@ import TopHeader from "./TopHeader";
 import FacilityArea from "./FacilityArea";
 import Head from "next/head";
 import PartnerArea from "./PartnerArea";
+import ProductsOfferArea from "./ProductsOfferArea";
 
-const Content = ({ children }) => {
+const Content = ({ children, offers }) => {
     const products = [
         { id: "1", name: "hola mundo", short_description: "some description", price: "800", img: "http://animation.com.mx/img/productos/P%C3%B3steres.png", available: "9", discount: "20" },
         { id: "2", name: "hola mundo", short_description: "some description", price: "800", img: "http://animation.com.mx/img/productos/P%C3%B3steres.png", available: "9", discount: "20" },
@@ -36,6 +37,7 @@ const Content = ({ children }) => {
             <Slider />
             <FacilityArea/>
             <CategoryCard />
+            <ProductsOfferArea/>
             <section className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4">
                 {
                     products.map(product => (
@@ -44,7 +46,7 @@ const Content = ({ children }) => {
                 }
             </section>
             <PartnerArea/>
-            <Footer />
+            <Footer/>
         </>
     )
 }
