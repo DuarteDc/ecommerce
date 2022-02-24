@@ -10,8 +10,9 @@ module.exports = {
           100: '#47000e',
         },
         'luz': '#FFFFFF',
+        'black':'#880e4f',
         'white-dg':'#f1f1f1',
-        'wine':'#47000E'
+        'wine':'#ff0000'
       },
       backgroundImage: {
         'imgcreateaccount': "url('/assets/images/login.jpeg')",

@@ -8,6 +8,8 @@ import CartShop from "./CartShop";
 import TopHeader from "./TopHeader";
 import FacilityArea from "./FacilityArea";
 import Head from "next/head";
+import PartnerArea from "./PartnerArea";
+import ProductsOfferArea from "./ProductsOfferArea";
 
 const Content = ({ children, offers }) => {
     const products = [
@@ -35,6 +37,7 @@ const Content = ({ children, offers }) => {
             <Slider />
             <FacilityArea/>
             <CategoryCard />
+            <ProductsOfferArea/>
             <section className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4">
                 {
                     products.map(product => (
@@ -42,6 +45,8 @@ const Content = ({ children, offers }) => {
                     ))
                 }
             </section>
+            <PartnerArea/>
+            <Footer/>
         </>
     )
 }

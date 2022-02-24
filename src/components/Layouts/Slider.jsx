@@ -36,7 +36,6 @@ const images = [
 ]
 
 const Slider = ({ offers }) => {
-    console.log(offers);
     return (
         <section className="mb-0 cursor-pointer overflow-hidden">
             <Swiper
