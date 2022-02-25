@@ -5,7 +5,7 @@ import CategoriesList from './CategoriesList';
 const AsideBar = ({ categories, brands }) => {
 
     return (
-        <div className="p-4 h-screen w-full">
+        <div className="p-4 md:h-screen w-full">
             <Filters />
             <BrandsList brands={brands} />
             <CategoriesList categories={categories} />

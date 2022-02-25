@@ -10,10 +10,13 @@ export const shoppingCartReducer = (state = initialState, { type, payload }) => 
             let productInCart = state.cart.find((item) => item.product._id === payload.product._id);
             return productInCart ? {
                 ...state,
-                cart: state.cart.map((item) =>
-                    item.product._id === payload.product._id
-                        ? { ...item, value: item.value + payload.value }
-                        : { ...item }
+                cart: state.cart.map((item) => item.product._id === payload.product._id
+                    ? (item.value + payload.value > payload.product.quantity) ? {
+                        ...item
+                    } : {
+                        ...item, value: item.value + payload.value
+                    }
+                    : { ...item }
                 )
             } : {
                 ...state,

@@ -8,12 +8,14 @@ export const types = {
 
     loadProducts: '[PRODUCTS] start load products',
     addProductSelected: '[PRODUCTS] add product selected',
+    loadProduct: '[PRODUCT] load product',
     filterProducts: '[PRODUCTS] filter products',
     add_brand_to_filter: '[PRODUCTS] add brand to filter',
     add_category_to_filter: '[PRODUCTS] add category to filter',
     remove_category_to_categoriesSelected: '[PRODUCTS] remove category to categoriesSelected',
     remove_brand_to_brandsSelected: '[PRODUCTS] remove brand to braindsSelected',
     clear_all_filter: '[PRODUCTS] clear all filters',
+    load_products_per_brand: '[PRODUCTS] load products per brand',
 
     loadCategories: '[CATEGORIES] start load categories',
 

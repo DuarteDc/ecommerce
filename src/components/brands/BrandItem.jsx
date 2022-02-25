@@ -1,10 +1,11 @@
 import { useDispatch } from "react-redux"
-import { addBrandToParams } from "../../actions/productsAction";
+import {  startLoadProductsPerBrand } from "../../actions/productsAction";
 
 const BrandItem = ({ brand }) => {
     const dispatch = useDispatch();
+
     const handleAddBrand = (brand) => {
-        dispatch(addBrandToParams(brand));
+        dispatch(startLoadProductsPerBrand(brand));
     }
     return (
         <li className="hover:text-black cursor-pointer 

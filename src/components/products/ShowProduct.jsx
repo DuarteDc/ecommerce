@@ -28,7 +28,7 @@ const ShowProduct = ({ isOpen, CloseModal }) => {
                         <span className="flex flex-row-reverse cursor-pointer" onClick={CloseModal}>
                             <CloseIcon />
                         </span>
-                        <ProductInfo productSelected={productSelected} CloseModal={CloseModal} />
+                        <ProductInfo product={productSelected} CloseModal={CloseModal} />
                     </Box>
                 </Fade>
             </Modal>

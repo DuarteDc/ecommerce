@@ -5,12 +5,13 @@ import Link from "next/link";
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import { useDispatch } from "react-redux";
 import { newProduct } from "../../actions/shoppingCartActions";
+import { useRouter } from "next/router";
 
-const ProductInfo = ({ productSelected, CloseModal }) => {
+const ProductInfo = ({ product, CloseModal }) => {
     const dispatch = useDispatch();
     const img = useRef(null);
     const { counter, increaseBy, setCounter } = useCounter(1);
-    const price = priceFormat(productSelected?.price || 0);
+    const price = priceFormat(product?.price || 0);
     const showImage = (newImg) => {
         img.current.src = newImg
     }
@@ -19,87 +20,92 @@ const ProductInfo = ({ productSelected, CloseModal }) => {
     }
 
     return (
-        <div>
-            <div className="grid grid-cols-1 md:grid-cols-2 ">
+        <div className="grid grid-cols-1 md:grid-cols-2 ">
+            <div>
+                <div className="w-full h-[15rem] md:h-[25rem]">
+                    <img src={product.principal_image}
+                        className="object-contain w-full h-full p-2" ref={img}
+                    />
+                </div>
                 <div>
-                    <div className="w-full h-[15rem] md:h-[25rem]">
-                        <img src={productSelected.principal_image}
-                            className="object-contain w-full h-full p-2" ref={img}
-                        />
-                    </div>
-                    <div>
-                        <div className="flex">
-                            <div className="border-2 border-gray-300 w-24 h-24 mx-1 cursor-pointer overflow-hidden">
-                                <img
-                                    src={productSelected?.principal_image}
-                                    alt=""
-                                    className="h-full w-full object-fill"
-                                    onClick={e => showImage(e.target.src)}
-                                />
-                            </div>
-                            {
-                                productSelected?.multimedia.map(multimedia => (
-                                    <div
-                                        className="overflow-hidden border-2 border-gray-300 w-24 h-24 mx-1 cursor-pointer"
-                                    >
-                                        <img
-                                            src={multimedia.path}
-                                            alt=""
-                                            onClick={e => showImage(e.target.src)}
-                                            className="w-full h-full object-fill"
-                                        />
-                                    </div>
-                                ))
-                            }
+                    <div className="flex">
+                        <div className="border-2 border-gray-300 w-24 h-24 mx-1 cursor-pointer overflow-hidden">
+                            <img
+                                src={product?.principal_image}
+                                alt=""
+                                className="h-full w-full object-fill"
+                                onClick={e => showImage(e.target.src)}
+                            />
                         </div>
+                        {
+                            product?.multimedia.map(multimedia => (
+                                <div
+                                    className="overflow-hidden border-2 border-gray-300 w-24 h-24 mx-1 cursor-pointer"
+                                >
+                                    <img
+                                        src={multimedia.path}
+                                        alt=""
+                                        onClick={e => showImage(e.target.src)}
+                                        className="w-full h-full object-fill"
+                                    />
+                                </div>
+                            ))
+                        }
                     </div>
                 </div>
-                <div className="overflow-hidden mt-5 md:mt-0">
-                    <h2 className="text-3xl font-semibold uppercase">{productSelected?.name}</h2>
-                    <p className="mt-4 text-xl break-normal">
-                        {productSelected?.description}
+            </div>
+            <div className="overflow-hidden mt-5 md:mt-0">
+                <h2 className="text-3xl font-semibold uppercase">{product?.name}</h2>
+                <p className="mt-4 text-xl break-normal">
+                    {product?.description}
+                </p>
+                <div className="mt-10">
+                    <p className="font-bold text-3xl text-second-100 mr-12">
+                        {price}
                     </p>
-                    <div className="mt-10">
-                        <p className="font-bold text-3xl text-second-100 mr-12">
-                            {price}
-                        </p>
-                        <p className="text-lg mt-4 font-light">
-                            {productSelected?.quantity} Disponibles
-                        </p>
+                    <p className="text-lg mt-4 font-light">
+                        {product?.quantity} Disponibles
+                    </p>
+                </div>
+                <div className="mt-12">
+                    <h3 className="text-xl font-semibold">Categorias</h3>
+                    <div className="flex">
+                        <Link href="/">
+                            <p className="text-second-100 font-semibold mr-4 cursor-pointer text-lg hover:text-gray-700 duration-500">hola mundo</p>
+                        </Link>
+                        <Link href="/">
+                            <p className="text-second-100 font-semibold mr-4 cursor-pointer text-lg hover:text-gray-700 duration-500">hola mundo</p>
+                        </Link>
+                        <Link href="/">
+                            <p className="text-second-100 font-semibold mr-4 cursor-pointer text-lg hover:text-gray-700 duration-500">hola mundo</p>
+                        </Link>
                     </div>
-                    <div className="mt-12">
-                        <h3 className="text-xl font-semibold">Categorias</h3>
-                        <div className="flex">
-                            <Link href="/">
-                                <p className="text-second-100 font-semibold mr-4 cursor-pointer text-lg hover:text-gray-700 duration-500">hola mundo</p>
-                            </Link>
-                            <Link href="/">
-                                <p className="text-second-100 font-semibold mr-4 cursor-pointer text-lg hover:text-gray-700 duration-500">hola mundo</p>
-                            </Link>
-                            <Link href="/">
-                                <p className="text-second-100 font-semibold mr-4 cursor-pointer text-lg hover:text-gray-700 duration-500">hola mundo</p>
-                            </Link>
-                        </div>
+                </div>
+                <Link
+                    href={{
+                        pathname: 'products/[id]',
+                        query: { id: product._id }
+                    }}
+                >
+                    <p className="mt-5 text-gray-500 hover:text-black cursor-pointer transition-all duration-700 ease-out">Ver detalle...</p>
+                </Link>
+                <div className="mt-12 lg:mt-20">
+                    <div className="flex items-center">
+                        <button
+                            className="hover:text-white mx-1 hover:bg-black font-bold px-3 py-4 border-2 border-black transition-all duration-700 ease-in-out"
+                            onClick={() => increaseBy(-1)}
+                        >-</button>
+
+                        <button className="hover:text-white mx-1 hover:bg-black font-bold px-3 py-4 border-2 border-black transition-all duration-700 ease-in-out" onClick={() => increaseBy(+1)}
+                        >+</button>
+
+                        <input value={counter} type="text" placeholder="quantity" className="py-4 px-4 w-full w-full outline-none border-0 text-center font-bold" />
+
+                        <button className="text-xs lg:text-sm  w-full mx-2 text-white mx-1 bg-black font-bold p-4 border-2 hover:bg-white hover:text-black hover:border-2 border-black transition-all duration-700 ease-in-out" onClick={() => { addCart(product, counter), CloseModal(), setCounter(1) }}>
+                            <ShoppingCartIcon />
+                            ADD TO CART
+                        </button>
                     </div>
-                    <div className="mt-12 lg:mt-20">
-                        <div className="flex items-center">
-                            <button
-                                className="hover:text-white mx-1 hover:bg-black font-bold px-3 py-4 border-2 border-black transition-all duration-700 ease-in-out"
-                                onClick={() => increaseBy(-1)}
-                            >-</button>
-
-                            <button className="hover:text-white mx-1 hover:bg-black font-bold px-3 py-4 border-2 border-black transition-all duration-700 ease-in-out" onClick={() => increaseBy(+1)}
-                            >+</button>
-
-                            <input value={counter} type="text" placeholder="quantity" className="py-4 px-4 w-full w-full outline-none border-0 text-center font-bold" />
-
-                            <button className="text-xs lg:text-sm  w-full mx-2 text-white mx-1 bg-black font-bold p-4 border-2 hover:bg-white hover:text-black hover:border-2 border-black transition-all duration-700 ease-in-out" onClick={() => { addCart(productSelected, counter), CloseModal(), setCounter(1) }}>
-                                <ShoppingCartIcon />
-                                ADD TO CART
-                            </button>
-                        </div>
-                    </div>
-                    <p className="">Ver detalle</p>
                 </div>
             </div>
         </div>

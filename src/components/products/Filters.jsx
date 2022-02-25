@@ -39,7 +39,7 @@ const Filters = () => {
                 {
                     categoriesSelected?.map((param) => (
                         <span className="hover:border-black hover:text-black cursor-pointer 
-                            mr-2 mt-2 py-2 border-2 border-gray-200 w-24
+                            mr-2 mt-2 py-2 border-2 border-gray-200 px-2
                             text-center inline-block transition-all duration-700 ease-out text-xs text-gray-500"
                             key={param?._id}
                         >
@@ -51,7 +51,7 @@ const Filters = () => {
                 {
                     brandsSelected?.map((param) => (
                         <span className="hover:border-black hover:text-black cursor-pointer 
-                            mr-2 mt-2 py-2 border-2 border-gray-200 w-24
+                            mr-2 mt-2 py-2 border-2 border-gray-200 px-2
                             text-center inline-block transition-all duration-700 ease-out text-xs text-gray-500"
                             key={param?._id}
                         >

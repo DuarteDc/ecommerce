@@ -1,14 +1,27 @@
 import { useRef, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { wrapper } from "../../src/store";
+
 import Link from "next/link";
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import Card from "../../src/components/Layouts/Card";
-import AsideBar from "../../src/components/categories/AsideBar";
 import Layout from "../../src/components/Layouts";
+import { startLoadProduct } from "../../src/actions/productsAction";
+import { useRouter } from "next/router";
+import { useCounter } from "../../src/hooks/useCounter";
+
+import { newProduct } from "../../src/actions/shoppingCartActions";
 
 const Show = () => {
+    const { product } = useSelector((state) => state.products);
+    const dispatch = useDispatch();
+
+    const router = useRouter();
+    const { id } = router.query;
+
     const img = useRef(null);
-    const handleChangeImg = (newImg) => {
-        img.current.src = newImg.target.src
+    const showImage = (newImg) => {
+        img.current.src = newImg
     }
     const products = [
         { id: "1", name: "hola mundo", description: "some description some description some description some description ", price: "800", img: "http://animation.com.mx/img/productos/P%C3%B3steres.png", available: "9", discount: "20" },
@@ -21,91 +34,167 @@ const Show = () => {
         { id: "8", name: "hola mundo", description: "some description some description some description some description ", price: "800", img: "http://animation.com.mx/img/productos/P%C3%B3steres.png", available: "9", discount: "20" },
         { id: "9", name: "hola mundo", description: "some description some description some description some description ", price: "800", img: "http://animation.com.mx/img/productos/P%C3%B3steres.png", available: "9", discount: "20" },
     ];
-    const [quantity, setQuantity] = useState(null);
+    const handleChangeImg = (newImg) => {
+        img.current.src = newImg.target.src
+    }
+
+    const { counter, increaseBy, setCounter } = useCounter(1)
+
+    const addCart = (product, value) => {
+        dispatch(newProduct(product, value));
+    }
 
     return (
         <Layout>
-            <section className="container mx-auto px-0 lg:px-32 mt-12">
-                <div className="grid grid-cols-1 md:grid-cols-4">
-                    <div className="hidden lg:block">
-                       <AsideBar />
-                    </div>
-                    <div className="p-8 border-2 border-gray-200 sm:col-span-4 md:col-span-3">
-                        <div className="grid grid-cols-1 md:grid-cols-2">
-                            <div>
-                                <div>
-                                    <div>
-                                        <img src="http://animation.com.mx/img/productos/P%C3%B3steres.png" className="object-contain w-full h-full p-2 cursor-zoom-in" ref={img} />
-                                    </div>
-                                    <div>
-                                        <div className="flex">
-                                            <div className="border-2 border-gray-300 w-24 h-24 mx-1 cursor-pointer">
-                                                <img src="http://animation.com.mx/img/productos/P%C3%B3steres.png" alt="" onClick={e => handleChangeImg(e)} />
-                                            </div>
-                                            <div className="border-2 border-gray-300 w-24 h-24 mx-1 cursor-pointer">
-                                                <img src="https://cdn.shopify.com/s/files/1/0250/9661/8038/products/PREVENTION__DAILY_HYDRATING_MOISTURIZER_SPF_30_PDP-R02_600x.jpg?v=1618925348" alt="" onClick={e => handleChangeImg(e)} />
-                                            </div>
-                                            <div className="border-2 border-gray-300 w-24 h-24 mx-1 cursor-pointer">
-                                                <img src="http://www.grupocrea.com.mx/img/product/05938-stampa-crea-mortar.jpg" alt="" onClick={e => handleChangeImg(e)} />
-                                            </div>
+            <section className="container mx-auto mt-20">
+                <div className="grid grid-cols-1 md:grid-cols-2 p-2 md:p-5 lg:p-10">
+                    <div>
+                        <div className="w-full mx-auto h-[15rem] md:h-[30rem]">
+                            <img src={product.principal_image}
+                                className="object-contain w-full h-full p-2" ref={img}
+                            />
+                        </div>
+                        <div>
+                            <div className="flex">
+                                <div className="border-2 border-gray-300 w-24 h-24 mx-1 cursor-pointer overflow-hidden">
+                                    <img
+                                        src={product?.principal_image}
+                                        alt=""
+                                        className="h-full w-full object-fill"
+                                        onClick={e => showImage(e.target.src)}
+                                    />
+                                </div>
+                                {
+                                    product?.multimedia.map(multimedia => (
+                                        <div
+                                            className="overflow-hidden border-2 border-gray-300 w-24 h-24 mx-1 cursor-pointer"
+                                        >
+                                            <img
+                                                src={multimedia.path}
+                                                alt=""
+                                                onClick={e => showImage(e.target.src)}
+                                                className="w-full h-full object-fill"
+                                            />
                                         </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="px-5 mx-0 mt-10">
-                                <h2 className="text-2xl">Product Name</h2>
-                                <p className="mt-4 text-xl">
-                                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Iusto corrupti consequatur possimus, sequi consequuntur eveniet voluptatem dolores, numquam dolor iure explicabo  et facilis. Ipsa reprehenderit
-                                </p>
-                                <div className="mt-10 flex flex-row items-center">
-                                    <p className="font-bold text-3xl text-[#fa440a] mr-12">
-                                        $800
-                                    </p>
-                                    <p className="text-lg">
-                                        4 availables
-                                    </p>
-                                </div>
-                                <div className="mt-12">
-                                    <h3 className="text-xl font-semibold">Categories</h3>
-                                    <div className="flex">
-                                        <Link href="/">
-                                            <p className="text-[#fa440a] mr-4 cursor-pointer text-lg hover:text-gray-700 duration-500">hola mundo</p>
-                                        </Link>
-                                        <Link href="/">
-                                            <p className="text-[#fa440a] mr-4 cursor-pointer text-lg hover:text-gray-700 duration-500">hola mundo</p>
-                                        </Link>
-                                        <Link href="/">
-                                            <p className="text-[#fa440a] mr-4 cursor-pointer text-lg hover:text-gray-700 duration-500">hola mundo</p>
-                                        </Link>
-                                    </div>
-                                </div>
-                                <div className="mt-12 lg:mt-20">
-                                    <div className="flex items-center">
-                                        <button className="rounded-lg text-white mx-1 bg-[#f58d16] font-bold p-4 hover:bg-[#ff9f30]" onClick={() => setQuantity(quantity + 1)}>+</button>
-                                        <button className="rounded-lg text-white mx-1 bg-[#f58d16] font-bold p-4 hover:bg-[#ff9f30]" onClick={() => setQuantity(quantity - 1)}>-</button>
-                                        <input value={quantity} type="text" placeholder="quantity" className="rounded-lg py-4 border-2 border-gray-800 px-4 w-full md:w-1/3" />
-                                        <button className="w-full mx-2 lg:w-4/12 rounded-lg text-white mx-1 bg-[#f58d16] font-bold p-4 hover:bg-[#ff9f30]">
-                                            <ShoppingCartIcon />
-                                        </button>
-                                    </div>
-                                </div>
+                                    ))
+                                }
                             </div>
                         </div>
                     </div>
-                </div>
-                <div>
-                    <h2 className="text-center text-md lg:text-2xl">Productos relacionados</h2>
-                    <div className="grid grid-cols-1 md:grid-cols-3 xl:grid-cols-4">
-                        {
-                            products.map(product => (
-                                <Card product={product} />
-                            ))
-                        }
+                    <div className="mt-5 md:mt-0 p-2 md:pl-5 lg:pl-10">
+                        <h2 className="text-3xl font-semibold uppercase">{product?.name}</h2>
+                        <p className="mt-4 font-medium text-xl break-normal">
+                            {product?.short_description}
+                        </p>
+                        <div className="mt-5">
+                            <p className="font-bold text-3xl text-second-100 mr-12">
+                                $100.00
+                            </p>
+                            <p className="mt-4 font-semibold uppercase">
+                                {product?.quantity} Disponibles
+                            </p>
+                        </div>
+                        <div className="mt-5">
+                            <div className="flex items-center">
+                                <h3 className="font-semibold text-lg">Categoria:</h3>
+                                <Link href="/">
+                                    <p className="text-second-100 font-semibold ml-2 
+                                    cursor-pointer hover:text-gray-700 duration-500">
+                                        {product?.category?.name}
+                                    </p>
+                                </Link>
+                            </div>
+                            <div className="flex items-center">
+                                <h3 className="font-semibold text-lg">Marca:</h3>
+                                <Link href="/">
+                                    <p className="text-second-100 font-semibold ml-2 
+                                    cursor-pointer hover:text-gray-700 duration-500">
+                                        {product?.category?.name}
+                                    </p>
+                                </Link>
+                            </div>
+                            <div className="mt-5">
+                                <h3 className="font-semibold text-lg mb-2">Tags:</h3>
+                                <div className="md:inline-flex">
+                                    <Link href="/">
+                                        <p className="text-second-100 font-semibold mr-4 
+                                    cursor-pointer hover:text-gray-700 duration-500">
+                                            {product?.category?.name}
+                                        </p>
+                                    </Link>
+                                    <Link href="/">
+                                        <p className="text-second-100 font-semibold mr-4 
+                                    cursor-pointer hover:text-gray-700 duration-500">
+                                            {product?.category?.name}
+                                        </p>
+                                    </Link>
+                                    <Link href="/">
+                                        <p className="text-second-100 font-semibold mr-4 
+                                    cursor-pointer hover:text-gray-700 duration-500">
+                                            {product?.category?.name}
+                                        </p>
+                                    </Link>
+                                    <Link href="/">
+                                        <p className="text-second-100 font-semibold mr-4 
+                                    cursor-pointer hover:text-gray-700 duration-500">
+                                            {product?.category?.name}
+                                        </p>
+                                    </Link>
+                                </div>
+                            </div>
+                        </div>
+                        <div className="mt-12 lg:mt-20">
+                            <div className="flex items-center">
+                                <button
+                                    className="hover:text-white mx-1 hover:bg-black font-bold px-3 py-4 border-2 border-black transition-all duration-700 ease-in-out"
+                                    onClick={() => increaseBy(-1)}
+                                >-</button>
+
+                                <button className="hover:text-white mx-1 hover:bg-black font-bold px-3 py-4 border-2 border-black transition-all duration-700 ease-in-out" onClick={() => increaseBy(+1)}
+                                >+</button>
+
+                                <input value={counter} type="text"
+                                    placeholder="quantity" className="py-4 px-4 w-full w-full outline-none 
+                                    border-0 text-center font-bold"
+                                />
+
+                                <button className="text-xs lg:text-sm  w-full mx-2 text-white mx-1 bg-black font-bold p-4 border-2 hover:bg-white hover:text-black hover:border-2 border-black transition-all duration-700 ease-in-out" onClick={() => { addCart(product, counter), setCounter(1) }}>
+                                    <ShoppingCartIcon />
+                                    ADD TO CART
+                                </button>
+                            </div>
+                            <button className="border-black border-2 hover:bg-black hover:text-white mt-16 py-4 w-full font-bold
+                            transition-all duration-700 ease-in-out
+                            ">
+                                COMPRAR AHORA!
+                            </button>
+                        </div>
                     </div>
+                </div>
+                <div className="px-10">
+                    <h2 className="uppercase font-bold text-center text-2xl my-5">Descripción</h2>
+                    <hr />
+                    <p className="mt-7">
+                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Libero dignissimos quisquam ea aspernatur recusandae doloribus nesciunt facere suscipit iste itaque aliquam ex ipsam perferendis accusamus nemo nisi excepturi, commodi a. Cumque iusto blanditiis, ullam facere, rem eaque dignissimos distinctio, explicabo commodi dolore hic voluptates cum aut ipsum dolorum optio laudantium magni recusandae odit repellendus pariatur. Fugit perferendis nesciunt, reiciendis itaque cum rerum cupiditate. Dolore cumque est obcaecati doloremque corporis ipsa quia nemo beatae voluptatum unde repudiandae cupiditate voluptate, reprehenderit perferendis!
+                    </p>
+                </div>
+                <p className="uppercase font-bold text-center text-2xl mt-20 py-3 bg-gray-50">Productos relacionados</p>
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
+                    {
+                        products.map(product => (
+                            <Card product={product} />
+                        ))
+                    }
                 </div>
             </section>
         </Layout>
     )
 }
+
+
+export const getServerSideProps = wrapper.getServerSideProps((store) =>
+    async (ctx) => {
+        await store.dispatch(startLoadProduct(ctx.query.id));
+    })
 
 export default Show;
