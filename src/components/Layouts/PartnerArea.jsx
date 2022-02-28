@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 import { Autoplay, Pagination } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/react";
 
@@ -30,14 +31,17 @@ const PartnerArea = () => {
           {partner.map((part) => (
             <SwiperSlide key={part.id}>
               <div class="text-center h-auto">
-                <a href="/">
+                <Link href={{
+                  pathname: '/brands/[id]',
+                  query: { id: part.id }
+                }} as={`/brands/${part.id}`}>
                   <Image
                     src={part.path}
                     width={200}
                     height={150}
-                    className="w-auto inline-block"
+                    className="w-auto inline-block cursor-pointer"
                   />
-                </a>
+                </Link>
               </div>
             </SwiperSlide>
           ))}

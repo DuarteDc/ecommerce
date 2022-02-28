@@ -23,7 +23,6 @@ export const startLoadProduct = (id) => {
         let url = `/products/${id}`;
         try {
             const res = await client.get(url);
-            console.log(res.data.product)
             dispatch(loadProduct(res.data.product));
         } catch (error) {
             console.log(error);

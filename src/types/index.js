@@ -30,4 +30,5 @@ export const types = {
     loadTags: '[TAGS] load tags',
 
     loadBrands: '[BRANDS] start load brands',
+    loadBrand: '[BRANDS] load brand',
 }
