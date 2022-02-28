@@ -1,17 +1,19 @@
-import { useSelector } from "react-redux";
+import { startLoadCategoriesHome } from "../src/actions/categoryActions";
 import { startLoadOffers } from "../src/actions/offersActions";
-import Content from "../src/components/Layouts/Content";
+import {startLoadBrandsHome} from "../src/actions/brandsActions";
+import HomeComponents from "../src/components/home/home";
 import { wrapper } from "../src/store";
 
 const Home = () => {
-  const { offers } = useSelector((state) => state.offers);
   return (
-    <Content offers={offers} />
+    <HomeComponents/>
   )
 }
 export const getServerSideProps = wrapper.getServerSideProps((store) =>
   async () => {
-    await store.dispatch(startLoadOffers())
+    await store.dispatch(startLoadCategoriesHome());
+    await store.dispatch(startLoadOffers());
+    await store.dispatch(startLoadBrandsHome())
   })
 
 export default Home;

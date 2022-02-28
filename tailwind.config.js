@@ -24,6 +24,9 @@ module.exports = {
       screens: {
         'peque': { 'max': '639px' },
         'biggr': { 'min': '1441px', 'max': '1920px' }
+      },
+      fontFamily:{
+        'Poppins':['Poppins']
       }
     },
   },

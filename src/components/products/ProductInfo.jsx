@@ -23,7 +23,7 @@ const ProductInfo = ({ productSelected, CloseModal }) => {
             <div className="grid grid-cols-1 md:grid-cols-2 ">
                 <div>
                     <div className="w-full h-[15rem] md:h-[25rem]">
-                        <img src="https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/MX472_AV4?wid=2000&hei=2000&fmt=jpeg&qlt=95&.v=1570119352353"
+                        <img src={productSelected.principal_image}
                             className="object-contain w-full h-full p-2" ref={img}
                         />
                     </div>
@@ -38,7 +38,20 @@ const ProductInfo = ({ productSelected, CloseModal }) => {
                                 />
                             </div>
                             {
-                                productSelected?.multimedia.map(multimedia => (
+                                !productSelected?.multimedia?.length ?
+                                <div
+                                className="overflow-hidden border-2 border-gray-300 w-24 h-24 mx-1 cursor-pointer"
+                            >
+                                  <img
+                                    src={'/assets/images/item.jpg'}
+                                    alt=""
+                                    onClick={e => showImage(e.target.src)}
+                                    className="w-full h-full object-fill"
+                                   />
+                                  </div>
+                                :
+
+                                productSelected?.multimedia?.map(multimedia => (
                                     <div
                                         className="overflow-hidden border-2 border-gray-300 w-24 h-24 mx-1 cursor-pointer"
                                     >
@@ -91,14 +104,15 @@ const ProductInfo = ({ productSelected, CloseModal }) => {
                             <button className="hover:text-white mx-1 hover:bg-black font-bold px-3 py-4 border-2 border-black transition-all duration-700 ease-in-out" onClick={() => increaseBy(+1)}
                             >+</button>
 
-                            <input value={counter} type="text" placeholder="quantity" className="py-4 px-4 w-full w-full outline-none border-0 text-center font-bold" />
+                            <input value={counter} type="text" placeholder="quantity" className="py-4 px-4 w-full outline-none border-0 text-center font-bold" />
 
-                            <button className="text-xs lg:text-sm  w-full mx-2 text-white mx-1 bg-black font-bold p-4 border-2 hover:bg-white hover:text-black hover:border-2 border-black transition-all duration-700 ease-in-out" onClick={() => { addCart(productSelected, counter), CloseModal(), setCounter(1) }}>
+                            <button className="text-xs lg:text-sm  w-full text-white mx-1 bg-black font-bold p-4 border-2 hover:bg-white hover:text-black hover:border-2 border-black transition-all duration-700 ease-in-out" onClick={() => { addCart(productSelected, counter), CloseModal(), setCounter(1) }}>
                                 <ShoppingCartIcon />
                                 ADD TO CART
                             </button>
                         </div>
                     </div>
+                    <p className="">Ver detalle</p>
                 </div>
             </div>
         </div>

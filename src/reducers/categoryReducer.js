@@ -1,15 +1,21 @@
 import { types } from "../types";
 
 const initalState = {
-    categories: []
+    categories: [],
+    categoriesHome:[]
 }
 
-export const categoryReducer = (state = initalState, action) => {
-    switch (action.type) {
+export const categoryReducer = (state = initalState, {type , payload}) => {
+    switch (type) {
         case types.loadCategories:
             return {
                 ...state,
-                categories: action.payload
+                categories:payload
+            }
+        case types.loadCategoriesHome:
+            return{
+                ...state,
+                categoriesHome:payload
             }
         default:
             return state

@@ -29,13 +29,13 @@ const PartnerArea = () => {
         >
           {partner.map((part) => (
             <SwiperSlide key={part.id}>
-              <div class="text-center h-auto">
+              <div className="text-center h-auto">
                 <a href="/">
                   <Image
                     src={part.path}
                     width={200}
                     height={150}
-                    className="w-auto inline-block"
+                    className="w-auto inline-block grayscale hover:grayscale-0 transition duration-500 ease-in-out"
                   />
                 </a>
               </div>

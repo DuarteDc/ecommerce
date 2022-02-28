@@ -4,6 +4,6 @@ module.exports = {
     REACT_APP_BACKEND_URL: process.env.REACT_APP_BACKEND_URL
   },
   images:{
-    domains: ['images.unsplash.com']
+    domains: ['ecommerce-taco.s3.us-east-2.amazonaws.com']
   }
 }

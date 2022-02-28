@@ -1,15 +1,6 @@
-import NavBar from "./NavBar";
-import Slider from "./Slider";
-import CategoryCard from "./CategoryCard";
 import Card from "./Card";
 import Footer from "./Footer";
-import ShowProduct from "../products/ShowProduct";
-import CartShop from "./CartShop";
-import TopHeader from "./TopHeader";
-import FacilityArea from "./FacilityArea";
 import Head from "next/head";
-import PartnerArea from "./PartnerArea";
-import ProductsOfferArea from "./ProductsOfferArea";
 
 const Content = ({ children, offers }) => {
     const products = [
@@ -32,12 +23,7 @@ const Content = ({ children, offers }) => {
             <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
             <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;700&family=Poppins:wght@200;300;700&display=swap" rel="stylesheet"/>
            </Head>
-            <TopHeader/>
-            <NavBar />
-            <Slider />
-            <FacilityArea/>
-            <CategoryCard />
-            <ProductsOfferArea/>
+    
             <section className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4">
                 {
                     products.map(product => (
@@ -45,7 +31,6 @@ const Content = ({ children, offers }) => {
                     ))
                 }
             </section>
-            <PartnerArea/>
             <Footer/>
         </>
     )

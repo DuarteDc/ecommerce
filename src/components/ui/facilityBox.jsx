@@ -8,7 +8,7 @@ const FacilityBox = ({icon , title}) => {
             {icon}
         </i>
       </div>
-      <h3 className="text-luz text-sm mt-4">{title}</h3>
+      <h3 className="text-luz text-lg mt-4">{title}</h3>
     </div>
   );
 };

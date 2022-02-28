@@ -1,33 +1,44 @@
-import Image from "next/image";
-import { useEffect } from "react";
+import { useRef } from "react";
 import { useDispatch } from "react-redux";
+
+import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
+
 import { addProductSelected } from "../../actions/productsAction";
 import { priceFormat } from "../../helpers/helpers";
 import { useModal } from "../../hooks/useModal";
 import ShowProduct from "../products/ShowProduct";
 import Item from '../../../public/assets/images/item.jpg';
 
+
 const Card = ({ product }) => {
 
     const dispatch = useDispatch();
-
+    const img = useRef();
     const [isOpen, openModal, CloseModal] = useModal();
-
     const price = priceFormat(product?.price || 0);
 
     const handleClickModal = (product) => {
         openModal();
         dispatch(addProductSelected(product));
     }
+
+    const handleHoverImg = ({ target }) => {
+        if (product?.multimedia?.length > 0) {
+            target.src = product.multimedia[0].path
+        } else {
+            target.src = product?.principal_image
+        }
+    }
+
+    const handleInitialImg = () => {
+        img.current.src = product?.principal_image
+    }
+
+
     return (
-        <article className="my-10 w-10/12 mx-auto relative  h-[44rem] hover:scale-[1.01] transition-all duration-500 ease-in-out border-2 border-gray-200">
-            <div className="overflow-hidden cursor-pointer h-1/2 w-full" onClick={() => handleClickModal(product)}>
-                <Image
-                 src={Item}
-                 className="object-fill"
-                 width={720}
-                 height={960}
-                />
+        <article className="my-10 w-10/12 mx-auto relative border-gray-200 h-[38rem] hover:scale-[1.01] transition-all duration-500 ease-in-out border-2">
+            <div className="hover:first:flex overflow-hidden cursor-pointer h-2/3 w-full relative" onClick={() => handleClickModal(product)}>
+                <img src={product?.principal_image} className="object-fill w-full h-full" ref={img} onMouseOver={handleHoverImg} onMouseOut={handleInitialImg} />
             </div>
             <div className="px-4 mt-1 mb-4">
                 <p className="text-xl font-bold">{product?.name}</p>

@@ -17,8 +17,8 @@ const TabBar = () => {
         { icon: <ImportContactsIcon className={`${pathname === '/contact' ? 'text-4xl rounded-full bg-[#f58d16] p-2' : 'text-[#fa440a]'}`} />, link: '/contact', name: 'Contacto' },
     ]
     return (
-        <div className="w-full -bottom-1 left-0 z-20 fixed drop-shadow-2xl drop-shadow-2xl bg-gradient-to-b from-gray-50 via-gray-100 to-gray-200 md:hidden">
-            <div className="px-4 flex justify-center items-center py-1 justify-between">
+        <div className="w-full -bottom-1 left-0 z-20 fixed drop-shadow-2xl bg-gradient-to-b from-gray-50 via-gray-100 to-gray-200 md:hidden">
+            <div className="px-4 flex justify-center items-center py-1 ">
                 {links.map((link, index) => (
                     <span className="flex flex-col items-center">
                         <Link href={link.link} key={index}>{link.icon}</Link>

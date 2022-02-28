@@ -1,12 +1,6 @@
 import { Swiper, SwiperSlide } from "swiper/react";
-import "swiper/css";
-import "swiper/css/pagination";
-import "swiper/css/navigation";
-
 import { Pagination, Autoplay } from "swiper";
-import Image from "next/image";
-import ImageSlider from '../../../public/assets/images/love-nails.jpg';
-import SliderImage from "./SliderImage";
+import SliderImage from "../Layouts/SliderImage";
 
 const images = [
     {'id':'1',

@@ -25,11 +25,11 @@ const CartItem = ({ item }) => {
                 <div className='flex justify-between'>
                     <div className='flex flex-row'>
                         <div className="w-32">
-                            <img src="https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/MX472_AV4?wid=2000&hei=2000&fmt=jpeg&qlt=95&.v=1570119352353" alt={product?.name} className="w-full h-full object-fill" />
+                            <img src={product.principal_image} alt={product?.name} className="w-20 h-20 object-fill" />
                         </div>
                         <div className="py-4 flex flex-col">
                             <p className="font-bold sm:text-sm">{product?.name}</p>
-                            <p className="font-semibold text-sm mt-3">${product?.price} x {item?.value} = ${product.price * item.value}</p>
+                            <p className="font-semibold text-xs mt-3">${product?.price} x {item?.value} = ${product.price * item.value}</p>
                         </div>
                     </div>
                     <div className="flex justify-center flex-col p-2 float-right">
