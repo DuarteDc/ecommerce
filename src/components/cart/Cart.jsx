@@ -1,89 +1,80 @@
-import { useState } from "react";
+import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
+import { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
+import { deleteOneProduct, addOneProduct, deleteProduct } from '../../actions/shoppingCartActions';
 
-import Box from '@mui/material/Box';
-import Drawer from '@mui/material/Drawer';
-import CartItem from "./CartItem";
-import CloseIcon from '@mui/icons-material/Close';
-import { useDispatch, useSelector } from "react-redux";
-import { clearCart } from '../../actions/shoppingCartActions';
-import ShoppingBagIcon from '@mui/icons-material/ShoppingBag';
-import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
-import ImageCart from "./ImageCart";
-
-
-const Cart = () => {
-    const { cart } = useSelector((state) => state.cart);
-    const [state, setState] = useState({
-        right: false,
-    });
+const Cart = ({ cart }) => {
 
     const dispatch = useDispatch();
 
-    const toggleDrawer = (anchor, open) => (event) => {
-        if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
-            return;
-        }
-
-        setState({ ...state, [anchor]: open });
-    };
-
-    const deleteAllProducts = () => {
-        dispatch(clearCart());
+    const deleteToCart = (product_id) => {
+        dispatch(deleteProduct(product_id));
     }
 
+    const addOneFromCart = (item) => {
+        dispatch(addOneProduct(item));
+    }
+
+    const removeOneFromCart = (item) => {
+        dispatch(deleteOneProduct(item));
+    }
 
     return (
-        <>
-            <p onClick={toggleDrawer('right', true)}>Mi carrito ({cart.length})</p>
-            <Drawer
-                anchor={'right'}
-                open={state['right']}
-                onClose={toggleDrawer('right', false)}
-            >
-                <Box className="p-5 flex flex-col justify-between hoverflow-hidden">
-                    <span className="flex flex-row-reverse">
-                        <CloseIcon onClick={toggleDrawer('right', false)} />
-                    </span>
-                    <div className="flex justify-between items-center">
-                        <h2 className="text-2xl font-bold mb-4">Shopping Cart</h2>
-                        <p className="text-xl font-bold text-second-100">
-                            <span>
-                                <ShoppingBagIcon />
-                            </span>
-                            {cart.length} Items
-                        </p>
-                    </div>
-                    <hr />
-                    <span className="flex flex-row-reverse">
-                        <p className="cursor-pointer text-red-600 font-bold underline decoration-1" onClick={deleteAllProducts}>
-                            Remove all
-                        </p>
-                    </span>
-
-                    {
-                        cart.length > 0 ?
-                            (
-
-                                cart.map((item, index) => (
-                                    <CartItem item={item} key={index} />
-                                ))
-
-                            ) :
-                            (
-                                <ImageCart />
-                            )
-                    }
-                    {
-                        cart.length > 0 && (
-                            <div className="flex p-6 bg-black text-white items-center justify-between hover:bg-white hover:border-2 border-black hover:text-black cursor-pointer transition-all duration-700 ease-in-out border-2" onClick={() => console.log("Quiero pagar")}>
-                                <p className="font-bold">Proceder a pagar</p>
-                                <ArrowForwardIcon />
-                            </div>
-                        )
-                    }
-                </Box>
-            </Drawer>
-        </>
+        <table className="w-full">
+            <thead className="text-left border-t-2 border-black border-b-2 uppercase py-10">
+                <tr>
+                    <th className="py-3">Producto</th>
+                    <th className="py-3">Descripción</th>
+                    <th className="py-3">Precio unitario</th>
+                    <th className="py-3">Cantidad</th>
+                    <th className="py-3">Total</th>
+                    <th className="py-3"></th>
+                </tr>
+            </thead>
+            <tbody>
+                {
+                    cart?.map((cart) => (
+                        <tr className="border-b-2 border-black text-gray-500" key={cart.product._id}>
+                            <td>
+                                <img
+                                    src={cart.product?.principal_image}
+                                    alt={cart.product?.name}
+                                    className="w-32 h-32"
+                                />
+                            </td>
+                            <td>
+                                <p className="font-bold text-gray-500">{cart.product?.name}</p>
+                                <div className="flex mt-1">
+                                    <p className="text-sm font-light">Marca:</p>
+                                    <p className="text-sm font-semibold">{cart.product?.brand?.name}</p>
+                                </div>
+                                <div className="flex mt-1">
+                                    <p className="text-sm font-light">Categoría:</p>
+                                    <p className="text-sm font-semibold">{cart.product?.category?.name}</p>
+                                </div>
+                            </td>
+                            <td>${cart.product.price}</td>
+                            <td>
+                                <button className="hover:text-white mx-1 hover:bg-black font-bold 
+                                    px-3 py-1 border-2 border-black transition-all duration-700 ease-in-out mr-0"
+                                    onClick={() => removeOneFromCart(cart)}
+                                >-</button>
+                                <span className="w-16 text-center font-bold px-5">{cart.value}</span>
+                                <button className="hover:text-white mx-1 hover:bg-black font-bold px-3 py-1 border-2 border-black transition-all duration-700 ease-in-out ml-0"
+                                    onClick={() => addOneFromCart(cart)}
+                                >+</button>
+                            </td>
+                            <td>${cart.product.price * cart.value}</td>
+                            <td>
+                                <DeleteOutlineIcon className="text-black cursor-pointer"
+                                    onClick={() => deleteToCart(cart.product._id)}
+                                />
+                            </td>
+                        </tr>
+                    ))
+                }
+            </tbody>
+        </table>
     )
 }
 

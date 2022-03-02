@@ -1,7 +1,10 @@
+import { loadState } from "../actions/shoppingCartActions";
 import { types } from "../types";
 
+const data = loadState();
+
 const initialState = {
-    cart: []
+    cart: data || []
 }
 
 export const shoppingCartReducer = (state = initialState, { type, payload }) => {
@@ -12,7 +15,7 @@ export const shoppingCartReducer = (state = initialState, { type, payload }) => 
                 ...state,
                 cart: state.cart.map((item) => item.product._id === payload.product._id
                     ? (item.value + payload.value > payload.product.quantity) ? {
-                        ...item
+                        ...item, value: item.product.quantity
                     } : {
                         ...item, value: item.value + payload.value
                     }
@@ -20,7 +23,7 @@ export const shoppingCartReducer = (state = initialState, { type, payload }) => 
                 )
             } : {
                 ...state,
-                cart: [...state.cart, payload]
+                cart: [...state.cart, payload],
             }
         }
         case types.remove_all_from_cart: {
@@ -57,7 +60,10 @@ export const shoppingCartReducer = (state = initialState, { type, payload }) => 
             }
         }
         case types.clear_cart: {
-            return initialState
+            localStorage.removeItem('cart')
+            return {
+                ...state,
+            }
         }
         default:
             return state;

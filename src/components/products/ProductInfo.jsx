@@ -3,9 +3,8 @@ import { priceFormat } from "../../helpers/helpers";
 import { useCounter } from "../../hooks/useCounter";
 import Link from "next/link";
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { newProduct } from "../../actions/shoppingCartActions";
-import { useRouter } from "next/router";
 
 const ProductInfo = ({ product, CloseModal }) => {
     const dispatch = useDispatch();
@@ -15,6 +14,9 @@ const ProductInfo = ({ product, CloseModal }) => {
     const showImage = (newImg) => {
         img.current.src = newImg
     }
+
+    const { cart } = useSelector((state) => state.cart);
+
     const addCart = (product, value) => {
         dispatch(newProduct(product, value));
     }
