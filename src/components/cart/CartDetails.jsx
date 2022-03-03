@@ -1,5 +1,4 @@
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
-import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { deleteOneProduct, addOneProduct, deleteProduct } from '../../actions/shoppingCartActions';
 

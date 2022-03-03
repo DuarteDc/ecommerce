@@ -16,9 +16,7 @@ const Checkout = () => {
                         <div>
                             <Typography id="modal-modal-description" sx={{ mt: 2 }}>
                                 <FormControl fullWidth sx={{ mt: 2 }}>
-                                    <InputLabel shrink htmlFor="name">
-                                        Bootstrap
-                                    </InputLabel>
+                                    <p>Nombre Completo</p>
                                     <TextField
                                         id="name"
                                         name="fullname"
