@@ -4,9 +4,9 @@ import Router from 'next/router'
 
 import { clearCart } from '../../src/actions/shoppingCartActions';
 import { useDispatch, useSelector } from 'react-redux';
-import Cart from '../../src/components/cart/Cart';
+import CartDetails from '../../src/components/cart/CartDetails';
 
-const index = () => {
+const Cart = () => {
     const dispatch = useDispatch();
     const { cart } = useSelector((state) => state.cart)
 
@@ -26,7 +26,7 @@ const index = () => {
                             Limpiar mi carrito
                         </p>
                     </span>
-                    <Cart cart={cart} />
+                    <CartDetails cart={cart} />
                     <div className="grid grid-col-1 lg:grid-cols-2 mt-12">
                         <div>
                             <button className="border-2 border-black px-4 py-2 uppercase hover:bg-black
@@ -53,16 +53,11 @@ const index = () => {
                                         <p className="font-semibold text-gray-500">$600</p>
                                     </div>
                                 </div>
-                                {
-                                    cart?.lenght > 0 && (
                                         <button className="border-2 border-black px-4 py-2 uppercase bg-black text-white transition-all duration-700 ease-in-out border-2 hover:bg-white hover:text-black mt-5"
                                             onClick={() => Router.push('/checkout')}
                                         >
                                             Proceder a pagar
                                         </button>
-
-                                    )
-                                }
                             </div>
                         </div>
                     </div>
@@ -72,4 +67,4 @@ const index = () => {
     )
 }
 
-export default index
+export default Cart

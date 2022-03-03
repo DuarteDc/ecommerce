@@ -3,7 +3,7 @@ import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { deleteOneProduct, addOneProduct, deleteProduct } from '../../actions/shoppingCartActions';
 
-const Cart = ({ cart }) => {
+const CartDetails = ({ cart }) => {
 
     const dispatch = useDispatch();
 
@@ -78,4 +78,4 @@ const Cart = ({ cart }) => {
     )
 }
 
-export default Cart
+export default CartDetails

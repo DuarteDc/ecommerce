@@ -45,6 +45,7 @@ const Card = ({ product }) => {
                 <img
                     className="object-fill w-full h-full"
                     src={product?.principal_image}
+                    alt={product?.name}
                     ref={img}
                     onMouseOver={handleHoverImg}
                     onMouseOut={handleInitialImg}

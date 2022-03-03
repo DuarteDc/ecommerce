@@ -30,8 +30,8 @@ const PartnerArea = () => {
         >
           {partner.map((part) => (
             <SwiperSlide key={part.id}>
-              <div class="text-center h-auto">
-                <Link href={{
+              <div className="text-center h-auto">
+                <button href={{
                   pathname: '/brands/[id]',
                   query: { id: part.id }
                 }} as={`/brands/${part.id}`}>
@@ -41,7 +41,7 @@ const PartnerArea = () => {
                     height={150}
                     className="w-auto inline-block cursor-pointer"
                   />
-                </Link>
+                </button>
               </div>
             </SwiperSlide>
           ))}

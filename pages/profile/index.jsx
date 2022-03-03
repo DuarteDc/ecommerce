@@ -1,13 +1,16 @@
 import { useState } from "react";
-import Layout from "../../src/components/Layouts";
+import Image from 'next/image'
+
 import EditIcon from '@mui/icons-material/Edit';
-import { useModal } from '../../src/hooks/useModal';
 
 import FormChangePassword from "../../src/components/profile/FormChangePassword";
 import FormProfile from "../../src/components/profile/FormProfile";
 
+import Layout from "../../src/components/Layouts";
+import { useModal } from '../../src/hooks/useModal';
+
 const Profile = () => {
-    const [open, setOpen] = useState(false);
+    const [open, setOpen] = useState(true);
     const [isOpen, openModal, closeModal] = useModal();
     return (
         <Layout>
@@ -85,25 +88,6 @@ const Profile = () => {
                                     <p>$500</p>
                                 </div>
                             </article>
-                            <article className="border-2 p-5 cursor-pointer"
-                                onClick={() => setOpen(!open)}
-                            >
-                                <p className="text-center font-bold">Pedido #12</p>
-                                <hr />
-                                <div className="flex mt-4">
-                                    <p className="font-light">Fecha de pedido:</p>
-                                    <p>31-Marzo-2022</p>
-                                </div>
-                                <div className="flex mt-4">
-                                    <p className="font-light">Monto:</p>
-                                    <p>$200</p>
-                                </div>
-                                <div className="flex mt-4">
-                                    <p className="font-light">Precio Final:</p>
-                                    <p>$500</p>
-                                </div>
-                            </article>
-
                         </div>
                         {
                             (open) && (
@@ -134,7 +118,13 @@ const Profile = () => {
                                             <tbody>
                                                 <tr>
                                                     <td className="flex items-center">
-                                                        <img src="http://animation.com.mx/img/productos/P%C3%B3steres.png" className="object-contain" width="100px" />
+                                                        <Image
+                                                            src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8cHJvZHVjdHxlbnwwfHwwfHw%3D&w=1000&q=80"
+                                                            className="object-contain" 
+                                                            width={100}
+                                                            height={100}
+                                                            alt="img"
+                                                        />
                                                         <div>
                                                             <p className="font-light text-xs md:text-base">Name product</p>
                                                             <p className="text-second-100 font-bold">$200</p>

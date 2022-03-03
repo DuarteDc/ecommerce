@@ -42,8 +42,8 @@ const ProductInfo = ({ product, CloseModal }) => {
                         {
                             product?.multimedia.map(multimedia => (
                                 <div
-                                    className="overflow-hidden border-2 border-gray-300 w-24 h-24 mx-1 cursor-pointer"
-                                >
+                                key={multimedia._id}
+                                    className="overflow-hidden border-2 border-gray-300 w-24 h-24 mx-1 cursor-pointer">
                                     <img
                                         src={multimedia.path}
                                         alt=""
@@ -101,7 +101,7 @@ const ProductInfo = ({ product, CloseModal }) => {
                         <button className="hover:text-white mx-1 hover:bg-black font-bold px-3 py-4 border-2 border-black transition-all duration-700 ease-in-out" onClick={() => increaseBy(+1)}
                         >+</button>
 
-                        <input value={counter} type="text" placeholder="quantity" className="py-4 px-4 w-full w-full outline-none border-0 text-center font-bold" />
+                        <span className="py-4 px-4 w-full w-full outline-none border-0 text-center font-bold">{counter} </span>
 
                         <button className="text-xs lg:text-sm  w-full mx-2 text-white mx-1 bg-black font-bold p-4 border-2 hover:bg-white hover:text-black hover:border-2 border-black transition-all duration-700 ease-in-out" onClick={() => { addCart(product, counter), CloseModal(), setCounter(1) }}>
                             <ShoppingCartIcon />

@@ -43,37 +43,37 @@ const NavBar = () => {
           <div className="hidden lg:flex justify-between items-center w-full">
             <div className="px-12">
               <Link href="/" >
-                <span className="border-transparent border-b-2 hover:border-red-900  mx-4 cursor-pointer text-lg font-['Poppins'] font-normal transition duration-700 ease-in-out">
+                <a className="border-transparent border-b-2 hover:border-red-900  mx-4 cursor-pointer text-lg font-['Poppins'] font-normal transition duration-700 ease-in-out">
                   Inicio
-                </span>
+                </a>
               </Link>
               <Link href="/products">
-                <span className="border-transparent border-b-2 hover:border-red-900  mx-4 cursor-pointer text-lg font-['Poppins'] font-normal transition duration-700 ease-in-out">
+                <a className="border-transparent border-b-2 hover:border-red-900  mx-4 cursor-pointer text-lg font-['Poppins'] font-normal transition duration-700 ease-in-out">
                   Productos
-                </span>
+                </a>
 
               </Link>
               <Link href="/home">
-                <span className="border-transparent border-b-2 hover:border-red-900  mx-4 cursor-pointer text-lg font-['Poppins'] font-normal transition duration-700 ease-in-out">
+                <a className="border-transparent border-b-2 hover:border-red-900  mx-4 cursor-pointer text-lg font-['Poppins'] font-normal transition duration-700 ease-in-out">
                   Blog
-                </span>
+                </a>
               </Link>
               <Link href="/home">
-                <span className="border-transparent border-b-2 hover:border-red-900  mx-4 cursor-pointer text-lg font-['Poppins'] font-normal transition duration-700 ease-in-out">Contácto</span>
+                <a className="border-transparent border-b-2 hover:border-red-900  mx-4 cursor-pointer text-lg font-['Poppins'] font-normal transition duration-700 ease-in-out">Contácto</a>
               </Link>
 
             </div>
 
             <div className="px-6 flex">
               <Link href="/auth">
-                <span className="border-transparent border-b-2 hover:border-red-900  mx-4 cursor-pointer text-sm font-['Poppins'] font-normal transition duration-700 ease-in-out">
+                <a className="border-transparent border-b-2 hover:border-red-900  mx-4 cursor-pointer text-sm font-['Poppins'] font-normal transition duration-700 ease-in-out">
                   Inicia Sesión
-                </span>
+                </a>
               </Link>
               <Link href="/cart">
-                <span className="border-transparent border-b-2 hover:border-red-900  mx-4 cursor-pointer text-sm font-['Poppins'] font-normal transition duration-700 ease-in-out">
+                <a className="border-transparent border-b-2 hover:border-red-900  mx-4 cursor-pointer text-sm font-['Poppins'] font-normal transition duration-700 ease-in-out">
                   Mi carrito({cart.length})
-                </span>
+                </a>
               </Link>
             </div>
           </div>

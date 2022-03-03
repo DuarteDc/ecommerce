@@ -39,6 +39,7 @@ const CategoryCard = () => {
               <div className="rounded-md my-8 overflow-hidden relative">
                 <Image
                  src={ImageSlider}
+                 alt="Hola"
                 />
                 <div className="absolute left-8 top-0 translate-y-2/4">
                   <h3 className="text-luz text-base font-bold mb-0">Categoria {index}</h3>

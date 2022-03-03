@@ -3,8 +3,6 @@ import Slider from "./Slider";
 import CategoryCard from "./CategoryCard";
 import Card from "./Card";
 import Footer from "./Footer";
-import ShowProduct from "../products/ShowProduct";
-import CartShop from "./CartShop";
 import TopHeader from "./TopHeader";
 import FacilityArea from "./FacilityArea";
 import Head from "next/head";

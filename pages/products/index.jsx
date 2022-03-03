@@ -8,6 +8,7 @@ import Layout from "../../src/components/Layouts";
 import { startLoadProducts } from "../../src/actions/productsAction";
 import { startLoadCategories } from "../../src/actions/categoryActions";
 import { startLoadBrands } from "../../src/actions/brandsActions";
+import { loadState } from "../../src/actions/shoppingCartActions";
 
 const Products = () => {
 
@@ -45,6 +46,7 @@ export const getServerSideProps = wrapper.getServerSideProps((store) =>
         await store.dispatch(startLoadProducts());
         await store.dispatch(startLoadCategories());
         await store.dispatch(startLoadBrands());
+        
     })
 
 export default Products;
