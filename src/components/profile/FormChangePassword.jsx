@@ -50,7 +50,7 @@ const FormChangePassword = ({ isOpen, closeModal }) => {
                             </FormControl>
                         </Typography>
                         <button className="bg-black w-full py-4 mt-5 font-bold text-white text-lg hover:bg-white border-2 border-black hover:text-black
-                    transition-all duration-700 ease-in-out border-4">
+                    transition-all duration-700 ease-in-out">
                             Cambiar
                         </button>
                     </form>
