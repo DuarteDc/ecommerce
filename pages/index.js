@@ -4,6 +4,7 @@ import Content from "../src/components/Layouts/Content";
 import { wrapper } from "../src/store";
 
 const Home = () => {
+
   const { offers } = useSelector((state) => state.offers);
   return (
     <Content offers={offers} />

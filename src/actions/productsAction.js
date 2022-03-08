@@ -6,6 +6,7 @@ export const startLoadProducts = () => {
         let url = '/products';
         try {
             const res = await client.get(url);
+            console.log(res.data.products);
             dispatch(loadProducts(res.data.products))
         } catch (error) {
             console.log(error);

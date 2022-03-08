@@ -1,6 +1,7 @@
 import '../src/assets/styles/globals.css';
 import { wrapper } from '../src/store';
 import Head from "next/head";
+import { useEffect } from 'react';
 
 const MyApp = ({ Component, pageProps }) => (
     <>

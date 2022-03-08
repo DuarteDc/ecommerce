@@ -55,7 +55,7 @@ const Show = () => {
                 <div className="grid grid-cols-1 md:grid-cols-2 p-2 md:p-5 lg:p-10">
                     <div>
                         <div className="w-full mx-auto h-[15rem] md:h-[30rem] relative">
-                            <Image
+                            <img
                                 src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8cHJvZHVjdHxlbnwwfHwwfHw%3D&w=1000&q=80"
                                 alt={product?.name}
                                 priority
@@ -65,7 +65,7 @@ const Show = () => {
                         <div>
                             <div className="flex md:mt-10">
                                 <div className="border-2 border-gray-300 w-24 h-24 mx-1 cursor-pointer overflow-hidden relative">
-                                    <Image
+                                    <img
                                         src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8cHJvZHVjdHxlbnwwfHwwfHw%3D&w=1000&q=80"
                                         alt={product?.name}
                                         layout="fill"

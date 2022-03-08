@@ -8,24 +8,41 @@ import FormProfile from "../../src/components/profile/FormProfile";
 
 import Layout from "../../src/components/Layouts";
 import { useModal } from '../../src/hooks/useModal';
+import { useDispatch, useSelector } from "react-redux";
+import { logout } from "../../src/actions/authActions";
+import Router from "next/router";
+import Cookies from "js-cookie";
 
 const Profile = () => {
     const [open, setOpen] = useState(true);
+    const {user} = useSelector(state => state.auth);
     const [isOpen, openModal, closeModal] = useModal();
+
+    const dispatch = useDispatch()   
+    const router = Router;
+
+    const logoutSession = () =>{
+        dispatch(logout());
+        Cookies.remove('token')
+        router.replace('/')
+    }
+
     return (
         <Layout>
             <section className="container mx-auto mt-10 p-10 mb-16 md:mb-10">
-                <h2 className="text-3xl text-center uppercase my-10">Profile</h2>
+                <h2 className="text-3xl text-center uppercase my-10">Perfil</h2>
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                     <div className="w-full flex flex-col items-center p-4 bg-gray-50 drop-shadow-md">
                         <img src="https://media.istockphoto.com/photos/gingerbread-man-3d-rendering-isolated-on-white-background-picture-id1250677513?k=20&m=1250677513&s=612x612&w=0&h=KVAes7pQUH0XRDhRGqXy0na2tyaTWbCCpZ8U1r1EpNw=" alt="" className="w-full md:w-2/3 rounded-full" />
-                        <p className="text-2xl uppercase mt-5 text-center">Lorem ipsum dolor sit amet</p>
-                        <button className="py-2 px-4 bg-black text-white font-bold my-5 hover:bg-white hover:text-black border-4 border-black transition-all duration-700 ease-in-out">
+                        <p className="text-2xl uppercase mt-5 text-center">{user?.fullname}</p>
+                        <button className="py-2 px-4 bg-black text-white font-bold my-5 hover:bg-white hover:text-black border-2 border-black transition-all duration-700 ease-in-out"
+                            onClick={logoutSession}
+                        >
                             Cerrar Sessión
                         </button>
                     </div>
                     <div className="col-span-1 md:col-span-2 relative bg-gray-50  drop-shadow-md overflow-hidden">
-                        <FormProfile />
+                        <FormProfile {...user}/>
                     </div>
                 </div>
                 <div className="w-full bg-gray-50 mt-10 p-8 drop-shadow-md">
@@ -53,7 +70,7 @@ const Profile = () => {
                             onClick={openModal}
                         />
                     </div>
-                    <div className="flex mt-4 md:ml-20">
+                    <div className="flex mt-4 md:ml-20 items-center">
                         <p className="font-light">Password:</p>
                         <p>•••••••••••••••••••</p>
                     </div>
@@ -118,14 +135,13 @@ const Profile = () => {
                                             <tbody>
                                                 <tr>
                                                     <td className="flex items-center">
-                                                        <Image
+                                                        <img
                                                             src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8cHJvZHVjdHxlbnwwfHwwfHw%3D&w=1000&q=80"
                                                             className="object-contain" 
-                                                            width={100}
-                                                            height={100}
                                                             alt="img"
+                                                            className="w-32"
                                                         />
-                                                        <div>
+                                                        <div className="ml-2">
                                                             <p className="font-light text-xs md:text-base">Name product</p>
                                                             <p className="text-second-100 font-bold">$200</p>
                                                         </div>

@@ -5,7 +5,7 @@ export const loadState = () => {
     try {
         return JSON.parse(localStorage.getItem('cart'));
     } catch (error) {
-        return []
+        return;
     }
 }
 

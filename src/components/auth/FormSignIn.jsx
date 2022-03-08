@@ -1,6 +1,7 @@
 import { Box, FormControl, TextField , Button} from "@mui/material";
 import {  useFormik } from "formik";
 import Link from "next/link";
+import { useRouter } from "next/router";
 import { useDispatch } from "react-redux";
 import { Form } from "semantic-ui-react";
 import * as Yup from 'yup';
@@ -10,7 +11,7 @@ import { startLoginEmailPassword } from "../../actions/authActions";
 export const FormSignIn = () => {
 
     const dispatch = useDispatch();
-
+    const router = useRouter();
     const initialValues = {
         email:'',
         password:''
@@ -25,6 +26,7 @@ export const FormSignIn = () => {
         validationSchema: Yup.object(validationSchema),
         onSubmit: (formData) => {
             dispatch(startLoginEmailPassword(formData));
+            router.replace('/')
         }
     });
     
@@ -32,49 +34,40 @@ export const FormSignIn = () => {
     <Form onSubmit={formik.handleSubmit}>
         <Box sx={{ minWidth: 120 }} className='px-7 pb-3'>
             <FormControl fullWidth>
-                <TextField
-                    id="outline"
-                    color="warning"
+                <p className="uppercase my-2">Correo electronico</p>
+                <input
                     name='email'
                     onChange={formik.handleChange}
+                    placeholder="Correo electronico"
                     error={formik.errors.email}
-                    label="Correo Electronico"
-                    helperText={formik.errors.email}
+                    className="py-4 bg-gray-50  focus:outline-none focus:border-black focus:ring-1 focus:ring-gray-900 px-5"
 
                 />
             </FormControl>
         </Box>
         <Box sx={{ minWidth: 120 }} className='px-7 pb-3'>
             <FormControl fullWidth>
-                <TextField
-                    id="outline-pass"
+            <p className="uppercase my-2">Contraseña</p>
+                <input
                     name='password'
                     onChange={formik.handleChange}
+                    placeholder="Contraseña"
                     type='password'
-                    color="warning"
-                    error={formik.errors.password}
-                    label="Contraseña"
-                    helperText={formik.errors.password}
+                    error={formik.errors.password}                    
+                    className="py-4 bg-gray-50  focus:outline-none focus:border-black focus:ring-1 focus:ring-gray-900 px-5"
                 />
             </FormControl>
         </Box>
 
-        <div className="text-right text-principal text-sm italic mr-10">
+        <div className="text-right text-gray-500 text-sm font-semibold px-7 my-3">
             <Link href='/Auth/PassFV'>
-                <a>¿Has olvidado la contraseña?</a>
+                <a className="hover:text-black transition-all duration-700 ease-out">¿Has olvidado la contraseña?</a>
             </Link>
         </div>
-        <div className='ml-2 mb-2 mt-1'>
-
-        </div>
-        <div className='flex justify-end pb-1 pr-1'>
-            <Button type='submit' className="
-                    bg-principal-100 rounded-full font-bold text-white px-20 py-3 transition duration-300 ease-in-out hover:bg-principal-200
-                     biggr:bg-principal-100 biggr:rounded-full biggr:font-bold biggr:text-white biggr:px-20 biggr:py-3 biggr:transition biggr:duration-300 biggr:ease-in-out biggr:hover:bg-principal-200 biggr:mr-6
-                      peque:bg-principal-100 peque:rounded-full peque:font-bold peque:border peque:text-white peque:px-20 peque:py-3 peque:transition peque:duration-300 peque:ease-in-out peque:hover:bg-principal-200 peque:mr-6
-        ">
+        <div className="px-7">
+            <button className="bg-black w-full text-white py-4 uppercase hover:bg-white border-2 border-black hover:text-black transition-all duration-700 ease-in-out">
                 Iniciar Sesion
-            </Button>
+            </button>
         </div>
     </Form>
     );

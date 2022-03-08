@@ -2,9 +2,13 @@ import Link from "next/link";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
+import { startVerifyToken, verifyToken } from "../../actions/authActions";
+import { useDispatch } from "react-redux";
 
 const NavBar = () => {
   const { cart } = useSelector((state) => state.cart)
+  const { logged } = useSelector((state) => state.auth)
+  const dispatch = useDispatch()
 
   const [scrollPosition, setScrollPosition] = useState(0);
   const handleScroll = () => {
@@ -23,6 +27,10 @@ const NavBar = () => {
   useEffect(() => {
     localStorage.setItem('cart', JSON.stringify(cart))
   }, [cart])
+
+  useEffect(() => {
+    dispatch(startVerifyToken());
+  }, [])
 
   return (
     <div className={`bg-luz py-2 shadow-sm  w-full z-[2] ${scrollPosition >= 130 && 'fixed top-0'}`}>
@@ -51,7 +59,11 @@ const NavBar = () => {
                 <a className="border-transparent border-b-2 hover:border-red-900  mx-4 cursor-pointer text-lg font-['Poppins'] font-normal transition duration-700 ease-in-out">
                   Productos
                 </a>
-
+              </Link>
+              <Link href="/brands">
+                <a className="border-transparent border-b-2 hover:border-red-900  mx-4 cursor-pointer text-lg font-['Poppins'] font-normal transition duration-700 ease-in-out">
+                  Marcas
+                </a>
               </Link>
               <Link href="/home">
                 <a className="border-transparent border-b-2 hover:border-red-900  mx-4 cursor-pointer text-lg font-['Poppins'] font-normal transition duration-700 ease-in-out">
@@ -65,11 +77,24 @@ const NavBar = () => {
             </div>
 
             <div className="px-6 flex">
-              <Link href="/auth">
-                <a className="border-transparent border-b-2 hover:border-red-900  mx-4 cursor-pointer text-sm font-['Poppins'] font-normal transition duration-700 ease-in-out">
-                  Inicia Sesión
-                </a>
-              </Link>
+              {
+                logged ?
+                  (
+                    <Link href="/profile">
+                      <a className="border-transparent border-b-2 hover:border-red-900  mx-4 cursor-pointer text-sm font-['Poppins'] font-normal transition duration-700 ease-in-out">
+                        Perfil
+                      </a>
+                    </Link>
+                  )
+                  :
+                  (
+                    <Link href="/auth/login">
+                      <a className="border-transparent border-b-2 hover:border-red-900  mx-4 cursor-pointer text-sm font-['Poppins'] font-normal transition duration-700 ease-in-out">
+                        Iniciar Sesión
+                      </a>
+                    </Link>
+                  )
+              }
               <Link href="/cart">
                 <a className="border-transparent border-b-2 hover:border-red-900  mx-4 cursor-pointer text-sm font-['Poppins'] font-normal transition duration-700 ease-in-out">
                   Mi carrito({cart.length})
