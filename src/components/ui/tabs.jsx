@@ -27,7 +27,7 @@ export const Tabs = ({ tabActive,
             className={`cursor-pointer border-solid font-Poppins text-medium leading-[1.2] hover:text-[#333] hover:border-[#797979] ${
               tabActive == index && "text-[#333] border-[#797979]"
             } border-b-[1px] border-transparent mx-1 mr-8  duration-[0.4s] transition-all`}
-            key={tabData.id}
+            key={tabData._id}
             onClick={() => handleSelectTab(index, tabData._id)}
           >
             {tabData.name}

@@ -44,8 +44,7 @@ const TopHeader = () => {
                 <BsYoutube/>
               </IconContext.Provider>
                
-            </a>
-            </Link>
+            </a>            
           </div>
           <div className="flex justify-center">
               <p className="text-[#888] font-Poppins">Free shipping for standard order over $100</p>

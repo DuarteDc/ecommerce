@@ -1,10 +1,11 @@
 import Link from "next/link";
 import Image from "next/image";
 import { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import {BsHandbag , BsPersonCircle} from "react-icons/bs";
 import { IconContext } from "react-icons";
 import Badge from '@mui/material/Badge';
+import {startVerifyToken} from '../../actions/authActions'
 
 const NavBar = () => {
   const { cart } = useSelector((state) => state.cart)
@@ -97,7 +98,6 @@ const NavBar = () => {
                       <BsHandbag/>
               </IconContext.Provider>
               </Badge>
-                <Cart cart={cart} />
               </span>
             </div>
           </div>
