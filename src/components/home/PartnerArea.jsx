@@ -26,15 +26,15 @@ export const PartnerArea = () => {
         >
           {brands.map((brand) => (
             <SwiperSlide key={brand._id}>
-              <div class="text-center h-auto">
+              <div className="text-center h-auto">
                 <Link href={{
                   pathname: '/brands/[id]',
                   query: { id: brand._id }
                 }} as={`/brands/${brand._id}`}>
                   <Image
                     src={brand.image}
-                    width={250}
-                    height={250}
+                    width={200}
+                    height={200}
                     className="w-auto inline-block cursor-pointer"
                   />
                 </Link>
