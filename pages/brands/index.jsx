@@ -1,5 +1,4 @@
 import Layout from "../../src/components/Layouts"
-import Slider from "../../src/components/Layouts/Slider"
 import { Swiper, SwiperSlide } from "swiper/react";
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import { Pagination } from "swiper";
