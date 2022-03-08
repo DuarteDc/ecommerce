@@ -2,8 +2,17 @@ import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
 import { FormControl, TextField } from "@mui/material";
+import { startChangePassword } from '../../actions/authActions';
 
 const FormChangePassword = ({ isOpen, closeModal }) => {
+    const handleChangePassword = (e) => {
+        e.preventDefault();
+        try {
+            startChangePassword();
+        } catch (error) {
+            console.log(error);
+        }
+    }
     return (
         <div>
             <Modal
@@ -16,33 +25,35 @@ const FormChangePassword = ({ isOpen, closeModal }) => {
                     <h2 className="font-bold text-xl">
                         Cambiar Contraseña
                     </h2>
-                    <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-                        <FormControl fullWidth sx={{ mt: 2 }}>
-                            <TextField
-                                label="Contraseña Actual"
-                                id="standard-name"
-                                name="fullname"
-                                type="password"/>
-                        </FormControl>
-                        <FormControl fullWidth sx={{ mt: 2 }}>
-                            <TextField
-                                label="Nueva Contraseña"
-                                id="standard-name"
-                                name="fullname"
-                                type="password"/>
-                        </FormControl>
-                        <FormControl fullWidth sx={{ mt: 2 }}>
-                            <TextField
-                                label="Confirmar Contraseña"
-                                id="standard-name"
-                                name="fullname"
-                                type="password"/>
-                        </FormControl>
-                    </Typography>
-                    <button className="bg-black w-full py-4 mt-5 font-bold text-white text-lg hover:bg-white border-2 border-black hover:text-black
+                    <form onClick={handleChangePassword} method='post'>
+                        <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+                            <FormControl fullWidth sx={{ mt: 2 }}>
+                                <TextField
+                                    label="Contraseña Actual"
+                                    id="standard-name"
+                                    name="actual_password"
+                                    type="password" />
+                            </FormControl>
+                            <FormControl fullWidth sx={{ mt: 2 }}>
+                                <TextField
+                                    label="Nueva Contraseña"
+                                    id="standard-name"
+                                    name="new_password"
+                                    type="password" />
+                            </FormControl>
+                            <FormControl fullWidth sx={{ mt: 2 }}>
+                                <TextField
+                                    label="Confirmar Contraseña"
+                                    id="standard-name"
+                                    name="confirm_new_password"
+                                    type="password" />
+                            </FormControl>
+                        </Typography>
+                        <button className="bg-black w-full py-4 mt-5 font-bold text-white text-lg hover:bg-white border-2 border-black hover:text-black
                     transition-all duration-700 ease-in-out border-4">
-                        Cambiar
-                    </button>
+                            Cambiar
+                        </button>
+                    </form>
                 </Box>
             </Modal>
         </div>

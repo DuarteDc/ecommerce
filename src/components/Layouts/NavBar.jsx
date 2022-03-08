@@ -1,13 +1,17 @@
 import Link from "next/link";
 import Image from "next/image";
 import { useEffect, useState } from "react";
-import Cart from "../cart/Cart";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import {BsHandbag , BsPersonCircle} from "react-icons/bs";
 import { IconContext } from "react-icons";
 import Badge from '@mui/material/Badge';
+import {startVerifyToken} from '../../actions/authActions'
 
 const NavBar = () => {
+  const { cart } = useSelector((state) => state.cart)
+  const { logged } = useSelector((state) => state.auth)
+  const dispatch = useDispatch()
+
   const [scrollPosition, setScrollPosition] = useState(0);
   
   const routes = [
@@ -38,8 +42,13 @@ const NavBar = () => {
   }, []);
 
 
-  const { cart } = useSelector((state) => state.cart);
+  useEffect(() => {
+    localStorage.setItem('cart', JSON.stringify(cart))
+  }, [cart])
 
+  useEffect(() => {
+    dispatch(startVerifyToken());
+  }, [])
 
   return (
     <div className={`bg-luz py-2 shadow-sm  w-full z-[2] ${scrollPosition >= 130 && 'fixed top-0'}`}>
@@ -89,7 +98,6 @@ const NavBar = () => {
                       <BsHandbag/>
               </IconContext.Provider>
               </Badge>
-                <Cart cart={cart} />
               </span>
             </div>
           </div>

@@ -4,7 +4,7 @@ import LocalPhoneIcon from '@mui/icons-material/LocalPhone';
 import PersonIcon from '@mui/icons-material/Person';
 import { FormControl, TextField } from "@mui/material";
 
-const FormProfile = () => {
+const FormProfile = ({fullname, email, phone, directions}) => {
     return (
         <>
             <div>
@@ -16,7 +16,7 @@ const FormProfile = () => {
                     <FormControl fullWidth>
                         <TextField
                             id="standard-name"
-                            value="LorLorem ipsum dolor sit ametem "
+                            value={fullname}
                             name="fullname"
                             color="warning" />
                     </FormControl>
@@ -26,7 +26,7 @@ const FormProfile = () => {
                     <FormControl fullWidth>
                         <TextField
                             id="standard-name"
-                            value="algo@gmail.com.mx"
+                            value={email}
                             name="fullname"
                             color="warning" />
                     </FormControl>
@@ -36,7 +36,7 @@ const FormProfile = () => {
                     <FormControl fullWidth>
                         <TextField
                             id="standard-name"
-                            value="8383918408"
+                            value={phone?._id}
                             name="fullname"
                             color="warning" />
                     </FormControl>
@@ -46,7 +46,7 @@ const FormProfile = () => {
                     <FormControl fullWidth>
                         <TextField
                             id="standard-name"
-                            value="Direccion #213 col. Lorem ipsum"
+                            value={directions}
                             name="fullname"
                             color="warning" />
                     </FormControl>

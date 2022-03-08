@@ -3,6 +3,7 @@ import Link from "next/link";
 import { Autoplay, Pagination } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/react";
 import {useSelector} from "react-redux";
+/**tags */
 
 export const PartnerArea = () => {
   const {brands} = useSelector((state)=>state.brands);

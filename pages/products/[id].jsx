@@ -1,15 +1,18 @@
-import { useRef, useState } from "react";
+import { createRef, forwardRef } from "react";
+import Image from "next/image";
+import Link from "next/link";
+import { useRouter } from "next/router";
+
 import { useDispatch, useSelector } from "react-redux";
 import { wrapper } from "../../src/store";
 
-import Link from "next/link";
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+
 import Card from "../../src/components/Layouts/Card";
 import Layout from "../../src/components/Layouts";
-import { startLoadProduct } from "../../src/actions/productsAction";
-import { useRouter } from "next/router";
-import { useCounter } from "../../src/hooks/useCounter";
 
+import { startLoadProduct } from "../../src/actions/productsAction";
+import { useCounter } from "../../src/hooks/useCounter";
 import { newProduct } from "../../src/actions/shoppingCartActions";
 
 const Show = () => {
@@ -19,7 +22,7 @@ const Show = () => {
     const router = useRouter();
     const { id } = router.query;
 
-    const img = useRef(null);
+    const img = createRef();
     const showImage = (newImg) => {
         img.current.src = newImg
     }
@@ -34,9 +37,11 @@ const Show = () => {
         { id: "8", name: "hola mundo", description: "some description some description some description some description ", price: "800", img: "http://animation.com.mx/img/productos/P%C3%B3steres.png", available: "9", discount: "20" },
         { id: "9", name: "hola mundo", description: "some description some description some description some description ", price: "800", img: "http://animation.com.mx/img/productos/P%C3%B3steres.png", available: "9", discount: "20" },
     ];
-    const handleChangeImg = (newImg) => {
-        img.current.src = newImg.target.src
-    }
+
+
+    // const ImgProduct = forwardRef(({src, alt}, ref)=>{
+    //     return  <Image src={src}alt={alt} layout="fill" ref={ref}/>
+    // });
 
     const { counter, increaseBy, setCounter } = useCounter(1)
 
@@ -49,23 +54,25 @@ const Show = () => {
             <section className="container mx-auto mt-20">
                 <div className="grid grid-cols-1 md:grid-cols-2 p-2 md:p-5 lg:p-10">
                     <div>
-                        <div className="w-full mx-auto h-[15rem] md:h-[30rem]">
-                            <img src={product.principal_image}
-                                className="object-contain w-full h-full p-2" ref={img}
+                        <div className="w-full mx-auto h-[15rem] md:h-[30rem] relative">
+                            <img
+                                src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8cHJvZHVjdHxlbnwwfHwwfHw%3D&w=1000&q=80"
+                                alt={product?.name}
+                                priority
+                                layout="fill"
                             />
                         </div>
                         <div>
-                            <div className="flex">
-                                <div className="border-2 border-gray-300 w-24 h-24 mx-1 cursor-pointer overflow-hidden">
+                            <div className="flex md:mt-10">
+                                <div className="border-2 border-gray-300 w-24 h-24 mx-1 cursor-pointer overflow-hidden relative">
                                     <img
-                                        src={product?.principal_image}
-                                        alt=""
-                                        className="h-full w-full object-fill"
-                                        onClick={e => showImage(e.target.src)}
+                                        src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8cHJvZHVjdHxlbnwwfHwwfHw%3D&w=1000&q=80"
+                                        alt={product?.name}
+                                        layout="fill"
+                                        priority
                                     />
                                 </div>
-                                {
-                                    product?.multimedia.map(multimedia => (
+                                 {/* {   product?.multimedia.map(multimedia => (
                                         <div
                                             className="overflow-hidden border-2 border-gray-300 w-24 h-24 mx-1 cursor-pointer"
                                         >
@@ -77,7 +84,7 @@ const Show = () => {
                                             />
                                         </div>
                                     ))
-                                }
+                                 } */}
                             </div>
                         </div>
                     </div>
@@ -153,10 +160,12 @@ const Show = () => {
                                 <button className="hover:text-white mx-1 hover:bg-black font-bold px-3 py-4 border-2 border-black transition-all duration-700 ease-in-out" onClick={() => increaseBy(+1)}
                                 >+</button>
 
-                                <input value={counter} type="text"
-                                    placeholder="quantity" className="py-4 px-4 w-full w-full outline-none 
+                                <span
+                                    className="py-4 px-4 w-full w-full outline-none 
                                     border-0 text-center font-bold"
-                                />
+                                >
+                                    {counter}
+                                </span>
 
                                 <button className="text-xs lg:text-sm  w-full mx-2 text-white mx-1 bg-black font-bold p-4 border-2 hover:bg-white hover:text-black hover:border-2 border-black transition-all duration-700 ease-in-out" onClick={() => { addCart(product, counter), setCounter(1) }}>
                                     <ShoppingCartIcon />
@@ -181,8 +190,8 @@ const Show = () => {
                 <p className="uppercase font-bold text-center text-2xl mt-20 py-3 bg-gray-50">Productos relacionados</p>
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
                     {
-                        products.map(product => (
-                            <Card product={product} />
+                        products.map((product, index) => (
+                            <Card product={product} key={index} />
                         ))
                     }
                 </div>

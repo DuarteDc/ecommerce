@@ -6,15 +6,16 @@ const initialState = {
 
 export const authReducer = (state = initialState, { payload, type }) => {
   switch (type) {
+
     case types.login:
-      const { token, user } = payload;
-      localStorage.setItem('token', token);
-      localStorage.setItem('user', JSON.stringify(user));
+      const { user } = payload;
       return {
         ...state,
-        user: user,
+        user,
         logged: true
       }
+
+
     case types.register: {
       localStorage.setItem('token', payload.token);
       return {
@@ -23,6 +24,23 @@ export const authReducer = (state = initialState, { payload, type }) => {
         logged: true,
       }
     }
+
+    case types.check_token:{
+      const { user } = payload;
+      return{
+        ...state,
+        user,
+        logged: true
+      }
+    }
+
+    case types.logout:
+      return{
+        ...state,
+        user:undefined,
+        logged: false
+      }
+
     default:
       return state;
   }

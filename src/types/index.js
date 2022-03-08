@@ -2,6 +2,7 @@ export const types = {
 
     login: '[AUTH] loggin ecommerce start',
     logout: '[AUTH] logout ecommerce start',
+    check_token: '[AUTH] check token',
     register: '[AUTH] register',
     resetPassword: '[AUTH] reset password client',
     forgotPassword: '[AUTH] forgot password client',

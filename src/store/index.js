@@ -27,8 +27,9 @@ const reducer = (state, action) => {
     return reducers(state, action);
   }
 }
+
 const middleware = [thunk]
 const makeStore = () => createStore(reducer, composeWithDevTools(applyMiddleware(...middleware)));
 
-export const wrapper = createWrapper(makeStore);
+export const wrapper = createWrapper(makeStore, );
 

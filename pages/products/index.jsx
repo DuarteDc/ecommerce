@@ -8,12 +8,14 @@ import Layout from "../../src/components/Layouts";
 import { startLoadProducts } from "../../src/actions/productsAction";
 import { startLoadCategories } from "../../src/actions/categoryActions";
 import { startLoadBrands } from "../../src/actions/brandsActions";
+import { loadState } from "../../src/actions/shoppingCartActions";
 
 const Products = () => {
 
     const { products, productsfilter } = useSelector((state) => state.products);
     const { categories } = useSelector((state) => state.categories);
     const { brands } = useSelector((state) => state.brands);
+
     return (
         <Layout>
             <h1 className="text-center uppercase text-2xl bg-gray-50 py-3 mt-10 font-bold container mx-auto">Productos</h1>
@@ -44,6 +46,7 @@ export const getServerSideProps = wrapper.getServerSideProps((store) =>
         await store.dispatch(startLoadProducts());
         await store.dispatch(startLoadCategories());
         await store.dispatch(startLoadBrands());
+        
     })
 
 export default Products;

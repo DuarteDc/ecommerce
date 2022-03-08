@@ -31,7 +31,7 @@ const FormSignUp = () => {
     return (
         <Form onSubmit={formik.handleSubmit}>
             <div className="">
-                <div class="">
+                <div className="">
                     <Box sx={{ minWidth: 120 }}>
                         <FormControl fullWidth>
                             <TextField
@@ -46,7 +46,7 @@ const FormSignUp = () => {
                         </FormControl>
                     </Box>
                 </div>
-                <div class="">
+                <div className="">
                     <Box sx={{ minWidth: 120 }}>
                         <FormControl fullWidth>
                             <TextField
@@ -61,7 +61,7 @@ const FormSignUp = () => {
                         </FormControl>
                     </Box>
                 </div>
-                <div class="">
+                <div className="">
                     <Box sx={{ minWidth: 120 }}>
                         <FormControl fullWidth>
                             <TextField
@@ -78,7 +78,7 @@ const FormSignUp = () => {
                     </Box>
                 </div>
                 <div className="mt-5">
-                    <button type='submit' class="
+                    <button type='submit' className="
                         bg-principal-100 rounded-full font-bold text-white w-full py-3 transition duration-300 ease-in-out hover:bg-principal-200
                      ">Registrar
                     </button>

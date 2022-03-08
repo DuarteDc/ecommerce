@@ -1,6 +1,5 @@
 import React from 'react'
 import NavBar from './NavBar'
-import TabBar from './TabBar'
 import Footer from './Footer'
 import Head from "next/head";
 import TopHeader from './TopHeader';
