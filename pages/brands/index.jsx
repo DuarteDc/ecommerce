@@ -10,11 +10,9 @@ import Link from "next/link";
 
 
 
-const index = () => {
-  const partner = [1, 1, 1, 1, 1, 1, 1, 1];
+const Brands = () => {
 
   const { brands } = useSelector((state) => state.brands);
-  console.log(brands);
 
   return (
     <Layout>
@@ -54,7 +52,7 @@ const index = () => {
         </div>
         {
           brands.map(brand => (
-            <section className="my-10 font-bold">
+            <section className="my-10 font-bold" key={brand._id}>
               <div className="flex justify-between items-center text-gray-500 text-sm">
                 <h2 className="text-xl mb-4">{brand.name}</h2>
                 <p className="cursor-pointer">Ver mas...</p>
@@ -124,4 +122,4 @@ export const getServerSideProps = wrapper.getServerSideProps((store) =>
   })
 
 
-export default index
+export default Brands;

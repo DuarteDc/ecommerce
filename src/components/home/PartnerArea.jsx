@@ -33,8 +33,8 @@ export const PartnerArea = () => {
                 }} as={`/brands/${brand._id}`}>
                   <Image
                     src={brand.image}
-                    width={200}
-                    height={150}
+                    width={250}
+                    height={250}
                     className="w-auto inline-block cursor-pointer"
                   />
                 </Link>

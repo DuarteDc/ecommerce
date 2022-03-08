@@ -84,7 +84,7 @@ const Profile = () => {
                     )
                 }
                 <div className="w-full bg-gray-50 mt-10 p-8 drop-shadow-md">
-                    <p className="text-lg font-bold my-4 font-bold">Mis Pedidos</p>
+                    <p className="text-lg font-bold my-4">Mis Pedidos</p>
                     <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
                         <div>
                             <article className="border-4 border-second-100 p-5 cursor-pointer mb-3"

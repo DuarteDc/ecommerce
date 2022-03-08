@@ -57,6 +57,6 @@ export const getServerSideProps = wrapper.getServerSideProps((store) =>
     await store.dispatch(startLoadBrandsHome());
     await store.dispatch(startLoadDataSliders());
     await store.dispatch(startLoadBrands());
-  })
+});
 
 

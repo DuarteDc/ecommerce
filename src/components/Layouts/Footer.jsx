@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { IconContext } from "react-icons";
 import { BsInstagram, BsTwitter, BsFacebook, BsYoutube } from "react-icons/bs";
 
@@ -11,26 +12,22 @@ const Footer = () => {
           Háganos saber en la tienda en el piso 8, 379 Hudson St, New York, NY 10018 o llámenos al (+1) 96 716 6879
           </p>
         </div>
-        <div className="p-2">
+        <div className="p-2 flex flex-col">
           <p className="text-xl font-bold uppercase">Ayuda</p>
-          <ul>
-            <li>Orden</li>
-            <li>Devoluciones</li>
-            <li>Envíos</li>
-            <li>Preguntas Frecuentes</li>
-            <li>Facturas</li>
-          </ul>
+            <Link href="/orden">Orden</Link>
+            <Link href="/devoluciones">Devoluciones</Link>
+            <Link href="/envios">Envíos</Link>
+            <Link href="/preguntass">Preguntas Frecuentes</Link>
+            <Link href="/orden">Facturas</Link>
         </div>
-        <div className="p-2">
+        <div className="p-2 flex flex-col">
           <p className="text-xl font-bold uppercase">Enlaces</p>
-          <ul>
-            <li>Inicio</li>
-            <li>Marcas</li>
-            <li>Categorias</li>
-            <li>Productos</li>
-            <li>Contacto</li>
-            <li>Acerca de</li>
-          </ul>
+            <Link href="/">Inicio</Link>
+            <Link href="/marcas">Marcas</Link>
+            <Link href="/categorias">Categorias</Link>
+            <Link href="/products">Productos</Link>
+            <Link href="/contacto">Contacto</Link>
+            <Link href="/acerca-de-nosotros">Acerca de</Link>
         </div>
         <div className="p-2">
           <p className="text-xl font-bold uppercase">
