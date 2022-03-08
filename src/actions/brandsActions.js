@@ -13,6 +13,7 @@ export const startLoadBrandsHome = () =>{
         }
     }
 }        
+
 export const startLoadBrands = () => {
     return async (dispatch) => {
         let url = '/brands';

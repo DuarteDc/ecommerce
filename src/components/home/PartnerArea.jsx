@@ -2,15 +2,10 @@ import Image from "next/image";
 import Link from "next/link";
 import { Autoplay, Pagination } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/react";
+import {useSelector} from "react-redux";
 
-const partner = [
-  { id: 1, path: "/assets/Divas C.webp" },
-  { id: 2, path: "/assets/Princess C.webp" },
-  { id: 3, path: "/assets/Rebel C.webp" },
-  { id: 4, path: "/assets/Tokyo C.webp" },
-  { id: 5, path: "/assets/Wapizima C.webp" },
-];
 export const PartnerArea = () => {
+  const {brands} = useSelector((state)=>state.brands);
   return (
     <section className="bg-[#f5f5f5] py-8">
       <div className="w-full m-auto px-6">
@@ -28,15 +23,15 @@ export const PartnerArea = () => {
           modules={[Pagination, Autoplay]}
           className={"mySwiper"}
         >
-          {partner.map((part) => (
-            <SwiperSlide key={part.id}>
+          {brands.map((brand) => (
+            <SwiperSlide key={brand._id}>
               <div class="text-center h-auto">
                 <Link href={{
                   pathname: '/brands/[id]',
-                  query: { id: part.id }
-                }} as={`/brands/${part.id}`}>
+                  query: { id: brand._id }
+                }} as={`/brands/${brand._id}`}>
                   <Image
-                    src={part.path}
+                    src={brand.image}
                     width={200}
                     height={150}
                     className="w-auto inline-block cursor-pointer"

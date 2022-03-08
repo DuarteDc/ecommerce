@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux';
 import Layout from '../src/components/Layouts';
 /**Actions */
 import { startLoadOffers } from "../src/actions/offersActions";
-import {startLoadBrandsHome} from "../src/actions/brandsActions";
+import { startLoadBrandsHome , startLoadBrands } from "../src/actions/brandsActions";
 import { startLoadDataSliders } from "../src/actions/slidersActions";
 import { startLoadCategoriesHome } from "../src/actions/categoryActions";
 
@@ -53,6 +53,7 @@ export const getServerSideProps = wrapper.getServerSideProps((store) =>
     await store.dispatch(startLoadOffers());
     await store.dispatch(startLoadBrandsHome());
     await store.dispatch(startLoadDataSliders());
+    await store.dispatch(startLoadBrands());
   })
 
 
