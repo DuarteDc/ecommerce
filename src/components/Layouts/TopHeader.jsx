@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { useEffect,useState } from "react";
-import {FaFacebookF , FaInstagram , FaTwitter , FaYoutube} from "react-icons/fa";
+import { IconContext } from "react-icons";
+import {BsInstagram , BsTwitter , BsFacebook , BsYoutube} from "react-icons/bs";
 
 const TopHeader = () => {
   const [scrollPosition, setScrollPosition] = useState(0);
@@ -24,27 +25,36 @@ const TopHeader = () => {
           <div className="grid grid-cols-3">
           <div className="flex justify-start mx-24 divide-x">
             <a href="/" className="mx-3 text-sm ">
-              <FaFacebookF/>
+            <IconContext.Provider value={{size:"1.1rem", className:"hover:text-[#3b5998] text-[#888]"}}>
+              <BsFacebook/>
+            </IconContext.Provider>
             </a>
             <a href="/" className="mx-3 text-sm">
-              <FaInstagram/>
+            <IconContext.Provider value={{size:"1.1rem"  , className:"hover:text-[#E1306C] text-[#888]"}}>
+              <BsInstagram/>
+            </IconContext.Provider>
             </a>
             <a href="/" className="mx-3 text-sm">
-                <FaTwitter/>
+            <IconContext.Provider value={{size:"1.1rem" , className:"hover:text-[#00acee] text-[#888]"}}>
+                <BsTwitter/>
+            </IconContext.Provider>
             </a>
             <a href="/" className="mx-3 text-sm">
-                <FaYoutube/>
+              <IconContext.Provider value={{size:"1.1rem" ,  className:"hover:text-[#c4302b] text-[#888]"}}>
+                <BsYoutube/>
+              </IconContext.Provider>
+               
             </a>
           </div>
           <div className="flex justify-center">
-              <p>Free shipping for standard order over $100</p>
+              <p className="text-[#888] font-Poppins">Free shipping for standard order over $100</p>
           </div>
           <div className="flex justify-end mx-24">
             <Link href="/">
-                <span  className="mx-3 text-sm">Blog</span>
+                <span  className="mx-3 text-sm text-[#888] font-Poppins">Blog</span>
             </Link>
             <Link href="/">
-                <span className="mx-3 text-sm">Lenguage</span>
+                <span className="mx-3 text-sm text-[#888] font-Poppins">Lenguage</span>
             </Link>
           </div>
           </div>

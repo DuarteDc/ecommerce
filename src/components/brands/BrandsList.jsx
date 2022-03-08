@@ -1,22 +1,40 @@
-import BrandItem from "./BrandItem"
+import { useState } from 'react';
+
+import Collapse from '@mui/material/Collapse';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import ExpandLessIcon from '@mui/icons-material/ExpandLess';
+
+import BrandItem from './BrandItem';
 
 const BrandsList = ({ brands }) => {
+    const [open, setOpen] = useState(true);
+
     return (
         <div className="mb-5">
-            <p className="text-xl font-bold uppercase">Marcas</p>
-            <hr className="w-28" />
+            <div className="flex cursor-pointer"
+                onClick={() => setOpen(!open)}
+            >
+                <p className="text-xl font-bold uppercase">
+                    Marcas
+                </p>
+                {open ? <ExpandLessIcon /> : <ExpandMoreIcon />}
+            </div>
+            <hr className="w-10" />
             <ul className="relative">
                 {
                     brands.map(brand => (
-                        <BrandItem
-                            brand={brand}
+                        <Collapse in={open} timeout="auto" unmountOnExit
                             key={brand._id}
-                        />
+                        >
+                            <BrandItem
+                                brand={brand}
+                            />
+                        </Collapse>
                     ))
                 }
             </ul>
         </div>
-    )
+    );
 }
 
-export default BrandsList
+export default BrandsList;

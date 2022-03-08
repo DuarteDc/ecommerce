@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { BsFillBookmarkCheckFill } from 'react-icons/bs';
 import Alert from '../ui/alert';
 
-const Newsletter = () => {
+export const Newsletter = () => {
   const dispatch = useDispatch();
   const {message} = useSelector((state)=>state.newsletter)
   const initialValues = {
@@ -45,9 +45,9 @@ const Newsletter = () => {
                      }
                    <Form className="flex justify-center flex-wrap" onSubmit={formik.handleSubmit}>
                       <input name="name" required type="text" placeholder="Ingresa tu nombre" value={formik.values.name}
-                       onChange={formik.handleChange} className="bg-[#f5f5f5] w-[250px] h-11 py-0 px-4 text-sm leading-normal text-[#222] border-0 font-['Poppins'] mr-2 mb-4"/>
+                       onChange={formik.handleChange} className="bg-[#f5f5f5] w-[250px] h-11 py-0 px-4 text-sm leading-normal text-[#222] border-0 font-['Poppins'] mr-2 mb-4 outline-0"/>
                         <input name="email" required type="text" placeholder="Ingresa tu correo electronico" value={formik.values.email}
-                       onChange={formik.handleChange} className="bg-[#f5f5f5] w-[250px] h-11 py-0 px-4 text-sm leading-normal text-[#222] border-0 font-['Poppins'] mb-4"/>
+                       onChange={formik.handleChange} className="bg-[#f5f5f5] w-[250px] h-11 py-0 px-4 text-sm leading-normal text-[#222] border-0 font-['Poppins'] mb-4 outline-0"/>
                       <button type="submit" className="ml-2 h-11 border-none bg-[#222] text-luz outline-0 text-base py-0 px-5 font-['Poppins']">Suscribirme</button>                 
                    </Form>
                  </div>
@@ -56,5 +56,3 @@ const Newsletter = () => {
         </div>
     );
 };
-
-export default Newsletter;

@@ -1,11 +1,12 @@
 import {AiOutlineHeart} from 'react-icons/ai';
 import { priceFormat } from '../../helpers/helpers';
-const CardProduct1 = ({ product ,  handleClickModal }) => {
+
+export const CardProduct1 = ({ product ,  handleClickModal }) => {
  const price_format = priceFormat(product.price);
   return (
     <>
       <div className="relative left-0 top-0 pb-[35px] animate__animated animate__zoomIn">
-        <div className="mx-[56px]">
+        <div className="mx-[25px]">
           <div className="block-pick overflow-hidden relative flex justify-center items-center min-h-[400px] ">
             <img
               src={product.principal_image}
@@ -19,7 +20,7 @@ const CardProduct1 = ({ product ,  handleClickModal }) => {
             </a>
           </div>
           <div className="flex items-start flex-wrap">
-            <div>
+            <div className="w-4/5">
               <a className="font-Poppins text-base leading-[2.4] text-[#666] mb-16 ">
                 {product.name}
               </a>
@@ -27,11 +28,14 @@ const CardProduct1 = ({ product ,  handleClickModal }) => {
                 {price_format}
               </p>
             </div>
-            {/* <div className="cursor-pointer w-8 flex justify-end pt-3 w-">
+            <div className="cursor-pointer w-1/5 flex justify-end pt-3 w-">
               <a className="relative block">
-                <AiOutlineHeart/>  
+                <span className="">
+                 <AiOutlineHeart/>
+                </span>
+                  
               </a>
-          </div> */}
+          </div>
           </div>
         </div>
       </div>
@@ -45,5 +49,3 @@ const CardProduct1 = ({ product ,  handleClickModal }) => {
     </>
   );
 };
-
-export default CardProduct1;

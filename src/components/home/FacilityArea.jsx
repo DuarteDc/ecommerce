@@ -3,7 +3,8 @@ import {ImAirplane} from 'react-icons/im';
 import {FaMoneyBillAlt , FaPaypal} from 'react-icons/fa';
 import {BiSupport} from 'react-icons/bi';
 import FacilityBox from '../ui/facilityBox';
-const FacilityAreaComponent = () => {
+
+export const FacilityArea = () => {
     
     return (
         <section className="bg-black py-9">
@@ -28,5 +29,3 @@ const FacilityAreaComponent = () => {
         </section>
     );
 };
-
-export default FacilityAreaComponent;

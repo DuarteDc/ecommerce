@@ -34,7 +34,7 @@ const Cart = () => {
 
     return (
         <>
-            <p onClick={toggleDrawer('right', true)}>Mi carrito ({cart.length})</p>
+            {/* <p onClick={toggleDrawer('right', true)}>Mi carrito ({cart.length})</p> */}
             <Drawer
                 anchor={'right'}
                 open={state['right']}

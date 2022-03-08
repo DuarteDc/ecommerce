@@ -12,11 +12,13 @@ const SliderImage = ({image}) => {
          <style jsx>{
             `
             .main-banner {
-               background-image:url(${image.image});
+               background-image:url(${image});
                background-position:initial;
                background-size:contain;
                background-repeat:no-repeat;
                min-height:400px;
+               height:100vh;
+               width:100vw;
 
             }
             @media(max-width:1024px){

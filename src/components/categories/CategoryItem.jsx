@@ -1,12 +1,12 @@
 import React from 'react'
 import { useDispatch } from "react-redux";
-import { addCategoryToParams } from '../../actions/productsAction';
+import { startLoadProductsPerCategory } from '../../actions/productsAction';
 
 const CategoryItem = ({ category }) => {
     const dispatch = useDispatch();
 
     const handelAddCategory = (category) => {
-        dispatch(addCategoryToParams(category))
+        dispatch(startLoadProductsPerCategory(category))
     }
     return (
         <li className="hover:text-black cursor-pointer 

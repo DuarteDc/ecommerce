@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 import { Autoplay, Pagination } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/react";
 
@@ -9,7 +10,7 @@ const partner = [
   { id: 4, path: "/assets/Tokyo C.webp" },
   { id: 5, path: "/assets/Wapizima C.webp" },
 ];
-const PartnerArea = () => {
+export const PartnerArea = () => {
   return (
     <section className="bg-[#f5f5f5] py-8">
       <div className="w-full m-auto px-6">
@@ -29,15 +30,18 @@ const PartnerArea = () => {
         >
           {partner.map((part) => (
             <SwiperSlide key={part.id}>
-              <div className="text-center h-auto">
-                <a href="/">
+              <div class="text-center h-auto">
+                <Link href={{
+                  pathname: '/brands/[id]',
+                  query: { id: part.id }
+                }} as={`/brands/${part.id}`}>
                   <Image
                     src={part.path}
                     width={200}
                     height={150}
-                    className="w-auto inline-block grayscale hover:grayscale-0 transition duration-500 ease-in-out"
+                    className="w-auto inline-block cursor-pointer"
                   />
-                </a>
+                </Link>
               </div>
             </SwiperSlide>
           ))}
@@ -46,5 +50,3 @@ const PartnerArea = () => {
     </section>
   );
 };
-
-export default PartnerArea;

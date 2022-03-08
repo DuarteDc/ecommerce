@@ -5,9 +5,11 @@ import "swiper/css/navigation";
 import 'animate.css';
 import { wrapper } from '../src/store';
 
-const MyApp = ({ Component, pageProps }) => (
-    <Component {...pageProps} />
-)
+function MyApp({ Component, pageProps }){
+    const getLayout = Component.getLayout || ((page) => page)
+    return getLayout(<Component {...pageProps} />)
+
+}
 
 export default wrapper.withRedux(MyApp);
 
