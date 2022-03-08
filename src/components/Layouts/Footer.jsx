@@ -1,53 +1,76 @@
+import { IconContext } from "react-icons";
+import { BsInstagram, BsTwitter, BsFacebook, BsYoutube } from "react-icons/bs";
+
 const Footer = () => {
-    return (
-        <footer className="h-5/6 py-20 px-11 md:px-32 bg-black md:mb-0 text-white w-full">
-            <div className="grid grid-cols-1 md:grid-cols-2 mb-12">
-                <div className="pr-2">
-                    <h2 className="text-3xl font-bold">Suscribete a Nuestro Newlatter</h2>
-                    <p className="text-lg mb-4">Suscribete para recibir nuestras promociones , ofertas y nuevos productos que están por salir.</p>
-                </div>
-                <div className="flex items-center">
-                    <input type="email" placeholder="Enter your email" className="p-4 w-2/3 mr-2 md:mr-2 outline-none text-black border-2" />
-                    <button className="px-4 py-4 font-semibold border-white bg-black hover:bg-white hover:text-black transition-all duration-700 ease-in-out border-2">
-                        Submit
-                    </button>
-                </div>
-            </div>
-            <hr />
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 mt-12 mb-12">
-                <div className="p-2">
-                    <p className="text-xl font-bold uppercase">Lorem ipsum dolor sit</p>
-                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Expedita nobis sed excepturi tenetur! Delectus </p>
-                </div>
-                <div className="p-2">
-                    <p className="text-xl font-bold uppercase">Learn with us</p>
-                    <ul>
-                        <li>Blog</li>
-                        <li>Products</li>
-                        <li>Categories</li>
-                    </ul>
-                </div>
-                <div className="p-2">
-                    <p className="text-xl font-bold uppercase">Userful links</p>
-                    <ul>
-                        <li>My Acount</li>
-                        <li>Contact</li>
-                        <li>My Products</li>
-                    </ul>
-                </div>
-                <div className="p-2">
-                    <p className="text-xl font-bold uppercase">follow us</p>
-                    <ul>
-                        <li>Facebook</li>
-                        <li>Instagram</li>
-                        <li>Twitter</li>
-                        <li>Youtube</li>
-                    </ul>
-                </div>
-            </div>
-            <p className="text-center">@Copyright 2022 By Digital Pinneapple</p>
-        </footer>
-    )
-}
+  return (
+    <footer className="h-2/4 py-4 px-11 md:px-32 bg-black md:mb-0 text-white">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 mt-12 mb-12">
+        <div className="p-2">
+          <p className="text-xl font-bold uppercase">¿Tienes dudas?</p>
+          <p>
+          Háganos saber en la tienda en el piso 8, 379 Hudson St, New York, NY 10018 o llámenos al (+1) 96 716 6879
+          </p>
+        </div>
+        <div className="p-2">
+          <p className="text-xl font-bold uppercase">Ayuda</p>
+          <ul>
+            <li>Orden</li>
+            <li>Devoluciones</li>
+            <li>Envíos</li>
+            <li>Preguntas Frecuentes</li>
+            <li>Facturas</li>
+          </ul>
+        </div>
+        <div className="p-2">
+          <p className="text-xl font-bold uppercase">Enlaces</p>
+          <ul>
+            <li>Inicio</li>
+            <li>Marcas</li>
+            <li>Categorias</li>
+            <li>Productos</li>
+            <li>Contacto</li>
+            <li>Acerca de</li>
+          </ul>
+        </div>
+        <div className="p-2">
+          <p className="text-xl font-bold uppercase">
+            Siguenos en nuestras Redes Sociales
+          </p>
+          <div className="flex mt-6 justify-center">
+            <a href="/" className="mx-3 text-sm ">
+              <IconContext.Provider
+                value={{ size: "1.1rem", className: "hover:text-[#3b5998]" }}
+              >
+                <BsFacebook />
+              </IconContext.Provider>
+            </a>
+            <a href="/" className="mx-3 text-sm">
+              <IconContext.Provider
+                value={{ size: "1.1rem", className: "hover:text-[#E1306C]" }}
+              >
+                <BsInstagram />
+              </IconContext.Provider>
+            </a>
+            <a href="/" className="mx-3 text-sm">
+              <IconContext.Provider
+                value={{ size: "1.1rem", className: "hover:text-[#00acee]" }}
+              >
+                <BsTwitter />
+              </IconContext.Provider>
+            </a>
+            <a href="/" className="mx-3 text-sm">
+              <IconContext.Provider
+                value={{ size: "1.1rem", className: "hover:text-[#c4302b]" }}
+              >
+                <BsYoutube />
+              </IconContext.Provider>
+            </a>
+          </div>
+        </div>
+      </div>
+      <p className="text-center">@Copyright 2022 By Digital Pinneapple</p>
+    </footer>
+  );
+};
 
 export default Footer;

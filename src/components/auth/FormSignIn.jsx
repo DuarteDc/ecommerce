@@ -40,8 +40,8 @@ export const FormSignIn = () => {
                     onChange={formik.handleChange}
                     placeholder="Correo electronico"
                     error={formik.errors.email}
-                    className="py-4 bg-gray-50  focus:outline-none focus:border-black focus:ring-1 focus:ring-gray-900 px-5"
-
+                    label="Correo Electronico"
+                    helperText={formik.errors.email}
                 />
             </FormControl>
         </Box>

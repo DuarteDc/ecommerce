@@ -19,6 +19,7 @@ export const types = {
     load_products_per_brand: '[PRODUCTS] load products per brand',
 
     loadCategories: '[CATEGORIES] start load categories',
+    loadCategoriesHome:'[CATEGORIES HOME] start load categories',
 
     add_to_cart: '[CART] add to cart',
     remove_one_from_cart: '[CART] remove one from cart',
@@ -31,5 +32,10 @@ export const types = {
     loadTags: '[TAGS] load tags',
 
     loadBrands: '[BRANDS] start load brands',
+    loadBrandsHome: '[HOME] load brands with products home',
+
+    addNewsletterSuscription:'[Home] add and show newsletter suscription menssage',
     loadBrand: '[BRANDS] load brand',
+
+    loadSlidersData:'[Home] load data sliders offers'
 }

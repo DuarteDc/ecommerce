@@ -10,7 +10,7 @@ const partner = [
   { id: 4, path: "/assets/Tokyo C.webp" },
   { id: 5, path: "/assets/Wapizima C.webp" },
 ];
-const PartnerArea = () => {
+export const PartnerArea = () => {
   return (
     <section className="bg-[#f5f5f5] py-8">
       <div className="w-full m-auto px-6">
@@ -50,5 +50,3 @@ const PartnerArea = () => {
     </section>
   );
 };
-
-export default PartnerArea;

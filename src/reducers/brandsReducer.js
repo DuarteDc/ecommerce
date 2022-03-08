@@ -1,13 +1,19 @@
 import { types } from "../types";
 
 const initialState = {
-    brands: [],
+    brandsHome: [],
+    brands:[],
     brand: [],
 }
 
 
 export const brandsReducer = (state = initialState, { type, payload }) => {
     switch (type) {
+        case types.loadBrandsHome:
+            return{
+                ...state,
+                brandsHome:payload
+            }
         case types.loadBrands:
             return {
                 ...state,

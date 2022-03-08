@@ -1,18 +1,58 @@
-import { useSelector } from "react-redux";
-import { startLoadOffers } from "../src/actions/offersActions";
-import Content from "../src/components/Layouts/Content";
 import { wrapper } from "../src/store";
+import { useSelector } from 'react-redux';
 
-const Home = () => {
+import Layout from '../src/components/Layouts';
+/**Actions */
+import { startLoadOffers } from "../src/actions/offersActions";
+import {startLoadBrandsHome} from "../src/actions/brandsActions";
+import { startLoadDataSliders } from "../src/actions/slidersActions";
+import { startLoadCategoriesHome } from "../src/actions/categoryActions";
 
-  const { offers } = useSelector((state) => state.offers);
+/**Components */
+import {Slider,
+        Newsletter,
+        PartnerArea,
+        CategoryArea,
+        FacilityArea,
+        ProductsArea,
+        ProductsOfferArea,
+        TestimonialArea
+      } from '../src/components/home';
+
+
+
+
+
+export default function HomePage(){
+  const { offers } = useSelector((state)=>state.offers);
   return (
-    <Content offers={offers} />
+    <>
+    <Slider/>
+    <FacilityArea/>
+    <CategoryArea/>
+    {offers.length && <ProductsOfferArea/> || null} 
+    <ProductsArea/>
+    <Newsletter/>
+    <TestimonialArea/>
+    <PartnerArea/>
+    </>
   )
 }
+
+HomePage.getLayout = function getLayout(page){
+    return(
+    <Layout>
+      {page}
+    </Layout>
+    )
+}
+
 export const getServerSideProps = wrapper.getServerSideProps((store) =>
   async () => {
-    await store.dispatch(startLoadOffers())
+    await store.dispatch(startLoadCategoriesHome());
+    await store.dispatch(startLoadOffers());
+    await store.dispatch(startLoadBrandsHome());
+    await store.dispatch(startLoadDataSliders());
   })
 
-export default Home;
+

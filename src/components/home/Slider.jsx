@@ -1,12 +1,7 @@
 import { Swiper, SwiperSlide } from "swiper/react";
-import "swiper/css";
-import "swiper/css/pagination";
-import "swiper/css/navigation";
-
 import { Pagination, Autoplay } from "swiper";
-import Image from "next/image";
-import ImageSlider from '../../../public/assets/images/love-nails.jpg';
-import SliderImage from "./SliderImage";
+import SliderImage from "../Layouts/SliderImage";
+import { useSelector } from "react-redux";
 
 const images = [
     {'id':'1',
@@ -35,7 +30,9 @@ const images = [
     }
 ]
 
-const Slider = ({ offers }) => {
+export const Slider = () => {
+    const {slidersData} = useSelector((state)=>state.sliders);
+
     return (
         <section className="mb-0 cursor-pointer overflow-hidden">
             <Swiper
@@ -53,11 +50,10 @@ const Slider = ({ offers }) => {
                 className="mySwiper"
             >
                 {
-                    images.map(image=>(
-                        <SwiperSlide key={image.id}>
-                        <SliderImage
-                        
-                         image={image}
+                    slidersData.map(slider=>(
+                        <SwiperSlide key={slider._id}>
+                        <SliderImage  
+                         image={slider.image}
                         />
                         </SwiperSlide>
                     ))
@@ -68,5 +64,3 @@ const Slider = ({ offers }) => {
         </section>
     )
 }
-
-export default Slider;

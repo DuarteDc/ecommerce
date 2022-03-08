@@ -103,7 +103,7 @@ const ProductInfo = ({ product, CloseModal }) => {
 
                         <span className="py-4 px-4 w-full w-full outline-none border-0 text-center font-bold">{counter} </span>
 
-                        <button className="text-xs lg:text-sm  w-full mx-2 text-white mx-1 bg-black font-bold p-4 border-2 hover:bg-white hover:text-black hover:border-2 border-black transition-all duration-700 ease-in-out" onClick={() => { addCart(product, counter), CloseModal(), setCounter(1) }}>
+                        <button className="text-xs lg:text-sm  w-full mx-2 text-white  bg-black font-bold p-4 border-2 hover:bg-white hover:text-black hover:border-2 border-black transition-all duration-700 ease-in-out" onClick={() => { addCart(product, counter), CloseModal(), setCounter(1) }}>
                             <ShoppingCartIcon />
                             ADD TO CART
                         </button>

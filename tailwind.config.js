@@ -19,11 +19,16 @@ module.exports = {
         'imgcreateaccountc': "url('/assets/images/createAccount.jpeg')",
         'imgpasswvalidation': "url('/assets/images/imgPWV.png')",
         'imgverification': "url('/assets/images/imgverification.png')",
-        'shop-cart': "url('/assets/images/shop-cart.png')"
+        'shop-cart': "url('/assets/images/shop-cart.png')",
+        'about-us':"url('/assets/images/bg-01.jpg')",
+        'testimonial':"url('/assets/images/bg-testimonial.webp')"
       },
       screens: {
         'peque': { 'max': '639px' },
         'biggr': { 'min': '1441px', 'max': '1920px' }
+      },
+      fontFamily:{
+        'Poppins':['Poppins']
       }
     },
   },

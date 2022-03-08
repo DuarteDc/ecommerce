@@ -1,5 +1,5 @@
 import client from '../config/axiosConfig';
-import { types } from "../types"
+import { types } from "../types";
 
 export const startLoadProducts = () => {
     return async (dispatch) => {

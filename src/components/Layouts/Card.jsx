@@ -37,9 +37,9 @@ const Card = ({ product }) => {
 
 
     return (
-        <article className="my-10 w-10/12 mx-auto relative border-gray-200 h-[38rem] hover:scale-[1.01] transition-all duration-500 ease-in-out">
+        <article className="my-10 w-10/12 mx-auto relative border-gray-200 h-[38rem] hover:scale-[1.01] transition-all duration-500 ease-in-out border-2">
             <div className="
-                hover:first:flex overflow-hidden cursor-pointer h-2/3 w-full h-full relative"
+                hover:first:flex overflow-hidden cursor-pointer h-2/3 w-full  relative"
                 onClick={() => handleClickModal(product)}
             >
                 <img
