@@ -137,9 +137,8 @@ const Profile = () => {
                                                     <td className="flex items-center">
                                                         <img
                                                             src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8cHJvZHVjdHxlbnwwfHwwfHw%3D&w=1000&q=80"
-                                                            className="object-contain" 
+                                                            className="object-contain w-32" 
                                                             alt="img"
-                                                            className="w-32"
                                                         />
                                                         <div className="ml-2">
                                                             <p className="font-light text-xs md:text-base">Name product</p>
