@@ -1,12 +1,13 @@
 import { useRef } from "react";
 import { priceFormat } from "../../helpers/helpers";
 import { useCounter } from "../../hooks/useCounter";
+
 import Link from "next/link";
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import { useDispatch, useSelector } from "react-redux";
 import { newProduct } from "../../actions/shoppingCartActions";
 
-const ProductInfo = ({ product, CloseModal }) => {
+const ProductInfo = ({ product, closeModal }) => {
     const dispatch = useDispatch();
     const img = useRef(null);
     const { counter, increaseBy, setCounter } = useCounter(1);
@@ -20,6 +21,7 @@ const ProductInfo = ({ product, CloseModal }) => {
     const addCart = (product, value) => {
         dispatch(newProduct(product, value));
     }
+
 
     return (
         <div className="grid grid-cols-1 md:grid-cols-2 ">
@@ -103,7 +105,7 @@ const ProductInfo = ({ product, CloseModal }) => {
 
                         <span className="py-4 px-4 w-full w-full outline-none border-0 text-center font-bold">{counter} </span>
 
-                        <button className="text-xs lg:text-sm  w-full mx-2 text-white  bg-black font-bold p-4 border-2 hover:bg-white hover:text-black hover:border-2 border-black transition-all duration-700 ease-in-out" onClick={() => { addCart(product, counter), CloseModal(), setCounter(1) }}>
+                        <button className="text-xs lg:text-sm  w-full mx-2 text-white  bg-black font-bold p-4 border-2 hover:bg-white hover:text-black hover:border-2 border-black transition-all duration-700 ease-in-out" onClick={() => { addCart(product, counter), closeModal(), setCounter(1) }}>
                             <ShoppingCartIcon />
                             ADD TO CART
                         </button>

@@ -73,7 +73,7 @@ export const ProductsArea = () => {
                   products.map(product=>(
                         <CardProduct2
                             key={product._id}
-                            image={product.principal_image}
+                            image={product?.principal_image}
                             product={product}
                             handleClickModal={(product)=>handleClickModal(product)}
                         />

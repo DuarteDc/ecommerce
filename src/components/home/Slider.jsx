@@ -53,7 +53,7 @@ export const Slider = () => {
                     slidersData.map(slider=>(
                         <SwiperSlide key={slider._id}>
                         <SliderImage  
-                         image={slider.image}
+                         image={slider.imageWeb}
                         />
                         </SwiperSlide>
                     ))

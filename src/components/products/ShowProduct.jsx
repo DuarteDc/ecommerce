@@ -7,8 +7,7 @@ import ProductInfo from "./ProductInfo";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 
-const ShowProduct = ({ isOpen, CloseModal }) => {
-    const dispatch = useDispatch();
+const ShowProduct = ({ isOpen, closeModal }) => {
     const { productSelected } = useSelector((state) => state.products);
     return (
         <section>
@@ -16,7 +15,7 @@ const ShowProduct = ({ isOpen, CloseModal }) => {
                 aria-labelledby="transition-modal-title"
                 aria-describedby="transition-modal-description"
                 open={isOpen}
-                onClose={CloseModal}
+                onClose={closeModal}
                 closeAfterTransition
                 BackdropComponent={Backdrop}
                 BackdropProps={{
@@ -25,10 +24,10 @@ const ShowProduct = ({ isOpen, CloseModal }) => {
             >
                 <Fade in={isOpen}>
                     <Box className="overflow-hidden drop-shadow-2xl w-11/12 md:w-7/12 border-2 mx-auto p-8 bg-white mt-5">
-                        <span className="flex flex-row-reverse cursor-pointer" onClick={CloseModal}>
+                        <span className="flex flex-row-reverse cursor-pointer" onClick={closeModal}>
                             <CloseIcon />
                         </span>
-                        <ProductInfo product={productSelected} CloseModal={CloseModal} />
+                        <ProductInfo product={productSelected} closeModal={closeModal} />
                     </Box>
                 </Fade>
             </Modal>

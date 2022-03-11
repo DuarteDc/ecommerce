@@ -1,20 +1,26 @@
 import Layout from "../../src/components/Layouts"
-import Slider from "../../src/components/Layouts/Slider"
 import { Swiper, SwiperSlide } from "swiper/react";
-import VisibilityIcon from '@mui/icons-material/Visibility';
 import { Pagination } from "swiper";
 import { startLoadBrands } from "../../src/actions/brandsActions";
 import { wrapper } from "../../src/store";
 import { useSelector } from "react-redux";
 import Link from "next/link";
+import { CardProduct2 } from "../../src/components/ui/cardProduct2";
 
 
 
 const index = () => {
-  const partner = [1, 1, 1, 1, 1, 1, 1, 1];
+  const products = [
+    { id: 1, name: "hoa", price: "120", principal_image: "https://images.ctfassets.net/2d5q1td6cyxq/4kmwcxuqXxUxUVfggQhbiI/650b0af104bfdf9979545eb326786243/Hero-hottoddy_.jpg" },
+    { id: 2, name: "hoa", price: "120", principal_image: "https://images.ctfassets.net/2d5q1td6cyxq/4kmwcxuqXxUxUVfggQhbiI/650b0af104bfdf9979545eb326786243/Hero-hottoddy_.jpg" },
+    { id: 3, name: "hoa", price: "120", principal_image: "https://images.ctfassets.net/2d5q1td6cyxq/4kmwcxuqXxUxUVfggQhbiI/650b0af104bfdf9979545eb326786243/Hero-hottoddy_.jpg" },
+    { id: 4, name: "hoa", price: "120", principal_image: "https://images.ctfassets.net/2d5q1td6cyxq/4kmwcxuqXxUxUVfggQhbiI/650b0af104bfdf9979545eb326786243/Hero-hottoddy_.jpg" },
+    { id: 5, name: "hoa", price: "120", principal_image: "https://images.ctfassets.net/2d5q1td6cyxq/4kmwcxuqXxUxUVfggQhbiI/650b0af104bfdf9979545eb326786243/Hero-hottoddy_.jpg" },
+    { id: 6, name: "hoa", price: "120", principal_image: "https://images.ctfassets.net/2d5q1td6cyxq/4kmwcxuqXxUxUVfggQhbiI/650b0af104bfdf9979545eb326786243/Hero-hottoddy_.jpg" },
+    { id: 7, name: "hoa", price: "120", principal_image: "https://images.ctfassets.net/2d5q1td6cyxq/4kmwcxuqXxUxUVfggQhbiI/650b0af104bfdf9979545eb326786243/Hero-hottoddy_.jpg" },
+  ]
 
   const { brands } = useSelector((state) => state.brands);
-  console.log(brands);
 
   return (
     <Layout>
@@ -57,11 +63,16 @@ const index = () => {
             <section className="my-10 font-bold">
               <div className="flex justify-between items-center text-gray-500 text-sm">
                 <h2 className="text-xl mb-4">{brand.name}</h2>
-                <p className="cursor-pointer">Ver mas...</p>
+                <Link href={{
+                  pathname: '/brands/[id]',
+                  query: { id: brand._id }
+                }}>
+                  <a className="cursor-pointer hover:text-black transition-all duration-700 ease-in-out">Ver mas...</a>
+                </Link>
               </div>
-              <div className="w-full py-10">
+              <div>
                 <Swiper
-                  slidesPerView={4}
+                  slidesPerView={1}
                   spaceBetween={2}
                   loop={true}
                   pagination={{
@@ -85,27 +96,11 @@ const index = () => {
                   }}
                 >
                   <SwiperSlide>
-                    <div className="h-[30rem] cursor-pointer px-5 mb-10 ">
-                      <img
-                        src="https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/MX472_AV4?wid=2000&hei=2000&fmt=jpeg&qlt=95&.v=1570119352353"
-                        className="h-2/3 w-full"
-                      />
-                      <div className="px-2 py-5">
-                        <p className="mt-5">Lorem ipsum dolor sit.</p>
-                        <p>$300</p>
-                        <div className="flex justify-between flex-row items-center mt-5">
-                          <button className="text-xs lg:text-sm text-white mx-1 bg-black font-bold py-2 px-2 border-2 hover:bg-white hover:text-black hover:border-2 border-black transition-all duration-700 ease-in-out">
-                            Agregar a carrito
-                          </button>
-                          <Link href={{
-                            pathname: 'brands/[id]',
-                            query: { id: brand._id }
-                          }}>
-                            <p className="text-gray-500">Ver detalles</p>
-                          </Link>
-                        </div>
-                      </div>
-                    </div>
+                    {
+                      products.map(product => (
+                        <CardProduct2 product={product} />
+                      ))
+                    }
                   </SwiperSlide>
                 </Swiper>
               </div>
