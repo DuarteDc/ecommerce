@@ -1,11 +1,12 @@
 import Layout from "../../src/components/Layouts"
 import { Swiper, SwiperSlide } from "swiper/react";
-import VisibilityIcon from '@mui/icons-material/Visibility';
 import { Pagination } from "swiper";
 import { startLoadBrands } from "../../src/actions/brandsActions";
 import { wrapper } from "../../src/store";
 import { useSelector } from "react-redux";
 import Link from "next/link";
+import { CardProduct2 } from "../../src/components/ui/cardProduct2";
+import {AiOutlineHeart} from 'react-icons/ai';
 
 
 
@@ -54,11 +55,16 @@ const Brands = () => {
             <section className="my-10 font-bold" key={brand._id}>
               <div className="flex justify-between items-center text-gray-500 text-sm">
                 <h2 className="text-xl mb-4">{brand.name}</h2>
-                <p className="cursor-pointer">Ver mas...</p>
+                <Link href={{
+                  pathname: '/brands/[id]',
+                  query: { id: brand._id }
+                }}>
+                  <a className="cursor-pointer hover:text-black transition-all duration-700 ease-in-out">Ver mas...</a>
+                </Link>
               </div>
-              <div className="w-full py-10">
+              <div>
                 <Swiper
-                  slidesPerView={4}
+                  slidesPerView={1}
                   spaceBetween={2}
                   loop={true}
                   pagination={{
@@ -82,27 +88,54 @@ const Brands = () => {
                   }}
                 >
                   <SwiperSlide>
-                    <div className="h-[30rem] cursor-pointer px-5 mb-10 ">
-                      <img
-                        src="https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/MX472_AV4?wid=2000&hei=2000&fmt=jpeg&qlt=95&.v=1570119352353"
-                        className="h-2/3 w-full"
-                      />
-                      <div className="px-2 py-5">
-                        <p className="mt-5">Lorem ipsum dolor sit.</p>
-                        <p>$300</p>
-                        <div className="flex justify-between flex-row items-center mt-5">
-                          <button className="text-xs lg:text-sm text-white mx-1 bg-black font-bold py-2 px-2 border-2 hover:bg-white hover:text-black hover:border-2 border-black transition-all duration-700 ease-in-out">
-                            Agregar a carrito
-                          </button>
-                          <Link href={{
-                            pathname: 'brands/[id]',
-                            query: { id: brand._id }
-                          }}>
-                            <p className="text-gray-500">Ver detalles</p>
-                          </Link>
+                    <>
+                      <div className="relative left-0 top-0 pb-[35px] animate__animated animate__zoomIn">
+                        <div className="">
+                          <div className="block-pick overflow-hidden relative flex justify-center items-center min-h-[400px] ">
+                            <img
+                              src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8cHJvZHVjdHxlbnwwfHwwfHw%3D&w=1000&q=80"
+                              className="w-full h-full transition-transform duration-[0.9s] ease-linear delay-0 hover:scale-[1.1] max-w-[300px] max-h-[400px]"
+                            />
+
+                            <div className="absolute w-full h-full top-0 left-0 bg-[rgba(0,0,0,0.2)] opacity-0 hover:opacity-[1] transition-all	duration-[0.4s] ease-linear delay-0">
+
+                              <a className="addwishlist block absolute top-[26px] right-[20px] font-normal text-xl text-luz leading-none	scale-0 transition-all duration-[0.4s] ease-linear delay-0">
+                                <AiOutlineHeart />
+                              </a>
+                              <div className="absolute left-2/4 translate-x-[-50%]  bottom-[-50px] w-[161px] transition-all	duration-[0.4s] ease-linear delay-0">
+                                <button
+                                  className="block-btn rounded-3xl bg-[#222] min-w-[139px] h-10 font-Poppins leading-[1.4] text-luz absolute bottom-[-50px] left-[50%] translate-x-[-50%] flex justify-center items-center px-4 hover:bottom-10 hover:border-[#222] hover:no-underline hover:overflow-visible cursor-pointer transition-all	duration-[0.4s] ease-linear delay-0"
+                                >
+                                  Ver más
+                                </button>
+                              </div>
+
+                            </div>
+                          </div>
+                          <div className="flex items-start flex-wrap">
+                            <div className="w-4/5">
+                              <a className="font-Poppins text-base leading-[2.4] text-[#666] mb-16 ">
+                                Hola mundo
+                              </a>
+                              <p className="font-Poppins text-base leading-[1] text-[#666]">
+                                200
+                              </p>
+                            </div>
+                          </div>
                         </div>
                       </div>
-                    </div>
+                      <style jsx>
+                        {`
+          .block-pick:hover .block-btn {
+            bottom: 100px;
+          }
+
+          .block-pick:hover .addwishlist{
+              transform:scale(1);
+          }
+        `}
+                      </style>
+                    </>
                   </SwiperSlide>
                 </Swiper>
               </div>

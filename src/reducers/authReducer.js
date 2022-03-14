@@ -17,10 +17,10 @@ export const authReducer = (state = initialState, { payload, type }) => {
 
 
     case types.register: {
-      localStorage.setItem('token', payload.token);
+      const { user } = payload;
       return {
         ...state,
-        user: payload.user,
+        user,
         logged: true,
       }
     }

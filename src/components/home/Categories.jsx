@@ -53,11 +53,11 @@ export const CategoryArea = () => {
               <>
                 <div className="relative left-0 top-0 pb-[35px] h-[300px] w-[400px]">
                   <div className="block-pick overflow-hidden relative flex justify-center  min-h-[300px] ">
-                    <Image
-                      src={category.imageWeb}
+                    {/*<Image
+                      src={category.image}
                       width={400}
                       height={300}
-                    />
+                    />*/}
 
                     <div className="absolute w-full h-full top-0 left-0 bg-[rgba(0,0,0,0.2)] opacity-0 hover:opacity-[1] transition-all	duration-[0.4s] ease-linear delay-0">
                       <div className="absolute left-2/4 translate-x-[-50%]  bottom-[-10px] w-[161px] transition-all	duration-[0.4s] ease-linear delay-0">

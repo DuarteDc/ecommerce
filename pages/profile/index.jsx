@@ -1,5 +1,4 @@
-import { useState } from "react";
-import Image from 'next/image'
+import { useEffect, useState } from "react";
 
 import EditIcon from '@mui/icons-material/Edit';
 
@@ -12,28 +11,50 @@ import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../../src/actions/authActions";
 import Router from "next/router";
 import Cookies from "js-cookie";
+import FormAddress from "../../src/components/profile/FormAddress";
+import { getAddress, setDefaultAddress } from "../../src/actions/profileAcctions";
 
 const Profile = () => {
     const [open, setOpen] = useState(true);
-    const {user} = useSelector(state => state.auth);
+    const { user } = useSelector(state => state.auth);
     const [isOpen, openModal, closeModal] = useModal();
+    const [isOpenAddress, openModalAddress, closeModalAddres] = useModal();
 
-    const dispatch = useDispatch()   
+    const [address, setAddress] = useState(null)
+
+    const dispatch = useDispatch()
     const router = Router;
 
-    const logoutSession = () =>{
+    const logoutSession = () => {
         dispatch(logout());
         Cookies.remove('token')
         router.replace('/')
     }
 
+
+    const selectDefaultDirection = (id) => {
+        setDefaultAddress('',id);
+        loadAddress();
+    }
+    const loadAddress = async () => {
+        const _address = await getAddress();
+        setAddress(_address);
+    }
+
+    useEffect(() => {
+        loadAddress();
+    }, [])
+
     return (
         <Layout>
-            <section className="container mx-auto mt-10 p-10 mb-16 md:mb-10">
-                <h2 className="text-3xl text-center uppercase my-10">Perfil</h2>
+            <section className="container mx-auto p-10 mb-16">
+                <h1 className="text-center uppercase text-2xl bg-gray-50 py-3 my-20 font-bold container mx-auto">Perfil</h1>
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                    <div className="w-full flex flex-col items-center p-4 bg-gray-50 drop-shadow-md">
-                        <img src="https://media.istockphoto.com/photos/gingerbread-man-3d-rendering-isolated-on-white-background-picture-id1250677513?k=20&m=1250677513&s=612x612&w=0&h=KVAes7pQUH0XRDhRGqXy0na2tyaTWbCCpZ8U1r1EpNw=" alt="" className="w-full md:w-2/3 rounded-full" />
+                    <div className="w-full flex flex-col items-center p-4 drop-shadow-md">
+                        <img
+                            src="https://media.istockphoto.com/photos/gingerbread-man-3d-rendering-isolated-on-white-background-picture-id1250677513?k=20&m=1250677513&s=612x612&w=0&h=KVAes7pQUH0XRDhRGqXy0na2tyaTWbCCpZ8U1r1EpNw=" alt="" className="w-full md:w-2/3 rounded-full"
+                            alt={user?.fullname}
+                        />
                         <p className="text-2xl uppercase mt-5 text-center">{user?.fullname}</p>
                         <button className="py-2 px-4 bg-black text-white font-bold my-5 hover:bg-white hover:text-black border-2 border-black transition-all duration-700 ease-in-out"
                             onClick={logoutSession}
@@ -41,38 +62,48 @@ const Profile = () => {
                             Cerrar Sessión
                         </button>
                     </div>
-                    <div className="col-span-1 md:col-span-2 relative bg-gray-50  drop-shadow-md overflow-hidden">
-                        <FormProfile {...user}/>
+                    <div className="col-span-1 md:col-span-2 relative  drop-shadow-md overflow-hidden">
+                        <FormProfile {...user} />
                     </div>
                 </div>
                 <div className="w-full bg-gray-50 mt-10 p-8 drop-shadow-md">
                     <div className="flex items-center justify-between">
-                        <p className="text-xl font-bold">Address Settings</p>
-                        <EditIcon className="text-second-100 cursor-pointer" />
+                        <p className="text-xl font-bold">Direcciones</p>
+                        <EditIcon
+                            className="text-second-100 cursor-pointer"
+                            onClick={openModalAddress}
+                        />
                     </div>
-                    <div className="flex mt-4 md:ml-20">
-                        <p className="font-light">Address (Primary):</p>
-                        <p>Direccion #213 col. Lorem ipsum</p>
-                    </div>
-                    <div className="flex mt-4 md:ml-20">
-                        <p className="font-light">Address:</p>
-                        <p>Direccion #213 col. Lorem ipsum Lorem, ipsum dolor.</p>
-                    </div>
-                    <div className="flex mt-4 md:ml-20">
-                        <p className="font-light">Address:</p>
-                        <p>Direccion #213 col. Lorem ipsum Lorem ipsum dolor sit amet.</p>
-                    </div>
+                    {
+                        address?.map(address => (
+                            <div className="flex mt-4 md:ml-20" key={address._id}>
+                                <p className="font-light">Dirección{address.default && '(Por defecto):'}</p>
+                                <p onClick={() => selectDefaultDirection(address._id)} className="cursor-pointer">
+                                    {`${address.street}, #${address.no_int}, ${address.city}, ${address.postalcode}, ${address.municipality.name}, ${address.state.name}`}
+                                </p>
+                            </div>
+                        ))
+                    }
+                    {
+                        isOpenAddress && (
+                            <FormAddress
+                                isOpen={isOpenAddress}
+                                closeModal={closeModalAddres}
+                                loadAddress={loadAddress}
+                            />
+                        )
+                    }
                 </div>
                 <div className="w-full bg-gray-50 mt-10 p-8 drop-shadow-md">
                     <div className="flex items-center justify-between">
-                        <p className="text-xl font-bold">Security</p>
+                        <p className="text-xl font-bold">Seguridad</p>
                         <EditIcon className="text-second-100 cursor-pointer"
                             onClick={openModal}
                         />
                     </div>
                     <div className="flex mt-4 md:ml-20 items-center">
                         <p className="font-light">Password:</p>
-                        <p>•••••••••••••••••••</p>
+                        <p className="ml-2 mt-1">••••••••••••••••</p>
                     </div>
                 </div>
                 {

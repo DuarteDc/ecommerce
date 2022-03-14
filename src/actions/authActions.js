@@ -10,9 +10,9 @@ export const startLoginEmailPassword = (data) => {
             const res = await client.post(url, data);
             const { token, user } = res.data;
             Cookies.set('token', token)
-            dispatch(login(token, user))
+            dispatch(login(token, user));            
         } catch (error) {
-            alert(errorHandler(error));
+            return errorHandler(error);
         }
     }
 }
@@ -32,6 +32,7 @@ export const startRegister = (data) => {
         try {
             const res = await client.post(url, data);
             const { user, token } = res.data;
+            Cookies.set('token', token)
             dispatch(register(user, token))
         } catch (error) {
             return errorHandler(error);
@@ -61,6 +62,7 @@ export const startVerifyToken = () => {
             const { user, token } = res.data;
             dispatch(verifyToken(user, token))
         } catch (error) {
+            Cookies.remove('token');
             return errorHandler(error);
         }
     }
@@ -81,16 +83,17 @@ export const logout = () => ({
 })
 
 
-export const startChangePassword = async () => {
-    let url = '/auth/changePassword'
+export const startChangePassword = async (data) => {
+    let url = 'auth/changePassword'
     try {
-        const token = Cookies.get('token');
-        const res = await client.post(url, {
+        const token = await Cookies.get('token');
+        const res = await client.post(url, data,{
             headers: {
                 'Authorization': token
             }
         });
+        console.log(res.data)
     } catch (error) {
-        return errorHandler(error);
+        alert(errorHandler(error))
     }
 }

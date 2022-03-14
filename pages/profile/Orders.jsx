@@ -1,8 +1,6 @@
 const Orders = () => {
     return (
-        <article className="border-2 border-[#fa4401] p-5 rounded-lg cursor-pointer"
-            onClick={() => setOpen(!open)}
-        >
+        <article className="border-2 border-[#fa4401] p-5 rounded-lg cursor-pointer">
             <p className="text-center font-bold">Pedido #12</p>
             <hr />
             <div className="flex mt-4">

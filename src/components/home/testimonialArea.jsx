@@ -43,7 +43,7 @@ export const TestimonialArea = () => {
           <SwiperSlide>
             <div className="text-center my-0 mx-auto max-w-[745px]">
               <div className="mb-[30px]">
-                <Image src="/assets/images/12.jpg" width={65} height={65} />
+                {/*<Image src="/assets/images/12.jpg" width={65} height={65} />*/}
               </div>
               <p className="text-luz mb-0 font-Poppins leading-[1.9]">
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
