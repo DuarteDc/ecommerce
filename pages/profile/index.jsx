@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import Image from 'next/image'
 
 import EditIcon from '@mui/icons-material/Edit';
 
@@ -12,7 +11,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../../src/actions/authActions";
 import Router from "next/router";
 import Cookies from "js-cookie";
-import Link from "next/link";
 import FormAddress from "../../src/components/profile/FormAddress";
 import { getAddress, setDefaultAddress } from "../../src/actions/profileAcctions";
 
@@ -56,7 +54,6 @@ const Profile = () => {
                         <img
                             src="https://media.istockphoto.com/photos/gingerbread-man-3d-rendering-isolated-on-white-background-picture-id1250677513?k=20&m=1250677513&s=612x612&w=0&h=KVAes7pQUH0XRDhRGqXy0na2tyaTWbCCpZ8U1r1EpNw=" alt="" className="w-full md:w-2/3 rounded-full"
                             alt={user?.fullname}
-                            className="w-full md:w-2/3 rounded-full"
                         />
                         <p className="text-2xl uppercase mt-5 text-center">{user?.fullname}</p>
                         <button className="py-2 px-4 bg-black text-white font-bold my-5 hover:bg-white hover:text-black border-2 border-black transition-all duration-700 ease-in-out"

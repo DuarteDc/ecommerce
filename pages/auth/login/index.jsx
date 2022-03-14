@@ -5,7 +5,7 @@ import { FormSignIn } from '../../../src/components/auth/FormSignIn'
 import Layout from '../../../src/components/Layouts'
 
 
-const index = () => {
+const Login = () => {
 
   const router = useRouter();
   return (
@@ -33,4 +33,4 @@ const index = () => {
   )
 }
 
-export default index
+export default Login

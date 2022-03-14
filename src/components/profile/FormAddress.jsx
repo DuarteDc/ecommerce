@@ -22,7 +22,7 @@ const FormAddress = ({ isOpen, closeModal, loadAddress }) => {
         setStates(_states);
     }
 
-    const handleChangeState = async ({ target }) => {        
+    const handleChangeState = async ({ target }) => {
         const _id = target.value
         const _municipalities = await getMinicipilitesPerState(_id);
         setMunicipalities(_municipalities);
@@ -47,8 +47,8 @@ const FormAddress = ({ isOpen, closeModal, loadAddress }) => {
         city: Yup.string().min(5, 'El campo debe contener al menos 8 caracteres').required('El campo es requerido'),
         references: Yup.string().min(8, 'El campo debe contener al menos 8 caracteres').required('El campo es requerido'),
         no_int: Yup.number().required('El campo es requerido'),
-        state: Yup.string().required('El campo es requerido'),
         municipality: Yup.string().required('El campo es requerido')
+        //state: Yup.string().required('El campo es requerido'),
     }
 
     const formik = useFormik({
@@ -169,7 +169,6 @@ const FormAddress = ({ isOpen, closeModal, loadAddress }) => {
                             <select
                                 name="state"
                                 onChange={handleChangeState}
-                                onChange={formik.handleChange}
                                 placeholder="Estado"
                                 type="text"
                                 className="py-4 bg-gray-50  focus:outline-none focus:border-black focus:ring-1 focus:ring-gray-900 px-5 w-full my-1"
