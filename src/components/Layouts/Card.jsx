@@ -31,7 +31,7 @@ const Card = ({ product }) => {
             >
                 <img
                     className="object-fill w-full h-full"
-                    src={product._id}
+                    src={product?.multimedia[0]?.path}
                     alt={product?.name}
                     layout="fill"
                 />

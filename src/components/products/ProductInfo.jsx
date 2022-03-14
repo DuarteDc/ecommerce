@@ -27,7 +27,7 @@ const ProductInfo = ({ product, closeModal }) => {
         <div className="grid grid-cols-1 md:grid-cols-2 ">
             <div>
                 <div className="w-full h-[15rem] md:h-[25rem]">
-                    <img src={product.principal_image}
+                    <img src={product.multimedia[0]?.path}
                         className="object-contain w-full h-full p-2" ref={img}
                     />
                 </div>
@@ -35,7 +35,7 @@ const ProductInfo = ({ product, closeModal }) => {
                     <div className="flex">
                         <div className="border-2 border-gray-300 w-24 h-24 mx-1 cursor-pointer overflow-hidden">
                             <img
-                                src={product?.principal_image}
+                                src={product.multimedia[0]?.path}
                                 alt=""
                                 className="h-full w-full object-fill"
                                 onClick={e => showImage(e.target.src)}
