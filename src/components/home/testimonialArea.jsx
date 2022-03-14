@@ -13,11 +13,10 @@ export const TestimonialArea = () => {
           loop={true}
           navigation={false}
           className="mySwiper"
-          modules={[Navigation]}
           pagination={{
             clickable: true,
           }}
-          modules={[Pagination, Autoplay]}
+          modules={[Pagination, Autoplay , Navigation]}
           breakpoints={{
             250: {
               slidesPerView: 1,

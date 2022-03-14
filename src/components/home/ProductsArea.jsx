@@ -16,7 +16,7 @@ export const ProductsArea = () => {
     const [idBrand , setIdBrand ] = useState(null);
     const [products , setProducts] = useState([]);
     const [isOpen , openModal , closeModal] = useModal();
-
+   console.log(products);
     useEffect(() => {
         if(tabActive === null){
           const productsList = brandsHome.map(brand=>brand.products);
@@ -73,7 +73,7 @@ export const ProductsArea = () => {
                   products.map(product=>(
                         <CardProduct2
                             key={product._id}
-                            image={product?.principal_image}
+                            image={product.multimedia[0]?.path}
                             product={product}
                             handleClickModal={(product)=>handleClickModal(product)}
                         />

@@ -10,8 +10,7 @@ import {AiOutlineHeart} from 'react-icons/ai';
 
 
 
-const index = () => {
-
+const Brands = () => {
 
   const { brands } = useSelector((state) => state.brands);
 
@@ -53,7 +52,7 @@ const index = () => {
         </div>
         {
           brands.map(brand => (
-            <section className="my-10 font-bold">
+            <section className="my-10 font-bold" key={brand._id}>
               <div className="flex justify-between items-center text-gray-500 text-sm">
                 <h2 className="text-xl mb-4">{brand.name}</h2>
                 <Link href={{
@@ -155,4 +154,4 @@ export const getServerSideProps = wrapper.getServerSideProps((store) =>
   })
 
 
-export default index
+export default Brands;

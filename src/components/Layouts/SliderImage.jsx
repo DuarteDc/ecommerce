@@ -17,7 +17,7 @@ const SliderImage = ({image}) => {
                background-size:contain;
                background-repeat:no-repeat;
                min-height:400px;
-               height:100vh;
+               height:100%;
                width:100vw;
 
             }

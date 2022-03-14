@@ -1,7 +1,7 @@
 import {AiOutlineHeart} from 'react-icons/ai';
 import { priceFormat } from '../../helpers/helpers';
 
-export const CardProduct2 = ({ product ,  handleClickModal }) => {
+export const CardProduct2 = ({image , product ,  handleClickModal }) => {
     const price_format = priceFormat(product.price);
     return (
         <>
@@ -9,7 +9,7 @@ export const CardProduct2 = ({ product ,  handleClickModal }) => {
         <div className="">
           <div className="block-pick overflow-hidden relative flex justify-center items-center min-h-[400px] ">
             <img
-              src={product.principal_image}
+              src={image}
               className="w-full h-full transition-transform duration-[0.9s] ease-linear delay-0 hover:scale-[1.1] max-w-[300px] max-h-[400px]"
             />
 

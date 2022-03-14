@@ -118,7 +118,7 @@ const Profile = () => {
                     )
                 }
                 <div className="w-full bg-gray-50 mt-10 p-8 drop-shadow-md">
-                    <p className="text-lg font-bold my-4 font-bold">Mis Pedidos</p>
+                    <p className="text-lg font-bold my-4">Mis Pedidos</p>
                     <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
                         <div>
                             <article className="border-4 border-second-100 p-5 cursor-pointer mb-3"
@@ -171,9 +171,8 @@ const Profile = () => {
                                                     <td className="flex items-center">
                                                         <img
                                                             src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8cHJvZHVjdHxlbnwwfHwwfHw%3D&w=1000&q=80"
-                                                            className="object-contain"
+                                                            className="object-contain w-32" 
                                                             alt="img"
-                                                            className="w-32"
                                                         />
                                                         <div className="ml-2">
                                                             <p className="font-light text-xs md:text-base">Name product</p>
