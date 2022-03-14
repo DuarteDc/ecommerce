@@ -54,7 +54,7 @@ export const CategoryArea = () => {
                 <div className="relative left-0 top-0 pb-[35px] h-[300px] w-[400px]">
                   <div className="block-pick overflow-hidden relative flex justify-center  min-h-[300px] ">
                     <Image
-                      src={category.image}
+                      src={category.imageWeb}
                       width={400}
                       height={300}
                     />

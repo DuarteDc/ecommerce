@@ -17,7 +17,7 @@ export const ProductsOfferArea = () => {
         <style jsx>{
             `
             .bg-img{
-              background-image:url(${offers[2].image});
+              background-image:url('');
               padding:12rem 0rem;
             }
             .offer-area{

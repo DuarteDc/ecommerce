@@ -6,6 +6,7 @@ export const startLoadCategories = () => {
         let url = '/categories';
         try {
             const res = await client.get(url);
+            console.log(res.data.categories)
             dispatch(loadCategories(res.data.categories))
         } catch (error) {
             console.log(error)

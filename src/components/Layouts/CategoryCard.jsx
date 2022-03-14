@@ -40,6 +40,8 @@ const CategoryCard = () => {
                 <Image
                  src={ImageSlider}
                  alt="Hola"
+                 width={400}
+                 height={300}
                 />
                 <div className="absolute left-8 top-0 translate-y-2/4">
                   <h3 className="text-luz text-base font-bold mb-0">Categoria {index}</h3>
