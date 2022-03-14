@@ -18,7 +18,7 @@ const Cart = () => {
         <Layout>
             <section className="container mx-auto my-10">
                 <p className="w-full bg-gray-50 py-4 text-center uppercase my-10 font-bold text-xl">Mi carrito</p>
-                <div className="overflow-x-auto px-2">
+                <div className="overflow-x-auto px-2 h-screen">
                     <span>
                         <p className="text-right cursor-pointer text-red-600 font-bold underline decoration-1 py-2"
                             onClick={deleteAllProducts}

@@ -6,19 +6,12 @@ import { wrapper } from "../../src/store";
 import { useSelector } from "react-redux";
 import Link from "next/link";
 import { CardProduct2 } from "../../src/components/ui/cardProduct2";
+import {AiOutlineHeart} from 'react-icons/ai';
 
 
 
 const index = () => {
-  const products = [
-    { id: 1, name: "hoa", price: "120", principal_image: "https://images.ctfassets.net/2d5q1td6cyxq/4kmwcxuqXxUxUVfggQhbiI/650b0af104bfdf9979545eb326786243/Hero-hottoddy_.jpg" },
-    { id: 2, name: "hoa", price: "120", principal_image: "https://images.ctfassets.net/2d5q1td6cyxq/4kmwcxuqXxUxUVfggQhbiI/650b0af104bfdf9979545eb326786243/Hero-hottoddy_.jpg" },
-    { id: 3, name: "hoa", price: "120", principal_image: "https://images.ctfassets.net/2d5q1td6cyxq/4kmwcxuqXxUxUVfggQhbiI/650b0af104bfdf9979545eb326786243/Hero-hottoddy_.jpg" },
-    { id: 4, name: "hoa", price: "120", principal_image: "https://images.ctfassets.net/2d5q1td6cyxq/4kmwcxuqXxUxUVfggQhbiI/650b0af104bfdf9979545eb326786243/Hero-hottoddy_.jpg" },
-    { id: 5, name: "hoa", price: "120", principal_image: "https://images.ctfassets.net/2d5q1td6cyxq/4kmwcxuqXxUxUVfggQhbiI/650b0af104bfdf9979545eb326786243/Hero-hottoddy_.jpg" },
-    { id: 6, name: "hoa", price: "120", principal_image: "https://images.ctfassets.net/2d5q1td6cyxq/4kmwcxuqXxUxUVfggQhbiI/650b0af104bfdf9979545eb326786243/Hero-hottoddy_.jpg" },
-    { id: 7, name: "hoa", price: "120", principal_image: "https://images.ctfassets.net/2d5q1td6cyxq/4kmwcxuqXxUxUVfggQhbiI/650b0af104bfdf9979545eb326786243/Hero-hottoddy_.jpg" },
-  ]
+
 
   const { brands } = useSelector((state) => state.brands);
 
@@ -96,11 +89,54 @@ const index = () => {
                   }}
                 >
                   <SwiperSlide>
-                    {
-                      products.map(product => (
-                        <CardProduct2 product={product} />
-                      ))
-                    }
+                    <>
+                      <div className="relative left-0 top-0 pb-[35px] animate__animated animate__zoomIn">
+                        <div className="">
+                          <div className="block-pick overflow-hidden relative flex justify-center items-center min-h-[400px] ">
+                            <img
+                              src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8cHJvZHVjdHxlbnwwfHwwfHw%3D&w=1000&q=80"
+                              className="w-full h-full transition-transform duration-[0.9s] ease-linear delay-0 hover:scale-[1.1] max-w-[300px] max-h-[400px]"
+                            />
+
+                            <div className="absolute w-full h-full top-0 left-0 bg-[rgba(0,0,0,0.2)] opacity-0 hover:opacity-[1] transition-all	duration-[0.4s] ease-linear delay-0">
+
+                              <a className="addwishlist block absolute top-[26px] right-[20px] font-normal text-xl text-luz leading-none	scale-0 transition-all duration-[0.4s] ease-linear delay-0">
+                                <AiOutlineHeart />
+                              </a>
+                              <div className="absolute left-2/4 translate-x-[-50%]  bottom-[-50px] w-[161px] transition-all	duration-[0.4s] ease-linear delay-0">
+                                <button
+                                  className="block-btn rounded-3xl bg-[#222] min-w-[139px] h-10 font-Poppins leading-[1.4] text-luz absolute bottom-[-50px] left-[50%] translate-x-[-50%] flex justify-center items-center px-4 hover:bottom-10 hover:border-[#222] hover:no-underline hover:overflow-visible cursor-pointer transition-all	duration-[0.4s] ease-linear delay-0"
+                                >
+                                  Ver más
+                                </button>
+                              </div>
+
+                            </div>
+                          </div>
+                          <div className="flex items-start flex-wrap">
+                            <div className="w-4/5">
+                              <a className="font-Poppins text-base leading-[2.4] text-[#666] mb-16 ">
+                                Hola mundo
+                              </a>
+                              <p className="font-Poppins text-base leading-[1] text-[#666]">
+                                200
+                              </p>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <style jsx>
+                        {`
+          .block-pick:hover .block-btn {
+            bottom: 100px;
+          }
+
+          .block-pick:hover .addwishlist{
+              transform:scale(1);
+          }
+        `}
+                      </style>
+                    </>
                   </SwiperSlide>
                 </Swiper>
               </div>
