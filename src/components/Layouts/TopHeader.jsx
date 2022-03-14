@@ -25,25 +25,24 @@ const TopHeader = () => {
           <div className="grid grid-cols-3">
           <div className="flex justify-start mx-24 divide-x">
             <Link href="/" className="mx-3 text-sm ">
-            <IconContext.Provider value={{size:"1.1rem", className:"hover:text-[#3b5998] text-[#888]"}}>
+            <IconContext.Provider value={{size:"1.1rem", className:"hover:text-[#3b5998] text-[#888] mr-3"}}>
               <BsFacebook/>
             </IconContext.Provider>
             </Link>
             <Link href="/" className="mx-3 text-sm">
-            <IconContext.Provider value={{size:"1.1rem"  , className:"hover:text-[#E1306C] text-[#888]"}}>
+            <IconContext.Provider value={{size:"1.1rem"  , className:"hover:text-[#E1306C] text-[#888] mr-3"}}>
               <BsInstagram/>
             </IconContext.Provider>
             </Link>
             <Link href="/" className="mx-3 text-sm">
-            <IconContext.Provider value={{size:"1.1rem" , className:"hover:text-[#00acee] text-[#888]"}}>
+            <IconContext.Provider value={{size:"1.1rem" , className:"hover:text-[#00acee] text-[#888] mr-3"}}>
                 <BsTwitter/>
             </IconContext.Provider>
             </Link>
             <Link href="/" className="mx-3 text-sm">
-              <IconContext.Provider value={{size:"1.1rem" ,  className:"hover:text-[#c4302b] text-[#888]"}}>
+              <IconContext.Provider value={{size:"1.1rem" ,  className:"hover:text-[#c4302b] text-[#888] mr-3"}}>
                 <BsYoutube/>
               </IconContext.Provider>
-               
             </Link>            
           </div>
           <div className="flex justify-center">
