@@ -16,8 +16,6 @@ const Products = () => {
     const { categories } = useSelector((state) => state.categories);
     const { brands } = useSelector((state) => state.brands);
 
-    console.log(products)
-
     return (
         <Layout>
             <h1 className="text-center uppercase text-2xl bg-gray-50 py-3 mt-10 font-bold container mx-auto">Productos</h1>

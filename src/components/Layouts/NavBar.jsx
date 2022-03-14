@@ -20,7 +20,7 @@ const NavBar = () => {
       name: 'Productos'
     },
     {
-      path: '/brands',
+      path: '/marcas',
       name: 'Marcas'
     },
     {

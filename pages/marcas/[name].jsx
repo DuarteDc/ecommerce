@@ -11,7 +11,7 @@ import Card from '../../src/components/Layouts/Card';
 import { useDispatch } from 'react-redux';
 import { removeCategory, clearAll } from '../../src/actions/productsAction';
 
-const Show = () => {
+const Show = (props) => {
 
     const { brand } = useSelector((state) => state.brands);
     const { categories } = useSelector((state) => state.categories);

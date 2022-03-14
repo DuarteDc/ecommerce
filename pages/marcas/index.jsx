@@ -6,13 +6,12 @@ import { wrapper } from "../../src/store";
 import { useSelector } from "react-redux";
 import Link from "next/link";
 import { CardProduct2 } from "../../src/components/ui/cardProduct2";
-import {AiOutlineHeart} from 'react-icons/ai';
+import { AiOutlineHeart } from 'react-icons/ai';
+import client from "../../src/config/axiosConfig";
 
 
 
-const Brands = () => {
-
-  const { brands } = useSelector((state) => state.brands);
+const Brands = ({ brands }) => {
 
   return (
     <Layout>
@@ -56,8 +55,8 @@ const Brands = () => {
               <div className="flex justify-between items-center text-gray-500 text-sm">
                 <h2 className="text-xl mb-4">{brand.name}</h2>
                 <Link href={{
-                  pathname: '/brands/[id]',
-                  query: { id: brand._id }
+                  pathname: '/marcas/[name]',
+                  query: { name: brand.name }
                 }}>
                   <a className="cursor-pointer hover:text-black transition-all duration-700 ease-in-out">Ver mas...</a>
                 </Link>
@@ -126,14 +125,14 @@ const Brands = () => {
                       </div>
                       <style jsx>
                         {`
-          .block-pick:hover .block-btn {
-            bottom: 100px;
-          }
+                            .block-pick:hover .block-btn {
+                              bottom: 100px;
+                            }
 
-          .block-pick:hover .addwishlist{
-              transform:scale(1);
-          }
-        `}
+                            .block-pick:hover .addwishlist{
+                                transform:scale(1);
+                            }
+                         `}
                       </style>
                     </>
                   </SwiperSlide>
@@ -147,11 +146,21 @@ const Brands = () => {
   )
 }
 
-export const getServerSideProps = wrapper.getServerSideProps((store) =>
-  async () => {
-    await store.dispatch(startLoadBrands());
 
-  })
+export const getStaticProps = async () => {
+
+  const { data } = await client.get('/brands');
+
+  const brands = data.brands;
+
+  return {
+    props: {
+      brands, 
+    },
+    revalidate: 3600
+  }
+}
+
 
 
 export default Brands;
