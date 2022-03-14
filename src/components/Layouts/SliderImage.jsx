@@ -13,11 +13,11 @@ const SliderImage = ({image}) => {
             `
             .main-banner {
                background-image:url(${image});
-               background-position:initial;
-               background-size:contain;
+               background-position:center;
+               background-size:cover;
                background-repeat:no-repeat;
                min-height:400px;
-               height:100%;
+               height:75vh;
                width:100vw;
 
             }

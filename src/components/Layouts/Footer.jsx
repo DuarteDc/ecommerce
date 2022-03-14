@@ -33,31 +33,31 @@ const Footer = () => {
           <p className="text-xl font-bold uppercase">
             Siguenos en nuestras Redes Sociales
           </p>
-          <div className="flex mt-6 justify-center">
+          <div className="flex mt-6 justify-start">
             <Link href="/" className="mx-3 text-sm ">
               <IconContext.Provider
-                value={{ size: "1.1rem", className: "hover:text-[#3b5998]" }}
+                value={{ size: "1.1rem", className: "hover:text-[#3b5998]  mr-3" }}
               >
                 <BsFacebook />
               </IconContext.Provider>
             </Link>
             <Link href="/" className="mx-3 text-sm">
               <IconContext.Provider
-                value={{ size: "1.1rem", className: "hover:text-[#E1306C]" }}
+                value={{ size: "1.1rem", className: "hover:text-[#E1306C]  mr-3" }}
               >
                 <BsInstagram />
               </IconContext.Provider>
             </Link>
             <Link href="/" className="mx-3 text-sm">
               <IconContext.Provider
-                value={{ size: "1.1rem", className: "hover:text-[#00acee]" }}
+                value={{ size: "1.1rem", className: "hover:text-[#00acee]  mr-3" }}
               >
                 <BsTwitter />
               </IconContext.Provider>
             </Link>
             <Link href="/" className="mx-3 text-sm">
               <IconContext.Provider
-                value={{ size: "1.1rem", className: "hover:text-[#c4302b]" }}
+                value={{ size: "1.1rem", className: "hover:text-[#c4302b]  mr-3" }}
               >
                 <BsYoutube />
               </IconContext.Provider>
