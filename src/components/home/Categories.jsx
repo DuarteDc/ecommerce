@@ -3,11 +3,17 @@ import { Navigation } from "swiper";
 import Image from "next/image";
 import { useSelector } from "react-redux";
 import Link from "next/link";
+import { useEffect } from "react";
 
 export const CategoryArea = () => {
   const { categoriesHome: categories } = useSelector(
     (state) => state.categories
   );
+
+  useEffect(() => {
+    const checked = localStorage.getItem('checked-sales');
+    console.log(checked)
+  }, []);
 
   return (
     <section className="px-6 py-5 max-w-[1335px] mx-auto mb-8">

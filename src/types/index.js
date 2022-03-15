@@ -37,5 +37,7 @@ export const types = {
     addNewsletterSuscription:'[Home] add and show newsletter suscription menssage',
     loadBrand: '[BRANDS] load brand',
 
-    loadSlidersData:'[Home] load data sliders offers'
+    loadSlidersData:'[Home] load data sliders offers',
+
+    carrito:'[prueba carrito] carga el carrito'
 }

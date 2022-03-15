@@ -20,6 +20,7 @@ import {
   ProductsOfferArea,
   TestimonialArea
 } from '../src/components/home';
+import { pruebacarrito } from "../src/actions/shoppingCartActions";
 
 
 

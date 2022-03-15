@@ -6,6 +6,7 @@ import Link from "next/link";
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import { useDispatch, useSelector } from "react-redux";
 import { newProduct } from "../../actions/shoppingCartActions";
+import { useLocalStorage } from "../../hooks/useLocalStorage";
 
 const ProductInfo = ({ product, closeModal }) => {
     const dispatch = useDispatch();
@@ -16,10 +17,20 @@ const ProductInfo = ({ product, closeModal }) => {
         img.current.src = newImg
     }
 
-    const { cart } = useSelector((state) => state.cart);
+    // const { cart } = useSelector((state) => state.cart);
 
-    const addCart = (product, value) => {
-        dispatch(newProduct(product, value));
+    const [ cart , setCart] = useLocalStorage('card2' , [])
+   
+
+    // const addCart = (product, value) => {
+    //     dispatch(newProduct(product, value));
+    // }
+
+    const handleCartAdd = (product) =>{
+        setCart({
+            ...cart,
+            ['product']:product
+        })
     }
 
 
@@ -105,7 +116,7 @@ const ProductInfo = ({ product, closeModal }) => {
 
                         <span className="py-4 px-4 w-full w-full outline-none border-0 text-center font-bold">{counter} </span>
 
-                        <button className="text-xs lg:text-sm  w-full mx-2 text-white  bg-black font-bold p-4 border-2 hover:bg-white hover:text-black hover:border-2 border-black transition-all duration-700 ease-in-out" onClick={() => { addCart(product, counter), closeModal(), setCounter(1) }}>
+                        <button className="text-xs lg:text-sm  w-full mx-2 text-white  bg-black font-bold p-4 border-2 hover:bg-white hover:text-black hover:border-2 border-black transition-all duration-700 ease-in-out" onClick={() => handleCartAdd(product)}>
                             <ShoppingCartIcon />
                             ADD TO CART
                         </button>

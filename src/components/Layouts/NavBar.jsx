@@ -6,6 +6,7 @@ import { BsHandbag, BsPersonCircle } from "react-icons/bs";
 import { IconContext } from "react-icons";
 import Badge from '@mui/material/Badge';
 import { startVerifyToken } from '../../actions/authActions'
+import { pruebacarrito } from "../../actions/shoppingCartActions";
 
 const NavBar = () => {
   const { cart } = useSelector((state) => state.cart)
@@ -44,10 +45,13 @@ const NavBar = () => {
       window.removeEventListener('scroll', handleScroll);
     };
   }, []);
+  
 
 
   useEffect(() => {
-    localStorage.setItem('cart', JSON.stringify(cart))
+    const card2 = JSON.parse(localStorage.getItem('card2'));
+    console.log(card2);
+    dispatch(pruebacarrito(card2))
   }, [cart])
 
   useEffect(() => {

@@ -4,7 +4,8 @@ import { types } from "../types";
 const data = loadState();
 
 const initialState = {
-    cart: data || []
+    cart: data || [],
+    carrito2:[]
 }
 
 export const shoppingCartReducer = (state = initialState, { type, payload }) => {
@@ -61,6 +62,12 @@ export const shoppingCartReducer = (state = initialState, { type, payload }) => 
         }
         case types.clear_cart: {
             return initialState;
+        }
+        case types.carrito:{
+            return{
+                ...state,
+                carrito2:payload
+            }
         }
         default:
             return state;

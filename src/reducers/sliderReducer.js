@@ -7,9 +7,6 @@ const initalState = {
 
 export const sliderReducer = (state = initalState , {type, payload}) =>{
    switch (type) {
-       case HYDRATE:
-          return { ...state, ...action.payload.settings };
-          
        case types.loadSlidersData:
            return{
                ...state,
