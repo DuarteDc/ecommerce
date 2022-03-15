@@ -13,6 +13,7 @@ import Router from "next/router";
 import Cookies from "js-cookie";
 import FormAddress from "../../src/components/profile/FormAddress";
 import { getAddress, setDefaultAddress } from "../../src/actions/profileAcctions";
+import Image from "next/image";
 
 const Profile = () => {
     const [open, setOpen] = useState(true);
@@ -51,9 +52,10 @@ const Profile = () => {
                 <h1 className="text-center uppercase text-2xl bg-gray-50 py-3 my-20 font-bold container mx-auto">Perfil</h1>
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                     <div className="w-full flex flex-col items-center p-4 drop-shadow-md">
-                        <img
-                            src="https://media.istockphoto.com/photos/gingerbread-man-3d-rendering-isolated-on-white-background-picture-id1250677513?k=20&m=1250677513&s=612x612&w=0&h=KVAes7pQUH0XRDhRGqXy0na2tyaTWbCCpZ8U1r1EpNw=" alt="" className="w-full md:w-2/3 rounded-full"
-                            alt={user?.fullname}
+                        <Image
+                         src="https://media.istockphoto.com/photos/gingerbread-man-3d-rendering-isolated-on-white-background-picture-id1250677513?k=20&m=1250677513&s=612x612&w=0&h=KVAes7pQUH0XRDhRGqXy0na2tyaTWbCCpZ8U1r1EpNw=" 
+                         width={200}
+                         height={200}   
                         />
                         <p className="text-2xl uppercase mt-5 text-center">{user?.fullname}</p>
                         <button className="py-2 px-4 bg-black text-white font-bold my-5 hover:bg-white hover:text-black border-2 border-black transition-all duration-700 ease-in-out"

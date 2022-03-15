@@ -99,7 +99,7 @@ const NavBar = () => {
                   </Link>
                 ) : (
                   <Link href="/auth/login">
-                    <span className="border-transparent border-b-2 mx-4 cursor-pointer  text-[#888] font-['Poppins'] font-normal transition duration-700 ease-in-out">
+                    <span className="border-transparent border-b-2 mx-4 cursor-pointer  text-[#888] font-['Poppins'] font-normal transition duration-700 ease-in-out flex flex-col min-w-[6.5rem]">
                       Iniciar Sesión
                     </span>
                   </Link>
