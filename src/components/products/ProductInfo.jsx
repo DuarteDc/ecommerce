@@ -28,19 +28,11 @@ const ProductInfo = ({ product, closeModal }) => {
             <div>
                 <div className="w-full h-[15rem] md:h-[25rem]">
                     <img src={product.multimedia[0]?.path}
-                        className="object-contain w-full h-full p-2" ref={img}
+                        className="object-fill w-full h-full p-2" ref={img}
                     />
                 </div>
                 <div>
-                    <div className="flex">
-                        <div className="border-2 border-gray-300 w-24 h-24 mx-1 cursor-pointer overflow-hidden">
-                            <img
-                                src={product.multimedia[0]?.path}
-                                alt=""
-                                className="h-full w-full object-fill"
-                                onClick={e => showImage(e.target.src)}
-                            />
-                        </div>
+                    <div className="flex">                        
                         {
                             product?.multimedia.map(multimedia => (
                                 <div
@@ -48,7 +40,7 @@ const ProductInfo = ({ product, closeModal }) => {
                                     className="overflow-hidden border-2 border-gray-300 w-24 h-24 mx-1 cursor-pointer">
                                     <img
                                         src={multimedia.path}
-                                        alt=""
+                                        alt={product?.name}
                                         onClick={e => showImage(e.target.src)}
                                         className="w-full h-full object-fill"
                                     />
@@ -105,9 +97,10 @@ const ProductInfo = ({ product, closeModal }) => {
 
                         <span className="py-4 px-4 w-full w-full outline-none border-0 text-center font-bold">{counter} </span>
 
-                        <button className="text-xs lg:text-sm  w-full mx-2 text-white  bg-black font-bold p-4 border-2 hover:bg-white hover:text-black hover:border-2 border-black transition-all duration-700 ease-in-out" onClick={() => { addCart(product, counter), closeModal(), setCounter(1) }}>
+                        <button className="text-xs lg:text-sm  w-full mx-2 text-white  bg-black font-bold p-4 border-2 hover:bg-white hover:text-black hover:border-2 border-black transition-all duration-700 ease-in-out uppercase" 
+                        onClick={() => { addCart(product, counter), closeModal(), setCounter(1) }}>
                             <ShoppingCartIcon />
-                            ADD TO CART
+                            Añadir a carrito
                         </button>
                     </div>
                 </div>

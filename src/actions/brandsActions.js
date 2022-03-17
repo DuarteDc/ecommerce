@@ -36,19 +36,19 @@ export const loadBrands = (brands) => ({
     payload: brands
 });
 
-export const startLoadBrand = (brand) => {
+export const startLoadProductsPerBrand = (brand) => {
     return async (dispatch) => {
-        let url = `/brands/${brand}`;
+        let url = `/products/brand/${brand}`;
         try {
             const res = await client.get(url);
-            dispatch(loadBrand(res.data.brand))
+            dispatch(loadProductsPerBrand(res.data.products))
         } catch (error) {
             console.log(error)
         }
     }
 }
 
-export const loadBrand = (brand) => ({
-    type: types.loadBrand,
-    payload: brand
+export const loadProductsPerBrand = (products) => ({
+    type: types.load_products_per_brand,
+    payload: products
 })

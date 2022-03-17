@@ -1,4 +1,5 @@
 import CloseIcon from '@mui/icons-material/Close';
+import Image from 'next/image';
 import { useDispatch } from "react-redux";
 import { deleteProduct, deleteOneProduct, addOneProduct } from '../../actions/shoppingCartActions';
 const CartItem = ({ item }) => {
@@ -25,7 +26,10 @@ const CartItem = ({ item }) => {
                 <div className='flex justify-between'>
                     <div className='flex flex-row'>
                         <div className="w-32">
-                            <img src={product.principal_image} alt={product?.name} className="w-20 h-20 object-fill" />
+                            <Image
+                                src={product.multimedia[0]?.path}
+                                alt={product?.name}
+                                className="w-20 h-20 object-fill" />
                         </div>
                         <div className="py-4 flex flex-col">
                             <p className="font-bold sm:text-sm">{product?.name}</p>

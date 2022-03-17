@@ -71,24 +71,11 @@ export const removeBrand = (brand) => ({
     payload: brand
 });
 
-export const startLoadProductsPerCategory = (category) => {
-    return async (dispatch) => {
-        let url = `/products/category/${category._id}`;
-        try {
-            const res = await client.get(url);
-            console.log(res.data.products);
-            dispatch(addCategoryToParams(category, res.data.products))
-        } catch (error) {
-            console.log(error);
-        }
-    }
-}
-
-export const addCategoryToParams = (category, products) => ({
+export const addCategoryToParams = (id, name) => ({
     type: types.add_category_to_filter,
     payload: {
-        category,
-        products,
+        id,
+        name
     },
 })
 

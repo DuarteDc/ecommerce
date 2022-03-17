@@ -21,6 +21,7 @@ export const types = {
     loadCategories: '[CATEGORIES] start load categories',
     loadCategoriesHome:'[CATEGORIES HOME] start load categories',
 
+    load_cart_state: '[CART] load cart state',
     add_to_cart: '[CART] add to cart',
     remove_one_from_cart: '[CART] remove one from cart',
     add_one_from_cart: '[CART] add one from cart',

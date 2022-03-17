@@ -5,10 +5,17 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import ExpandLessIcon from '@mui/icons-material/ExpandLess';
 
 import CategoryItem from "./CategoryItem"
+import { useDispatch } from 'react-redux';
+
+import { addCategoryToParams } from '../../actions/productsAction';
 
 const CategoriesList = ({ categories }) => {
 
     const [open, setOpen] = useState(true);
+
+    const dispatch = useDispatch();
+
+    
 
     return (
         <div className="mb-5">

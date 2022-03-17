@@ -1,13 +1,10 @@
 import { types } from "../types";
 
 
-export const loadState = () => {
-    try {
-        return JSON.parse(localStorage.getItem('cart'));
-    } catch (error) {
-        return;
-    }
-}
+export const loadState = (cart) => ({
+    type: types.load_cart_state,
+    payload: cart
+})
 
 
 export const newProduct = (product, value) => ({

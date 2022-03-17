@@ -6,6 +6,7 @@ import { BsHandbag, BsPersonCircle } from "react-icons/bs";
 import { IconContext } from "react-icons";
 import Badge from '@mui/material/Badge';
 import { startVerifyToken } from '../../actions/authActions'
+import { loadState } from "../../actions/shoppingCartActions";
 
 const NavBar = () => {
   const { cart } = useSelector((state) => state.cart)
@@ -22,6 +23,10 @@ const NavBar = () => {
     {
       path: '/marcas',
       name: 'Marcas'
+    },
+    {
+      path: '/categories',
+      name: 'Categorias'
     },
     {
       path: '/contacto',
@@ -45,6 +50,10 @@ const NavBar = () => {
     };
   }, []);
 
+  useEffect(() => {
+    const cart = JSON.parse(localStorage.getItem('cart'));
+    dispatch(loadState(cart));
+  }, [])
 
   useEffect(() => {
     localStorage.setItem('cart', JSON.stringify(cart))

@@ -26,8 +26,10 @@ const BrandSlider = ({ brand }) => {
                 <h2 className="text-xl mb-4 uppercase">{brand.name}</h2>
                 <Link href={{
                     pathname: '/marcas/[name]',
-                    query: { name: brand.name }
-                }}>
+                    query: { id: brand._id },
+                }}
+                    as={`/marcas/${brand.name}`}
+                >
                     <a className="cursor-pointer hover:text-black transition-all duration-700 ease-in-out">Ver mas...</a>
                 </Link>
             </div>

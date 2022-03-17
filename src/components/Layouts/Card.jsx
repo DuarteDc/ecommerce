@@ -29,11 +29,12 @@ const Card = ({ product }) => {
             <div className="hover:first:flex overflow-hidden cursor-pointer h-2/3 w-full relative"
                 onClick={() => handleClickModal(product)}
             >
-                <img
+                <Image
                     className="object-fill w-full h-full"
                     src={product?.multimedia[0]?.path}
                     alt={product?.name}
                     layout="fill"
+                    priority
                 />
             </div>
             <div className="px-4 mt-5 mb-4">

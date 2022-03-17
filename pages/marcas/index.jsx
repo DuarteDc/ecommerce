@@ -11,7 +11,7 @@ const Brands = ({ brands }) => {
 
   return (
     <Layout>
-      <section className="container mx-auto">
+      <section className="container mx-auto mt-20">
         <h1 className="my-20 text-center text-xl uppercase font-bold py-3 bg-gray-50">Marcas</h1>
         {
           brands.map(brand => (

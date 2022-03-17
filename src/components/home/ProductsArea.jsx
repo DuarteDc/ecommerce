@@ -16,7 +16,7 @@ export const ProductsArea = () => {
     const [idBrand , setIdBrand ] = useState(null);
     const [products , setProducts] = useState([]);
     const [isOpen , openModal , closeModal] = useModal();
-   console.log(products);
+
     useEffect(() => {
         if(tabActive === null){
           const productsList = brandsHome.map(brand=>brand.products);
