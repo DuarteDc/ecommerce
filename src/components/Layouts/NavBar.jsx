@@ -6,11 +6,12 @@ import { BsHandbag, BsPersonCircle } from "react-icons/bs";
 import { IconContext } from "react-icons";
 import Badge from '@mui/material/Badge';
 import { startVerifyToken } from '../../actions/authActions'
-import { pruebacarrito } from "../../actions/shoppingCartActions";
 
 const NavBar = () => {
   const { cart } = useSelector((state) => state.cart)
   const { logged } = useSelector((state) => state.auth)
+  const { logo } = useSelector((state)=>state.administrable);
+
   const dispatch = useDispatch()
 
   const [scrollPosition, setScrollPosition] = useState(0);
@@ -46,14 +47,6 @@ const NavBar = () => {
     };
   }, []);
   
-
-
-  useEffect(() => {
-    const card2 = JSON.parse(localStorage.getItem('card2'));
-    console.log(card2);
-    dispatch(pruebacarrito(card2))
-  }, [cart])
-
   useEffect(() => {
     dispatch(startVerifyToken());
   }, [])
@@ -64,7 +57,7 @@ const NavBar = () => {
         <nav className="flex max-h-16 justify-between items-center" >
           <Link href="/" passHref>
             <Image
-              src={'/assets/Wapizima C.webp'}
+              src={logo}
               alt="Picture of the author"
               className="cursor-pointer"
               width={200}

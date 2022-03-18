@@ -1,9 +1,9 @@
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination, Autoplay } from "swiper";
-import SliderImage from "../Layouts/SliderImage";
+import SliderImage from "./SliderImage";
 import { useSelector } from "react-redux";
 
-export const Slider = () => {
+export const SlidersOffers = () => {
     const {slidersData} = useSelector((state)=>state.sliders);
 
     return (
@@ -16,17 +16,15 @@ export const Slider = () => {
                     delay: 2500,
                     disableOnInteraction: false,
                 }}
-                pagination={{
-                    clickable: true,
-                }}
-                modules={[Pagination, Autoplay]}
+                
+     
                 className="mySwiper"
             >
                 {
                     slidersData.map(slider=>(
                         <SwiperSlide key={slider._id}>
                         <SliderImage  
-                         image={slider.imageWeb}
+                         slider={slider}
                         />
                         </SwiperSlide>
                     ))

@@ -1,11 +1,12 @@
 import { useEffect, useState } from 'react';
+import Link from 'next/link';
 import { useSelector , useDispatch } from 'react-redux';
 import {Tabs , Search , CardProduct2 , FiltersArea} from '../ui';
 import {addProductSelected} from '../../actions/productsAction';
 import ShowProduct from '../products/ShowProduct';
 import {useModal} from '../../hooks/useModal';
-import Link from 'next/link';
 import {useToggle} from "../../hooks/useToggle";
+
 
 export const ProductsArea = () => {
     const dispatch = useDispatch();
@@ -40,6 +41,9 @@ export const ProductsArea = () => {
         openModal();
         dispatch(addProductSelected(product))
     }
+    const onRequestSearch = () =>{
+
+    }
   
 
     return (
@@ -61,6 +65,7 @@ export const ProductsArea = () => {
               <div className="grid grid-cols-1 gap-1">
                 <Search 
                   openSearch={openSearch} 
+                  onRequestSearch={onRequestSearch}
                 />
                 <FiltersArea 
                   brands={brandsHome}
@@ -82,7 +87,8 @@ export const ProductsArea = () => {
               </div>
              <div className="w-full my-5 flex justify-center items-center flex-wrap">
                <Link href="/products">
-                 <span className="text-luz mt-4 mx-16 border-solid inline-block py-3 pl-12 pr-12 leading-normal rounded-sm uppercase font-normal text-sm border-2 bg-[#333] border-[#222] transition duration-700 ease-in-out font-Poppins cursor-pointer">
+                 <span className="text-luz mt-4 mx-16 border-solid inline-block py-3 pl-12 pr-12 leading-normal rounded-sm uppercase font-normal text-sm border-2 bg-[#333] border-[#222] transition duration-700 ease-in-out font-Poppins cursor-pointer
+                 ">
                    Ver más
                  </span>
                </Link>
