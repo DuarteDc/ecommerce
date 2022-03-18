@@ -17,11 +17,11 @@ const Show = () => {
     const { product } = useSelector((state) => state.products);
     const dispatch = useDispatch();
 
-    // const img = useRef();
+    const img = useRef();
 
-    // const showImage = (newImg) => {
-    //     img.current.src = newImg;
-    // }
+    const showImage = (newImg) => {
+        img.current.src = newImg;
+    }
 
     const { counter, increaseBy, setCounter } = useCounter(1)
 
@@ -39,6 +39,7 @@ const Show = () => {
                                 src={product.multimedia[0].path}
                                 alt={product?.name}
                                 className="w-full h-full"
+                                ref={img}
                             //ref={img}
                             />
                         </div>
@@ -52,6 +53,7 @@ const Show = () => {
                                         <img
                                             src={multimedia.path}
                                             alt={product.name}
+                                            onClick={e => showImage(e.target.src)}
                                             className="w-full h-full object-fill"
                                         //onClick={e => showImage(e.target.src)}
                                         />
@@ -118,8 +120,8 @@ const Show = () => {
                                     {counter}
                                 </span>
 
-                                <button className="text-xs lg:text-sm  w-full mx-2 text-white mx-1 bg-black font-bold p-4 border-2 hover:bg-white hover:text-black hover:border-2 border-black transition-all duration-700 ease-in-out uppercase" 
-                                onClick={() => { addCart(product, counter), setCounter(1) }}>
+                                <button className="text-xs lg:text-sm  w-full mx-2 text-white mx-1 bg-black font-bold p-4 border-2 hover:bg-white hover:text-black hover:border-2 border-black transition-all duration-700 ease-in-out uppercase"
+                                    onClick={() => { addCart(product, counter), setCounter(1) }}>
                                     <ShoppingCartIcon />
                                     Añadir a carrito
                                 </button>

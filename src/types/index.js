@@ -17,6 +17,7 @@ export const types = {
     remove_brand_to_brandsSelected: '[PRODUCTS] remove brand to braindsSelected',
     clear_all_filter: '[PRODUCTS] clear all filters',
     load_products_per_brand: '[PRODUCTS] load products per brand',
+    load_products_per_pagination: '[PRODUCTS] load products per pagination',
 
     loadCategories: '[CATEGORIES] start load categories',
     loadCategoriesHome:'[CATEGORIES HOME] start load categories',

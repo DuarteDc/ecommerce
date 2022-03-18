@@ -7,6 +7,7 @@ import { IconContext } from "react-icons";
 import Badge from '@mui/material/Badge';
 import { startVerifyToken } from '../../actions/authActions'
 import { loadState } from "../../actions/shoppingCartActions";
+import Cookies from "js-cookie";
 
 const NavBar = () => {
   const { cart } = useSelector((state) => state.cart)
@@ -60,7 +61,9 @@ const NavBar = () => {
   }, [cart])
 
   useEffect(() => {
-    dispatch(startVerifyToken());
+    if (Cookies.get('token')) {
+      dispatch(startVerifyToken());
+    }
   }, [])
 
   return (

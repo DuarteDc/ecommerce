@@ -25,6 +25,7 @@ const FormSignUp = () => {
         validationSchema: Yup.object(validationSchema),
         onSubmit: (formData) => {
             dispatch(startRegister(formData));
+            router.push('/')
         }
     });
 

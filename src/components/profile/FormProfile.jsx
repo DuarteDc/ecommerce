@@ -75,7 +75,7 @@ const FormProfile = ({ fullname, email, phone, directions }) => {
                     ) : null}
                 </div>
                 <button className="my-5 ml-8 hover:bg-black py-2 px-4 hover:text-white font-bold border-2 border-black transition-all duration-700 ease-in-out">
-                    update Acount
+                    Actualizar 
                 </button>
             </div>
         </>
