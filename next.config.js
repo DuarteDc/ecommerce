@@ -5,5 +5,8 @@ module.exports = {
   },
   images:{
     domains: ['ecommerce-taco.s3.us-east-2.amazonaws.com']
+  },
+  experimental: {
+    outputStandalone: true
   }
 }
