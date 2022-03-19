@@ -13,6 +13,7 @@ import Router from "next/router";
 import Cookies from "js-cookie";
 import FormAddress from "../../src/components/profile/FormAddress";
 import { getAddress, setDefaultAddress } from "../../src/actions/profileAcctions";
+import Image from "next/image";
 
 const Profile = () => {
     const [open, setOpen] = useState(true);

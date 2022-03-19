@@ -41,3 +41,8 @@ export const deleteOneProduct = ({ product, value }) => ({
 export const clearCart = () => ({
     type: types.clear_cart,
 })
+
+export const pruebacarrito = (card) =>({
+    type:types.carrito,
+    payload:card
+})

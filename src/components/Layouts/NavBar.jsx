@@ -12,6 +12,8 @@ import Cookies from "js-cookie";
 const NavBar = () => {
   const { cart } = useSelector((state) => state.cart)
   const { logged } = useSelector((state) => state.auth)
+  const { logo } = useSelector((state)=>state.administrable);
+
   const dispatch = useDispatch()
 
   const [scrollPosition, setScrollPosition] = useState(0);
@@ -72,7 +74,7 @@ const NavBar = () => {
         <nav className="flex max-h-16 justify-between items-center" >
           <Link href="/" passHref>
             <Image
-              src={'/assets/Wapizima C.webp'}
+              src={logo}
               alt="Picture of the author"
               className="cursor-pointer"
               width={200}
@@ -111,7 +113,7 @@ const NavBar = () => {
                   </Link>
                 ) : (
                   <Link href="/auth/login">
-                    <span className="border-transparent border-b-2 mx-4 cursor-pointer  text-[#888] font-['Poppins'] font-normal transition duration-700 ease-in-out">
+                    <span className="border-transparent border-b-2 mx-4 cursor-pointer  text-[#888] font-['Poppins'] font-normal transition duration-700 ease-in-out flex flex-col min-w-[6.5rem]">
                       Iniciar Sesión
                     </span>
                   </Link>

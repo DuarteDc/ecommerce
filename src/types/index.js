@@ -34,10 +34,13 @@ export const types = {
     loadTags: '[TAGS] load tags',
 
     loadBrands: '[BRANDS] start load brands',
-    loadBrandsHome: '[HOME] load brands with products home',
-
-    addNewsletterSuscription:'[Home] add and show newsletter suscription menssage',
     loadBrand: '[BRANDS] load brand',
 
-    loadSlidersData:'[Home] load data sliders offers'
+    loadBrandsHome: '[HOME] load brands with products home',
+    addNewsletterSuscription:'[Home] add and show newsletter suscription menssage',
+    loadSlidersData:'[Home] load data sliders offers',
+    loadAdministrableData:'[HOME] load data administrable data home'
+
+    
+
 }

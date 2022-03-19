@@ -1,3 +1,4 @@
+import { HYDRATE } from "next-redux-wrapper";
 import { types } from "../types";
 
 const initalState = {

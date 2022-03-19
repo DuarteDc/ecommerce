@@ -71,7 +71,6 @@ export const shoppingCartReducer = (state = initialState, { type, payload }) => 
         case types.clear_cart: {
             return initialState;
         }
-
         default:
             return state;
     }

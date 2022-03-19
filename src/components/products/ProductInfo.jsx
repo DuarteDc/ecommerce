@@ -6,6 +6,7 @@ import Link from "next/link";
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import { useDispatch, useSelector } from "react-redux";
 import { newProduct } from "../../actions/shoppingCartActions";
+import { useLocalStorage } from "../../hooks/useLocalStorage";
 
 import { toast } from 'react-toastify';
 
@@ -20,10 +21,20 @@ const ProductInfo = ({ product, closeModal }) => {
         img.current.src = newImg
     }
 
-    const { cart } = useSelector((state) => state.cart);
+    // const { cart } = useSelector((state) => state.cart);
 
-    const addCart = (product, value) => {
-        dispatch(newProduct(product, value));
+    const [ cart , setCart] = useLocalStorage('card2' , [])
+   
+
+    // const addCart = (product, value) => {
+    //     dispatch(newProduct(product, value));
+    // }
+
+    const handleCartAdd = (product) =>{
+        setCart({
+            ...cart,
+            ['product']:product
+        })
     }
 
 

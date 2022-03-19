@@ -2,8 +2,11 @@ import Link from "next/link";
 import { useEffect,useState } from "react";
 import { IconContext } from "react-icons";
 import {BsInstagram , BsTwitter , BsFacebook , BsYoutube} from "react-icons/bs";
+import {FaTiktok} from "react-icons/fa";
+import { useSelector } from "react-redux";
 
 const TopHeader = () => {
+  const { facebook , instagram , tiktok ,  top_text } = useSelector((state)=>state.administrable);
   const [scrollPosition, setScrollPosition] = useState(0);
 
   const handleScroll = () => {
@@ -24,29 +27,24 @@ const TopHeader = () => {
       <div className="w-full mr-auto ml-auto ">
           <div className="grid grid-cols-3">
           <div className="flex justify-start mx-24 divide-x">
-            <Link href="/" className="mx-3 text-sm ">
-            <IconContext.Provider value={{size:"1.1rem", className:"hover:text-[#3b5998] text-[#888] mr-3"}}>
+            <Link href={facebook} className="mx-3 text-sm">
+            <IconContext.Provider value={{size:"1.1rem", className:"hover:text-[#3b5998] text-[#888] mr-3 cursor-pointer"}}>
               <BsFacebook/>
             </IconContext.Provider>
             </Link>
-            <Link href="/" className="mx-3 text-sm">
-            <IconContext.Provider value={{size:"1.1rem"  , className:"hover:text-[#E1306C] text-[#888] mr-3"}}>
+            <Link href={instagram} className="mx-3 text-sm">
+            <IconContext.Provider value={{size:"1.1rem"  , className:"hover:text-[#E1306C] text-[#888] mr-3 cursor-pointer"}}>
               <BsInstagram/>
             </IconContext.Provider>
             </Link>
             <Link href="/" className="mx-3 text-sm">
-            <IconContext.Provider value={{size:"1.1rem" , className:"hover:text-[#00acee] text-[#888] mr-3"}}>
-                <BsTwitter/>
+            <IconContext.Provider value={{size:"1.1rem" , className:"hover:text-[#000000] text-[#888] mr-3 cursor-pointer"}}>
+                <FaTiktok/>
             </IconContext.Provider>
-            </Link>
-            <Link href="/" className="mx-3 text-sm">
-              <IconContext.Provider value={{size:"1.1rem" ,  className:"hover:text-[#c4302b] text-[#888] mr-3"}}>
-                <BsYoutube/>
-              </IconContext.Provider>
-            </Link>            
+            </Link>        
           </div>
           <div className="flex justify-center">
-              <p className="text-[#888] font-Poppins">Free shipping for standard order over $100</p>
+              <p className="text-[#888] font-Poppins">{top_text}</p>
           </div>
           <div className="flex justify-end mx-24">
             <Link href="/">

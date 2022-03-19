@@ -8,10 +8,11 @@ import { startLoadOffers } from "../src/actions/offersActions";
 import { startLoadBrandsHome , startLoadBrands } from "../src/actions/brandsActions";
 import { startLoadDataSliders } from "../src/actions/slidersActions";
 import { startLoadCategoriesHome } from "../src/actions/categoryActions";
-
+import { startLoadAdministrableData } from "../src/actions/administrableActions";
+ 
 /**Components */
 import {
-  Slider,
+  SlidersOffers,
   Newsletter,
   PartnerArea,
   CategoryArea,
@@ -21,16 +22,11 @@ import {
   TestimonialArea
 } from '../src/components/home';
 
-
-
-
-
-
 export default function HomePage() {
   const { offers } = useSelector((state) => state.offers);
   return (
     <>
-      <Slider />
+      <SlidersOffers/>
       <FacilityArea />
       <CategoryArea />
       {offers.length && <ProductsOfferArea /> || null}
@@ -50,13 +46,18 @@ HomePage.getLayout = function getLayout(page) {
   )
 }
 
-export const getServerSideProps = wrapper.getServerSideProps((store) =>
+export const getStaticProps = wrapper.getStaticProps((store) =>
   async () => {
-    await store.dispatch(startLoadCategoriesHome());
+    await store.dispatch(startLoadAdministrableData());
+    await store.dispatch(startLoadCategoriesHome()); 
+    await store.dispatch(startLoadDataSliders());
     await store.dispatch(startLoadOffers());
     await store.dispatch(startLoadBrandsHome());
-    await store.dispatch(startLoadDataSliders());
     await store.dispatch(startLoadBrands());
+
+    return {
+      revalidate:120
+    }
 });
 
 
