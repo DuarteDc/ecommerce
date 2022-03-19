@@ -12,7 +12,7 @@ import Cookies from "js-cookie";
 const NavBar = () => {
   const { cart } = useSelector((state) => state.cart)
   const { logged } = useSelector((state) => state.auth)
-  const { logo } = useSelector((state)=>state.administrable);
+  const { logo } = useSelector((state) => state.administrable);
 
   const dispatch = useDispatch()
 
@@ -72,15 +72,13 @@ const NavBar = () => {
     <div className={`bg-luz py-2 shadow-sm  w-full z-[2] ${scrollPosition >= 130 && 'fixed top-0'}`}>
       <div className="w-full px-10  lg:px-16 xl:px-28 2xl:px-28">
         <nav className="flex max-h-16 justify-between items-center" >
-          <Link href="/" passHref>
-            <Image
-              src={logo}
-              alt="Picture of the author"
-              className="cursor-pointer"
-              width={200}
-              height={150}
-            />
-          </Link>
+          <Image
+            src={'/assets/Wapizima C.webp'}
+            alt="Picture of the author"
+            className="cursor-pointer"
+            width={200}
+            height={150}
+          />
 
           <button className="space-y-2  lg:hidden">
             <span className="block w-8 h-0.5 bg-gray-600"></span>
