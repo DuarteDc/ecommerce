@@ -26,12 +26,8 @@ export const FormSignIn = () => {
         initialValues,
         validationSchema: Yup.object(validationSchema),
         onSubmit: (formData) => {
-            try {
-                dispatch(startLoginEmailPassword(formData));
-                router.push('/')
-            } catch (error) {
-                console.log(error);
-            }
+            dispatch(startLoginEmailPassword(formData));
+            router.push('/')
         }
     });
 
@@ -58,7 +54,7 @@ export const FormSignIn = () => {
                         name="password"
                         onChange={formik.handleChange}
                         placeholder="Contraseña"
-                        type="password"                        
+                        type="password"
                         className="py-4 bg-gray-50  focus:outline-none focus:border-black focus:ring-1 focus:ring-gray-900 px-5 w-full mb-2"
                     />
                     {formik.touched.password && formik.errors.password ? (

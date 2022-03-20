@@ -6,8 +6,7 @@ export const startLoadProducts = () => {
         let url = '/products';
         try {
             const res = await client.get(url);
-            console.log(res.data.products);
-            dispatch(loadProducts(res.data.products))
+            dispatch(loadProducts(res.data))
         } catch (error) {
             console.log(error);
         }
@@ -50,7 +49,6 @@ export const startLoadProductsPerBrand = (brand) => {
         let url = `/products/brand/${brand._id}`;
         try {
             const res = await client.get(url);
-            console.log(res.data.products);
             dispatch(addBrandToParams(brand, res.data.products))
         } catch (error) {
             console.log(error);
@@ -71,28 +69,43 @@ export const removeBrand = (brand) => ({
     payload: brand
 });
 
-export const startLoadProductsPerCategory = (category) => {
-    return async (dispatch) => {
-        let url = `/products/category/${category._id}`;
-        try {
-            const res = await client.get(url);
-            console.log(res.data.products);
-            dispatch(addCategoryToParams(category, res.data.products))
-        } catch (error) {
-            console.log(error);
-        }
+export const FilterProductsPerCategory = async (brand_id, category_id) => {
+    let url = `products/brand/categort/${brand_id}/${category_id}`;
+    try {
+        const res = await client.get(url);
+        console.log(res.data);
+    } catch (error) {
+
     }
 }
 
-export const addCategoryToParams = (category, products) => ({
+export const addCategoryToParams = (id, name) => ({
     type: types.add_category_to_filter,
     payload: {
-        category,
-        products,
+        id,
+        name
     },
 })
 
 export const removeCategory = (category) => ({
     type: types.remove_category_to_categoriesSelected,
     payload: category
+})
+
+
+export const startLoadProductPerPagination = (page) => {
+    return async (dispatch) => {
+        let url = `products?page=${page}`
+        try {
+            const res = await client.get(url);
+            dispatch(loadProducts(res.data))
+        } catch (error) {
+            console.log(error);
+        }
+    }
+}
+
+export const loadProductPerPagination = (products) => ({
+    type: types.load_products_per_pagination,
+    payload: products
 })

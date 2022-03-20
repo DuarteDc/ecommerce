@@ -3,6 +3,10 @@ import client from '../config/axiosConfig';
 import { types } from '../types';
 import errorHandler from './errorHandler';
 
+import { toast } from 'react-toastify';
+
+const notify = (error) => toast(error);
+
 export const startLoginEmailPassword = (data) => {
     return async (dispatch) => {
         let url = 'auth/login'
@@ -10,9 +14,9 @@ export const startLoginEmailPassword = (data) => {
             const res = await client.post(url, data);
             const { token, user } = res.data;
             Cookies.set('token', token)
-            dispatch(login(token, user));            
+            dispatch(login(token, user));   
         } catch (error) {
-            return errorHandler(error);
+            notify("Error de usuario / contraseña")         
         }
     }
 }
@@ -35,7 +39,7 @@ export const startRegister = (data) => {
             Cookies.set('token', token)
             dispatch(register(user, token))
         } catch (error) {
-            return errorHandler(error);
+            notify("EL usuario ya existe, intenta con otro correo")         
         }
     }
 }

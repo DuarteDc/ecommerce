@@ -7,8 +7,10 @@ import { priceFormat } from "../../helpers/helpers";
 import { useModal } from "../../hooks/useModal";
 
 import ShowProduct from "../products/ShowProduct";
+import { toast } from 'react-toastify';
 
 const Card = ({ product }) => {
+    const notify = (error) => toast(error);
 
     const dispatch = useDispatch();
     const [isOpen, openModal, closeModal] = useModal();
@@ -29,11 +31,12 @@ const Card = ({ product }) => {
             <div className="hover:first:flex overflow-hidden cursor-pointer h-2/3 w-full relative"
                 onClick={() => handleClickModal(product)}
             >
-                <img
+                <Image
                     className="object-fill w-full h-full"
-                    src={product?.multimedia[0]}
+                    src={product?.multimedia[0]?.path}
                     alt={product?.name}
                     layout="fill"
+                    priority
                 />
             </div>
             <div className="px-4 mt-5 mb-4">
@@ -41,7 +44,7 @@ const Card = ({ product }) => {
                 <p className="text-md font-light">{product?.short_description}</p>
                 <p className="text-lg font-semibold">{price}</p>
                 <button className="w-full border-2 text-black border-black py-2 mt-6 font-bold hover:bg-black hover:text-white transition-all duration-500 ease-in-out uppercase"
-                onClick={()=>addOneFromCart(product, 1)}
+                    onClick={() =>{ addOneFromCart(product, 1); notify("EL producto se agrego al carrito");}}
                 >
                     Añadir al carrito
                 </button>

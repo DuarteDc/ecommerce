@@ -8,7 +8,11 @@ import { useDispatch, useSelector } from "react-redux";
 import { newProduct } from "../../actions/shoppingCartActions";
 import { useLocalStorage } from "../../hooks/useLocalStorage";
 
+import { toast } from 'react-toastify';
+
 const ProductInfo = ({ product, closeModal }) => {
+    const notify = (error) => toast(error);
+
     const dispatch = useDispatch();
     const img = useRef(null);
     const { counter, increaseBy, setCounter } = useCounter(1);
@@ -38,28 +42,20 @@ const ProductInfo = ({ product, closeModal }) => {
         <div className="grid grid-cols-1 md:grid-cols-2 ">
             <div>
                 <div className="w-full h-[15rem] md:h-[25rem]">
-                    <img src={product.principal_image}
-                        className="object-contain w-full h-full p-2" ref={img}
+                    <img src={product.multimedia[0]?.path}
+                        className="object-fill w-full h-full p-2" ref={img}
                     />
                 </div>
                 <div>
                     <div className="flex">
-                        <div className="border-2 border-gray-300 w-24 h-24 mx-1 cursor-pointer overflow-hidden">
-                            <img
-                                src={product?.principal_image}
-                                alt=""
-                                className="h-full w-full object-fill"
-                                onClick={e => showImage(e.target.src)}
-                            />
-                        </div>
                         {
                             product?.multimedia.map(multimedia => (
                                 <div
-                                key={multimedia._id}
+                                    key={multimedia._id}
                                     className="overflow-hidden border-2 border-gray-300 w-24 h-24 mx-1 cursor-pointer">
                                     <img
                                         src={multimedia.path}
-                                        alt=""
+                                        alt={product?.name}
                                         onClick={e => showImage(e.target.src)}
                                         className="w-full h-full object-fill"
                                     />
@@ -116,9 +112,10 @@ const ProductInfo = ({ product, closeModal }) => {
 
                         <span className="py-4 px-4 w-full w-full outline-none border-0 text-center font-bold">{counter} </span>
 
-                        <button className="text-xs lg:text-sm  w-full mx-2 text-white  bg-black font-bold p-4 border-2 hover:bg-white hover:text-black hover:border-2 border-black transition-all duration-700 ease-in-out" onClick={() => handleCartAdd(product)}>
+                        <button className="text-xs lg:text-sm  w-full mx-2 text-white  bg-black font-bold p-4 border-2 hover:bg-white hover:text-black hover:border-2 border-black transition-all duration-700 ease-in-out uppercase"
+                            onClick={() => { addCart(product, counter), closeModal(), setCounter(1), notify("El producto se agrego al carrito") }}>
                             <ShoppingCartIcon />
-                            ADD TO CART
+                            Añadir a carrito
                         </button>
                     </div>
                 </div>

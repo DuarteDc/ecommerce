@@ -34,7 +34,7 @@ const Profile = () => {
 
 
     const selectDefaultDirection = (id) => {
-        setDefaultAddress('',id);
+        setDefaultAddress('', id);
         loadAddress();
     }
     const loadAddress = async () => {
@@ -52,11 +52,13 @@ const Profile = () => {
                 <h1 className="text-center uppercase text-2xl bg-gray-50 py-3 my-20 font-bold container mx-auto">Perfil</h1>
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                     <div className="w-full flex flex-col items-center p-4 drop-shadow-md">
-                        <Image
-                         src="https://media.istockphoto.com/photos/gingerbread-man-3d-rendering-isolated-on-white-background-picture-id1250677513?k=20&m=1250677513&s=612x612&w=0&h=KVAes7pQUH0XRDhRGqXy0na2tyaTWbCCpZ8U1r1EpNw=" 
-                         width={200}
-                         height={200}   
-                        />
+                        <div
+                            className="w-full md:w-2/3 rounded-full overflow-hidden">
+                            <img
+                                src="https://media.istockphoto.com/photos/gingerbread-man-3d-rendering-isolated-on-white-background-picture-id1250677513?k=20&m=1250677513&s=612x612&w=0&h=KVAes7pQUH0XRDhRGqXy0na2tyaTWbCCpZ8U1r1EpNw="
+                                alt={user?.fullname}
+                            />
+                        </div>
                         <p className="text-2xl uppercase mt-5 text-center">{user?.fullname}</p>
                         <button className="py-2 px-4 bg-black text-white font-bold my-5 hover:bg-white hover:text-black border-2 border-black transition-all duration-700 ease-in-out"
                             onClick={logoutSession}
@@ -70,7 +72,7 @@ const Profile = () => {
                 </div>
                 <div className="w-full bg-gray-50 mt-10 p-8 drop-shadow-md">
                     <div className="flex items-center justify-between">
-                        <p className="text-xl font-bold">Direcciones</p>
+                        <p className="text-xl font-bold">Direcciones:</p>
                         <EditIcon
                             className="text-second-100 cursor-pointer"
                             onClick={openModalAddress}
@@ -81,7 +83,7 @@ const Profile = () => {
                             <div className="flex mt-4 md:ml-20" key={address._id}>
                                 <p className="font-light">Dirección{address.default && '(Por defecto):'}</p>
                                 <p onClick={() => selectDefaultDirection(address._id)} className="cursor-pointer">
-                                    {`${address.street}, #${address.no_int}, ${address.city}, ${address.postalcode}, ${address.municipality.name}, ${address.state.name}`}
+                                    {`${address?.street}, #${address?.no_int}, ${address?.city}, ${address?.postalcode}, ${address?.municipality?.name}, ${address?.state?.name}`}
                                 </p>
                             </div>
                         ))
@@ -170,7 +172,7 @@ const Profile = () => {
                                                     <td className="flex items-center">
                                                         <img
                                                             src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8cHJvZHVjdHxlbnwwfHwwfHw%3D&w=1000&q=80"
-                                                            className="object-contain w-32" 
+                                                            className="object-contain w-32"
                                                             alt="img"
                                                         />
                                                         <div className="ml-2">

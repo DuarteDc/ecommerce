@@ -3,7 +3,7 @@ import { wrapper } from '../../src/store';
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 import CloseIcon from '@mui/icons-material/Close';
 
-import { startLoadBrand } from '../../src/actions/brandsActions';
+import { startLoadProductsPerBrand } from '../../src/actions/brandsActions';
 import { startLoadCategories } from '../../src/actions/categoryActions';
 import Layout from '../../src/components/Layouts';
 import CategoriesList from '../../src/components/categories/CategoriesList';
@@ -13,7 +13,7 @@ import { removeCategory, clearAll } from '../../src/actions/productsAction';
 
 const Show = () => {
 
-    const { brand } = useSelector((state) => state.brands);
+    const { products, allProducts } = useSelector((state) => state.products);
     const { categories } = useSelector((state) => state.categories);
     const { categoriesSelected } = useSelector((state) => state.products);
 
@@ -24,22 +24,12 @@ const Show = () => {
     const handleClearFilters = () => {
         dispatch(clearAll());
     }
-    const products = [
-        { id: "1", name: "hola mundo", short_description: "some description", price: "800", img: "http://animation.com.mx/img/productos/P%C3%B3steres.png", available: "9", discount: "20" },
-        { id: "2", name: "hola mundo", short_description: "some description", price: "800", img: "http://animation.com.mx/img/productos/P%C3%B3steres.png", available: "9", discount: "20" },
-        { id: "3", name: "hola mundo", short_description: "some description", price: "800", img: "http://animation.com.mx/img/productos/P%C3%B3steres.png", available: "9", discount: "20" },
-        { id: "4", name: "hola mundo", short_description: "some description", price: "800", img: "http://animation.com.mx/img/productos/P%C3%B3steres.png", available: "9", discount: "20" },
-        { id: "5", name: "hola mundo", short_description: "some description", price: "800", img: "http://animation.com.mx/img/productos/P%C3%B3steres.png", available: "9", discount: "20" },
-        { id: "6", name: "hola mundo", short_description: "some description", price: "800", img: "http://animation.com.mx/img/productos/P%C3%B3steres.png", available: "9", discount: "20" },
-        { id: "7", name: "hola mundo", short_description: "some description", price: "800", img: "http://animation.com.mx/img/productos/P%C3%B3steres.png", available: "9", discount: "20" },
-        { id: "8", name: "hola mundo", short_description: "some description", price: "800", img: "http://animation.com.mx/img/productos/P%C3%B3steres.png", available: "9", discount: "20" },
-        { id: "9", name: "hola mundo", short_description: "some description", price: "800", img: "http://animation.com.mx/img/productos/P%C3%B3steres.png", available: "9", discount: "20" },
-    ];
+
 
     return (
         <Layout>
             <section>
-                <h1 className="text-center uppercase text-2xl bg-gray-50 py-3 mt-10 font-bold container mx-auto my-10">{brand.name}</h1>
+                <h1 className="text-center uppercase text-2xl bg-gray-50 py-3 mt-10 font-bold container mx-auto my-10"></h1>
                 <div className="grid grid-cols-1 md:grid-cols-4">
                     <div className="p-5">
                         <div className="p-4 md:h-screen w-full">
@@ -73,10 +63,17 @@ const Show = () => {
                     </div>
                     <div className="col-span-3 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
                         {
-                            products.map(product => (
-                                <Card product={product} key={product.id} />
-                            ))
+                            categoriesSelected.length > 0 ? (
+                                products.map(product => (
+                                    <Card key={product._id} product={product} />
+                                ))
+                            ) : (
+                                allProducts.map(product => (
+                                    <Card key={product._id} product={product} />
+                                ))
+                            )
                         }
+
                     </div>
                 </div>
             </section>
@@ -86,7 +83,7 @@ const Show = () => {
 
 export const getServerSideProps = wrapper.getServerSideProps((store) =>
     async (ctx) => {
-        await store.dispatch(startLoadBrand(ctx.query.id));
+        await store.dispatch(startLoadProductsPerBrand(ctx.query.id));
         await store.dispatch(startLoadCategories());
     })
 

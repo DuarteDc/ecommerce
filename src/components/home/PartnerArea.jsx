@@ -2,11 +2,11 @@ import Image from "next/image";
 import Link from "next/link";
 import { Autoplay, Pagination } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/react";
-import {useSelector} from "react-redux";
+import { useSelector } from "react-redux";
 /**tags */
 
 export const PartnerArea = () => {
-  const {brands} = useSelector((state)=>state.brands);
+  const { brands } = useSelector((state) => state.brands);
   return (
     <section className=" py-8 m-auto">
       <div className=" px-6 ">
@@ -28,9 +28,11 @@ export const PartnerArea = () => {
             <SwiperSlide key={brand._id}>
               <div className="text-center h-auto ">
                 <Link href={{
-                  pathname: '/brands/[id]',
-                  query: { id: brand._id }
-                }} as={`/brands/${brand._id}`}>
+                  pathname: '/marcas/[name]',
+                  query: { id: brand._id },
+                }}
+                  as={`/marcas/${brand.name}`}
+                >
                   <Image
                     src={brand.image}
                     width={200}

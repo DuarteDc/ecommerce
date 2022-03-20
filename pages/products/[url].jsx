@@ -1,14 +1,12 @@
-import { createRef, forwardRef } from "react";
-import Image from "next/image";
+import { createRef, forwardRef, useRef } from "react";
+
 import Link from "next/link";
-import { useRouter } from "next/router";
 
 import { useDispatch, useSelector } from "react-redux";
 import { wrapper } from "../../src/store";
 
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 
-import Card from "../../src/components/Layouts/Card";
 import Layout from "../../src/components/Layouts";
 
 import { startLoadProduct } from "../../src/actions/productsAction";
@@ -19,29 +17,11 @@ const Show = () => {
     const { product } = useSelector((state) => state.products);
     const dispatch = useDispatch();
 
-    const router = useRouter();
-    const { id } = router.query;
+    const img = useRef();
 
-    const img = createRef();
     const showImage = (newImg) => {
-        img.current.src = newImg
+        img.current.src = newImg;
     }
-    const products = [
-        { id: "1", name: "hola mundo", description: "some description some description some description some description ", price: "800", img: "http://animation.com.mx/img/productos/P%C3%B3steres.png", available: "9", discount: "20" },
-        { id: "2", name: "hola mundo", description: "some description some description some description some description ", price: "800", img: "http://animation.com.mx/img/productos/P%C3%B3steres.png", available: "9", discount: "20" },
-        { id: "3", name: "hola mundo", description: "some description some description some description some description ", price: "800", img: "http://animation.com.mx/img/productos/P%C3%B3steres.png", available: "9", discount: "20" },
-        { id: "4", name: "hola mundo", description: "some description some description some description some description ", price: "800", img: "http://animation.com.mx/img/productos/P%C3%B3steres.png", available: "9", discount: "20" },
-        { id: "5", name: "hola mundo", description: "some description some description some description some description ", price: "800", img: "http://animation.com.mx/img/productos/P%C3%B3steres.png", available: "9", discount: "20" },
-        { id: "6", name: "hola mundo", description: "some description some description some description some description ", price: "800", img: "http://animation.com.mx/img/productos/P%C3%B3steres.png", available: "9", discount: "20" },
-        { id: "7", name: "hola mundo", description: "some description some description some description some description ", price: "800", img: "http://animation.com.mx/img/productos/P%C3%B3steres.png", available: "9", discount: "20" },
-        { id: "8", name: "hola mundo", description: "some description some description some description some description ", price: "800", img: "http://animation.com.mx/img/productos/P%C3%B3steres.png", available: "9", discount: "20" },
-        { id: "9", name: "hola mundo", description: "some description some description some description some description ", price: "800", img: "http://animation.com.mx/img/productos/P%C3%B3steres.png", available: "9", discount: "20" },
-    ];
-
-
-    // const ImgProduct = forwardRef(({src, alt}, ref)=>{
-    //     return  <Image src={src}alt={alt} layout="fill" ref={ref}/>
-    // });
 
     const { counter, increaseBy, setCounter } = useCounter(1)
 
@@ -56,46 +36,38 @@ const Show = () => {
                     <div>
                         <div className="w-full mx-auto h-[15rem] md:h-[30rem] relative">
                             <img
-                                src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8cHJvZHVjdHxlbnwwfHwwfHw%3D&w=1000&q=80"
+                                src={product.multimedia[0].path}
                                 alt={product?.name}
-                                priority
-                                layout="fill"
+                                className="w-full h-full"
+                                ref={img}
+                            //ref={img}
                             />
                         </div>
                         <div>
-                            <div className="flex md:mt-10">
-                                <div className="border-2 border-gray-300 w-24 h-24 mx-1 cursor-pointer overflow-hidden relative">
-                                    <img
-                                        src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8cHJvZHVjdHxlbnwwfHwwfHw%3D&w=1000&q=80"
-                                        alt={product?.name}
-                                        layout="fill"
-                                        priority
-                                    />
-                                </div>
-                                 {/* {   product?.multimedia.map(multimedia => (
-                                        <div
-                                            className="overflow-hidden border-2 border-gray-300 w-24 h-24 mx-1 cursor-pointer"
-                                        >
-                                            <img
-                                                src={multimedia.path}
-                                                alt=""
-                                                onClick={e => showImage(e.target.src)}
-                                                className="w-full h-full object-fill"
-                                            />
-                                        </div>
-                                    ))
-                                 } */}
+                            <div className="flex mt-10">
+                                {product?.multimedia.map(multimedia => (
+                                    <div
+                                        className="overflow-hidden border-2 border-gray-300 w-24 h-24 mx-1 cursor-pointer relative"
+                                        key={multimedia._id}
+                                    >
+                                        <img
+                                            src={multimedia.path}
+                                            alt={product.name}
+                                            onClick={e => showImage(e.target.src)}
+                                            className="w-full h-full object-fill"
+                                        //onClick={e => showImage(e.target.src)}
+                                        />
+                                    </div>
+                                ))
+                                }
                             </div>
                         </div>
                     </div>
                     <div className="mt-5 md:mt-0 p-2 md:pl-5 lg:pl-10">
                         <h2 className="text-3xl font-semibold uppercase">{product?.name}</h2>
-                        <p className="mt-4 font-medium text-xl break-normal">
-                            {product?.short_description}
-                        </p>
                         <div className="mt-5">
                             <p className="font-bold text-3xl text-second-100 mr-12">
-                                $100.00
+                                ${product?.price}
                             </p>
                             <p className="mt-4 font-semibold uppercase">
                                 {product?.quantity} Disponibles
@@ -104,49 +76,30 @@ const Show = () => {
                         <div className="mt-5">
                             <div className="flex items-center">
                                 <h3 className="font-semibold text-lg">Categoria:</h3>
-                                <Link href="/">
-                                    <p className="text-second-100 font-semibold ml-2 
+                                <p className="text-second-100 font-semibold ml-2 
                                     cursor-pointer hover:text-gray-700 duration-500">
-                                        {product?.category?.name}
-                                    </p>
-                                </Link>
+                                    {product?.category?.name}
+                                </p>
                             </div>
                             <div className="flex items-center">
                                 <h3 className="font-semibold text-lg">Marca:</h3>
-                                <Link href="/">
-                                    <p className="text-second-100 font-semibold ml-2 
+                                <p className="text-second-100 font-semibold ml-2 
                                     cursor-pointer hover:text-gray-700 duration-500">
-                                        {product?.category?.name}
-                                    </p>
-                                </Link>
+                                    {product?.brand}
+                                </p>
                             </div>
                             <div className="mt-5">
                                 <h3 className="font-semibold text-lg mb-2">Tags:</h3>
                                 <div className="md:inline-flex">
-                                    <Link href="/">
-                                        <p className="text-second-100 font-semibold mr-4 
-                                    cursor-pointer hover:text-gray-700 duration-500">
-                                            {product?.category?.name}
-                                        </p>
-                                    </Link>
-                                    <Link href="/">
-                                        <p className="text-second-100 font-semibold mr-4 
-                                    cursor-pointer hover:text-gray-700 duration-500">
-                                            {product?.category?.name}
-                                        </p>
-                                    </Link>
-                                    <Link href="/">
-                                        <p className="text-second-100 font-semibold mr-4 
-                                    cursor-pointer hover:text-gray-700 duration-500">
-                                            {product?.category?.name}
-                                        </p>
-                                    </Link>
-                                    <Link href="/">
-                                        <p className="text-second-100 font-semibold mr-4 
-                                    cursor-pointer hover:text-gray-700 duration-500">
-                                            {product?.category?.name}
-                                        </p>
-                                    </Link>
+                                    {
+                                        product.tags.map(tag => (
+                                            <span key={tag._id}>
+                                                <p className="text-second-100 font-semibold mr-4 cursor-pointer hover:text-gray-700 duration-500">
+                                                    {product?.category?.name}
+                                                </p>
+                                            </span>
+                                        ))
+                                    }
                                 </div>
                             </div>
                         </div>
@@ -167,9 +120,10 @@ const Show = () => {
                                     {counter}
                                 </span>
 
-                                <button className="text-xs lg:text-sm  w-full mx-2 text-white mx-1 bg-black font-bold p-4 border-2 hover:bg-white hover:text-black hover:border-2 border-black transition-all duration-700 ease-in-out" onClick={() => { addCart(product, counter), setCounter(1) }}>
+                                <button className="text-xs lg:text-sm  w-full mx-2 text-white mx-1 bg-black font-bold p-4 border-2 hover:bg-white hover:text-black hover:border-2 border-black transition-all duration-700 ease-in-out uppercase"
+                                    onClick={() => { addCart(product, counter), setCounter(1) }}>
                                     <ShoppingCartIcon />
-                                    ADD TO CART
+                                    Añadir a carrito
                                 </button>
                             </div>
                             <button className="border-black border-2 hover:bg-black hover:text-white mt-16 py-4 w-full font-bold
@@ -189,11 +143,7 @@ const Show = () => {
                 </div>
                 <p className="uppercase font-bold text-center text-2xl mt-20 py-3 bg-gray-50">Productos relacionados</p>
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
-                    {
-                        products.map((product, index) => (
-                            <Card product={product} key={index} />
-                        ))
-                    }
+
                 </div>
             </section>
         </Layout>

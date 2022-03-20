@@ -1,11 +1,8 @@
 import Link from 'next/link';
-import { useSelector } from "react-redux";
-import { startLoadCategories } from "../../src/actions/categoryActions";
-import { wrapper } from '../../src/store';
 import Layout from '../../src/components/Layouts';
+import client from '../../src/config/axiosConfig';
 
-const Categories = () => {
-    const { categories } = useSelector((state) => state.categories);
+const Categories = ({ categories }) => {
     return (
         <Layout>
             <header className='bg-[#f58d16] py-8 absolute w-full'>
@@ -16,7 +13,7 @@ const Categories = () => {
                     {categories?.map((category) => (
                         <article key={category?._id} className="bg-amber-600 rounded-xl shadow-xl shadow-amber-800/30 transition-all duration-200 ease-in hover:scale-[1.04] cursor-pointer m-2 md:m-8">
                             <div className="flex justify-center p-2">
-                                <img src="https://www.ubertheme.com/wp-content/uploads/sites/3/edd/2014/06/jm-category.png" alt={category?.name} />
+                                <img src={category.imageWeb} alt={category?.name} />
                             </div>
                             <div className="justify-center py-8">
                                 <h2 className="text-center text-white font-bold text-md md:text-2xl">{category?.name}</h2>
@@ -29,9 +26,19 @@ const Categories = () => {
     )
 }
 
-export const getServerSideProps = wrapper.getServerSideProps((store)=>
-   async ()=>{
-    await store.dispatch(startLoadCategories())
-})
+export const getStaticProps = async () => {
+
+    const { data } = await client.get('/categories');
+
+    const categories = data.categories;
+
+    return {
+        props: {
+            categories,
+        },
+        revalidate: 3600
+    }
+}
+
 
 export default Categories;
