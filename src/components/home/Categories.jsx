@@ -49,7 +49,7 @@ export const CategoryArea = () => {
           },
           1600: {
             slidesPerView: 3,
-            spaceBetween: 20,
+            spaceBetween: 60,
           },
         }}
       >
@@ -57,12 +57,12 @@ export const CategoryArea = () => {
           <SwiperSlide key={category._id}>
             <Link href={`/${category.name}`}>
               <>
-                <div className="relative left-0 top-0 pb-[35px] h-[300px] w-[400px]">
-                  <div className="block-pick overflow-hidden relative flex justify-center  min-h-[300px] ">
+                <div className="relative left-0 top-0 pb-[35px] h-[350px] w-[400px]">
+                  <div className="block-pick overflow-hidden relative flex justify-center  min-h-[200px] ">
                     <Image
                       src={category.imageWeb}
                       width={400}
-                      height={300}
+                      height={350}
                     />
 
                     <div className="absolute w-full h-full top-0 left-0 bg-[rgba(0,0,0,0.2)] opacity-0 hover:opacity-[1] transition-all	duration-[0.4s] ease-linear delay-0">

@@ -1,5 +1,5 @@
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Pagination, Autoplay } from "swiper";
+import { Pagination, Autoplay, Navigation, Scrollbar, A11y } from "swiper";
 import SliderImage from "./SliderImage";
 import { useSelector } from "react-redux";
 
@@ -16,6 +16,9 @@ export const SlidersOffers = () => {
                     delay: 2500,
                     disableOnInteraction: false,
                 }}
+                navigation
+                pagination={{ clickable: true }}
+                modules={[Navigation, Pagination, Scrollbar, Autoplay]}
                 
      
                 className="mySwiper"
