@@ -39,8 +39,7 @@ export const getServerSideProps = wrapper.getServerSideProps((store)=>
   res.end();
 
   return {
-    props: {},
-    revalidate:86400
+    props: {}
   };
 })
 
