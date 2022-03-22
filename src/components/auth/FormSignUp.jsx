@@ -1,19 +1,43 @@
-import { Box, FormControl, TextField } from "@mui/material";
-import { useFormik } from "formik";
+import { useState } from "react";
 import Link from "next/link";
-import { useDispatch } from "react-redux";
-import { Form } from "semantic-ui-react";
+import { useRouter } from "next/router";
+
 import * as Yup from 'yup';
+import { useFormik } from "formik";
+import { useDispatch } from "react-redux";
+import ErrorOutlineIcon from '@mui/icons-material/ErrorOutline';
+
 import { startRegister } from "../../actions/authActions";
 
 const FormSignUp = () => {
+
+    const [error, setError] = useState(false);
+    const [messageError, setMessageError] = useState('');
+
+    const router = useRouter();
     const dispatch = useDispatch();
+
+    const handelRegisterUser = async (formData) => {
+
+        const { hasError, message } = await dispatch(startRegister(formData));
+
+        if (hasError) {
+            setError(true);
+            setMessageError(message || '');
+            setTimeout(() => setError(false), 4000);
+            return;
+        }
+
+        const destination = router.query.p?.toString() || '';
+        router.replace(destination);router.replace('/');
+    }
 
     const initialValues = {
         fullname: '',
         email: '',
         password: ''
     }
+    
     const validationSchema = {
         fullname: Yup.string().min(8, "El nombre debe contener al menos 8 caracteres").required("El nombre es requerido"),
         email: Yup.string().email("El correo no tiene un valido").required("El correo escrequerido"),
@@ -24,13 +48,21 @@ const FormSignUp = () => {
         initialValues: initialValues,
         validationSchema: Yup.object(validationSchema),
         onSubmit: (formData) => {
-            dispatch(startRegister(formData));
-            router.push('/')
+            handelRegisterUser(formData);
         }
     });
 
     return (
         <form onSubmit={formik.handleSubmit} className="w-full">
+            {
+                error && (
+                    <div
+                        className="my-5 py-4 flex justify-center bg-red-600 text-white font-bold animate__animated animate__fadeIn">
+                        <ErrorOutlineIcon className="mr-2" />
+                        <p>{messageError}</p>
+                    </div>
+                )
+            }
             <div className="w-10/12 mx-auto mt-20">
                 <div className="">
                     <label className="uppercase my-5 block">Nombre(s)</label>
@@ -117,7 +149,7 @@ const FormSignUp = () => {
                         Crear Cuenta
                     </button>
                     <div className="text-center text-principal text-sm underline mt-5">
-                        <Link href='/'>
+                        <Link href={router.query.p ? `/auth/login?p=${router.query.p}` : '/auth/login'}>
                             <a>¿Ya tienes Cuenta?</a>
                         </Link>
                     </div>
