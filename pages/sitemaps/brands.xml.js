@@ -7,7 +7,7 @@ export const getServerSideProps = wrapper.getServerSideProps((store)=>
  async ({res})=>{
    const baseUrl = {
         development: "http://localhost:3000",
-        production: "https://wapizima.com",
+        production: "https://test.wapizima.com",
       }[process.env.NODE_ENV];
 
     const {data} = await client.get('/brands');
