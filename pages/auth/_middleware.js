@@ -4,12 +4,10 @@ export async function middleware(req, ev) {
 
     const { token } = req.cookies;
 
-    if (token) {
+    if (!token) {
         return NextResponse.next();
     } else {
-        const requestedPage = req.page.name;
-        console.log(requestedPage);
-        return NextResponse.redirect(`/auth/login?p=${requestedPage}`);
+        return NextResponse.redirect('/');
     }
 
 }

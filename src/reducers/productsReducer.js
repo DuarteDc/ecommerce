@@ -1,4 +1,3 @@
-import { Category } from "@mui/icons-material";
 import { types } from "../types";
 
 const initalState = {
@@ -42,13 +41,6 @@ export const productsReducer = (state = initalState, { type, payload }) => {
                 brandsSelected: [...state.brandsSelected, payload.brand],
             }
 
-        case types.load_products_per_brand:
-            return {
-                ...state,
-                products: payload,
-                allProducts: payload
-            }
-
         case types.add_category_to_filter:
             let categoryInFilter = state.categoriesSelected.find((category) => category.id === payload.id)
             return categoryInFilter ? {
@@ -60,10 +52,22 @@ export const productsReducer = (state = initalState, { type, payload }) => {
                 //products: [...state.productsFilter, state.productsFilter]
             }
 
+        case types.load_products_per_brand:
+            return {
+                ...state,
+                products: payload,
+                allProducts: payload
+            }
+
+        case types.load_products_per_brand_and_category:
+            return {
+                ...state,
+                productsFilter: [payload, ...state.productsFilter]
+            }
 
         case types.load_products_per_pagination:
-            return{
-                ...state, 
+            return {
+                ...state,
                 products: payload
             }
 

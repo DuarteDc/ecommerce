@@ -83,6 +83,7 @@ const Show = () => {
 
 export const getServerSideProps = wrapper.getServerSideProps((store) =>
     async (ctx) => {
+        console.table(ctx.query)
         await store.dispatch(startLoadProductsPerBrand(ctx.query.id));
         await store.dispatch(startLoadCategories());
     })

@@ -1,9 +1,10 @@
-import Link from 'next/link';
 import {AiOutlineHeart} from 'react-icons/ai';
 import { priceFormat } from '../../helpers/helpers';
 
 export const CardProduct2 = ({image , product }) => {
+
     const price_format = priceFormat(product.price);
+    
     return (
         <>
       <div className="relative left-0 top-0 pb-[35px] animate__animated animate__zoomIn">

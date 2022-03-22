@@ -1,22 +1,22 @@
 import Layout from "../../src/components/Layouts"
 
-import client from "../../src/config/axiosConfig";
 import BrandSlider from "../../src/components/brands/BrandSlider";
+import { wrapper } from "../../src/store";
+import { startLoadBrands } from "../../src/actions/brandsActions";
+import { useSelector } from "react-redux";
 
+const Brands = () => {
 
-
-
-
-const Brands = ({ brands }) => {
+  const { brands } = useSelector((state) => state.brands);
 
   return (
     <Layout>
-      <section className="container mx-auto mt-20">
+      <section className="container mx-auto my-20">
         <h1 className="my-20 text-center text-xl uppercase font-bold py-3 bg-gray-50">Marcas</h1>
         {
           brands.map(brand => (
             brand.products.length > 0 && (
-              <BrandSlider brand={brand} />
+              <BrandSlider brand={brand} key={brand?._id} />
             )
           ))
         }
@@ -26,20 +26,12 @@ const Brands = ({ brands }) => {
 }
 
 
-export const getStaticProps = async () => {
-
-  const { data } = await client.get('/brands/products/brand');
-
-  const brands = data.brands;
-
-  return {
-    props: {
-      brands,
-    },
-    revalidate: 3600
+export const getStaticProps = wrapper.getStaticProps((store) =>
+  async () => {
+    await store.dispatch(startLoadBrands());
+    return {
+      revalidate: 3600
+    }
   }
-}
-
-
-
+)
 export default Brands;

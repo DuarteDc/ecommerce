@@ -3,13 +3,12 @@ import client from '../config/axiosConfig';
 import { types } from '../types';
 import errorHandler from './errorHandler';
 
-import { toast } from 'react-toastify';
+
 import axios from 'axios';
 
-const notify = (error) => toast(error);
 
 export const startLoginEmailPassword = (data) => {
-    
+
     return async (dispatch) => {
         let url = '/auth/login';
         try {
@@ -35,7 +34,6 @@ export const login = (token, user) => ({
     }
 });
 
-
 export const startRegister = (data) => {
 
     return async (dispatch) => {
@@ -45,7 +43,7 @@ export const startRegister = (data) => {
             const { user, token } = res.data;
             Cookies.set('token', token);
             dispatch(register(user, token));
-            return{
+            return {
                 hasError: false
             }
 
@@ -79,7 +77,7 @@ export const startVerifyToken = () => {
     return async (dispatch) => {
         let url = '/auth'
         try {
-            const oldToken = Cookies.get('token')
+            const oldToken = Cookies.get('token');
             const res = await client.get(url, {
                 headers: {
                     'Authorization': oldToken

@@ -10,7 +10,6 @@ const Login = () => {
 
   const router = useRouter();
 
-  const destination = router.query.p?.toString() || '';
 
   return (
     <Layout>

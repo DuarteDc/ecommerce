@@ -1,8 +1,8 @@
 import client from '../config/axiosConfig';
 import { types } from "../types"
 
-export const startLoadBrandsHome = () =>{
-    return async (dispatch)=>{
+export const startLoadBrandsHome = () => {
+    return async (dispatch) => {
         let url = '/brands/products/brand';
 
         try {
@@ -12,11 +12,11 @@ export const startLoadBrandsHome = () =>{
             console.log(error);
         }
     }
-}        
+}
 
 export const startLoadBrands = () => {
     return async (dispatch) => {
-        let url = '/brands';
+        let url = '/brands/products/brand';
         try {
             const res = await client.get(url);
             dispatch(loadBrands(res.data.brands))
@@ -26,9 +26,9 @@ export const startLoadBrands = () => {
     }
 }
 
-export const loadBrandsHome = (brands) =>({
+export const loadBrandsHome = (brands) => ({
     type: types.loadBrandsHome,
-    payload:brands
+    payload: brands
 })
 
 export const loadBrands = (brands) => ({
@@ -50,5 +50,22 @@ export const startLoadProductsPerBrand = (brand) => {
 
 export const loadProductsPerBrand = (products) => ({
     type: types.load_products_per_brand,
+    payload: products
+})
+
+export const startLoadProductsPerBrandAndCategory = (brand_id, category_id) => {
+    return async (dispatch) => {
+        let url = `/products/brand/category/${brand_id}/${category_id}`;
+        try {
+            const res = await client.get(url);
+            dispatch(startLoadBrandPerCategory);
+        } catch (error) {
+            console.log(error);
+        }
+    }
+}
+
+export const loadProductsPerBrandAndCategory = (products) => ({
+    type: types.load_products_per_brand_and_category,
     payload: products
 })
