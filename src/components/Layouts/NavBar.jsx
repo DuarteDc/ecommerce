@@ -20,7 +20,11 @@ const NavBar = () => {
 
   const routes = [
     {
-      path: '/products',
+      path: '/',
+      name: 'Inicio'
+    },
+    {
+      path: '/productos',
       name: 'Productos'
     },
     {
@@ -28,7 +32,7 @@ const NavBar = () => {
       name: 'Marcas'
     },
     {
-      path: '/categories',
+      path: '/categorias',
       name: 'Categorias'
     },
     {
@@ -73,8 +77,8 @@ const NavBar = () => {
       <div className="w-full px-10  lg:px-16 xl:px-28 2xl:px-28">
         <nav className="flex max-h-16 justify-between items-center" >
           <Image
-            src={'/assets/Wapizima C.webp'}
-            alt="Picture of the author"
+            src={logo}
+            alt="Wapizima"
             className="cursor-pointer"
             width={200}
             height={150}
@@ -121,7 +125,7 @@ const NavBar = () => {
               <span className="border-transparent border-b-2 mx-4 cursor-pointer text-lg  text-[#888] font-['Poppins'] font-normal transition duration-700 ease-in-out">
                 <Link href="/cart">
                   <a>
-                    <Badge badgeContent={cart.length} color="secondary">
+                    <Badge badgeContent={cart.length || 0} color="secondary">
                       <IconContext.Provider value={{ size: "1.5rem" }}>
                         <BsHandbag />
                       </IconContext.Provider>
@@ -133,6 +137,17 @@ const NavBar = () => {
           </div>
         </nav>
       </div>
+      <div class="sm:hidden" id="mobile-menu">
+      <div class="px-2 pt-2 pb-3 space-y-1">
+      {
+        routes.map(route=>(
+          <Link href={route.path}>
+            <span href="#" class="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium">{route.name}</span>
+          </Link>
+        ))
+      }
+      </div>
+     </div>
     </div>
   );
 };

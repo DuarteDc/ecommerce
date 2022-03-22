@@ -11,11 +11,8 @@ export const SlidersOffers = () => {
             <Swiper
                 slidesPerView={1}
                 spaceBetween={30}
-                loop={true}
-                autoplay={{
-                    delay: 2500,
-                    disableOnInteraction: false,
-                }}
+                loop={false}
+               
                 navigation
                 pagination={{ clickable: true }}
                 modules={[Navigation, Pagination, Scrollbar, Autoplay]}

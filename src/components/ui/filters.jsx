@@ -4,7 +4,7 @@ export const FiltersArea = ({brands , openFilter}) => {
   return (
     <div className={`w-full py-[30px] ${openFilter ? 'block' : 'hidden' } animate__animated animate__zoomIn`}>
       <div className="grid-col-4 bg-[#f2f2f2] flex flex-wrap w-full px-10 pt-7">
-        <div className="w-[25%] pr-2 pb-7">
+        <div className="w-full lg:w-[25%] pr-2 pb-7">
           <div className="text-[#333] pb-[15px] font-Poppins font-semibold">
             {" "}
             Ordernar Por
@@ -33,7 +33,7 @@ export const FiltersArea = ({brands , openFilter}) => {
             </li>
           </ul>
         </div>
-        <div className="w-[25%] pr-2 pb-7">
+        <div className="w-full lg:w-[25%] pr-2 pb-7">
           <div className="text-[#333] pb-[15px] font-Poppins font-semibold">
             Precio
           </div>
@@ -65,7 +65,7 @@ export const FiltersArea = ({brands , openFilter}) => {
             </li>
           </ul>
         </div>
-        <div className="w-[25%] pr-2 pb-7">
+        <div className="w-full lg:w-[25%] pr-2 pb-7">
           <div className="text-[#333] mb-[15px] font-Poppins font-semibold">
             {" "}
             Marca
@@ -82,7 +82,7 @@ export const FiltersArea = ({brands , openFilter}) => {
               }
           </ul>
         </div>
-        <div className="w-[25%] pr-2 pb-7">
+        <div className="w-full lg:w-[25%] pr-2 pb-7">
           <span className="text-[#333] pb-[15px] font-Poppins font-semibold">
             {" "}
             Tag

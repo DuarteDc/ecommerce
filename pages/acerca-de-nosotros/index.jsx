@@ -9,7 +9,7 @@ export default function AboutPage() {
         <h1 className="font-Poppins font-semibold text-5xl leading-[1.1] text-luz">Acerca de Nosotros</h1>
       </section>
       <section>
-        <div className="max-w-[1380px] m-auto px-4">
+        <div className="max-w-[1220px] m-auto px-4">
           <div className="grid grid-rows-2 gap-10 my-20">
             <div className="grid grid-cols-12 gap-10">
               <div className="col-span-8">

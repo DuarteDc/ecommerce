@@ -3,7 +3,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination } from "swiper";
 
 
-import { CardProduct2 } from "../ui/cardProduct2";
+import { CardProduct } from "../ui/cardProduct";
 
 import Link from "next/link";
 
@@ -64,7 +64,7 @@ const BrandSlider = ({ brand }) => {
                             <SwiperSlide
                                 key={product._id}
                             >
-                                <CardProduct2
+                                <CardProduct
                                     image={product.multimedia[0]?.path}
                                     product={product}
                                     handleClickModal={(product) => handleClickModal(product)}

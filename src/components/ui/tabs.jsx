@@ -24,7 +24,7 @@ export const Tabs = ({ tabActive,
         </span>
         {tabsData.map((tabData, index) => (
           <span
-            className={`cursor-pointer border-solid font-Poppins text-medium leading-[1.2] hover:text-[#333] hover:border-[#797979] ${
+            className={`cursor-pointer border-solid font-Poppins text-medium leading-[1.9] hover:text-[#333] hover:border-[#797979] ${
               tabActive == index && "text-[#333] border-[#797979]"
             } border-b-[1px] border-transparent mx-1 mr-8  duration-[0.4s] transition-all`}
             key={tabData._id}
