@@ -13,6 +13,7 @@ export const Meta = ({title , keywords , description , ogTitle , ogType , ogUrl 
             <meta name="keywords" content={keywords}></meta>
 
             <meta property="og:url" content={ogUrl} />
+            <meta property="og:type" content={ogType}/>
             <meta property="og:title" content={ogTitle} />
             <meta property="og:description" content={description} />
             <meta property="og:image" content={ogImage} />
