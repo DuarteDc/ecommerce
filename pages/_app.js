@@ -1,4 +1,5 @@
 import { useEffect } from 'react';
+import { useRouter } from 'next/router';
 import { wrapper } from '../src/store';
 import '../src/assets/styles/globals.css';
 import "swiper/css";
@@ -9,8 +10,9 @@ import * as ga from '../src/libs/ga';
 
 
 
-const  MyApp = ({ Component, pageProps })=>{
 
+const  MyApp = ({ Component, pageProps })=>{
+    const router = useRouter()
 
     useEffect(() => {
         const handleRouteChange = (url) => {
