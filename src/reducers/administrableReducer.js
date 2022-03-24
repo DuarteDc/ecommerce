@@ -5,13 +5,15 @@ const initialState = {
     top_text:'',
     facebook:'',
     instagram:'',
-    tiktok:''
+    tiktok:'',
+    aboutUs:{},
+    mission:{}
 }
 
 
 export const administrableReducer = (state = initialState, { type, payload }) => {
     switch (type) {
-        case types.loadAdministrableData:
+        case types.loadAdministrableLogo:
             return{
                 ...state,
                 logo:payload.logo,
@@ -19,6 +21,12 @@ export const administrableReducer = (state = initialState, { type, payload }) =>
                 facebook:payload.facebook,
                 instagram:payload.instagram,
                 tiktok:payload.tiktok
+            }
+        case types.loadAdministrableAbout:
+            return{
+                ...state,
+                aboutUs: payload.about.aboutThat,
+                mission: payload.about.mission
             }
         default:
             return state;

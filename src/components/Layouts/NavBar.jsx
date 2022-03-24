@@ -11,6 +11,7 @@ import Cookies from "js-cookie";
 
 const NavBar = () => {
   const { cart } = useSelector((state) => state.cart)
+  console.log(cart);
   const { logged } = useSelector((state) => state.auth)
   const { logo } = useSelector((state) => state.administrable);
 
@@ -125,7 +126,7 @@ const NavBar = () => {
               <span className="border-transparent border-b-2 mx-4 cursor-pointer text-lg  text-[#888] font-['Poppins'] font-normal transition duration-700 ease-in-out">
                 <Link href="/cart">
                   <a>
-                    <Badge badgeContent={cart.length || 0} color="secondary">
+                    <Badge badgeContent={cart?.length || 0} color="secondary">
                       <IconContext.Provider value={{ size: "1.5rem" }}>
                         <BsHandbag />
                       </IconContext.Provider>

@@ -1,13 +1,19 @@
 import Image from "next/image";
 import React from "react";
+import { useSelector } from "react-redux";
+import { startLoadAdministrableAbout, startLoadAdministrableData, startLoadAdministrableLogo } from "../../src/actions/administrableActions";
 import Layout from "../../src/components/Layouts";
+import { BannerImage } from "../../src/components/ui";
+import { wrapper } from "../../src/store";
 
-export default function AboutPage() {
+const AboutPage = () =>{
+  const { aboutUs , mission } = useSelector((state)=>state.administrable)
   return (
     <>
-      <section className="text-center px-[15px] py-[92px] bg-about-us bg-cover  bg-centerbg-no-repeat">
-        <h1 className="font-Poppins font-semibold text-5xl leading-[1.1] text-luz">Acerca de Nosotros</h1>
-      </section>
+      <BannerImage
+        title="Acerca de Nosotros"
+        imageBackground="bg-about-us"
+      />
       <section>
         <div className="max-w-[1220px] m-auto px-4">
           <div className="grid grid-rows-2 gap-10 my-20">
@@ -18,32 +24,7 @@ export default function AboutPage() {
                  <h3 className="font-semibold text-2xl leading-[1.2] color-[#333] pb-4">Nuestra Historia</h3>
                   </div>
                   <p className="font-Poppins text-sm leading-7 text-[#888] pb-6">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                    Mauris consequat consequat enim, non auctor massa ultrices
-                    non. Morbi sed odio massa. Quisque at vehicula tellus, sed
-                    tincidunt augue. Orci varius natoque penatibus et magnis dis
-                    parturient montes, nascetur ridiculus mus. Maecenas varius
-                    egestas diam, eu sodales metus scelerisque congue.
-                  </p>
-                   <p className="font-Poppins text-sm leading-7 text-[#888] pb-6"> Pellentesque habitant morbi tristique senectus et netus et
-                    malesuada fames ac turpis egestas. Maecenas gravida justo eu
-                    arcu egestas convallis. Nullam eu erat bibendum, tempus
-                    ipsum eget, dictum enim. Donec non neque ut enim dapibus
-                    tincidunt vitae nec augue. Suspendisse potenti. Proin ut est
-                    diam. Donec condimentum euismod tortor, eget facilisis diam
-                    faucibus et. Morbi a tempor elit. Donec gravida lorem elit,
-                    quis condimentum ex semper sit amet. Fusce eget ligula
-                    magna. Aliquam aliquam imperdiet sodales.</p>
-                    <p className="font-Poppins text-sm leading-7 text-[#888] pb-6">Ut fringilla
-                    turpis in vehicula vehicula. Pellentesque congue ac orci ut
-                    gravida. Aliquam erat volutpat. Donec iaculis lectus a arcu
-                    facilisis, eu sodales lectus sagittis. Etiam pellentesque,
-                    magna vel dictum rutrum, neque justo eleifend elit, vel
-                    tincidunt erat arcu ut sem. Sed rutrum, turpis ut commodo
-                    efficitur, quam velit convallis ipsum, et maximus enim
-                    ligula ac ligula. Any questions? Let us know in store at 8th
-                    floor, 379 Hudson St, New York, NY 10018 or call us on (+1)
-                    96 716 6879
+                   {aboutUs.aboutThat}
                   </p>
                 </div>
               </div>
@@ -51,10 +32,11 @@ export default function AboutPage() {
                 <div className="relative z-[1] before:bottom-[-21px] before:left-[-21px] before:block before:absolute before:z-[-1] before:w-full before:h-full before:border-solid before:border-[#ccc] before:border-[3px]">
                   <div className="block overflow-hidden">
                     <Image
-                      src="/assets/images/item.jpg"
+                      src={aboutUs.image}
                       className="w-full h-full transition-all duration-[0.4s] ease-linear delay-0 hover:scale-[1.1] "
                       width={400}
                       height={500}
+                      alt="acerca de nosotros"
                     />
                   </div>
                 </div>
@@ -65,10 +47,11 @@ export default function AboutPage() {
                 <div className="relative z-[1] before:bottom-[-21px] before:left-[-21px] before:block before:absolute before:z-[-1] before:w-full before:h-full before:border-solid before:border-[#ccc] before:border-[3px]">
                   <div className="block overflow-hidden">
                     <Image
-                      src="/assets/images/item.jpg"
+                      src={mission.image}
                       className="w-full h-full transition-all duration-[0.4s] ease-linear delay-0 hover:scale-[1.1] "
                       width={400}
                       height={500}
+                      alt="nuestra misión"
                     />
                   </div>
                 </div>
@@ -79,32 +62,7 @@ export default function AboutPage() {
                  <h3 className="font-semibold text-2xl leading-[1.2] color-[#333] pb-4">Nuestra Misión</h3>
                   </div>
                   <p className="font-Poppins text-sm leading-7 text-[#888] pb-6">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                    Mauris consequat consequat enim, non auctor massa ultrices
-                    non. Morbi sed odio massa. Quisque at vehicula tellus, sed
-                    tincidunt augue. Orci varius natoque penatibus et magnis dis
-                    parturient montes, nascetur ridiculus mus. Maecenas varius
-                    egestas diam, eu sodales metus scelerisque congue.
-                  </p>
-                   <p className="font-Poppins text-sm leading-7 text-[#888] pb-6"> Pellentesque habitant morbi tristique senectus et netus et
-                    malesuada fames ac turpis egestas. Maecenas gravida justo eu
-                    arcu egestas convallis. Nullam eu erat bibendum, tempus
-                    ipsum eget, dictum enim. Donec non neque ut enim dapibus
-                    tincidunt vitae nec augue. Suspendisse potenti. Proin ut est
-                    diam. Donec condimentum euismod tortor, eget facilisis diam
-                    faucibus et. Morbi a tempor elit. Donec gravida lorem elit,
-                    quis condimentum ex semper sit amet. Fusce eget ligula
-                    magna. Aliquam aliquam imperdiet sodales.</p>
-                    <p className="font-Poppins text-sm leading-7 text-[#888] pb-6">Ut fringilla
-                    turpis in vehicula vehicula. Pellentesque congue ac orci ut
-                    gravida. Aliquam erat volutpat. Donec iaculis lectus a arcu
-                    facilisis, eu sodales lectus sagittis. Etiam pellentesque,
-                    magna vel dictum rutrum, neque justo eleifend elit, vel
-                    tincidunt erat arcu ut sem. Sed rutrum, turpis ut commodo
-                    efficitur, quam velit convallis ipsum, et maximus enim
-                    ligula ac ligula. Any questions? Let us know in store at 8th
-                    floor, 379 Hudson St, New York, NY 10018 or call us on (+1)
-                    96 716 6879
+                    {mission.mission}
                   </p>
                 </div>
               </div>
@@ -117,5 +75,23 @@ export default function AboutPage() {
 }
 
 AboutPage.getLayout = function getLayout(page) {
-  return <Layout>{page}</Layout>;
+  return (
+     <Layout 
+       title="Wapizima - Acerca de"
+       robots="noindex"
+     >
+       {page}
+     </Layout>
+     );
 };
+
+
+export const getStaticProps = wrapper.getStaticProps((store)=> async()=>{
+  await store.dispatch(startLoadAdministrableLogo());
+  await store.dispatch(startLoadAdministrableAbout());
+  return{
+      revalidate:86400
+  }
+});
+
+export default AboutPage

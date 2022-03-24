@@ -1,23 +1,40 @@
-// logo
-// slider 
-// slider ofertas
 import client from '../config/axiosConfig';
 import { types } from '../types';
 
 
-export const startLoadAdministrableData = () =>{
+export const startLoadAdministrableLogo = () =>{
     return async (dispatch)=>{
         try {
             let url = 'administrable/logo';
-            const res = await client.get(url);
-            dispatch(loadAdministrableData(res.data.logo));
+            const {data} = await client.get(url);
+            dispatch(loadAdministrableLogo(data.logo));
         } catch (error) {
             console.log(error);
         }
     }
 }
 
-export const loadAdministrableData = (administrable) =>({
-   type:types.loadAdministrableData,
+export const loadAdministrableLogo = (administrable) =>({
+   type:types.loadAdministrableLogo,
    payload:administrable
+});
+
+
+export const startLoadAdministrableAbout = () =>{
+    return async (dispatch)=>{
+        try {
+            let url = 'administrable/about';
+            const {data} = await client.get(url);
+            dispatch(loadAdministrableAbout(data.about))
+        } catch (error) {
+            console.log(error);
+            
+        }
+    }
+}
+
+export const loadAdministrableAbout = (about) =>({
+   type:types.loadAdministrableAbout,
+   payload:about
+   
 })

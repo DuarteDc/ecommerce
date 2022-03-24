@@ -6,12 +6,13 @@ import TopHeader from './TopHeader';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { Meta } from '../meta/meta';
+import Script from 'next/script';
 
-const Layout = ({ children }) => {
+const Layout = ({ children  , title }) => {
     return (
         <>
             <Meta
-               title="wapizima"
+               title={title}
             />
             <TopHeader />
             <NavBar />
@@ -28,6 +29,17 @@ const Layout = ({ children }) => {
                 draggable
                 pauseOnHover
             />
+            <Script src="https://www.googletagmanager.com/gtag/js?id=G-GRWCEYYWSK"></Script>
+            <Script dangerouslySetInnerHTML={{
+               __html:`
+               window.dataLayer = window.dataLayer || [];
+               function gtag(){dataLayer.push(arguments);}
+               gtag('js', new Date());
+               gtag('config', '${process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS}', {
+                 page_path: window.location.pathname,
+               });
+               `,
+            }}/>
         </>
     )
 }

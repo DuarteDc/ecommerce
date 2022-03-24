@@ -1,18 +1,22 @@
 import Link from 'next/link';
 import { useSelector } from 'react-redux';
-import { startLoadAdministrableData } from '../../src/actions/administrableActions';
+import { startLoadAdministrableLogo } from '../../src/actions/administrableActions';
 import { startLoadCategories } from '../../src/actions/categoryActions';
 import Layout from '../../src/components/Layouts';
+import { BannerImage } from '../../src/components/ui/bannerImage';
 import client from '../../src/config/axiosConfig';
 import { wrapper } from '../../src/store';
 
 const Categories = () => {
     const {categories} = useSelector((state)=>state.categories);
     return (
-        <Layout>
-            <header className='bg-[#f58d16] py-8 absolute w-full'>
-                <h1 className="text-xl lg:text-3xl ml-8 text-white font-bold uppercase mb-12">Categories</h1>
-            </header>
+        <Layout 
+          title="Wapizima - Categorias"
+          robots="noindex"
+        >
+           <BannerImage
+              title="Categorias"
+           />
             <Link href="/categories/hola-mundo">
                 <section className="container mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 relative mt-20">
                     {categories?.map((category) => (
@@ -33,7 +37,7 @@ const Categories = () => {
 
 export const getStaticProps = wrapper.getStaticProps((store)=> async()=>{
     await store.dispatch(startLoadCategories());
-    await store.dispatch(startLoadAdministrableData());
+    await store.dispatch(startLoadAdministrableLogo());
     return{
         revalidate:3600
     }

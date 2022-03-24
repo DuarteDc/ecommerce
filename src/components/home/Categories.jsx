@@ -38,7 +38,7 @@ export const CategoryArea = () => {
           },
           640: {
             slidesPerView: 2,
-            spaceBetween: 50,
+            spaceBetween: 100,
           },
           1024: {
             slidesPerView: 3,
@@ -46,11 +46,11 @@ export const CategoryArea = () => {
           },
           1400: {
             slidesPerView: 3,
-            spaceBetween: 40,
+            spaceBetween: 100,
           },
           1600: {
             slidesPerView: 4,
-            spaceBetween: 25,
+            spaceBetween: 250,
           },
         }}
       >

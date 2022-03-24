@@ -12,7 +12,7 @@ export const getServerSideProps = wrapper.getServerSideProps((store)=>
 
     const {data} = await client.get('/brands');
     const brands = data.brands.map(brand=>{
-      let url = `${baseUrl}/marcas/${brand._id}`;
+      let url = `${baseUrl}/marcas/${brand.url}`;
       return url;
     });
 
