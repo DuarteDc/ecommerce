@@ -8,7 +8,6 @@ export async function middleware(req, ev) {
         return NextResponse.next();
     } else {
         const requestedPage = req.page.name;
-        console.log(requestedPage);
         return NextResponse.redirect(`/auth/login?p=${requestedPage}`);
     }
 

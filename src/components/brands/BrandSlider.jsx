@@ -13,23 +13,24 @@ import { addProductSelected } from "../../actions/productsAction";
 import { useDispatch } from "react-redux";
 
 const BrandSlider = ({ brand }) => {
+
     const dispatch = useDispatch();
 
     const [isOpen, openModal, closeModal] = useModal();
+
     const handleClickModal = (product) => {
         openModal();
         dispatch(addProductSelected(product))
     }
+
     return (
-        <section className="my-10 font-bold text-gray-900" key={brand._id}>
+        <section className="my-44 font-bold text-gray-900" key={brand._id}>
             <div className="flex justify-between items-center text-gray-500 text-sm">
                 <h2 className="text-xl mb-4 uppercase">{brand.name}</h2>
                 <Link href={{
-                    pathname: '/marcas/[name]',
-                    query: { id: brand._id },
-                }}
-                    as={`/marcas/${brand.name}`}
-                >
+                    pathname: '/marcas/[...name]',
+                    query: { name: [brand.name, brand._id] }
+                }}>
                     <a className="cursor-pointer hover:text-black transition-all duration-700 ease-in-out">Ver mas...</a>
                 </Link>
             </div>
@@ -78,7 +79,7 @@ const BrandSlider = ({ brand }) => {
                 isOpen={isOpen}
                 closeModal={closeModal}
             />
-        </section>
+        </section >
     )
 }
 

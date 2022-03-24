@@ -1,6 +1,4 @@
-import { createRef, forwardRef, useRef } from "react";
-
-import Link from "next/link";
+import { useRef } from "react";
 
 import { useDispatch, useSelector } from "react-redux";
 import { wrapper } from "../../src/store";
@@ -12,12 +10,14 @@ import Layout from "../../src/components/Layouts";
 import { startLoadProduct } from "../../src/actions/productsAction";
 import { useCounter } from "../../src/hooks/useCounter";
 import { newProduct } from "../../src/actions/shoppingCartActions";
+import Card from "../../src/components/Layouts/Card";
 
 const Show = () => {
 
-    const { product } = useSelector((state) => state.products);
+    const { product, relatedProducts } = useSelector((state) => state.products);
 
     const dispatch = useDispatch();
+
     const img = useRef();
 
     const showImage = (newImg) => {
@@ -143,8 +143,12 @@ const Show = () => {
                     </p>
                 </div>
                 <p className="uppercase font-bold text-center text-2xl mt-20 py-3 bg-gray-50">Productos relacionados</p>
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
-
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 my-24">
+                    {
+                        relatedProducts.map(product => (
+                            <Card product={product} key={product._id} />
+                        ))
+                    }
                 </div>
             </section>
         </Layout>

@@ -11,8 +11,8 @@ const Brands = () => {
 
   return (
     <Layout>
-      <section className="container mx-auto my-20">
-        <h1 className="my-20 text-center text-xl uppercase font-bold py-3 bg-gray-50">Marcas</h1>
+      <section className="container mx-auto">
+        <h1 className="my-20 text-center text-xl uppercase font-bold py-3 bg-gray-50 my-40">Marcas</h1>
         {
           brands.map(brand => (
             brand.products.length > 0 && (

@@ -7,6 +7,7 @@ import ExpandLessIcon from '@mui/icons-material/ExpandLess';
 import BrandItem from './BrandItem';
 
 const BrandsList = ({ brands }) => {
+    
     const [open, setOpen] = useState(true);
 
     return (

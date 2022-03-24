@@ -123,7 +123,7 @@ const NavBar = () => {
               <span className="border-transparent border-b-2 mx-4 cursor-pointer text-lg  text-[#888] font-['Poppins'] font-normal transition duration-700 ease-in-out">
                 <Link href="/cart">
                   <a>
-                    <Badge badgeContent={cart.length} color="secondary">
+                    <Badge badgeContent={cart?.length} color="secondary">
                       <IconContext.Provider value={{ size: "1.5rem" }}>
                         <BsHandbag />
                       </IconContext.Provider>

@@ -1,11 +1,21 @@
-import { useDispatch } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
 import { startLoadProductsPerBrand } from "../../actions/productsAction";
 
 const BrandItem = ({ brand }) => {
+
+    const { brandsSelected } = useSelector(state => state.products);
+
     const dispatch = useDispatch();
 
     const handleAddBrand = (brand) => {
-        dispatch(startLoadProductsPerBrand(brand));
+
+        const brandInFilter = brandsSelected.find(brandSelected => brandSelected._id === brand._id);
+
+        if (!brandInFilter) {
+            dispatch(startLoadProductsPerBrand(brand));
+            return;
+        }
+
     }
 
 

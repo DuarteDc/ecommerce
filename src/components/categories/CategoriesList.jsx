@@ -5,17 +5,10 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import ExpandLessIcon from '@mui/icons-material/ExpandLess';
 
 import CategoryItem from "./CategoryItem"
-import { useDispatch } from 'react-redux';
 
-import { addCategoryToParams } from '../../actions/productsAction';
-
-const CategoriesList = ({ categories }) => {
+const CategoriesList = ({ categories, brand_id }) => {
 
     const [open, setOpen] = useState(true);
-
-    const dispatch = useDispatch();
-
-    
 
     return (
         <div className="mb-5">
@@ -34,6 +27,7 @@ const CategoriesList = ({ categories }) => {
                         >
                             <CategoryItem
                                 category={category}
+                                brand_id={brand_id}
                             />
                         </Collapse>
                     ))
