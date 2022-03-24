@@ -29,8 +29,8 @@ const Layout = ({ children  , title }) => {
                 draggable
                 pauseOnHover
             />
-            <Script src="https://www.googletagmanager.com/gtag/js?id=G-GRWCEYYWSK"></Script>
-            <Script dangerouslySetInnerHTML={{
+            <Script id='google-tag-manager' src="https://www.googletagmanager.com/gtag/js?id=G-GRWCEYYWSK"></Script>
+            <Script id='google-data-layer' dangerouslySetInnerHTML={{
                __html:`
                window.dataLayer = window.dataLayer || [];
                function gtag(){dataLayer.push(arguments);}
