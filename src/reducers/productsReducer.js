@@ -2,12 +2,11 @@ import { types } from "../types";
 
 const initalState = {
     products: [],
-    allProducts: [],
     product: null,
     relatedProducts: [],
     productSelected: null,
     brandsSelected: [],
-    productsFilter: [],
+    filteredProducts: [],
     categoriesSelected: [],
 }
 
@@ -18,7 +17,6 @@ export const productsReducer = (state = initalState, { type, payload }) => {
             return {
                 ...state,
                 products: payload,
-                allProducts: payload
             }
 
         case types.loadProduct:
@@ -34,7 +32,7 @@ export const productsReducer = (state = initalState, { type, payload }) => {
                 productSelected: payload
             }
 
-        case types.load_products_per_brand:
+        case types.load_products_per_brand: {
 
             const { brand, products } = payload;
 
@@ -44,9 +42,31 @@ export const productsReducer = (state = initalState, { type, payload }) => {
                 ...state
             } : {
                 ...state,
-                productsFilter: products.length > 0 ? [...products, ...state.productsFilter] : [...state.productsFilter],
+                filteredProducts: products.length > 0 ? [...products, ...state.filteredProducts] : [...state.filteredProducts],
                 brandsSelected: [brand, ...state.brandsSelected],
             }
+        }
+
+        case types.load_products_per_category: {
+
+            const { category_id, category_name, products } = payload;
+
+            const category = {
+                _id: category_id,
+                name: category_name
+            }
+
+            let categoryInFilter = state.categoriesSelected.find(category => category._id === category_id);
+
+            return categoryInFilter ? {
+                ...state,
+            } : {
+                ...state,
+                filteredProducts: products.length > 0 ? [...products, ...state.filteredProducts] : [...state.filteredProducts],
+                categoriesSelected: [category, ...state.categoriesSelected],
+            }
+            
+        }
 
         case types.load_products_per_pagination:
             return {
@@ -58,7 +78,7 @@ export const productsReducer = (state = initalState, { type, payload }) => {
             return {
                 ...state,
                 brandsSelected: initalState.brandsSelected,
-                productsFilter: initalState.productsFilter,
+                filteredProducts: initalState.filteredProducts,
                 categoriesSelected: initalState.categoriesSelected,
             }
 

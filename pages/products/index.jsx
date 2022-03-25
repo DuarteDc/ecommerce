@@ -11,10 +11,11 @@ import Layout from "../../src/components/Layouts";
 import { startLoadProductPerPagination, startLoadProducts } from "../../src/actions/productsAction";
 import { startLoadCategories } from "../../src/actions/categoryActions";
 import { startLoadBrands } from "../../src/actions/brandsActions";
+import { useState } from "react";
 
 const Products = () => {
 
-    const { products, productsFilter } = useSelector((state) => state.products);
+    const { products, filteredProducts } = useSelector((state) => state.products);
     const { categories } = useSelector((state) => state.categories);
     const { brands } = useSelector((state) => state.brands);
 
@@ -22,6 +23,10 @@ const Products = () => {
 
     const handelClickPage = (e, value) => {
         dispatch(startLoadProductPerPagination(value));
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        });
     }
 
     return (
@@ -34,9 +39,9 @@ const Products = () => {
                 <div className="col-span-4 md:col-span-2 lg:col-span-3 -mt-6">
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
                         {
-                            productsFilter.length > 0 ? (
-                                productsFilter.map(product => (
-                                    <Card key={product._id} product={product} />
+                            filteredProducts.length > 0 ? (
+                                filteredProducts.map((product, index) => (
+                                    <Card key={index} product={product} />
                                 ))
                             ) : (
                                 products.products?.map((product) => (
@@ -46,8 +51,8 @@ const Products = () => {
                         }
                     </div>
                     {
-                        !productsFilter.length > 0 && (
-                            <div className="my-20 px-10">
+                        !filteredProducts.length > 0 && (
+                            <div className="px-10">
                                 <Stack spacing={2}>
                                     <Pagination
                                         count={products.totalPages}

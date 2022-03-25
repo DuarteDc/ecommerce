@@ -36,11 +36,11 @@ export const brandsReducer = (state = initialState, { type, payload }) => {
             const { category_id, category_name, products } = payload;
 
             const category = {
-                id: category_id,
+               _id: category_id,
                 name: category_name
             }
 
-            let categoryInFilter = state.categoriesSelected.find(category => category.id === category_id);
+            let categoryInFilter = state.categoriesSelected.find(category => category._id === category_id);
 
             return categoryInFilter ? {
                 ...state,

@@ -4,6 +4,7 @@ import React from 'react'
 import { useDispatch } from "react-redux";
 
 import { startFilterProductsPerBrandAndCategory } from '../../actions/brandsActions';
+import { startLoadProductsPerCategory } from '../../actions/productsAction';
 
 const CategoryItem = ({ category, brand_id }) => {
 
@@ -12,7 +13,13 @@ const CategoryItem = ({ category, brand_id }) => {
     const dispatch = useDispatch();
 
     const filterToCategory = (brand_id, category_id, category_name) => {
+
+        if (router.asPath === '/products') {
+            dispatch(startLoadProductsPerCategory(category_id, category_name));
+            return;
+        }
         dispatch(startFilterProductsPerBrandAndCategory(brand_id, category_id, category_name));
+
     }
 
     const { _id, name } = category;

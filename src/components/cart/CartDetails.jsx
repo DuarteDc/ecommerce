@@ -36,7 +36,7 @@ const CartDetails = ({ cart }) => {
                         <tr className="border-b-2 border-black text-gray-500" key={cart.product._id}>
                             <td>
                                 <img
-                                    src={cart.product?.principal_image}
+                                    src={cart.product?.multimedia[0].path}
                                     alt={cart.product?.name}
                                     className="w-32 h-32"
                                 />

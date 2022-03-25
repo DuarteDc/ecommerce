@@ -24,7 +24,7 @@ const BrandSlider = ({ brand }) => {
     }
 
     return (
-        <section className="my-44 font-bold text-gray-900" key={brand._id}>
+        <section className="my-32 font-bold text-gray-900" key={brand._id}>
             <div className="flex justify-between items-center text-gray-500 text-sm">
                 <h2 className="text-xl mb-4 uppercase">{brand.name}</h2>
                 <Link href={{
