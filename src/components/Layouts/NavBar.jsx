@@ -8,6 +8,7 @@ import Badge from '@mui/material/Badge';
 import { startVerifyToken } from '../../actions/authActions'
 import { loadState } from "../../actions/shoppingCartActions";
 import Cookies from "js-cookie";
+import { useRouter } from "next/router";
 
 const NavBar = () => {
   const { cart } = useSelector((state) => state.cart)
@@ -16,6 +17,7 @@ const NavBar = () => {
   const { logo } = useSelector((state) => state.administrable);
 
   const dispatch = useDispatch()
+  const router = useRouter();
 
   const [scrollPosition, setScrollPosition] = useState(0);
 
@@ -115,11 +117,11 @@ const NavBar = () => {
                     </span>
                   </Link>
                 ) : (
-                  <Link href="/auth/login">
-                    <span className="border-transparent border-b-2 mx-4 cursor-pointer  text-[#888] font-['Poppins'] font-normal transition duration-700 ease-in-out flex flex-col min-w-[6.5rem]">
-                      Iniciar Sesión
-                    </span>
-                  </Link>
+                  <span
+                    onClick={() =>router.push(`/auth/login?p=${router.asPath}`)}
+                    className="border-transparent border-b-2 mx-4 cursor-pointer  text-[#888] font-['Poppins'] font-normal transition duration-700 ease-in-out flex flex-col min-w-[6.5rem]">
+                    Iniciar Sesión
+                  </span>
                 )
               }
               <span className="block h-6 w-[1px] bg-[#e5e5e5] mx-4 mt-2"></span>

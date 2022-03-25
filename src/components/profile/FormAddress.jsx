@@ -4,7 +4,7 @@ import Modal from '@mui/material/Modal';
 
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
-import { getMinicipilitesPerState, getStates, saveAddress } from '../../actions/profileAcctions';
+import { getMinicipilitesPerState, getStates, saveAddress } from '../../actions/profileActions';
 
 const FormAddress = ({ isOpen, closeModal, loadAddress }) => {
 

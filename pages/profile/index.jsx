@@ -1,27 +1,36 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
+import Router from "next/router";
+import { useDispatch, useSelector } from "react-redux";
+
+import Cookies from "js-cookie";
 import EditIcon from '@mui/icons-material/Edit';
 
+import { wrapper } from "../../src/store";
+
+import Layout from "../../src/components/Layouts";
+import FormAddress from "../../src/components/profile/FormAddress";
+
+import { useModal } from '../../src/hooks/useModal';
+import { logout } from "../../src/actions/authActions";
+import { startLoadDataProfile, startGetDirections } from "../../src/actions/profileActions";
 import FormChangePassword from "../../src/components/profile/FormChangePassword";
 import FormProfile from "../../src/components/profile/FormProfile";
 
-import Layout from "../../src/components/Layouts";
-import { useModal } from '../../src/hooks/useModal';
-import { useDispatch, useSelector } from "react-redux";
-import { logout } from "../../src/actions/authActions";
-import Router from "next/router";
-import Cookies from "js-cookie";
-import FormAddress from "../../src/components/profile/FormAddress";
-import { getAddress, setDefaultAddress } from "../../src/actions/profileAcctions";
-import Image from "next/image";
+
 
 const Profile = () => {
     const [open, setOpen] = useState(true);
-    const { user } = useSelector(state => state.auth);
+
+    const { user } = useSelector(state => state.profile);
+
+    console.table(user);
+
     const [isOpen, openModal, closeModal] = useModal();
     const [isOpenAddress, openModalAddress, closeModalAddres] = useModal();
 
     const [address, setAddress] = useState(null)
+
 
     const dispatch = useDispatch()
     const router = Router;
@@ -32,19 +41,6 @@ const Profile = () => {
         router.replace('/')
     }
 
-
-    const selectDefaultDirection = (id) => {
-        setDefaultAddress('', id);
-        loadAddress();
-    }
-    const loadAddress = async () => {
-        const _address = await getAddress();
-        setAddress(_address);
-    }
-
-    useEffect(() => {
-        loadAddress();
-    }, [])
 
     return (
         <Layout>
@@ -93,7 +89,6 @@ const Profile = () => {
                             <FormAddress
                                 isOpen={isOpenAddress}
                                 closeModal={closeModalAddres}
-                                loadAddress={loadAddress}
                             />
                         )
                     }
@@ -196,4 +191,9 @@ const Profile = () => {
     )
 }
 
+export const getServerSideProps = wrapper.getServerSideProps((store) =>
+    async () => {
+        await store.dispatch(startLoadDataProfile());
+        await store.dispatch(startGetDirections());
+    })
 export default Profile

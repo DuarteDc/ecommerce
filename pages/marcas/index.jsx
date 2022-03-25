@@ -7,9 +7,6 @@ import { useSelector } from "react-redux";
 import { BannerImage } from "../../src/components/ui/bannerImage";
 
 
-
-
-
 const Brands = () => {
   const {brandsHome} = useSelector((state)=>state.brands);
 
@@ -25,7 +22,7 @@ const Brands = () => {
         {
           brandsHome.map(brand => (
             brand.products.length > 0 && (
-              <BrandSlider brand={brand} />
+              <BrandSlider brand={brand} key={brand?._id} />
             )
           ))
         }

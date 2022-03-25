@@ -14,9 +14,10 @@ import { useCounter } from "../../src/hooks/useCounter";
 import { newProduct } from "../../src/actions/shoppingCartActions";
 
 const Show = () => {
-    const { product } = useSelector((state) => state.products);
-    const dispatch = useDispatch();
 
+    const { product } = useSelector((state) => state.products);
+
+    const dispatch = useDispatch();
     const img = useRef();
 
     const showImage = (newImg) => {

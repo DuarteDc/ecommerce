@@ -1,0 +1,6 @@
+{
+    "editor.fontLigatures": true,
+    "editor.fontFamily": "'Cascadia Code','JetBrains Mono','Droid Sans Mono', 'monospace', monospace, 'Droid Sans Fallback'",
+    "editor.cursorStyle": "block",
+    "editor.wordWrap": "on"
+}

@@ -18,6 +18,7 @@ export const types = {
     clear_all_filter: '[PRODUCTS] clear all filters',
     load_products_per_brand: '[PRODUCTS] load products per brand',
     load_products_per_pagination: '[PRODUCTS] load products per pagination',
+    load_products_per_brand_and_category: '[PRODUCTS] load products per brand and category',
 
     loadCategories: '[CATEGORIES] start load categories',
     loadCategoriesHome:'[CATEGORIES HOME] start load categories',
@@ -43,8 +44,8 @@ export const types = {
 
 
     loadAdministrableLogo:'[Administrable] load data administrable logo',
-    loadAdministrableAbout:'[Administrable] load data administrable about '
+    loadAdministrableAbout:'[Administrable] load data administrable about ',
 
-    
-
+    load_data_user: '[PROFILE] load data user',
+    load_directions: '[PROFILE] load directions',
 }

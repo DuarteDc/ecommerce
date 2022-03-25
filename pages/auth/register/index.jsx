@@ -1,6 +1,8 @@
 import React from 'react'
+import { startLoadAdministrableLogo } from '../../../src/actions/administrableActions'
 import FormSignUp from '../../../src/components/auth/FormSignUp'
 import Layout from '../../../src/components/Layouts'
+import { wrapper } from '../../../src/store'
 
 const index = () => {
   return (
@@ -12,5 +14,14 @@ const index = () => {
     </Layout>
   )
 }
+
+export const getStaticProps = wrapper.getStaticProps((store) =>
+  async () => {
+    await store.dispatch(startLoadAdministrableLogo());
+    return {
+      revalidate:120
+    }
+});
+
 
 export default index

@@ -92,7 +92,7 @@ export const ProductsArea = () => {
                   products.map(product=>(
                         <CardProduct
                             key={product._id}
-                            image={product.multimedia[0]?.path}
+                            image={product?.multimedia[0]?.path}
                             product={product}
                             handleClickModal={(product)=>handleClickModal(product)}
                         />

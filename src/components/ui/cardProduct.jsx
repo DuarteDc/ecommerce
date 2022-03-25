@@ -1,15 +1,11 @@
 import Image from 'next/image';
-import Link from 'next/link';
 import {AiOutlineHeart} from 'react-icons/ai';
 import { priceFormat } from '../../helpers/helpers';
 
 export const CardProduct = ({image , product }) => {
-    
+
     const price_format = priceFormat(product.price);
-
-    const handleClickButton = () =>{
-
-    }
+    
     return (
         <>
       <div className="relative left-0 top-0 pb-[35px] animate__animated animate__zoomIn">
@@ -32,7 +28,6 @@ export const CardProduct = ({image , product }) => {
              </a>
              <div className="absolute left-2/4 translate-x-[-50%]  bottom-[-50px] w-[161px] transition-all	duration-[0.4s] ease-linear delay-0">
                <button
-              onClick={()=>handleClickButton()}
               className="block-btn rounded-3xl bg-[#222] min-w-[139px] h-10 font-Poppins leading-[1.4] text-luz absolute bottom-[-50px] left-[50%] translate-x-[-50%] flex justify-center items-center px-4 hover:bottom-10 hover:border-[#222] hover:no-underline hover:overflow-visible cursor-pointer transition-all	duration-[0.4s] ease-linear delay-0"
             >
               Ver más
