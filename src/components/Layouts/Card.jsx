@@ -3,15 +3,12 @@ import { useDispatch } from "react-redux";
 
 import { addProductSelected } from "../../actions/productsAction";
 import { newProduct } from "../../actions/shoppingCartActions";
-import { priceFormat } from "../../helpers/helpers";
+import { priceFormat, successNotify } from "../../helpers/helpers";
 import { useModal } from "../../hooks/useModal";
 
 import ShowProduct from "../products/ShowProduct";
-import { toast } from 'react-toastify';
 
-const Card = ({ product }) => {
-    
-    const notify = (error) => toast(error);
+const Card = ({ product }) => {    
 
     const dispatch = useDispatch();
 
@@ -26,6 +23,7 @@ const Card = ({ product }) => {
 
     const addOneFromCart = (product, value) => {
         dispatch(newProduct(product, value));
+        successNotify("El producto se agrego al carrito");
     }
 
 
@@ -54,7 +52,7 @@ const Card = ({ product }) => {
                 <p className="text-sm font-light truncate">{product?.short_description}</p>
                 <p className="text-lg font-semibold">{price}</p>
                 <button className="w-full border-2 text-black border-black py-2 mt-6 font-bold hover:bg-black hover:text-white transition-all duration-500 ease-in-out uppercase"
-                    onClick={() => { addOneFromCart(product, 1); notify("EL producto se agrego al carrito"); }}
+                    onClick={() => { addOneFromCart(product, 1); }}
                 >
                     Añadir al carrito
                 </button>

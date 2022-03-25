@@ -1,30 +1,31 @@
 import Cookies from 'js-cookie';
 
+import axios from 'axios';
 import client from '../config/axiosConfig';
 
 import { types } from '../types'
 
-export const startLoadDataProfile = () => {
+export const startLoadDataUser = (ctx) => {
     return async (dispatch) => {
         let url = '/auth'
         try {
-            const token = await Cookies.getItem('token');
+            const token = ctx.req.cookies.token;
             const res = await client.get(url, {
                 headers: {
                     'Authorization': token
                 }
             });
             const { user } = res.data;
-            dispatch(loadDataUser("Hola xD"))
+            dispatch(loadDataUser(user))
         } catch (error) {
             Cookies.remove('token');
         }
     }
 }
 
-export const loadDataUser = (user) => ({
+export const loadDataUser = (user, token) => ({
     type: types.load_data_user,
-    payload: user,
+    payload: user
 })
 
 export const getStates = async () => {
@@ -47,26 +48,50 @@ export const getMinicipilitesPerState = async (id) => {
     }
 }
 
-export const saveAddress = async (data) => {
-    let url = 'auth/save-directions';
-    try {
-        const token = await Cookies.get('token');
-        const res = await client.post(url, data, {
-            headers: {
-                'Authorization': token
+export const startSaveNewAddress = (data) => {
+    return async (dispatch) => {
+        let url = 'auth/save-directions';
+        try {
+            const token = await Cookies.get('token');
+            const res = await client.post(url, data, {
+                headers: {
+                    'Authorization': token
+                }
+            });
+
+            dispatch(saveNewAddress(data));
+
+            return {
+                hasError: false,
+                message: res?.data?.message,
             }
-        })
-    } catch (error) {
-        console.log(error);
+
+        } catch (error) {
+            if (axios.isAxiosError(error)) {
+                return {
+                    hasError: true,
+                    message: error?.response?.data?.message,
+                }
+            }
+
+            return {
+                hasError: true,
+                message: "No se pudo actualizar la dirección - intente mas tarde"
+            }
+        }
     }
 }
 
+export const saveNewAddress = (data) => ({
+    type: types.add_new_address,
+    payload: data,
+});
 
-export const startGetDirections = () => {
+export const startGetDirections = (ctx) => {
     return async (dispatch) => {
         let url = '/auth/directions/user';
         try {
-            const token = await Cookies.get('token');
+            const token = ctx.req.cookies.token;
             const res = await client.get(url, {
                 headers: {
                     'Authorization': token
@@ -84,16 +109,41 @@ export const getDirections = (directions) => ({
     payload: directions
 });
 
-export const setDefaultAddress = async (data, id) => {
-    let url = `/auth/update-default-direction/${id}`;
-    try {
-        const token = await Cookies.get('token');
-        const res = await client.put(url, data, {
-            headers: {
-                'Authorization': token
+export const setDefaultAddress = (data, id) => {
+    return async (dispatch) => {
+
+        let url = `/auth/update-default-direction/${id}`;
+
+        try {
+            const token = await Cookies.get('token');
+            const res = await client.put(url, data, {
+                headers: {
+                    'Authorization': token
+                }
+            });
+            dispatch(changeDefaultAddress(id));
+            return {
+                hasError: false,
+                message: res?.data?.message,
             }
-        })
-    } catch (error) {
-        console.log(error);
+
+        } catch (error) {
+            if (axios.isAxiosError(error)) {
+                return {
+                    hasError: true,
+                    message: error?.response?.data?.message
+                }
+            }
+
+            return {
+                hasError: true,
+                message: "No se pudo actualizar la dirección - intente mas tarde"
+            }
+        }
     }
 }
+
+export const changeDefaultAddress = (addres_id) => ({
+    type: types.change_default_addres,
+    payload: addres_id
+})

@@ -13,7 +13,7 @@ export const profileReducer = (state = initialState, { type, payload }) => {
         case types.load_data_user:
             return {
                 ...state,
-                user: "xD"
+                user: payload
             }
 
         case types.load_directions:
@@ -22,6 +22,19 @@ export const profileReducer = (state = initialState, { type, payload }) => {
                 directions: payload
             }
 
+        case types.add_new_address:
+            return {
+                ...state,
+                direction: [payload, ...state.direction],
+            }
+
+        case types.change_default_addres:
+            return {
+                ...state,
+                directions: state.directions.map(direction => direction._id === payload
+                    ? { ...direction, default: direction.default = true }
+                    : { ...direction, default: direction.default = false })
+            }
 
         default:
             return state;

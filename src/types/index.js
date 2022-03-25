@@ -44,6 +44,7 @@ export const types = {
 
     load_data_user: '[PROFILE] load data user',
     load_directions: '[PROFILE] load directions',
-
+    change_default_addres: '[PROFILE] change default address',
+    add_new_address: '[PROFILE] add new address',
 
 }

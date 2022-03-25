@@ -1,30 +1,45 @@
 import Modal from '@mui/material/Modal';
 
 import { useFormik } from 'formik';
+
 import * as Yup from 'yup';
 
 import { startChangePassword } from '../../actions/authActions';
+import { errorNotify, successNotify } from '../../helpers/helpers';
 
 const FormChangePassword = ({ isOpen, closeModal }) => {
+
     const initialValues = {
         actual_password: '',
         new_password: '',
         confirm_new_password: ''
     }
+    
     const validationSchema = {
         actual_password: Yup.string().required("La contraseña es requerida"),
         new_password: Yup.string().min(8, 'La contraseña debe contener al menos 8 caracteres').required("La contraseña es requerida"),
         confirm_new_password: Yup.string().oneOf([Yup.ref('new_password'), null], "La contraseña no coincide")
     }
 
+    const handleChangePassword = async (formData) => {
+
+        const isValid = await startChangePassword(formData);
+        if (isValid) {
+            successNotify("La contraseña se actualizo con exito");
+            return;
+        }
+        errorNotify("Hubo un problema al cambiar la contraseña");
+    }
+
     const formik = useFormik({
         initialValues,
         validationSchema: Yup.object(validationSchema),
         onSubmit: (formData) => {
-            startChangePassword(formData);
+            handleChangePassword(formData);
             closeModal();
         }
     });
+
     return (
         <Modal
             open={isOpen}

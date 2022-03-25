@@ -11,6 +11,7 @@ import { startLoadProduct } from "../../src/actions/productsAction";
 import { useCounter } from "../../src/hooks/useCounter";
 import { newProduct } from "../../src/actions/shoppingCartActions";
 import Card from "../../src/components/Layouts/Card";
+import { successNotify } from "../../src/helpers/helpers";
 
 const Show = () => {
 
@@ -28,6 +29,7 @@ const Show = () => {
 
     const addCart = (product, value) => {
         dispatch(newProduct(product, value));
+        successNotify("El producto se agrego al carrito");
     }
 
     return (

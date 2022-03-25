@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 
 import Cookies from "js-cookie";
 import EditIcon from '@mui/icons-material/Edit';
+import AddIcon from '@mui/icons-material/Add';
 
 import { wrapper } from "../../src/store";
 
@@ -13,26 +14,34 @@ import FormAddress from "../../src/components/profile/FormAddress";
 
 import { useModal } from '../../src/hooks/useModal';
 import { logout } from "../../src/actions/authActions";
-import { startLoadDataProfile, startGetDirections } from "../../src/actions/profileActions";
 import FormChangePassword from "../../src/components/profile/FormChangePassword";
 import FormProfile from "../../src/components/profile/FormProfile";
-
+import { startLoadDataUser, startGetDirections, setDefaultAddress } from "../../src/actions/profileActions";
+import { errorNotify, successNotify } from "../../src/helpers/helpers";
 
 
 const Profile = () => {
+
     const [open, setOpen] = useState(true);
 
-    const { user } = useSelector(state => state.profile);
-
-    console.table(user);
+    const { user, directions } = useSelector(state => state.profile);
 
     const [isOpen, openModal, closeModal] = useModal();
     const [isOpenAddress, openModalAddress, closeModalAddres] = useModal();
 
-    const [address, setAddress] = useState(null)
+    const dispatch = useDispatch();
 
+    const selectDefaultDirection = async (direction_id) => {
 
-    const dispatch = useDispatch()
+        const { message, hasError } = await dispatch(setDefaultAddress('', direction_id));
+
+        if (hasError) {
+            errorNotify(message);
+            return;
+        }
+        successNotify(message);
+    }
+
     const router = Router;
 
     const logoutSession = () => {
@@ -69,15 +78,16 @@ const Profile = () => {
                 <div className="w-full bg-gray-50 mt-10 p-8 drop-shadow-md">
                     <div className="flex items-center justify-between">
                         <p className="text-xl font-bold">Direcciones:</p>
-                        <EditIcon
+                        <AddIcon
+                            title="Agregar"
                             className="text-second-100 cursor-pointer"
                             onClick={openModalAddress}
                         />
                     </div>
                     {
-                        address?.map(address => (
+                        directions?.map(address => (
                             <div className="flex mt-4 md:ml-20" key={address._id}>
-                                <p className="font-light">Dirección{address.default && '(Por defecto):'}</p>
+                                <p className="font-light">Dirección: {address.default && ' (Por defecto):'}</p>
                                 <p onClick={() => selectDefaultDirection(address._id)} className="cursor-pointer">
                                     {`${address?.street}, #${address?.no_int}, ${address?.city}, ${address?.postalcode}, ${address?.municipality?.name}, ${address?.state?.name}`}
                                 </p>
@@ -192,8 +202,8 @@ const Profile = () => {
 }
 
 export const getServerSideProps = wrapper.getServerSideProps((store) =>
-    async () => {
-        await store.dispatch(startLoadDataProfile());
-        await store.dispatch(startGetDirections());
+    async (ctx) => {
+        await store.dispatch(startLoadDataUser(ctx));
+        await store.dispatch(startGetDirections(ctx));
     })
 export default Profile

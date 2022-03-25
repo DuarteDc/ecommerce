@@ -19,9 +19,7 @@ export const startLoginEmailPassword = (data) => {
             return true;
 
         } catch (error) {
-
             return false;
-
         }
     }
 }
@@ -116,8 +114,8 @@ export const startChangePassword = async (data) => {
                 'Authorization': token
             }
         });
-        console.log(res.data)
+        return true;
     } catch (error) {
-        alert(errorHandler(error))
+        return false;
     }
 }
