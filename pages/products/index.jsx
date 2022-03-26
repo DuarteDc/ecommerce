@@ -37,6 +37,9 @@ const Products = () => {
                     <AsideBar categories={categories} brands={brands} />
                 </div>
                 <div className="col-span-4 md:col-span-2 lg:col-span-3 -mt-6">
+                    <p className="text-right text-sm text-gray-500 px-10">
+                        {products.totalDocs === 1 ? `${products?.totalDocs} Arcticulo` : `${products?.totalDocs} Acticulos`}
+                    </p>
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
                         {
                             filteredProducts.length > 0 ? (

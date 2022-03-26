@@ -91,20 +91,6 @@ const Show = () => {
                                     {product?.brand}
                                 </p>
                             </div>
-                            <div className="mt-5">
-                                <h3 className="font-semibold text-lg mb-2">Tags:</h3>
-                                <div className="md:inline-flex">
-                                    {
-                                        product.tags.map(tag => (
-                                            <span key={tag._id}>
-                                                <p className="text-second-100 font-semibold mr-4 cursor-pointer hover:text-gray-700 duration-500">
-                                                    {product?.category?.name}
-                                                </p>
-                                            </span>
-                                        ))
-                                    }
-                                </div>
-                            </div>
                         </div>
                         <div className="mt-12 lg:mt-20">
                             <div className="flex items-center">

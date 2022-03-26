@@ -26,7 +26,8 @@ const CategoryItem = ({ category, brand_id }) => {
 
     return (
         <li
-            className="hover:text-black cursor-pointer mr-2 mt-2 py-2 transition-all duration-700 ease-out text-xs text-gray-500 ml-6"
+            className="hover:text-black cursor-pointer mr-2 mt-2 py-2 transition-all duration-700 
+            ease-out text-xs text-gray-900 ml-6 font-semibold"
             onClick={() => filterToCategory(brand_id, _id, name)}
         >
             {category.name}

@@ -12,9 +12,10 @@ export const priceFormat = (number) => {
 
 export const successNotify = (message) => {
   toast.success(message, {
-    position: "top-right",
+    position: "bottom-left",
     autoClose: 5000,
     hideProgressBar: false,
+    style: { backgroundColor: 'black' },
     closeOnClick: true,
     pauseOnHover: false,
     draggable: true,
@@ -24,9 +25,10 @@ export const successNotify = (message) => {
 
 export const infoNotify = (message) => {
   toast.info(message, {
-    position: "top-right",
+     position: "bottom-left",
     autoClose: 5000,
     hideProgressBar: false,
+    style: { backgroundColor: 'black' },
     closeOnClick: true,
     pauseOnHover: false,
     draggable: true,
@@ -35,9 +37,10 @@ export const infoNotify = (message) => {
 }
 export const warningNotify = (message) => {
   toast.warn(message, {
-    position: "top-right",
+     position: "bottom-left",
     autoClose: 5000,
     hideProgressBar: false,
+    style: { backgroundColor: 'black' },
     closeOnClick: true,
     pauseOnHover: false,
     draggable: true,
@@ -47,9 +50,10 @@ export const warningNotify = (message) => {
 
 export const errorNotify = (message) => {
   toast.error(message, {
-    position: "top-right",
+     position: "bottom-left",
     autoClose: 5000,
     hideProgressBar: false,
+    style: { backgroundColor: 'black' },
     closeOnClick: true,
     pauseOnHover: false,
     draggable: true,

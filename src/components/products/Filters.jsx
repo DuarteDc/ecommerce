@@ -30,11 +30,11 @@ const Filters = memo(() => {
         <div className="mb-5">
             <p className="uppercase font-bold text-xl">Seleccion actual</p>
             <div className="flex flex-row-reverse text-xs">
-                <span className="inline-flex text-gray-500 hover:text-black cursor-pointer items-center"
+                <span className="inline-flex text-gray-900 hover:text-black cursor-pointer items-center"
                     onClick={handleClearFilters}
                 >
                     <DeleteOutlineIcon sx={{ fontSize: 18 }} />
-                    <p>Limpiar todo</p>
+                    <p className="font-semibold">Limpiar todo</p>
                 </span>
             </div>
             <div>
