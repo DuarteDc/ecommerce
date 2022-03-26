@@ -49,6 +49,7 @@ export const getMinicipilitesPerState = async (id) => {
 }
 
 export const startSaveNewAddress = (data) => {
+
     return async (dispatch) => {
         let url = 'auth/save-directions';
         try {
@@ -58,9 +59,7 @@ export const startSaveNewAddress = (data) => {
                     'Authorization': token
                 }
             });
-
             dispatch(saveNewAddress(data));
-
             return {
                 hasError: false,
                 message: res?.data?.message,
@@ -150,10 +149,10 @@ export const changeDefaultAddress = (addres_id) => ({
 
 export const startDeleteAddress = (addres_id) => {
     return async (dispatch) => {
-        let url = `/delete-directions/${addres_id}`;
+        let url = `/auth/delete-directions/${addres_id}`;
         try {
             const token = await Cookies.get('token');
-            const res = await client.put(url, data, {
+            const res = await client.delete(url, {
                 headers: {
                     'Authorization': token
                 }

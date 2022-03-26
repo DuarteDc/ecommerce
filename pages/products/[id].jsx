@@ -39,7 +39,7 @@ const Show = () => {
                     <div>
                         <div className="w-full mx-auto h-[15rem] md:h-[30rem] relative">
                             <img
-                                src={product.multimedia[0].path}
+                                src={product?.multimedia[0].path}
                                 alt={product?.name}
                                 className="w-full h-full"
                                 ref={img}
@@ -48,7 +48,7 @@ const Show = () => {
                         </div>
                         <div>
                             <div className="flex mt-10">
-                                {product?.multimedia.map(multimedia => (
+                                {product?.multimedia?.map(multimedia => (
                                     <div
                                         className="overflow-hidden border-2 border-gray-300 w-24 h-24 mx-1 cursor-pointer relative"
                                         key={multimedia._id}

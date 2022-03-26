@@ -16,9 +16,10 @@ import { useModal } from '../../src/hooks/useModal';
 import { logout } from "../../src/actions/authActions";
 import FormChangePassword from "../../src/components/profile/FormChangePassword";
 import FormProfile from "../../src/components/profile/FormProfile";
-import { startLoadDataUser, startGetDirections, setDefaultAddress } from "../../src/actions/profileActions";
+import { startLoadDataUser, startGetDirections, setDefaultAddress, startDeleteAddress } from "../../src/actions/profileActions";
 import { errorNotify, successNotify } from "../../src/helpers/helpers";
 
+import ClearIcon from '@mui/icons-material/Clear';
 
 const Profile = () => {
 
@@ -33,7 +34,7 @@ const Profile = () => {
 
     const selectDefaultDirection = async (direction_id) => {
 
-        const { message, hasError } = await dispatch(setDefaultAddress('', direction_id));
+        const { hasError, message } = await dispatch(setDefaultAddress('', direction_id));
 
         if (hasError) {
             errorNotify(message);
@@ -43,6 +44,17 @@ const Profile = () => {
     }
 
     const router = Router;
+
+    const handleDeleteAddress = async (address_id) => {
+
+        const { hasError, message } = await dispatch(startDeleteAddress(address_id));
+
+        if (hasError) {
+            errorNotify(message);
+            return;
+        }
+        successNotify(message);
+    }
 
     const logoutSession = () => {
         dispatch(logout());
@@ -91,14 +103,23 @@ const Profile = () => {
                         {
                             directions?.map(address => (
                                 <div
-                                    className={`mt-4 border-2 ${address.default && 'border-gray-900'} p-10 w-60 mr-4 cursor-pointer`}
+                                    className={`border-2 ${address.default && 'border-gray-900'}  w-60 mr-4 cursor-pointer relative`}
                                     key={address._id}
-                                    onClick={() => selectDefaultDirection(address._id)}
+
                                 >
-                                    <p className="font-semibold">{address.default && ' (Por defecto) :'}</p>
-                                    <p className="font-light">
-                                        {`${address?.street}, #${address?.no_int}, ${address?.city}, ${address?.postalcode}, ${address?.municipality?.name}, ${address?.state?.name}`}
-                                    </p>
+                                    <ClearIcon
+                                        className="absolute right-0 m-2 hover:text-red-600"
+                                        onClick={() => { handleDeleteAddress(address._id) }}
+                                    />
+                                    <div
+                                        onClick={() => selectDefaultDirection(address._id)}
+                                        className="p-10"
+                                    >
+                                        <p className="font-semibold">{address.default && ' (Por defecto) :'}</p>
+                                        <p className="font-light">
+                                            {`${address?.street}, #${address?.no_int}, ${address?.city}, ${address?.postalcode}, ${address?.municipality?.name}, ${address?.state?.name}`}
+                                        </p>
+                                    </div>
                                 </div>
                             ))
                         }

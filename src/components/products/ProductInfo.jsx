@@ -87,7 +87,7 @@ const ProductInfo = ({ product, closeModal }) => {
                         query: { id: product._id }
                     }}
                 >
-                    <p className="mt-5 text-gray-500 hover:text-black cursor-pointer transition-all duration-700 ease-out">Ver detalle...</p>
+                    <a className="mt-5 text-gray-500 hover:text-black cursor-pointer transition-all duration-700 ease-out">Ver detalle...</a>
                 </Link>
                 <div className="mt-12 lg:mt-20">
                     <div className="flex items-center">
