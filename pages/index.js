@@ -1,15 +1,16 @@
 import { wrapper } from "../src/store";
-import { useSelector } from 'react-redux';
+import { useSession } from 'next-auth/react';
+
 
 import Layout from "../src/components/Layouts";
 
 /**Actions */
 import { startLoadOffers } from "../src/actions/offersActions";
-import { startLoadBrandsHome , startLoadBrands } from "../src/actions/brandsActions";
+import { startLoadBrandsHome, startLoadBrands } from "../src/actions/brandsActions";
 import { startLoadDataSliders } from "../src/actions/slidersActions";
 import { startLoadCategoriesHome } from "../src/actions/categoryActions";
 import { startLoadAdministrableLogo } from "../src/actions/administrableActions";
- 
+
 /**Components */
 import {
   Slider,
@@ -21,11 +22,14 @@ import {
   ProductsOfferArea,
   TestimonialArea
 } from '../src/components/home';
+import { useEffect } from "react";
 
 export default function HomePage() {
+
+
   return (
     <>
-      <Slider/>
+      <Slider />
       <FacilityArea />
       <CategoryArea />
       <ProductsOfferArea />
@@ -40,8 +44,8 @@ export default function HomePage() {
 HomePage.getLayout = function getLayout(page) {
   return (
     <Layout
-     title="Wapizima - Inicio"
-     robots="noindex"
+      title="Wapizima - Inicio"
+      robots="noindex"
     >
       {page}
     </Layout>
@@ -51,15 +55,15 @@ HomePage.getLayout = function getLayout(page) {
 export const getStaticProps = wrapper.getStaticProps((store) =>
   async () => {
     await store.dispatch(startLoadAdministrableLogo());
-    await store.dispatch(startLoadCategoriesHome()); 
+    await store.dispatch(startLoadCategoriesHome());
     await store.dispatch(startLoadDataSliders());
     await store.dispatch(startLoadOffers());
     await store.dispatch(startLoadBrandsHome());
     await store.dispatch(startLoadBrands());
 
     return {
-      revalidate:120
+      revalidate: 120
     }
-});
+  });
 
 

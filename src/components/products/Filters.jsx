@@ -7,7 +7,7 @@ import CloseIcon from '@mui/icons-material/Close';
 
 import { clearAll, removeCategory, removeBrand } from '../../actions/productsAction';
 
-const Filters = memo(() => {
+const Filters =() => {
     const dispatch = useDispatch();
 
     const { categoriesSelected } = useSelector((state) => state.products);
@@ -65,6 +65,6 @@ const Filters = memo(() => {
             </div>
         </div>
     )
-})
+}
 
 export default Filters;

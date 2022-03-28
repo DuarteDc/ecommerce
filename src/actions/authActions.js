@@ -1,7 +1,6 @@
 import Cookies from 'js-cookie';
 import client from '../config/axiosConfig';
 import { types } from '../types';
-import errorHandler from './errorHandler';
 
 
 import axios from 'axios';
@@ -116,8 +115,21 @@ export const startChangePassword = async (data) => {
                 'Authorization': token
             }
         });
-        console.log(res.data)
+        return {
+            hasError: flase,
+            message: res?.data?.message,
+        }
     } catch (error) {
-        alert(errorHandler(error))
+        if (axios.isAxiosError(error)) {
+            return {
+                hasError: true,
+                message: error?.response?.data?.message
+            }
+        }
+
+        return {
+            hasError: true,
+            message: "No se pudo cambiar la contraseña - intente mas tarde"
+        }
     }
 }

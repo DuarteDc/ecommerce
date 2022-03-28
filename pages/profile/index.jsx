@@ -1,10 +1,10 @@
 import { useState } from "react";
 
-import Router from "next/router";
+import Router, { useRouter } from "next/router";
 import { useDispatch, useSelector } from "react-redux";
 
 import Cookies from "js-cookie";
-import EditIcon from '@mui/icons-material/Edit';
+import AddIcon from '@mui/icons-material/Add';
 
 import { wrapper } from "../../src/store";
 
@@ -13,27 +13,39 @@ import FormAddress from "../../src/components/profile/FormAddress";
 
 import { useModal } from '../../src/hooks/useModal';
 import { logout } from "../../src/actions/authActions";
-import { startLoadDataProfile, startGetDirections } from "../../src/actions/profileActions";
 import FormChangePassword from "../../src/components/profile/FormChangePassword";
 import FormProfile from "../../src/components/profile/FormProfile";
+import { startLoadDataUser, startGetDirections, setDefaultAddress, startDeleteAddress } from "../../src/actions/profileActions";
+import { startLoadAdministrableLogo } from "../../src/actions/administrableActions";
 
 
+import Link from "next/link";
+import DirectionsSeccion from "../../src/components/profile/ui/DirectionsSeccion";
+import SeguritySection from "../../src/components/profile/ui/SeguritySection";
 
 const Profile = () => {
+
     const [open, setOpen] = useState(true);
 
-    const { user } = useSelector(state => state.profile);
+    const sections = [
+        {
+            id: "perfil",
+            name: 'Direcciones',
+        },
+        {
+            id: "direcciones",
+            name: 'Direcciones',
+        }
+    ]
 
-    console.table(user);
+    const router = useRouter();
+    console.log(router);
+
+    const { user, directions } = useSelector(state => state.profile);
+
+    const [section, setSection] = useState('perfil');
 
     const [isOpen, openModal, closeModal] = useModal();
-    const [isOpenAddress, openModalAddress, closeModalAddres] = useModal();
-
-    const [address, setAddress] = useState(null)
-
-
-    const dispatch = useDispatch()
-    const router = Router;
 
     const logoutSession = () => {
         dispatch(logout());
@@ -41,11 +53,9 @@ const Profile = () => {
         router.replace('/')
     }
 
-
     return (
         <Layout>
-            <section className="container mx-auto p-10 mb-16">
-                <h1 className="text-center uppercase text-2xl bg-gray-50 py-3 my-20 font-bold container mx-auto">Perfil</h1>
+            *<section className="container mx-auto  mb-16">
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                     <div className="w-full flex flex-col items-center p-4 drop-shadow-md">
                         <div
@@ -66,54 +76,9 @@ const Profile = () => {
                         <FormProfile {...user} />
                     </div>
                 </div>
-                <div className="w-full bg-gray-50 mt-10 p-8 drop-shadow-md">
-                    <div className="flex items-center justify-between">
-                        <p className="text-xl font-bold">Direcciones:</p>
-                        <EditIcon
-                            className="text-second-100 cursor-pointer"
-                            onClick={openModalAddress}
-                        />
-                    </div>
-                    {
-                        address?.map(address => (
-                            <div className="flex mt-4 md:ml-20" key={address._id}>
-                                <p className="font-light">Dirección{address.default && '(Por defecto):'}</p>
-                                <p onClick={() => selectDefaultDirection(address._id)} className="cursor-pointer">
-                                    {`${address?.street}, #${address?.no_int}, ${address?.city}, ${address?.postalcode}, ${address?.municipality?.name}, ${address?.state?.name}`}
-                                </p>
-                            </div>
-                        ))
-                    }
-                    {
-                        isOpenAddress && (
-                            <FormAddress
-                                isOpen={isOpenAddress}
-                                closeModal={closeModalAddres}
-                            />
-                        )
-                    }
-                </div>
-                <div className="w-full bg-gray-50 mt-10 p-8 drop-shadow-md">
-                    <div className="flex items-center justify-between">
-                        <p className="text-xl font-bold">Seguridad</p>
-                        <EditIcon className="text-second-100 cursor-pointer"
-                            onClick={openModal}
-                        />
-                    </div>
-                    <div className="flex mt-4 md:ml-20 items-center">
-                        <p className="font-light">Password:</p>
-                        <p className="ml-2 mt-1">••••••••••••••••</p>
-                    </div>
-                </div>
-                {
-                    isOpen && (
-                        <FormChangePassword
-                            isOpen={isOpen}
-                            closeModal={closeModal}
-                        />
-                    )
-                }
-                <div className="w-full bg-gray-50 mt-10 p-8 drop-shadow-md">
+                <DirectionsSeccion directions={directions} />
+                <SeguritySection />
+                <div className="w-full mt-10 p-8">
                     <p className="text-lg font-bold my-4">Mis Pedidos</p>
                     <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
                         <div>
@@ -192,8 +157,9 @@ const Profile = () => {
 }
 
 export const getServerSideProps = wrapper.getServerSideProps((store) =>
-    async () => {
-        await store.dispatch(startLoadDataProfile());
-        await store.dispatch(startGetDirections());
+    async (ctx) => {
+        await store.dispatch(startLoadDataUser(ctx));
+        await store.dispatch(startGetDirections(ctx));
+        await store.dispatch(startLoadAdministrableLogo());
     })
 export default Profile
