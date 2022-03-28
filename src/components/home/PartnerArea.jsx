@@ -8,8 +8,8 @@ import { useSelector } from "react-redux";
 export const PartnerArea = () => {
   const { brands } = useSelector((state) => state.brands);
   return (
-    <section className="bg-[#f5f5f5] py-8">
-      <div className="w-full m-auto px-6">
+    <section className=" py-8 m-auto">
+      <div className=" px-6 ">
         <Swiper
           slidesPerView={4}
           spaceBetween={10}
@@ -26,7 +26,7 @@ export const PartnerArea = () => {
         >
           {brands.map((brand) => (
             <SwiperSlide key={brand._id}>
-              <div className="text-center h-auto">
+              <div className="text-center h-auto ">
                 <Link href={{
                   pathname: '/marcas/[name]',
                   query: { id: brand._id },

@@ -40,7 +40,13 @@ export const types = {
     loadBrandsHome: '[HOME] load brands with products home',
     addNewsletterSuscription:'[Home] add and show newsletter suscription menssage',
     loadSlidersData:'[Home] load data sliders offers',
-    loadAdministrableData:'[HOME] load data administrable data home',
+
+
+
+    loadAdministrableLogo:'[Administrable] load data administrable logo',
+    loadAdministrableAbout:'[Administrable] load data administrable about ',
+
+    
 
     load_data_user: '[PROFILE] load data user',
     load_directions: '[PROFILE] load directions',

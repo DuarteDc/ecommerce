@@ -11,7 +11,9 @@ import Layout from "../../src/components/Layouts";
 import { startLoadProductPerPagination, startLoadProducts } from "../../src/actions/productsAction";
 import { startLoadCategories } from "../../src/actions/categoryActions";
 import { startLoadBrands } from "../../src/actions/brandsActions";
-import { useState } from "react";
+import { useRouter } from "next/router";
+import { startLoadAdministrableLogo } from "../../src/actions/administrableActions";
+import { BannerImage } from "../../src/components/ui/bannerImage";
 
 const Products = () => {
 
@@ -30,8 +32,13 @@ const Products = () => {
     }
 
     return (
-        <Layout>
-            <h1 className="text-center uppercase text-2xl bg-gray-50 py-3 mt-10 font-bold container mx-auto">Productos</h1>
+        <Layout 
+           title="Wapizima - Productos"
+           robots="noindex"
+        >
+            <BannerImage
+               title="Productos"
+            />
             <section className="grid grid-cols-1 md:grid-cols-3 mt-20 lg:grid-cols-4">
                 <div>
                     <AsideBar categories={categories} brands={brands} />
@@ -78,6 +85,7 @@ export const getServerSideProps = wrapper.getServerSideProps((store) =>
         await store.dispatch(startLoadProducts());
         await store.dispatch(startLoadCategories());
         await store.dispatch(startLoadBrands());
+        await store.dispatch(startLoadAdministrableLogo());
 
     })
 

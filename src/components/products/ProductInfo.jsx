@@ -83,7 +83,7 @@ const ProductInfo = ({ product, closeModal }) => {
                 </div>
                 <Link
                     href={{
-                        pathname: '/products/[id]',
+                        pathname: '/productos/[url]',
                         query: { id: product._id }
                     }}
                 >

@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { useSelector , useDispatch } from 'react-redux';
-import {Tabs , Search , CardProduct2 , FiltersArea} from '../ui';
+import {Tabs , Search , CardProduct , FiltersArea} from '../ui';
 import {addProductSelected} from '../../actions/productsAction';
 import ShowProduct from '../products/ShowProduct';
 import {useModal} from '../../hooks/useModal';
@@ -47,8 +47,8 @@ export const ProductsArea = () => {
   
 
     return (
-        <section className="bg-luz pb-8 pt-12 max-w-[1380px] m-auto">
-            <div className="w-full px-24 mx-auto">
+        <section className="bg-luz pb-8 px-8  md:px-16 lg:px-24 pt-12 max-w-[1920px] m-auto">
+            <div className="w-full mx-auto">
               <div className="mb-[40px] text-center bg-[#f6f6f6] w-full p-[15px]">
             <h2 className="font-Poppins text-[25px] uppercase font-lg  text-[#222] text-center font-semibold">Te recomendamos</h2>
             </div>
@@ -65,6 +65,7 @@ export const ProductsArea = () => {
               <div className="grid grid-cols-1 gap-1">
                 <Search 
                   openSearch={openSearch} 
+                  placeholder="Buscar..."
                   onRequestSearch={onRequestSearch}
                 />
                 <FiltersArea 
@@ -73,10 +74,23 @@ export const ProductsArea = () => {
                 />
                 
               </div>
-              <div className="grid  grid-cols-1 gap-1 md:grid-cols-2 md:gap-2 lg:grid-cols-3 lg:gap-3 xl:grid-cols-4 xl:gap-4  flex-wrapx relative">
+              <div className="
+               grid 
+               grid-cols-1 
+               gap-1 
+               md:grid-cols-2 
+               md:gap-2 
+               lg:grid-cols-3 
+               lg:gap-3 
+               xl:grid-cols-4
+               xl:gap-4  
+               2xl:grid-cols-4
+               2xl:gap-4
+               flex-wrap 
+               relative">
               {
                   products.map(product=>(
-                        <CardProduct2
+                        <CardProduct
                             key={product._id}
                             image={product.multimedia[0]?.path}
                             product={product}

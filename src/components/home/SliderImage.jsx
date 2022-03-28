@@ -9,8 +9,8 @@ const SliderImage = ({slider}) => {
     return (
        <>
          <div className='main-banner flex items-center'>
-             <div className='max-w-[1320px] pl-[200px]'>
-               <div className='max-w-[520px] relative'>
+             <div className='max-w-[1920px] lg:max-w-[1320px] px-16 lg:pl-[200px]'>
+               <div className='w-full lg:max-w-[520px] relative'>
                    {
                        slider?.short_text &&
                         <span className='text-base text-[#fff] block mb-3'>

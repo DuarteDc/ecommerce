@@ -1,5 +1,5 @@
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Navigation } from "swiper";
+import { Navigation, Pagination } from "swiper";
 import Image from "next/image";
 import { useSelector } from "react-redux";
 import Link from "next/link";
@@ -16,8 +16,8 @@ export const CategoryArea = () => {
   }, []);
 
   return (
-    <section className="px-6 py-5 max-w-[1335px] mx-auto mb-8">
-      <div className="mb-[40px] text-center bg-[#f6f6f6] w-full p-[15px]">
+    <section className="px-6 py-5 lg:px-24 max-w-[1920px] m-auto mb-8">
+      <div className="mb-[40px] text-center bg-[#f6f6f6] w-full p-[15px] ">
         <h2 className="font-Poppins text-[25px] uppercase font-lg  text-[#222] text-center font-semibold">
           Categorias
         </h2>
@@ -25,44 +25,45 @@ export const CategoryArea = () => {
       <Swiper
         slidesPerView={3}
         spaceBetween={20}
-        slidesPerGroup={3}
+        slidesPerGroup={1}
         loop={true}
-        navigation={true}
+        navigation={false}
         className="mySwiper"
-        modules={[Navigation]}
+        pagination={{ clickable: true }}
+        modules={[Navigation , Pagination]}
         breakpoints={{
           250: {
             slidesPerView: 1,
-            spaceBetween: 10,
+            spaceBetween: 100,
           },
           640: {
             slidesPerView: 2,
-            spaceBetween: 20,
+            spaceBetween: 100,
           },
           1024: {
             slidesPerView: 3,
-            spaceBetween: 40,
+            spaceBetween: 100,
           },
           1400: {
             slidesPerView: 3,
-            spaceBetween: 40,
+            spaceBetween: 100,
           },
           1600: {
-            slidesPerView: 3,
-            spaceBetween: 20,
+            slidesPerView: 4,
+            spaceBetween: 250,
           },
         }}
       >
         {categories.map((category) => (
           <SwiperSlide key={category._id}>
-            <Link href={`/${category.name}`}>
-              <>
-                <div className="relative left-0 top-0 pb-[35px] h-[300px] w-[400px]">
-                  <div className="block-pick overflow-hidden relative flex justify-center  min-h-[300px] ">
+            <>
+                <div className="relative left-0 top-0 pb-[35px] h-[350px] w-[400px]">
+                  <div className="block-pick overflow-hidden relative  min-h-[200px] ">
                     <Image
                       src={category.imageWeb}
-                      width={400}
-                      height={300}
+                      width={550}
+                      height={400}
+                      layout="responsive"
                     />
 
                     <div className="absolute w-full h-full top-0 left-0 bg-[rgba(0,0,0,0.2)] opacity-0 hover:opacity-[1] transition-all	duration-[0.4s] ease-linear delay-0">
@@ -85,7 +86,6 @@ export const CategoryArea = () => {
                   `}
                 </style>
               </>
-            </Link>
           </SwiperSlide>
         ))}
       </Swiper>

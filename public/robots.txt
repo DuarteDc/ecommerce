@@ -1,0 +1,9 @@
+User-agent: *
+Allow: /*
+
+Disallow: /api/*
+
+Sitemap: https://localhost:3000/sitemaps/brands
+Sitemap: https://localhost:3000/sitemaps/categories
+Sitemap: https://localhost:3000/sitemaps/pages
+Sitemap: https://localhost:3000/sitemaps/products

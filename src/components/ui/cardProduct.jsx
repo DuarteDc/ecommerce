@@ -1,18 +1,28 @@
+import Image from 'next/image';
+import Link from 'next/link';
 import {AiOutlineHeart} from 'react-icons/ai';
 import { priceFormat } from '../../helpers/helpers';
 
-export const CardProduct2 = ({image , product }) => {
-
-    const price_format = priceFormat(product.price);
+export const CardProduct = ({image , product }) => {
     
+    const price_format = priceFormat(product.price);
+
+    const handleClickButton = () =>{
+
+    }
     return (
         <>
       <div className="relative left-0 top-0 pb-[35px] animate__animated animate__zoomIn">
-        <div className="">
-          <div className="block-pick overflow-hidden relative flex justify-center items-center min-h-[400px] ">
-            <img
+        <div className="block">
+          <div className="block-pick overflow-hidden relative  min-h-[250px] ">
+  
+            <Image
               src={image}
-              className="w-full h-full transition-transform duration-[0.9s] ease-linear delay-0 hover:scale-[1.1] max-w-[300px] max-h-[400px]"
+              alt={product.name}
+              width={250}
+              height={250}
+              layout="responsive"
+              className="flex items-center"
             />
 
             <div className="absolute w-full h-full top-0 left-0 bg-[rgba(0,0,0,0.2)] opacity-0 hover:opacity-[1] transition-all	duration-[0.4s] ease-linear delay-0">
@@ -21,13 +31,12 @@ export const CardProduct2 = ({image , product }) => {
              <AiOutlineHeart/>
              </a>
              <div className="absolute left-2/4 translate-x-[-50%]  bottom-[-50px] w-[161px] transition-all	duration-[0.4s] ease-linear delay-0">
-               {/* <Link to={`products/${product.url}`}> */}
                <button
+              onClick={()=>handleClickButton()}
               className="block-btn rounded-3xl bg-[#222] min-w-[139px] h-10 font-Poppins leading-[1.4] text-luz absolute bottom-[-50px] left-[50%] translate-x-[-50%] flex justify-center items-center px-4 hover:bottom-10 hover:border-[#222] hover:no-underline hover:overflow-visible cursor-pointer transition-all	duration-[0.4s] ease-linear delay-0"
             >
               Ver más
             </button>
-               {/* </Link> */}
             </div>
 
             </div>

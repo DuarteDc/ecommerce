@@ -2,8 +2,10 @@
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import React from 'react'
+import { startLoadAdministrableLogo } from '../../../src/actions/administrableActions'
 import { FormSignIn } from '../../../src/components/auth/FormSignIn'
 import Layout from '../../../src/components/Layouts'
+import {wrapper} from '../../../src/store'
 
 
 const Login = () => {
@@ -34,5 +36,11 @@ const Login = () => {
     </Layout>
   )
 }
+
+export const getServerSideProps = wrapper.getServerSideProps((store) =>
+    async () => {
+        await store.dispatch(startLoadAdministrableLogo());
+
+    })
 
 export default Login
