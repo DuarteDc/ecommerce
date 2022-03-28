@@ -1,6 +1,7 @@
 // import Slider from "../../src/components/Layouts/Slider";
 import Link from "next/link";
 import Layout from "../../src/components/Layouts";
+import { BannerImage } from "../../src/components/ui";
 
 const Category = () => {
     const products = [
@@ -17,7 +18,10 @@ const Category = () => {
     return (
         <Layout>
             <div className="h-96 overflow-hidden hidden md:block">
-                {/* <Slider /> */}
+            <BannerImage
+              title="Monomero"
+              imageBackground="bg-about-us"
+           />
             </div>
             <section className="container mx-auto">
                 <h1 className="ml-4 md:ml-0 font-bold text-lg md:text-2xl my-2">Hola mundo</h1>

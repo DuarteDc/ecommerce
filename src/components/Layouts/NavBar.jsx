@@ -4,17 +4,22 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { BsHandbag, BsPersonCircle } from "react-icons/bs";
 import { IconContext } from "react-icons";
-import Badge from '@mui/material/Badge';
+import {AiOutlineHeart} from "react-icons/ai";
 import { startVerifyToken } from '../../actions/authActions'
 import { loadState } from "../../actions/shoppingCartActions";
 import Cookies from "js-cookie";
+import Badge from '@mui/material/Badge';
 import { useRouter } from "next/router";
+import {useLocalStorage} from "../../hooks/useLocalStorage";
+
 
 const NavBar = () => {
   const { cart } = useSelector((state) => state.cart)
-  console.log(cart);
   const { logged } = useSelector((state) => state.auth)
   const { logo } = useSelector((state) => state.administrable);
+
+  const [ wishListProducts ] = useLocalStorage('wishListProducts');
+
 
   const dispatch = useDispatch()
   const router = useRouter();
@@ -30,14 +35,15 @@ const NavBar = () => {
       path: '/productos',
       name: 'Productos'
     },
+     {
+      path: '/categorias',
+      name: 'Coleciones'
+    },
     {
       path: '/marcas',
       name: 'Marcas'
     },
-    {
-      path: '/categorias',
-      name: 'Categorias'
-    },
+   
     {
       path: '/contacto',
       name: 'Contácto'
@@ -52,6 +58,10 @@ const NavBar = () => {
     const position = window.pageYOffset;
     setScrollPosition(position);
   };
+
+  const handleRedirectClick = (path) =>{
+    router.push(path)
+  }
 
   useEffect(() => {
     window.addEventListener('scroll', handleScroll, { passive: true });
@@ -76,7 +86,7 @@ const NavBar = () => {
   }, [])
 
   return (
-    <div className={`bg-luz py-2 shadow-sm  w-full z-[2] ${scrollPosition >= 130 && 'fixed top-0'}`}>
+    <div className={`bg-luz py-2 shadow-sm  w-full z-[3] ${scrollPosition >= 130 && 'fixed top-0'}`}>
       <div className="w-full px-10  lg:px-16 xl:px-28 2xl:px-28">
         <nav className="flex max-h-16 justify-between items-center" >
           <Image
@@ -98,7 +108,7 @@ const NavBar = () => {
               {
                 routes.map(({ path, name }) => (
                   <Link href={path} key={name}>
-                    <span className="border-transparent border-b-2 hover:text-black mx-4 cursor-pointer text-lg font-['Poppins'] font-normal transition duration-700 ease-in-out">
+                    <span className="text-[#888] border-transparent border-b-2 hover:text-[#333] mx-4 cursor-pointer  font-Poppins text-[15px] font-medium transition uppercase duration-700 ease-in-out">
                       {name}
                     </span>
                   </Link>
@@ -119,29 +129,33 @@ const NavBar = () => {
                 ) : (
                   <span
                     onClick={() =>router.push(`/auth/login?p=${router.asPath}`)}
-                    className="border-transparent border-b-2 mx-4 cursor-pointer  text-[#888] font-['Poppins'] font-normal transition duration-700 ease-in-out flex flex-col min-w-[6.5rem]">
+                    className="border-transparent border-b-2 mx-4 cursor-pointer  text-[#888] font-['Poppins'] font-normal transition duration-700 ease-in-out flex flex-col min-w-[7.6rem] uppercase">
                     Iniciar Sesión
                   </span>
                 )
               }
               <span className="block h-6 w-[1px] bg-[#e5e5e5] mx-4 mt-2"></span>
-              <span className="border-transparent border-b-2 mx-4 cursor-pointer text-lg  text-[#888] font-['Poppins'] font-normal transition duration-700 ease-in-out">
-                <Link href="/cart">
-                  <a>
-                    <Badge badgeContent={cart?.length || 0} color="secondary">
+              <span className="flex items-center border-transparent border-b-2 mx-4 cursor-pointer text-lg  text-[#888] font-['Poppins'] font-normal transition duration-700 ease-in-out">
+                    <Badge badgeContent={wishListProducts?.length} color="secondary" onClick={()=>handleRedirectClick('/mi-lista-de-deseos')} className="mr-4">
+                      <IconContext.Provider value={{ size: "1.6rem" }}>
+                        <AiOutlineHeart />
+                      </IconContext.Provider>
+                    </Badge>
+
+                    <Badge badgeContent={cart?.length} color="secondary" onClick={()=>handleRedirectClick('/mi-carrito')}>
                       <IconContext.Provider value={{ size: "1.5rem" }}>
                         <BsHandbag />
                       </IconContext.Provider>
                     </Badge>
-                  </a>
-                </Link>
               </span>
             </div>
           </div>
         </nav>
       </div>
+    
+
       <div className="sm:hidden" id="mobile-menu">
-      <div className="px-2 pt-2 pb-3 space-y-1">
+      <div className="px-2 pt-2 pb-3 space-y-1 bg-[#333]">
       {
         routes.map(route=>(
           <Link href={route.path} key={route.path}>
@@ -151,6 +165,8 @@ const NavBar = () => {
       }
       </div>
      </div>
+
+
     </div>
   );
 };

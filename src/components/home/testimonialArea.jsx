@@ -4,7 +4,7 @@ import Image from "next/image";
 
 export const TestimonialArea = () => {
   return (
-    <section className="relative z-[1] bg-testimonial bg-cover  bg-centerbg-no-repea py-14  before:absolute before:left-0 before:top-0 before:w-full before:h-full before:z-[-1] before:bg-[#333] before:opacity-[0.3]">
+    <section className="relative z-[1] bg-testimonial bg-cover  bg-center bg-no-repeat py-14  before:absolute before:left-0 before:top-0 before:w-full before:h-full before:z-[-1] before:bg-[#333] before:opacity-[0.7]">
       <div className="max-w-[1320px] mx-auto">
         <Swiper
           slidesPerView={1}
@@ -43,7 +43,12 @@ export const TestimonialArea = () => {
           <SwiperSlide>
             <div className="text-center my-0 mx-auto max-w-[745px] px-6">
               <div className="mb-[30px]">
-                <Image src="/assets/images/12.jpg" width={65} height={65} />
+                <Image 
+                  src="/assets/images/12.jpg" 
+                  width={65} 
+                  height={65} 
+                  className="rounded-[50%]"
+                />
               </div>
               <p className="text-luz mb-0 font-Poppins leading-[1.9]">
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do

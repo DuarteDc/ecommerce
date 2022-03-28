@@ -1,4 +1,4 @@
-import React, {useEffect}  from 'react'
+import React, { useEffect, useState } from 'react'
 import Layout from '../../src/components/Layouts'
 import Router from 'next/router'
 
@@ -8,11 +8,30 @@ import CartDetails from '../../src/components/cart/CartDetails';
 
 const Cart = () => {
     const dispatch = useDispatch();
-    const { cart } = useSelector((state) => state.cart)
+
+    const [total, setTotal] = useState('');
+
+    const { cart } = useSelector((state) => state.cart);
 
     const deleteAllProducts = () => {
         dispatch(clearCart());
     }
+
+    const getTotalPrice = () => {
+
+        /*if (cart.length > 0) {
+            const initialValue = 0;
+            const totalPrice = cart?.reduce((previousValue, currentValue) => ((previousValue.product.price * previousValue.value) + (currentValue.product.price * currentValue.value), initialValue));
+            setTotal(totalPrice);
+        }*/
+        
+        setTotal(0);
+        
+    }
+
+    useEffect(() => {
+        getTotalPrice();
+    }, [cart]);
 
     return (
         <Layout>
@@ -31,7 +50,7 @@ const Cart = () => {
                         <div>
                             <button className="border-2 border-black px-4 py-2 uppercase hover:bg-black
                              hover:text-white transition-all duration-700 ease-in-out border-2"
-                                onClick={() => Router.push('/products')}
+                                onClick={() => Router.push('/productos')}
                             >
                                 Continuar comprando
                             </button>
@@ -42,7 +61,7 @@ const Cart = () => {
                                 <div className="border-black border-2">
                                     <div className="flex justify-between border-b-2 border-black px-2 py-3">
                                         <p className="font-semibold">Subtotal:</p>
-                                        <p className="font-semibold text-gray-500">$600</p>
+                                        <p className="font-semibold text-gray-500">${total}</p>
                                     </div>
                                     <div className="flex justify-between border-b-2 border-black px-2 py-3">
                                         <p className="font-semibold">Descuento:</p>
@@ -53,11 +72,11 @@ const Cart = () => {
                                         <p className="font-semibold text-gray-500">$600</p>
                                     </div>
                                 </div>
-                                        <button className="border-2 border-black px-4 py-2 uppercase bg-black text-white transition-all duration-700 ease-in-out border-2 hover:bg-white hover:text-black mt-5"
-                                            onClick={() => Router.push('/checkout')}
-                                        >
-                                            Proceder a pagar
-                                        </button>
+                                <button className="border-2 border-black px-4 py-2 uppercase bg-black text-white transition-all duration-700 ease-in-out border-2 hover:bg-white hover:text-black mt-5"
+                                    onClick={() => Router.push('/checkout')}
+                                >
+                                    Proceder a pagar
+                                </button>
                             </div>
                         </div>
                     </div>

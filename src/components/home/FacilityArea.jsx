@@ -7,7 +7,7 @@ import FacilityBox from '../ui/facilityBox';
 export const FacilityArea = () => {
     
     return (
-        <section className="bg-black py-9">
+        <section className="bg-[#333] py-9">
             <div className="px-5 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 ">
                 <FacilityBox
                   icon={<ImAirplane/>}

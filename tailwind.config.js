@@ -21,7 +21,7 @@ module.exports = {
         'imgverification': "url('/assets/images/imgverification.png')",
         'shop-cart': "url('/assets/images/shop-cart.png')",
         'about-us':"url('/assets/images/bg-01.jpg')",
-        'testimonial':"url('/assets/images/bg-testimonial.webp')"
+        'testimonial':"url('/assets/images/testimonial.jpg')"
       },
       screens: {
         'peque': { 'max': '639px' },

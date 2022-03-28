@@ -23,16 +23,20 @@ export const startLoadProduct = (id) => {
         let url = `/products/${id}`;
         try {
             const res = await client.get(url);
-            dispatch(loadProduct(res.data.product));
+            const { product, relatedProducts } = res.data;
+            dispatch(loadProduct(product, relatedProducts));
         } catch (error) {
             console.log(error);
         }
     }
 }
 
-export const loadProduct = (product) => ({
+export const loadProduct = (product, relatedProducts) => ({
     type: types.loadProduct,
-    payload: product
+    payload: {
+        product,
+        relatedProducts,
+    }
 })
 
 export const addProductSelected = (product) => ({
@@ -44,22 +48,45 @@ export const clearAll = () => ({
     type: types.clear_all_filter
 })
 
+/*                       Filtros                       */
+
 export const startLoadProductsPerBrand = (brand) => {
     return async (dispatch) => {
         let url = `/products/brand/${brand._id}`;
         try {
             const res = await client.get(url);
-            dispatch(addBrandToParams(brand, res.data.products))
+            dispatch(loadProductsPerBrand(brand, res.data.products));
         } catch (error) {
             console.log(error);
         }
     }
 }
 
-export const addBrandToParams = (brand, products) => ({
-    type: types.add_brand_to_filter,
+export const loadProductsPerBrand = (brand, products) => ({
+    type: types.load_products_per_brand,
     payload: {
         brand,
+        products
+    },
+});
+
+export const startLoadProductsPerCategory = (category_id, category_name) => {
+    return async (dispatch) => {
+        let url = `/products/category/${category_id}`;
+        try {
+            const res = await client.get(url);
+            dispatch(loadProductsPerCategory(category_id, category_name, res.data.products));
+        } catch (error) {
+            console.log(error);
+        }
+    }
+}
+
+export const loadProductsPerCategory = (category_id, category_name, products) => ({
+    type: types.load_products_per_category,
+    payload: {
+        category_id,
+        category_name,
         products
     },
 });
@@ -69,29 +96,12 @@ export const removeBrand = (brand) => ({
     payload: brand
 });
 
-export const FilterProductsPerCategory = async (brand_id, category_id) => {
-    let url = `products/brand/categort/${brand_id}/${category_id}`;
-    try {
-        const res = await client.get(url);
-        console.log(res.data);
-    } catch (error) {
-
-    }
-}
-
-export const addCategoryToParams = (id, name) => ({
-    type: types.add_category_to_filter,
-    payload: {
-        id,
-        name
-    },
-})
-
 export const removeCategory = (category) => ({
     type: types.remove_category_to_categoriesSelected,
     payload: category
 })
 
+/*                  Paginación                   */
 
 export const startLoadProductPerPagination = (page) => {
     return async (dispatch) => {

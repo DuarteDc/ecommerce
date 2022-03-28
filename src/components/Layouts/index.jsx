@@ -8,11 +8,12 @@ import 'react-toastify/dist/ReactToastify.css';
 import { Meta } from '../meta/meta';
 import Script from 'next/script';
 
-const Layout = ({ children  , title }) => {
+const Layout = ({ children  , title , robots }) => {
     return (
         <>
             <Meta
                title={title}
+               robots={robots}
             />
             <TopHeader />
             <NavBar />

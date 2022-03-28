@@ -2,11 +2,11 @@ import { types } from "../types";
 
 const initalState = {
     products: [],
-    allProducts: [],
     product: null,
+    relatedProducts: [],
     productSelected: null,
     brandsSelected: [],
-    productsFilter: [],
+    filteredProducts: [],
     categoriesSelected: [],
 }
 
@@ -17,13 +17,13 @@ export const productsReducer = (state = initalState, { type, payload }) => {
             return {
                 ...state,
                 products: payload,
-                allProducts: payload
             }
 
         case types.loadProduct:
             return {
                 ...state,
-                product: payload
+                product: payload.product,
+                relatedProducts: payload.relatedProducts,
             }
 
         case types.addProductSelected:
@@ -32,38 +32,41 @@ export const productsReducer = (state = initalState, { type, payload }) => {
                 productSelected: payload
             }
 
-        case types.add_brand_to_filter:
-            let brandInFilter = state.brandsSelected.find(brand => brand._id === payload.brand._id)
+        case types.load_products_per_brand: {
+
+            const { brand, products } = payload;
+
+            let brandInFilter = state.brandsSelected.find(brandSelected => brandSelected._id === brand._id);
+
             return brandInFilter ? {
                 ...state
             } : {
                 ...state,
-                brandsSelected: [...state.brandsSelected, payload.brand],
+                filteredProducts: products.length > 0 ? [...products, ...state.filteredProducts] : [...state.filteredProducts],
+                brandsSelected: [brand, ...state.brandsSelected],
+            }
+        }
+
+        case types.load_products_per_category: {
+
+            const { category_id, category_name, products } = payload;
+
+            const category = {
+                _id: category_id,
+                name: category_name
             }
 
-        case types.add_category_to_filter:
-            let categoryInFilter = state.categoriesSelected.find((category) => category.id === payload.id)
+            let categoryInFilter = state.categoriesSelected.find(category => category._id === category_id);
+
             return categoryInFilter ? {
                 ...state,
             } : {
                 ...state,
-                categoriesSelected: [...state.categoriesSelected, payload],
-                //productsFilter: state.allProducts.filter(product => product.category === payload.id),
-                //products: [...state.productsFilter, state.productsFilter]
+                filteredProducts: products.length > 0 ? [...products, ...state.filteredProducts] : [...state.filteredProducts],
+                categoriesSelected: [category, ...state.categoriesSelected],
             }
-
-        case types.load_products_per_brand:
-            return {
-                ...state,
-                products: payload,
-                allProducts: payload
-            }
-
-        case types.load_products_per_brand_and_category:
-            return {
-                ...state,
-                productsFilter: [payload, ...state.productsFilter]
-            }
+            
+        }
 
         case types.load_products_per_pagination:
             return {
@@ -71,6 +74,13 @@ export const productsReducer = (state = initalState, { type, payload }) => {
                 products: payload
             }
 
+        case types.clear_all_filter:
+            return {
+                ...state,
+                brandsSelected: initalState.brandsSelected,
+                filteredProducts: initalState.filteredProducts,
+                categoriesSelected: initalState.categoriesSelected,
+            }
 
         default:
             return state;

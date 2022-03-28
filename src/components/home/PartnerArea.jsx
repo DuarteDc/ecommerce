@@ -8,25 +8,10 @@ import { useSelector } from "react-redux";
 export const PartnerArea = () => {
   const { brands } = useSelector((state) => state.brands);
   return (
-    <section className=" py-8 m-auto">
-      <div className=" px-6 ">
-        <Swiper
-          slidesPerView={4}
-          spaceBetween={10}
-          loop={true}
-          autoplay={{
-            delay: 2000,
-            disableOnInteraction: false,
-          }}
-          pagination={{
-            clickable: true,
-          }}
-          modules={[Pagination, Autoplay]}
-          className={"mySwiper"}
-        >
+    <section className="bg-[#f5f5f5] py-8 m-auto">
+      <div className="mx-auto px-6 max-w-[1420px] flex justify-around ">
           {brands.map((brand) => (
-            <SwiperSlide key={brand._id}>
-              <div className="text-center h-auto ">
+              <div className="text-center h-auto " key={brand._id}>
                 <Link href={{
                   pathname: '/marcas/[name]',
                   query: { id: brand._id },
@@ -35,15 +20,13 @@ export const PartnerArea = () => {
                 >
                   <Image
                     src={brand.image}
-                    width={200}
-                    height={200}
+                    width={100}
+                    height={100}
                     className="w-auto inline-block cursor-pointer"
                   />
                 </Link>
               </div>
-            </SwiperSlide>
-          ))}
-        </Swiper>
+               ))}
       </div>
     </section>
   );

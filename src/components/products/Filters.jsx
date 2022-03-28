@@ -1,3 +1,5 @@
+import { memo } from "react";
+
 import { useDispatch, useSelector } from "react-redux";
 
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
@@ -5,7 +7,7 @@ import CloseIcon from '@mui/icons-material/Close';
 
 import { clearAll, removeCategory, removeBrand } from '../../actions/productsAction';
 
-const Filters = () => {
+const Filters = memo(() => {
     const dispatch = useDispatch();
 
     const { categoriesSelected } = useSelector((state) => state.products);
@@ -63,6 +65,6 @@ const Filters = () => {
             </div>
         </div>
     )
-}
+})
 
 export default Filters;

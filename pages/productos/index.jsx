@@ -2,7 +2,6 @@ import { useSelector, useDispatch } from "react-redux";
 import { wrapper } from "../../src/store";
 
 import Pagination from '@mui/material/Pagination';
-import PaginationItem from '@mui/material/PaginationItem';
 import Stack from '@mui/material/Stack';
 
 import AsideBar from "../../src/components/categories/AsideBar";
@@ -15,10 +14,11 @@ import { startLoadBrands } from "../../src/actions/brandsActions";
 import { useRouter } from "next/router";
 import { startLoadAdministrableLogo } from "../../src/actions/administrableActions";
 import { BannerImage } from "../../src/components/ui/bannerImage";
+import { ProductCard } from "../../src/components/ui";
 
 const Products = () => {
 
-    const { products } = useSelector((state) => state.products);
+    const { products, filteredProducts } = useSelector((state) => state.products);
     const { categories } = useSelector((state) => state.categories);
     const { brands } = useSelector((state) => state.brands);
 
@@ -26,6 +26,10 @@ const Products = () => {
 
     const handelClickPage = (e, value) => {
         dispatch(startLoadProductPerPagination(value));
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        });
     }
 
     return (
@@ -37,27 +41,37 @@ const Products = () => {
                title="Productos"
             />
             <section className="grid grid-cols-1 md:grid-cols-3 mt-20 lg:grid-cols-4">
-                <div className="">
+                <div>
                     <AsideBar categories={categories} brands={brands} />
                 </div>
                 <div className="col-span-4 md:col-span-2 lg:col-span-3 -mt-6">
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 border-t-2 border-gray-200">
+                    <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-5">
                         {
-                            products.products?.map((product) => (
-                                <Card key={product._id} product={product} />
-                            ))
+                            filteredProducts.length > 0 ? (
+                                filteredProducts.map((product, index) => (
+                                    <ProductCard key={product_id} product={product} />
+                                ))
+                            ) : (
+                                products.products?.map((product) => (
+                                    <ProductCard key={product._id} product={product} />
+                                ))
+                            )
                         }
                     </div>
-                    <div className="my-20 px-10">
-                        <Stack spacing={2}>
-                            <Pagination
-                                count={products.totalPages}
-                                variant="outlined"
-                                onChange={handelClickPage}
-                                size="large"
-                            />
-                        </Stack>
-                    </div>
+                    {
+                        !filteredProducts.length > 0 && (
+                            <div className="px-10">
+                                <Stack spacing={2}>
+                                    <Pagination
+                                        count={products.totalPages}
+                                        variant="outlined"
+                                        onChange={handelClickPage}
+                                        size="large"
+                                    />
+                                </Stack>
+                            </div>
+                        )
+                    }
                 </div>
             </section>
         </Layout>

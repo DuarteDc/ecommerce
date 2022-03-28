@@ -1,11 +1,12 @@
+import { useSelector } from "react-redux";
+
 import CloseIcon from '@mui/icons-material/Close';
 import Backdrop from '@mui/material/Backdrop';
 import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
 import Fade from '@mui/material/Fade';
+
 import ProductInfo from "./ProductInfo";
-import { useDispatch } from "react-redux";
-import { useSelector } from "react-redux";
 
 const ShowProduct = ({ isOpen, closeModal }) => {
     const { productSelected } = useSelector((state) => state.products);

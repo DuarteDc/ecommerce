@@ -12,7 +12,7 @@ import { startLoadAdministrableLogo } from "../src/actions/administrableActions"
  
 /**Components */
 import {
-  SlidersOffers,
+  Slider,
   Newsletter,
   PartnerArea,
   CategoryArea,
@@ -23,13 +23,12 @@ import {
 } from '../src/components/home';
 
 export default function HomePage() {
-  const { offers } = useSelector((state) => state.offers);
   return (
     <>
-      <SlidersOffers/>
+      <Slider/>
       <FacilityArea />
       <CategoryArea />
-      {offers.length && <ProductsOfferArea /> || null}
+      <ProductsOfferArea />
       <ProductsArea />
       <Newsletter />
       <TestimonialArea />

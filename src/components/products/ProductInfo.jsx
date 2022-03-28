@@ -12,37 +12,30 @@ import { toast } from 'react-toastify';
 
 const ProductInfo = ({ product, closeModal }) => {
     const notify = (error) => toast(error);
-
     const dispatch = useDispatch();
+
     const img = useRef(null);
+
     const { counter, increaseBy, setCounter } = useCounter(1);
+
     const price = priceFormat(product?.price || 0);
+
     const showImage = (newImg) => {
         img.current.src = newImg
     }
 
-    // const { cart } = useSelector((state) => state.cart);
+    //const [ cart , setCart] = useLocalStorage('card2' , [])
 
-    const [ cart , setCart] = useLocalStorage('card2' , [])
-   
 
-    // const addCart = (product, value) => {
-    //     dispatch(newProduct(product, value));
-    // }
-
-    const handleCartAdd = (product) =>{
-        setCart({
-            ...cart,
-            ['product']:product
-        })
+    const addCart = (product, value) => {
+        dispatch(newProduct(product, value));
     }
-
 
     return (
         <div className="grid grid-cols-1 md:grid-cols-2 ">
             <div>
                 <div className="w-full h-[15rem] md:h-[25rem]">
-                    <img src={product.multimedia[0]?.path}
+                    <img src={product?.multimedia[0]?.path}
                         className="object-fill w-full h-full p-2" ref={img}
                     />
                 </div>
@@ -65,7 +58,7 @@ const ProductInfo = ({ product, closeModal }) => {
                     </div>
                 </div>
             </div>
-            <div className="overflow-hidden mt-5 md:mt-0">
+            <div className="overflow-hidden mt-5 md:mt-0 md:p-2">
                 <h2 className="text-3xl font-semibold uppercase">{product?.name}</h2>
                 <p className="mt-4 text-xl break-normal">
                     {product?.description}
@@ -94,7 +87,7 @@ const ProductInfo = ({ product, closeModal }) => {
                 </div>
                 <Link
                     href={{
-                        pathname: 'products/[id]',
+                        pathname: '/products/[id]',
                         query: { id: product._id }
                     }}
                 >

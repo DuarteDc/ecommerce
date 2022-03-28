@@ -72,7 +72,6 @@ export const startGetDirections = () => {
                     'Authorization': token
                 }
             })
-            console.log(res.data.directions);
             dispatch(getDirections(res.data.directions));
         } catch (error) {
             console.log(error);
@@ -94,7 +93,6 @@ export const setDefaultAddress = async (data, id) => {
                 'Authorization': token
             }
         })
-        console.log(res.data);
     } catch (error) {
         console.log(error);
     }

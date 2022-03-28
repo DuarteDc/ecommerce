@@ -4,7 +4,7 @@ import { BsInstagram, BsTwitter, BsFacebook, BsYoutube } from "react-icons/bs";
 
 const Footer = () => {
   return (
-    <footer className="h-2/4 py-4 px-11 md:px-32 bg-black md:mb-0 text-white">
+    <footer className="h-2/4 py-4 px-11 md:px-32 bg-black md:mb-0 text-white ">
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 mt-12 mb-12">
         <div className="p-2">
           <p className="text-xl font-bold uppercase">¿Tienes dudas?</p>

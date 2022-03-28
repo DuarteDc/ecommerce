@@ -1,0 +1,21 @@
+import { IconContext } from "react-icons"
+
+export const ContactInfo = ({icon , title , text}) =>{
+    return (
+        <div className="w-full flex flex-wrap pb-[42px] items-center">
+                         <span className="w-[60px] text-[#222] text-center text-lg">
+                         <IconContext.Provider 
+                               value={{className:"text-[25px] text-[#888] w-[35%]"}}
+                            >
+                           {icon}
+                         </IconContext.Provider>
+                         </span>
+                         <div className="w-[calc(100%_-_60px)] pt-[2px]">
+                           <span className="font-Poppins text-lg leading-[1.2] text-[#333]">{title}</span>
+                           <p className="max-w-[245px] font-Poppins text-[15px] leading-[1.666] text-[#888]">
+                             {text}
+                           </p>
+                         </div>
+        </div>
+    )
+}

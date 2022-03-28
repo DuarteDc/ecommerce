@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { useSelector , useDispatch } from 'react-redux';
-import {Tabs , Search , CardProduct , FiltersArea} from '../ui';
+import {Tabs , Search , ProductCard , FiltersArea} from '../ui';
 import {addProductSelected} from '../../actions/productsAction';
 import ShowProduct from '../products/ShowProduct';
 import {useModal} from '../../hooks/useModal';
@@ -90,17 +90,15 @@ export const ProductsArea = () => {
                relative">
               {
                   products.map(product=>(
-                        <CardProduct
+                        <ProductCard
                             key={product._id}
-                            image={product?.multimedia[0]?.path}
                             product={product}
-                            handleClickModal={(product)=>handleClickModal(product)}
                         />
                   ))
               }
               </div>
              <div className="w-full my-5 flex justify-center items-center flex-wrap">
-               <Link href="/products">
+               <Link href="/productos">
                  <span className="text-luz mt-4 mx-16 border-solid inline-block py-3 pl-12 pr-12 leading-normal rounded-sm uppercase font-normal text-sm border-2 bg-[#333] border-[#222] transition duration-700 ease-in-out font-Poppins cursor-pointer
                  ">
                    Ver más

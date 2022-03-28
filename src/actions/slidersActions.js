@@ -4,9 +4,9 @@ import { types } from '../types';
 export const startLoadDataSliders = () =>{
     return async (dispatch)=>{
        try {
-           let url = 'administrable/slider-offers';
+           let url = 'administrable/slider';
            const res = await client.get(url);
-           dispatch(loadDataSliders(res.data.slider))
+           dispatch(loadDataSliders(res.data.sliders))
        } catch (error) {
            console.log(error);
        }

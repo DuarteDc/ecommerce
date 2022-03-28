@@ -3,20 +3,28 @@ import * as Yup from 'yup';
 import { startStoreNewsletterSuscription } from '../../actions/newsletterActions';
 import { Form } from "semantic-ui-react";
 import { useDispatch, useSelector } from 'react-redux';
-import { BsFillBookmarkCheckFill } from 'react-icons/bs';
-import Alert from '../ui/alert';
+import { useEffect } from 'react';
+import { toast, ToastContainer } from 'react-toastify';
 
 export const Newsletter = () => {
   const dispatch = useDispatch();
   const {message} = useSelector((state)=>state.newsletter)
   const initialValues = {
-    name:'',
     email:''
   }
   const validationSchema = {
-    name: Yup.string().required("El nombre es requerido"),
     email: Yup.string().email(true).required("El correo requerido"),
   }
+
+  const notify = (message) =>toast.success(message);
+
+  useEffect(() => {
+    if(message){
+      notify(message)
+    }
+  }, [message]);
+
+
   const formik = useFormik({
     initialValues: initialValues,
     validationSchema: Yup.object(validationSchema),
@@ -35,21 +43,14 @@ export const Newsletter = () => {
                    <p className="text-base text-[#666] font-['Poppins']">Suscribete para recibir nuestras promociones , ofertas y nuevos productos que están por salir.</p>
                  </div>
                  <div className="w-full md:w-2/4 lg:w-2/4 md:pr-[90px] lg:pr-[90px]">
-                 {
-                       message &&
-                     <Alert
-                       icon={<BsFillBookmarkCheckFill/>}
-                       message={message}
-                       color={'bg-black'}
-                     />
-                     }
-                   <Form className="flex justify-center flex-wrap px-6" onSubmit={formik.handleSubmit}>
-                      <input name="name" required type="text" placeholder="Ingresa tu nombre" value={formik.values.name}
-                       onChange={formik.handleChange} className="bg-[#f5f5f5] w-full lg:w-[250px] h-11 py-0 px-4 text-sm leading-normal text-[#222] border-0 font-['Poppins']  mb-4 outline-0"/>
-                        <input name="email" required type="text" placeholder="Ingresa tu correo electronico" value={formik.values.email}
-                       onChange={formik.handleChange} className="bg-[#f5f5f5] w-full lg:w-[250px] h-11 py-0 px-4 text-sm leading-normal text-[#222] border-0 font-['Poppins'] mb-4 outline-0"/>
-                      <button type="submit" className="ml-2 h-11 border-none bg-[#222] text-luz outline-0 text-base py-0 px-5 font-['Poppins']">Suscribirme</button>                 
+                   <Form className="relative" onSubmit={formik.handleSubmit}>
+                    
+                      <input name="email" required type="text" placeholder="Ingresa tu correo electronico" value={formik.values.email}
+                       onChange={formik.handleChange} className="bg-[#f5f5f5] w-full h-[45px] py-0 px-[15px] text-sm leading-normal text-[#222] border-none rounded-none transition-all outline-none"/>
+                       
+                      <button type="submit" className="absolute right-0 top-0 h-[45px] border-none bg-[#333] text-[#fff] outline-none text-[16px] transition-all py-0 px-[20px]">Suscribirme</button>                 
                    </Form>
+                   <ToastContainer/>
                  </div>
              </div>
             </div>

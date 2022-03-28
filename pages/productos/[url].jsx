@@ -1,6 +1,4 @@
-import { createRef, forwardRef, useRef } from "react";
-
-import Link from "next/link";
+import { useRef } from "react";
 
 import { useDispatch, useSelector } from "react-redux";
 import { wrapper } from "../../src/store";
@@ -12,16 +10,19 @@ import Layout from "../../src/components/Layouts";
 import { startLoadProduct } from "../../src/actions/productsAction";
 import { useCounter } from "../../src/hooks/useCounter";
 import { newProduct } from "../../src/actions/shoppingCartActions";
+import Card from "../../src/components/Layouts/Card";
+import { startLoadAdministrableLogo } from "../../src/actions/administrableActions";
 
 const Show = () => {
 
-    const { product } = useSelector((state) => state.products);
+    const { product, relatedProducts } = useSelector((state) => state.products);
 
     const dispatch = useDispatch();
+
     const img = useRef();
 
     const showImage = (newImg) => {
-        img.current.src = newImg;
+        // img.current.src = newImg;
     }
 
     const { counter, increaseBy, setCounter } = useCounter(1)
@@ -32,16 +33,39 @@ const Show = () => {
 
     return (
         <Layout>
-            <section className="container mx-auto mt-20">
-                <div className="grid grid-cols-1 md:grid-cols-2 p-2 md:p-5 lg:p-10">
+             <section className="container mx-auto mt-20">
+                 <div className="grid grid-cols-2 gap-5">
+                     <div className="col-span-7 px-8 ">
+                         <div className="relative justify-between flex flex-wrap">
+                          <div className="w-[11%] bg-[#333]">
+
+                          </div>
+                          <div></div>
+                          <div className="w-[83%] relative box-border block ">
+                            <div className="relative block overflow-hidden m-0 p-0">
+                               <div className="opacity-100 w-[1800px] relative top-0 left-0 block mx-auto">
+
+                               </div>
+                            </div>
+                          </div>
+                         </div>
+
+                     </div>
+                     <div className="col-span-5">
+
+                     </div>
+
+                 </div>
+                {/* <div className="grid grid-cols-1 md:grid-cols-2 p-2 md:p-5 lg:p-10">
                     <div>
                         <div className="w-full mx-auto h-[15rem] md:h-[30rem] relative">
                             <img
-                                src={product.multimedia[0].path}
+                                src={product?.multimedia[0]?.path}
                                 alt={product?.name}
                                 className="w-full h-full"
                                 ref={img}
-                            //ref={img}
+                                width={200}
+                                height={200}
                             />
                         </div>
                         <div>
@@ -52,12 +76,13 @@ const Show = () => {
                                         key={multimedia._id}
                                     >
                                         <img
-                                            src={multimedia.path}
+                                            src={multimedia?.path}
                                             alt={product.name}
                                             onClick={e => showImage(e.target.src)}
                                             className="w-full h-full object-fill"
-                                        //onClick={e => showImage(e.target.src)}
-                                        />
+                                            width={200}
+                                            height={200}
+                                        /> 
                                     </div>
                                 ))
                                 }
@@ -100,7 +125,7 @@ const Show = () => {
                                                 </p>
                                             </span>
                                         ))
-                                    }
+                                    } 
                                 </div>
                             </div>
                         </div>
@@ -115,13 +140,13 @@ const Show = () => {
                                 >+</button>
 
                                 <span
-                                    className="py-4 px-4 w-full w-full outline-none 
+                                    className="py-4 px-4 w-full outline-none 
                                     border-0 text-center font-bold"
                                 >
                                     {counter}
                                 </span>
 
-                                <button className="text-xs lg:text-sm  w-full mx-2 text-white mx-1 bg-black font-bold p-4 border-2 hover:bg-white hover:text-black hover:border-2 border-black transition-all duration-700 ease-in-out uppercase"
+                                <button className="text-xs lg:text-sm  w-full mx-2 text-white bg-black font-bold p-4 border-2 hover:bg-white hover:text-black hover:border-2 border-black transition-all duration-700 ease-in-out uppercase"
                                     onClick={() => { addCart(product, counter), setCounter(1) }}>
                                     <ShoppingCartIcon />
                                     Añadir a carrito
@@ -143,9 +168,14 @@ const Show = () => {
                     </p>
                 </div>
                 <p className="uppercase font-bold text-center text-2xl mt-20 py-3 bg-gray-50">Productos relacionados</p>
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
-
-                </div>
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 my-24">
+                    {
+                        relatedProducts.map(product => (
+                            // <Card product={product} key={product._id} />
+                            <></>
+                        ))
+                    }
+                </div> */}
             </section>
         </Layout>
     )
@@ -154,7 +184,9 @@ const Show = () => {
 
 export const getServerSideProps = wrapper.getServerSideProps((store) =>
     async (ctx) => {
-        await store.dispatch(startLoadProduct(ctx.query.id));
+        console.log(ctx);
+        // await store.dispatch(startLoadProduct('622b8721114339e0868db7a1'));
+        await store.dispatch(startLoadAdministrableLogo());
     })
 
 export default Show;

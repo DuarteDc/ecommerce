@@ -5,10 +5,20 @@ import { startLoadAdministrableLogo } from "../../src/actions/administrableActio
 import { wrapper } from "../../src/store";
 import { useSelector } from "react-redux";
 import { BannerImage } from "../../src/components/ui/bannerImage";
+import Image from "next/image";
+import { CardProduct } from "../../src/components/ui";
+import { Newsletter } from "../../src/components/home";
+import { useRouter } from "next/router";
 
 
 const Brands = () => {
   const {brandsHome} = useSelector((state)=>state.brands);
+  const history = useRouter()
+
+
+  const handleClickCard = (url) =>{
+       history.push(`marcas/${url}`)
+  }
 
   return (
     <Layout 
@@ -18,15 +28,26 @@ const Brands = () => {
       <BannerImage
         title="Marcas"
       />
-      <section className="container mx-auto mt-20">
-        {
+      <section className=" max-w-[1490px] mx-auto my-20">
+        <div className="grid grid-cols-5 gap-3">
+          {
           brandsHome.map(brand => (
-            brand.products.length > 0 && (
-              <BrandSlider brand={brand} key={brand?._id} />
-            )
+           <CardProduct
+             key={brand._id}
+             image={brand.image}
+             name={brand.name}
+             url={brand.url}
+             titleButton="Ver más.."
+             handleClickCard={handleClickCard}
+             width={250}
+             height={250}
+           /> 
+            
           ))
         }
+        </div>
       </section>
+      <Newsletter/>
     </Layout>
   )
 }
