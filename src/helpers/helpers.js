@@ -34,6 +34,9 @@ const existInWishList = (_id) =>{
   if( typeof window === 'undefined') return false;
 
   const wishList = JSON.parse(localStorage.getItem('wishListProducts' || '[]'));
+  if(!wishList){
+     return false;
+  }
   return wishList.includes(_id);
 
 }

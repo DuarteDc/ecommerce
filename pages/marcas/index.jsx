@@ -1,11 +1,9 @@
 import Layout from "../../src/components/Layouts"
-import BrandSlider from "../../src/components/brands/BrandSlider";
 import { startLoadBrandsHome } from "../../src/actions/brandsActions";
 import { startLoadAdministrableLogo } from "../../src/actions/administrableActions";
 import { wrapper } from "../../src/store";
 import { useSelector } from "react-redux";
 import { BannerImage } from "../../src/components/ui/bannerImage";
-import Image from "next/image";
 import { CardProduct } from "../../src/components/ui";
 import { Newsletter } from "../../src/components/home";
 import { useRouter } from "next/router";
