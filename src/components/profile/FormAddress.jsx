@@ -8,7 +8,7 @@ import { getMinicipilitesPerState, getStates, startSaveNewAddress } from '../../
 import { errorNotify, successNotify } from '../../helpers/helpers';
 import { useDispatch } from 'react-redux';
 
-const FormAddress = ({ isOpen, closeModal }) => {
+const FormAddress = ({ setIsAddingNewAddress }) => {
 
     const dispatch = useDispatch();
 
@@ -39,6 +39,7 @@ const FormAddress = ({ isOpen, closeModal }) => {
             return;
         }
         successNotify(message);
+        setIsAddingNewAddress(false)
     }
 
     const initialValues = {
@@ -73,18 +74,13 @@ const FormAddress = ({ isOpen, closeModal }) => {
         }
     });
     return (
-        <Modal
-            open={isOpen}
-            onClose={closeModal}
-            aria-labelledby="modal-modal-title"
-            aria-describedby="modal-modal-description"
-        >
-            <div className="overflow-hidden w-11/12 md:w-5/12  mx-auto p-8 bg-white mt-5">
-                <h2 className="font-bold text-xl">
-                    Nueva Dirección
-                </h2>
-                <form onSubmit={formik.handleSubmit}>
-                    <div className="my-2">
+        <div className="overflow-hidden mx-auto py-8 px-2 bg-white mt-5 animate__animated animate__fadeIn">
+            <h2 className="font-bold text-xl">
+                Nueva Dirección
+            </h2>
+            <form onSubmit={formik.handleSubmit}>
+                <div className="grid grid-cols-1 md:grid-cols-2">
+                    <div className="my-2 md:px-2">
                         <label className="text-sm">Nombre</label>
                         <input
                             name="name"
@@ -97,7 +93,7 @@ const FormAddress = ({ isOpen, closeModal }) => {
                             <span className="text-red-500 text-sm">{formik.errors.name}</span>
                         ) : null}
                     </div>
-                    <div className="my-2">
+                    <div className="my-2 md:px-2">
                         <label className="text-sm">Calle</label>
                         <input
                             name="street"
@@ -110,7 +106,7 @@ const FormAddress = ({ isOpen, closeModal }) => {
                             <span className="text-red-500 text-sm">{formik.errors.street}</span>
                         ) : null}
                     </div>
-                    <div className="my-2">
+                    <div className="my-2 md:px-2">
                         <label className="text-sm">Entre(calle)</label>
                         <input
                             name="between_street"
@@ -123,7 +119,7 @@ const FormAddress = ({ isOpen, closeModal }) => {
                             <span className="text-red-500 text-sm">{formik.errors.between_street}</span>
                         ) : null}
                     </div>
-                    <div className="my-2">
+                    <div className="my-2 md:px-2">
                         <label className="text-sm">Código postal</label>
                         <input
                             name="postalcode"
@@ -136,7 +132,7 @@ const FormAddress = ({ isOpen, closeModal }) => {
                             <span className="text-red-500 text-sm">{formik.errors.postalcode}</span>
                         ) : null}
                     </div>
-                    <div className="my-2">
+                    <div className="my-2 md:px-2">
                         <label className="text-sm">Ciudad</label>
                         <input
                             name="city"
@@ -149,7 +145,7 @@ const FormAddress = ({ isOpen, closeModal }) => {
                             <span className="text-red-500 text-sm">{formik.errors.city}</span>
                         ) : null}
                     </div>
-                    <div className="my-2">
+                    <div className="my-2 md:px-2">
                         <label className="text-sm">Referencias</label>
                         <input
                             name="references"
@@ -162,7 +158,7 @@ const FormAddress = ({ isOpen, closeModal }) => {
                             <span className="text-red-500 text-sm">{formik.errors.references}</span>
                         ) : null}
                     </div>
-                    <div className="my-2">
+                    <div className="my-2 md:px-2">
                         <label className="text-sm">No. Interior</label>
                         <input
                             name="no_int"
@@ -223,14 +219,14 @@ const FormAddress = ({ isOpen, closeModal }) => {
                             )
                         }
                     </div>
-                    <button className="bg-black w-full text-white py-4 uppercase hover:bg-white border-2 border-black hover:text-black transition-all duration-700 ease-in-out"
-                        type="submit"
-                    >
-                        Guardar Dirección
-                    </button>
-                </form>
-            </div>
-        </Modal>
+                </div>
+                <button className="bg-black w-full text-white py-4 uppercase hover:bg-white border-2 border-black hover:text-black transition-all duration-700 ease-in-out mt-2"
+                    type="submit"
+                >
+                    Guardar Dirección
+                </button>
+            </form>
+        </div>
     )
 }
 

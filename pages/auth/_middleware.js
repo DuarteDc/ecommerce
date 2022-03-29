@@ -7,7 +7,8 @@ export async function middleware(req, ev) {
     if (!token) {
         return NextResponse.next();
     } else {
-        return NextResponse.redirect('/');
+        const baseUrl = req.nextUrl.clone().origin;
+        return NextResponse.redirect(baseUrl);
     }
 
 }

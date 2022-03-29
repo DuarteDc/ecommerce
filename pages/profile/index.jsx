@@ -25,25 +25,17 @@ import SeguritySection from "../../src/components/profile/ui/SeguritySection";
 
 const Profile = () => {
 
-    const [open, setOpen] = useState(true);
-
     const sections = [
-        {
-            id: "perfil",
-            name: 'Direcciones',
-        },
-        {
-            id: "direcciones",
-            name: 'Direcciones',
-        }
+        { id: 'profile', name: 'Perfil' },
+        { id: 'directions', name: 'Direcciones' },
+        { id: 'seguridad', name: 'Seguridad' }
     ]
 
-    const router = useRouter();
-    console.log(router);
+    const [open, setOpen] = useState(true);
 
     const { user, directions } = useSelector(state => state.profile);
 
-    const [section, setSection] = useState('perfil');
+    const [isEditing, setIsEditing] = useState(false);
 
     const [isOpen, openModal, closeModal] = useModal();
 
@@ -55,14 +47,31 @@ const Profile = () => {
 
     return (
         <Layout>
-            *<section className="container mx-auto  mb-16">
+            <section className="container mx-auto grid grid-cols-2 mt-96">
+                <aside className="flex flex-col border-2 border-gray-200">
+                    {
+                        sections.map(section => (
+                            <Link href={`profile/#${section.name}`} key={section.id}>
+                                <a className="bg-red-200 py-4 px-3 my-2"
+                                >{section.name}</a>
+                            </Link>
+                        ))
+                    }
+                </aside>
+                <div>
+                    section
+                </div>
+            </section>
+            <section className="container mx-auto  mb-16 mt-96">
+                <h1 className="text-center uppercase text-2xl bg-gray-50 py-3 my-20 font-bold container mx-auto">Perfil</h1>
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                     <div className="w-full flex flex-col items-center p-4 drop-shadow-md">
                         <div
-                            className="w-full md:w-2/3 rounded-full overflow-hidden">
+                            className="md:h-auto rounded-full overflow-hidden">
                             <img
-                                src="https://media.istockphoto.com/photos/gingerbread-man-3d-rendering-isolated-on-white-background-picture-id1250677513?k=20&m=1250677513&s=612x612&w=0&h=KVAes7pQUH0XRDhRGqXy0na2tyaTWbCCpZ8U1r1EpNw="
+                                src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQSSNn8_M7J9iuGc2f-UDI0aSVzB7xkmWI5fSPqyMwZbX0X5o4XOaJM-cKCdcK7jp34aLQ&usqp=CAU"
                                 alt={user?.fullname}
+                                className="w-full h-full"
                             />
                         </div>
                         <p className="text-2xl uppercase mt-5 text-center">{user?.fullname}</p>
@@ -72,8 +81,31 @@ const Profile = () => {
                             Cerrar Sessión
                         </button>
                     </div>
-                    <div className="col-span-1 md:col-span-2 relative  drop-shadow-md overflow-hidden">
-                        <FormProfile {...user} />
+                    <div className="col-span-1 md:col-span-2 relative overflow-hidden">
+                        {
+                            isEditing ? (
+                                <FormProfile {...user} className="animate__animated animate__fadeIn"/>
+                            ) : (
+                                <div className="border-2 border-gray-200 p-10 relative animate__animated animate__fadeIn">
+                                    <div className="my-4">
+                                        <p className="text-lg">Nombre completo:</p>
+                                        <p className="text-gray-500">{user.fullname}</p>
+                                    </div>
+                                    <div className="my-4">
+                                        <p className="text-lg">Correo electronico:</p>
+                                        <p className="text-gray-500">{user.email}</p>
+                                    </div>
+                                    <div className="my-4">
+                                        <p className="text-lg">Telefono:</p>
+                                        <p className="text-gray-500">{user.phone.phone_number}</p>
+                                    </div>
+                                    <p
+                                        className="absolute bottom-4 right-4 cursor-pointer"
+                                        onClick={() => setIsEditing(true)}
+                                    >Editar</p>
+                                </div>
+                            )
+                        }
                     </div>
                 </div>
                 <DirectionsSeccion directions={directions} />

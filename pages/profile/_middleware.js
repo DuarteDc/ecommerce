@@ -7,8 +7,9 @@ export async function middleware(req, ev) {
     if (token) {
         return NextResponse.next();
     } else {
+        const baseUrl = req.nextUrl.clone().origin;
         const requestedPage = req.page.name;
-        return NextResponse.redirect(`/auth/login?p=${requestedPage}`);
+        return NextResponse.redirect(`${baseUrl}/auth/login?p=${requestedPage}`);
     }
 
 }

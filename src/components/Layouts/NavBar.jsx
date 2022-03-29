@@ -82,11 +82,11 @@ const NavBar = () => {
     localStorage.setItem('cart', JSON.stringify(cart))
   }, [cart])
 
-  useEffect(() => {
-    if (Cookies.get('token')) {
-      dispatch(startVerifyToken());
-    }
-  }, [])
+  //useEffect(() => {
+    // if (Cookies.get('token')) {
+    //   dispatch(startVerifyToken());
+    // }
+  //}, [])
 
   const handleMenuopen = () =>{
     toggle();

@@ -120,7 +120,9 @@ export const setDefaultAddress = (data, id) => {
                     'Authorization': token
                 }
             });
-            dispatch(changeDefaultAddress(id));
+            if (res.data.success) {
+                dispatch(changeDefaultAddress(id));
+            }
             return {
                 hasError: false,
                 message: res?.data?.message,
@@ -157,7 +159,9 @@ export const startDeleteAddress = (addres_id) => {
                     'Authorization': token
                 }
             });
-            dispatch(deleteAddress(addres_id));
+            if (res.data.success) {
+                dispatch(deleteAddress(addres_id));
+            }
             return {
                 hasError: false,
                 message: res?.data?.message,

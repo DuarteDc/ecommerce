@@ -1,24 +1,25 @@
-import LocationOnIcon from '@mui/icons-material/LocationOn';
 
 import EmailIcon from '@mui/icons-material/Email';
 import LocalPhoneIcon from '@mui/icons-material/LocalPhone';
 import PersonIcon from '@mui/icons-material/Person';
-import { FormControl, TextField } from "@mui/material";
+
 import * as Yup from 'yup';
 import { useFormik } from 'formik';
 
 
 
-const FormProfile = ({ fullname, email, phone, directions }) => {
+const FormProfile = ({ fullname, email, phone }) => {
+
     const initialValues = {
-        actual_password: '',
-        new_password: '',
-        confirm_new_password: ''
+        fullname: fullname,
+        email: '',
+        phone: '',
     }
+
     const validationSchema = {
-        actual_password: Yup.string().required("La contraseña es requerida"),
-        new_password: Yup.string().min(8, 'La contraseña debe contener al menos 8 caracteres').required("La contraseña es requerida"),
-        confirm_new_password: Yup.string().oneOf([Yup.ref('new_password'), null], "La contraseña no coincide")
+        fullname: Yup.string().required("La contraseña es requerida"),
+        email: Yup.string().min(8, 'La contraseña debe contener al menos 8 caracteres').required("La contraseña es requerida"),
+        phone: Yup.string().oneOf([Yup.ref('new_password'), null], "La contraseña no coincide")
     }
 
     const formik = useFormik({
@@ -29,56 +30,57 @@ const FormProfile = ({ fullname, email, phone, directions }) => {
         }
     });
     return (
-        <>
+        <div className="animate__animated animate__fadeIn">
             <p className="p-4 text-center font-bold uppercase">Detalles de perfil</p>
             <div className="mt-10 md:mt-0 px-6">
-                <div className="my-2 flex items-center w-full">
-                    <PersonIcon className="mr-2" />
-                    <input
-                        name="fullname"
-                        onChange={formik.handleChange}
-                        placeholder="Nombre completo"
-                        type="text"
-                        value={fullname}
-                        className="py-4 bg-gray-50  focus:outline-none focus:border-black focus:ring-1 focus:ring-gray-900 px-5 w-full my-1"
-                    />
-                    {formik.touched.actual_password && formik.errors.actual_password ? (
-                        <span className="text-red-500 text-sm">{formik.errors.actual_password}</span>
-                    ) : null}
-                </div>
-                <div className="my-2 flex items-center w-full">
-                    <EmailIcon className="mr-2" />
-                    <input
-                        name="fullname"
-                        onChange={formik.handleChange}
-                        placeholder="Nombre completo"
-                        type="text"
-                        value={email}
-                        className="py-4 bg-gray-50  focus:outline-none focus:border-black focus:ring-1 focus:ring-gray-900 px-5 w-full my-1"
-                    />
-                    {formik.touched.actual_password && formik.errors.actual_password ? (
-                        <span className="text-red-500 text-sm">{formik.errors.actual_password}</span>
-                    ) : null}
-                </div>
-                <div className="my-2 flex items-center w-full">
-                    <LocalPhoneIcon className="mr-2" />
-                    <input
-                        name="fullname"
-                        onChange={formik.handleChange}
-                        placeholder="Nombre completo"
-                        type="text"
-                        value={phone?._id}
-                        className="py-4 bg-gray-50  focus:outline-none focus:border-black focus:ring-1 focus:ring-gray-900 px-5 w-full my-1"
-                    />
-                    {formik.touched.actual_password && formik.errors.actual_password ? (
-                        <span className="text-red-500 text-sm">{formik.errors.actual_password}</span>
-                    ) : null}
-                </div>
-                <button className="my-5 ml-8 hover:bg-black py-2 px-4 hover:text-white font-bold border-2 border-black transition-all duration-700 ease-in-out">
-                    Actualizar 
-                </button>
+                <form onSubmit={formik.handleSubmit}>
+                    <div className="my-2 flex items-center w-full">
+                        <PersonIcon className="mr-2" />
+                        <input
+                            name="fullname"
+                            onChange={formik.handleChange}
+                            placeholder="Nombre completo"
+                            type="text"
+                            className="py-4 focus:outline-none focus:border-black focus:ring-1 focus:ring-gray-900 px-5 w-full my-1"
+                        />
+                        {formik.touched.fullname && formik.errors.fullname ? (
+                            <span className="text-red-500 text-sm">{formik.errors.fullname}</span>
+                        ) : null}
+                    </div>
+                    <div className="my-2 flex items-center w-full">
+                        <EmailIcon className="mr-2" />
+                        <input
+                            name="email"
+                            onChange={formik.handleChange}
+                            placeholder="Correo electronico"
+                            type="email"
+                            value={email}
+                            className="py-4 focus:outline-none focus:border-black focus:ring-1 focus:ring-gray-900 px-5 w-full my-1"
+                        />
+                        {formik.touched.email && formik.errors.email ? (
+                            <span className="text-red-500 text-sm">{formik.errors.email}</span>
+                        ) : null}
+                    </div>
+                    <div className="my-2 flex items-center w-full">
+                        <LocalPhoneIcon className="mr-2" />
+                        <input
+                            name="phone"
+                            onChange={formik.handleChange}
+                            placeholder="Nombre completo"
+                            type="text"
+                            value={phone.phone_number}
+                            className="py-4 focus:outline-none focus:border-black focus:ring-1 focus:ring-gray-900 px-5 w-full my-1"
+                        />
+                        {formik.touched.phone && formik.errors.phone ? (
+                            <span className="text-red-500 text-sm">{formik.errors.phone}</span>
+                        ) : null}
+                    </div>
+                    <button className="my-5 ml-8 hover:bg-black py-2 px-4 hover:text-white font-bold border-2 border-black transition-all duration-700 ease-in-out">
+                        Actualizar
+                    </button>
+                </form>
             </div>
-        </>
+        </div>
     )
 }
 

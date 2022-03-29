@@ -10,9 +10,9 @@ const SeguritySection = () => {
         <div className="w-full border-gray-200 border-2 mt-10 p-8">
             <div className="flex items-center justify-between">
                 <p className="text-xl font-bold">Seguridad:</p>
-                <EditIcon className="text-second-100 cursor-pointer"
+                <p className="text-second-100 cursor-pointer text-lg"
                     onClick={openModal}
-                />
+                >Editar</p>
             </div>
             <div className="flex mt-4 md:ml-20 items-center">
                 <p className="font-light">Contraseña:</p>

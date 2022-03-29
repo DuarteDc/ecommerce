@@ -10,7 +10,6 @@ import { startLoadBrandsHome, startLoadBrands } from "../src/actions/brandsActio
 import { startLoadDataSliders } from "../src/actions/slidersActions";
 import { startLoadCategoriesHome } from "../src/actions/categoryActions";
 import { startLoadAdministrableLogo } from "../src/actions/administrableActions";
-
 /**Components */
 import {
   Slider,
@@ -25,8 +24,19 @@ import {
 import { useEffect } from "react";
 
 export default function HomePage() {
+  const { data, status } = useSession();
+
+  useEffect(() => {
+    // if (Cookies.get('token')) {
+    //   dispatch(startVerifyToken());
+    // }
+
+    if(status === 'authenticated'){
+      console.log(data);
+    }
 
 
+  }, [status, data])
   return (
     <>
       <Slider />
