@@ -7,7 +7,7 @@ export const CardProduct = ({image , name , titleButton , url , width , height ,
         <>
       <div className="relative left-0 top-0 pb-[35px] animate__animated animate__zoomIn">
         <div className="block">
-          <div className={`block-pick overflow-hidden relative  max-h-[${height}] `}>
+          <div className={`block-pick overflow-hidden relative  max-h-full `}>
   
             <Image
               src={image}
