@@ -1,77 +1,101 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
-import Router, { useRouter } from "next/router";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 
 import Cookies from "js-cookie";
-import AddIcon from '@mui/icons-material/Add';
+
+import * as Yup from 'yup';
+import { useFormik } from 'formik';
 
 import { wrapper } from "../../src/store";
 
 import Layout from "../../src/components/Layouts";
-import FormAddress from "../../src/components/profile/FormAddress";
 
-import { useModal } from '../../src/hooks/useModal';
 import { logout } from "../../src/actions/authActions";
-import FormChangePassword from "../../src/components/profile/FormChangePassword";
-import FormProfile from "../../src/components/profile/FormProfile";
-import { startLoadDataUser, startGetDirections, setDefaultAddress, startDeleteAddress } from "../../src/actions/profileActions";
-import { startLoadAdministrableLogo } from "../../src/actions/administrableActions";
 
-
-import Link from "next/link";
 import DirectionsSeccion from "../../src/components/profile/ui/DirectionsSeccion";
 import SeguritySection from "../../src/components/profile/ui/SeguritySection";
+import ProfileSection from "../../src/components/profile/ui/ProfileSection";
+
+import ModeEditOutlineIcon from '@mui/icons-material/ModeEditOutline';
+
+import { startLoadDataUser, startGetDirections, startUpdateDataUser } from "../../src/actions/profileActions";
+import { startLoadAdministrableLogo } from "../../src/actions/administrableActions";
+import { errorNotify, successNotify } from "../../src/helpers/helpers";
 
 const Profile = () => {
 
-    const sections = [
-        { id: 'profile', name: 'Perfil' },
-        { id: 'directions', name: 'Direcciones' },
-        { id: 'seguridad', name: 'Seguridad' }
-    ]
+    const img = useRef();
+
+    const inputFile = useRef(null)
 
     const [open, setOpen] = useState(true);
 
+    const handleUpdateImageUser = async (event) => {
+
+        const { hasError, message } = await disptach(startUpdateDataUser())
+        
+        if (hasError) {
+            errorNotify(message);
+            return;
+        }
+        successNotify(message);
+
+    }
+    const showImage = (newImg) => {
+        img.current.src = newImg
+    }
+
+    const onButtonClick = () => {
+        inputFile.current.click();
+        console.log(inputFile.current.value);
+    };
+
     const { user, directions } = useSelector(state => state.profile);
 
-    const [isEditing, setIsEditing] = useState(false);
-
-    const [isOpen, openModal, closeModal] = useModal();
-
     const logoutSession = () => {
-        dispatch(logout());
+        dispatch(logout);
         Cookies.remove('token')
         router.replace('/')
     }
 
+    const initialValues = {
+        imagee: '',
+    }
+    const validationSchema = {
+        image: Yup.string().required('El campo es requerido')
+    }
+
+    const formik = useFormik({
+        initialValues,
+        validationSchema: Yup.object(validationSchema),
+        onSubmit: (formData) => {
+            handleSaveNewAddress(formData);
+            closeModal();
+        }
+    });
+
     return (
         <Layout>
-            <section className="container mx-auto grid grid-cols-2 mt-96">
-                <aside className="flex flex-col border-2 border-gray-200">
-                    {
-                        sections.map(section => (
-                            <Link href={`profile/#${section.name}`} key={section.id}>
-                                <a className="bg-red-200 py-4 px-3 my-2"
-                                >{section.name}</a>
-                            </Link>
-                        ))
-                    }
-                </aside>
-                <div>
-                    section
-                </div>
-            </section>
-            <section className="container mx-auto  mb-16 mt-96">
+            <section className="container mx-auto mb-16">
                 <h1 className="text-center uppercase text-2xl bg-gray-50 py-3 my-20 font-bold container mx-auto">Perfil</h1>
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                     <div className="w-full flex flex-col items-center p-4 drop-shadow-md">
-                        <div
-                            className="md:h-auto rounded-full overflow-hidden">
+                        <div className="rounded-full w-64 h-64 bg-red-200 border-4 border-indigo-900 overflow-hidden relative z-10">
+                            <div className="absolute bottom-5 right-10 z-20 bg-[#222] rounded-full p-1 cursor-pointer text-white cursor-pointer hover:opacity-75"
+                                onClick={onButtonClick}>
+                                <form onSubmit={formik.handleSubmit}>
+                                    <ModeEditOutlineIcon />
+                                    <input type="file" ref={inputFile} hidden
+                                        onChange={handleUpdateImageUser}
+                                    />
+                                </form>
+                            </div>
                             <img
                                 src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQSSNn8_M7J9iuGc2f-UDI0aSVzB7xkmWI5fSPqyMwZbX0X5o4XOaJM-cKCdcK7jp34aLQ&usqp=CAU"
                                 alt={user?.fullname}
-                                className="w-full h-full"
+                                ref={img}
+                                className="w-full h-full object-fill static"
                             />
                         </div>
                         <p className="text-2xl uppercase mt-5 text-center">{user?.fullname}</p>
@@ -81,32 +105,7 @@ const Profile = () => {
                             Cerrar Sessión
                         </button>
                     </div>
-                    <div className="col-span-1 md:col-span-2 relative overflow-hidden">
-                        {
-                            isEditing ? (
-                                <FormProfile {...user} className="animate__animated animate__fadeIn"/>
-                            ) : (
-                                <div className="border-2 border-gray-200 p-10 relative animate__animated animate__fadeIn">
-                                    <div className="my-4">
-                                        <p className="text-lg">Nombre completo:</p>
-                                        <p className="text-gray-500">{user.fullname}</p>
-                                    </div>
-                                    <div className="my-4">
-                                        <p className="text-lg">Correo electronico:</p>
-                                        <p className="text-gray-500">{user.email}</p>
-                                    </div>
-                                    <div className="my-4">
-                                        <p className="text-lg">Telefono:</p>
-                                        <p className="text-gray-500">{user.phone.phone_number}</p>
-                                    </div>
-                                    <p
-                                        className="absolute bottom-4 right-4 cursor-pointer"
-                                        onClick={() => setIsEditing(true)}
-                                    >Editar</p>
-                                </div>
-                            )
-                        }
-                    </div>
+                    <ProfileSection user={user} />
                 </div>
                 <DirectionsSeccion directions={directions} />
                 <SeguritySection />
@@ -184,7 +183,7 @@ const Profile = () => {
                     </div>
                 </div>
             </section>
-        </Layout>
+        </Layout >
     )
 }
 

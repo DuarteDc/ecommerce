@@ -53,8 +53,9 @@ const FormChangePassword = ({ isOpen, closeModal }) => {
                 </h2>
                 <form onSubmit={formik.handleSubmit}>
                     <div className="my-2">
-                        <label htmlFor="" className="text-sm">Contraseña</label>
+                        <label htmlFor="actual_password" className="text-sm">Contraseña:</label>
                         <input
+                            id="actual_password"
                             name="actual_password"
                             onChange={formik.handleChange}
                             placeholder="Contraseña"
@@ -66,8 +67,9 @@ const FormChangePassword = ({ isOpen, closeModal }) => {
                         ) : null}
                     </div>
                     <div className="my-2">
-                        <label htmlFor="" className="text-sm">Nueva Contraseña</label>
+                        <label htmlFor="new_password" className="text-sm">Nueva Contraseña:</label>
                         <input
+                            id="new_password"
                             name="new_password"
                             onChange={formik.handleChange}
                             placeholder="Nueva Contraseña"
@@ -79,8 +81,9 @@ const FormChangePassword = ({ isOpen, closeModal }) => {
                         ) : null}
                     </div>
                     <div className="my-2">
-                        <label htmlFor="" className="text-sm">Confirmar Contraseña</label>
+                        <label htmlFor="confirm_new_password" className="text-sm">Confirmar Contraseña:</label>
                         <input
+                            id="confirm_new_password"
                             name="confirm_new_password"
                             onChange={formik.handleChange}
                             placeholder="Repetir Contraseña"

@@ -55,8 +55,8 @@ const DirectionsSeccion = ({ directions }) => {
                     isAddingNewAddress ? (
                         <button
                             className="border-2 border-[#222]  
-                            hover:text-white hover:bg-[#222] font-semibold 
-                            transition-all duration-700 ease-in-out px-2"
+                            hover:text-white hover:bg-[#222]
+                            transition-all duration-700 ease-in-out px-4 py-1"
                             onClick={() => setIsAddingNewAddress(false)}
                         >
                             Cancelar
@@ -64,8 +64,8 @@ const DirectionsSeccion = ({ directions }) => {
                     ) : (
                         <button
                             className="border-2 border-[#222]  
-                            hover:text-white hover:bg-[#222] font-semibold 
-                            transition-all duration-700 ease-in-out px-2"
+                            hover:text-white hover:bg-[#222]
+                            transition-all duration-700 ease-in-out px-4 py-1"
                             onClick={() => setIsAddingNewAddress(true)}
                         >
                             Añadir Dirección
@@ -78,7 +78,7 @@ const DirectionsSeccion = ({ directions }) => {
                 isAddingNewAddress ? (
                     <FormAddress setIsAddingNewAddress={setIsAddingNewAddress} />
                 ) : (
-                    <div className="flex flex-col lg:flex-row lg:justify-start justify-center items-center animate__animated animate__fadeIn">
+                    <div className="flex flex-col md:flex-row lg:justify-start justify-center items-center animate__animated animate__fadeIn">
                         {
                             directions?.map(address => (
                                 <div
