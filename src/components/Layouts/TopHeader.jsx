@@ -23,35 +23,35 @@ const TopHeader = () => {
   }, []);
 
   return (
-    <div className="bg-white-dg py-3 hidden lg:block 2xl:block relative z-20 w-full">
+    <div className="bg-[#333] text-[#fff]  py-3 hidden lg:block 2xl:block relative z-20 w-full">
       <div className="w-full mr-auto ml-auto ">
           <div className="grid grid-cols-3">
-          <div className="flex justify-start mx-24 divide-x">
+          <div className="flex justify-start mx-24 ">
             <Link href={facebook} className="mx-3 text-sm">
-            <IconContext.Provider value={{size:"1.1rem", className:"hover:text-[#3b5998] text-[#888] mr-3 cursor-pointer"}}>
+            <IconContext.Provider value={{size:"1.1rem", className:"hover:text-[#3b5998] text-[#fff] mr-3 cursor-pointer"}}>
               <BsFacebook/>
             </IconContext.Provider>
             </Link>
-            <Link href={instagram} className="mx-3 text-sm">
-            <IconContext.Provider value={{size:"1.1rem"  , className:"hover:text-[#E1306C] text-[#888] mr-3 cursor-pointer"}}>
+            <Link href={instagram} className="mx-3 text-sm text-[#333]">
+            <IconContext.Provider value={{size:"1.1rem"  , className:"hover:text-[#E1306C] text-[#fff] mx-3 cursor-pointer"}}>
               <BsInstagram/>
             </IconContext.Provider>
             </Link>
             <Link href="/" className="mx-3 text-sm">
-            <IconContext.Provider value={{size:"1.1rem" , className:"hover:text-[#000000] text-[#888] mr-3 cursor-pointer"}}>
+            <IconContext.Provider value={{size:"1.1rem" , className:"hover:text-[#000000] text-[#fff] mx-3 cursor-pointer"}}>
                 <FaTiktok/>
             </IconContext.Provider>
             </Link>        
           </div>
           <div className="flex justify-center">
-              <p className="text-[#888] font-Poppins">{top_text}</p>
+              <p className="text-[#fff] font-Poppins">{top_text}</p>
           </div>
           <div className="flex justify-end mx-24">
             <Link href="/">
-                <span  className="mx-3 text-sm text-[#888] font-Poppins">Blog</span>
+                <span  className="mx-3 text-sm text-[#fff] font-Poppins">Blog</span>
             </Link>
             <Link href="/">
-                <span className="mx-3 text-sm text-[#888] font-Poppins">Lenguage</span>
+                <span className="mx-3 text-sm text-[#fff] font-Poppins">Lenguage</span>
             </Link>
           </div>
           </div>

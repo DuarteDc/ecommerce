@@ -16,14 +16,12 @@ import { useToggle } from "../../hooks/useToggle";
 
 
 const NavBar = () => {
-  const { cart } = useSelector((state) => state.cart)
-  const { logged } = useSelector((state) => state.auth)
+  const { cart } = useSelector((state) => state.cart);
+  const { wishList } = useSelector((state)=>state.wishList);
+  const { logged } = useSelector((state) => state.auth);
   const { logo } = useSelector((state) => state.administrable);
 
-  const [ wishListProducts ] = useLocalStorage('wishListProducts');
 
-
-  const dispatch = useDispatch()
   const router = useRouter();
   const [ open , toggle ] = useToggle();
 
@@ -73,28 +71,12 @@ const NavBar = () => {
     };
   }, []);
 
-  useEffect(() => {
-    const cart = JSON.parse(localStorage.getItem('cart'));
-    dispatch(loadState(cart));
-  }, [])
 
-  useEffect(() => {
-    localStorage.setItem('cart', JSON.stringify(cart))
-  }, [cart])
-
-  useEffect(() => {
-    if (Cookies.get('token')) {
-      dispatch(startVerifyToken());
-    }
-  }, [])
 
   const handleMenuopen = () =>{
     toggle();
   }
 
-  const handleMenuClose = () =>{
-    toggle();
-  }
 
   return (
     <div className={`bg-luz py-2 shadow-sm  w-full z-[3] ${scrollPosition >= 130 && 'fixed top-0'} space-y-1`}>
@@ -161,7 +143,7 @@ const NavBar = () => {
               }
               <span className="block h-6 w-[1px] bg-[#e5e5e5] mx-4 mt-2"></span>
               <span className="flex items-center border-transparent border-b-2 mx-4 cursor-pointer text-lg  text-[#888] font-['Poppins'] font-normal transition duration-700 ease-in-out">
-                    <Badge badgeContent={wishListProducts?.length} color="secondary" onClick={()=>handleRedirectClick('/mi-lista-de-deseos')} className="mr-4">
+                    <Badge badgeContent={wishList?.length} color="secondary" onClick={()=>handleRedirectClick('/mi-lista-de-deseos')} className="mr-4">
                       <IconContext.Provider value={{ size: "1.6rem" }}>
                         <AiOutlineHeart />
                       </IconContext.Provider>

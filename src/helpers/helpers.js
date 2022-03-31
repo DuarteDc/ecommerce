@@ -4,7 +4,6 @@ const priceFormat = (number) =>{
         currency: "MXN",
         minimumFractionDigits: 2,
       }).format(number);
-    
     return price;
 }
 
@@ -41,8 +40,18 @@ const existInWishList = (_id) =>{
 
 }
 
+const existInShoppingCart = (_id , ShoppingCart) =>{
+  const existProduct = ShoppingCart.filter(cart=>cart.product_id === _id );
+  if(!existProduct.length){
+    return false;
+  }else{
+    return true;
+  }
+}
+
 export default {
   priceFormat,
   toggleWishListProducts,
-  existInWishList
+  existInWishList,
+  existInShoppingCart
 }

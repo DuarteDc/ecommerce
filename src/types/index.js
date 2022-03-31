@@ -48,4 +48,13 @@ export const types = {
 
     load_data_user: '[PROFILE] load data user',
     load_directions: '[PROFILE] load directions',
+
+    addProductShoppingCart:'[ShoppingCart] add product to shopping cart',
+    loadShoppingCartFromCookies:'[ShoppingCart] load shopping cart from cookies',
+    updatedProductQuantity:'[ShoppingCart] updated quantity product in shoppingcart',
+    calculateTotalShoppingCart:'[ShoppingCart] calculate subtotal and total in shoppingCart',
+
+
+    loadWishListfromLocalStorage:'[WishList] load wishlist from localStorage'
+   
 }

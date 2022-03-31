@@ -183,9 +183,8 @@ const Show = () => {
 
 
 export const getServerSideProps = wrapper.getServerSideProps((store) =>
-    async (ctx) => {
-        console.log(ctx);
-        // await store.dispatch(startLoadProduct('622b8721114339e0868db7a1'));
+    async ({query}) => {
+        await store.dispatch(startLoadProduct(query.url));
         await store.dispatch(startLoadAdministrableLogo());
     })
 

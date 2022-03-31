@@ -18,16 +18,17 @@ export const loadProducts = (products) => ({
     payload: products
 });
 
-export const startLoadProduct = (id) => {
+export const startLoadProduct = (slug) => {
     return async (dispatch) => {
-        let url = `/products/${id}`;
-        try {
-            const res = await client.get(url);
-            const { product, relatedProducts } = res.data;
-            dispatch(loadProduct(product, relatedProducts));
-        } catch (error) {
-            console.log(error);
-        }
+
+         try {
+             let url  = `/products/slug/${slug}`;
+             const res = await client.get(url);
+             const { product } = res.data;
+             dispatch(loadProduct(product , []));
+         } catch (error) {
+             console.log(error);
+         }
     }
 }
 
