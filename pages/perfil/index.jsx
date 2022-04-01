@@ -4,10 +4,12 @@ import { useSelector } from "react-redux";
 
 import Cookies from "js-cookie";
 
-import * as Yup from 'yup';
-import { useFormik } from 'formik';
+
+import { useDispatch } from 'react-redux';
 
 import { wrapper } from "../../src/store";
+import { useFormik } from 'formik';
+import * as Yup from 'yup';
 
 import Layout from "../../src/components/Layouts";
 
@@ -28,27 +30,47 @@ const Profile = () => {
     const img = useRef();
 
     const inputFile = useRef(null)
+    const dispatch = useDispatch();
 
     const [open, setOpen] = useState(true);
 
-    const handleUpdateImageUser = async (event) => {
+    const handleUpdateImageUser = async (formData) => {
 
-        const { hasError, message } = await disptach(startUpdateDataUser())
-        
+        const data = new FormData();
+        data.append('profileImage', formData);
+
+        const { hasError, message } = await dispatch(startUpdateDataUser(data))
+
         if (hasError) {
             errorNotify(message);
-            return;
+            return false;
         }
         successNotify(message);
+        return true;
+    }   
 
-    }
-    const showImage = (newImg) => {
-        img.current.src = newImg
+    const onFileChange = async (event) => {
+        if (event.target.files && event.target.files.length > 0) {
+            const file = event.target.files[0];
+            if (file.type.includes('image')) {
+                const hasError = await handleUpdateImageUser(file);
+                if (!hasError) {
+                    return;
+                }
+                const reader = new FileReader();
+                reader.readAsDataURL(file);
+
+                reader.onload = function load() {
+                    img.current.src = reader.result
+                }
+            }else{
+                errorNotify("El formato de la imagen no es valido");
+            }
+        }
     }
 
     const onButtonClick = () => {
         inputFile.current.click();
-        console.log(inputFile.current.value);
     };
 
     const { user, directions } = useSelector(state => state.profile);
@@ -59,40 +81,24 @@ const Profile = () => {
         router.replace('/')
     }
 
-    const initialValues = {
-        imagee: '',
-    }
-    const validationSchema = {
-        image: Yup.string().required('El campo es requerido')
-    }
-
-    const formik = useFormik({
-        initialValues,
-        validationSchema: Yup.object(validationSchema),
-        onSubmit: (formData) => {
-            handleSaveNewAddress(formData);
-            closeModal();
-        }
-    });
-
     return (
         <Layout>
             <section className="container mx-auto mb-16">
                 <h1 className="text-center uppercase text-2xl bg-gray-50 py-3 my-20 font-bold container mx-auto">Perfil</h1>
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                     <div className="w-full flex flex-col items-center p-4 drop-shadow-md">
-                        <div className="rounded-full w-64 h-64 bg-red-200 border-4 border-indigo-900 overflow-hidden relative z-10">
+                        <div className="rounded-full w-64 h-64 border-4 overflow-hidden relative z-10">
                             <div className="absolute bottom-5 right-10 z-20 bg-[#222] rounded-full p-1 cursor-pointer text-white cursor-pointer hover:opacity-75"
                                 onClick={onButtonClick}>
-                                <form onSubmit={formik.handleSubmit}>
+                                <form>
                                     <ModeEditOutlineIcon />
-                                    <input type="file" ref={inputFile} hidden
-                                        onChange={handleUpdateImageUser}
+                                    <input type="file" ref={inputFile} hidden name="profileImage"
+                                        onChange={onFileChange}
                                     />
                                 </form>
                             </div>
                             <img
-                                src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQSSNn8_M7J9iuGc2f-UDI0aSVzB7xkmWI5fSPqyMwZbX0X5o4XOaJM-cKCdcK7jp34aLQ&usqp=CAU"
+                                src={user?.profileImage}
                                 alt={user?.fullname}
                                 ref={img}
                                 className="w-full h-full object-fill static"

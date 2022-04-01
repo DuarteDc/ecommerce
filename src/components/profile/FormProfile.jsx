@@ -20,6 +20,7 @@ const FormProfile = ({ fullname, email, phone, setIsEditing }) => {
         }
         successNotify(message);
         setIsEditing(false);
+        
     }
 
     const initialValues = {

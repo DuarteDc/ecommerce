@@ -8,7 +8,7 @@ import { getMinicipilitesPerState, getStates, startSaveNewAddress } from '../../
 import { errorNotify, successNotify } from '../../helpers/helpers';
 import { useDispatch } from 'react-redux';
 
-const FormAddress = ({ setIsAddingNewAddress }) => {
+const FormAddress = ({ setShowForm }) => {
 
     const dispatch = useDispatch();
 
@@ -39,7 +39,7 @@ const FormAddress = ({ setIsAddingNewAddress }) => {
             return;
         }
         successNotify(message);
-        setIsAddingNewAddress(false)
+        setShowForm(false)
     }
 
     const initialValues = {
