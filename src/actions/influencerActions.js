@@ -1,18 +1,19 @@
+import axios from "axios";
+import client from "../config/axiosConfig";
+
 export const saveDataInfluencer = async (formData) => {
-    let url = `/autinfluencers`;
+    
+    let url = `/influencers`;
     try {
-        const token = await Cookies.get('token');
-        const res = await client.post(url, formData, {
-            headers: {
-                'Authorization': token
-            }
-        });
+        const res = await client.post(url, formData);
+        
         return {
             hasError: false,
             message: res?.data?.message,
         }
 
     } catch (error) {
+
         if (axios.isAxiosError(error)) {
             return {
                 hasError: true,
@@ -22,7 +23,8 @@ export const saveDataInfluencer = async (formData) => {
 
         return {
             hasError: true,
-            message: "No se pudo eliminar la dirección - intente mas tarde"
+            message: "Parece que hubo un error - intente mas tarde"
         }
+        
     }
 }
