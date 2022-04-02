@@ -31,7 +31,7 @@ const index = () => {
                             <li className="flex flex-col">
                                 {
                                     faqs.map(faq => (
-                                        <Link href={`/preguntas-frecuentes/#${faq.question}`}>
+                                        <Link href={`/preguntas-frecuentes/#${faq._id}`}>
                                             <a className=" my-4">{faq.question}</a>
                                         </Link>
                                     ))
@@ -43,8 +43,8 @@ const index = () => {
                         {
                             faqs.map(faq => (
                                 <div className="my-4">
-                                    <p className="py-2 font-bold text-xl">{faq.question}</p>
-                                    <Collapse in={true} timeout="auto" unmountOnExit id={`${faq.question}`} className="mb-10">
+                                    <p className="py-2 font-bold text-xl" id={`${faq._id}`}>{faq.question}</p>
+                                    <Collapse in={true} timeout="auto" unmountOnExit className="mb-10">
                                         <p className="">{faq.answer}</p>
                                     </Collapse>
                                     <hr />

@@ -24,10 +24,12 @@ import ModeEditOutlineIcon from '@mui/icons-material/ModeEditOutline';
 import { startLoadDataUser, startGetDirections, startUpdateDataUser } from "../../src/actions/profileActions";
 import { startLoadAdministrableLogo } from "../../src/actions/administrableActions";
 import { errorNotify, successNotify } from "../../src/helpers/helpers";
+import { useRouter } from "next/router";
 
 const Profile = () => {
 
     const img = useRef();
+    const router = useRouter();
 
     const inputFile = useRef(null)
     const dispatch = useDispatch();

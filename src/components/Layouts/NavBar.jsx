@@ -82,11 +82,11 @@ const NavBar = () => {
     localStorage.setItem('cart', JSON.stringify(cart))
   }, [cart])
 
-  //useEffect(() => {
-    // if (Cookies.get('token')) {
-    //   dispatch(startVerifyToken());
-    // }
-  //}, [])
+  useEffect(() => {
+    if (Cookies.get('token')) {
+      dispatch(startVerifyToken());
+    }
+  }, [])
 
   const handleMenuopen = () =>{
     toggle();
@@ -144,7 +144,7 @@ const NavBar = () => {
             <div className="px-6 flex items-center">
               {
                 logged ? (
-                  <Link href="/profile">
+                  <Link href="/perfil">
                     <span className="border-transparent border-b-2 mx-4 cursor-pointer text-lg  text-[#888] font-['Poppins'] font-normal transition duration-700 ease-in-out">
                       <IconContext.Provider value={{ size: "1.6rem" }}>
                         <BsPersonCircle />
