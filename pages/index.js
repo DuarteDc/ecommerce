@@ -1,5 +1,4 @@
 import { wrapper } from "../src/store";
-import { useSession } from 'next-auth/react';
 
 
 import Layout from "../src/components/Layouts";
@@ -22,22 +21,9 @@ import {
   ProductsOfferArea,
   TestimonialArea
 } from '../src/components/home';
-import { useEffect } from "react";
 
 export default function HomePage() {
-  const { data, status } = useSession();
-
-  useEffect(() => {
-    // if (Cookies.get('token')) {
-    //   dispatch(startVerifyToken());
-    // }
-
-    if(status === 'authenticated'){
-      console.log(data);
-    }
-
-
-  }, [status, data])
+  
   return (
     <>
       <Slider />

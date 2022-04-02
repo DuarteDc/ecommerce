@@ -7,7 +7,7 @@ import Layout from "../../src/components/Layouts"
 import { BannerImage } from "../../src/components/ui";
 import { helpers } from "../../src/helpers";
 import { wrapper } from "../../src/store";
-import { BillingForm } from "./billingForm";
+import { BillingForm } from "../../src/components/checkout/billingForm";
 
 
 const Checkout = () => {
