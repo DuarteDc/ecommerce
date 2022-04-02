@@ -20,15 +20,14 @@ export const loadProducts = (products) => ({
 
 export const startLoadProduct = (slug) => {
     return async (dispatch) => {
-
-         try {
-             let url  = `/products/slug/${slug}`;
-             const res = await client.get(url);
-             const { product } = res.data;
-             dispatch(loadProduct(product , []));
-         } catch (error) {
-             console.log(error);
-         }
+        let url = `/products/slug/${slug}`;
+        try {
+            const res = await client.get(url);
+            const { product, relatedProducts } = res.data;
+            dispatch(loadProduct(product));
+        } catch (error) {
+            console.log(error);
+        }
     }
 }
 
@@ -36,7 +35,6 @@ export const loadProduct = (product, relatedProducts) => ({
     type: types.loadProduct,
     payload: {
         product,
-        relatedProducts,
     }
 })
 

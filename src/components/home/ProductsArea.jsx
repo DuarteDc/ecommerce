@@ -11,6 +11,7 @@ import {useToggle} from "../../hooks/useToggle";
 export const ProductsArea = () => {
     const dispatch = useDispatch();
     const {brandsHome} = useSelector((state)=>state.brands);
+    const {tags} = useSelector((state)=>state.tags);
     const [openSearch , setOpenSearch] = useToggle(false);
     const [openFilter , setOpenFilter] = useToggle(false);
     const [tabActive , setTabActive] = useState(null);
@@ -71,6 +72,7 @@ export const ProductsArea = () => {
                 <FiltersArea 
                   brands={brandsHome}
                   openFilter={openFilter}
+                  tags={tags}
                 />
                 
               </div>

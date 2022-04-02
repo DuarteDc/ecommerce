@@ -1,3 +1,5 @@
+import { toast } from 'react-toastify';
+
 const priceFormat = (number) =>{
     const price = new Intl.NumberFormat("es-MX", {
         style: "currency",

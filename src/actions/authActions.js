@@ -1,7 +1,6 @@
 import Cookies from 'js-cookie';
 import client from '../config/axiosConfig';
 import { types } from '../types';
-import errorHandler from './errorHandler';
 
 
 import axios from 'axios';
@@ -86,7 +85,6 @@ export const startVerifyToken = () => {
             dispatch(verifyToken(user, token))
         } catch (error) {
             Cookies.remove('token');
-            return errorHandler(error);
         }
     }
 }
@@ -115,8 +113,21 @@ export const startChangePassword = async (data) => {
                 'Authorization': token
             }
         });
-        return true;
+        return {
+            hasError: flase,
+            message: res?.data?.message,
+        }
     } catch (error) {
-        return false;
+        if (axios.isAxiosError(error)) {
+            return {
+                hasError: true,
+                message: error?.response?.data?.message
+            }
+        }
+
+        return {
+            hasError: true,
+            message: "No se pudo cambiar la contraseña - intente mas tarde"
+        }
     }
 }

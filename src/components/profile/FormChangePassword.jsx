@@ -14,7 +14,6 @@ const FormChangePassword = ({ isOpen, closeModal }) => {
         new_password: '',
         confirm_new_password: ''
     }
-    
     const validationSchema = {
         actual_password: Yup.string().required("La contraseña es requerida"),
         new_password: Yup.string().min(8, 'La contraseña debe contener al menos 8 caracteres').required("La contraseña es requerida"),
@@ -23,12 +22,12 @@ const FormChangePassword = ({ isOpen, closeModal }) => {
 
     const handleChangePassword = async (formData) => {
 
-        const isValid = await startChangePassword(formData);
-        if (isValid) {
-            successNotify("La contraseña se actualizo con exito");
+        const { hasError, message } = await startChangePassword(formData);
+        if (hasError) {
+            errorNotify(message);
             return;
         }
-        errorNotify("Hubo un problema al cambiar la contraseña");
+        successNotify(message);
     }
 
     const formik = useFormik({
@@ -53,8 +52,9 @@ const FormChangePassword = ({ isOpen, closeModal }) => {
                 </h2>
                 <form onSubmit={formik.handleSubmit}>
                     <div className="my-2">
-                        <label htmlFor="" className="text-sm">Contraseña</label>
+                        <label htmlFor="actual_password" className="text-sm">Contraseña:</label>
                         <input
+                            id="actual_password"
                             name="actual_password"
                             onChange={formik.handleChange}
                             placeholder="Contraseña"
@@ -66,8 +66,9 @@ const FormChangePassword = ({ isOpen, closeModal }) => {
                         ) : null}
                     </div>
                     <div className="my-2">
-                        <label htmlFor="" className="text-sm">Nueva Contraseña</label>
+                        <label htmlFor="new_password" className="text-sm">Nueva Contraseña:</label>
                         <input
+                            id="new_password"
                             name="new_password"
                             onChange={formik.handleChange}
                             placeholder="Nueva Contraseña"
@@ -79,8 +80,9 @@ const FormChangePassword = ({ isOpen, closeModal }) => {
                         ) : null}
                     </div>
                     <div className="my-2">
-                        <label htmlFor="" className="text-sm">Confirmar Contraseña</label>
+                        <label htmlFor="confirm_new_password" className="text-sm">Confirmar Contraseña:</label>
                         <input
+                            id="confirm_new_password"
                             name="confirm_new_password"
                             onChange={formik.handleChange}
                             placeholder="Repetir Contraseña"

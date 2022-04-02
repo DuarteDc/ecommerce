@@ -21,8 +21,10 @@ const NavBar = () => {
   const { logged } = useSelector((state) => state.auth);
   const { logo } = useSelector((state) => state.administrable);
 
+  const [wishListProducts] = useLocalStorage('wishListProducts');
 
   const router = useRouter();
+  const dispatch = useDispatch();
   const [ open , toggle ] = useToggle();
 
   const [scrollPosition, setScrollPosition] = useState(0);
@@ -36,7 +38,7 @@ const NavBar = () => {
       path: '/productos',
       name: 'Productos'
     },
-     {
+    {
       path: '/categorias',
       name: 'Coleciones'
     },
@@ -44,7 +46,7 @@ const NavBar = () => {
       path: '/marcas',
       name: 'Marcas'
     },
-   
+
     {
       path: '/contacto',
       name: 'Contácto'
@@ -60,7 +62,7 @@ const NavBar = () => {
     setScrollPosition(position);
   };
 
-  const handleRedirectClick = (path) =>{
+  const handleRedirectClick = (path) => {
     router.push(path)
   }
 
@@ -77,11 +79,11 @@ const NavBar = () => {
     toggle();
   }
 
-  // useEffect(() => {
-  //   if (Cookies.get('token')) {
-  //     dispatch(startVerifyToken());
-  //   }
-  // }, []);
+  useEffect(() => {
+    if (Cookies.get('token')) {
+      dispatch(startVerifyToken());
+    }
+  }, []);
 
   return (
     <div className={`bg-luz py-2 shadow-sm  w-full z-[3] ${scrollPosition >= 130 && 'fixed top-0'} space-y-1`}>
@@ -131,7 +133,7 @@ const NavBar = () => {
             <div className="px-6 flex items-center">
               {
                 logged ? (
-                  <Link href="/profile">
+                  <Link href="/perfil">
                     <span className="border-transparent border-b-2 mx-4 cursor-pointer text-lg  text-[#888] font-['Poppins'] font-normal transition duration-700 ease-in-out">
                       <IconContext.Provider value={{ size: "1.6rem" }}>
                         <BsPersonCircle />
@@ -140,7 +142,7 @@ const NavBar = () => {
                   </Link>
                 ) : (
                   <span
-                    onClick={() =>router.push(`/auth/login?p=${router.asPath}`)}
+                    onClick={() => router.push(`/auth/login?p=${router.asPath}`)}
                     className="border-transparent border-b-2 mx-4 cursor-pointer  text-[#888] font-['Poppins'] font-normal transition duration-700 ease-in-out flex flex-col min-w-[7.6rem] uppercase">
                     Iniciar Sesión
                   </span>
@@ -148,23 +150,23 @@ const NavBar = () => {
               }
               <span className="block h-6 w-[1px] bg-[#e5e5e5] mx-4 mt-2"></span>
               <span className="flex items-center border-transparent border-b-2 mx-4 cursor-pointer text-lg  text-[#888] font-['Poppins'] font-normal transition duration-700 ease-in-out">
-                    <Badge badgeContent={wishList?.length} color="secondary" onClick={()=>handleRedirectClick('/mi-lista-de-deseos')} className="mr-4">
-                      <IconContext.Provider value={{ size: "1.6rem" }}>
-                        <AiOutlineHeart />
-                      </IconContext.Provider>
-                    </Badge>
+                <Badge badgeContent={wishListProducts?.length} color="secondary" onClick={() => handleRedirectClick('/mi-lista-de-deseos')} className="mr-4">
+                  <IconContext.Provider value={{ size: "1.6rem" }}>
+                    <AiOutlineHeart />
+                  </IconContext.Provider>
+                </Badge>
 
-                    <Badge badgeContent={cart?.length} color="secondary" onClick={()=>handleRedirectClick('/mi-carrito')}>
-                      <IconContext.Provider value={{ size: "1.5rem" }}>
-                        <BsHandbag />
-                      </IconContext.Provider>
-                    </Badge>
+                <Badge badgeContent={cart?.length} color="secondary" onClick={() => handleRedirectClick('/mi-carrito')}>
+                  <IconContext.Provider value={{ size: "1.5rem" }}>
+                    <BsHandbag />
+                  </IconContext.Provider>
+                </Badge>
               </span>
             </div>
           </div>
         </nav>
       </div>
-    
+
 
       <div className={`${open ? 'block' : 'hidden'} `}>
       <div className="px-2 pt-2 pb-3 space-y-1 bg-[#333]">
@@ -176,8 +178,7 @@ const NavBar = () => {
         ))
       }
       </div>
-     </div>
-
+    </div> 
 
     </div>
   );

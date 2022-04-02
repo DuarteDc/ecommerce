@@ -60,6 +60,9 @@ export const types = {
     loadTotalsFromCookies:'[ShoppingCart] load totals checkout from cookies',
 
 
-    loadWishListfromLocalStorage:'[WishList] load wishlist from localStorage'
+    loadWishListfromLocalStorage:'[WishList] load wishlist from localStorage',
+    update_data_user: '[PROFILE] update data user',
+
+    load_faqs: '[FAQS] load_faqs',
    
 }

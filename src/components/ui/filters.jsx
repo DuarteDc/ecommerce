@@ -1,8 +1,8 @@
 import React from "react";
 
-export const FiltersArea = ({brands , openFilter}) => {
+export const FiltersArea = ({ brands, openFilter, tags }) => {
   return (
-    <div className={`w-full py-[30px] ${openFilter ? 'block' : 'hidden' } animate__animated animate__zoomIn`}>
+    <div className={`w-full py-[30px] ${openFilter ? 'block' : 'hidden'} animate__animated animate__zoomIn`}>
       <div className="grid-col-4 bg-[#f2f2f2] flex flex-wrap w-full px-10 pt-7">
         <div className="w-full lg:w-[25%] pr-2 pb-7">
           <div className="text-[#333] pb-[15px] font-Poppins font-semibold">
@@ -71,22 +71,33 @@ export const FiltersArea = ({brands , openFilter}) => {
             Marca
           </div>
           <ul>
-              {
-                brands.map(brand=>(
-                    <li className="pb-[6px]" key={brand._id}>
-                    <a className="font-Poppins text-base leading-[1.2] text-[#aaa] border-b-[1px] border-b-solid border-transparent">
-                      {brand.name}
-                    </a>
-                  </li> 
-                ))
-              }
+            {
+              brands.map(brand => (
+                <li className="pb-[6px]" key={brand._id}>
+                  <a className="font-Poppins text-base leading-[1.2] text-[#aaa] border-b-[1px] border-b-solid border-transparent">
+                    {brand.name}
+                  </a>
+                </li>
+              ))
+            }
           </ul>
         </div>
         <div className="w-full lg:w-[25%] pr-2 pb-7">
-          <span className="text-[#333] pb-[15px] font-Poppins font-semibold">
+          <div className="text-[#333] mb-[15px] font-Poppins font-semibold">
             {" "}
-            Tag
-          </span>
+            Marca
+          </div>
+          <ul>
+            {
+              tags.map(tag => (
+                <li className="pb-[6px]" key={tag._id}>
+                  <a className="font-Poppins text-base leading-[1.2] text-[#aaa] border-b-[1px] border-b-solid border-transparent">
+                    {tag.name}
+                  </a>
+                </li>
+              ))
+            }
+          </ul>
         </div>
       </div>
     </div>
