@@ -11,11 +11,12 @@ export const Cart = () => {
                       <table className="min-w-full leading-normal">
 						<thead>
 							<tr>
-                              <th className="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-xs font-semibold text-gray-600 uppercase tracking-wider text-center">Producto</th>
-                                     <th className="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-xs font-semibold text-gray-600 uppercase tracking-wider text-center">Precio</th>
-                                     <th className="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-xs font-semibold text-gray-600 uppercase tracking-wider text-center">Existente</th>
-                                     <th className="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-xs font-semibold text-gray-600 uppercase tracking-wider text-center">Cantidad</th>
-                                     <th className="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-xs font-semibold text-gray-600 uppercase tracking-wider text-center">Subtotal</th>
+                              <th className="px-5 py-3 border-b-2 border-gray-200 bg-[#333] text-xs font-semibold text-[#fff] uppercase tracking-wider text-center">Producto</th>
+                                     <th className="px-5 py-3 border-b-2 border-gray-200 bg-[#333] text-xs font-semibold text-[#fff] uppercase tracking-wider text-center">Precio</th>
+                                     <th className="px-5 py-3 border-b-2 border-gray-200 bg-[#333] text-xs font-semibold text-[#fff] uppercase tracking-wider text-center">Descuento</th>
+                                     <th className="px-5 py-3 border-b-2 border-gray-200 bg-[#333] text-xs font-semibold text-[#fff] uppercase tracking-wider text-center">Existente</th>
+                                     <th className="px-5 py-3 border-b-2 border-gray-200 bg-[#333] text-xs font-semibold text-[#fff] uppercase tracking-wider text-center">Cantidad</th>
+                                     <th className="px-5 py-3 border-b-2 border-gray-200 bg-[#333] text-xs font-semibold text-[#fff] uppercase tracking-wider text-center">Subtotal</th>
 								
 							</tr>
 						</thead>
@@ -23,7 +24,7 @@ export const Cart = () => {
                             {
                                !cart.length ?
                                  <tr>
-                                    <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm text-center" colSpan={4}>
+                                    <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm text-center" colSpan={5}>
                                         <p className="text-gray-900 whitespace-no-wrap">
                                           No has agregado productos al carrito de compras
                                          </p>

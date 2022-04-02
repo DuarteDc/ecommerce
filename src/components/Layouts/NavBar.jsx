@@ -77,6 +77,11 @@ const NavBar = () => {
     toggle();
   }
 
+  // useEffect(() => {
+  //   if (Cookies.get('token')) {
+  //     dispatch(startVerifyToken());
+  //   }
+  // }, []);
 
   return (
     <div className={`bg-luz py-2 shadow-sm  w-full z-[3] ${scrollPosition >= 130 && 'fixed top-0'} space-y-1`}>

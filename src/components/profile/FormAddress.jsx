@@ -4,18 +4,20 @@ import Modal from '@mui/material/Modal';
 
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
-import { getMinicipilitesPerState, getStates, saveAddress } from '../../actions/profileActions';
+import { getMinicipilitesPerState, getStates, startSaveNewAddress } from '../../actions/profileActions';
+import { errorNotify, successNotify } from '../../helpers/helpers';
+import { useDispatch } from 'react-redux';
 
-const FormAddress = ({ isOpen, closeModal, loadAddress }) => {
+const FormAddress = ({ isOpen, closeModal }) => {
+
+    const dispatch = useDispatch();
 
     const [states, setStates] = useState(null);
     const [municipalities, setMunicipalities] = useState(null)
 
     useEffect(() => {
         loadStates();
-    }, [])
-
-
+    }, []);
 
     const loadStates = async () => {
         const _states = await getStates();
@@ -26,6 +28,17 @@ const FormAddress = ({ isOpen, closeModal, loadAddress }) => {
         const _id = e.target.value
         const _municipalities = await getMinicipilitesPerState(_id);
         setMunicipalities(_municipalities);
+    }
+
+    const handleSaveNewAddress = async (formData) => {
+
+        const { hasError, message } = await dispatch(startSaveNewAddress(formData));
+
+        if (hasError) {
+            errorNotify(message);
+            return;
+        }
+        successNotify(message);
     }
 
     const initialValues = {
@@ -55,9 +68,8 @@ const FormAddress = ({ isOpen, closeModal, loadAddress }) => {
         initialValues,
         validationSchema: Yup.object(validationSchema),
         onSubmit: (formData) => {
-            saveAddress(formData);
+            handleSaveNewAddress(formData);
             closeModal();
-            loadAddress();
         }
     });
     return (

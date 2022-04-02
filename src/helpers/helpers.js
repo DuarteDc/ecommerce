@@ -49,9 +49,83 @@ const existInShoppingCart = (_id , ShoppingCart) =>{
   }
 }
 
+
+export const successNotify = (message) => {
+  toast.success(message, {
+    position: "bottom-left",
+    autoClose: 5000,
+    hideProgressBar: false,
+    style: { backgroundColor: 'black' },
+    closeOnClick: true,
+    pauseOnHover: false,
+    draggable: true,
+    progress: undefined,
+  });
+}
+
+export const infoNotify = (message) => {
+  toast.info(message, {
+     position: "bottom-left",
+    autoClose: 5000,
+    hideProgressBar: false,
+    style: { backgroundColor: 'black' },
+    closeOnClick: true,
+    pauseOnHover: false,
+    draggable: true,
+    progress: undefined,
+  });
+}
+export const warningNotify = (message) => {
+  toast.warn(message, {
+     position: "bottom-left",
+    autoClose: 5000,
+    hideProgressBar: false,
+    style: { backgroundColor: 'black' },
+    closeOnClick: true,
+    pauseOnHover: false,
+    draggable: true,
+    progress: undefined,
+  });
+}
+
+export const errorNotify = (message) => {
+  toast.error(message, {
+     position: "bottom-left",
+    autoClose: 5000,
+    hideProgressBar: false,
+    style: { backgroundColor: 'black' },
+    closeOnClick: true,
+    pauseOnHover: false,
+    draggable: true,
+    progress: undefined,
+  });
+}
+
+/**funcion que nos permite calcular el descuento del subtotal de la venta */
+export const calculatNewTotalToPay = (porcentage, retailSubtotal) => {
+  let totalWithDiscountApply = 0;
+  let discountApply = 0;
+  /**Obtenemos la cantidad a descontar */
+  discountApply = (retailSubtotal * parseInt(porcentage)) / 100;
+  //obtenemos el total a pagar de la venta de menudeo con el descuento ya aplicado
+  totalWithDiscountApply = (retailSubtotal - discountApply).toFixed(3);
+  return {
+    totalWithDiscountApply,
+    discountApply,
+  };
+};
+
+
 export default {
   priceFormat,
   toggleWishListProducts,
   existInWishList,
-  existInShoppingCart
+  existInShoppingCart,
+  successNotify,
+  infoNotify,
+  warningNotify,
+  errorNotify,
+  calculatNewTotalToPay
+
+
 }

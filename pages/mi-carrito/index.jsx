@@ -7,15 +7,16 @@ import { BannerImage } from '../../src/components/ui';
 import Cookie from 'js-cookie';
 import { Cart, CartTotals } from '../../src/components/cart';
 import { startCalculateTotalSale } from '../../src/actions/shoppingCartActions';
+import { useRouter } from 'next/router';
 
 const ShoppingCart = () => {
     const dispatch = useDispatch();
-    const { cart } = useSelector((state) => state.cart);
+    const router = useRouter();
+    const { cart , success } = useSelector((state) => state.cart);
 
     useEffect(() => {
         if(cart.length > 0){
          Cookie.set('shoppingCart' , JSON.stringify(cart));
-
         }
        
     }, [cart]);
@@ -23,6 +24,12 @@ const ShoppingCart = () => {
     useEffect(() => {
         dispatch(startCalculateTotalSale());
     }, [cart]);
+
+    useEffect(() => {
+        if(success){
+            router.push('/checkout'); 
+        }
+    }, [success]);
 
     return (
         <Layout>

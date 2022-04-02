@@ -10,8 +10,9 @@ import axios from 'axios';
 export const startLoginEmailPassword = (data) => {
 
     return async (dispatch) => {
-        let url = '/auth/login';
+       
         try {
+            let url = '/auth/login';
             const res = await client.post(url, data);
             const { token, user } = res.data;
             Cookies.set('token', token);
@@ -19,9 +20,7 @@ export const startLoginEmailPassword = (data) => {
             return true;
 
         } catch (error) {
-
             return false;
-
         }
     }
 }
@@ -116,8 +115,8 @@ export const startChangePassword = async (data) => {
                 'Authorization': token
             }
         });
-        console.log(res.data)
+        return true;
     } catch (error) {
-        alert(errorHandler(error))
+        return false;
     }
 }

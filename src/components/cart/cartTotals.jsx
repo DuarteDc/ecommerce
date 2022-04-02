@@ -9,7 +9,7 @@ import { TotalShoppingCart } from "./totalShoppingCart"
 export const CartTotals = () =>{
     const dispatch = useDispatch();
     const { logged } = useSelector((state)=>state.auth);
-    const {cart , subtotal , total} = useSelector((state)=>state.cart);
+    const {cart , subtotal , total , shipping_costs} = useSelector((state)=>state.cart);
     const router = useRouter();
 
     const proceedToCheckout = () =>{
@@ -23,7 +23,9 @@ export const CartTotals = () =>{
 
     const data = {
       "productsDiscount": productsDiscount,
-      "productsWithoutDiscount": productsWithoutDiscount
+      "productsWithoutDiscount": productsWithoutDiscount,
+      "shipment":shipping_costs[0]?.shippingCosts,
+      "coupon_id":""
     }
     
       dispatch(startFinaliceSaleCheckout(data));

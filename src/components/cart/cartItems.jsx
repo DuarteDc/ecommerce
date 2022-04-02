@@ -9,8 +9,11 @@ import {toast } from "react-toastify";
 
 export const CartItems = ({product}) =>{
     const dispatch = useDispatch();
+
     const price_product = helpers.priceFormat(product.price);
-    const subtotal = helpers.priceFormat(product.price * product.quantity );
+    const subtotaProduct = product.price * product.quantity ;
+    const {totalWithDiscountApply} = helpers.calculatNewTotalToPay(product.discount , subtotaProduct);
+    const subtotal = helpers.priceFormat(totalWithDiscountApply || 0 );
     const [quantityInput , setQuantityInput] = useState(product.quantity);
     const quantityInputadd = useDebounce(quantityInput , 1000);
     const notify = (message) =>toast(message);
@@ -77,6 +80,11 @@ export const CartItems = ({product}) =>{
          <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm text-center">
            <p className="text-gray-900 whitespace-no-wrap">
            {price_product}
+           </p>
+         </td>
+         <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm text-center">
+           <p className="text-gray-900 whitespace-no-wrap">
+           {product.discount}%
            </p>
          </td>
          <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm text-center">

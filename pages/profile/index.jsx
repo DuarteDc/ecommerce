@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 
 import Cookies from "js-cookie";
 import EditIcon from '@mui/icons-material/Edit';
+import AddIcon from '@mui/icons-material/Add';
 
 import { wrapper } from "../../src/store";
 
@@ -13,27 +14,47 @@ import FormAddress from "../../src/components/profile/FormAddress";
 
 import { useModal } from '../../src/hooks/useModal';
 import { logout } from "../../src/actions/authActions";
-import { startLoadDataProfile, startGetDirections } from "../../src/actions/profileActions";
 import FormChangePassword from "../../src/components/profile/FormChangePassword";
 import FormProfile from "../../src/components/profile/FormProfile";
+import { startLoadDataUser, startGetDirections, setDefaultAddress, startDeleteAddress } from "../../src/actions/profileActions";
+import { errorNotify, successNotify } from "../../src/helpers/helpers";
 
-
+import ClearIcon from '@mui/icons-material/Clear';
 
 const Profile = () => {
+
     const [open, setOpen] = useState(true);
 
-    const { user } = useSelector(state => state.profile);
-
-    console.table(user);
+    const { user, directions } = useSelector(state => state.profile);
 
     const [isOpen, openModal, closeModal] = useModal();
     const [isOpenAddress, openModalAddress, closeModalAddres] = useModal();
 
-    const [address, setAddress] = useState(null)
+    const dispatch = useDispatch();
 
+    const selectDefaultDirection = async (direction_id) => {
 
-    const dispatch = useDispatch()
+        const { hasError, message } = await dispatch(setDefaultAddress('', direction_id));
+
+        if (hasError) {
+            errorNotify(message);
+            return;
+        }
+        successNotify(message);
+    }
+
     const router = Router;
+
+    const handleDeleteAddress = async (address_id) => {
+
+        const { hasError, message } = await dispatch(startDeleteAddress(address_id));
+
+        if (hasError) {
+            errorNotify(message);
+            return;
+        }
+        successNotify(message);
+    }
 
     const logoutSession = () => {
         dispatch(logout());
@@ -44,7 +65,7 @@ const Profile = () => {
 
     return (
         <Layout>
-            <section className="container mx-auto p-10 mb-16">
+            <section className="container mx-auto  mb-16">
                 <h1 className="text-center uppercase text-2xl bg-gray-50 py-3 my-20 font-bold container mx-auto">Perfil</h1>
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                     <div className="w-full flex flex-col items-center p-4 drop-shadow-md">
@@ -66,24 +87,43 @@ const Profile = () => {
                         <FormProfile {...user} />
                     </div>
                 </div>
-                <div className="w-full bg-gray-50 mt-10 p-8 drop-shadow-md">
+                <div className="w-full mt-10 p-8 border-gray-200 border-2">
                     <div className="flex items-center justify-between">
                         <p className="text-xl font-bold">Direcciones:</p>
-                        <EditIcon
-                            className="text-second-100 cursor-pointer"
+                        <button
+                            className="border-2 border-[#222]  
+                            hover:text-white hover:bg-[#222] font-semibold 
+                            transition-all duration-700 ease-in-out px-2"
                             onClick={openModalAddress}
-                        />
+                        >
+                            Añadir Dirección
+                        </button>
                     </div>
-                    {
-                        address?.map(address => (
-                            <div className="flex mt-4 md:ml-20" key={address._id}>
-                                <p className="font-light">Dirección{address.default && '(Por defecto):'}</p>
-                                <p onClick={() => selectDefaultDirection(address._id)} className="cursor-pointer">
-                                    {`${address?.street}, #${address?.no_int}, ${address?.city}, ${address?.postalcode}, ${address?.municipality?.name}, ${address?.state?.name}`}
-                                </p>
-                            </div>
-                        ))
-                    }
+                    <div className="inline-flex">
+                        {
+                            directions?.map(address => (
+                                <div
+                                    className={`border-2 ${address.default && 'border-gray-900'}  w-60 mr-4 cursor-pointer relative`}
+                                    key={address._id}
+
+                                >
+                                    <ClearIcon
+                                        className="absolute right-0 m-2 hover:text-red-600"
+                                        onClick={() => { handleDeleteAddress(address._id) }}
+                                    />
+                                    <div
+                                        onClick={() => selectDefaultDirection(address._id)}
+                                        className="p-10"
+                                    >
+                                        <p className="font-semibold">{address.default && ' (Por defecto) :'}</p>
+                                        <p className="font-light">
+                                            {`${address?.street}, #${address?.no_int}, ${address?.city}, ${address?.postalcode}, ${address?.municipality?.name}, ${address?.state?.name}`}
+                                        </p>
+                                    </div>
+                                </div>
+                            ))
+                        }
+                    </div>
                     {
                         isOpenAddress && (
                             <FormAddress
@@ -93,15 +133,15 @@ const Profile = () => {
                         )
                     }
                 </div>
-                <div className="w-full bg-gray-50 mt-10 p-8 drop-shadow-md">
+                <div className="w-full border-gray-200 border-2 mt-10 p-8">
                     <div className="flex items-center justify-between">
-                        <p className="text-xl font-bold">Seguridad</p>
+                        <p className="text-xl font-bold">Seguridad:</p>
                         <EditIcon className="text-second-100 cursor-pointer"
                             onClick={openModal}
                         />
                     </div>
                     <div className="flex mt-4 md:ml-20 items-center">
-                        <p className="font-light">Password:</p>
+                        <p className="font-light">Contraseña:</p>
                         <p className="ml-2 mt-1">••••••••••••••••</p>
                     </div>
                 </div>
@@ -113,7 +153,7 @@ const Profile = () => {
                         />
                     )
                 }
-                <div className="w-full bg-gray-50 mt-10 p-8 drop-shadow-md">
+                <div className="w-full mt-10 p-8">
                     <p className="text-lg font-bold my-4">Mis Pedidos</p>
                     <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
                         <div>
@@ -192,8 +232,8 @@ const Profile = () => {
 }
 
 export const getServerSideProps = wrapper.getServerSideProps((store) =>
-    async () => {
-        await store.dispatch(startLoadDataProfile());
-        await store.dispatch(startGetDirections());
+    async (ctx) => {
+        await store.dispatch(startLoadDataUser(ctx));
+        await store.dispatch(startGetDirections(ctx));
     })
 export default Profile

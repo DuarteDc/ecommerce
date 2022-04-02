@@ -1,102 +1,149 @@
-import { FormControl, TextField } from "@mui/material";
-import Typography from '@mui/material/Typography';
-
-//import Countdown from 'react-countdown';
-//import Countdown from "../../src/components/cart/Countdown";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { startLoadAdministrableLogo } from "../../src/actions/administrableActions";
+import { loadTotalsFromCookies } from "../../src/actions/shoppingCartActions";
+import Cookie from 'js-cookie';
 import Layout from "../../src/components/Layouts"
+import { BannerImage } from "../../src/components/ui";
+import { helpers } from "../../src/helpers";
+import { wrapper } from "../../src/store";
+import { BillingForm } from "./billingForm";
+
 
 const Checkout = () => {
-    const products = [1, 1, 1, 1, 1, 1, 1];
+    const dispatch = useDispatch();
+    const { superTotal , withDiscount ,  withoutDiscount , shipping_costs } = useSelector((state)=>state.cart);
+
+    const super_total = helpers.priceFormat(superTotal?.total || 0);
+    const with_discount = helpers.priceFormat(withDiscount?.total || 0);
+    const without_discount = helpers.priceFormat(withoutDiscount?.total || 0);
+    const subtotal = helpers.priceFormat(withDiscount?.total + withoutDiscount?.total || 0);
+    const shippingCosts = helpers.priceFormat(shipping_costs[0]?.shippingCosts || 0);
+
+
+
+    useEffect(() => {
+        if(!Object.keys(superTotal).length){
+            const superTotal = Cookie.get('superTotal') ? JSON.parse(Cookie.get('superTotal')) : {};
+            const withDiscount = Cookie.get('withDiscount') ? JSON.parse(Cookie.get('withDiscount')) : {};
+             const withoutDiscount = Cookie.get('withoutDiscount') ? JSON.parse(Cookie.get('withoutDiscount')) : {};
+             const shippingCosts = Cookie.get('shippingCosts') ? JSON.parse(Cookie.get('shippingCosts')) : {};
+            dispatch(loadTotalsFromCookies(superTotal,withDiscount , withoutDiscount , shippingCosts));
+        }
+    }, []);
+
     return (
         <Layout>
-            <section className="container mx-auto rounded-lg mt-20">
-                <h1 className="text-center uppercase text-2xl bg-gray-50 py-3 mt-10 font-bold container mx-auto">Detalles de facturación</h1>
-                <div className="grid grid-cols-1 lg:grid-cols-2 drop-shadow-2xl md:my-10">
-                    <div className="p-5">
-                        <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-                            <FormControl fullWidth sx={{ mt: 2 }}>
-                                <p>Nombre Completo</p>
-                                <TextField
-                                    id="name"
-                                    name="fullname"
-                                    value="Lorem ipsum dolor sit amet consectetur adipisicing"
-                                    type="text" />
-                            </FormControl>
-                            <FormControl fullWidth sx={{ mt: 2 }}>
-                                <p>Dirección</p>
-                                <TextField
-                                    id="standard-name"
-                                    value="Lorem ipsum dolor sit amet consectetur adipisicing"
-                                    name="fullname"
-                                    type="text" />
-                            </FormControl>
-                            <FormControl fullWidth sx={{ mt: 2 }}>
-                                <p>Correo Electronico</p>
-                                <TextField
-                                    id="standard-name"
-                                    value="Lorem ipsumamet@adipisicing.com"
-                                    name="fullname"
-                                    type="email" />
-                            </FormControl>
-                            <FormControl fullWidth sx={{ mt: 2 }}>
-                                <p>Telefono</p>
-                                <TextField
-                                    id="standard-name"
-                                    name="fullname"
-                                    value="7282918390"
-                                    type="text" />
-                            </FormControl>
-                        </Typography>
-                    </div>
-                    <div className="p-5">
-                        <p className="p-5 uppercase font-bold">Mi orden</p>
-                        <table className="w-full">
-                            <thead>
-                                <tr className="text-left bg-gray-900 text-white uppercase text-sm">
-                                    <th className="py-5">Producto</th>
-                                    <th className="py-5">Total</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr className="border-b-2 border-gray-900 text-gray-500">
-                                    <td className="py-4">Malcolm Lockyer</td>
-                                    <td className="py-4">$1961</td>
-                                </tr>
-                                <tr className="border-b-2 border-gray-900 text-gray-500">
-                                    <td className="py-4">Malcolm Lockyer</td>
-                                    <td className="py-4">$1961</td>
-                                </tr>
-                                <tr className="border-b-2 border-gray-900 text-gray-500">
-                                    <td className="py-4">Malcolm Lockyer</td>
-                                    <td className="py-4">$1961</td>
-                                </tr>
-                                <tr className="border-b-2 border-gray-900 text-gray-500">
-                                    <td className="py-4">Malcolm Lockyer</td>
-                                    <td className="py-4">$1961</td>
-                                </tr>
-                                <tr className="border-b-2 border-gray-900 text-gray-500">
-                                    <td className="py-4">Malcolm Lockyer</td>
-                                    <td className="py-4">$1961</td>
-                                </tr>
-                                <tr className="border-b-2 border-gray-900 font-semibold">
-                                    <td className="py-4">Subtotal</td>
-                                    <td className="py-4">$1961</td>
-                                </tr>
-                                <tr className="border-b-2 border-gray-900 font-semibold">
-                                    <td className="py-4">Envio</td>
-                                    <td className="py-4">$1961</td>
-                                </tr>
-                                <tr className="border-b-2 border-gray-900 font-semibold">
-                                    <td className="py-4">Total</td>
-                                    <td className="py-4">$1961</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </section>
+                <BannerImage
+                    title="Realizar Pago"
+                    imageBackground="bg-about-us"
+               />
+               <section className="max-w-[1480px] mx-auto my-20 px-[15px] w-full">
+                   <div className="grid grid-cols-1 lg:grid-cols-12  md:my-10 gap-6">
+                   <div className="col-span-7">
+                     <BillingForm/>
+                   </div>
+                   <div className="col-span-5">
+                     <h3 className="font-Poppins text-[20px] font-semibold leading-[1.4] text-[#333] mb-10 text-center">
+                         Detalle de la ordén
+                     </h3>
+                     <div className="w-full mb-[20px] block">
+                       <table className="min-w-full leading-normal">
+                           <thead>
+                              <tr className="">
+                                  <th className="bg-[#333] px-5 py-3 border-b-2 border-gray-200 text-xs font-semibold text-[#fff] uppercase">
+                                      Descripción
+                                   </th>
+                                  <th className="bg-[#333] px-5 py-3 border-b-2 border-gray-200 text-xs font-semibold uppercase text-[#fff]">
+                                      Total
+                                  </th>
+                              </tr>
+                           </thead>
+                           <tbody>
+                               <tr>
+                                  <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm ">
+                                         <p className="text-gray-900 text-center">
+                                         Subtotal productos con descuento
+                                         </p>
+                                  </td> 
+                                  <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm ">
+                                         <p className="text-gray-900 text-center">
+                                        {with_discount}
+                                         </p>
+                                  </td>  
+                               </tr>
+                               <tr>
+                                  <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm ">
+                                         <p className="text-gray-900  text-center">
+                                         Subtotal productos sin descuento
+                                         </p>
+                                  </td> 
+                                  <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm ">
+                                         <p className="text-gray-900  text-center">
+                                          {without_discount}
+                                         </p>
+                                  </td>  
+                               </tr>
+                               <tr>
+                                  <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm ">
+                                         <p className="text-gray-900  text-center">
+                                            Gastós de Envio
+                                         </p>
+                                  </td>
+                                  <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm ">
+                                         <p className="text-gray-900  text-center">
+                                           {shippingCosts}
+                                         </p>
+                                  </td>
+                              </tr>
+                              <tr>
+                               
+                                  <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm ">
+                                         <p className="text-gray-900  text-center">
+                                         Subtotal del carrito
+                                         </p>
+                                  </td>
+                                  <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm ">
+                                         <p className="text-gray-900  text-center">
+                                          {subtotal}
+                                         </p>
+                                  </td>
+                              </tr>
+                              <tr>
+                                  <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm ">
+                                         <p className="text-gray-900  text-center">
+                                         Total a pagar
+                                         </p>
+                                  </td>
+                                  <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm ">
+                                         <p className="text-gray-900  text-center">
+                                          {super_total}
+                                         </p>
+                                  </td>
+                              </tr>
+                           </tbody>
+                       </table>
+
+                       <div className="mt-[40px] border-t-[1px] border-[#eaedff]">
+                         <button className="bg-[#333] text-luz py-[15px] px-[20px] w-full uppercase text-[15px] hover:bg-[#000]">
+                             Procesar Pago
+                        </button>
+                       </div>
+
+                     </div>
+                   </div>
+                 </div> 
+               </section>
         </Layout >
     )
 }
+
+
+export const getStaticProps = wrapper.getStaticProps((store)=> async()=>{
+    await store.dispatch(startLoadAdministrableLogo());
+    return{
+        revalidate:3600
+    }
+});
 
 export default Checkout

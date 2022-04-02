@@ -12,6 +12,7 @@ import { useCounter } from "../../src/hooks/useCounter";
 import { newProduct } from "../../src/actions/shoppingCartActions";
 import Card from "../../src/components/Layouts/Card";
 import { startLoadAdministrableLogo } from "../../src/actions/administrableActions";
+import { successNotify } from "../../src/helpers/helpers";
 
 const Show = () => {
 
@@ -29,6 +30,7 @@ const Show = () => {
 
     const addCart = (product, value) => {
         dispatch(newProduct(product, value));
+        successNotify("El producto se agrego al carrito");
     }
 
     return (
@@ -60,7 +62,7 @@ const Show = () => {
                     <div>
                         <div className="w-full mx-auto h-[15rem] md:h-[30rem] relative">
                             <img
-                                src={product?.multimedia[0]?.path}
+                                src={product?.multimedia[0].path}
                                 alt={product?.name}
                                 className="w-full h-full"
                                 ref={img}
@@ -70,7 +72,7 @@ const Show = () => {
                         </div>
                         <div>
                             <div className="flex mt-10">
-                                {product?.multimedia.map(multimedia => (
+                                {product?.multimedia?.map(multimedia => (
                                     <div
                                         className="overflow-hidden border-2 border-gray-300 w-24 h-24 mx-1 cursor-pointer relative"
                                         key={multimedia._id}
@@ -113,20 +115,6 @@ const Show = () => {
                                     cursor-pointer hover:text-gray-700 duration-500">
                                     {product?.brand}
                                 </p>
-                            </div>
-                            <div className="mt-5">
-                                <h3 className="font-semibold text-lg mb-2">Tags:</h3>
-                                <div className="md:inline-flex">
-                                    {
-                                        product.tags.map(tag => (
-                                            <span key={tag._id}>
-                                                <p className="text-second-100 font-semibold mr-4 cursor-pointer hover:text-gray-700 duration-500">
-                                                    {product?.category?.name}
-                                                </p>
-                                            </span>
-                                        ))
-                                    } 
-                                </div>
                             </div>
                         </div>
                         <div className="mt-12 lg:mt-20">
