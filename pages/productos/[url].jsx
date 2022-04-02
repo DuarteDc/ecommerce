@@ -9,7 +9,7 @@ import Layout from "../../src/components/Layouts";
 
 import { startLoadProduct } from "../../src/actions/productsAction";
 import { useCounter } from "../../src/hooks/useCounter";
-import { newProduct } from "../../src/actions/shoppingCartActions";
+//import { newProduct } from "../../src/actions/shoppingCartActions";
 import Card from "../../src/components/Layouts/Card";
 import { startLoadAdministrableLogo } from "../../src/actions/administrableActions";
 import { successNotify } from "../../src/helpers/helpers";

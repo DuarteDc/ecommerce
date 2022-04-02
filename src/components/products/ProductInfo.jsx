@@ -5,7 +5,7 @@ import { useCounter } from "../../hooks/useCounter";
 import Link from "next/link";
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import { useDispatch, useSelector } from "react-redux";
-import { newProduct } from "../../actions/shoppingCartActions";
+//import { newProduct } from "../../actions/shoppingCartActions";
 
 
 const ProductInfo = ({ product, closeModal }) => {
@@ -16,7 +16,7 @@ const ProductInfo = ({ product, closeModal }) => {
 
     const { counter, increaseBy, setCounter } = useCounter(1);
 
-    const price = priceFormat(product?.price || 0);
+    //const price = priceFormat(product?.price || 0);
 
     const showImage = (newImg) => {
         img.current.src = newImg
@@ -61,7 +61,7 @@ const ProductInfo = ({ product, closeModal }) => {
                 </p>
                 <div className="mt-10">
                     <p className="font-bold text-3xl text-second-100 mr-12">
-                        {price}
+                    
                     </p>
                     <p className="text-lg mt-4 font-light">
                         {product?.quantity} Disponibles

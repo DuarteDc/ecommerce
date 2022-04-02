@@ -4,7 +4,7 @@ import { useDispatch } from "react-redux";
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 
 import { addProductSelected } from "../../actions/productsAction";
-import { newProduct } from "../../actions/shoppingCartActions";
+//import { newProduct } from "../../actions/shoppingCartActions";
 import { priceFormat, successNotify } from "../../helpers/helpers";
 import { useModal } from "../../hooks/useModal";
 
