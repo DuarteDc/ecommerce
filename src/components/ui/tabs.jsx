@@ -9,7 +9,8 @@ export const Tabs = ({ tabActive,
                        filter, 
                        search,
                        handleOpenFilter,
-                       handleOpenSearch
+                       handleOpenSearch,
+                       tags
                        }) => {
   return (
     <div className="flex justify-between flex-wrap pb-12">

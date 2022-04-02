@@ -17,7 +17,7 @@ const Footer = () => {
             <Link href="/orden">Orden</Link>
             <Link href="/devoluciones">Devoluciones</Link>
             <Link href="/envios">Envíos</Link>
-            <Link href="/preguntass">Preguntas Frecuentes</Link>
+            <Link href="/preguntas-frecuentes">Preguntas Frecuentes</Link>
             <Link href="/orden">Facturas</Link>
         </div>
         <div className="p-2 flex flex-col">

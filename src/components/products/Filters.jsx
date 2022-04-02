@@ -6,9 +6,12 @@ import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 import CloseIcon from '@mui/icons-material/Close';
 
 import { clearAll, removeCategory, removeBrand } from '../../actions/productsAction';
+import { useRouter } from "next/router";
 
 const Filters = () => {
+
     const dispatch = useDispatch();
+    const router = useRouter();
 
     const { categoriesSelected } = useSelector((state) => state.products);
     const { brandsSelected } = useSelector((state) => state.products);
@@ -23,6 +26,7 @@ const Filters = () => {
     }
 
     const handleClearFilters = () => {
+        router.replace('/productos')
         dispatch(clearAll());
     }
 

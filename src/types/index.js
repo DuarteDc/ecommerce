@@ -52,4 +52,6 @@ export const types = {
     add_new_address: '[PROFILE] add new address',
     delete_addres: '[PROFILE] delete address',
     update_data_user: '[PROFILE] update data user',
+
+    load_faqs: '[FAQS] load_faqs',
 }

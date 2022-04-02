@@ -10,6 +10,7 @@ import { startLoadBrandsHome, startLoadBrands } from "../src/actions/brandsActio
 import { startLoadDataSliders } from "../src/actions/slidersActions";
 import { startLoadCategoriesHome } from "../src/actions/categoryActions";
 import { startLoadAdministrableLogo } from "../src/actions/administrableActions";
+import { startLoadTags } from "../src/actions/tagsActions";
 /**Components */
 import {
   Slider,
@@ -69,6 +70,7 @@ export const getStaticProps = wrapper.getStaticProps((store) =>
     await store.dispatch(startLoadDataSliders());
     await store.dispatch(startLoadOffers());
     await store.dispatch(startLoadBrandsHome());
+    await store.dispatch(startLoadTags());
     await store.dispatch(startLoadBrands());
 
     return {
