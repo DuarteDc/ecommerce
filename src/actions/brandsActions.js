@@ -38,19 +38,19 @@ export const loadBrands = (brands) => ({
 
 export const startLoadProductsPerBrand = (brand) => {
     return async (dispatch) => {
-        let url = `/products/brand/${brand}`;
+        let url = `/brands/slug/${brand}`;
         try {
             const res = await client.get(url);
-            dispatch(loadProductsPerBrand(res.data.products));
+            dispatch(loadProductsPerBrand(res.data.brand));
         } catch (error) {
             console.log(error)
         }
     }
 }
 
-export const loadProductsPerBrand = (products) => ({
+export const loadProductsPerBrand = (brand) => ({
     type: types.load_products_from_brand,
-    payload: products
+    payload: brand
 });
 
 /*                  filtros         */
@@ -77,4 +77,24 @@ export const filterProductsPerBrandAndCategory = (category_id, category_name, pr
 
 export const clearAllFilter = () => ({
     type: types.clear_all_filter,
+})
+
+
+/******************************Filtrado de productos en marcas]********************************************** */
+
+export const startFilterProducts = (brand_id = '', tag_id = '', lowPrice = '', maxPrice = '') => {
+    return async (dispatch) => {
+        const url = `/products/filter/products?brand_id=${brand_id}&tag_id=${tag_id}&lowPrice=${lowPrice}&maxPrice=${maxPrice}`;
+        try {
+            const res = await client.get(url);
+            dispatch(loadProductsPerCategory(res.data.products));
+        } catch (error) {
+            console.log(error);
+        }
+    }
+}
+
+export const filterProducts = (products) => ({
+    type: types.filter_products_form_brand,
+    payload: products,
 })

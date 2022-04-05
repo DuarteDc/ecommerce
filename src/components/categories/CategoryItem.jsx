@@ -1,14 +1,16 @@
 import { useRouter } from 'next/router';
-import React from 'react'
 
 import { useDispatch, useSelector } from "react-redux";
 
 import { startLoadProductsPerCategory } from '../../actions/productsAction';
-import { filterSearch } from '../../helpers/filterSearch';
+import { helpersProducts } from '../../helpers';
 
 const CategoryItem = ({ category }) => {
 
+    const { filterSearch } = helpersProducts;
+
     const { categoriesSelected } = useSelector(state => state.products);
+
     const router = useRouter();
 
     const dispatch = useDispatch();
@@ -30,10 +32,10 @@ const CategoryItem = ({ category }) => {
 
     return (
         <li
-            className="hover:text-black cursor-pointer mr-2 mt-2 py-2 transition-all duration-700 ease-out text-xs text-gray-500 ml-6"
-            onClick={() => filterToCategory( _id, name)}
+            className="hover:text-[#222] cursor-pointer mr-2 py-2 transition-all duration-500 ease-out text-gray-400 ml-6"
+            onClick={() => filterToCategory(_id, name)}
         >
-            {category.name}
+            <p>{category.name} ({category.totalProducts})</p>  
         </li>
     )
 }

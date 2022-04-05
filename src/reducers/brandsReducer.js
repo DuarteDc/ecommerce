@@ -4,6 +4,7 @@ const initialState = {
     brandsHome: [],
     brands: [],
     products: [],
+    brand: [],
     filteredProducts: [],
     categoriesSelected: [],
 }
@@ -28,7 +29,7 @@ export const brandsReducer = (state = initialState, { type, payload }) => {
         case types.load_products_from_brand:
             return {
                 ...state,
-                products: payload,
+                brand: payload,
             }
 
         case types.filter_products_per_category_from_brands:

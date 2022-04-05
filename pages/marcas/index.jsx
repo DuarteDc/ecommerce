@@ -7,6 +7,7 @@ import { BannerImage } from "../../src/components/ui/bannerImage";
 import { CardProduct } from "../../src/components/ui";
 import { Newsletter } from "../../src/components/home";
 import { useRouter } from "next/router";
+import LoadingScreen from "../../src/components/LoadingScreen";
 
 
 const Brands = () => {

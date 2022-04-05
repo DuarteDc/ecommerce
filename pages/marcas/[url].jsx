@@ -11,42 +11,50 @@ import Card from '../../src/components/Layouts/Card';
 import CategoriesList from '../../src/components/categories/CategoriesList';
 
 import { wrapper } from '../../src/store';
-import { clearAllFilter, startLoadProductsPerBrand } from '../../src/actions/brandsActions';
+import { clearAllFilter, filterProducts, startLoadProductsPerBrand } from '../../src/actions/brandsActions';
 import { startLoadCategories } from '../../src/actions/categoryActions';
 import { removeCategory, clearAll } from '../../src/actions/productsAction';
 import { startLoadAdministrableLogo } from '../../src/actions/administrableActions';
+import { BannerImage } from '../../src/components/ui';
+import { TagList } from '../../src/components/tags/TagList';
+import { startLoadTags } from '../../src/actions/tagsActions';
+import { useEffect } from 'react';
 
 const Show = () => {
 
-    
     const router = useRouter();
+    const { query } = router;
     const dispatch = useDispatch();
 
-    const { products, filteredProducts, categoriesSelected } = useSelector((state) => state.brands);
+    const { brand, filteredProducts, categoriesSelected } = useSelector((state) => state.brands);
     const { categories } = useSelector((state) => state.categories);
+    const { tags } = useSelector((state) => state.tags);
 
-    const handleRemoveCategory = (category) => {
-        dispatch(removeCategory(category));
+    const getCurrentData = async () => {
+        const data = await dispatch(filterProducts(query.tag, query.category, query.lowPrice, query.maxPrice));        
+        console.log(data);
     }
 
-    const handleClearFilters = () => {
-        dispatch(clearAllFilter());
-    }
+    useEffect(() => {
+        if (query.hasOwnProperty('tag') || query.hasOwnProperty('category') || query.hasOwnProperty('lowPrice') || query.hasOwnProperty('maxPrice')) {
+            getCurrentData();
+        }
+    }, [router.query]);
 
 
     return (
         <Layout>
-            <section>
-                <h1 className="text-center uppercase text-2xl bg-gray-50 py-3 mt-10 font-bold container mx-auto my-10">{router.query.name[0]}</h1>
+            <BannerImage
+                title={`${brand.name}`}
+            />
+            <section className="container mx-auto">
                 <div className="grid grid-cols-1 md:grid-cols-4">
                     <div className="p-5">
                         <div className="p-4 md:h-screen w-full">
                             <div className="mb-5">
                                 <p className="uppercase font-bold text-xl">Seleccion actual</p>
                                 <div className="flex flex-row-reverse text-xs">
-                                    <span className="inline-flex text-gray-500 hover:text-black cursor-pointer items-center"
-                                        onClick={handleClearFilters}
-                                    >
+                                    <span className="inline-flex text-gray-500 hover:text-black cursor-pointer items-center">
                                         <DeleteOutlineIcon sx={{ fontSize: 18 }} />
                                         <p>Limpiar todo</p>
                                     </span>
@@ -65,7 +73,8 @@ const Show = () => {
                                     }
                                 </div>
                             </div>
-                            <CategoriesList categories={categories} brand_id={router.query.name[1]} />
+                            <CategoriesList categories={categories} />
+                            <TagList tags={tags} brand={brand} />
                         </div>
                     </div>
                     <div className="col-span-3 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 mb-60">
@@ -75,7 +84,7 @@ const Show = () => {
                                     <Card key={product?._id} product={product} />
                                 ))
                             ) : (
-                                products?.map(product => (
+                                brand?.data?.map(product => (
                                     <Card key={product?._id} product={product} />
                                 ))
                             )
@@ -89,9 +98,12 @@ const Show = () => {
 
 export const getServerSideProps = wrapper.getServerSideProps((store) =>
     async (ctx) => {
-        await store.dispatch(startLoadProductsPerBrand(ctx.query.name[1]));
+
+        await store.dispatch(startLoadProductsPerBrand(ctx.query.url));
         await store.dispatch(startLoadCategories());
+        await store.dispatch(startLoadTags());
         await store.dispatch(startLoadAdministrableLogo());
+
     })
 
 export default Show;

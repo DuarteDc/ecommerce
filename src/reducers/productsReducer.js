@@ -44,7 +44,7 @@ export const productsReducer = (state = initalState, { type, payload }) => {
                 ...state,
                 filteredProducts: products.length > 0 ? [...products, ...state.filteredProducts] : [...state.filteredProducts],
                 brandsSelected: [brand, ...state.brandsSelected],
-                results: { quantity: products.length, brand: brand.name },
+                results: { quantity: products.length, name: brand.name },
             }
         }
 
@@ -65,6 +65,7 @@ export const productsReducer = (state = initalState, { type, payload }) => {
                 ...state,
                 filteredProducts: products.length > 0 ? [...products, ...state.filteredProducts] : [...state.filteredProducts],
                 categoriesSelected: [category, ...state.categoriesSelected],
+                results: {quantity: products.length, name: category.name},
             }
 
         }
@@ -72,7 +73,7 @@ export const productsReducer = (state = initalState, { type, payload }) => {
         case types.load_products_per_pagination:
             return {
                 ...state,
-                products: payload
+                products: payload,
             }
 
         case types.clear_all_filter:
@@ -81,6 +82,7 @@ export const productsReducer = (state = initalState, { type, payload }) => {
                 brandsSelected: initalState.brandsSelected,
                 filteredProducts: initalState.filteredProducts,
                 categoriesSelected: initalState.categoriesSelected,
+                results: initalState.results,
             }
 
         default:

@@ -1,4 +1,4 @@
-export const filterSearch = ({ router, brand, category, sort, search }) => {
+const filterSearch = ({ router, brand, category, sort, search, page, tag }) => {
 
     const path = router.pathname;
     const query = router.query;
@@ -6,7 +6,9 @@ export const filterSearch = ({ router, brand, category, sort, search }) => {
 
     if (category) query.category = category;
     if (brand) query.brand = brand;
+    if (tag) query.tag = tag;
     if (search) query.search = search;
+    if (search) query.page = page;
     if (sort) query.sort = sort;
 
     router.push({
@@ -15,4 +17,13 @@ export const filterSearch = ({ router, brand, category, sort, search }) => {
     },
         undefined, { shallow: true }
     )
+}
+
+const paginationProducts = (route, page) => {
+    const res = filterSearch({route, page});
+    console.log(res);
+}
+
+export default {
+    filterSearch,
 }

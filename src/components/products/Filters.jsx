@@ -10,35 +10,34 @@ import { useRouter } from "next/router";
 
 const Filters = () => {
 
-    const dispatch = useDispatch();
-    const router = useRouter();
-
     const { categoriesSelected } = useSelector((state) => state.products);
     const { brandsSelected } = useSelector((state) => state.products);
 
+    const dispatch = useDispatch();
+    const router = useRouter();
 
     const handleRemoveCategory = (category) => {
         dispatch(removeCategory(category));
     }
 
-    const handleRemoveBrand = (brand) =>{
+    const handleRemoveBrand = (brand) => {
         dispatch(removeBrand(brand))
     }
 
     const handleClearFilters = () => {
-        router.replace('/productos')
+        router.replace('/productos', undefined, { shallow: true });
         dispatch(clearAll());
     }
 
     return (
         <div className="mb-5">
-            <p className="uppercase font-bold text-xl">Seleccion actual</p>
-            <div className="flex flex-row-reverse text-xs">
-                <span className="inline-flex text-gray-900 hover:text-black cursor-pointer items-center"
+            <p className="uppercase font-bold text-lg">Seleccion actual</p>
+            <div className="flex flex-row-reverse text-sm mt-4">
+                <span className="inline-flex text-gray-500 hover:text-gray-800 cursor-pointer items-center"
                     onClick={handleClearFilters}
                 >
                     <DeleteOutlineIcon sx={{ fontSize: 18 }} />
-                    <p className="font-semibold">Limpiar todo</p>
+                    <p>Limpiar todo</p>
                 </span>
             </div>
             <div>
