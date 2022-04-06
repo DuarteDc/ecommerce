@@ -5,23 +5,22 @@ import { useDispatch, useSelector } from "react-redux";
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 import CloseIcon from '@mui/icons-material/Close';
 
-import { clearAll, removeCategory, removeBrand } from '../../actions/productsAction';
+import { clearAll, removeItemFromFilters } from '../../actions/productsAction';
 import { useRouter } from "next/router";
 
 const Filters = () => {
 
-    const { categoriesSelected } = useSelector((state) => state.products);
-    const { brandsSelected } = useSelector((state) => state.products);
+    const { filters } = useSelector((state) => state.products);
 
     const dispatch = useDispatch();
     const router = useRouter();
 
-    const handleRemoveCategory = (category) => {
-        dispatch(removeCategory(category));
-    }
-
-    const handleRemoveBrand = (brand) => {
-        dispatch(removeBrand(brand))
+    const handleRemoveFilter = (filter) => {
+        const asArray = Object.entries(router.query);
+        const newQuerys = asArray.filter(([key, value]) => value !== filter._id);
+        const justStrings = Object.fromEntries(newQuerys);
+        router.push({ pathname: '/productos', query: justStrings }, undefined, { shallow: true });
+        dispatch(removeItemFromFilters(filter))
     }
 
     const handleClearFilters = () => {
@@ -42,26 +41,14 @@ const Filters = () => {
             </div>
             <div>
                 {
-                    categoriesSelected?.map((param) => (
+                    filters?.map((filter) => (
                         <span className="hover:border-black hover:text-black cursor-pointer 
                             mr-2 mt-2 py-2 border-2 border-gray-200 px-2
                             text-center inline-block transition-all duration-700 ease-out text-xs text-gray-500"
-                            key={param?._id}
+                            key={filter?._id}
                         >
-                            {param?.name}
-                            <CloseIcon className="hover:text-red-500" sx={{ fontSize: 15 }} onClick={() => handleRemoveCategory(param)} />
-                        </span>
-                    ))
-                }
-                {
-                    brandsSelected?.map((param) => (
-                        <span className="hover:border-black hover:text-black cursor-pointer 
-                            mr-2 mt-2 py-2 border-2 border-gray-200 px-2
-                            text-center inline-block transition-all duration-700 ease-out text-xs text-gray-500"
-                            key={param?._id}
-                        >
-                            {param?.name}
-                            <CloseIcon className="hover:text-red-500" sx={{ fontSize: 15 }} onClick={() => handleRemoveBrand(param)} />
+                            {filter?.name}
+                            <CloseIcon className="hover:text-red-500" sx={{ fontSize: 15 }} onClick={() => handleRemoveFilter(filter)} />
                         </span>
                     ))
                 }

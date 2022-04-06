@@ -4,6 +4,7 @@ const initalState = {
     products: [],
     product: null,
     relatedProducts: [],
+    filters: [],
     productSelected: null,
     brandsSelected: [],
     filteredProducts: [],
@@ -32,58 +33,44 @@ export const productsReducer = (state = initalState, { type, payload }) => {
                 productSelected: payload
             }
 
-        case types.load_products_per_brand: {
-
-            const { brand, products } = payload;
-
-            let brandInFilter = state.brandsSelected.find(brandSelected => brandSelected._id === brand._id);
-
-            return brandInFilter ? {
-                ...state
-            } : {
-                ...state,
-                filteredProducts: products.length > 0 ? [...products, ...state.filteredProducts] : [...state.filteredProducts],
-                brandsSelected: [brand, ...state.brandsSelected],
-                results: { quantity: products.length, name: brand.name },
-            }
-        }
-
-        case types.load_products_per_category: {
-
-            const { category_id, category_name, products } = payload;
-
-            const category = {
-                _id: category_id,
-                name: category_name
-            }
-
-            let categoryInFilter = state.categoriesSelected.find(category => category._id === category_id);
-
-            return categoryInFilter ? {
-                ...state,
-            } : {
-                ...state,
-                filteredProducts: products.length > 0 ? [...products, ...state.filteredProducts] : [...state.filteredProducts],
-                categoriesSelected: [category, ...state.categoriesSelected],
-                results: {quantity: products.length, name: category.name},
-            }
-
-        }
-
         case types.load_products_per_pagination:
             return {
                 ...state,
                 products: payload,
             }
 
+
+        case types.filters_to_products: {
+
+            const { filter, products } = payload;
+
+            let filterInFilters = state.filters.find(filterSelected => filterSelected._id === filter._id);
+
+            return filterInFilters ? {
+                ...state
+            } : {
+                ...state,
+                filteredProducts: products.length > 0 ? [...products, ...state.filteredProducts] : [...state.filteredProducts],
+                filters: [filter, ...state.filters],
+                results: { quantity: products.length, name: filter.name },
+            }
+
+        }
+
         case types.clear_all_filter:
             return {
                 ...state,
-                brandsSelected: initalState.brandsSelected,
                 filteredProducts: initalState.filteredProducts,
-                categoriesSelected: initalState.categoriesSelected,
+                filters: initalState.filters,
                 results: initalState.results,
             }
+
+        case types.remove_filter: {
+            return {
+                ...state,
+                filters: state.filters.filter(filter => filter._id !== payload._id),
+            }
+        }
 
         default:
             return state;

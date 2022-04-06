@@ -8,7 +8,7 @@ import CategoryItem from "./CategoryItem"
 
 const CategoriesList = ({ categories }) => {
 
-    const [open, setOpen] = useState(false);
+    const [open, setOpen] = useState(true);
 
     return (
         <div className="mb-5">

@@ -5,9 +5,9 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import ExpandLessIcon from '@mui/icons-material/ExpandLess';
 import TagItem from './TagItem';
 
-export const TagList = ({ tags, brand }) => {
+const TagsList = ({ tags, brand }) => {
 
-    const [open, setOpen] = useState(false);
+    const [open, setOpen] = useState(true);
 
     return (
         <div className="mb-5">
@@ -31,3 +31,4 @@ export const TagList = ({ tags, brand }) => {
         </div>
     )
 }
+export default TagsList;

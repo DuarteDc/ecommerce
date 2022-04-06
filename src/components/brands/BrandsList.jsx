@@ -8,7 +8,7 @@ import BrandItem from './BrandItem';
 
 const BrandsList = ({ brands }) => {
     
-    const [open, setOpen] = useState(false);
+    const [open, setOpen] = useState(true);
 
     return (
         <div className="mb-5">
@@ -27,7 +27,7 @@ const BrandsList = ({ brands }) => {
                             key={brand._id}
                         >
                             <BrandItem
-                                brand={brand}
+                                brand={brand} setOpen={setOpen}
                             />
                         </Collapse>
                     ))

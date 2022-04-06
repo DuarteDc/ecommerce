@@ -8,9 +8,9 @@ import { helpersProducts } from "../../helpers";
 
 const BrandItem = ({ brand }) => {
 
-    const {filterSearch} = helpersProducts;
+    const { filterSearch } = helpersProducts;
 
-    const { brandsSelected } = useSelector(state => state.products);
+    const { filters } = useSelector(state => state.products);
 
     const router = useRouter();
 
@@ -18,14 +18,12 @@ const BrandItem = ({ brand }) => {
 
     const handleAddBrand = (brand) => {
 
-        const brandInFilter = brandsSelected.find(brandSelected => brandSelected._id === brand._id);
+        const brandInFilter = filters.find(brandSelected => brandSelected._id === brand._id);
 
-        if (brandInFilter) {
-            return;
+        if (!brandInFilter) {
+            dispatch(startLoadProductsPerBrand(brand));
+            filterSearch({ router, brand: brand._id })
         }
-
-        dispatch(startLoadProductsPerBrand(brand));
-        filterSearch({ router, brand: brand._id })
 
     }
 

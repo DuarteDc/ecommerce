@@ -1,9 +1,10 @@
 import { useRouter } from "next/router";
 
 import { helpersProducts } from "../../helpers"
+import { useDispatch, useSelector } from "react-redux";
 
+import { startloadProductsPerTags } from '../../actions/productsAction';
 import { startFilterProducts } from '../../actions/brandsActions';
-import { useDispatch } from "react-redux";
 
 const TagItem = ({ tag, brand }) => {
 
@@ -13,10 +14,29 @@ const TagItem = ({ tag, brand }) => {
 
     const { filterSearch } = helpersProducts;
 
+    const { filters } = useSelector(state => state.products);
+
     const handleFilterByTag = async (router, brand, tag) => {
 
-        await dispatch(startFilterProducts(brand._id, tag._id))
-        filterSearch({ router, tag: tag._id })
+        const tagInFilter = filters.find(tagSelected => tagSelected._id === tag._id);
+
+        if (tagInFilter) {
+            return;
+        }
+
+
+        if (router.pathname === '/productos') {
+            await dispatch(startloadProductsPerTags(tag));
+            filterSearch({ router, tag: tag._id })
+            return;
+        }
+
+        // if (router.pathname === '/marcas') {
+        //     console.log("hola xD")
+        //     //await dispatch(startFilterProducts(brand._id, tag._id))
+        //     //filterSearch({ router, tag: tag._id })
+        // }
+
     }
 
     return (

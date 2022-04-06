@@ -8,7 +8,7 @@ const filterSearch = ({ router, brand, category, sort, search, page, tag }) => {
     if (brand) query.brand = brand;
     if (tag) query.tag = tag;
     if (search) query.search = search;
-    if (search) query.page = page;
+    if (page) query.page = page;
     if (sort) query.sort = sort;
 
     router.push({
@@ -19,10 +19,6 @@ const filterSearch = ({ router, brand, category, sort, search, page, tag }) => {
     )
 }
 
-const paginationProducts = (route, page) => {
-    const res = filterSearch({route, page});
-    console.log(res);
-}
 
 export default {
     filterSearch,
