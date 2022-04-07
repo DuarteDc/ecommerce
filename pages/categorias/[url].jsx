@@ -20,7 +20,6 @@ const Category = () => {
             <div className="h-96 overflow-hidden hidden md:block">
                 <BannerImage
                     title={`${category.name}`}
-                    imageBackground="bg-about-us"
                 />
             </div>
             <section className="container mx-auto">

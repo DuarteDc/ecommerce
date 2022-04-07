@@ -135,3 +135,22 @@ export const loadProductPerPagination = (products) => ({
     payload: products
 })
 
+
+/********************+filtro de productos en la home *******************************/
+
+export const startFilterPriductsFromHome = (path) => {
+    return async (dispatch) => {
+        let url = `/products/filter/products${path}`;
+        try {
+            const res = await client.get(url);
+            dispatch(filterPriductsFromHome(res.data.products));
+        } catch (error) {
+            console.log(error);
+        }
+    }
+}
+
+export const filterPriductsFromHome = (products) => ({
+    type: types.filter_products_from_home,
+    payload: products,
+})

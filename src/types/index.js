@@ -42,7 +42,8 @@ export const types = {
     loadBrandsHome: '[HOME] load brands with products home',
     addNewsletterSuscription: '[Home] add and show newsletter suscription menssage',
     loadSlidersData: '[Home] load data sliders offers',
-
+    load_products_home: '[HOME] load products home',
+    filter_products_from_home: '[HOME] filter products from home',
 
 
     loadAdministrableLogo: '[Administrable] load data administrable logo',

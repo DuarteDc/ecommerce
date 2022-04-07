@@ -65,6 +65,18 @@ export const productsReducer = (state = initalState, { type, payload }) => {
                 results: initalState.results,
             }
 
+        case types.load_products_home:
+            return {
+                ...state,
+                products: payload
+            }
+
+        case types.filter_products_from_home:
+            return {
+                ...state,
+                filteredProducts: payload
+            }
+
         case types.remove_filter: {
             return {
                 ...state,

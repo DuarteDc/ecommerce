@@ -16,7 +16,7 @@ import { startLoadCategories } from '../../src/actions/categoryActions';
 import { removeCategory, clearAll } from '../../src/actions/productsAction';
 import { startLoadAdministrableLogo } from '../../src/actions/administrableActions';
 import { BannerImage } from '../../src/components/ui';
-import { TagList } from '../../src/components/tags/TagList';
+import { TagList } from '../../src/components/tags/TagsList';
 import { startLoadTags } from '../../src/actions/tagsActions';
 import { useEffect } from 'react';
 
@@ -31,7 +31,7 @@ const Show = () => {
     const { tags } = useSelector((state) => state.tags);
 
     const getCurrentData = async () => {
-        const data = await dispatch(filterProducts(query.tag, query.category, query.lowPrice, query.maxPrice));        
+        const data = await dispatch(filterProducts(query.tag, query.category, query.lowPrice, query.maxPrice));
         console.log(data);
     }
 
@@ -44,9 +44,11 @@ const Show = () => {
 
     return (
         <Layout>
-            <BannerImage
-                title={`${brand.name}`}
-            />
+            <div className="h-96 overflow-hidden hidden md:block">
+                <BannerImage
+                    title={`${brand.name}`}
+                />
+            </div>
             <section className="container mx-auto">
                 <div className="grid grid-cols-1 md:grid-cols-4">
                     <div className="p-5">
