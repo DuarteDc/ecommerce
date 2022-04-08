@@ -1,17 +1,17 @@
-const filterSearch = ({ router, brand_id, category, search, page, tag_id, lowPrice, maxPrice, counter }) => {
+const filterSearch = ({ router, brand_id, category_id, search, page, tag_id, lowPrice, maxPrice, counter }) => {
 
     const path = router.pathname;
     const query = router.query;
 
-
-    if (category) query.category = category;
+    if (category_id) query.category_id = category_id;
     if (brand_id) query.brand_id = brand_id;
     if (tag_id) query.tag_id = tag_id;
     if (search) query.search = search;
-    if (page) query.page = page;
+    if (counter) query.counter = counter;
     if (lowPrice) query.lowPrice = lowPrice;
     if (maxPrice) query.maxPrice = maxPrice;
-    if (counter) query.counter = counter;
+    
+    
 
     router.push({
         pathname: path,

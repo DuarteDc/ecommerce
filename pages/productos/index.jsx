@@ -16,7 +16,7 @@ import { startLoadAdministrableLogo } from "../../src/actions/administrableActio
 import { BannerImage } from "../../src/components/ui/bannerImage";
 import { ProductCard } from "../../src/components/ui";
 import { useLocalStorage } from "../../src/hooks/useLocalStorage";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import PaginationItem from '@mui/material/PaginationItem';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
@@ -24,6 +24,8 @@ import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import CategoriesList from "../../src/components/categories/CategoriesList";
 import BrandsList from "../../src/components/brands/BrandsList";
 import TagsList from "../../src/components/tags/TagsList";
+import LoadingScreen from "../../src/components/LoadingScreen";
+
 const Products = () => {
 
     const { products, filteredProducts, results, filters } = useSelector((state) => state.products);
@@ -33,7 +35,10 @@ const Products = () => {
     const { tags } = useSelector((state) => state.tags);
 
     const dispatch = useDispatch();
+
     const router = useRouter();
+
+    const [loading, setLoading] = useState(false);
 
     const handelClickPage = (e, value) => {
         dispatch(startLoadProductPerPagination(value));
@@ -45,43 +50,43 @@ const Products = () => {
 
     const [storedValue, setValue,] = useLocalStorage('filtersInProducts');
 
-
-    const getCurrentData = async () => {
-
-        if (router.query.hasOwnProperty('brand')) {
-            const brand = await brands.filter(brandSelected => brandSelected._id === router.query.brand);
-            await dispatch(startLoadProductsPerBrand(...brand));
-        }
-
-        if (router.query.hasOwnProperty('category')) {
-            const category = await categories.filter(categorySelected => categorySelected._id === router.query.category);
-            await dispatch(startLoadProductsPerCategory(...category));
-        }
-
-        if (router.query.hasOwnProperty('tag')) {
-            const tag = await tags.filter(tagSelected => tagSelected._id === router.query.tag);
-            await dispatch(startloadProductsPerTags(...tag));
-        }
-
-    }
-
     useEffect(() => {
 
         if (Object.keys(router.query).length !== 0) {
             setValue(router.asPath)
             return;
         }
-        
+
         localStorage.removeItem('filtersInProducts')
 
     }, [router.asPath]);
 
 
     useEffect(() => {
-        if (router.asPath === storedValue && Object.keys(router.query).length !== 0) {
-            getCurrentData();
-            console.log("Me ejecute xD")
+
+        const getCurrentData = async () => {
+            setLoading(true)
+            if (router.asPath === storedValue && Object.keys(router.query).length !== 0) {
+                if (router.query.hasOwnProperty('brand_id')) {
+                    const brand = await brands.filter(brand => brand._id === router.query.brand_id);
+                    await dispatch(startLoadProductsPerBrand(...brand));
+                }
+
+                if (router.query.hasOwnProperty('category_id')) {
+                    const category = await categories.filter(category => category._id === router.query.category_id);
+                    await dispatch(startLoadProductsPerCategory(...category));
+                }
+
+                if (router.query.hasOwnProperty('tag_id')) {
+                    const tag = await tags.filter(tag => tag._id === router.query.tag_id);
+                    await dispatch(startloadProductsPerTags(...tag));
+                }
+            }
+            setLoading(false)
         }
+
+        getCurrentData();
+
     }, [router.query]);
 
     return (
@@ -92,15 +97,16 @@ const Products = () => {
             <BannerImage
                 title="Productos"
             />
+            {loading && <LoadingScreen />}
             <section className="container mx-auto grid grid-cols-1 md:grid-cols-3 mt-20 lg:grid-cols-4">
                 <AsideBar>
-                    <BrandsList brands={brands} />
-                    <CategoriesList categories={categories} />
-                    <TagsList tags={tags} />
+                    <BrandsList brands={brands} setLoading={setLoading} />
+                    <CategoriesList categories={categories} setLoading={setLoading} />
+                    <TagsList tags={tags} setLoading={setLoading} />
                 </AsideBar>
                 <div className="col-span-4 md:col-span-2 lg:col-span-3">
                     {
-                        Object.keys(results).length !== 0 && (
+                        Object.keys(filters).length !== 0 && (
                             <p className="text-gray-900 px-2 text-lg">
                                 {results.quantity} {results.quantity > 1 ? 'resultados' : 'resultado'}  sobre {results.name}
                             </p>

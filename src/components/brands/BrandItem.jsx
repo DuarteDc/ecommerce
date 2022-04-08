@@ -6,7 +6,7 @@ import { startLoadProductsPerBrand } from "../../actions/productsAction";
 
 import { helpersProducts } from "../../helpers";
 
-const BrandItem = ({ brand }) => {
+const BrandItem = ({ brand, setLoading }) => {
 
     const { filterSearch } = helpersProducts;
 
@@ -17,14 +17,17 @@ const BrandItem = ({ brand }) => {
     const dispatch = useDispatch();
 
     const handleAddBrand = (brand) => {
-
+        setLoading(true)
         const brandInFilter = filters.find(brandSelected => brandSelected._id === brand._id);
 
-        if (!brandInFilter) {
-            dispatch(startLoadProductsPerBrand(brand));
-            filterSearch({ router, brand: brand._id })
+        if (brandInFilter) {
+            return;
         }
 
+        dispatch(startLoadProductsPerBrand(brand));
+        filterSearch({ router, brand_id: brand._id })
+
+        setLoading(false);
     }
 
 

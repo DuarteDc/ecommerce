@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { startloadProductsPerTags } from '../../actions/productsAction';
 import { startFilterProducts } from '../../actions/brandsActions';
 
-const TagItem = ({ tag, brand }) => {
+const TagItem = ({ tag, brand, setLoading }) => {
 
     const router = useRouter();
 
@@ -18,6 +18,8 @@ const TagItem = ({ tag, brand }) => {
 
     const handleFilterByTag = async (router, brand, tag) => {
 
+        setLoading(true);
+
         const tagInFilter = filters.find(tagSelected => tagSelected._id === tag._id);
 
         if (tagInFilter) {
@@ -27,7 +29,7 @@ const TagItem = ({ tag, brand }) => {
 
         if (router.pathname === '/productos') {
             await dispatch(startloadProductsPerTags(tag));
-            filterSearch({ router, tag: tag._id })
+            filterSearch({ router, tag_id: tag._id })
             return;
         }
 
@@ -36,7 +38,7 @@ const TagItem = ({ tag, brand }) => {
         //     //await dispatch(startFilterProducts(brand._id, tag._id))
         //     //filterSearch({ router, tag: tag._id })
         // }
-
+        setLoading(false)
     }
 
     return (

@@ -6,7 +6,7 @@ import ExpandLessIcon from '@mui/icons-material/ExpandLess';
 
 import CategoryItem from "./CategoryItem"
 
-const CategoriesList = ({ categories }) => {
+const CategoriesList = ({ categories, setLoading }) => {
 
     const [open, setOpen] = useState(true);
 
@@ -26,6 +26,7 @@ const CategoriesList = ({ categories }) => {
                         >
                             <CategoryItem
                                 category={category}
+                                setLoading={setLoading}
                             />
                         </Collapse>
                     ))

@@ -5,7 +5,7 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import ExpandLessIcon from '@mui/icons-material/ExpandLess';
 import TagItem from './TagItem';
 
-const TagsList = ({ tags, brand }) => {
+const TagsList = ({ tags, brand, setLoading }) => {
 
     const [open, setOpen] = useState(true);
 
@@ -23,7 +23,7 @@ const TagsList = ({ tags, brand }) => {
                         <Collapse in={open} timeout="auto" unmountOnExit
                             key={tag._id}
                         >
-                            <TagItem tag={tag} brand={brand} />
+                            <TagItem tag={tag} brand={brand} setLoading={setLoading} />
                         </Collapse>
                     ))
                 }

@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { startLoadProductsPerCategory } from '../../actions/productsAction';
 import { helpersProducts } from '../../helpers';
 
-const CategoryItem = ({ category }) => {
+const CategoryItem = ({ category, setLoading }) => {
 
     const { filterSearch } = helpersProducts;
 
@@ -16,14 +16,18 @@ const CategoryItem = ({ category }) => {
     const dispatch = useDispatch();
 
     const filterToCategory = (category) => {
+        
+        setLoading(true)
 
         const categoriesInFilter = filters.find(categorySelected => categorySelected._id === category._id);
 
-        if (!categoriesInFilter) {
-            dispatch(startLoadProductsPerCategory(category));
-            filterSearch({ router, category: category._id })
+        if (categoriesInFilter) {
+            return;
         }
 
+        dispatch(startLoadProductsPerCategory(category));
+        filterSearch({ router, category_id: category._id })
+        setLoading(false);
     }
 
     return (
