@@ -37,7 +37,7 @@ export const types = {
     loadBrands: '[BRANDS] start load brands',
     load_products_from_brand: '[BRAND] load products per brand',
     filter_products_per_category_from_brands: '[BRANDS] filter products per category from brands',
-    filter_products_form_brand: '[BRANDS] filter products from brands',
+    filters_to_products_from_brand: '[BRANDS]filters to products from brand',
 
     loadBrandsHome: '[HOME] load brands with products home',
     addNewsletterSuscription: '[Home] add and show newsletter suscription menssage',

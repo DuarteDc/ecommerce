@@ -12,6 +12,8 @@ const Filters = () => {
 
     const { filters } = useSelector((state) => state.products);
 
+    const { filtersBrand } = useSelector((state) => state.brands);
+
     const dispatch = useDispatch();
     const router = useRouter();
 
@@ -24,8 +26,17 @@ const Filters = () => {
     }
 
     const handleClearFilters = () => {
-        router.replace('/productos', undefined, { shallow: true });
-        dispatch(clearAll());
+        if (router.asPath.includes('/productos')) {
+            router.replace('/productos', undefined, { shallow: true });
+            dispatch(clearAll());
+            return;
+        }
+        if (router.asPath.includes('/marcas')) {
+            router.replace('/marcas', undefined, { shallow: true });
+            dispatch(clearAll());
+            return;
+        }
+
     }
 
     return (
@@ -40,17 +51,32 @@ const Filters = () => {
                 </span>
             </div>
             <div>
-                {
-                    filters?.map((filter) => (
-                        <span className="hover:border-black hover:text-black cursor-pointer 
+                {router.asPath.includes('/productos') ?
+                    (
+                        filters?.map((filter) => (
+                            <span className="hover:border-black hover:text-black cursor-pointer 
                             mr-2 mt-2 py-2 border-2 border-gray-200 px-2
                             text-center inline-block transition-all duration-700 ease-out text-xs text-gray-500"
-                            key={filter?._id}
-                        >
-                            {filter?.name}
-                            <CloseIcon className="hover:text-red-500" sx={{ fontSize: 15 }} onClick={() => handleRemoveFilter(filter)} />
-                        </span>
-                    ))
+                                key={filter?._id}
+                            >
+                                {filter?.name}
+                                <CloseIcon className="hover:text-red-500" sx={{ fontSize: 15 }} onClick={() => handleRemoveFilter(filter)} />
+                            </span>
+                        ))
+                    ) :
+                    (
+                        filtersBrand?.map((filter) => (
+                            <span className="hover:border-black hover:text-black cursor-pointer 
+                            mr-2 mt-2 py-2 border-2 border-gray-200 px-2
+                            text-center inline-block transition-all duration-700 ease-out text-xs text-gray-500"
+                                key={filter?._id}
+                            >
+                                {filter?.name}
+                                <CloseIcon className="hover:text-red-500" sx={{ fontSize: 15 }} onClick={() => handleRemoveFilter(filter)} />
+                            </span>
+                        ))
+                    )
+
                 }
             </div>
         </div>

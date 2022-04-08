@@ -1,33 +1,50 @@
 import { useRouter } from 'next/router';
 
 import { useDispatch, useSelector } from "react-redux";
+import { startFilterProductsPerBrandAndCategory } from '../../actions/brandsActions';
 
 import { startLoadProductsPerCategory } from '../../actions/productsAction';
 import { helpersProducts } from '../../helpers';
 
-const CategoryItem = ({ category, setLoading }) => {
+const CategoryItem = ({ category, setLoading, brand }) => {
 
     const { filterSearch } = helpersProducts;
 
     const { filters } = useSelector(state => state.products);
+    const { filtersBrand } = useSelector(state => state.brands);
 
     const router = useRouter();
 
+    console.log(router);
     const dispatch = useDispatch();
 
-    const filterToCategory = (category) => {
-        
+    const filterToCategory = async (category) => {
+
         setLoading(true)
 
         const categoriesInFilter = filters.find(categorySelected => categorySelected._id === category._id);
+        const categoriesInFilterBrand = filtersBrand.find(categorySelected => categorySelected._id === category._id);
 
-        if (categoriesInFilter) {
-            return;
+
+        if (!categoriesInFilter) {
+            if (router.pathname.includes('/productos')) {
+                await dispatch(startLoadProductsPerCategory(category));
+                filterSearch({ router, category_id: category._id });
+                setLoading(false);
+                return;
+            }
         }
 
-        dispatch(startLoadProductsPerCategory(category));
-        filterSearch({ router, category_id: category._id })
-        setLoading(false);
+        if (!categoriesInFilterBrand) {
+            if (router.pathname.includes('/marcas')) {
+                await dispatch(startFilterProductsPerBrandAndCategory(brand._id, category));
+                filterSearch({ router, category_id: category._id });
+                setLoading(false);
+                return;
+            }
+        }
+
+
     }
 
     return (
