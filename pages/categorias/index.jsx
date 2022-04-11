@@ -45,7 +45,7 @@ const Categories = () => {
               title="Colecciones"
            />
                 <section className="container mx-auto relative mt-20 max-w-[1290px]">
-                    <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4  gap-6'>
+                    <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4  gap-6 px-2'>
                     {categories?.map((category) => (
                         <CardProduct
                           key={category?._id}

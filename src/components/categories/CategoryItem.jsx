@@ -1,39 +1,58 @@
 import { useRouter } from 'next/router';
-import React from 'react'
 
 import { useDispatch, useSelector } from "react-redux";
+import { startFilterProductsPerBrandAndCategory } from '../../actions/brandsActions';
 
 import { startLoadProductsPerCategory } from '../../actions/productsAction';
-import { filterSearch } from '../../helpers/filterSearch';
+import { helpersProducts } from '../../helpers';
 
-const CategoryItem = ({ category }) => {
+const CategoryItem = ({ category, setLoading, brand }) => {
 
-    const { categoriesSelected } = useSelector(state => state.products);
+    const { filterSearch } = helpersProducts;
+
+    const { filters } = useSelector(state => state.products);
+    const { filtersBrand } = useSelector(state => state.brands);
+
     const router = useRouter();
 
+    console.log(router);
     const dispatch = useDispatch();
 
-    const filterToCategory = (category_id, category_name) => {
+    const filterToCategory = async (category) => {
 
-        const categoriesInFilter = categoriesSelected.find(categorySelected => categorySelected._id === category_id);
+        setLoading(true)
 
-        if (categoriesInFilter) {
-            return;
+        const categoriesInFilter = filters.find(categorySelected => categorySelected._id === category._id);
+        const categoriesInFilterBrand = filtersBrand.find(categorySelected => categorySelected._id === category._id);
+
+
+        if (!categoriesInFilter) {
+            if (router.pathname.includes('/productos')) {
+                await dispatch(startLoadProductsPerCategory(category));
+                filterSearch({ router, category_id: category._id });
+                setLoading(false);
+                return;
+            }
         }
 
-        dispatch(startLoadProductsPerCategory(category_id, category_name));
-        filterSearch({ router, category: category_id })
+        if (!categoriesInFilterBrand) {
+            if (router.pathname.includes('/marcas')) {
+                await dispatch(startFilterProductsPerBrandAndCategory(brand._id, category));
+                filterSearch({ router, category_id: category._id });
+                setLoading(false);
+                return;
+            }
+        }
+        setLoading(false)
 
     }
 
-    const { _id, name } = category;
-
     return (
         <li
-            className="hover:text-black cursor-pointer mr-2 mt-2 py-2 transition-all duration-700 ease-out text-xs text-gray-500 ml-6"
-            onClick={() => filterToCategory( _id, name)}
+            className="hover:text-[#222] cursor-pointer mr-2 py-2 transition-all duration-500 ease-out text-gray-400 ml-6"
+            onClick={() => filterToCategory(category)}
         >
-            {category.name}
+            <p>{category.name} ({category.totalProducts})</p>
         </li>
     )
 }

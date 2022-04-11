@@ -19,19 +19,36 @@ export const loadCategories = (categories) => ({
 });
 
 
-export const startLoadCategoriesHome = () =>{
-    return async (dispatch) =>{
-     let url = '/categories/categories-home';
-     try {
-        const res =  await client.get(url);
-        dispatch(loadCategoriesHome(res.data.categories));
-     } catch (error) {
-         console.log(error);
-     }
+export const startLoadCategoriesHome = () => {
+    return async (dispatch) => {
+        let url = '/categories/categories-home';
+        try {
+            const res = await client.get(url);
+            dispatch(loadCategoriesHome(res.data.categories));
+        } catch (error) {
+            console.log(error);
+        }
     }
 }
 
-export const loadCategoriesHome = (categories) =>({
-    type:types.loadCategoriesHome,
-    payload:categories
+export const loadCategoriesHome = (categories) => ({
+    type: types.loadCategoriesHome,
+    payload: categories
 })
+
+export const startLoadProductsPerCategory = (category) => {
+    return async (dispatch) => {
+        let url = `/categories/slug/${category}`;
+        try {
+            const res = await client.get(url);
+            dispatch(loadProductsPerCategory(res.data.category));
+        } catch (error) {
+            console.log(error)
+        }
+    }
+}
+
+export const loadProductsPerCategory = (category) => ({
+    type: types.load_products_from_category,
+    payload: category   
+});

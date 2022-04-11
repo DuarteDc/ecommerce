@@ -25,6 +25,8 @@ import { startLoadDataUser, startGetDirections, startUpdateDataUser } from "../.
 import { startLoadAdministrableLogo } from "../../src/actions/administrableActions";
 import { errorNotify, successNotify } from "../../src/helpers/helpers";
 import { useRouter } from "next/router";
+import LoadingScreen from "../../src/components/LoadingScreen";
+
 
 const Profile = () => {
 
@@ -34,10 +36,11 @@ const Profile = () => {
     const inputFile = useRef(null)
     const dispatch = useDispatch();
 
-    const [open, setOpen] = useState(true);
+    const [loading, setLoading] = useState(false);
 
     const handleUpdateImageUser = async (formData) => {
 
+        setLoading(true);
         const data = new FormData();
         data.append('profileImage', formData);
 
@@ -45,9 +48,12 @@ const Profile = () => {
 
         if (hasError) {
             errorNotify(message);
+            setLoading(false);
             return false;
         }
         successNotify(message);
+
+        setLoading(false);
         return true;
     }
 
@@ -85,6 +91,7 @@ const Profile = () => {
 
     return (
         <Layout>
+            {loading && <LoadingScreen />}
             <section className="container mx-auto mb-16">
                 <h1 className="text-center uppercase text-2xl bg-gray-50 py-3 my-20 font-bold container mx-auto">Perfil</h1>
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-4">

@@ -16,7 +16,7 @@ export const startLoadBrandsHome = () => {
 
 export const startLoadBrands = () => {
     return async (dispatch) => {
-        let url = '/brands/products/brand';
+        let url = '/brands';
         try {
             const res = await client.get(url);
             dispatch(loadBrands(res.data.brands))
@@ -38,43 +38,43 @@ export const loadBrands = (brands) => ({
 
 export const startLoadProductsPerBrand = (brand) => {
     return async (dispatch) => {
-        let url = `/products/brand/${brand}`;
+        let url = `/brands/slug/${brand}`;
         try {
             const res = await client.get(url);
-            dispatch(loadProductsPerBrand(res.data.products));
+            dispatch(loadProductsPerBrand(res.data.brand));
         } catch (error) {
             console.log(error)
         }
     }
 }
 
-export const loadProductsPerBrand = (products) => ({
+export const loadProductsPerBrand = (brand) => ({
     type: types.load_products_from_brand,
-    payload: products
+    payload: brand
 });
 
 /*                  filtros         */
-export const startFilterProductsPerBrandAndCategory = (brand_id, category_id, category_name) => {
+export const startFilterProductsPerBrandAndCategory = (brand_id, category) => {
     return async (dispatch) => {
-        const url = `/products/brands/categories/${brand_id}/${category_id}`;
+        const url = `/products/brands/categories/${brand_id}/${category._id}`;
         try {
             const res = await client.get(url);
-            dispatch(filterProductsPerBrandAndCategory(category_id, category_name, res.data.products));
+            console.log(res.data.products);
+            dispatch(filterProductsPerBrandAndCategory(category, res.data.products));
         } catch (error) {
             console.log(error);
         }
     }
 }
 
-export const filterProductsPerBrandAndCategory = (category_id, category_name, products) => ({
-    type: types.filter_products_per_category_from_brands,
+export const filterProductsPerBrandAndCategory = (category, productsBrand) => ({
+    type: types.filters_to_products_from_brand,
     payload: {
-        category_id,
-        category_name,
-        products,
-    },
+        filterBrand:category,
+        productsBrand
+    }
 })
 
-export const clearAllFilter = () => ({
-    type: types.clear_all_filter,
+export const clearAll = () => ({
+    type: types.clear_all_filter
 })
