@@ -15,7 +15,7 @@ import { startFilterProductsPerBrandAndCategory, startLoadProductsPerBrand } fro
 import { startLoadCategories } from '../../src/actions/categoryActions';
 
 import { startLoadAdministrableLogo } from '../../src/actions/administrableActions';
-import { BannerImage } from '../../src/components/ui';
+import { BannerImage, ProductCard } from '../../src/components/ui';
 
 import { startLoadTags } from '../../src/actions/tagsActions';
 import { useEffect, useState } from 'react';
@@ -90,11 +90,11 @@ const Show = () => {
                     {
                         filteredProducts.length > 0 ? (
                             filteredProducts?.map(product => (
-                                <Card key={product?._id} product={product} />
+                                <ProductCard key={product?._id} product={product} />
                             ))
                         ) : (
                             brand?.data?.map(product => (
-                                <Card key={product?._id} product={product} />
+                                <ProductCard key={product?._id} product={product} />
                             ))
                         )
                     }

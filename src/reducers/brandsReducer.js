@@ -21,7 +21,13 @@ export const brandsReducer = (state = initialState, { type, payload }) => {
                 ...state,
                 brandsHome: payload
             }
-  
+
+        case types.loadBrands:
+            return {
+                ...state,
+                brands: payload
+            }
+
 
         case types.filters_to_products_from_brand: {
 

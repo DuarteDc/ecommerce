@@ -23,6 +23,7 @@ const TagItem = ({ tag, brand, setLoading }) => {
         const tagInFilter = filters.find(tagSelected => tagSelected._id === tag._id);
 
         if (tagInFilter) {
+            setLoading(false);
             return;
         }
 
@@ -30,6 +31,7 @@ const TagItem = ({ tag, brand, setLoading }) => {
         if (router.pathname === '/productos') {
             await dispatch(startloadProductsPerTags(tag));
             filterSearch({ router, tag_id: tag._id })
+            setLoading(false)
             return;
         }
 
@@ -38,7 +40,6 @@ const TagItem = ({ tag, brand, setLoading }) => {
         //     //await dispatch(startFilterProducts(brand._id, tag._id))
         //     //filterSearch({ router, tag: tag._id })
         // }
-        setLoading(false)
     }
 
     return (

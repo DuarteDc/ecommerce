@@ -43,7 +43,7 @@ const CategoryItem = ({ category, setLoading, brand }) => {
                 return;
             }
         }
-
+        setLoading(false)
 
     }
 

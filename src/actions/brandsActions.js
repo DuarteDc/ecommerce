@@ -16,7 +16,7 @@ export const startLoadBrandsHome = () => {
 
 export const startLoadBrands = () => {
     return async (dispatch) => {
-        let url = '/brands/products/brand';
+        let url = '/brands';
         try {
             const res = await client.get(url);
             dispatch(loadBrands(res.data.brands))

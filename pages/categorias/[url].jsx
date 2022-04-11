@@ -5,7 +5,7 @@ import { startLoadProductsPerCategory } from "../../src/actions/categoryActions"
 import { startLoadTags } from "../../src/actions/tagsActions";
 import Layout from "../../src/components/Layouts";
 import Card from "../../src/components/Layouts/Card";
-import { BannerImage } from "../../src/components/ui";
+import { BannerImage, ProductCard } from "../../src/components/ui";
 
 import { wrapper } from "../../src/store";
 
@@ -24,13 +24,10 @@ const Category = () => {
             </div>
             <section className="container mx-auto">
                 <div className="grid grid-cols-1 lg:grid-cols-4">
-                    <div>
-                        Hoa
-                    </div>
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 lg:col-span-3">
                         {
                             category.data.map(product => (
-                                <Card
+                                <ProductCard
                                     product={product}
                                 />
                             ))

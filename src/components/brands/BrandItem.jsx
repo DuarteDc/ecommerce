@@ -21,6 +21,7 @@ const BrandItem = ({ brand, setLoading }) => {
         const brandInFilter = filters.find(brandSelected => brandSelected._id === brand._id);
 
         if (brandInFilter) {
+            setLoading(false)
             return;
         }
 
