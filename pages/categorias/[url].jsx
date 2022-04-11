@@ -28,7 +28,7 @@ const Category = () => {
                         {
                             category.data.map(product => (
                                 <ProductCard
-                                    product={product}
+                                    product={product} key={product._id}
                                 />
                             ))
                         }

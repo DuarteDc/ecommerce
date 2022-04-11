@@ -5,7 +5,7 @@ import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 
 import { addProductSelected } from "../../actions/productsAction";
 //import { newProduct } from "../../actions/shoppingCartActions";
-import { helpers, successNotify } from "../../helpers";
+import { helpers } from "../../helpers";
 import { useModal } from "../../hooks/useModal";
 
 import ShowProduct from "../products/ShowProduct";
@@ -23,10 +23,10 @@ const Card = ({ product }) => {
         dispatch(addProductSelected(product));
     }
 
-    const addOneFromCart = (product, value) => {
-        dispatch(newProduct(product, value));
-        successNotify("El producto se agrego al carrito");
-    }
+    // const addOneFromCart = (product, value) => {
+    //     dispatch(newProduct(product, value));
+    //     successNotify("El producto se agrego al carrito");
+    // }
 
 
     return (
