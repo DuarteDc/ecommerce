@@ -11,3 +11,4 @@ export { administrableReducer } from "./administrableReducer";
 export { profileReducer } from "./profileReducer";
 export { wishListReducer } from "./wishListReducer";
 export { checkoutReducer } from "./checkoutReducer";
+export { faqsReducer } from './faqsReducer';

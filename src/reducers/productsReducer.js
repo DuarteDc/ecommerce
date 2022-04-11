@@ -8,6 +8,7 @@ const initalState = {
     brandsSelected: [],
     filteredProducts: [],
     categoriesSelected: [],
+    results: {},
 }
 
 export const productsReducer = (state = initalState, { type, payload }) => {
@@ -23,7 +24,6 @@ export const productsReducer = (state = initalState, { type, payload }) => {
             return {
                 ...state,
                 product: payload.product,
-                relatedProducts: payload.relatedProducts,
             }
 
         case types.addProductSelected:
@@ -44,6 +44,7 @@ export const productsReducer = (state = initalState, { type, payload }) => {
                 ...state,
                 filteredProducts: products.length > 0 ? [...products, ...state.filteredProducts] : [...state.filteredProducts],
                 brandsSelected: [brand, ...state.brandsSelected],
+                results: { quantity: products.length, brand: brand.name },
             }
         }
 
@@ -65,7 +66,7 @@ export const productsReducer = (state = initalState, { type, payload }) => {
                 filteredProducts: products.length > 0 ? [...products, ...state.filteredProducts] : [...state.filteredProducts],
                 categoriesSelected: [category, ...state.categoriesSelected],
             }
-            
+
         }
 
         case types.load_products_per_pagination:

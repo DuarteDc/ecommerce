@@ -73,6 +73,9 @@ export const types = {
 
 
     loadSecretClientStripe : '[Checkout] load secret client stripe',
-    loadSecretClientfromCookies : '[Checkout] load secret client from cookies'
+    loadSecretClientfromCookies : '[Checkout] load secret client from cookies',
+    update_data_user: '[PROFILE] update data user',
+
+    load_faqs: '[FAQS] load_faqs',
    
 }

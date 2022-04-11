@@ -120,7 +120,9 @@ export const setDefaultAddress = (data, id) => {
                     'Authorization': token
                 }
             });
-            dispatch(changeDefaultAddress(id));
+            if (res.data.success) {
+                dispatch(changeDefaultAddress(id));
+            }
             return {
                 hasError: false,
                 message: res?.data?.message,
@@ -157,7 +159,9 @@ export const startDeleteAddress = (addres_id) => {
                     'Authorization': token
                 }
             });
-            dispatch(deleteAddress(addres_id));
+            if (res.data.success) {
+                dispatch(deleteAddress(addres_id));
+            }
             return {
                 hasError: false,
                 message: res?.data?.message,
@@ -182,4 +186,45 @@ export const startDeleteAddress = (addres_id) => {
 export const deleteAddress = (addres_id) => ({
     type: types.delete_addres,
     payload: addres_id,
+})
+
+
+export const startUpdateDataUser = (formData) => {
+    return async (dispatch) => {
+        let url = `/auth/update-user-info`;
+        try {
+            const token = await Cookies.get('token');
+            const res = await client.put(url, formData, {
+                headers: {
+                    'Authorization': token
+                }
+            });
+            console.log(res.data);
+            if (res.data.status === 'ok') {
+                dispatch(updateDataUser(res.data.user));
+            }
+            return {
+                hasError: false,
+                message: res?.data?.message,
+            }
+
+        } catch (error) {
+            if (axios.isAxiosError(error)) {
+                return {
+                    hasError: true,
+                    message: error?.response?.data?.message
+                }
+            }
+
+            return {
+                hasError: true,
+                message: "No se pudo eliminar la dirección - intente mas tarde"
+            }
+        }
+    }
+}
+
+export const updateDataUser = (user) => ({
+    type: types.update_data_user,
+    payload: user,
 })

@@ -5,11 +5,11 @@ import Layout from "../src/components/Layouts";
 
 /**Actions */
 import { startLoadOffers } from "../src/actions/offersActions";
-import { startLoadBrandsHome , startLoadBrands } from "../src/actions/brandsActions";
+import { startLoadBrandsHome, startLoadBrands } from "../src/actions/brandsActions";
 import { startLoadDataSliders } from "../src/actions/slidersActions";
 import { startLoadCategoriesHome } from "../src/actions/categoryActions";
 import { startLoadAdministrableLogo } from "../src/actions/administrableActions";
- 
+import { startLoadTags } from "../src/actions/tagsActions";
 /**Components */
 import {
   Slider,
@@ -46,7 +46,7 @@ export default function HomePage() {
 
   return (
     <>
-      <Slider/>
+      <Slider />
       <FacilityArea />
       <ProductsArea />
       <CategoryArea />
@@ -79,15 +79,16 @@ HomePage.getLayout = function getLayout(page) {
 export const getStaticProps = wrapper.getStaticProps((store) =>
   async () => {
     await store.dispatch(startLoadAdministrableLogo());
-    await store.dispatch(startLoadCategoriesHome()); 
+    await store.dispatch(startLoadCategoriesHome());
     await store.dispatch(startLoadDataSliders());
     await store.dispatch(startLoadOffers());
     await store.dispatch(startLoadBrandsHome());
+    await store.dispatch(startLoadTags());
     await store.dispatch(startLoadBrands());
 
     return{
       revalidate:3600
     }
-});
+  });
 
 

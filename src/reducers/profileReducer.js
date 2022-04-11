@@ -25,7 +25,7 @@ export const profileReducer = (state = initialState, { type, payload }) => {
         case types.add_new_address:
             return {
                 ...state,
-                directions: [payload, ...state.directions],
+                directions: [...state.directions, payload],
             }
 
         case types.change_default_addres:
@@ -37,9 +37,15 @@ export const profileReducer = (state = initialState, { type, payload }) => {
             }
 
         case types.delete_addres:
-            return{
+            return {
                 ...state,
                 directions: state.directions.filter(direction => direction._id !== payload),
+            }
+
+        case types.update_data_user:
+            return {
+                ...state,
+                user: payload
             }
 
         default:
