@@ -2,14 +2,14 @@ import { types } from "../types";
 
 const initialState = {
     cart: [],
-    cartWithDiscount:[],
-    cartWithOutDiscount:[],
+    cartNotLogged:[],
     subtotal:0,
     total:0,
     superTotal:{},
     withDiscount:{},
     withoutDiscount:{},
     shipping_costs:{},
+    order_id:'',
     success:false,
 }
 
@@ -20,16 +20,6 @@ export const shoppingCartReducer = (state = initialState, { type, payload }) => 
                ...state,
                cart:payload
            }
-        case types.loadShoppingCartFromCookies:
-            return{
-                ...state,
-                cart:payload
-            }
-        case types.updatedProductQuantity:
-            return{
-                ...state,
-                cart:state.cart.map(product=>product.product_id === payload.product_id ? payload : product)
-            }
         case types.calculateTotalShoppingCart:
             return{
                 ...state,
@@ -43,16 +33,46 @@ export const shoppingCartReducer = (state = initialState, { type, payload }) => 
                 superTotal:payload.superTotal,
                 withDiscount:payload.withDiscount,
                 withoutDiscount:payload.withoutDiscount,
+                order_id:payload.order_id,
                 success:true  
             }
-       case types.loadTotalsFromCookies:
+        case types.loadTotalsFromCookies:
            return{
                ...state,
                superTotal:payload.superTotal,
                withDiscount:payload.withDiscount,
                withoutDiscount:payload.withoutDiscount,
-               shipping_costs:payload.shippingCosts
+               shipping_costs:payload.shippingCosts,
+               order_id:payload.order_id
            }
+       case types.removeProductShoppingCart:
+       case types.loadShoppingCart:
+       case types.updatedShoppingCart:
+       case types.loadShoppingCartFromLocalStorage:
+       case types.loadShoppingCartFussion:
+       case types.updatedProductQuantity:
+           return{
+               ...state,
+               cart:payload,
+               cartNotLogged:[]
+           }
+        case types.loadShoppingCartNotLoggedFromLocalStorage:
+        case types.addProductShoppingCartNoLoggued:
+            return{
+                ...state,
+                cartNotLogged:payload,
+                cart:[],
+            }
+        case types.updatedProductQuantityCartNotLogged:
+            return{
+                ...state,
+                cartNotLogged:state.cartNotLogged.map(product=>product.product_id._id === payload.product_id._id ? payload : product)
+            }
+        case types.deleteProductShoppingCartNotLogged:
+            return{
+                ...state,
+                cartNotLogged:state.cartNotLogged.filter((cart)=>cart.product_id._id !== payload)
+            }
        default:
            return state;
     }

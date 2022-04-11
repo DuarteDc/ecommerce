@@ -1,9 +1,8 @@
 import { useSelector } from "react-redux"
 import { shippingCosts } from "../../staticData/shippingCosts";
+import { ShippingCost } from "./shippingCost";
 
 export const TableShippingCosts = () =>{
-    const { shipping_costs } = useSelector((state)=>state.cart);
-
     return(
         <table className="w-full leading-normal">
              <thead>
@@ -16,17 +15,10 @@ export const TableShippingCosts = () =>{
                 {
                    shippingCosts.map(shipping=>(
                      <tr key={shipping.id}>
-                     <td className="px-3 py-3 border-b border-gray-200 bg-white text-sm text-center">
-                       <strong>
-                          {shipping.shippingCosts}
-                       </strong> 
-                     </td> 
-                     <td className="px-3 py-3 border-b border-gray-200 bg-white text-sm text-center">
-                     <strong>
-                         ${shipping.minSale} - ${shipping.maxSale}
-                     </strong>
-                     </td> 
-                  </tr>
+                     <ShippingCost
+                       shipping={shipping}
+                     />
+                     </tr>
                    ))
                 }
                 </tbody>

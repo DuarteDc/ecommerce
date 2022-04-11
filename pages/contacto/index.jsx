@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { startLoadAdministrableLogo } from "../../src/actions/administrableActions";
 import Layout from "../../src/components/Layouts"
 import {BannerImage, ContactInfo} from "../../src/components/ui";
@@ -7,7 +8,27 @@ import {IconContext} from "react-icons";
 import {GoLocation} from "react-icons/go";
 import {BsTelephone} from "react-icons/bs";
 
+import { addShoppingCartFromLocalStorage, shoppingCartNotLoggedfromLocalStorage,  } from "../../src/actions/shoppingCartActions";
+import { useDispatch, useSelector } from "react-redux";
+
 const ContactUs = () =>{
+    const dispatch = useDispatch();
+    const { logged } = useSelector((state)=>state.auth);
+
+    useEffect(() => {
+      if (!logged){
+      let cartNotLogged =  localStorage.getItem('cartNotlogged') ? JSON.parse(localStorage.getItem('cartNotlogged')) : [];
+        dispatch(shoppingCartNotLoggedfromLocalStorage(cartNotLogged))
+      }
+    }, [logged]);
+
+    useEffect(() => {
+        if (logged){
+        const shoppingCart = localStorage.getItem('cart') ? JSON.parse(localStorage.getItem('cart')) : [];
+        dispatch(addShoppingCartFromLocalStorage(shoppingCart))
+        }
+    }, [logged]);
+
     return (
         <Layout 
           title="Wapizima - Contácto"
@@ -66,8 +87,9 @@ const ContactUs = () =>{
 
 export const getStaticProps = wrapper.getStaticProps((store)=> async()=>{
     await store.dispatch(startLoadAdministrableLogo());
+
     return{
-        revalidate:3600
+      revalidate:3600
     }
 });
 

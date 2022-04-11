@@ -18,8 +18,8 @@ export const CartTotals = () =>{
          return;
      } 
 
-    let productsDiscount = cart.filter(product=>product.discount > 0);
-    let productsWithoutDiscount = cart.filter(product=>product.discount === 0);
+    let productsDiscount = cart.filter(product=>product.product_id.discount > 0);
+    let productsWithoutDiscount = cart.filter(product=>product.product_id.discount === 0);
 
     const data = {
       "productsDiscount": productsDiscount,
@@ -27,12 +27,11 @@ export const CartTotals = () =>{
       "shipment":shipping_costs[0]?.shippingCosts,
       "coupon_id":""
     }
-    
-      dispatch(startFinaliceSaleCheckout(data));
+       dispatch(startFinaliceSaleCheckout(data));
     }
 
     return (
-       <div className="border-[1px] border-solid border-[#e6e6e6] mr-[40px] ml-[63px] px-[40px] pb-[40px] pt-[30px] text-center w-full">
+       <div className="border-[1px] border-solid border-[#e6e6e6] mr-[40px] ml-[63px] px-[40px] pb-[40px] pt-[30px] text-center w-full overflow-hidden">
         <h4 className="font-Poppins text-[20px] leading-[1.3] uppercase pb-[30px]">Total Carrito</h4>
         <div className="border-b-[1px] flex justify-start flex-wrap pb-[13px]">
             <SubtotalInfo
@@ -52,7 +51,7 @@ export const CartTotals = () =>{
           <button className="rounded-[25px] bg-[#333] w-[100%] h-[50px] font-Poppins text-[15px] leading-[1.4] uppercase text-[#fff] flex  items-center  justify-center hover:bg-[#000] hover:transition-all"
           onClick={()=>proceedToCheckout()}
           >
-              Pagar
+              Continuar
           </button>
         </div>
        </div>

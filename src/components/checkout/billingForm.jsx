@@ -1,4 +1,5 @@
 export const BillingForm = () =>{
+    
     return (
         <>
         <h3 className="font-Poppins text-[20px] font-semibold leading-[1.4] text-[#333] text-center mb-6">
@@ -61,6 +62,7 @@ export const BillingForm = () =>{
                            </div>
                         </div>
                         </div>
-                     </div></>
+                     </div>
+                     </>
     )
 }

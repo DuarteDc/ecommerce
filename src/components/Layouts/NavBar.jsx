@@ -6,17 +6,18 @@ import { BsHandbag, BsPersonCircle } from "react-icons/bs";
 import { IconContext } from "react-icons";
 import {AiOutlineHeart} from "react-icons/ai";
 import {AiOutlineClose} from "react-icons/ai";
-import { startVerifyToken } from '../../actions/authActions'
-import { loadState } from "../../actions/shoppingCartActions";
-import Cookies from "js-cookie";
+import { startloadshoppingCartFussion } from "../../actions/shoppingCartActions";
 import Badge from '@mui/material/Badge';
-import { useRouter } from "next/router";
+import {useRouter} from "next/router";
 import {useLocalStorage} from "../../hooks/useLocalStorage";
-import { useToggle } from "../../hooks/useToggle";
-
+import {useToggle} from "../../hooks/useToggle";
+import {pages} from "../../staticData/pages";
+import Cookie from "js-cookie";
+import { productsReducer } from "../../reducers";
 
 const NavBar = () => {
-  const { cart } = useSelector((state) => state.cart);
+  const dispatch = useDispatch();
+  const { cart , cartNotLogged } = useSelector((state) => state.cart);
   const { wishList } = useSelector((state)=>state.wishList);
   const { logged } = useSelector((state) => state.auth);
   const { logo } = useSelector((state) => state.administrable);
@@ -27,41 +28,13 @@ const NavBar = () => {
 
   const [scrollPosition, setScrollPosition] = useState(0);
 
-  const routes = [
-    {
-      path: '/',
-      name: 'Inicio'
-    },
-    {
-      path: '/productos',
-      name: 'Productos'
-    },
-     {
-      path: '/categorias',
-      name: 'Coleciones'
-    },
-    {
-      path: '/marcas',
-      name: 'Marcas'
-    },
-   
-    {
-      path: '/contacto',
-      name: 'Contácto'
-    },
-    {
-      path: '/acerca-de-nosotros',
-      name: 'Acerca'
-    }
-  ]
-
   const handleScroll = () => {
     const position = window.pageYOffset;
     setScrollPosition(position);
   };
 
   const handleRedirectClick = (path) =>{
-    router.push(path)
+    router.push(path);
   }
 
   useEffect(() => {
@@ -72,19 +45,32 @@ const NavBar = () => {
   }, []);
 
 
+  useEffect(() => {
+    if(logged){
+     const shoppingCartNotLogged = localStorage.getItem('cartNotlogged') ? JSON.parse( localStorage.getItem('cartNotlogged')) : [];
+
+     const token = Cookie.get('token') || '';
+     if(!shoppingCartNotLogged.length) return;
+
+     let cartNotLogged = shoppingCartNotLogged.map(cart=>{
+       cart.product_id = cart.product_id._id;
+       return cart;
+
+     })
+    dispatch(startloadshoppingCartFussion(cartNotLogged , token));
+      
+     localStorage.removeItem('cartNotlogged');
+
+    }
+  }, [logged]);
+
 
   const handleMenuopen = () =>{
     toggle();
   }
 
-  // useEffect(() => {
-  //   if (Cookies.get('token')) {
-  //     dispatch(startVerifyToken());
-  //   }
-  // }, []);
-
   return (
-    <div className={`bg-luz py-2 shadow-sm  w-full z-[3] ${scrollPosition >= 130 && 'fixed top-0'} space-y-1`}>
+    <div className={`bg-luz py-2 shadow-sm  w-full z-[99] ${scrollPosition >= 130 && 'fixed top-0'} space-y-1`}>
       <div className="w-full px-10  lg:px-16 xl:px-28 2xl:px-28">
         <nav className="flex max-h-16 justify-between items-center" >
           <Image
@@ -118,7 +104,7 @@ const NavBar = () => {
           <div className="hidden lg:flex justify-between items-center w-full">
             <div className="px-12 w-full flex justify-center">
               {
-                routes.map(({ path, name }) => (
+                pages.map(({ path, name }) => (
                   <Link href={path} key={name}>
                     <span className="text-[#888] border-transparent border-b-2 hover:text-[#333] mx-4 cursor-pointer  font-Poppins text-[15px] font-medium transition uppercase duration-700 ease-in-out">
                       {name}
@@ -153,8 +139,8 @@ const NavBar = () => {
                         <AiOutlineHeart />
                       </IconContext.Provider>
                     </Badge>
-
-                    <Badge badgeContent={cart?.length} color="secondary" onClick={()=>handleRedirectClick('/mi-carrito')}>
+                   
+                    <Badge badgeContent={logged ? cart.length : cartNotLogged.length } color="secondary" onClick={()=>handleRedirectClick('/mi-carrito')}>
                       <IconContext.Provider value={{ size: "1.5rem" }}>
                         <BsHandbag />
                       </IconContext.Provider>
@@ -169,7 +155,7 @@ const NavBar = () => {
       <div className={`${open ? 'block' : 'hidden'} `}>
       <div className="px-2 pt-2 pb-3 space-y-1 bg-[#333]">
       {
-        routes.map(route=>(
+        pages.map(route=>(
           <Link href={route.path} key={route.path}>
             <span href="#" className="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium">{route.name}</span>
           </Link>

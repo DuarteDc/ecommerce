@@ -15,12 +15,16 @@ import { useRouter } from "next/router";
 import { startLoadAdministrableLogo } from "../../src/actions/administrableActions";
 import { BannerImage } from "../../src/components/ui/bannerImage";
 import { ProductCard } from "../../src/components/ui";
+import { useEffect } from "react";
+import Cookie from 'js-cookie';
+import { addShoppingCartFromLocalStorage , shoppingCartNotLoggedfromLocalStorage  } from "../../src/actions/shoppingCartActions";
 
 const Products = () => {
 
     const { products, filteredProducts } = useSelector((state) => state.products);
     const { categories } = useSelector((state) => state.categories);
     const { brands } = useSelector((state) => state.brands);
+    const { logged } = useSelector((state)=>state.auth);
 
     const dispatch = useDispatch();
 
@@ -31,6 +35,21 @@ const Products = () => {
             behavior: 'smooth'
         });
     }
+
+  
+    useEffect(() => {
+        if (!logged){
+        let cartNotLogged =  localStorage.getItem('cartNotlogged') ? JSON.parse(localStorage.getItem('cartNotlogged')) : [];
+          dispatch(shoppingCartNotLoggedfromLocalStorage(cartNotLogged))
+        }
+      }, [logged]);
+
+        useEffect(() => {
+            if (logged){
+            const shoppingCart = localStorage.getItem('cart') ? JSON.parse(localStorage.getItem('cart')) : [];
+            dispatch(addShoppingCartFromLocalStorage(shoppingCart))
+            }
+        }, [logged]);
 
     return (
         <Layout 
@@ -81,12 +100,16 @@ const Products = () => {
     )
 }
 
-export const getServerSideProps = wrapper.getServerSideProps((store) =>
+export const getStaticProps = wrapper.getStaticProps((store) =>
     async () => {
         await store.dispatch(startLoadProducts());
         await store.dispatch(startLoadCategories());
         await store.dispatch(startLoadBrands());
         await store.dispatch(startLoadAdministrableLogo());
+        
+        return {
+            revalidate:3600
+        }
 
     })
 

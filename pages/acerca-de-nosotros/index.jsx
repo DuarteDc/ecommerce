@@ -1,13 +1,32 @@
 import Image from "next/image";
-import React from "react";
-import { useSelector } from "react-redux";
-import { startLoadAdministrableAbout, startLoadAdministrableData, startLoadAdministrableLogo } from "../../src/actions/administrableActions";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { startLoadAdministrableAbout , startLoadAdministrableLogo } from "../../src/actions/administrableActions";
 import Layout from "../../src/components/Layouts";
 import { BannerImage } from "../../src/components/ui";
 import { wrapper } from "../../src/store";
+import Cookie from 'js-cookie';
+import { addShoppingCartFromLocalStorage, shoppingCartNotLoggedfromLocalStorage } from "../../src/actions/shoppingCartActions";
 
 const AboutPage = () =>{
-  const { aboutUs , mission } = useSelector((state)=>state.administrable)
+  const dispatch = useDispatch();
+  const { aboutUs , mission } = useSelector((state)=>state.administrable);
+  const { logged } = useSelector((state)=>state.auth);
+
+  useEffect(() => {
+    if (!logged){
+    let cartNotLogged =  localStorage.getItem('cartNotlogged') ? JSON.parse(localStorage.getItem('cartNotlogged')) : [];
+      dispatch(shoppingCartNotLoggedfromLocalStorage(cartNotLogged))
+    }
+  }, [logged]);
+
+    useEffect(() => {
+        if (logged){
+        const shoppingCart = localStorage.getItem('cart') ? JSON.parse(localStorage.getItem('cart')) : [];
+        dispatch(addShoppingCartFromLocalStorage(shoppingCart))
+        }
+    }, [logged]);
+
   return (
     <>
       <BannerImage
@@ -85,9 +104,7 @@ AboutPage.getLayout = function getLayout(page) {
 export const getStaticProps = wrapper.getStaticProps((store)=> async()=>{
   await store.dispatch(startLoadAdministrableLogo());
   await store.dispatch(startLoadAdministrableAbout());
-  return{
-      revalidate:86400
-  }
+ 
 });
 
 export default AboutPage

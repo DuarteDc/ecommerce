@@ -1,73 +1,92 @@
 import client from "../config/axiosConfig";
 import { shippingCosts } from "../staticData/shippingCosts";
 import { types } from "../types";
-import Cookies from 'js-cookie';
 import { helpers } from "../helpers";
+import Cookies from "js-cookie";
 
-export const startFinaliceSaleCheckout = (data) =>{
-   return async (dispatch , getState)=>{
-      const { shipping_costs } = getState().cart;
-      try {
-         const oldToken = Cookies.get('token');
-         let url = '/orders/calculate/discount';
-         const res = await client.post(url , data ,{
-             headers: {
-                'Authorization': oldToken
+/** Obtener carrito de compras de la base de datos */
+export const startLoadShoppingCart = (token) =>{
+   return async (dispatch) =>{
+     try {
+         let url = '/cart';
+         const {data} = await client.get(url,{
+            headers:{
+               'Authorization': token
             }
-          });
-          Cookies.set('superTotal' , JSON.stringify(res.data.superTotal) );
-          Cookies.set('withDiscount' , JSON.stringify(res.data.withDiscount) );
-          Cookies.set('withoutDiscount' ,JSON.stringify(res.data.withoutDiscount));
-          Cookies.set('shippingCosts' ,JSON.stringify(shipping_costs || {}));
-
-          dispatch(finaliceSaleCheckout(res.data.superTotal , res.data.withDiscount ,  res.data.withoutDiscount))
-      } catch (error) {
-         console.log(error);
-      }
-
+         });  
+         if(data.cart.products.length > 0){
+            dispatch(loadShoppingCart(data.cart.products)); 
+         }
+                  
+     } catch (error) {
+        console.log(error);
+     }
    }
 }
 
-export const finaliceSaleCheckout = (superTotal ,withDiscount ,  withoutDiscount , shippingCosts) =>({
-   type:types.finaliceCheckoutCart,
-   payload:{
-      superTotal,
-      withDiscount,
-      withoutDiscount,
-      shippingCosts
+export const loadShoppingCart = (shoppingCart) =>({
+  type:types.loadShoppingCart,
+  payload:shoppingCart
+});
+
+
+
+/**Agregar productos al carrito de compras */
+export const startAddProductShoppingCart = (product) =>{
+   return async (dispatch) =>{
+      try {
+         delete product.product_id;
+         product.product_id = product._id
+
+         let url = '/cart';
+         const {data} = await client.post(url , product);
+         const shoppingCart = data.cart.products;
+         dispatch(addProductToShoppingCart(shoppingCart));
+      } catch (error) {
+         console.log(error);
+      }
    }
-})
+}
 
-export const addShoppingCart = (product) =>({
-    type:types.addProductShoppingCart,
-    payload:product
+export const addProductToShoppingCart = (shoppingCart) =>({
+   type:types.updatedShoppingCart,
+   payload:shoppingCart
 });
 
-export const loadCartfromCookies = (cart) => ({
-   type:types.loadShoppingCartFromCookies,
-   payload:cart
-});
 
-export const updatedProductQuantity = (product) =>({
-   type:types.updatedProductQuantity,
-   payload:product
-});
+
+/**calculate totals shoppingcart */
 
 export const startCalculateTotalSale = () =>{
    
    return async (dispatch ,getState) =>{
-      const {cart} = getState().cart;
-      const subtotalCart = cart.map(prod=>{
-         let subtotal = prod.price * prod.quantity;
-         const {totalWithDiscountApply} = helpers.calculatNewTotalToPay(prod.discount , subtotal );
-         prod.subtotal = totalWithDiscountApply;
-         return prod;
-      }).reduce( (prev , curr) =>prev + Number(curr.subtotal) , 0 );
+      const {cart , cartNotLogged} = getState().cart;
+      const {logged} = getState().auth;
+     
+      let subtotalCart = 0;
+
+      if(logged){
+         subtotalCart = cart.map(prod=>{
+           const {totalWithDiscountApply} = helpers.calculatNewTotalToPay(prod.product_id.discount , prod.product_id.price );
+  
+           prod.subtotal = totalWithDiscountApply * prod.quantity;
+           return prod;
+        }).reduce( (prev , curr) =>prev + Number(curr.subtotal) , 0 );
+         
+      }else{
+
+         subtotalCart = cartNotLogged.map(prod=>{
+            const {totalWithDiscountApply} = helpers.calculatNewTotalToPay(prod.product_id.discount , prod.product_id.price );
+   
+            prod.subtotal = totalWithDiscountApply * prod.quantity;
+            return prod;
+         }).reduce( (prev , curr) =>prev + Number(curr.subtotal) , 0 );
+
+
+      }
 
       const shippingSelected = shippingCosts.filter((shipping)=>shipping.minSale <= subtotalCart &&  shipping.maxSale >= subtotalCart);
       const total = Number(shippingSelected[0]?.shippingCosts) + Number(subtotalCart) || 0;
-
-      
       dispatch(calculateTotalSale(subtotalCart , total , shippingSelected))
 
    }
@@ -83,13 +102,159 @@ export const calculateTotalSale = (subtotalCart , total , shippingSelected) =>({
 });
 
 
-export const loadTotalsFromCookies = (superTotal , withDiscount ,  withoutDiscount , shippingCosts) =>({
-  type:types.loadTotalsFromCookies,
-  payload:{
+
+
+/**Remove Products shopping cart */
+
+export const startRemoveProductShoppingCart = (_id) =>{
+   return async (dispatch) => {
+     try {
+         let url = `/cart/product/${_id}`;
+         const res = await client.delete(url);
+         dispatch(removeProductShoppingCart( res.data.cart.products ));
+     } catch (error) {
+        console.log(error);
+     }
+   }
+}
+
+export const removeProductShoppingCart = (shoppingCart) =>({
+   type:types.removeProductShoppingCart,
+   payload:shoppingCart
+});
+
+
+/**update quantity product cart */
+export const startUpdatedProductQuantity = (product) =>{
+   return async ( dispatch ) =>{
+     try {
+        let url = '/cart';
+        const {data} = await client.post(url , product);
+        dispatch(updatedProductQuantity(data.cart.products));
+     } catch (error) {
+        console.log(error);
+     }
+   }
+}
+export const updatedProductQuantity = (shoppingCart) =>({
+   type:types.updatedProductQuantity,
+   payload:shoppingCart
+});
+
+
+
+
+/**load shoppingCart from localStorage */
+export const addShoppingCartFromLocalStorage = (shoppingCart) =>({
+   type:types.loadShoppingCartFromLocalStorage,
+   payload:shoppingCart
+})
+
+/**load subtotals , totals in shoppingcart */
+export const loadTotalsFromCookies = (superTotal , withDiscount , withoutDiscount , shippingCosts , order_id ) =>({
+   type:types.loadTotalsFromCookies,
+   payload:{
       superTotal,
       withDiscount,
       withoutDiscount,
-      shippingCosts
-  }
+      shippingCosts,
+      order_id
+   }
 })
 
+
+/**save shoppingcart in db */
+
+export const startFinaliceSaleCheckout = (data) =>{
+   return async (dispatch , getState)=>{
+      const { shipping_costs } = getState().cart;
+      try {
+         const oldToken = Cookies.get('token');
+         let url = '/orders/calculate/discount/web';
+         const res = await client.post(url , data ,{
+             headers: {
+                'Authorization': oldToken
+            }
+          });
+           Cookies.set('superTotal' , JSON.stringify(res.data.superTotal) );
+           Cookies.set('withDiscount' , JSON.stringify(res.data.withDiscount) );
+           Cookies.set('withoutDiscount' ,JSON.stringify(res.data.withoutDiscount));
+           Cookies.set('shippingCosts' ,JSON.stringify(shipping_costs || {}));
+           Cookies.set('order_id' ,JSON.stringify(res.data.order_id));
+
+         dispatch(finaliceSaleCheckout(res.data.superTotal,
+                                       res.data.withDiscount,  
+                                       res.data.withoutDiscount,
+                                       res.data.order_id
+                                       ));
+      } catch (error) {
+         console.log(error);
+      }
+
+   }
+}
+
+export const finaliceSaleCheckout = (superTotal ,withDiscount ,  withoutDiscount , shippingCosts , order_id) =>({
+   type:types.finaliceCheckoutCart,
+   payload:{
+      superTotal,
+      withDiscount,
+      withoutDiscount,
+      shippingCosts,
+      order_id
+   }
+});
+
+
+
+
+/** Usuarios no autenticados */
+export const addProductToCartClientsNotLogged = (cartNotLogged) =>({
+   type:types.addProductShoppingCartNoLoggued,
+   payload:cartNotLogged
+});
+
+export const shoppingCartNotLoggedfromLocalStorage = (cartNotLogged) =>({
+   type:types.loadShoppingCartNotLoggedFromLocalStorage,
+   payload:cartNotLogged
+});
+
+export const updatedProductQuantityCartNotLogged = (product) =>({
+   type:types.updatedProductQuantityCartNotLogged,
+   payload:product
+});
+
+export const removeProductsShoppingCartNotLogged = (_id) =>({
+   type:types.deleteProductShoppingCartNotLogged,
+   payload:_id
+});
+
+
+
+
+/**shoppingCart Fussion */
+
+export const startloadshoppingCartFussion = (shoppingCartNotLogged , token) =>{
+   return async (dispatch)=>{
+      try {
+         let url = '/cart/fussion';
+         const products = {
+            "products":shoppingCartNotLogged
+         }
+         const {data} = await client.post(url , products ,{
+            headers:{
+               'Authorization': token
+            }
+         });
+         console.log(data);
+         // dispatch(loadShoppingCartFussion());
+      } catch (error) {
+         console.log(error);
+      }
+   }
+}
+
+export const loadShoppingCartFussion = (fussionShoppingCart) =>({
+   type:types.loadShoppingCartFussion,
+   payload:fussionShoppingCart
+});

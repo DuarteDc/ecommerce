@@ -20,6 +20,7 @@ import { startLoadDataUser, startGetDirections, setDefaultAddress, startDeleteAd
 import { errorNotify, successNotify } from "../../src/helpers/helpers";
 
 import ClearIcon from '@mui/icons-material/Clear';
+import { startLoadAdministrableLogo } from "../../src/actions/administrableActions";
 
 const Profile = () => {
 
@@ -235,5 +236,6 @@ export const getServerSideProps = wrapper.getServerSideProps((store) =>
     async (ctx) => {
         await store.dispatch(startLoadDataUser(ctx));
         await store.dispatch(startGetDirections(ctx));
+        await store.dispatch(startLoadAdministrableLogo());
     })
 export default Profile

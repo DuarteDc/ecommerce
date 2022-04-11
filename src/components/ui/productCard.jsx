@@ -6,26 +6,28 @@ import {BiShowAlt} from "react-icons/bi";
 import {BsHeart} from "react-icons/bs";
 import {FcLike} from "react-icons/fc";
 import { useDispatch, useSelector } from "react-redux";
-import Cookie from 'js-cookie';
-
 
 import {toast } from "react-toastify";
-import { addShoppingCart } from "../../actions/shoppingCartActions";
-import {helpers } from "../../helpers"
+import {addProductToCartClientsNotLogged, startAddProductShoppingCart } from "../../actions/shoppingCartActions";
+import {helpers } from "../../helpers";
 
 export const ProductCard = ({product}) =>{
-    const { _id , name , price , url , quantity  } = product; 
+    const { _id , name , price , url , quantity , discount } = product; 
 
     const history =  useRouter();
     const dispatch = useDispatch();
-    const [ isEnable , setIsEnable ] = useState(false);
-  
-    const { cart} = useSelector((state)=>state.cart)
+    const { cart , cartNotLogged} = useSelector((state)=>state.cart);
+    const { logged } = useSelector((state)=>state.auth);
+    const [ isEnable , setIsEnable ] = useState(false);  
+
 
 
     const [isInWhisList, setisInWhisList] = useState( helpers.existInWishList(_id));
-    const notify = (message) =>toast(message)
+    const notify = (message) =>toast(message);
+    const {totalWithDiscountApply} = helpers.calculatNewTotalToPay(product.discount ,product.price);
     const sale_price = helpers.priceFormat(price);
+    const sale_price_discount = helpers.priceFormat(totalWithDiscountApply);
+    
 
     const handleShowProduct = () =>{
       history.push(`/productos/${url}`)
@@ -45,28 +47,46 @@ export const ProductCard = ({product}) =>{
           return;
         }
 
-        const itemCart = { name:product.name,
-                           price:product.price,
-                           image:product.multimedia[0].path,
-                           product_id:product._id,
-                           stock:product.quantity,
-                           quantity:1,
-                           discount:product.discount
+        const itemCart = {product_id:{
+                            price:product.price,
+                            quantity:product.quantity,
+                            multimedia:product.multimedia,
+                            _id:product._id,
+                            name:product.name,
+                            discount:product.discount
+                          },
+                          quantity:1,
+                          _id:product._id
                           }
 
-        const shoppingCart = [...cart , itemCart  ]
-
-        dispatch(addShoppingCart(shoppingCart));
-
-        Cookie.set('shoppingCart' , JSON.stringify(shoppingCart));
-        notify('Producto agregado al carrito de compras');
+        if(logged){
+          let shoppingCart = [...cart  , itemCart ];
+          localStorage.setItem('cart' , JSON.stringify(shoppingCart));
+          dispatch(startAddProductShoppingCart(itemCart));
+          notify('Producto agregado al carrito de compras');
+          return;
+        }else{
+          dispatch( addProductToCartClientsNotLogged(shoppingCart));
+          let shoppingCart = [...cartNotLogged  , itemCart ];
+          localStorage.setItem('cartNotlogged' , JSON.stringify(shoppingCart));
+          notify('Producto agregado al carrito de compras');
+          return;
+        }
 
     }
 
     useEffect(() => {
-      const exists = helpers.existInShoppingCart(product._id , cart);
-      setIsEnable(exists);
-    }, [cart]);
+      if(logged){
+        const exists = helpers.existInShoppingCart(product._id , cart);
+         setIsEnable(exists);
+      }else{
+        const exists = helpers.existInShoppingCart(product._id , cartNotLogged);
+         setIsEnable(exists);
+      }
+     
+    }, [cart , cartNotLogged ]);
+
+
 
     return(
         <div className="mb-[30px] relative card">
@@ -96,6 +116,22 @@ export const ProductCard = ({product}) =>{
                 Agotado
                </div>
             }
+            {
+              discount > 0 &&
+               <div className="text-center 
+                               absolute 
+                               top-[10px] 
+                               left-[10px] 
+                               bg-[#f57c00] 
+                               text-[#fff] 
+                               w-[15%] 
+                               h-[10%] 
+                               leading-[50px] 
+                               rounded-[50%] 
+                               z-[3]">
+                -{discount}%
+               </div>
+            }
            
             <div className="mt-[20px]">
                 <h3 className="text-[#333] mb-0 font-semibold text-[18px]">
@@ -108,10 +144,13 @@ export const ProductCard = ({product}) =>{
                                      inline-block 
                                      mr-1"
                   >
-                    $230
+                    {
+                      product.discount > 0 && sale_price
+                    }
+                    
                   </span>
                   <span className="text-[17px] inline-block">
-                    {sale_price}
+                    {sale_price_discount}
                   </span>
                 </div>
                 <div className="flex flex-wrap justify-between">

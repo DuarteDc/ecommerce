@@ -1,7 +1,7 @@
 import client from "../../src/config/axiosConfig";
 import { wrapper } from "../../src/store";
 
-const CategorySitemap = () =>{};
+const CategoriesSitemap = () =>{};
 
 export const getServerSideProps = wrapper.getServerSideProps((store)=> 
  async ({res})=>{
@@ -43,4 +43,4 @@ export const getServerSideProps = wrapper.getServerSideProps((store)=>
   };
 })
 
-export default CategorySitemap;
+export default CategoriesSitemap;

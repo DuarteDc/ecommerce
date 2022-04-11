@@ -41,12 +41,14 @@ const existInWishList = (_id) =>{
 }
 
 const existInShoppingCart = (_id , ShoppingCart) =>{
-  const existProduct = ShoppingCart.filter(cart=>cart.product_id === _id );
-  if(!existProduct.length){
-    return false;
-  }else{
-    return true;
-  }
+
+  const existProduct = ShoppingCart.filter(cart=>cart.product_id._id === _id );
+
+   if(!existProduct.length){
+     return false;
+   }else{
+     return true;
+   }
 }
 
 
@@ -102,13 +104,13 @@ export const errorNotify = (message) => {
 }
 
 /**funcion que nos permite calcular el descuento del subtotal de la venta */
-export const calculatNewTotalToPay = (porcentage, retailSubtotal) => {
+export const calculatNewTotalToPay = (porcentage, subtotal) => {
   let totalWithDiscountApply = 0;
   let discountApply = 0;
   /**Obtenemos la cantidad a descontar */
-  discountApply = (retailSubtotal * parseInt(porcentage)) / 100;
+  discountApply = (subtotal * Number(porcentage)) / 100;
   //obtenemos el total a pagar de la venta de menudeo con el descuento ya aplicado
-  totalWithDiscountApply = (retailSubtotal - discountApply).toFixed(3);
+  totalWithDiscountApply = (subtotal - discountApply).toFixed(3);
   return {
     totalWithDiscountApply,
     discountApply,

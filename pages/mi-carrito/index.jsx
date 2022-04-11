@@ -4,32 +4,48 @@ import { useDispatch, useSelector } from 'react-redux';
 import { wrapper } from '../../src/store';
 import { startLoadAdministrableLogo } from '../../src/actions/administrableActions';
 import { BannerImage } from '../../src/components/ui';
-import Cookie from 'js-cookie';
 import { Cart, CartTotals } from '../../src/components/cart';
-import { startCalculateTotalSale } from '../../src/actions/shoppingCartActions';
+import { shoppingCartNotLoggedfromLocalStorage, startCalculateTotalSale, startLoadShoppingCart } from '../../src/actions/shoppingCartActions';
 import { useRouter } from 'next/router';
 
 const ShoppingCart = () => {
     const dispatch = useDispatch();
     const router = useRouter();
-    const { cart , success } = useSelector((state) => state.cart);
+    const { cart , cartNotLogged ,  success } = useSelector((state) => state.cart);
+    const { logged } = useSelector((state)=>state.auth);
 
     useEffect(() => {
-        if(cart.length > 0){
-         Cookie.set('shoppingCart' , JSON.stringify(cart));
+        if (!logged && !cart.length){
+         let cartNotLogged =  localStorage.getItem('cartNotlogged') ? JSON.parse(localStorage.getItem('cartNotlogged')) : [];
+           dispatch(shoppingCartNotLoggedfromLocalStorage(cartNotLogged))
         }
-       
-    }, [cart]);
+    }, [logged]);
+
+
 
     useEffect(() => {
-        dispatch(startCalculateTotalSale());
+      if(cartNotLogged.length){
+        localStorage.setItem('cartNotlogged' , JSON.stringify(cartNotLogged));
+      }
+    }, [cartNotLogged]);
+
+    useEffect(() => {
+      if(cart.length){
+        localStorage.setItem('cart' , JSON.stringify(cart));
+      }
     }, [cart]);
+
+
+    useEffect(() => {
+         dispatch(startCalculateTotalSale());
+    }, [cart , cartNotLogged]);
 
     useEffect(() => {
         if(success){
             router.push('/checkout'); 
         }
     }, [success]);
+
 
     return (
         <Layout>
@@ -39,10 +55,10 @@ const ShoppingCart = () => {
            />
             <section className="max-w-[1480px] mx-auto my-20 px-[15px] w-full">
                <div className="grid grid-cols-12 gap-1">
-                 <div className="col-span-8">
+                 <div className="md:col-span-6 lg:col-span-8">
                    <Cart/>
                  </div>
-                 <div className="col-span-4">
+                 <div className="md:col-span-6 lg:col-span-4">
                   <CartTotals/>
                  </div>
                </div>
@@ -51,11 +67,10 @@ const ShoppingCart = () => {
     )
 }
 
-export const getStaticProps = wrapper.getStaticProps((store)=> async()=>{
+export const getServerSideProps = wrapper.getServerSideProps((store)=> async(ctx)=>{
     await store.dispatch(startLoadAdministrableLogo());
-    return{
-        revalidate:3600
-    }
+    await store.dispatch(startLoadShoppingCart(ctx.req.cookies.token));
+  
 });
 
 

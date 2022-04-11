@@ -1,6 +1,6 @@
 import fs from "fs";
 
-const Sitemap = () => {};
+const PagesSitemap = () => {};
 
 export const getServerSideProps = ({ res }) => {
   const baseUrl = {
@@ -53,4 +53,4 @@ export const getServerSideProps = ({ res }) => {
   };
 };
 
-export default Sitemap;
+export default PagesSitemap;

@@ -1,24 +1,50 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { startLoadAdministrableLogo } from "../../src/actions/administrableActions";
 import { loadTotalsFromCookies } from "../../src/actions/shoppingCartActions";
 import Cookie from 'js-cookie';
 import Layout from "../../src/components/Layouts"
 import { BannerImage } from "../../src/components/ui";
-import { helpers } from "../../src/helpers";
 import { wrapper } from "../../src/store";
-import { BillingForm } from "./billingForm";
-
+import { BillingForm } from "../../src/components/checkout/billingForm";
+import { OrderInfo } from "../../src/components/checkout/orderInfo";
+import { CheckoutForm } from "../../src/components/checkout/checkoutForm";
+import { Elements } from "@stripe/react-stripe-js";
+import { loadStripe } from "@stripe/stripe-js";
+import { useToggle } from "../../src/hooks/useToggle";
+import { Modal } from "../../src/components/ui/modal";
+import {FaCcStripe} from "react-icons/fa";
+import {BiTransferAlt} from "react-icons/bi";
+import { IconContext } from "react-icons";
+import { addClientSecretFromCookies, startLoadClientSecret } from "../../src/actions/checkoutActions";
 
 const Checkout = () => {
     const dispatch = useDispatch();
-    const { superTotal , withDiscount ,  withoutDiscount , shipping_costs } = useSelector((state)=>state.cart);
+    const { superTotal } = useSelector((state)=>state.cart);
+    const {client_secret} = useSelector((state)=>state.checkout);
+    const [ clientSecretStripe , setClientSecret ] = useState('');
+    const [ open , toggle ] = useToggle();
 
-    const super_total = helpers.priceFormat(superTotal?.total || 0);
-    const with_discount = helpers.priceFormat(withDiscount?.total || 0);
-    const without_discount = helpers.priceFormat(withoutDiscount?.total || 0);
-    const subtotal = helpers.priceFormat(withDiscount?.total + withoutDiscount?.total || 0);
-    const shippingCosts = helpers.priceFormat(shipping_costs[0]?.shippingCosts || 0);
+    const handleOpenCheckout = () =>{
+        toggle();
+    }
+
+    const stripePromise = loadStripe("pk_test_51JQDmVCJKrEV4P25HqhKqz4fnKIZVF7d853icQ84CYZrCFxUorhPwAdjwyKhnP124hlGSaYfOEjZo7LibrwT6Azo002XEZChlH");
+
+    const appearance = {
+        theme:"strip"
+    }
+
+    useEffect(() => {
+      const client_secret = Cookie.get('client_secret') ? JSON.parse(Cookie.get('client_secret')) : '';
+      dispatch(addClientSecretFromCookies(client_secret));
+    }, []);
+
+    useEffect(() => {
+      if(Object.keys(client_secret).length > 0){
+      setClientSecret(client_secret);
+      }
+    }, [client_secret]);
 
 
 
@@ -28,9 +54,32 @@ const Checkout = () => {
             const withDiscount = Cookie.get('withDiscount') ? JSON.parse(Cookie.get('withDiscount')) : {};
              const withoutDiscount = Cookie.get('withoutDiscount') ? JSON.parse(Cookie.get('withoutDiscount')) : {};
              const shippingCosts = Cookie.get('shippingCosts') ? JSON.parse(Cookie.get('shippingCosts')) : {};
-            dispatch(loadTotalsFromCookies(superTotal,withDiscount , withoutDiscount , shippingCosts));
+             const order_id = Cookie.get('order_id') ? JSON.parse(Cookie.get('order_id')) : ''
+
+            // setClientSecret(client_secret_stripe);
+
+            dispatch(loadTotalsFromCookies(superTotal,
+                                           withDiscount,
+                                           withoutDiscount,
+                                           shippingCosts,
+                                           order_id
+                                           ));
+
         }
     }, []);
+
+    const options = {
+        clientSecret:clientSecretStripe,
+        appearance
+    }
+
+    const handleClickPaymentStripe = () =>{
+
+      if(Object.keys(client_secret).length > 0){
+        dispatch(startLoadClientSecret());
+      }
+      toggle();
+    }
 
     return (
         <Layout>
@@ -48,89 +97,68 @@ const Checkout = () => {
                          Detalle de la ordén
                      </h3>
                      <div className="w-full mb-[20px] block">
-                       <table className="min-w-full leading-normal">
-                           <thead>
-                              <tr className="">
-                                  <th className="bg-[#333] px-5 py-3 border-b-2 border-gray-200 text-xs font-semibold text-[#fff] uppercase">
-                                      Descripción
-                                   </th>
-                                  <th className="bg-[#333] px-5 py-3 border-b-2 border-gray-200 text-xs font-semibold uppercase text-[#fff]">
-                                      Total
-                                  </th>
-                              </tr>
-                           </thead>
-                           <tbody>
-                               <tr>
-                                  <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm ">
-                                         <p className="text-gray-900 text-center">
-                                         Subtotal productos con descuento
-                                         </p>
-                                  </td> 
-                                  <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm ">
-                                         <p className="text-gray-900 text-center">
-                                        {with_discount}
-                                         </p>
-                                  </td>  
-                               </tr>
-                               <tr>
-                                  <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm ">
-                                         <p className="text-gray-900  text-center">
-                                         Subtotal productos sin descuento
-                                         </p>
-                                  </td> 
-                                  <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm ">
-                                         <p className="text-gray-900  text-center">
-                                          {without_discount}
-                                         </p>
-                                  </td>  
-                               </tr>
-                               <tr>
-                                  <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm ">
-                                         <p className="text-gray-900  text-center">
-                                            Gastós de Envio
-                                         </p>
-                                  </td>
-                                  <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm ">
-                                         <p className="text-gray-900  text-center">
-                                           {shippingCosts}
-                                         </p>
-                                  </td>
-                              </tr>
-                              <tr>
-                               
-                                  <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm ">
-                                         <p className="text-gray-900  text-center">
-                                         Subtotal del carrito
-                                         </p>
-                                  </td>
-                                  <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm ">
-                                         <p className="text-gray-900  text-center">
-                                          {subtotal}
-                                         </p>
-                                  </td>
-                              </tr>
-                              <tr>
-                                  <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm ">
-                                         <p className="text-gray-900  text-center">
-                                         Total a pagar
-                                         </p>
-                                  </td>
-                                  <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm ">
-                                         <p className="text-gray-900  text-center">
-                                          {super_total}
-                                         </p>
-                                  </td>
-                              </tr>
-                           </tbody>
-                       </table>
-
-                       <div className="mt-[40px] border-t-[1px] border-[#eaedff]">
-                         <button className="bg-[#333] text-luz py-[15px] px-[20px] w-full uppercase text-[15px] hover:bg-[#000]">
-                             Procesar Pago
-                        </button>
-                       </div>
-
+                       <OrderInfo/>
                      </div>
+                     <div>
+                       <button
+                        className="bg-[#008cdd]
+                                   text-luz 
+                                   py-[15px] 
+                                   px-[20px] 
+                                   w-full 
+                                   uppercase 
+                                   text-[15px] 
+                                   hover:bg-[#1e90ff]
+                                   mt-5
+                                   flex
+                                   items-center
+                                   justify-center
+                                   "
+                        onClick={()=>handleClickPaymentStripe()}
+                       >
+                         <IconContext.Provider value={{className:"color-[#fff] , text-[40px] , mr-[30px]"}}>
+                           <FaCcStripe/>
+                         </IconContext.Provider>
+                         <span>Pago con Stripe</span> 
+                       </button>
+                       <button 
+                         className="bg-[#fb8c00]
+                                    text-luz 
+                                    py-[15px] 
+                                    px-[20px] 
+                                    w-full 
+                                    uppercase 
+                                    text-[15px] 
+                                    hover:bg-[#e65100]
+                                    mt-5
+                                    flex
+                                    items-center
+                                    justify-center"
+                      >
+                             <IconContext.Provider value={{className:"color-[#fff] , text-[40px] , mr-[30px]"}}>
+
+                                    <BiTransferAlt/>
+                            </IconContext.Provider>
+                            <span>Pago por transferencia</span>
+                      </button>
+                     </div>
+    
+
+                       <Modal
+                        title="Proceder al Pago"
+                        open={open}
+                        handleOpenCheckout={handleOpenCheckout}
+                        actions={false}
+                       >
+                
+                              <Elements options={options} stripe={stripePromise}>
+                               <CheckoutForm
+                                 handleOpenCheckout={handleOpenCheckout}
+                               />
+                              </Elements> 
+                          
+                       </Modal>
+                     
                    </div>
                  </div> 
                </section>

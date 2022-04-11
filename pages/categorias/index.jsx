@@ -1,18 +1,36 @@
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { startLoadAdministrableLogo } from '../../src/actions/administrableActions';
 import { startLoadCategories } from '../../src/actions/categoryActions';
 import { Newsletter } from '../../src/components/home';
 import Layout from '../../src/components/Layouts';
 import { CardProduct } from '../../src/components/ui';
 import { BannerImage } from '../../src/components/ui/bannerImage';
-import client from '../../src/config/axiosConfig';
 import { wrapper } from '../../src/store';
+import Cookie from 'js-cookie';
+import { addShoppingCartFromLocalStorage,shoppingCartNotLoggedfromLocalStorage } from '../../src/actions/shoppingCartActions';
+import { useEffect } from 'react';
 
 const Categories = () => {
     const history = useRouter();
+    const dispatch = useDispatch();
+    const { logged } = useSelector((state)=>state.auth);
     const {categories} = useSelector((state)=>state.categories);
+
+    useEffect(() => {
+        if (!logged){
+        let cartNotLogged =  localStorage.getItem('cartNotlogged') ? JSON.parse(localStorage.getItem('cartNotlogged')) : [];
+          dispatch(shoppingCartNotLoggedfromLocalStorage(cartNotLogged))
+        }
+      }, [logged]);
+
+    useEffect(() => {
+        if (logged){
+        const shoppingCart = localStorage.getItem('cart') ? JSON.parse(localStorage.getItem('cart')) : [];
+        dispatch(addShoppingCartFromLocalStorage(shoppingCart))
+        }
+    }, [logged]);
 
     const handleClickCard = (url) =>{
         history.push(`/categorias/${url}`)

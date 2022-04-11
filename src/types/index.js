@@ -53,13 +53,26 @@ export const types = {
     delete_addres: '[PROFILE] delete address',
 
     addProductShoppingCart:'[ShoppingCart] add product to shopping cart',
-    loadShoppingCartFromCookies:'[ShoppingCart] load shopping cart from cookies',
+    loadShoppingCartFromLocalStorage:'[ShoppingCart] load shopping cart from loadShoppingCartFromLocalStorage',
     updatedProductQuantity:'[ShoppingCart] updated quantity product in shoppingcart',
     calculateTotalShoppingCart:'[ShoppingCart] calculate subtotal and total in shoppingCart',
     finaliceCheckoutCart:'[ShoppingCart]  start finalice checkout cart',
     loadTotalsFromCookies:'[ShoppingCart] load totals checkout from cookies',
+    loadShoppingCart:'[ShoppingCart] load shopping cart from database',
+    updatedShoppingCart:'[ShoppingCart] updated shoppingCart',
+    removeProductShoppingCart:'[ShoppingCart] remove product shoppingcart',
+
+    addProductShoppingCartNoLoggued:'[ShoppingCart] add product to cart clients not logged',
+    loadShoppingCartNotLoggedFromLocalStorage:'[ShoppingCart] load shoppingcart clients no logged from localStorage',
+    updatedProductQuantityCartNotLogged:'[ShoppingCart] updated products in shopping cart clients not logged',
+    deleteProductShoppingCartNotLogged:'[ShoppingCart] delete product in shopping cart clients not logged',
+    loadShoppingCartFussion:'[ShoppingCart] load shoppingcart fussion login',
 
 
-    loadWishListfromLocalStorage:'[WishList] load wishlist from localStorage'
+    loadWishListfromLocalStorage:'[WishList] load wishlist from localStorage',
+
+
+    loadSecretClientStripe : '[Checkout] load secret client stripe',
+    loadSecretClientfromCookies : '[Checkout] load secret client from cookies'
    
 }

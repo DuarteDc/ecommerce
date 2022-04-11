@@ -2,20 +2,38 @@ import Layout from "../../src/components/Layouts"
 import { startLoadBrandsHome } from "../../src/actions/brandsActions";
 import { startLoadAdministrableLogo } from "../../src/actions/administrableActions";
 import { wrapper } from "../../src/store";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { BannerImage } from "../../src/components/ui/bannerImage";
 import { CardProduct } from "../../src/components/ui";
 import { Newsletter } from "../../src/components/home";
 import { useRouter } from "next/router";
-
+import { addShoppingCartFromLocalStorage, shoppingCartNotLoggedfromLocalStorage } from "../../src/actions/shoppingCartActions";
+import { useEffect } from "react";
+import Cookie from 'js-cookie';
 
 const Brands = () => {
+  const dispatch = useDispatch();
   const {brandsHome} = useSelector((state)=>state.brands);
-  const history = useRouter()
+  const history = useRouter();
+  const { logged } = useSelector((state)=>state.auth);
+
+    useEffect(() => {
+      if (!logged){
+      let cartNotLogged =  localStorage.getItem('cartNotlogged') ? JSON.parse(localStorage.getItem('cartNotlogged')) : [];
+        dispatch(shoppingCartNotLoggedfromLocalStorage(cartNotLogged))
+      }
+    }, [logged]);
+
+    useEffect(() => {
+        if (logged){
+        const shoppingCart = localStorage.getItem('cart') ? JSON.parse(localStorage.getItem('cart')) : [];
+        dispatch(addShoppingCartFromLocalStorage(shoppingCart))
+        }
+    }, [logged]);
 
 
   const handleClickCard = (url) =>{
-       history.push(`marcas/${url}`)
+    history.push(`marcas/${url}`)
   }
 
   return (

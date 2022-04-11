@@ -1,6 +1,6 @@
+import { useEffect } from "react";
 import { wrapper } from "../src/store";
-import { useSelector } from 'react-redux';
-
+import { useDispatch, useSelector } from 'react-redux';
 import Layout from "../src/components/Layouts";
 
 /**Actions */
@@ -22,17 +22,39 @@ import {
   TestimonialArea
 } from '../src/components/home';
 
+/**Actions */
+import {addShoppingCartFromLocalStorage, shoppingCartNotLoggedfromLocalStorage } from "../src/actions/shoppingCartActions";
+
 export default function HomePage() {
+  const dispatch = useDispatch();
+  const { logged } = useSelector((state)=>state.auth);
+  
+  useEffect(() => {
+    if (!logged){
+    let cartNotLogged =  localStorage.getItem('cartNotlogged') ? JSON.parse(localStorage.getItem('cartNotlogged')) : [];
+      dispatch(shoppingCartNotLoggedfromLocalStorage(cartNotLogged))
+    }
+  }, [logged]);
+
+  useEffect(() => {
+    if (logged){
+      const shoppingCart = localStorage.getItem('cart') ? JSON.parse(localStorage.getItem('cart')) : [];
+      dispatch(addShoppingCartFromLocalStorage(shoppingCart))
+    }
+  }, [logged]);
+
+
   return (
     <>
       <Slider/>
       <FacilityArea />
+      <ProductsArea />
       <CategoryArea />
       <ProductsOfferArea />
-      <ProductsArea />
+      <PartnerArea />
       <Newsletter />
       <TestimonialArea />
-      <PartnerArea />
+      
     </>
   )
 }
@@ -41,6 +63,12 @@ HomePage.getLayout = function getLayout(page) {
   return (
     <Layout
      title="Wapizima - Inicio"
+     keywords=""
+     description="Tienda en linea de distribución de productos profesionales para uñas acrilicas y semipermanente de calidad. Venta Menudeo y Mayoreo. Promociones , descuentos y mucho más."
+     ogTitle=""
+     ogType=""
+     ogUrl=""
+     ogImage=""
      robots="noindex"
     >
       {page}
@@ -57,8 +85,8 @@ export const getStaticProps = wrapper.getStaticProps((store) =>
     await store.dispatch(startLoadBrandsHome());
     await store.dispatch(startLoadBrands());
 
-    return {
-      revalidate:120
+    return{
+      revalidate:3600
     }
 });
 

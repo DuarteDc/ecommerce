@@ -1,18 +1,11 @@
 import Head from "next/head"
 import { useEffect } from "react";
-import Cookie from 'js-cookie';
 import { useDispatch } from "react-redux";
-import { loadCartfromCookies } from "../../actions/shoppingCartActions";
 import { loadWishListfromLocalStorage } from "../../actions/wishListActions";
-import {startVerifyToken} from "../../actions/authActions";
+import { startVerifyToken } from "../../actions/authActions";
 
 export const Meta = ({title , keywords , description , ogTitle , ogType , ogUrl , ogImage , robots}) =>{
     const dispatch = useDispatch();
-
-    useEffect(() => {
-        const cookieShoppingCart = Cookie.get('shoppingCart') ? JSON.parse(Cookie.get('shoppingCart')) : [];
-       dispatch(loadCartfromCookies(cookieShoppingCart))
-    }, []);
 
     useEffect(() => {
         const localStorageWishList = localStorage.getItem('wishListProducts') ? JSON.parse(localStorage.getItem('wishListProducts')) : [];
@@ -21,7 +14,6 @@ export const Meta = ({title , keywords , description , ogTitle , ogType , ogUrl 
 
     useEffect(() => {
         dispatch(startVerifyToken());
-        
     }, []);
 
     return(

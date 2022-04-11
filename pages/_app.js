@@ -7,6 +7,7 @@ import "swiper/css/pagination";
 import "swiper/css/navigation";
 import 'animate.css';
 import * as ga from '../src/libs/ga';
+import { CookiesProvider } from "react-cookie"
 
 
 
@@ -30,7 +31,11 @@ const  MyApp = ({ Component, pageProps })=>{
       }, [router.events])
 
     const getLayout = Component.getLayout || ((page) => page);
-    return getLayout(<Component {...pageProps} />)
+    return getLayout(
+      <CookiesProvider>
+        <Component {...pageProps} />
+      </CookiesProvider>
+    )
 
 }
 
