@@ -20,7 +20,7 @@ export const Meta = ({title , keywords , description , ogTitle , ogType , ogUrl 
         <Head>
             <meta name="robots" content={robots}/>
             <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-            
+            <meta name="description" content={description}/>
             <meta name="twitter:card" content="summary" />
             <meta name="twitter:site" content="@wapizima" />
             <meta name="twitter:creator" content="@wapizima" />
