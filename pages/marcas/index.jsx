@@ -31,6 +31,10 @@ const Brands = () => {
     }
   }, [logged]);
 
+  const handleClickCard = (url) => {
+    history.push(`/marcas/${url}`)
+  }
+
   return (
     <Layout
       title="Wapizima - Marcas"
