@@ -32,7 +32,7 @@ export default function HomePage() {
   useEffect(() => {
     if (!logged){
     let cartNotLogged =  localStorage.getItem('cartNotlogged') ? JSON.parse(localStorage.getItem('cartNotlogged')) : [];
-      dispatch(shoppingCartNotLoggedfromLocalStorage(cartNotLogged))
+    dispatch(shoppingCartNotLoggedfromLocalStorage(cartNotLogged))
     }
   }, [logged]);
 
@@ -59,15 +59,17 @@ export default function HomePage() {
   )
 }
 
+const origin = (typeof window === 'undefined') ? '' : window.location.origin;
+
 HomePage.getLayout = function getLayout(page) {
   return (
     <Layout
-     title="Wapizima - Inicio"
+     title="Wapizima , Productos hechos para ti"
      keywords=""
      description="Tienda en linea de distribución de productos profesionales para uñas acrilicas y semipermanente de calidad. Venta Menudeo y Mayoreo. Promociones , descuentos y mucho más."
      ogTitle=""
      ogType=""
-     ogUrl=""
+     ogUrl={origin}
      ogImage=""
      robots="noindex"
     >

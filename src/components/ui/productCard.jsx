@@ -66,8 +66,8 @@ export const ProductCard = ({product}) =>{
           notify('Producto agregado al carrito de compras');
           return;
         }else{
-          dispatch( addProductToCartClientsNotLogged(shoppingCart));
           let shoppingCart = [...cartNotLogged  , itemCart ];
+          dispatch( addProductToCartClientsNotLogged(shoppingCart));
           localStorage.setItem('cartNotlogged' , JSON.stringify(shoppingCart));
           notify('Producto agregado al carrito de compras');
           return;
