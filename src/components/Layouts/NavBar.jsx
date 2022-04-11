@@ -144,7 +144,7 @@ const NavBar = () => {
                   </IconContext.Provider>
                 </Badge>
 
-                <Badge badgeContent={logged ? cart.length : cartNotLogged.length } color="secondary" onClick={() => handleRedirectClick('/mi-carrito')}>
+                <Badge badgeContent={logged ? cart?.length : cartNotLogged?.length } color="secondary" onClick={() => handleRedirectClick('/mi-carrito')}>
                   <IconContext.Provider value={{ size: "1.5rem" }}>
                     <BsHandbag />
                   </IconContext.Provider>
