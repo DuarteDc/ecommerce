@@ -80,7 +80,7 @@ const FormInfluencer = () => {
                     >
                         <MdOutlineMailOutline />
                     </IconContext.Provider>
-                    <input type="email" name="email" onChange={formik.handleChange} value={formik.values.email} placeholder="Ingresa tu enlace de facebook" className="w-full h-12 font-Poppins text-[13px] leading-[1.6] text-[#333] pr-[30px] pl-[5px] outline-0" />
+                    <input type="email" name="email" onChange={formik.handleChange} value={formik.values.email} placeholder="Ingresa tu correo" className="w-full h-12 font-Poppins text-[13px] leading-[1.6] text-[#333] pr-[30px] pl-[5px] outline-0" />
                 </div>
                 {formik.touched.email && formik.errors.email ? (
                     <p className="text-red-500 text-sm">{formik.errors.email}</p>
@@ -127,7 +127,7 @@ const FormInfluencer = () => {
             </div>
             <button
                 type="submit"
-                className="w-full bg-[#222] py-4 border-2 boder-bg-[#222] text-white font-bold hover:bg-transparent hover:text-black">
+                className="w-full bg-[#222] py-4 border-2 boder-bg-[#222] text-white font-bold hover:bg-[#333]">
                 Enviar
             </button>
         </form>

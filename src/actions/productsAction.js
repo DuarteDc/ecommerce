@@ -62,43 +62,59 @@ export const startLoadProductsPerBrand = (brand) => {
 }
 
 export const loadProductsPerBrand = (brand, products) => ({
-    type: types.load_products_per_brand,
+    type: types.filters_to_products,
     payload: {
-        brand,
+        filter: brand,
         products
     },
 });
 
-export const startLoadProductsPerCategory = (category_id, category_name) => {
+export const startLoadProductsPerCategory = (category) => {
     return async (dispatch) => {
-        let url = `/products/category/${category_id}`;
+        let url = `/products/category/${category._id}`;
         try {
             const res = await client.get(url);
-            dispatch(loadProductsPerCategory(category_id, category_name, res.data.products));
+            dispatch(loadProductsPerCategory(category, res.data.products));
         } catch (error) {
             console.log(error);
         }
     }
 }
 
-export const loadProductsPerCategory = (category_id, category_name, products) => ({
-    type: types.load_products_per_category,
+export const loadProductsPerCategory = (category, products) => ({
+    type: types.filters_to_products,
     payload: {
-        category_id,
-        category_name,
+        filter: category,
         products
     },
 });
 
-export const removeBrand = (brand) => ({
-    type: types.remove_brand_to_brandsSelected,
-    payload: brand
+export const startloadProductsPerTags = (tag) => {
+    return async (dispatch) => {
+        let url = `/products/tag/${tag._id}`;
+        try {
+            const res = await client.get(url);
+            dispatch(loadProductsPerTags(tag, res.data.products));
+        } catch (error) {
+            console.log(error);
+        }
+    }
+}
+
+export const loadProductsPerTags = (tag, products) => ({
+    type: types.filters_to_products,
+    payload: {
+        filter: tag,
+        products
+    }
 });
 
-export const removeCategory = (category) => ({
-    type: types.remove_category_to_categoriesSelected,
-    payload: category
-})
+
+export const removeItemFromFilters = (item) => ({
+    type: types.remove_filter,
+    payload: item
+});
+
 
 /*                  Paginación                   */
 
@@ -117,4 +133,24 @@ export const startLoadProductPerPagination = (page) => {
 export const loadProductPerPagination = (products) => ({
     type: types.load_products_per_pagination,
     payload: products
+})
+
+
+/********************+filtro de productos en la home *******************************/
+
+export const startFilterPriductsFromHome = (path) => {
+    return async (dispatch) => {
+        let url = `/products/filter/products${path}`;
+        try {
+            const res = await client.get(url);
+            dispatch(filterPriductsFromHome(res.data.products));
+        } catch (error) {
+            console.log(error);
+        }
+    }
+}
+
+export const filterPriductsFromHome = (products) => ({
+    type: types.filter_products_from_home,
+    payload: products,
 })

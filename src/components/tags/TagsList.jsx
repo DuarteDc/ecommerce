@@ -3,11 +3,10 @@ import { useState } from 'react';
 import Collapse from '@mui/material/Collapse';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import ExpandLessIcon from '@mui/icons-material/ExpandLess';
+import TagItem from './TagItem';
 
-import BrandItem from './BrandItem';
+const TagsList = ({ tags, brand, setLoading }) => {
 
-const BrandsList = ({ brands, setLoading }) => {
-    
     const [open, setOpen] = useState(true);
 
     return (
@@ -15,27 +14,21 @@ const BrandsList = ({ brands, setLoading }) => {
             <div className="flex cursor-pointer justify-between"
                 onClick={() => setOpen(!open)}
             >
-                <p className="text-lg font-bold uppercase">
-                    Marcas
-                </p>
+                <p className="text-lg font-bold uppercase">Tags</p>
                 {open ? <ExpandLessIcon /> : <ExpandMoreIcon />}
             </div>
             <ul className="relative">
                 {
-                    brands.map(brand => (
+                    tags?.map(tag => (
                         <Collapse in={open} timeout="auto" unmountOnExit
-                            key={brand._id}
+                            key={tag._id}
                         >
-                            <BrandItem
-                                brand={brand} setOpen={setOpen}
-                                setLoading={setLoading}
-                            />
+                            <TagItem tag={tag} brand={brand} setLoading={setLoading} />
                         </Collapse>
                     ))
                 }
             </ul>
         </div>
-    );
+    )
 }
-
-export default BrandsList;
+export default TagsList;

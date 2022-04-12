@@ -13,7 +13,7 @@ const Influencer = () => {
             <BannerImage
                 title="Convierte en nuestro socio"
             />
-            <section className=" max-w-[1490px] mx-auto my-20 h-4/5 mb-80 mt-40">
+            <section className=" max-w-[1490px] mx-auto my-20 h-4/5 mb-80 mt-40 px-2">
                 <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
                     <div className="text-justify">
                         <h2 className="font-Poppins text-[25px] uppercase font-lg  text-[#222] font-semibold mb-10">¿Quieres formar parte de la comunidad influencer?</h2>
@@ -24,7 +24,7 @@ const Influencer = () => {
                             enim sed quisquam unde nostrum dolorum debitis cupiditate provident optio sunt natus reiciendis voluptatem, illum eos vero esse doloribus! Voluptas eveniet maiores beatae sapiente, ratione fugiat veniam voluptatum placeat quasi dolorem necessitatibus molestias, officiis ipsa optio amet vero voluptatem? Molestias praesentium rerum sapiente voluptatum repellendus dolorem reprehenderit ut aliquam?
                         </p>
                     </div>
-                    <div className="lg:col-span-2 lg:pl-20">
+                    <div className="lg:col-span-2 lg:pl-20 mt-20 md:mt-0">
                         <FormInfluencer />
                     </div>
                 </div>
