@@ -3,7 +3,8 @@ import { types } from "../types";
 const initalState = {
     categories: [],
     category: [],
-    categoriesHome: []
+    categoriesHome: [],
+    filteredProducts: [],
 }
 
 export const categoryReducer = (state = initalState, { type, payload }) => {
@@ -24,6 +25,11 @@ export const categoryReducer = (state = initalState, { type, payload }) => {
             return {
                 ...state,
                 category: payload
+            }
+        case types.filters_to_products_from_categories:
+            return {
+                ...state,
+                filteredProducts: payload
             }
 
         default:

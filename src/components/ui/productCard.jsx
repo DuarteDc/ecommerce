@@ -92,7 +92,7 @@ export const ProductCard = ({product}) =>{
         <div className="mb-[30px] relative card px-2">
             <div className="relative overflow-hidden">
             <Image
-              src='/assets/images/product-03.jpg'
+              src={product.multimedia[0].path}
               alt={'name'}
               width={250}
               height={300}

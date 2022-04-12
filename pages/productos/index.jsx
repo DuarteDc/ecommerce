@@ -15,7 +15,7 @@ import { useRouter } from "next/router";
 import { startLoadAdministrableLogo } from "../../src/actions/administrableActions";
 import { BannerImage } from "../../src/components/ui/bannerImage";
 import { ProductCard } from "../../src/components/ui";
-import { addShoppingCartFromLocalStorage , shoppingCartNotLoggedfromLocalStorage  } from "../../src/actions/shoppingCartActions";
+
 import { useLocalStorage } from "../../src/hooks/useLocalStorage";
 import { useEffect, useState } from "react";
 import PaginationItem from '@mui/material/PaginationItem';
@@ -27,12 +27,13 @@ import BrandsList from "../../src/components/brands/BrandsList";
 import TagsList from "../../src/components/tags/TagsList";
 import LoadingScreen from "../../src/components/LoadingScreen";
 
+
 const Products = () => {
 
     const { products, filteredProducts, results, filters } = useSelector((state) => state.products);
 
     const { brands } = useSelector((state) => state.brands);
-    const { logged } = useSelector((state)=>state.auth);
+    const { logged } = useSelector((state) => state.auth);
     const { categories } = useSelector((state) => state.categories);
     const { tags } = useSelector((state) => state.tags);
 
@@ -159,9 +160,9 @@ export const getStaticProps = wrapper.getStaticProps((store) =>
         await store.dispatch(startLoadBrands());
         await store.dispatch(startLoadTags());
         await store.dispatch(startLoadAdministrableLogo());
-        
+
         return {
-            revalidate:3600
+            revalidate: 3600
         }
 
     })

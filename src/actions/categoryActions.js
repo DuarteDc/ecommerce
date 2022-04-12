@@ -50,5 +50,25 @@ export const startLoadProductsPerCategory = (category) => {
 
 export const loadProductsPerCategory = (category) => ({
     type: types.load_products_from_category,
-    payload: category   
+    payload: category
 });
+
+
+/********************+filtro de productos en categorias *******************************/
+
+export const startFilterProductsFromCategories = (path, count) => {
+    return async (dispatch) => {
+        let url = `/products/filter/products${path}&counter=${count}`;
+        try {
+            const res = await client.get(url);
+            dispatch(filterProductsFromCategories(res.data.products));
+        } catch (error) {
+            console.log(error);
+        }
+    }
+}
+
+export const filterProductsFromCategories = (products) => ({
+    type: types.filters_to_products_from_categories,
+    payload: products,
+})

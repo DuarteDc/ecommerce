@@ -4,25 +4,30 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { BsHandbag, BsPersonCircle } from "react-icons/bs";
 import { IconContext } from "react-icons";
-import {AiOutlineHeart} from "react-icons/ai";
-import {AiOutlineClose} from "react-icons/ai";
+import { AiOutlineHeart } from "react-icons/ai";
+import { AiOutlineClose } from "react-icons/ai";
 import { startloadshoppingCartFussion } from "../../actions/shoppingCartActions";
 import Badge from '@mui/material/Badge';
-import {useRouter} from "next/router";
-import {useToggle} from "../../hooks/useToggle";
-import {pages} from "../../staticData/pages";
+import { useRouter } from "next/router";
+import { useToggle } from "../../hooks/useToggle";
+import { pages } from "../../staticData/pages";
 import Cookies from "js-cookie";
 import { startVerifyToken } from "../../actions/authActions";
+
+import Button from '@mui/material/Button';
+import Menu from '@mui/material/Menu';
+import MenuItem from '@mui/material/MenuItem';
+
 
 const NavBar = () => {
   const router = useRouter();
   const dispatch = useDispatch();
-  const { cart , cartNotLogged } = useSelector((state) => state.cart);
-  const { wishList } = useSelector((state)=>state.wishList);
+  const { cart, cartNotLogged } = useSelector((state) => state.cart);
+  const { wishList } = useSelector((state) => state.wishList);
   const { logged } = useSelector((state) => state.auth);
   const { logo } = useSelector((state) => state.administrable);
 
-  const [ open , toggle ] = useToggle();
+  const [open, toggle] = useToggle();
 
   const [scrollPosition, setScrollPosition] = useState(0);
 
@@ -44,26 +49,26 @@ const NavBar = () => {
 
 
   useEffect(() => {
-    if(logged){
-     const shoppingCartNotLogged = localStorage.getItem('cartNotlogged') ? JSON.parse( localStorage.getItem('cartNotlogged')) : [];
+    if (logged) {
+      const shoppingCartNotLogged = localStorage.getItem('cartNotlogged') ? JSON.parse(localStorage.getItem('cartNotlogged')) : [];
 
-     const token = Cookies.get('token') || '';
-     if(!shoppingCartNotLogged.length) return;
+      const token = Cookies.get('token') || '';
+      if (!shoppingCartNotLogged.length) return;
 
-     let cartNotLogged = shoppingCartNotLogged.map(cart=>{
-       cart.product_id = cart.product_id._id;
-       return cart;
+      let cartNotLogged = shoppingCartNotLogged.map(cart => {
+        cart.product_id = cart.product_id._id;
+        return cart;
 
-     })
-    dispatch(startloadshoppingCartFussion(cartNotLogged , token));
-      
-     localStorage.removeItem('cartNotlogged');
+      })
+      dispatch(startloadshoppingCartFussion(cartNotLogged, token));
+
+      localStorage.removeItem('cartNotlogged');
 
     }
   }, [logged]);
 
 
-  const handleMenuopen = () =>{
+  const handleMenuopen = () => {
     toggle();
   }
 
@@ -72,6 +77,18 @@ const NavBar = () => {
       dispatch(startVerifyToken());
     }
   }, []);
+
+  const [anchorEl, setAnchorEl] = useState(null);
+
+  const openMenu = Boolean(anchorEl);
+
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
 
   return (
     <div className={`bg-luz py-2 shadow-sm  w-full z-[99] ${scrollPosition >= 130 && 'fixed top-0'} space-y-1`}>
@@ -84,26 +101,26 @@ const NavBar = () => {
             width={200}
             height={150}
           />
-          
+
           {
             !open ?
-            <button className="space-y-2  lg:hidden xl:hidden" onClick={()=>handleMenuopen()}>
-              <span className="block w-8 h-0.5 bg-gray-600"></span>
-              <span className="block w-8 h-0.5 bg-gray-600"></span>
-              <span className="block w-8 h-0.5 bg-gray-600"></span>
-            </button>
-            :
-            <button className="space-y-2  lg:hidden xl:hidden border  border-gray-600" onClick={()=>handleMenuopen()}>
-              <IconContext.Provider value={{ className:"text-gray-600 text-[30px] block"}}>
-                <AiOutlineClose/>
-              </IconContext.Provider>
-             
-            </button>
-            
+              <button className="space-y-2  lg:hidden xl:hidden" onClick={() => handleMenuopen()}>
+                <span className="block w-8 h-0.5 bg-gray-600"></span>
+                <span className="block w-8 h-0.5 bg-gray-600"></span>
+                <span className="block w-8 h-0.5 bg-gray-600"></span>
+              </button>
+              :
+              <button className="space-y-2  lg:hidden xl:hidden border  border-gray-600" onClick={() => handleMenuopen()}>
+                <IconContext.Provider value={{ className: "text-gray-600 text-[30px] block" }}>
+                  <AiOutlineClose />
+                </IconContext.Provider>
+
+              </button>
+
 
 
           }
-          
+
 
           <div className="hidden lg:flex justify-between items-center w-full">
             <div className="px-12 w-full flex justify-center">
@@ -121,13 +138,36 @@ const NavBar = () => {
             <div className="px-6 flex items-center">
               {
                 logged ? (
-                  <Link href="/perfil">
-                    <span className="border-transparent border-b-2 mx-4 cursor-pointer text-lg  text-[#888] font-['Poppins'] font-normal transition duration-700 ease-in-out">
+                  <span>
+                    <Button
+                      id="basic-button"
+                      aria-controls={openMenu ? 'basic-menu' : undefined}
+                      aria-haspopup="true"
+                      aria-expanded={openMenu ? 'true' : undefined}
+                      onClick={handleClick}
+                      className="border-transparent border-b-2 mx-4 cursor-pointer text-lg  text-[#888] font-['Poppins'] font-normal transition duration-700 ease-in-out">
                       <IconContext.Provider value={{ size: "1.6rem" }}>
                         <BsPersonCircle />
                       </IconContext.Provider>
-                    </span>
-                  </Link>
+                    </Button>
+                    <Menu
+                      id="basic-menu"
+                      anchorEl={anchorEl}
+                      open={openMenu}
+                      onClose={handleClose}
+                      MenuListProps={{
+                        'aria-labelledby': 'basic-button',
+                      }}
+                    >
+                      <Link href="/perfil">
+                        <MenuItem onClick={handleClose}>Mi Perfil</MenuItem>
+                      </Link>
+                      <Link href="/perfil/mis-pedidos">
+                      <MenuItem onClick={handleClose}>Mis Pedidos</MenuItem>
+                      </Link>
+                      <MenuItem onClick={handleClose}>Cerrar Sesión</MenuItem>
+                    </Menu>
+                  </span>
                 ) : (
                   <span
                     onClick={() => router.push(`/auth/login?p=${router.asPath}`)}
@@ -144,7 +184,7 @@ const NavBar = () => {
                   </IconContext.Provider>
                 </Badge>
 
-                <Badge badgeContent={logged ? cart?.length : cartNotLogged?.length } color="secondary" onClick={() => handleRedirectClick('/mi-carrito')}>
+                <Badge badgeContent={logged ? cart?.length : cartNotLogged?.length} color="secondary" onClick={() => handleRedirectClick('/mi-carrito')}>
                   <IconContext.Provider value={{ size: "1.5rem" }}>
                     <BsHandbag />
                   </IconContext.Provider>
@@ -157,16 +197,16 @@ const NavBar = () => {
 
 
       <div className={`${open ? 'block' : 'hidden'} `}>
-      <div className="px-2 pt-2 pb-3 space-y-1 bg-[#333]">
-      {
-        pages.map(route=>(
-          <Link href={route.path} key={route.path}>
-            <span href="#" className="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium">{route.name}</span>
-          </Link>
-        ))
-      }
+        <div className="px-2 pt-2 pb-3 space-y-1 bg-[#333]">
+          {
+            pages.map(route => (
+              <Link href={route.path} key={route.path}>
+                <span href="#" className="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium">{route.name}</span>
+              </Link>
+            ))
+          }
+        </div>
       </div>
-    </div> 
 
     </div>
   );
