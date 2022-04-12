@@ -4,7 +4,7 @@ import Image from "next/image";
 export const Slider = () => {
     const {slidersData} = useSelector((state)=>state.sliders);
     return (
-       <section className="h-[600px] relative z-[1] bg-[#f1f1f1] bg-cover bg-repeat bg-center before:absolute before:top-0 before:left-0 ">
+       <section className="h-auto relative z-[1] bg-[#f1f1f1] bg-cover bg-repeat bg-center before:absolute before:top-0 before:left-0 ">
         <Image
          src='/assets/images/slider.jpg'
          width={1920}

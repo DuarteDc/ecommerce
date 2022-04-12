@@ -6,7 +6,7 @@ import { Meta } from '../meta/meta';
 import Script from 'next/script';
 import 'react-toastify/dist/ReactToastify.css';
 
-const Layout = ({ children  , title , keywords  , description , ogTitle , ogType , ogUrl , ogImage , robots }) => {
+const Layout = ({ children  , canonical , title , keywords  , description , ogTitle , ogType , ogUrl , ogImage , robots }) => {
     return (
         <>
             <Meta
@@ -18,6 +18,7 @@ const Layout = ({ children  , title , keywords  , description , ogTitle , ogType
                ogUrl={ogUrl}
                ogImage={ogImage}
                robots={robots}
+               canonical={canonical}
             />
             <NavBar />
             {children}

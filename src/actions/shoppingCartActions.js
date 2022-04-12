@@ -246,8 +246,7 @@ export const startloadshoppingCartFussion = (shoppingCartNotLogged , token) =>{
                'Authorization': token
             }
          });
-         console.log(data);
-         // dispatch(loadShoppingCartFussion());
+         dispatch(loadShoppingCartFussion(data.cart.products));
       } catch (error) {
          console.log(error);
       }

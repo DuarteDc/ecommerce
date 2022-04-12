@@ -4,7 +4,7 @@ import { useDispatch } from "react-redux";
 import { loadWishListfromLocalStorage } from "../../actions/wishListActions";
 import { startVerifyToken } from "../../actions/authActions";
 
-export const Meta = ({title , keywords , description , ogTitle , ogType , ogUrl , ogImage , robots}) =>{
+export const Meta = ({title , canonical , keywords , description , ogTitle , ogType , ogUrl , ogImage , robots}) =>{
     const dispatch = useDispatch();
 
     useEffect(() => {
@@ -25,12 +25,13 @@ export const Meta = ({title , keywords , description , ogTitle , ogType , ogUrl 
             <meta name="twitter:site" content="@wapizima" />
             <meta name="twitter:creator" content="@wapizima" />
             <meta name="keywords" content={keywords}></meta>
-
             <meta property="og:url" content={ogUrl} />
             <meta property="og:type" content={ogType}/>
             <meta property="og:title" content={ogTitle} />
             <meta property="og:description" content={description} />
-            <meta property="og:image" content={ogImage} />            
+            <meta property="og:image" content={ogImage} />  
+
+            <link rel="canonical" href={canonical}/>          
 
             <title>{title}</title>
         </Head>

@@ -6,7 +6,7 @@ import { BsHandbag, BsPersonCircle } from "react-icons/bs";
 import { IconContext } from "react-icons";
 import {AiOutlineHeart} from "react-icons/ai";
 import {AiOutlineClose} from "react-icons/ai";
-import { startloadshoppingCartFussion } from "../../actions/shoppingCartActions";
+import { startLoadShoppingCart, startloadshoppingCartFussion } from "../../actions/shoppingCartActions";
 import Badge from '@mui/material/Badge';
 import {useRouter} from "next/router";
 import {useToggle} from "../../hooks/useToggle";
@@ -48,7 +48,11 @@ const NavBar = () => {
      const shoppingCartNotLogged = localStorage.getItem('cartNotlogged') ? JSON.parse( localStorage.getItem('cartNotlogged')) : [];
 
      const token = Cookies.get('token') || '';
-     if(!shoppingCartNotLogged.length) return;
+
+     if(!shoppingCartNotLogged.length){
+        dispatch(startLoadShoppingCart(token))
+        return;
+     }
 
      let cartNotLogged = shoppingCartNotLogged.map(cart=>{
        cart.product_id = cart.product_id._id;
@@ -61,6 +65,12 @@ const NavBar = () => {
 
     }
   }, [logged]);
+
+  useEffect(() => {
+    if(cart.length > 0){
+      localStorage.setItem('cart', JSON.stringify(cart));
+    }
+  }, [cart]);
 
 
   const handleMenuopen = () =>{

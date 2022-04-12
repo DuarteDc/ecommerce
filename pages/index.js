@@ -10,6 +10,8 @@ import { startLoadDataSliders } from "../src/actions/slidersActions";
 import { startLoadCategoriesHome } from "../src/actions/categoryActions";
 import { startLoadAdministrableLogo } from "../src/actions/administrableActions";
 import { startLoadTags } from "../src/actions/tagsActions";
+
+
 /**Components */
 import {
   Slider,
@@ -64,14 +66,15 @@ const origin = (typeof window === 'undefined') ? '' : window.location.origin;
 HomePage.getLayout = function getLayout(page) {
   return (
     <Layout
-     title="Wapizima , Productos hechos para ti"
-     keywords=""
-     description="Tienda en linea de distribución de productos profesionales para uñas acrilicas y semipermanente de calidad. Venta Menudeo y Mayoreo. Promociones , descuentos y mucho más."
-     ogTitle=""
-     ogType=""
+     title="Wapizima , Tienda en linea distribuidora de productos para uñas profesionales"
+     keywords="nails,cosmetic nails,uñas,gel uñas,fantasy nails,bonita,uñas,material uñas,productos uñas,gel nail,decoraciones uñas,decoracion uñas,cursos uñas,lampara uñas"
+     description="Tienda en linea de distribución de productos profesionales para uñas  de calidad. Venta Menudeo y Mayoreo. Promociones , descuentos y mucho más."
+     ogTitle="Wapizima , Tienda en linea distribuidora de productos para uñas profesionales"
+     ogType="website"
      ogUrl={origin}
      ogImage=""
-     robots="noindex"
+     robots="noindex , nofollow"
+     canonical={origin}
     >
       {page}
     </Layout>
