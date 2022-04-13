@@ -8,12 +8,14 @@ export const FiltersArea = ({
   brands,
   openFilter,
   tags,
-  getDataToFilterBrand,
   brandQuery,
-  getDataToFilterTag,
-  getDataToFilterLowPrice,
   tagQuery,
-  priceQuery
+  priceQuery,
+  orderBy,
+  getDataToFilterTag,
+  getDataToFilterBrand,
+  getDataToFilterLowPrice,
+  getDataToFilterOrder
 }) => {
 
   const prices = [
@@ -22,6 +24,12 @@ export const FiltersArea = ({
     { min: 100, max: 500 },
     { min: 500, max: 1000 },
     { min: 1000, max: "" },
+  ]
+
+  const order = [
+    { name: 'Default' },
+    { name: 'Precio: Bajo a Alto', value: 'LowTohigh' },
+    { name: 'Precio: Alto a Bajo', value: 'HighTolow' },
   ]
 
   return (
@@ -33,27 +41,19 @@ export const FiltersArea = ({
             Ordernar Por
           </div>
           <ul>
-            <li className="pb-[6px]">
-              <a className="font-Poppins text-base leading-[1.2] text-[#aaa] border-b-[1px] border-b-solid border-transparent">
-                Default
-              </a>
-            </li>
-            <li className="pb-[6px]">
-              <a className="font-Poppins text-base leading-[1.2] text-[#aaa] border-b-[1px] border-b-solid border-transparent">
-                {" "}
-                Popularidad
-              </a>
-            </li>
-            <li className="pb-[6px]">
-              <a className="font-Poppins text-base leading-[1.2] text-[#aaa] border-b-[1px] border-b-solid border-transparent">
-                Precio: Bajo a Alto
-              </a>
-            </li>
-            <li className="pb-[6px]">
-              <a className="font-Poppins text-base leading-[1.2] text-[#aaa] border-b-[1px] border-b-solid border-transparent">
-                Precio: Alto a Bajo
-              </a>{" "}
-            </li>
+            {
+              order.map((order, index) => (
+                <li
+                  className="pb-[6px] cursor-pointer"
+                  key={index}
+                  onClick={() => getDataToFilterOrder(order.value)}
+                >
+                  <a className={`${orderBy === order.value ? 'text-[#222]' : 'text-[#aaa]'} font-Poppins text-base leading-[1.2] border-b-[1px] border-b-solid border-transparent`}>
+                    {order.value}
+                  </a>
+                </li>
+              ))
+            }
           </ul>
         </div>
         <div className="w-full lg:w-[25%] pr-2 pb-7">
@@ -85,7 +85,7 @@ export const FiltersArea = ({
                 <li className="pb-[6px] cursor-pointer" key={brand._id}
                   onClick={() => getDataToFilterBrand(brand._id)}
                 >
-                  <a className={`${brandQuery == brand._id ? 'text-[#222]' : 'text-[#aaa]'} font-Poppins text-base leading-[1.2] border-b-[1px] border-b-solid border-transparent`}>
+                  <a className={`${brandQuery === brand._id ? 'text-[#222]' : 'text-[#aaa]'} font-Poppins text-base leading-[1.2] border-b-[1px] border-b-solid border-transparent`}>
                     {brand.name}
                   </a>
                 </li>

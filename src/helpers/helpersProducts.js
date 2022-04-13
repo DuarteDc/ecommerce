@@ -1,4 +1,4 @@
-const filterSearch = ({ router, brand_id, category_id, search, page, tag_id, lowPrice, maxPrice, counter, date }) => {
+const filterSearch = ({ router, brand_id, category_id, search, page, tag_id, lowPrice, maxPrice, counter, date, order }) => {
 
     const path = router.pathname;
     const query = router.query;
@@ -11,6 +11,7 @@ const filterSearch = ({ router, brand_id, category_id, search, page, tag_id, low
     if (lowPrice) query.lowPrice = lowPrice;
     if (maxPrice) query.maxPrice = maxPrice;
     if (date) query.date = date;
+    if (order) query.order = order;
 
 
 

@@ -89,7 +89,7 @@ export const ProductCard = ({product}) =>{
 
 
     return(
-        <div className="mb-[30px] relative card px-2">
+        <div className="mb-[30px] relative card px-2 animate__animated animate__zoomIn">
             <div className="relative overflow-hidden">
             <Image
               src={product.multimedia[0].path}
