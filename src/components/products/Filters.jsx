@@ -1,5 +1,3 @@
-import { memo } from "react";
-
 import { useDispatch, useSelector } from "react-redux";
 
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
@@ -11,8 +9,6 @@ import { useRouter } from "next/router";
 const Filters = () => {
 
     const { filters } = useSelector((state) => state.products);
-
-    const { filtersBrand } = useSelector((state) => state.brands);
 
     const dispatch = useDispatch();
     const router = useRouter();
@@ -26,17 +22,9 @@ const Filters = () => {
     }
 
     const handleClearFilters = () => {
-        if (router.asPath.includes('/productos')) {
-            router.replace('/productos', undefined, { shallow: true });
-            dispatch(clearAll());
-            return;
-        }
-        if (router.asPath.includes('/marcas')) {
-            router.replace('/marcas', undefined, { shallow: true });
-            dispatch(clearAll());
-            return;
-        }
-
+        router.replace('/productos', undefined, { shallow: true });
+        dispatch(clearAll());
+        return;
     }
 
     return (

@@ -21,7 +21,8 @@ export const types = {
     loadCategories: '[CATEGORIES] start load categories',
     loadCategoriesHome: '[CATEGORIES HOME] start load categories',
     load_products_from_category: '[CATEGORIES] load porducts_form_category',
-    filters_to_products_from_categories : '[CATEGORIES] filters to products from categories',
+    filters_to_products_from_categories_with_brands : '[CATEGORIES] filters to products from categories',
+    clear_filters_form_categories: '[CATEGORIES] clear filters from categories',
 
     load_cart_state: '[CART] load cart state',
     add_to_cart: '[CART] add to cart',
@@ -39,6 +40,7 @@ export const types = {
     load_products_from_brand: '[BRAND] load products per brand',
     filter_products_per_category_from_brands: '[BRANDS] filter products per category from brands',
     filters_to_products_from_brand: '[BRANDS]filters to products from brand',
+    clear_all_filter_from_brands: '[BRANDS] clear all filter from brands',
 
     loadBrandsHome: '[HOME] load brands with products home',
     addNewsletterSuscription: '[Home] add and show newsletter suscription menssage',

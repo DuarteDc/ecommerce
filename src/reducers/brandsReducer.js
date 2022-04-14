@@ -5,10 +5,10 @@ const initialState = {
     brands: [],
     products: [],
     brand: [],
-    filteredProducts: [],
     categoriesSelected: [],
-    filtersBrand: [],
-    resultsBrand: []
+    filteredProducts: [],
+    BrandFilters: [],
+    results: {}
 }
 
 
@@ -30,18 +30,17 @@ export const brandsReducer = (state = initialState, { type, payload }) => {
 
 
         case types.filters_to_products_from_brand: {
+            const { filter, products } = payload;
 
-            const { filterBrand, productsBrand } = payload;
-
-            let filterInFilters = state.filtersBrand.find(filterSelected => filterSelected._id === filterBrand._id);
+            let filterInFilters = state.BrandFilters.find(filterSelected => filterSelected._id === filter._id);
 
             return filterInFilters ? {
                 ...state
             } : {
                 ...state,
-                filteredProducts: productsBrand.length > 0 ? [...productsBrand, ...state.filteredProducts] : [...state.filteredProducts],
-                filtersBrand: [filterBrand, ...state.filtersBrand],
-                resultsBrand: { quantity: productsBrand.length, name: filterBrand.name },
+                filteredProducts: products.length > 0 ? [...products, ...state.filteredProducts] : [...state.filteredProducts],
+                BrandFilters: [filter, ...state.BrandFilters],
+                results: { quantity: products.length, name: filter.name },
             }
 
         }
@@ -52,11 +51,12 @@ export const brandsReducer = (state = initialState, { type, payload }) => {
                 brand: payload,
             }
 
-        case types.clear_all_filter:
+        case types.clear_all_filter_from_brands:
             return {
                 ...state,
                 filteredProducts: initialState.filteredProducts,
-                categoriesSelected: initialState.categoriesSelected,
+                BrandFilters: initialState.BrandFilters,
+                results: initialState.results,
             }
 
         default:

@@ -26,6 +26,7 @@ import CategoriesList from "../../src/components/categories/CategoriesList";
 import BrandsList from "../../src/components/brands/BrandsList";
 import TagsList from "../../src/components/tags/TagsList";
 import LoadingScreen from "../../src/components/LoadingScreen";
+import Filters from "../../src/components/products/Filters";
 
 
 const Products = () => {
@@ -51,25 +52,11 @@ const Products = () => {
         });
     }
 
-    const [storedValue, setValue,] = useLocalStorage('filtersInProducts');
-
-    useEffect(() => {
-
-        if (Object.keys(router.query).length !== 0) {
-            setValue(router.asPath)
-            return;
-        }
-
-        localStorage.removeItem('filtersInProducts')
-
-    }, [router.asPath]);
-
-
     useEffect(() => {
 
         const getCurrentData = async () => {
             setLoading(true)
-            if (router.asPath === storedValue && Object.keys(router.query).length !== 0) {
+            if (Object.keys(router.query).length > 0) {
                 if (router.query.hasOwnProperty('brand_id')) {
                     const brand = await brands.filter(brand => brand._id === router.query.brand_id);
                     await dispatch(startLoadProductsPerBrand(...brand));
@@ -103,6 +90,7 @@ const Products = () => {
             {loading && <LoadingScreen />}
             <section className="container mx-auto grid grid-cols-1 md:grid-cols-3 mt-20 lg:grid-cols-4">
                 <AsideBar>
+                    <Filters />
                     <BrandsList brands={brands} setLoading={setLoading} />
                     <CategoriesList categories={categories} setLoading={setLoading} />
                     <TagsList tags={tags} setLoading={setLoading} />

@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { startLoadAdministrableLogo } from "../../src/actions/administrableActions";
 import { startLoadBrands } from "../../src/actions/brandsActions";
-import { startFilterProductsFromCategories, startLoadProductsPerCategory } from "../../src/actions/categoryActions";
+import { startFilterProductsFromCategories, startFilterProductsPerBrandAndCategory, startLoadProductsPerCategory, startloadProductsPerTagsInCategory } from "../../src/actions/categoryActions";
 import { startLoadTags } from "../../src/actions/tagsActions";
 import Layout from "../../src/components/Layouts";
 
@@ -18,10 +18,11 @@ import LoadingScreen from "../../src/components/LoadingScreen";
 import { wrapper } from "../../src/store";
 import { useRouter } from "next/router";
 import { helpersProducts } from "../../src/helpers";
+import CategoryFilters from "../../src/components/categories/CategoryFilters";
 
 const Category = () => {
 
-    const { category } = useSelector((state) => state.categories);
+    const { category, filteredProducts, results, categoryFilters } = useSelector((state) => state.categories);
     const { brands } = useSelector((state) => state.brands);
     const { tags } = useSelector((state) => state.tags);
 
@@ -35,34 +36,61 @@ const Category = () => {
 
 
     useEffect(() => {
-        const params = getQueryParams(router.asPath);
+
         const getCurrentData = async () => {
-            await dispatch(startFilterProductsFromCategories(params))
+            setLoading(true)
+            if (Object.keys(router.query).length > 0) {
+                if (router.query.hasOwnProperty('brand_id')) {
+                    const brand = await brands.filter(brand => brand._id === router.query.brand_id);
+                    await dispatch(startFilterProductsPerBrandAndCategory(...brand, category._id));
+                }
+
+                if (router.query.hasOwnProperty('tag_id')) {
+                    const tag = await tags.filter(tag => tag._id === router.query.tag_id);
+                    await dispatch(startloadProductsPerTagsInCategory(...tag));
+                }
+            }
+            setLoading(false)
         }
+
         getCurrentData();
+
+
     }, [router.query])
 
     return (
         <Layout>
-            <div className="h-96 overflow-hidden hidden md:block">
-                <BannerImage
-                    title={`${category.name}`}
-                />
-                {loading && <LoadingScreen />}
-            </div>
+            <BannerImage
+                title={`${category.name}`}
+            />
+            {loading && <LoadingScreen />}
             <section className="container mx-auto grid grid-cols-1 md:grid-cols-3 mt-20 lg:grid-cols-4">
                 <AsideBar>
-                    <BrandsList brands={brands} setLoading={setLoading} />
+                    <CategoryFilters url={category.url} />
+                    <BrandsList brands={brands} setLoading={setLoading} category={category} />
                     <TagsList tags={tags} setLoading={setLoading} />
                 </AsideBar>
                 <div className="col-span-4 md:col-span-2 lg:col-span-3">
+                    {
+                        Object.keys(categoryFilters).length !== 0 && (
+                            <p className="text-gray-900 px-2 text-lg">
+                                {results.quantity} {results.quantity > 1 ? 'resultados' : 'resultado'}  sobre {results.name}
+                            </p>
+                        )
+                    }
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 lg:col-span-3">
                         {
-                            category.data.map(product => (
-                                <ProductCard
-                                    product={product} key={product._id}
-                                />
-                            ))
+                            filteredProducts.length > 0 ? (
+                                filteredProducts.map((product, index) => (
+                                    <ProductCard key={index} product={product} />
+                                ))
+                            ) : (
+                                category.data.map(product => (
+                                    <ProductCard
+                                        product={product} key={product._id}
+                                    />
+                                ))
+                            )
                         }
                     </div>
                 </div>
