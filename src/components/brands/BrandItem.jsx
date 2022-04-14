@@ -12,7 +12,7 @@ const BrandItem = ({ brand, setLoading, category }) => {
     const { filterSearch } = helpersProducts;
 
     const { filters } = useSelector(state => state.products);
-    const { filtersBrand } = useSelector((state) => state.brands);
+    const { BrandFilters } = useSelector((state) => state.brands);
 
     const router = useRouter();
 
@@ -32,7 +32,7 @@ const BrandItem = ({ brand, setLoading, category }) => {
 
     const addBranInCategory = async (category) => {
         setLoading(true)
-        const brandInFilterFromCategory = filtersBrand.find(brandSelected => brandSelected._id === brand._id);
+        const brandInFilterFromCategory = BrandFilters.find(brandSelected => brandSelected._id === brand._id);
         if (brandInFilterFromCategory) {
             setLoading(false)
             return;

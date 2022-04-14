@@ -87,7 +87,6 @@ export const getStaticProps = wrapper.getStaticProps((store) =>
     await store.dispatch(startLoadBrandsHome());
     await store.dispatch(startLoadTags());
     await store.dispatch(startLoadBrands());
-
     return{
       revalidate:3600
     }

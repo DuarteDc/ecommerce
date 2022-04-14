@@ -27,6 +27,7 @@ import BrandsList from "../../src/components/brands/BrandsList";
 import TagsList from "../../src/components/tags/TagsList";
 import LoadingScreen from "../../src/components/LoadingScreen";
 import Filters from "../../src/components/products/Filters";
+import { startLoadFaqsCategories } from "../../src/actions/faqsActions";
 
 
 const Products = () => {
@@ -36,6 +37,7 @@ const Products = () => {
     const { brands } = useSelector((state) => state.brands);
     const { logged } = useSelector((state) => state.auth);
     const { categories } = useSelector((state) => state.categories);
+    const { categories: CategoriesFaqs } = useSelector((state) => state.faqs);
     const { tags } = useSelector((state) => state.tags);
 
     const dispatch = useDispatch();
@@ -83,6 +85,7 @@ const Products = () => {
         <Layout
             title="Wapizima - Productos"
             robots="noindex"
+            categories={CategoriesFaqs}
         >
             <BannerImage
                 title="Productos"
@@ -98,7 +101,7 @@ const Products = () => {
                 <div className="col-span-4 md:col-span-2 lg:col-span-3">
                     {
                         Object.keys(filters).length !== 0 && (
-                            <p className="text-gray-900 px-2 text-lg">
+                            <p className="text-gray-500 px-2 text-xl text-right">
                                 {results.quantity} {results.quantity > 1 ? 'resultados' : 'resultado'}  sobre {results.name}
                             </p>
                         )
@@ -148,7 +151,7 @@ export const getStaticProps = wrapper.getStaticProps((store) =>
         await store.dispatch(startLoadBrands());
         await store.dispatch(startLoadTags());
         await store.dispatch(startLoadAdministrableLogo());
-
+        await store.dispatch(startLoadFaqsCategories());
         return {
             revalidate: 3600
         }

@@ -19,13 +19,14 @@ import { wrapper } from "../../src/store";
 import { useRouter } from "next/router";
 import { helpersProducts } from "../../src/helpers";
 import CategoryFilters from "../../src/components/categories/CategoryFilters";
+import { startLoadFaqsCategories } from "../../src/actions/faqsActions";
 
 const Category = () => {
 
     const { category, filteredProducts, results, categoryFilters } = useSelector((state) => state.categories);
     const { brands } = useSelector((state) => state.brands);
     const { tags } = useSelector((state) => state.tags);
-
+    const { categories } = useSelector((state) => state.faqs);
 
     const { getQueryParams } = helpersProducts;
 
@@ -55,11 +56,12 @@ const Category = () => {
 
         getCurrentData();
 
-
     }, [router.query])
 
     return (
-        <Layout>
+        <Layout
+            categories={categories}
+        >
             <BannerImage
                 title={`${category.name}`}
             />
@@ -105,6 +107,7 @@ export const getServerSideProps = wrapper.getServerSideProps((store) =>
         await store.dispatch(startLoadBrands());
         await store.dispatch(startLoadTags())
         await store.dispatch(startLoadAdministrableLogo());
+        await store.dispatch(startLoadFaqsCategories());
     })
 
 export default Category;

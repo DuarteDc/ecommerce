@@ -8,10 +8,14 @@ import OrdersSection from '../../src/components/profile/OrdersSection';
 import OrderDetail from "../../src/components/profile/OrderDetail";
 import helpersProducts from "../../src/helpers/helpersProducts";
 import { useRouter } from "next/router";
+import { startLoadFaqsCategories } from "../../src/actions/faqsActions";
+import { useSelector } from "react-redux";
 
 const MisPedidos = ({ tabActive }) => {
 
     const router = useRouter();
+
+    const { categories } = useSelector((state) => state.faqs)
 
     const [openProductDetail, setOpenProductDetail] = useState(false);
     const [order, setOrder] = useState(null)
@@ -39,7 +43,9 @@ const MisPedidos = ({ tabActive }) => {
     }
 
     return (
-        <Layout>
+        <Layout
+            categories={categories}
+        >
             <BannerImage
                 title="Mis Pedidos"
             />
@@ -88,6 +94,7 @@ const MisPedidos = ({ tabActive }) => {
 export const getServerSideProps = wrapper.getServerSideProps((store) =>
     async () => {
         await store.dispatch(startLoadAdministrableLogo());
+        await store.dispatch(startLoadFaqsCategories());
     })
 
 export default MisPedidos

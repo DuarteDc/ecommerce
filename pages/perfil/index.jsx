@@ -27,8 +27,10 @@ import { errorNotify, successNotify } from "../../src/helpers/helpers";
 import { useRouter } from "next/router";
 import LoadingScreen from "../../src/components/LoadingScreen";
 
+import { startLoadFaqsCategories } from '../../src/actions/faqsActions';
 
 const Profile = () => {
+    const { categories } = useSelector((state) => state.faqs);
 
     const img = useRef();
     const router = useRouter();
@@ -90,7 +92,9 @@ const Profile = () => {
     }
 
     return (
-        <Layout>
+        <Layout
+            categories={categories}
+        >
             {loading && <LoadingScreen />}
             <section className="container mx-auto mb-16">
                 <h1 className="text-center uppercase text-2xl bg-gray-50 py-3 my-20 font-bold container mx-auto">Perfil</h1>
@@ -133,6 +137,7 @@ export const getServerSideProps = wrapper.getServerSideProps((store) =>
     async (ctx) => {
         await store.dispatch(startLoadDataUser(ctx));
         await store.dispatch(startGetDirections(ctx));
+        await store.dispatch(startLoadFaqsCategories());
         await store.dispatch(startLoadAdministrableLogo());
     })
 export default Profile

@@ -10,10 +10,12 @@ import {BsTelephone} from "react-icons/bs";
 
 import { addShoppingCartFromLocalStorage, shoppingCartNotLoggedfromLocalStorage,  } from "../../src/actions/shoppingCartActions";
 import { useDispatch, useSelector } from "react-redux";
+import { startLoadFaqsCategories } from "../../src/actions/faqsActions";
 
 const ContactUs = () =>{
     const dispatch = useDispatch();
     const { logged } = useSelector((state)=>state.auth);
+    const { categories } = useSelector((state)=>state.faqs);
 
     useEffect(() => {
       if (!logged){
@@ -33,6 +35,7 @@ const ContactUs = () =>{
         <Layout 
           title="Wapizima - Contácto"
           robots="noindex"
+          categories={categories}
         >
            <BannerImage
               title="Contáctanos"
@@ -87,6 +90,7 @@ const ContactUs = () =>{
 
 export const getStaticProps = wrapper.getStaticProps((store)=> async()=>{
     await store.dispatch(startLoadAdministrableLogo());
+    await store.dispatch(startLoadFaqsCategories());
 
     return{
       revalidate:3600

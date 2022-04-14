@@ -27,6 +27,7 @@ import LoadingScreen from '../../src/components/LoadingScreen';
 import { useLocalStorage } from '../../src/hooks/useLocalStorage';
 import BrandFilter from '../../src/components/brands/BrandFilter';
 import TagsList from '../../src/components/tags/TagsList';
+import { startLoadFaqsCategories } from '../../src/actions/faqsActions';
 
 const Show = () => {
 
@@ -38,6 +39,7 @@ const Show = () => {
 
     const { brand, filteredProducts, results, BrandFilters } = useSelector((state) => state.brands);
     const { categories } = useSelector((state) => state.categories);
+    const { categories: CategoriesFaqs } = useSelector((state) => state.faqs);
     const { tags } = useSelector((state) => state.tags);
 
 
@@ -66,7 +68,9 @@ const Show = () => {
 
 
     return (
-        <Layout>
+        <Layout
+            categories={CategoriesFaqs}
+        >
             <BannerImage
                 title={`${brand.name}`}
             />
@@ -110,7 +114,7 @@ export const getServerSideProps = wrapper.getServerSideProps((store) =>
         await store.dispatch(startLoadCategories());
         await store.dispatch(startLoadTags())
         await store.dispatch(startLoadAdministrableLogo());
-
+        await store.dispatch(startLoadFaqsCategories())
     })
 
 export default Show;

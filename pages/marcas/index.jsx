@@ -10,12 +10,14 @@ import { useRouter } from "next/router";
 import { addShoppingCartFromLocalStorage, shoppingCartNotLoggedfromLocalStorage } from "../../src/actions/shoppingCartActions";
 import { useEffect } from "react";
 import Cookie from 'js-cookie';
+import { startLoadFaqsCategories } from "../../src/actions/faqsActions";
 
 const Brands = () => {
   const dispatch = useDispatch();
   const { brandsHome } = useSelector((state) => state.brands);
   const history = useRouter();
   const { logged } = useSelector((state) => state.auth);
+  const { categories } = useSelector((state) => state.faqs);
 
   useEffect(() => {
     if (!logged) {
@@ -39,6 +41,7 @@ const Brands = () => {
     <Layout
       title="Wapizima - Marcas"
       robots="noindex"
+      categories={categories}
     >
       <BannerImage
         title="Marcas"
@@ -70,6 +73,7 @@ const Brands = () => {
 export const getStaticProps = wrapper.getStaticProps((store) => async () => {
   await store.dispatch(startLoadBrandsHome());
   await store.dispatch(startLoadAdministrableLogo());
+  await store.dispatch(startLoadFaqsCategories())
   return {
     revalidate: 3600
   }

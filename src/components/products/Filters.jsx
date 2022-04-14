@@ -39,32 +39,17 @@ const Filters = () => {
                 </span>
             </div>
             <div>
-                {router.asPath.includes('/productos') ?
-                    (
-                        filters?.map((filter) => (
-                            <span className="hover:border-black hover:text-black cursor-pointer 
-                            mr-2 mt-2 py-2 border-2 border-gray-200 px-2
-                            text-center inline-block transition-all duration-700 ease-out text-xs text-gray-500"
-                                key={filter?._id}
-                            >
-                                {filter?.name}
-                                <CloseIcon className="hover:text-red-500" sx={{ fontSize: 15 }} onClick={() => handleRemoveFilter(filter)} />
-                            </span>
-                        ))
-                    ) :
-                    (
-                        filtersBrand?.map((filter) => (
-                            <span className="hover:border-black hover:text-black cursor-pointer 
-                            mr-2 mt-2 py-2 border-2 border-gray-200 px-2
-                            text-center inline-block transition-all duration-700 ease-out text-xs text-gray-500"
-                                key={filter?._id}
-                            >
-                                {filter?.name}
-                                <CloseIcon className="hover:text-red-500" sx={{ fontSize: 15 }} onClick={() => handleRemoveFilter(filter)} />
-                            </span>
-                        ))
-                    )
+                {
 
+                    filters?.map((filter) => (
+                        <span className="hover:border-black hover:text-black cursor-pointer 
+                            mr-2 mt-2 py-2 border-2 border-gray-200 px-2
+                            text-center inline-block transition-all duration-700 ease-out text-xs text-gray-500"
+                            key={filter?._id}
+                        >
+                            {filter?.name}
+                        </span>
+                    ))
                 }
             </div>
         </div>

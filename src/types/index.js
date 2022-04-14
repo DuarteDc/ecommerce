@@ -92,5 +92,7 @@ export const types = {
     update_data_user: '[PROFILE] update data user',
 
     load_faqs: '[FAQS] load_faqs',
+    load_faqs_categories: '[FAQS] load faqs categories',
+    load_faqs_per_category: '[FAQS] load faqs per category',
 
 }

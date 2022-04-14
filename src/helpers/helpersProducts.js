@@ -1,4 +1,4 @@
-const filterSearch = ({ router, brand_id, category_id, search, page, tag_id, lowPrice, maxPrice, counter, date, order }) => {
+const filterSearch = ({ router, brand_id, category_id, search, tag_id, lowPrice, maxPrice, counter, date, order }) => {
 
     const path = router.pathname;
     const query = router.query;
@@ -23,7 +23,7 @@ const filterSearch = ({ router, brand_id, category_id, search, page, tag_id, low
     )
 }
 
-const getQueryParams = (query) => { 
+const getQueryParams = (query) => {
     const newQuery = query.indexOf('?');
     return query.slice(newQuery);
 }

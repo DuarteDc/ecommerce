@@ -6,7 +6,7 @@ import { Meta } from '../meta/meta';
 import Script from 'next/script';
 import 'react-toastify/dist/ReactToastify.css';
 
-const Layout = ({ children  , title , keywords  , description , ogTitle , ogType , ogUrl , ogImage , robots }) => {
+const Layout = ({ children  , title , keywords  , description , ogTitle , ogType , ogUrl , ogImage , robots, categories }) => {
     return (
         <>
             <Meta
@@ -21,7 +21,7 @@ const Layout = ({ children  , title , keywords  , description , ogTitle , ogType
             />
             <NavBar />
             {children}
-            <Footer />
+            <Footer  categories={categories} />
             <ToastContainer
                 position="top-right"
                 autoClose={5000}
