@@ -1,11 +1,11 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect} from 'react'
 import Layout from '../../src/components/Layouts'
 import { useDispatch, useSelector } from 'react-redux';
 import { wrapper } from '../../src/store';
 import { startLoadAdministrableLogo } from '../../src/actions/administrableActions';
 import { BannerImage } from '../../src/components/ui';
-import { Cart, CartTotals } from '../../src/components/cart';
-import { shoppingCartNotLoggedfromLocalStorage, startCalculateTotalSale, startLoadShoppingCart } from '../../src/actions/shoppingCartActions';
+import { CartMobile, CartTotals } from '../../src/components/cart';
+import { shoppingCartNotLoggedfromLocalStorage, startCalculateTotalSale, startGetDirections, startLoadShoppingCart } from '../../src/actions/shoppingCartActions';
 import { useRouter } from 'next/router';
 
 const ShoppingCart = () => {
@@ -55,10 +55,10 @@ const ShoppingCart = () => {
            />
             <section className="max-w-[1480px] mx-auto my-20 px-[15px] w-full">
                <div className="grid grid-cols-12 gap-1">
-                 <div className="md:col-span-6 lg:col-span-8">
-                   <Cart/>
+                 <div className="block col-span-12 lg:col-span-12 xl:col-span-8 mb-10 overflow-auto">
+                    <CartMobile/>
                  </div>
-                 <div className="md:col-span-6 lg:col-span-4">
+                 <div className="col-span-12 md:col-span-12 lg:col-span-12 xl:col-span-4 md:mx-[5px] lg:mx-[5px] xl:mx-[5px] mx-[25px]">
                   <CartTotals/>
                  </div>
                </div>
@@ -70,6 +70,7 @@ const ShoppingCart = () => {
 export const getServerSideProps = wrapper.getServerSideProps((store)=> async(ctx)=>{
     await store.dispatch(startLoadAdministrableLogo());
     await store.dispatch(startLoadShoppingCart(ctx.req.cookies.token));
+    await store.dispatch(startGetDirections(ctx.req.cookies.token))
   
 });
 

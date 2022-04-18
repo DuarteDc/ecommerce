@@ -1,3 +1,4 @@
+import { CircularProgress } from "@mui/material";
 import { PaymentElement, useElements, useStripe } from "@stripe/react-stripe-js";
 import { useEffect, useState } from "react";
 
@@ -50,18 +51,13 @@ export const CheckoutForm = ({handleOpenCheckout}) =>{
         }
     
         setIsLoading(true);
+        localStorage.removeItem('cart');
     
         const { error } = await stripe.confirmPayment({
           elements,
           confirmParams: {
             // Make sure to change this to your payment completion page
-            return_url: "http://localhost:3000",
-            payment_method_data: {
-                billing_details: {
-                  name: 'Jenny Rosen',
-                  email: 'jenny.rosen@example.com',
-                }
-              },
+            return_url: "http://192.168.1.67:3000"
           },
         });
     
@@ -82,22 +78,31 @@ export const CheckoutForm = ({handleOpenCheckout}) =>{
     return(
         <form className="mt-[10px] border-t-[1px] border-[#eaedff]" id="payment-form" onSubmit={handleSubmit}>
              <PaymentElement id="payment-element"/>
-            <button className="bg-[#333] 
-                               text-luz 
-                               py-[15px] 
-                               px-[20px] 
-                               w-full 
-                               uppercase 
-                               text-[15px] 
-                               hover:bg-[#000]
-                               mt-5
-                               "
-                    disabled={isLoading || !stripe || !elements}
-                    id="submit"
+            <button 
+              type="submit"
+              className="bg-[#333] 
+                         text-luz 
+                           py-[15px] 
+                           px-[20px] 
+                           w-full 
+                           uppercase 
+                           text-[15px] 
+                         hover:bg-[#000]
+                           mt-5
+                        "
+              disabled={isLoading || !stripe || !elements}
+              id="submit"
             >
                 <span id="button-text">
                     {
-                        isLoading ? 'Espiner' : 'Pagar Ahora'
+                        isLoading ?
+                        <div className="flex justify-center items-center"> 
+                          <CircularProgress className="mr-5"/>
+                          <span> Espere un momento</span> 
+                         
+                        </div> 
+                        : 
+                        'Pagar Ahora'
                     }
                 
                 </span>
@@ -113,6 +118,7 @@ export const CheckoutForm = ({handleOpenCheckout}) =>{
                        hover:bg-[#000]
                          mt-5"
               onClick={()=>handleOpenCheckout()}
+              disabled={isLoading}
             >
                Cancelar
             </button>

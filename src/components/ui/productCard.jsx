@@ -8,8 +8,10 @@ import {FcLike} from "react-icons/fc";
 import { useDispatch, useSelector } from "react-redux";
 
 import {toast } from "react-toastify";
+import Swal from "sweetalert2";
 import {addProductToCartClientsNotLogged, startAddProductShoppingCart } from "../../actions/shoppingCartActions";
 import {helpers } from "../../helpers";
+import {BsFillCartCheckFill} from "react-icons/bs";
 
 export const ProductCard = ({product}) =>{
     const { _id , name , price , url , quantity , discount } = product; 
@@ -62,14 +64,20 @@ export const ProductCard = ({product}) =>{
         if(logged){
           let shoppingCart = [...cart  , itemCart ];
           localStorage.setItem('cart' , JSON.stringify(shoppingCart));
-          dispatch(startAddProductShoppingCart(itemCart));
-          notify('Producto agregado al carrito de compras');
+          dispatch(startAddProductShoppingCart(itemCart , product.name));
           return;
         }else{
           let shoppingCart = [...cartNotLogged  , itemCart ];
           dispatch( addProductToCartClientsNotLogged(shoppingCart));
           localStorage.setItem('cartNotlogged' , JSON.stringify(shoppingCart));
-          notify('Producto agregado al carrito de compras');
+          Swal.fire({
+            icon:"success",
+            title:"¡¡Buen Trabajo!!",
+            html:`<p class="font-Poppins text-base">El producto ${product.name} ha sido agregado al carrito satisfactoriamente</p>`,
+            timer:3000,
+            timerProgressBar:true,
+            showConfirmButton:false
+         })
           return;
         }
 
@@ -134,7 +142,7 @@ export const ProductCard = ({product}) =>{
             }
            
             <div className="mt-[20px]">
-                <h3 className="text-[#333] mb-0 font-semibold text-[18px]">
+                <h3 className="text-[#333] mb-0 font-semibold text-[18px] capitalize">
                   {name}
                 </h3>
                 <div className="mt-[8px] mb-[12px]">
@@ -176,7 +184,13 @@ export const ProductCard = ({product}) =>{
                     >
                       {
                         !isEnable ?
-                             'Agregar al carrito'
+                             <span className="flex items-center font-Poppins">
+                               Agregar
+                               <IconContext.Provider value={{className:"ml-3 text-base"}}>
+                                  <BsFillCartCheckFill/>
+                               </IconContext.Provider>
+
+                             </span>
                              :
                              'Ya agregado al carrito'
 

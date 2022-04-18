@@ -1,13 +1,15 @@
 import { useEffect, useState } from "react";
 import Image from "next/image"
-import { helpers } from "../../helpers"
-import { ButtonGroup } from "../ui";
-import { startCalculateTotalSale, updatedProductQuantity , startRemoveProductShoppingCart, updatedProductQuantityCartNotLogged, removeProductsShoppingCartNotLogged, startUpdatedProductQuantity} from "../../actions/shoppingCartActions";
+import { helpers } from "../../../helpers"
+import { ButtonGroup } from "../../ui";
+import {startRemoveProductShoppingCart, updatedProductQuantityCartNotLogged, removeProductsShoppingCartNotLogged, startUpdatedProductQuantity} from "../../../actions/shoppingCartActions";
 import { useDispatch, useSelector } from "react-redux";
-import {useDebounce} from "../../hooks/useDebounce";
+import {useDebounce} from "../../../hooks/useDebounce";
 import {toast } from "react-toastify";
 import { IconButton } from "@mui/material";
 import DeleteIcon from '@mui/icons-material/Delete';
+import { Tr,Td } from 'react-super-responsive-table';
+
 
 export const CartItems = ({product}) =>{
     const { product_id , quantity } = product;
@@ -102,45 +104,45 @@ export const CartItems = ({product}) =>{
     }
 
     return(
-        <tr>
-        <td className="px-4 py-5 border-b border-gray-200 bg-white text-sm flex items-center text-center">
+        <Tr>
+        <Td  data-testid="td" className="px-4 py-5 border-b border-gray-200 bg-white text-sm flex items-center text-center">
          <Image
            src={product.product_id.multimedia[0].path}
            alt={product.name}
            width={150}
            height={150}
          />
-           <span className="text-gray-900 whitespace-no-wrap px-4">
+           <span className="text-gray-900 whitespace-no-wrap px-4 ">
            {product_id.name}
            </span>
-         </td>
-         <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm text-center">
-           <p className="text-gray-900 whitespace-no-wrap">
+         </Td>
+         <Td  className="px-5 py-5 border-b border-gray-200 bg-white text-sm text-center">
+           <p className="text-gray-900 whitespace-no-wrap ">
            {price_product}
            </p>
-         </td>
-         <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm text-center">
-           <p className="text-gray-900 whitespace-no-wrap">
+         </Td>
+         <Td  className="px-5 py-5 border-b border-gray-200 bg-white text-sm text-center">
+           <p className="text-gray-900 whitespace-no-wrap ">
            {product_id.quantity}
            </p>
-         </td>
-         <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm text-center">
+         </Td>
+         <Td  className="px-5 py-5 border-b border-gray-200 bg-white text-sm text-center">
            <ButtonGroup
              quantity={quantityInput}
              increaseDecreaseQuantityProduct={increaseDecreaseQuantityProduct}
              handleChangeQuantity={handleChangeQuantity}
            />
-         </td>
-         <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm text-center">
-         <p className="text-gray-900 whitespace-no-wrap">
+         </Td>
+         <Td  className="px-5 py-5 border-b border-gray-200 bg-white text-sm text-center">
+          <p className="text-gray-900 whitespace-no-wrap ">
            {subtotal}
            </p>
-         </td>
-         <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm text-center">
+         </Td>
+         <Td  className="px-5 py-5 border-b border-gray-200 bg-white text-sm text-center">
            <IconButton onClick={ ()=>handleRemoveProduct(product_id._id)}>
              <DeleteIcon/>
            </IconButton>
-         </td>
-    </tr>
+         </Td>
+    </Tr>
     )
 }

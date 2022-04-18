@@ -90,10 +90,22 @@ const NavBar = () => {
           <Image
             src={logo}
             alt="Wapizima"
-            className="cursor-pointer"
-            width={200}
-            height={150}
+            width={150}
+            height={100}
           />
+          <div className="flex justify-between items-center ">
+           <span className="flex items-center border-transparent border-b-2 mx-1 cursor-pointer text-lg text-[#888] font-['Poppins'] font-normal transition duration-700 ease-in-out  lg:hidden xl:hidden">
+                <Badge badgeContent={wishList?.length} color="secondary" onClick={() => handleRedirectClick('/mi-lista-de-deseos')} className="mr-5">
+                  <IconContext.Provider value={{ size: "1.6rem" }}>
+                    <AiOutlineHeart />
+                  </IconContext.Provider>
+                </Badge>
+                <Badge badgeContent={logged ? cart?.length : cartNotLogged?.length } color="secondary" onClick={() => handleRedirectClick('/mi-carrito')} className="mr-5">
+                  <IconContext.Provider value={{ size: "1.5rem" }}>
+                    <BsHandbag />
+                  </IconContext.Provider>
+                </Badge>
+              </span>
           
           {
             !open ?
@@ -113,6 +125,8 @@ const NavBar = () => {
 
 
           }
+          </div>
+  
           
 
           <div className="hidden lg:flex justify-between items-center w-full">
@@ -177,7 +191,6 @@ const NavBar = () => {
       }
       </div>
     </div> 
-
     </div>
   );
 };

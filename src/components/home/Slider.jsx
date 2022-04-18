@@ -4,11 +4,12 @@ import Image from "next/image";
 export const Slider = () => {
     const {slidersData} = useSelector((state)=>state.sliders);
     return (
-       <section className="h-auto relative z-[1] bg-[#f1f1f1] bg-cover bg-repeat bg-center before:absolute before:top-0 before:left-0 ">
+       <section className="h-[610px] md:h-auto lg:h-auto xl:h-auto relative z-[1] bg-[#f1f1f1]  before:absolute before:top-0 before:left-0 min-h-[300px]">
         <Image
          src='/assets/images/slider.jpg'
          width={1920}
          height={610}
+         layout="responsive"
         />
         <div className="w-full h-full table absolute top-[30%]">
             <div className="max-w-[1320px] w-full mx-auto px-[.75rem]">

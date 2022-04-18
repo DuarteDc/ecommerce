@@ -3,6 +3,7 @@ import { shippingCosts } from "../staticData/shippingCosts";
 import { types } from "../types";
 import { helpers } from "../helpers";
 import Cookies from "js-cookie";
+import Swal from "sweetalert2";
 
 /** Obtener carrito de compras de la base de datos */
 export const startLoadShoppingCart = (token) =>{
@@ -32,18 +33,33 @@ export const loadShoppingCart = (shoppingCart) =>({
 
 
 /**Agregar productos al carrito de compras */
-export const startAddProductShoppingCart = (product) =>{
+export const startAddProductShoppingCart = (product ,name) =>{
    return async (dispatch) =>{
       try {
          delete product.product_id;
          product.product_id = product._id
-
          let url = '/cart';
          const {data} = await client.post(url , product);
          const shoppingCart = data.cart.products;
+         Swal.fire({
+            icon:"success",
+            title:"¡¡Buen Trabajo!!",
+            html:`<p class="font-Poppins text-base">El producto ${name} ha sido agregado al carrito satisfactoriamente</p>`,
+            timer:3000,
+            timerProgressBar:true,
+            showConfirmButton:false
+         });
          dispatch(addProductToShoppingCart(shoppingCart));
       } catch (error) {
          console.log(error);
+         Swal.fire({
+          icon:"error",
+          title:"¡¡Ups , al parecer hubo un problema!!",
+          text:"Vuelve a intentarlo en un rato más :( ",
+          timer:3000,
+          timerProgressBar:true,
+          showConfirmButton:false
+         })
       }
    }
 }
@@ -257,3 +273,31 @@ export const loadShoppingCartFussion = (fussionShoppingCart) =>({
    type:types.loadShoppingCartFussion,
    payload:fussionShoppingCart
 });
+
+
+/** Get shipping Address client */
+export const startGetDirections = (token) => {
+   return async (dispatch) => {
+       let url = '/auth/directions/user';
+       try {
+           const res = await client.get(url, {
+               headers: {
+                   'Authorization': token
+               }
+           })
+           dispatch(getDirections(res.data.directions));
+       } catch (error) {
+           console.log(error);
+       }
+   }
+}
+
+export const getDirections = (directions) => ({
+   type: types.loadDirectionsShoppingCart,
+   payload: directions
+});
+
+export const addShippingAddressSelected = (address) =>({
+   type:types.addAddressSelected,
+   payload:address
+})
