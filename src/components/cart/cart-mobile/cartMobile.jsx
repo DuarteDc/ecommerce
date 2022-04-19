@@ -19,7 +19,7 @@ export const CartMobile = () =>{
     }, [cart , cartNotLogged]);
     return(
         <div className="mx-[25px]">
-          <div className="border-x border-x-solid border-x-[#e6e6e6]">
+          <div className="border border-solid border-[#888]">
            <Table className="min-w-full leading-normal">
 			<Thead>
 				<Tr>

@@ -33,7 +33,7 @@ export const CategoryArea = () => {
             height={450}
            />
            <div className="absolute top-[25%] left-0 right-0 my-0 mx-auto z-[3] translate-y-2/4">
-            <h3 className="mb-[40px] text-luz font-bold text-xl leading-tight">Productos</h3>
+            <h2 className="mb-[40px] text-luz font-bold text-xl leading-tight">Productos</h2>
             <button className="bg-transparent text-[#fff] border-[#fff] border-solid border mt-5 py-4 px-10 leading-normal rounded-none uppercase font-normal text-sm cursor-pointer"  onClick={()=>handleClickRedirect('productos')}>Ver más</button>
            </div>
            </div>
@@ -63,7 +63,7 @@ export const CategoryArea = () => {
             className="w-full"
            />
            <div className="absolute top-[25%] left-0 right-0 my-0 mx-auto z-[3] translate-y-2/4">
-            <h3 className="mb-[40px] text-luz font-bold text-xl leading-tight">Marcas</h3>
+            <h2 className="mb-[40px] text-luz font-bold text-xl leading-tight">Marcas</h2>
            </div>
            </div>
               </div>
@@ -89,7 +89,7 @@ export const CategoryArea = () => {
             height={220}
            />
            <div className="absolute top-[25%] left-0 right-0 my-0 mx-auto z-[3] translate-y-2/4">
-            <h3 className="mb-[40px] text-luz font-bold text-xl leading-tight">Categorias</h3>
+            <h2 className="mb-[40px] text-luz font-bold text-xl leading-tight">Categorias</h2>
            </div>
            </div>
            </div>
@@ -104,7 +104,7 @@ export const CategoryArea = () => {
               cursor-pointer
               before:w-[97%]
               before:h-[97%] 
-             before:bg-[#333] 
+              before:bg-[#333] 
               before:opacity-[0.45] 
               before:z-[2]"
               onClick={()=>handleClickRedirect('ofertas')}
@@ -115,7 +115,7 @@ export const CategoryArea = () => {
             height={177}
            />
            <div className="absolute top-[20%] left-0 right-0 my-0 mx-auto z-[3] translate-y-2/4">
-            <h3 className="mb-[40px] text-luz font-bold text-xl leading-tight">Ofertas</h3>
+            <h2 className="mb-[40px] text-luz font-bold text-xl leading-tight">Ofertas</h2>
            </div>
            </div>
            </div>

@@ -35,11 +35,11 @@ export const Newsletter = () => {
   });
 
     return (
-        <div className="border-t-2  border-[#f6f6f6] border-solid py-16">
+        <section className="border-t-2  border-[#f6f6f6] border-solid py-16">
             <div className="w-full m-auto px-3">
              <div className="flex items-center flex-wrap flex-col lg:flex-row">
                  <div className="w-full p-6 md:w-2/4 lg:w-2/4  md:pr-[90px] lg:pl-[90px]">
-                   <h3 className="text-lg uppercase mb-2 font-semibold  font-['Poppins']">Suscribete a Nuestro Newsletter</h3>
+                   <h2 className="text-lg uppercase mb-2 font-semibold  font-['Poppins']">Suscribete a Nuestro Newsletter</h2>
                    <p className="text-base text-[#666] font-['Poppins']">Suscribete para recibir nuestras promociones , ofertas y nuevos productos que están por salir.</p>
                  </div>
                  <div className="w-full md:w-2/4 lg:w-2/4 md:pr-[90px] lg:pr-[90px]">
@@ -54,6 +54,6 @@ export const Newsletter = () => {
                  </div>
              </div>
             </div>
-        </div>
+        </section>
     );
 };

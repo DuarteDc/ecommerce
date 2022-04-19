@@ -15,7 +15,11 @@ export const ShippingAddress = () =>{
     });
 
     const handleChangeAddress = (value) =>{
-        dispatch(addShippingAddressSelected(value));
+        const shippingAddressSelected = shippingAddress.filter(shipping=>shipping._id === value.value);
+        if(shippingAddressSelected.length > 0){
+            dispatch(addShippingAddressSelected(shippingAddressSelected[0]));
+            return;
+        }
     }
 
     return(

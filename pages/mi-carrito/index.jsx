@@ -7,6 +7,7 @@ import { BannerImage } from '../../src/components/ui';
 import { CartMobile, CartTotals } from '../../src/components/cart';
 import { shoppingCartNotLoggedfromLocalStorage, startCalculateTotalSale, startGetDirections, startLoadShoppingCart } from '../../src/actions/shoppingCartActions';
 import { useRouter } from 'next/router';
+import { Grid } from '@mui/material';
 
 const ShoppingCart = () => {
     const dispatch = useDispatch();
@@ -54,14 +55,14 @@ const ShoppingCart = () => {
               imageBackground="bg-about-us"
            />
             <section className="max-w-[1480px] mx-auto my-20 px-[15px] w-full">
-               <div className="grid grid-cols-12 gap-1">
-                 <div className="block col-span-12 lg:col-span-12 xl:col-span-8 mb-10 overflow-auto">
-                    <CartMobile/>
-                 </div>
-                 <div className="col-span-12 md:col-span-12 lg:col-span-12 xl:col-span-4 md:mx-[5px] lg:mx-[5px] xl:mx-[5px] mx-[25px]">
-                  <CartTotals/>
-                 </div>
-               </div>
+             <Grid container spacing={5}>
+              <Grid item xs={12} sm={12} md={12} lg={8} xl={8}>
+                <CartMobile/>
+              </Grid>
+              <Grid item xs={12} sm={12} md={12} lg={4} xl={4}>
+                <CartTotals/>
+              </Grid>
+             </Grid>
             </section>
         </Layout>
     )

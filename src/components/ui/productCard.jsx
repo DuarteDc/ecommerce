@@ -59,7 +59,7 @@ export const ProductCard = ({product}) =>{
                           },
                           quantity:1,
                           _id:product._id
-                          }
+                         }
 
         if(logged){
           let shoppingCart = [...cart  , itemCart ];
