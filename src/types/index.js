@@ -1,6 +1,7 @@
 export const types = {
 
     login: '[AUTH] loggin ecommerce start',
+    loginGoogle: '[AUTH] loginGoogle ecommerce start',
     logout: '[AUTH] logout ecommerce start',
     check_token: '[AUTH] check token',
     register: '[AUTH] register',
@@ -76,7 +77,8 @@ export const types = {
 
 
     loadWishListfromLocalStorage:'[WishList] load wishlist from localStorage',
-
+    delete_product_from_wishList:'[WishList] delete product from wishlist',
+    load_wishList_from_back:'[WishList] load wishList from back',
 
     loadSecretClientStripe : '[Checkout] load secret client stripe',
     loadSecretClientfromCookies : '[Checkout] load secret client from cookies',

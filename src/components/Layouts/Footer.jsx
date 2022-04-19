@@ -18,7 +18,7 @@ const Footer = ({ categories }) => {
           <Link href="/preguntas-frecuentes">Preguntas Frecuentes</Link>
           {
             categories?.map(category => (
-              <Link href={{
+              <Link key={category._id} href={{
                 pathname: '/preguntas-frecuentes',
                 query: { category_id: category._id }
               }}>{category.name}</Link>

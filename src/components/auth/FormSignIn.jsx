@@ -9,7 +9,10 @@ import * as Yup from 'yup';
 import ErrorOutlineIcon from '@mui/icons-material/ErrorOutline';
 
 import { startLoginEmailPassword } from "../../actions/authActions";
+import { startLoginGoogle } from "../../actions/authActions";
 import LoadingScreen from "../LoadingScreen";
+
+import { GoogleLogin } from 'react-google-login';
 
 export const FormSignIn = () => {
 
@@ -53,9 +56,25 @@ export const FormSignIn = () => {
         }
     });
 
+    const responseGoogle = async ({ tokenId }) => {
+        setLoading(true)
+        const isValid = await dispatch(startLoginGoogle(tokenId));
+
+        if (!isValid) {
+            setError(true);
+            setTimeout(() => setError(false), 4000);
+            setLoading(false);
+            return;
+        }
+
+        const destination = router.query.p?.toString() || '';
+        router.replace(destination);
+        setLoading(false);
+    }
+
     return (
         <>
-        {loading && <LoadingScreen/>}
+            {loading && <LoadingScreen />}
             <form onSubmit={formik.handleSubmit}>
                 {
                     error && (
@@ -98,6 +117,15 @@ export const FormSignIn = () => {
                     <Link href='/Auth/PassFV'>
                         <a className="hover:text-black transition-all duration-700 ease-out">¿Has olvidado la contraseña?</a>
                     </Link>
+                </div>
+                <div className="my-5">
+                    <GoogleLogin
+                        clientId={process.env.NEXT_PUBLIC_GOOGLE_ID}
+                        buttonText="Iniciar sesión"
+                        onSuccess={responseGoogle}
+                        onFailure={responseGoogle}
+                        cookiePolicy={'single_host_origin'}
+                    />
                 </div>
                 <div>
                     <button className="bg-black w-full text-white py-4 uppercase hover:bg-white border-2 border-black hover:text-black transition-all duration-700 ease-in-out"

@@ -2,7 +2,6 @@ import NextAuth from "next-auth"
 import GoogleProvider from "next-auth/providers/google"
 import Credentials from "next-auth/providers/credentials"
 import { startLoginEmailPassword } from "../../../src/actions/authActions";
-import { data } from "autoprefixer";
 
 export default NextAuth({
     // Configure one or more authentication providers
@@ -27,16 +26,13 @@ export default NextAuth({
             async authorize(credentials) {
                 const { email, password } = credentials;
 
-                data = {
-                    email,
-                    password
-                }
-
-                return startLoginEmailPassword(data);
+                const { user } = startLoginEmailPassword({ email, password });
+                return user;
             }
         }),
+
     ],
-    
+
     // jwt: {
 
     // },
@@ -57,7 +53,7 @@ export default NextAuth({
                         break;
                 }
             }
-
+            return token;
         },
 
         async session({ session, token, user }) {

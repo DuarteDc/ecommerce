@@ -16,12 +16,11 @@ const toggleWishListProducts = (_id) =>{
   let wishListProducts = JSON.parse(localStorage.getItem('wishListProducts') || '[]');
   let message = '';
 
-  if(wishListProducts.includes(_id)){
-    
-    wishListProducts = wishListProducts.filter(productId => productId !== _id);
+  if(wishListProducts.find(wishList => wishList.product_id === _id)){
+    wishListProducts = wishListProducts.filter(product => product.product_id !== _id);
     message = "Producto eliminado de mi lista de deseos ";
   }else{
-    wishListProducts.push(_id);
+    wishListProducts.push({product_id:_id});
     message = "Producto Agregado a lista de deseos";
   }
 
@@ -38,7 +37,7 @@ const existInWishList = (_id) =>{
   if(!wishList){
      return false;
   }
-  return wishList.includes(_id);
+  return wishList.find(product => product.product_id === _id);
 
 }
 
