@@ -28,7 +28,6 @@ const Show = () => {
     const img = useRef();
     
     const [ isEnable , setIsEnable ] = useState(false);  
-    console.log(isEnable);
 
     const showImage = (newImg) => {
         img.current.src = newImg;

@@ -17,7 +17,7 @@ export const FormSignIn = () => {
     const dispatch = useDispatch();
     const [error, setError] = useState();
     const [loading, setLoading] = useState();
-
+    console.log(router);
     const handleLoginUser = async (formData) => {
 
         setLoading(true)

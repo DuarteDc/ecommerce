@@ -18,7 +18,7 @@ export const CartTotals = () =>{
 
     const proceedToCheckout = () =>{
      if(!logged){
-         router.push('/auth/login');
+         router.push(`/auth/login?p=${router.asPath}`);
          return;
      } 
 
