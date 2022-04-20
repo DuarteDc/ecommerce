@@ -9,6 +9,21 @@ export const loadWishListfromLocalStorage = (wishList) => ({
 export const deleteProduct = (product_id) => ({
     type: types.delete_product_from_wishList,
     payload: product_id,
+});
+
+export const addOneProduct = (product_id) =>({
+    type: types.add_one_product_from_wishList,
+    payload:product_id,
+});
+
+export const removeOneProduct = (product_id) =>({
+    type: types.remove_one_product_from_wishList,
+    payload:product_id,
+});
+
+export const searcProduct = (products) =>({
+    type: types.search_product,
+    payload:products,
 })
 
 export const startLoadProducts = (wishList) => {

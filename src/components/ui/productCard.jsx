@@ -9,6 +9,7 @@ import { useDispatch, useSelector } from "react-redux";
 
 import {toast } from "react-toastify";
 import {addProductToCartClientsNotLogged, startAddProductShoppingCart } from "../../actions/shoppingCartActions";
+import { addOneProduct, removeOneProduct } from "../../actions/wishListActions";
 import {helpers } from "../../helpers";
 
 export const ProductCard = ({product}) =>{
@@ -34,9 +35,14 @@ export const ProductCard = ({product}) =>{
     }
 
     const handleToogleWishList = (_id) =>{
-      const message =  helpers.toggleWishListProducts(_id);
+      const {message, existInWishList} =  helpers.toggleWishListProducts(_id);
       setisInWhisList(!isInWhisList);
       notify(message);
+      if (existInWishList) {
+        dispatch(removeOneProduct(_id));
+      } else {
+        dispatch(addOneProduct(_id));
+      }
     }
 
     const addProductCard = (product) =>{
