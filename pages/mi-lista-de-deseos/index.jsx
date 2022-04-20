@@ -23,25 +23,23 @@ const Wishlist = () => {
     const { products } = useSelector((state) => state.wishList);
 
     const [loading, setLoading] = useState(false);
-    const [wishList, setWishList] = useState([]);
-    const [storedValue, setValue] = useLocalStorage('wishListProducts', wishList);
+    const [storedValue, setValue] = useLocalStorage('wishListProducts', '[]');
 
     const dispatch = useDispatch();
 
     const getProducts = async () => {
         setLoading(true);
-        setWishList(JSON.parse(localStorage.getItem('wishListProducts') || '[]'));
-        await dispatch(startLoadProducts(wishList));
+        await dispatch(startLoadProducts(storedValue));
         setLoading(false);
     }
 
     useEffect(() => {
         getProducts();
-    }, [storedValue]);
+    }, []);
 
     const deleteFromFavorites = (product_id) => {
-        setValue(wishList.filter(product => product.product_id !== product_id));
         dispatch(deleteProduct(product_id));
+        setValue(storedValue.filter(product => product.product_id !== product_id));
     }
 
     return (
@@ -60,41 +58,37 @@ const Wishlist = () => {
                     </div>
                 </div>
                 {
-                    wishList.length > 0 ? (
-                        products.map(product => (
-                            <div
-                                className="flex flex-col lg:flex-row justify-between lg:px-28 border-y-2 lg:items-center lg:py-3 py-2"
-                                key={product._id}>
-                                <div>
-                                    {/* <img
-                                        src={product.multimedia[0].path}
-                                        //src="https://images.pexels.com/photos/335257/pexels-photo-335257.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"
-                                        alt={product.name}
-                                        className="w-full"
-                                        layout="fill"
-                                    /> */}
-                                </div>
-                                <div className="lg:px-10 lg:w-2/3">
-                                    <p className="text-xl font-bold my-1">{product.name}</p>
-                                    <p className="text-black font-bold text-lg">{product.description}</p>
-                                    <p className="font-semibold">${product.price}</p>
-                                </div>
-                                <div className="w-full lg:w-2/4 flex flex-col lg:flex-row items-center">
-                                    <button className="bg-[#222] text-white px-5 py-2 mx-1 w-full my-1">
-                                        Agregar al carrito
-                                    </button>
-                                    <button className="bg-[#222] text-white px-5 py-2 mx-1 my-1"
-                                        onClick={() => deleteFromFavorites(product._id)}>
-                                        Eliminar
-                                    </button>
-                                </div>
-                            </div>
 
-                        )
-                        )) : (
-                        <div className="flex items-center justify-center">
-                            <h2 className="text-5xl uppercase">No hay favoritos</h2>
+                    products.map(product => (
+                        <div
+                            className="flex flex-col lg:flex-row justify-between lg:px-28 border-y-2 lg:items-center lg:py-3 py-2"
+                            key={product._id}>
+                            <div>
+                                <img
+                                    // src={product.multimedia[0].path}
+                                    src="https://bolster-vue.envytheme.com/_nuxt/img/category-products-img7.7fb1093.jpg"
+                                    alt={product.name}
+                                    className="w-full md:w-2/3"
+                                // layout="fill"
+                                />
+                            </div>
+                            <div className="lg:px-10 lg:w-2/3">
+                                <p className="text-xl font-bold my-1">{product.name}</p>
+                                <p className="text-black font-bold text-lg">{product.description}</p>
+                                <p className="font-semibold text-lg">${product.price}</p>
+                            </div>
+                            <div className="w-full lg:w-2/4 flex flex-col lg:flex-row items-center">
+                                <button className="bg-[#222] text-white px-5 py-2 mx-1 w-full my-1">
+                                    Agregar al carrito
+                                </button>
+                                <button className="bg-[#222] text-white px-5 py-2 mx-1 my-1"
+                                    onClick={() => deleteFromFavorites(product._id)}>
+                                    Eliminar
+                                </button>
+                            </div>
                         </div>
+
+                    )
                     )
                 }
             </section>

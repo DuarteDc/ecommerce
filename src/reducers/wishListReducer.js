@@ -15,7 +15,7 @@ export const wishListReducer = (state = initialState, { type, payload }) => {
         case types.delete_product_from_wishList: {
             return {
                 ...state,
-                products: [state.products.filter(product => product._id !== payload)]
+                products: state.products.filter(product => product._id !== payload),
             }
 
         }
