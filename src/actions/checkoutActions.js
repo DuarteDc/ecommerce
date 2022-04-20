@@ -2,12 +2,16 @@ import client from "../config/axiosConfig";
 import Cookies from "js-cookie";
 import { types } from "../types";
 
-export const startLoadClientSecret = () =>{
+export const startLoadClientSecret = (token) =>{
     return async (dispatch , getState) =>{
         const {order_id} = getState().cart;
         try {
             let url = `/orders/stripe/clients/${order_id}`;
-            const {data} =  await client.post(url);
+            const {data} =  await client.post(url,{
+                headers: {
+                    'Authorization': token
+                }
+            });
             Cookies.set('client_secret', JSON.stringify(data.client_secret));
             dispatch(loadClientSecret(data.client_secret))
         } catch (error) {

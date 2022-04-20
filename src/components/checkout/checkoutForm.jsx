@@ -39,7 +39,7 @@ export const CheckoutForm = ({handleOpenCheckout}) =>{
           }
         });
       }, [stripe]);
-
+    
 
       const handleSubmit = async (e) => {
         e.preventDefault();
@@ -57,7 +57,7 @@ export const CheckoutForm = ({handleOpenCheckout}) =>{
           elements,
           confirmParams: {
             // Make sure to change this to your payment completion page
-            return_url: process.env.URL_LOCAL
+            return_url: process.env.NODE_ENV === 'development' ? 'http://localhost:300/' : 'https://test.wapizima.com/'
           },
         });
     

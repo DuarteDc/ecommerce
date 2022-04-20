@@ -119,7 +119,8 @@ const Checkout = () => {
     const handleClickPaymentStripe = () =>{
 
       if(!Object.keys(client_secret).length){
-        dispatch(startLoadClientSecret());
+        const token = Cookie.get('token') ? JSON.parse(Cookie.get('token')): '';
+        dispatch(startLoadClientSecret(token));
       }
       toggle();
     }
