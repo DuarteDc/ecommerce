@@ -45,7 +45,7 @@ export const startAddProductShoppingCart = (product ,name) =>{
             icon:"success",
             title:"¡¡Buen Trabajo!!",
             html:`<p class="font-Poppins text-base">El producto ${name} ha sido agregado al carrito satisfactoriamente</p>`,
-            timer:3000,
+            timer:2000,
             timerProgressBar:true,
             showConfirmButton:false
          });

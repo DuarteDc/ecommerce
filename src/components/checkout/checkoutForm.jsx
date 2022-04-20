@@ -57,7 +57,7 @@ export const CheckoutForm = ({handleOpenCheckout}) =>{
           elements,
           confirmParams: {
             // Make sure to change this to your payment completion page
-            return_url: "http://192.168.1.67:3000"
+            return_url: process.env.URL_LOCAL
           },
         });
     

@@ -74,7 +74,7 @@ export const ProductCard = ({product}) =>{
             icon:"success",
             title:"¡¡Buen Trabajo!!",
             html:`<p class="font-Poppins text-base">El producto ${product.name} ha sido agregado al carrito satisfactoriamente</p>`,
-            timer:3000,
+            timer:2000,
             timerProgressBar:true,
             showConfirmButton:false
          })
@@ -142,7 +142,7 @@ export const ProductCard = ({product}) =>{
             }
            
             <div className="mt-[20px]">
-                <h3 className="text-[#333] mb-0 font-semibold text-[18px] capitalize">
+                <h3 className="text-[#333] mb-0 font-semibold text-[18px] capitalize truncate	">
                   {name}
                 </h3>
                 <div className="mt-[8px] mb-[12px]">
