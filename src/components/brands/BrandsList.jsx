@@ -6,8 +6,8 @@ import ExpandLessIcon from '@mui/icons-material/ExpandLess';
 
 import BrandItem from './BrandItem';
 
-const BrandsList = ({ brands, setLoading }) => {
-    
+const BrandsList = ({ brands, setLoading, category }) => {
+
     const [open, setOpen] = useState(true);
 
     return (
@@ -29,6 +29,7 @@ const BrandsList = ({ brands, setLoading }) => {
                             <BrandItem
                                 brand={brand} setOpen={setOpen}
                                 setLoading={setLoading}
+                                category={category}
                             />
                         </Collapse>
                     ))

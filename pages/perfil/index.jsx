@@ -27,8 +27,13 @@ import { errorNotify, successNotify } from "../../src/helpers/helpers";
 import { useRouter } from "next/router";
 import LoadingScreen from "../../src/components/LoadingScreen";
 
+import { startLoadFaqsCategories } from '../../src/actions/faqsActions';
+import Image from "next/image";
+import { Grid } from "@mui/material";
+import { OptionCardProfile } from "../../src/components/ui";
 
 const Profile = () => {
+    const { categories } = useSelector((state) => state.faqs);
 
     const img = useRef();
     const router = useRouter();
@@ -90,11 +95,53 @@ const Profile = () => {
     }
 
     return (
-        <Layout>
+        <Layout
+            categories={categories}
+        >
             {loading && <LoadingScreen />}
             <section className="container mx-auto mb-16">
-                <h1 className="text-center uppercase text-2xl bg-gray-50 py-3 my-20 font-bold container mx-auto">Perfil</h1>
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <h1 className="text-center uppercase text-2xl bg-gray-50 py-3 my-10 font-bold container mx-auto">Mi cuenta</h1>
+                <div className="max-w-[1235px]">
+                    <Grid container spacing={3}>
+                     <Grid item xs={12} sm={12} md={4} lg={4} xl={4}>
+                      <OptionCardProfile
+                       title="Mis Pedidos"
+                       icon={"/assets/icons/entrega-de-pedidos.png"}
+                       description="Rastrea tus paquetes , devolver tus pedidos o comprar algo de nuevo"
+                      />
+                     </Grid>
+                     <Grid item xs={12} sm={12} md={4} lg={4} xl={4}>
+                      <OptionCardProfile
+                       title="Inicio de Sesión y Seguridad"
+                       icon={"/assets/icons/proteger.png"}
+                       description="Rastrea tus paquetes , devolver tus pedidos o comprar algo de nuevo"
+                      />
+                     </Grid>
+                     <Grid item xs={12} sm={12} md={4} lg={4} xl={4}>
+                      <OptionCardProfile
+                       title="Mis direcciones"
+                       icon={"/assets/icons/localizacion.png"}
+                       description="Rastrea tus paquetes , devolver tus pedidos o comprar algo de nuevo"
+                      />
+                     </Grid>
+                     <Grid item xs={12} sm={12} md={4} lg={4} xl={4}>
+                      <OptionCardProfile
+                       title="Mi Dirección Fiscal"
+                       icon={"/assets/icons/cuenta.png"}
+                       description="Rastrea tus paquetes , devolver tus pedidos o comprar algo de nuevo"
+                      />
+                     </Grid>
+                     <Grid item xs={12} sm={12} md={4} lg={4} xl={4}>
+                      <OptionCardProfile
+                       title="Servicio al Cliente"
+                       icon={"/assets/icons/servicio-al-cliente.png"}
+                       description="Rastrea tus paquetes , devolver tus pedidos o comprar algo de nuevo"
+                      />
+                     </Grid>
+
+                    </Grid>
+                </div>
+                {/* <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                     <div className="w-full flex flex-col items-center p-4 drop-shadow-md">
                         <div className="rounded-full w-64 h-64 border-4 overflow-hidden relative z-10">
                             <div className="absolute bottom-5 right-10 z-20 bg-[#222] rounded-full p-1 cursor-pointer text-white cursor-pointer hover:opacity-75"
@@ -121,7 +168,7 @@ const Profile = () => {
                         </button>
                     </div>
                     <ProfileSection user={user} />
-                </div>
+                </div> */}
                 <DirectionsSeccion directions={directions} />
                 <SeguritySection />
             </section>
@@ -133,6 +180,7 @@ export const getServerSideProps = wrapper.getServerSideProps((store) =>
     async (ctx) => {
         await store.dispatch(startLoadDataUser(ctx));
         await store.dispatch(startGetDirections(ctx));
+        await store.dispatch(startLoadFaqsCategories());
         await store.dispatch(startLoadAdministrableLogo());
     })
 export default Profile

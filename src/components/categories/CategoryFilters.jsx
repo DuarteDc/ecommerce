@@ -1,31 +1,23 @@
-import { useDispatch, useSelector } from "react-redux";
-
-import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
-import CloseIcon from '@mui/icons-material/Close';
-
-import { clearAll, removeItemFromFilters } from '../../actions/productsAction';
 import { useRouter } from "next/router";
+import { useDispatch, useSelector } from "react-redux";
+import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 
-const Filters = () => {
+import { clearAll } from "../../actions/categoryActions";
 
-    const { filters } = useSelector((state) => state.products);
+const CategoryFilters = ({ url }) => {
+
+    const { categoryFilters } = useSelector((state) => state.categories);
 
     const dispatch = useDispatch();
     const router = useRouter();
 
-    const handleRemoveFilter = (filter) => {
-        const asArray = Object.entries(router.query);
-        const newQuerys = asArray.filter(([key, value]) => value !== filter._id);
-        const justStrings = Object.fromEntries(newQuerys);
-        router.push({ pathname: '/productos', query: justStrings }, undefined, { shallow: true });
-        dispatch(removeItemFromFilters(filter))
-    }
 
     const handleClearFilters = () => {
-        router.replace('/productos', undefined, { shallow: true });
+        router.replace(`/categorias/${url}`, undefined, { shallow: true });
         dispatch(clearAll());
         return;
     }
+
 
     return (
         <div className="mb-5">
@@ -40,11 +32,10 @@ const Filters = () => {
             </div>
             <div>
                 {
-
-                    filters?.map((filter) => (
+                    categoryFilters?.map((filter) => (
                         <span className="hover:border-black hover:text-black cursor-pointer 
-                            mr-2 mt-2 py-2 border-2 border-gray-200 px-2
-                            text-center inline-block transition-all duration-700 ease-out text-xs text-gray-500"
+                        mr-2 mt-2 py-2 border-2 border-gray-200 px-2
+                        text-center inline-block transition-all duration-700 ease-out text-xs text-gray-500"
                             key={filter?._id}
                         >
                             {filter?.name}
@@ -56,4 +47,4 @@ const Filters = () => {
     )
 }
 
-export default Filters;
+export default CategoryFilters

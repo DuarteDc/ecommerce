@@ -1,6 +1,7 @@
 export const types = {
 
     login: '[AUTH] loggin ecommerce start',
+    loginGoogle: '[AUTH] loginGoogle ecommerce start',
     logout: '[AUTH] logout ecommerce start',
     check_token: '[AUTH] check token',
     register: '[AUTH] register',
@@ -21,6 +22,8 @@ export const types = {
     loadCategories: '[CATEGORIES] start load categories',
     loadCategoriesHome: '[CATEGORIES HOME] start load categories',
     load_products_from_category: '[CATEGORIES] load porducts_form_category',
+    filters_to_products_from_categories_with_brands: '[CATEGORIES] filters to products from categories',
+    clear_filters_form_categories: '[CATEGORIES] clear filters from categories',
 
     load_cart_state: '[CART] load cart state',
     add_to_cart: '[CART] add to cart',
@@ -38,6 +41,7 @@ export const types = {
     load_products_from_brand: '[BRAND] load products per brand',
     filter_products_per_category_from_brands: '[BRANDS] filter products per category from brands',
     filters_to_products_from_brand: '[BRANDS]filters to products from brand',
+    clear_all_filter_from_brands: '[BRANDS] clear all filter from brands',
 
     loadBrandsHome: '[HOME] load brands with products home',
     addNewsletterSuscription: '[Home] add and show newsletter suscription menssage',
@@ -55,31 +59,36 @@ export const types = {
     add_new_address: '[PROFILE] add new address',
     delete_addres: '[PROFILE] delete address',
 
-    addProductShoppingCart:'[ShoppingCart] add product to shopping cart',
-    loadShoppingCartFromLocalStorage:'[ShoppingCart] load shopping cart from loadShoppingCartFromLocalStorage',
-    updatedProductQuantity:'[ShoppingCart] updated quantity product in shoppingcart',
-    calculateTotalShoppingCart:'[ShoppingCart] calculate subtotal and total in shoppingCart',
-    finaliceCheckoutCart:'[ShoppingCart]  start finalice checkout cart',
-    loadTotalsFromCookies:'[ShoppingCart] load totals checkout from cookies',
-    loadShoppingCart:'[ShoppingCart] load shopping cart from database',
-    updatedShoppingCart:'[ShoppingCart] updated shoppingCart',
-    removeProductShoppingCart:'[ShoppingCart] remove product shoppingcart',
+    addProductShoppingCart: '[ShoppingCart] add product to shopping cart',
+    loadShoppingCartFromLocalStorage: '[ShoppingCart] load shopping cart from loadShoppingCartFromLocalStorage',
+    updatedProductQuantity: '[ShoppingCart] updated quantity product in shoppingcart',
+    calculateTotalShoppingCart: '[ShoppingCart] calculate subtotal and total in shoppingCart',
+    finaliceCheckoutCart: '[ShoppingCart]  start finalice checkout cart',
+    loadTotalsFromCookies: '[ShoppingCart] load totals checkout from cookies',
+    loadShoppingCart: '[ShoppingCart] load shopping cart from database',
+    updatedShoppingCart: '[ShoppingCart] updated shoppingCart',
+    removeProductShoppingCart: '[ShoppingCart] remove product shoppingcart',
 
-    addProductShoppingCartNoLoggued:'[ShoppingCart] add product to cart clients not logged',
-    loadShoppingCartNotLoggedFromLocalStorage:'[ShoppingCart] load shoppingcart clients no logged from localStorage',
-    updatedProductQuantityCartNotLogged:'[ShoppingCart] updated products in shopping cart clients not logged',
-    deleteProductShoppingCartNotLogged:'[ShoppingCart] delete product in shopping cart clients not logged',
-    loadShoppingCartFussion:'[ShoppingCart] load shoppingcart fussion login',
+    addProductShoppingCartNoLoggued: '[ShoppingCart] add product to cart clients not logged',
+    loadShoppingCartNotLoggedFromLocalStorage: '[ShoppingCart] load shoppingcart clients no logged from localStorage',
+    updatedProductQuantityCartNotLogged: '[ShoppingCart] updated products in shopping cart clients not logged',
+    deleteProductShoppingCartNotLogged: '[ShoppingCart] delete product in shopping cart clients not logged',
+    loadShoppingCartFussion: '[ShoppingCart] load shoppingcart fussion login',
 
 
-    loadWishListfromLocalStorage:'[WishList] load wishlist from localStorage',
+    loadWishListfromLocalStorage: '[WishList] load wishlist from localStorage',
+    delete_product_from_wishList: '[WishList] delete product from wishlist',
+    load_wishList_from_back: '[WishList] load wishList from back',
+    add_one_product_from_wishList: '[WishList] add one product to wishlist',
+    remove_one_product_from_wishList: '[WishList] remove one product from wishlist',
+    search_product:'[WishList] search product',
 
 
     loadSecretClientStripe : '[Checkout] load secret client stripe',
     loadSecretClientfromCookies : '[Checkout] load secret client from cookies',
     loadBanksAccounts: '[Checkout] load banks accounts',
     loadBankAccountSelected:'[Checkout] load bank account selected',
-
+    loadSecretClientStripe: '[Checkout] load secret client stripe',
 
     addProductShoppingCart: '[ShoppingCart] add product to shopping cart',
     loadShoppingCartFromCookies: '[ShoppingCart] load shopping cart from cookies',
@@ -96,5 +105,7 @@ export const types = {
     update_data_user: '[PROFILE] update data user',
 
     load_faqs: '[FAQS] load_faqs',
+    load_faqs_categories: '[FAQS] load faqs categories',
+    load_faqs_per_category: '[FAQS] load faqs per category',
 
 }

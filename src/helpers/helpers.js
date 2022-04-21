@@ -1,56 +1,58 @@
 import { toast } from 'react-toastify';
 
-const priceFormat = (number) =>{
-    const price = new Intl.NumberFormat("es-MX", {
-        style: "currency",
-        currency: "MXN",
-        minimumFractionDigits: 2,
-      }).format(number);
-    return price;
+const priceFormat = (number) => {
+  const price = new Intl.NumberFormat("es-MX", {
+    style: "currency",
+    currency: "MXN",
+    minimumFractionDigits: 2,
+  }).format(number);
+  return price;
 }
 
-const toggleWishListProducts = (_id) =>{
+const toggleWishListProducts = (_id) => {
 
-  if( typeof window === 'undefined') return false;
-  
+  if (typeof window === 'undefined') return false;
+
   let wishListProducts = JSON.parse(localStorage.getItem('wishListProducts') || '[]');
   let message = '';
+  let existInWishList = false;
 
-  if(wishListProducts.includes(_id)){
-    
-    wishListProducts = wishListProducts.filter(productId => productId !== _id);
+  if (wishListProducts.find(wishList => wishList.product_id === _id)) {
+    wishListProducts = wishListProducts.filter(product => product.product_id !== _id);
     message = "Producto eliminado de mi lista de deseos ";
-  }else{
-    wishListProducts.push(_id);
+    existInWishList = true;
+  } else {
+    wishListProducts.push({ product_id: _id });
     message = "Producto Agregado a lista de deseos";
+    existInWishList = false;
   }
 
   localStorage.setItem('wishListProducts', JSON.stringify(wishListProducts));
 
-  return message;
+  return { message, existInWishList };
 }
 
-const existInWishList = (_id) =>{
+const existInWishList = (_id) => {
 
-  if( typeof window === 'undefined') return false;
+  if (typeof window === 'undefined') return false;
 
   const wishList = JSON.parse(localStorage.getItem('wishListProducts' || '[]'));
-  if(!wishList){
-     return false;
+  if (!wishList) {
+    return false;
   }
-  return wishList.includes(_id);
+  return wishList.find(product => product.product_id === _id);
 
 }
 
-const existInShoppingCart = (_id , ShoppingCart) =>{
+const existInShoppingCart = (_id, ShoppingCart) => {
 
-  const existProduct = ShoppingCart.filter(cart=>cart.product_id._id === _id );
+  const existProduct = ShoppingCart.filter(cart => cart.product_id._id === _id);
 
-   if(!existProduct.length){
-     return false;
-   }else{
-     return true;
-   }
+  if (!existProduct.length) {
+    return false;
+  } else {
+    return true;
+  }
 }
 
 
@@ -69,7 +71,7 @@ export const successNotify = (message) => {
 
 export const infoNotify = (message) => {
   toast.info(message, {
-     position: "bottom-left",
+    position: "bottom-left",
     autoClose: 5000,
     hideProgressBar: false,
     style: { backgroundColor: 'black' },
@@ -81,7 +83,7 @@ export const infoNotify = (message) => {
 }
 export const warningNotify = (message) => {
   toast.warn(message, {
-     position: "bottom-left",
+    position: "bottom-left",
     autoClose: 5000,
     hideProgressBar: false,
     style: { backgroundColor: 'black' },
@@ -94,7 +96,7 @@ export const warningNotify = (message) => {
 
 export const errorNotify = (message) => {
   toast.error(message, {
-     position: "bottom-left",
+    position: "bottom-left",
     autoClose: 5000,
     hideProgressBar: false,
     style: { backgroundColor: 'black' },

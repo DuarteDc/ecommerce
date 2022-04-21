@@ -15,7 +15,15 @@ export const authReducer = (state = initialState, { payload, type }) => {
         logged: true
       }
 
-
+    case types.loginGoogle: {
+      const { user } = payload;
+      return {
+        ...state,
+        user,
+        logged: true
+      }
+    }
+    
     case types.register: {
       const { user } = payload;
       return {
@@ -25,9 +33,9 @@ export const authReducer = (state = initialState, { payload, type }) => {
       }
     }
 
-    case types.check_token:{
+    case types.check_token: {
       const { user } = payload;
-      return{
+      return {
         ...state,
         user,
         logged: true
@@ -35,9 +43,9 @@ export const authReducer = (state = initialState, { payload, type }) => {
     }
 
     case types.logout:
-      return{
+      return {
         ...state,
-        user:undefined,
+        user: undefined,
         logged: false
       }
 

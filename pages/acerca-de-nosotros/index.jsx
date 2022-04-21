@@ -1,31 +1,26 @@
 import Image from "next/image";
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { startLoadAdministrableAbout , startLoadAdministrableLogo } from "../../src/actions/administrableActions";
+import { startLoadAdministrableAbout, startLoadAdministrableLogo } from "../../src/actions/administrableActions";
 import Layout from "../../src/components/Layouts";
 import { BannerImage } from "../../src/components/ui";
 import { wrapper } from "../../src/store";
 import Cookie from 'js-cookie';
 import { addShoppingCartFromLocalStorage, shoppingCartNotLoggedfromLocalStorage } from "../../src/actions/shoppingCartActions";
+import { startLoadFaqsCategories } from "../../src/actions/faqsActions";
 
-const AboutPage = () =>{
+const AboutPage = () => {
   const dispatch = useDispatch();
-  const { aboutUs , mission } = useSelector((state)=>state.administrable);
-  const { logged } = useSelector((state)=>state.auth);
+  const { aboutUs, mission } = useSelector((state) => state.administrable);
+  const { logged } = useSelector((state) => state.auth);
+  const { categories } = useSelector((state) => state.faqs);
 
   useEffect(() => {
-    if (!logged){
-    let cartNotLogged =  localStorage.getItem('cartNotlogged') ? JSON.parse(localStorage.getItem('cartNotlogged')) : [];
+    if (!logged) {
+      let cartNotLogged = localStorage.getItem('cartNotlogged') ? JSON.parse(localStorage.getItem('cartNotlogged')) : [];
       dispatch(shoppingCartNotLoggedfromLocalStorage(cartNotLogged))
     }
   }, [logged]);
-
-    useEffect(() => {
-        if (logged){
-        const shoppingCart = localStorage.getItem('cart') ? JSON.parse(localStorage.getItem('cart')) : [];
-        dispatch(addShoppingCartFromLocalStorage(shoppingCart))
-        }
-    }, [logged]);
 
   return (
     <>
@@ -39,10 +34,10 @@ const AboutPage = () =>{
             <div className="grid grid-cols-12 gap-10">
               <div className="col-span-12 lg:col-span-8">
                 <div className="pr-[85px] pt-2">
-                <div className="mb-[40px] text-center bg-[#f6f6f6] w-full p-[15px]">
-                 <h3 className="font-semibold text-2xl leading-[1.2] color-[#333] pb-4">Nuestra Historia</h3>
+                  <div className="mb-[40px] text-center bg-[#f6f6f6] w-full p-[15px]">
+                    <h3 className="font-semibold text-2xl leading-[1.2] color-[#333] pb-4">Nuestra Historia</h3>
                   </div>
-                  <div className="font-Poppins text-sm leading-7 text-[#888] pb-6" dangerouslySetInnerHTML={{__html: aboutUs.aboutThat}}></div>
+                  <div className="font-Poppins text-sm leading-7 text-[#888] pb-6" dangerouslySetInnerHTML={{ __html: aboutUs.aboutThat }}></div>
                 </div>
               </div>
               <div className="col-span-12 lg:col-span-4">
@@ -74,11 +69,11 @@ const AboutPage = () =>{
                 </div>
               </div>
               <div className="col-span-12 lg:col-span-8">
-              <div className="pr-[85px] pt-2">
-                 <div className="mb-[40px] text-center bg-[#f6f6f6] w-full p-[15px]">
-                 <h3 className="font-semibold text-2xl leading-[1.2] color-[#333] pb-4">Nuestra Misión</h3>
+                <div className="pr-[85px] pt-2">
+                  <div className="mb-[40px] text-center bg-[#f6f6f6] w-full p-[15px]">
+                    <h3 className="font-semibold text-2xl leading-[1.2] color-[#333] pb-4">Nuestra Misión</h3>
                   </div>
-                  <div className="font-Poppins text-sm leading-7 text-[#888] pb-6" dangerouslySetInnerHTML={{__html: mission.mission}}></div>
+                  <div className="font-Poppins text-sm leading-7 text-[#888] pb-6" dangerouslySetInnerHTML={{ __html: mission.mission }}></div>
                 </div>
               </div>
             </div>
@@ -89,22 +84,24 @@ const AboutPage = () =>{
   );
 }
 
-AboutPage.getLayout = function getLayout(page) {
+AboutPage.getLayout = function getLayout(page, categories) {
   return (
-     <Layout 
-       title="Wapizima - Acerca de"
-       robots="noindex"
-     >
-       {page}
-     </Layout>
-     );
+    <Layout
+      title="Wapizima - Acerca de"
+      robots="noindex"
+      categories={categories}
+    >
+      {page}
+    </Layout>
+  );
 };
 
 
-export const getStaticProps = wrapper.getStaticProps((store)=> async()=>{
+export const getStaticProps = wrapper.getStaticProps((store) => async () => {
   await store.dispatch(startLoadAdministrableLogo());
   await store.dispatch(startLoadAdministrableAbout());
- 
+  await store.dispatch(startLoadFaqsCategories());
+
 });
 
 export default AboutPage

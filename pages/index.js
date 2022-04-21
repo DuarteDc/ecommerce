@@ -42,13 +42,6 @@ export default function HomePage() {
   }, [logged]);
 
   useEffect(() => {
-    if (logged){
-      const shoppingCart = localStorage.getItem('cart') ? JSON.parse(localStorage.getItem('cart')) : [];
-      dispatch(addShoppingCartFromLocalStorage(shoppingCart))
-    }
-  }, [logged]);
-
-  useEffect(() => {
     if(router.query.redirect_status === 'succeeded'){
        localStorage.removeItem('cart');
        Cookie.remove('client_secret');
@@ -110,7 +103,6 @@ export const getStaticProps = wrapper.getStaticProps((store) =>
     await store.dispatch(startLoadBrandsHome());
     await store.dispatch(startLoadTags());
     await store.dispatch(startLoadBrands());
-
     return{
       revalidate:3600
     }

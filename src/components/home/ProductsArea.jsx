@@ -31,6 +31,8 @@ export const ProductsArea = () => {
     lowPrice: '',
     maxPrice: ''
   });
+  const [orderBy, setOrderBy] = useState();
+
   const [loading, setLoading] = useState(false);
   const [counter, setCounter] = useState(0);
 
@@ -62,12 +64,18 @@ export const ProductsArea = () => {
   }
 
   useEffect(() => {
+
     setLoading(true);
+    if (router.query.brand_id) setBrandQuery(router.query.brand_id);
+    if (router.query.tag_id) setTagQuery(router.query.tag_id);
+
     const getCurrentData = async () => {
       await dispatch(startFilterPriductsFromHome(router.asPath))
     }
+
     getCurrentData();
     setLoading(false);
+
   }, [router.query])
 
   const onRequestSearch = async () => {
@@ -83,11 +91,20 @@ export const ProductsArea = () => {
     setLoading(false)
 
   }
+
+  const getDataToFilterOrder = async (orderBy) => {
+    setLoading(true);
+    setOrderBy(orderBy);
+    setCounter(Object.keys(router.query).length)
+    filterSearch({ router, order: orderBy, counter });
+    await dispatch(startFilterPriductsFromHome(router.asPath))
+    setLoading(false)
+  }
+
   const getDataToFilterTag = async (tag) => {
     setLoading(true)
     setTagQuery(tag)
-    setCounter(Object.keys(router.query).length)
-    filterSearch({ router, tag_id: tag, counter });
+    filterSearch({ router, tag_id: tag });
     await dispatch(startFilterPriductsFromHome(router.asPath))
     setLoading(false)
 
@@ -159,9 +176,11 @@ export const ProductsArea = () => {
               brandQuery={brandQuery}
               tagQuery={tagQuery}
               priceQuery={priceQuery}
+              orderBy={orderBy}
               getDataToFilterBrand={getDataToFilterBrand}
               getDataToFilterTag={getDataToFilterTag}
               getDataToFilterLowPrice={getDataToFilterLowPrice}
+              getDataToFilterOrder={getDataToFilterOrder}
             />
 
           </div>

@@ -11,48 +11,55 @@ const CategoryItem = ({ category, setLoading, brand }) => {
     const { filterSearch } = helpersProducts;
 
     const { filters } = useSelector(state => state.products);
-    const { filtersBrand } = useSelector(state => state.brands);
+    const { BrandFilters } = useSelector(state => state.brands);
 
     const router = useRouter();
 
-    console.log(router);
     const dispatch = useDispatch();
 
-    const filterToCategory = async (category) => {
 
-        setLoading(true)
-
+    const addCategoryInProducts = async (category) => {
+        setLoading(true);
         const categoriesInFilter = filters.find(categorySelected => categorySelected._id === category._id);
-        const categoriesInFilterBrand = filtersBrand.find(categorySelected => categorySelected._id === category._id);
 
-
-        if (!categoriesInFilter) {
-            if (router.pathname.includes('/productos')) {
-                await dispatch(startLoadProductsPerCategory(category));
-                filterSearch({ router, category_id: category._id });
-                setLoading(false);
-                return;
-            }
+        if (categoriesInFilter) {
+            setLoading(false);
+            return;
         }
+        await dispatch(startLoadProductsPerCategory(category));
+        filterSearch({ router, category_id: category._id });
+        setLoading(false);
+        return;
+    }
 
-        if (!categoriesInFilterBrand) {
-            if (router.pathname.includes('/marcas')) {
-                await dispatch(startFilterProductsPerBrandAndCategory(brand._id, category));
-                filterSearch({ router, category_id: category._id });
-                setLoading(false);
-                return;
-            }
+    const addCategoryInBrands = async (brand, category) => {
+        setLoading(true);
+        const categoriesInFilter = BrandFilters.find(categorySelected => categorySelected._id === category._id);
+
+        if (categoriesInFilter) {
+            setLoading(false);
+            return;
         }
-        setLoading(false)
+        await dispatch(startFilterProductsPerBrandAndCategory(brand, category));
+        filterSearch({ router, category_id: category._id });
+        setLoading(false);
+        return;
+    }
 
+    const filterToCategory = async (brand, category) => {
+        if (router.route === ('/productos')) {
+            await addCategoryInProducts(category)
+            return;
+        }
+        await addCategoryInBrands(brand, category);
     }
 
     return (
         <li
             className="hover:text-[#222] cursor-pointer mr-2 py-2 transition-all duration-500 ease-out text-gray-400 ml-6"
-            onClick={() => filterToCategory(category)}
+            onClick={() => filterToCategory(brand, category)}
         >
-            <p>{category.name} ({category.totalProducts})</p>
+            <p>{category.name}</p>
         </li>
     )
 }

@@ -15,8 +15,7 @@ import { useRouter } from "next/router";
 import { startLoadAdministrableLogo } from "../../src/actions/administrableActions";
 import { BannerImage } from "../../src/components/ui/bannerImage";
 import { ProductCard } from "../../src/components/ui";
-import { addShoppingCartFromLocalStorage , shoppingCartNotLoggedfromLocalStorage  } from "../../src/actions/shoppingCartActions";
-import { useLocalStorage } from "../../src/hooks/useLocalStorage";
+
 import { useEffect, useState } from "react";
 import PaginationItem from '@mui/material/PaginationItem';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
@@ -26,14 +25,17 @@ import CategoriesList from "../../src/components/categories/CategoriesList";
 import BrandsList from "../../src/components/brands/BrandsList";
 import TagsList from "../../src/components/tags/TagsList";
 import LoadingScreen from "../../src/components/LoadingScreen";
+import Filters from "../../src/components/products/Filters";
+import { startLoadFaqsCategories } from "../../src/actions/faqsActions";
+
 
 const Products = () => {
 
     const { products, filteredProducts, results, filters } = useSelector((state) => state.products);
 
     const { brands } = useSelector((state) => state.brands);
-    const { logged } = useSelector((state)=>state.auth);
     const { categories } = useSelector((state) => state.categories);
+    const { categories: CategoriesFaqs } = useSelector((state) => state.faqs);
     const { tags } = useSelector((state) => state.tags);
 
     const dispatch = useDispatch();
@@ -50,25 +52,11 @@ const Products = () => {
         });
     }
 
-    const [storedValue, setValue,] = useLocalStorage('filtersInProducts');
-
-    useEffect(() => {
-
-        if (Object.keys(router.query).length !== 0) {
-            setValue(router.asPath)
-            return;
-        }
-
-        localStorage.removeItem('filtersInProducts')
-
-    }, [router.asPath]);
-
-
     useEffect(() => {
 
         const getCurrentData = async () => {
             setLoading(true)
-            if (router.asPath === storedValue && Object.keys(router.query).length !== 0) {
+            if (Object.keys(router.query).length > 0) {
                 if (router.query.hasOwnProperty('brand_id')) {
                     const brand = await brands.filter(brand => brand._id === router.query.brand_id);
                     await dispatch(startLoadProductsPerBrand(...brand));
@@ -95,6 +83,7 @@ const Products = () => {
         <Layout
             title="Wapizima - Productos"
             robots="noindex"
+            categories={CategoriesFaqs}
         >
             <BannerImage
                 title="Productos"
@@ -102,6 +91,7 @@ const Products = () => {
             {loading && <LoadingScreen />}
             <section className="container mx-auto grid grid-cols-1 md:grid-cols-3 mt-20 lg:grid-cols-4">
                 <AsideBar>
+                    <Filters />
                     <BrandsList brands={brands} setLoading={setLoading} />
                     <CategoriesList categories={categories} setLoading={setLoading} />
                     <TagsList tags={tags} setLoading={setLoading} />
@@ -109,7 +99,7 @@ const Products = () => {
                 <div className="col-span-4 md:col-span-2 lg:col-span-3">
                     {
                         Object.keys(filters).length !== 0 && (
-                            <p className="text-gray-900 px-2 text-lg">
+                            <p className="text-gray-500 px-2 text-xl text-right">
                                 {results.quantity} {results.quantity > 1 ? 'resultados' : 'resultado'}  sobre {results.name}
                             </p>
                         )
@@ -159,9 +149,9 @@ export const getStaticProps = wrapper.getStaticProps((store) =>
         await store.dispatch(startLoadBrands());
         await store.dispatch(startLoadTags());
         await store.dispatch(startLoadAdministrableLogo());
-        
+        await store.dispatch(startLoadFaqsCategories());
         return {
-            revalidate:3600
+            revalidate: 3600
         }
 
     })

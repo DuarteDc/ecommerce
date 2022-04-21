@@ -9,7 +9,7 @@ import axios from 'axios';
 export const startLoginEmailPassword = (data) => {
 
     return async (dispatch) => {
-       
+
         try {
             let url = '/auth/login';
             const res = await client.post(url, data);
@@ -26,6 +26,33 @@ export const startLoginEmailPassword = (data) => {
 
 export const login = (token, user) => ({
     type: types.login,
+    payload: {
+        token,
+        user
+    }
+});
+
+
+export const startLoginGoogle = (idToken) => {
+
+    return async (dispatch) => {
+
+        try {
+            let url = '/auth/login-google';
+            const res = await client.post(url, {idToken});
+            const { token, user } = res.data;
+            Cookies.set('token', token);
+            dispatch(loginGoogle(token, user));
+            return res.data;
+
+        } catch (error) {
+            return false;
+        }
+    }
+}
+
+export const loginGoogle = (token, user) => ({
+    type: types.loginGoogle,
     payload: {
         token,
         user

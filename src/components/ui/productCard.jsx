@@ -10,6 +10,7 @@ import { useDispatch, useSelector } from "react-redux";
 import {toast } from "react-toastify";
 import Swal from "sweetalert2";
 import {addProductToCartClientsNotLogged, startAddProductShoppingCart } from "../../actions/shoppingCartActions";
+import { addOneProduct, removeOneProduct } from "../../actions/wishListActions";
 import {helpers } from "../../helpers";
 import {BsFillCartCheckFill} from "react-icons/bs";
 
@@ -36,9 +37,14 @@ export const ProductCard = ({product}) =>{
     }
 
     const handleToogleWishList = (_id) =>{
-      const message =  helpers.toggleWishListProducts(_id);
+      const {message, existInWishList} =  helpers.toggleWishListProducts(_id);
       setisInWhisList(!isInWhisList);
       notify(message);
+      if (existInWishList) {
+        dispatch(removeOneProduct(_id));
+      } else {
+        dispatch(addOneProduct(_id));
+      }
     }
 
     const addProductCard = (product) =>{
@@ -62,8 +68,6 @@ export const ProductCard = ({product}) =>{
                          }
 
         if(logged){
-          let shoppingCart = [...cart  , itemCart ];
-          localStorage.setItem('cart' , JSON.stringify(shoppingCart));
           dispatch(startAddProductShoppingCart(itemCart , product.name));
           return;
         }else{
@@ -97,10 +101,10 @@ export const ProductCard = ({product}) =>{
 
 
     return(
-        <div className="mb-[30px] relative card px-2">
+        <div className="mb-[30px] relative card px-2 animate__animated animate__zoomIn">
             <div className="relative overflow-hidden">
             <Image
-              src='/assets/images/product-03.jpg'
+              src={product.multimedia[0].path}
               alt={'name'}
               width={250}
               height={300}

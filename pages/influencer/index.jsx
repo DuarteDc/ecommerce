@@ -3,12 +3,17 @@ import { wrapper } from "../../src/store";
 import { startLoadAdministrableLogo } from "../../src/actions/administrableActions";
 import { BannerImage } from "../../src/components/ui/bannerImage";
 import FormInfluencer from "../../src/components/influencer/FormInfluencer";
+import { startLoadFaqsCategories } from "../../src/actions/faqsActions";
+import { useSelector } from "react-redux";
 
 const Influencer = () => {
+
+    const { categories } = useSelector((state) => state.faqs);
 
     return (
         <Layout
             title="Wapizima - Influencer"
+            categories={categories}
         >
             <BannerImage
                 title="Convierte en nuestro socio"
@@ -36,6 +41,7 @@ const Influencer = () => {
 
 export const getStaticProps = wrapper.getStaticProps((store) => async () => {
     await store.dispatch(startLoadAdministrableLogo());
+    await store.dispatch(startLoadFaqsCategories());
     return {
         revalidate: 3600
     }
