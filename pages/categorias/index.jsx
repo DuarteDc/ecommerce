@@ -8,7 +8,6 @@ import Layout from '../../src/components/Layouts';
 import { CardProduct } from '../../src/components/ui';
 import { BannerImage } from '../../src/components/ui/bannerImage';
 import { wrapper } from '../../src/store';
-import Cookie from 'js-cookie';
 import { addShoppingCartFromLocalStorage,shoppingCartNotLoggedfromLocalStorage } from '../../src/actions/shoppingCartActions';
 import { useEffect } from 'react';
 

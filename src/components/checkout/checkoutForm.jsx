@@ -50,14 +50,12 @@ export const CheckoutForm = ({handleOpenCheckout}) =>{
           return;
         }
     
-        setIsLoading(true);
-        localStorage.removeItem('cart');
-    
+        setIsLoading(true);    
         const { error } = await stripe.confirmPayment({
           elements,
           confirmParams: {
             // Make sure to change this to your payment completion page
-            return_url: process.env.NODE_ENV === 'development' ? 'http://localhost:300/' : 'https://test.wapizima.com/'
+            return_url: process.env.NODE_ENV === 'development' ? 'http://localhost:3000/' : 'https://test.wapizima.com/'
           },
         });
     
