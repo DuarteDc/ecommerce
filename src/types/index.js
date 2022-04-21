@@ -85,12 +85,21 @@ export const types = {
 
     loadSecretClientStripe: '[Checkout] load secret client stripe',
     loadSecretClientfromCookies: '[Checkout] load secret client from cookies',
+    loadSecretClientStripe : '[Checkout] load secret client stripe',
+    loadSecretClientfromCookies : '[Checkout] load secret client from cookies',
+    loadBanksAccounts: '[Checkout] load banks accounts',
+    loadBankAccountSelected:'[Checkout] load bank account selected',
+
+
     addProductShoppingCart: '[ShoppingCart] add product to shopping cart',
     loadShoppingCartFromCookies: '[ShoppingCart] load shopping cart from cookies',
     updatedProductQuantity: '[ShoppingCart] updated quantity product in shoppingcart',
     calculateTotalShoppingCart: '[ShoppingCart] calculate subtotal and total in shoppingCart',
     finaliceCheckoutCart: '[ShoppingCart]  start finalice checkout cart',
     loadTotalsFromCookies: '[ShoppingCart] load totals checkout from cookies',
+    loadDirectionsShoppingCart:'[ShoppingCart] load shippingCart client',
+    addAddressSelected:'[ShoppingCart] load shipping Address selected',
+    successFinaliceTransfer:'[ShoppingCart] successFinaliceTrasfer',
 
 
     loadWishListfromLocalStorage: '[WishList] load wishlist from localStorage',

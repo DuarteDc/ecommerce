@@ -11,6 +11,8 @@ const initialState = {
     shipping_costs:{},
     order_id:'',
     success:false,
+    shippingAddress:[],
+    addressSelected:{}
 }
 
 export const shoppingCartReducer = (state = initialState, { type, payload }) => {
@@ -72,6 +74,16 @@ export const shoppingCartReducer = (state = initialState, { type, payload }) => 
             return{
                 ...state,
                 cartNotLogged:state.cartNotLogged.filter((cart)=>cart.product_id._id !== payload)
+            }
+        case types.loadDirectionsShoppingCart:
+            return{
+                ...state,
+                shippingAddress:payload
+            }
+        case types.addAddressSelected:
+            return{
+                ...state,
+                addressSelected:payload
             }
        default:
            return state;

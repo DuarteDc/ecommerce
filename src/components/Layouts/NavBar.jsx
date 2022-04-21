@@ -4,9 +4,9 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { BsHandbag, BsPersonCircle } from "react-icons/bs";
 import { IconContext } from "react-icons";
-import { AiOutlineHeart } from "react-icons/ai";
-import { AiOutlineClose } from "react-icons/ai";
-import { startloadshoppingCartFussion } from "../../actions/shoppingCartActions";
+import {AiOutlineHeart} from "react-icons/ai";
+import {AiOutlineClose} from "react-icons/ai";
+import { startLoadShoppingCart, startloadshoppingCartFussion } from "../../actions/shoppingCartActions";
 import Badge from '@mui/material/Badge';
 import { useRouter } from "next/router";
 import { useToggle } from "../../hooks/useToggle";
@@ -55,17 +55,22 @@ const NavBar = () => {
       const token = Cookies.get('token') || '';
       if (!shoppingCartNotLogged.length) return;
 
-      let cartNotLogged = shoppingCartNotLogged.map(cart => {
-        cart.product_id = cart.product_id._id;
-        return cart;
+     if(!shoppingCartNotLogged.length){
+        dispatch(startLoadShoppingCart(token))
+        return;
+     }
 
-      })
       dispatch(startloadshoppingCartFussion(cartNotLogged, token));
 
       localStorage.removeItem('cartNotlogged');
-
     }
   }, [logged]);
+
+  useEffect(() => {
+    if(cart.length > 0){
+      localStorage.setItem('cart', JSON.stringify(cart));
+    }
+  }, [cart]);
 
 
   const handleMenuopen = () => {
@@ -97,11 +102,23 @@ const NavBar = () => {
           <Image
             src={logo}
             alt="Wapizima"
-            className="cursor-pointer"
-            width={200}
-            height={150}
+            width={150}
+            height={100}
           />
-
+          <div className="flex justify-between items-center ">
+           <span className="flex items-center border-transparent border-b-2 mx-1 cursor-pointer text-lg text-[#888] font-['Poppins'] font-normal transition duration-700 ease-in-out  lg:hidden xl:hidden">
+                <Badge badgeContent={wishList?.length} color="secondary" onClick={() => handleRedirectClick('/mi-lista-de-deseos')} className="mr-5">
+                  <IconContext.Provider value={{ size: "1.6rem" }}>
+                    <AiOutlineHeart />
+                  </IconContext.Provider>
+                </Badge>
+                <Badge badgeContent={logged ? cart?.length : cartNotLogged?.length } color="secondary" onClick={() => handleRedirectClick('/mi-carrito')} className="mr-5">
+                  <IconContext.Provider value={{ size: "1.5rem" }}>
+                    <BsHandbag />
+                  </IconContext.Provider>
+                </Badge>
+              </span>
+          
           {
             !open ?
               <button className="space-y-2  lg:hidden xl:hidden" onClick={() => handleMenuopen()}>
@@ -120,7 +137,9 @@ const NavBar = () => {
 
 
           }
-
+          </div>
+  
+          
 
           <div className="hidden lg:flex justify-between items-center w-full">
             <div className="px-12 w-full flex justify-center">
@@ -207,8 +226,7 @@ const NavBar = () => {
           }
         </div>
       </div>
-
-    </div>
+    </div> 
   );
 };
 

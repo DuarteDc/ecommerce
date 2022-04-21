@@ -11,7 +11,6 @@ import * as ga from '../src/libs/ga';
 
 
 
-
 const MyApp = ({ Component, pageProps, session }) => {
   const router = useRouter()
 
@@ -33,7 +32,7 @@ const MyApp = ({ Component, pageProps, session }) => {
   const getLayout = Component.getLayout || ((page) => page);
   return getLayout(
     <SessionProvider session={session}>
-      <Component {...pageProps} />
+        <Component {...pageProps} />
     </SessionProvider>
   )
 

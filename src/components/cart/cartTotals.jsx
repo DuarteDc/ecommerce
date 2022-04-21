@@ -3,36 +3,70 @@ import { useDispatch, useSelector } from "react-redux"
 import { startFinaliceSaleCheckout } from "../../actions/shoppingCartActions"
 import { InfoShippingCosts } from "./infoShippingCosts"
 import { SubtotalInfo } from "./subtotalInfo"
-import { TableShippingCosts } from "./tableShippingCosts"
+import { ShippingAddress } from "./shippingAddress"
 import { TotalShoppingCart } from "./totalShoppingCart"
+import {toast } from "react-toastify";
+import Swal from "sweetalert2"
 
 export const CartTotals = () =>{
     const dispatch = useDispatch();
     const { logged } = useSelector((state)=>state.auth);
-    const {cart , subtotal , total , shipping_costs} = useSelector((state)=>state.cart);
+    const {cart , subtotal , total , shipping_costs , shippingAddress , addressSelected} = useSelector((state)=>state.cart);
     const router = useRouter();
+
+    const notify = (message) =>toast(message);
 
     const proceedToCheckout = () =>{
      if(!logged){
-         router.push('/auth/login');
+         router.push(`/auth/login?p=${router.asPath}`);
          return;
      } 
 
+     if(!shippingAddress.length){
+       Swal.fire({
+         icon:'error',
+         title:'Ups , hubo un problema',
+         text:'Al parecer no tienes direcciones de envío registradas , agrega una dirección y vuelve a intentarlo',
+         timer:3000,
+         timerProgressBar:true,
+         showConfirmButton:false
+       });
+       router.push('/perfil');
+       return;
+     }
+
+     if(shippingAddress.length > 0 && !Object.keys(addressSelected).length){
+      Swal.fire({
+        icon:'error',
+        title:'Ups , hubo un problema',
+        text:'Selecciona una dirección de envío',
+        timer:3000,
+        timerProgressBar:true,
+        showConfirmButton:false
+      });
+     }
+
     let productsDiscount = cart.filter(product=>product.product_id.discount > 0);
     let productsWithoutDiscount = cart.filter(product=>product.product_id.discount === 0);
+
+    if(!productsDiscount.length && !productsWithoutDiscount.length ){
+      notify('Debes agregar almenos un producto al carrito de compras')
+      return;
+    }
 
     const data = {
       "productsDiscount": productsDiscount,
       "productsWithoutDiscount": productsWithoutDiscount,
       "shipment":shipping_costs[0]?.shippingCosts,
-      "coupon_id":""
+      "coupon_id":"",
+      "shippment_direction":addressSelected
     }
-       dispatch(startFinaliceSaleCheckout(data));
+      dispatch(startFinaliceSaleCheckout(data));
     }
 
     return (
-       <div className="border-[1px] border-solid border-[#e6e6e6] mr-[40px] ml-[63px] px-[40px] pb-[40px] pt-[30px] text-center w-full overflow-hidden">
-        <h4 className="font-Poppins text-[20px] leading-[1.3] uppercase pb-[30px]">Total Carrito</h4>
+       <div className="mx-[25px] border-[1px] border-solid border-[#888] py-[60px] px-[30px]">
+        <h4 className="font-Poppins text-[20px] text-center leading-[1.3] uppercase pb-[30px]">Total Carrito</h4>
         <div className="border-b-[1px] flex justify-start flex-wrap pb-[13px]">
             <SubtotalInfo
               subtotal={subtotal}
@@ -40,8 +74,8 @@ export const CartTotals = () =>{
         </div>
         <div className="border-b-[1px] border-dashed border-[#d9d9d9] flex flex-wrap flex-start pt-[20px]">
           <InfoShippingCosts/>
-          <div className="w-full flex justify-center my-[20px]">
-           <TableShippingCosts/>
+          <div className="w-full flex justify-center flex-wrap my-[20px]">
+           <ShippingAddress/>
           </div>
           <div className=" flex flex-wrap items-start pb-[33px] pt-[27px] justify-aound w-full">
            <TotalShoppingCart 

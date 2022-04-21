@@ -25,36 +25,36 @@ export const OrderInfo = () =>{
                            <tbody>
                                <tr>
                                   <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm ">
-                                         <p className="text-gray-900 text-center">
+                                         <p className="text-[#333] text-center font-Poppins capitalize">
                                          Subtotal productos con descuento
                                          </p>
                                   </td> 
-                                  <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm ">
-                                         <p className="text-gray-900 text-center">
+                                  <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                                         <p className="text-[#333] text-center font-Poppins">
                                         {with_discount}
                                          </p>
                                   </td>  
                                </tr>
                                <tr>
                                   <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm ">
-                                         <p className="text-gray-900  text-center">
+                                         <p className="text-[#333]  text-center font-Poppins capitalize">
                                          Subtotal productos sin descuento
                                          </p>
                                   </td> 
                                   <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm ">
-                                         <p className="text-gray-900  text-center">
+                                         <p className="text-[#333]  text-center font-Poppins">
                                           {without_discount}
                                          </p>
                                   </td>  
                                </tr>
                                <tr>
                                   <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm ">
-                                         <p className="text-gray-900  text-center">
+                                         <p className="text-[#333]  text-center font-Poppins capitalize">
                                             Gastós de Envio
                                          </p>
                                   </td>
                                   <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm ">
-                                         <p className="text-gray-900  text-center">
+                                         <p className="text-[#333]  text-center font-Poppins">
                                            {shippingCosts}
                                          </p>
                                   </td>
@@ -62,24 +62,24 @@ export const OrderInfo = () =>{
                               <tr>
                                
                                   <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm ">
-                                         <p className="text-gray-900  text-center">
+                                         <p className="text-[#333]  text-center font-Poppins capitalize">
                                          Subtotal del carrito
                                          </p>
                                   </td>
                                   <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm ">
-                                         <p className="text-gray-900  text-center">
+                                         <p className="text-[#333]  text-center font-Poppins">
                                           {subtotal}
                                          </p>
                                   </td>
                               </tr>
                               <tr>
                                   <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm ">
-                                         <p className="text-gray-900  text-center">
+                                         <p className="text-[#333]  text-center font-Poppins capitalize">
                                          Total a pagar
                                          </p>
                                   </td>
                                   <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm ">
-                                         <p className="text-gray-900  text-center">
+                                         <p className="text-[#333]  text-center font-Poppins">
                                           {super_total}
                                          </p>
                                   </td>

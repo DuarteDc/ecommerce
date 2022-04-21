@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 
 import { useDispatch, useSelector } from "react-redux";
 import { wrapper } from "../../src/store";
@@ -10,28 +10,113 @@ import Layout from "../../src/components/Layouts";
 import { startLoadProduct } from "../../src/actions/productsAction";
 import { useCounter } from "../../src/hooks/useCounter";
 //import { newProduct } from "../../src/actions/shoppingCartActions";
-import Card from "../../src/components/Layouts/Card";
 import { startLoadAdministrableLogo } from "../../src/actions/administrableActions";
 import { successNotify } from "../../src/helpers/helpers";
+import { helpers } from "../../src/helpers";
+import { addProductToCartClientsNotLogged, addShoppingCartFromLocalStorage, shoppingCartNotLoggedfromLocalStorage, startAddProductShoppingCart } from "../../src/actions/shoppingCartActions";
+import Swal from "sweetalert2";
+import { useRouter } from "next/router";
 
 const Show = () => {
-
+    const router = useRouter();
     const { product, relatedProducts } = useSelector((state) => state.products);
+    const { cart , cartNotLogged  } = useSelector((state)=>state.cart);
+    const { logged } = useSelector((state)=>state.auth);
 
     const dispatch = useDispatch();
-
+  
     const img = useRef();
+    
+    const [ isEnable , setIsEnable ] = useState(false);  
 
     const showImage = (newImg) => {
         img.current.src = newImg;
     }
 
-    const { counter, increaseBy, setCounter } = useCounter(1)
+    const { counter, increaseBy , setCounter } = useCounter(1);
 
-    const addCart = (product, value) => {
-        dispatch(newProduct(product, value));
-        successNotify("El producto se agrego al carrito");
+    const addProductCard = (product) =>{
+        const exists =  helpers.existInShoppingCart(product._id , cart);
+
+        if(exists){
+          notify('El producto ya ha sido agregado al carrito de compras');
+          return;
+        }
+
+        const itemCart = {product_id:{
+                            price:product.price,
+                            quantity:product.quantity,
+                            multimedia:product.multimedia,
+                            _id:product._id,
+                            name:product.name,
+                            discount:product.discount
+                          },
+                          quantity:counter,
+                          _id:product._id
+                         }
+
+        if(logged){
+          let shoppingCart = [...cart  , itemCart ];
+          localStorage.setItem('cart' , JSON.stringify(shoppingCart));
+          dispatch(startAddProductShoppingCart(itemCart , product.name));
+          return;
+        }else{
+          let shoppingCart = [...cartNotLogged  , itemCart ];
+          dispatch( addProductToCartClientsNotLogged(shoppingCart));
+          localStorage.setItem('cartNotlogged' , JSON.stringify(shoppingCart));
+          Swal.fire({
+            icon:"success",
+            title:"¡¡Buen Trabajo!!",
+            html:`<p class="font-Poppins text-base">El producto ${product.name} ha sido agregado al carrito satisfactoriamente</p>`,
+            timer:3000,
+            timerProgressBar:true,
+            showConfirmButton:false
+         })
+          return;
+        }
+
     }
+
+    const handleClickButtonAdd = () =>{
+        Swal.fire({
+            icon:"warning",
+            title:"Ups , hubo un problema",
+            text:"El producto ya se encuentra agregado al carrito de compras",
+            timer:3000,
+            timerProgressBar:true,
+            showConfirmButton:false
+        });
+    }
+
+    const handleClickRedirectCart = () =>{
+        router.push('/mi-carrito');
+    }
+
+    useEffect(() => {
+      if(logged){
+        const exists = helpers.existInShoppingCart(product._id , cart);
+         setIsEnable(exists);
+      }else{
+        const exists = helpers.existInShoppingCart(product._id , cartNotLogged);
+         setIsEnable(exists);
+      }
+     
+    }, [cart , cartNotLogged ]);
+
+
+    useEffect(() => {
+        if (!logged){
+        let cartNotLogged =  localStorage.getItem('cartNotlogged') ? JSON.parse(localStorage.getItem('cartNotlogged')) : [];
+        dispatch(shoppingCartNotLoggedfromLocalStorage(cartNotLogged))
+        }
+      }, [logged]);
+    
+      useEffect(() => {
+        if (logged){
+          const shoppingCart = localStorage.getItem('cart') ? JSON.parse(localStorage.getItem('cart')) : [];
+          dispatch(addShoppingCartFromLocalStorage(shoppingCart))
+        }
+      }, [logged]);
 
     return (
         <Layout>
@@ -136,10 +221,14 @@ const Show = () => {
                                 <button
                                     className="hover:text-white mx-1 hover:bg-black font-bold px-3 py-4 border-2 border-black transition-all duration-700 ease-in-out"
                                     onClick={() => increaseBy(-1)}
-                                >-</button>
+                                >
+                                    -
+                                </button>
 
                                 <button className="hover:text-white mx-1 hover:bg-black font-bold px-3 py-4 border-2 border-black transition-all duration-700 ease-in-out" onClick={() => increaseBy(+1)}
-                                >+</button>
+                                >
+                                    +
+                                </button>
 
                                 <span
                                     className="py-4 px-4 w-full outline-none 
@@ -147,16 +236,32 @@ const Show = () => {
                                 >
                                     {counter}
                                 </span>
+                                 {
+                                     isEnable ?
+                                     <button 
+                                       className="text-xs lg:text-sm  w-full mx-2 text-[#fff] bg-[#333]
+                                        font-bold p-4 border-2  border-[#888] transition-all duration-700 ease-in-out uppercase"
+                                       onClick={()=>handleClickButtonAdd()}
+                                     >
+                                       Ya agregado al carrito
+                                     </button>
+                                     :
 
-                                <button className="text-xs lg:text-sm  w-full mx-2 text-white bg-black font-bold p-4 border-2 hover:bg-white hover:text-black hover:border-2 border-black transition-all duration-700 ease-in-out uppercase"
-                                    onClick={() => { addCart(product, counter), setCounter(1) }}>
-                                    <ShoppingCartIcon />
-                                    Añadir a carrito
-                                </button>
+                                    <button 
+                                      className="text-xs lg:text-sm  w-full mx-2 text-white bg-black font-bold p-4 border-2 hover:bg-white hover:text-black hover:border-2 border-black transition-all duration-700 ease-in-out uppercase"
+                                        onClick={() => addProductCard(product)}>
+                                        <ShoppingCartIcon />
+                                        Añadir a carrito
+                                   </button>
+
+                                 }
+
                             </div>
                             <button className="border-black border-2 hover:bg-black hover:text-white mt-16 py-4 w-full font-bold
                             transition-all duration-700 ease-in-out
-                            ">
+                            "
+                            onClick={()=>handleClickRedirectCart()}
+                            >
                                 COMPRAR AHORA!
                             </button>
                         </div>

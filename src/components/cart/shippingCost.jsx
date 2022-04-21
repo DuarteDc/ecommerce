@@ -9,36 +9,14 @@ export const ShippingCost = ({shipping}) => {
   const shippingMax =  helpers.priceFormat(shipping.maxSale)
   return (
     <>
-      <td className={`px-3 
-                      py-3 
-                      border-b 
-                      border-gray-200 
-                      bg-white 
-                      text-sm 
-                      text-center 
-                      ${shipping_costs[0]?.shippingCosts === shipping.shippingCosts ? 
-                      'text-[#333]' 
-                      : 
-                      'text-[#888]'
-                       }`}
-    >
-                       <strong>
-                          {shippingTotal}
-                       </strong> 
-                     </td> 
-                     <td className={`px-3 py-3 border-b border-gray-200 bg-white text-sm text-center ${shipping_costs[0]?.shippingCosts === shipping.shippingCosts ? 'text-[#333]' : 'text-[#888]' }`}>
-                     <strong>
-                        {shippingMin} 
-                         {' '}
-                           - 
-                         {' '}
-                        {shipping.maxSale === 99999999999 ?
-                          'Más'  
-                          :
-                           shippingMax
-                        }
-                     </strong>
-                     </td> 
-    </>
+    <div className="w-[35%]">
+          <span className="font-Poppins text-[15px] leading-[1.4] text-[#333]">Gastos de Envío:</span>
+      </div>
+      <div className="w-[65%] pr-[18px]">
+         <p className="font-Poppins text-[13px] text-lg leading-[1.6] text-[#888]">
+            {shippingTotal}
+         </p>
+      </div>
+      </>
   )
 }

@@ -1,5 +1,5 @@
 export const shippingCosts = [
-    { id:1 , shippingCosts:150  , minSale:0     , maxSale:15000},
+    { id:1 , shippingCosts:150  , minSale:1     , maxSale:15000},
     { id:2 , shippingCosts:300  , minSale:15001 , maxSale:30000},
     { id:3 , shippingCosts:450  , minSale:30001 , maxSale:45000},
     { id:4 , shippingCosts:600  , minSale:45001 , maxSale:60000},

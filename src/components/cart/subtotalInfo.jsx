@@ -9,7 +9,7 @@ export const SubtotalInfo = ({subtotal = 0}) =>{
                     Subtotal:
                 </span>
             </div>
-            <div className="w-[34.5%]">
+            <div className="w-[65%] pr-[18px] flex justify-end">
                 <span className="font-Poppins text-[18px] leading-[1.2] text-[#333]">
                  {subtotal_price}
                 </span>

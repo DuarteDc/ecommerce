@@ -1,12 +1,15 @@
 import { Dialog, DialogActions, DialogContent, DialogTitle } from "@mui/material"
 
-export const Modal = ({children , title , open , handleOpenCheckout , actions})=>{
+export const Modal = ({children , title , open , handleOpenCheckout , fullWidth , maxWidth , actions})=>{
     return(
         <Dialog
           open={open}
           onClose={handleOpenCheckout}
           aria-labelledby="alert-dialog-title"
           aria-describedby="alert-dialog-description"
+          fullWidth={fullWidth}
+          maxWidth={maxWidth}
+
         >
             <DialogTitle>
               {title}
