@@ -196,13 +196,14 @@ const NavBar = () => {
                 )
               }
               <span className="block h-6 w-[1px] bg-[#e5e5e5] mx-4 mt-2"></span>
-              <span className="flex items-center border-transparent border-b-2 mx-4 cursor-pointer text-lg  text-[#888] font-['Poppins'] font-normal transition duration-700 ease-in-out">
+              <span className="flex items-center border-transparent border-b-2 ml-4 cursor-pointer text-lg  text-[#888] font-['Poppins'] font-normal transition duration-700 ease-in-out">
                 <Badge badgeContent={wishList?.length} color="secondary" onClick={() => handleRedirectClick('/mi-lista-de-deseos')} className="mr-4">
                   <IconContext.Provider value={{ size: "1.6rem" }}>
                     <AiOutlineHeart />
                   </IconContext.Provider>
                 </Badge>
-
+              </span>
+              <span className="flex items-center border-transparent border-b-2 cursor-pointer text-lg  text-[#888] font-['Poppins'] font-normal transition duration-700 ease-in-out">
                 <Badge badgeContent={logged ? cart?.length : cartNotLogged?.length} color="secondary" onClick={() => handleRedirectClick('/mi-carrito')}>
                   <IconContext.Provider value={{ size: "1.5rem" }}>
                     <BsHandbag />
