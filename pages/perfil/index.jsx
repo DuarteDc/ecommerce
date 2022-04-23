@@ -21,7 +21,7 @@ import ProfileSection from "../../src/components/profile/ui/ProfileSection";
 
 import ModeEditOutlineIcon from '@mui/icons-material/ModeEditOutline';
 
-import { startLoadDataUser, startGetDirections, startUpdateDataUser } from "../../src/actions/profileActions";
+import { startLoadDataUser, startGetDirections, startUpdateDataUser, startUpdateImageUser } from "../../src/actions/profileActions";
 import { startLoadAdministrableLogo } from "../../src/actions/administrableActions";
 import { errorNotify, successNotify } from "../../src/helpers/helpers";
 import { useRouter } from "next/router";
@@ -46,7 +46,7 @@ const Profile = () => {
         const data = new FormData();
         data.append('profileImage', formData);
 
-        const { hasError, message } = await dispatch(startUpdateDataUser(data))
+        const { hasError, message } = await dispatch(startUpdateImageUser(data))
 
         if (hasError) {
             errorNotify(message);

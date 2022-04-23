@@ -58,6 +58,7 @@ export const types = {
     change_default_addres: '[PROFILE] change default address',
     add_new_address: '[PROFILE] add new address',
     delete_addres: '[PROFILE] delete address',
+    update_image_user: '[PROFILE] update image user',
 
     addProductShoppingCart: '[ShoppingCart] add product to shopping cart',
     loadShoppingCartFromLocalStorage: '[ShoppingCart] load shopping cart from loadShoppingCartFromLocalStorage',
