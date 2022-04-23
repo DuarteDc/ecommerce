@@ -13,8 +13,7 @@ import { useEffect, useState } from "react"
 import { useRouter } from "next/router"
 import { helpersProducts } from "../../src/helpers"
 import LoadingScreen from "../../src/components/LoadingScreen"
-import { BiCategoryAlt } from "react-icons/bi"
-import { IconContext } from "react-icons";
+import CategoriesFaqs from "../../src/components/faqs/CategoriesFaqs"
 
 
 const FAQS = () => {
@@ -59,33 +58,13 @@ const FAQS = () => {
                 title="Preguntas Frecuentes"
             />
             {loading && <LoadingScreen />}
-            <section className=" max-w-[1490px] mx-auto my-20 px-4 min-h-screen">
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
-                    <div className="p-10 hidden md:block">
-                        <p className="py-5 uppercase font-bold">Tabla de contenidos</p>
-                        <ul>
-                            {
-                                categories.map(category => (
-                                    <li
-                                        className="flex items-center cursor-pointer"
-                                        key={category._id}
-                                        onClick={() => getFaqsPerCategoryId(category._id)}
-                                    >
-                                        <IconContext.Provider
-                                            value={{ className: `text-[25px] text-[#888] ${category._id === faqActive ? "font-semibold text-black" : "text-gray-400"}` }}
-                                        >
-                                            <BiCategoryAlt />
-                                        </IconContext.Provider>
-                                        <a
-                                            className={`text-lg my-4 
-                                            ${category._id == faqActive ? "font-semibold text-black" : "text-gray-400 hover:text-[#222]"}`}>
-                                            {category.name}
-                                        </a>
-                                    </li>
-                                ))
-                            }
-                        </ul>
-                    </div>
+            <section className=" max-w-[1490px] mx-auto my-10 lg:my-20 px-4 min-h-screen">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 mx-2">
+                    <CategoriesFaqs
+                        categories={categories}
+                        faqActive={faqActive}
+                        getFaqsPerCategoryId={getFaqsPerCategoryId}
+                    />
                     <FaqsList faqs={faqs} />
                 </div>
             </section>

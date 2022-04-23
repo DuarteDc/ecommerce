@@ -15,12 +15,12 @@ const Login = () => {
 
   return (
     <Layout>
-      <div className="container mx-auto grid grid-cols-1 md:grid-cols-2 h-screen mt-48">
+      <div className="container mx-auto grid grid-cols-1 md:grid-cols-2 min-h-screen mt-48">
         <div className="px-7">
-          <h1 className="py-4 bg-gray-50 text-center uppercase font-bold mt-10">Iniciar Sesión</h1>
+          <h1 className="py-4 bg-gray-50 text-center uppercase font-bold md:mt-10">Iniciar Sesión</h1>
           <FormSignIn />
         </div>
-        <div className="px-7">
+        <div className="px-7 mb-44">
           <h1 className="py-4 bg-gray-50 text-center uppercase font-bold mt-10">Nuevo Cliente</h1>
           <h2 className="font-bold my-3 text-lg">Crear una cuenta</h2>
           <p className="text-left">

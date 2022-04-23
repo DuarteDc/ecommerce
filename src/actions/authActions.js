@@ -141,7 +141,7 @@ export const startChangePassword = async (data) => {
             }
         });
         return {
-            hasError: flase,
+            hasError: false,
             message: res?.data?.message,
         }
     } catch (error) {
@@ -155,6 +155,29 @@ export const startChangePassword = async (data) => {
         return {
             hasError: true,
             message: "No se pudo cambiar la contraseña - intente mas tarde"
+        }
+    }
+}
+
+export const forgotPassword = async (email) => {
+    let url = '/auth/forgot-password';
+    try {
+        const res = await client.post(url, email);
+        return {
+            hasError: false,
+            message: res?.data?.message,
+        }
+    } catch (error) {
+        if (axios.isAxiosError(error)) {
+            return {
+                hasError: true,
+                message: error?.response?.data?.message
+            }
+        }
+
+        return {
+            hasError: true,
+            message: "No se pudo enviar el correo - Intente más tarde"
         }
     }
 }

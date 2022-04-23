@@ -228,6 +228,42 @@ export const startUpdateDataUser = (formData) => {
 export const updateDataUser = (user) => ({
     type: types.update_data_user,
     payload: user,
-});
+})
 
 
+export const startUpdateImageUser = (formData) => {
+    return async (dispatch) => {
+        let url = `/auth/update-profile-image`;
+        try {
+            const token = await Cookies.get('token');
+            const res = await client.put(url, formData, {
+                headers: {
+                    'Authorization': token
+                }
+            });
+            dispatch(updateImageUser(res.data.profileImage));
+            return {
+                hasError: false,
+                message: res?.data?.message,
+            }
+
+        } catch (error) {
+            if (axios.isAxiosError(error)) {
+                return {
+                    hasError: true,
+                    message: error?.response?.data?.message
+                }
+            }
+
+            return {
+                hasError: true,
+                message: "No se pudo eliminar la dirección - intente mas tarde"
+            }
+        }
+    }
+}
+
+export const updateImageUser = (image) => ({
+    type: types.update_image_user,
+    payload: image,
+})

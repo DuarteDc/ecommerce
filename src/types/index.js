@@ -58,6 +58,7 @@ export const types = {
     change_default_addres: '[PROFILE] change default address',
     add_new_address: '[PROFILE] add new address',
     delete_addres: '[PROFILE] delete address',
+    update_image_user: '[PROFILE] update image user',
 
     addProductShoppingCart: '[ShoppingCart] add product to shopping cart',
     loadShoppingCartFromLocalStorage: '[ShoppingCart] load shopping cart from loadShoppingCartFromLocalStorage',
@@ -82,7 +83,6 @@ export const types = {
     add_one_product_from_wishList: '[WishList] add one product to wishlist',
     remove_one_product_from_wishList: '[WishList] remove one product from wishlist',
     search_product:'[WishList] search product',
-
 
     loadSecretClientStripe : '[Checkout] load secret client stripe',
     loadSecretClientfromCookies : '[Checkout] load secret client from cookies',

@@ -3,7 +3,7 @@ import FaqItem from "./FaqItem"
 
 const FaqsList = ({ faqs }) => {
     return (
-        <div className="lg:col-span-2 md:my-10">
+        <div className="lg:col-span-2">
             {
                 faqs.map(faq => (
                     <FaqItem

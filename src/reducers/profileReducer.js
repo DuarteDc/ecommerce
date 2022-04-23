@@ -45,7 +45,16 @@ export const profileReducer = (state = initialState, { type, payload }) => {
         case types.update_data_user:
             return {
                 ...state,
-                user: payload
+                user:{...state.user, fullname: state.user.fullname = payload.fullname,
+                    email:state.user.email = payload.email,
+                    phone: state.user.phone = payload.phone,
+                }
+            }
+
+        case types.update_image_user:
+            return {
+                ...state,
+                user: {...state.user, profileImage: state.user.profileImage = payload}
             }
 
         default:

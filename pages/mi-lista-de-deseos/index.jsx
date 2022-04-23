@@ -10,7 +10,7 @@ import Layout from '../../src/components/Layouts'
 import { BannerImage, ProductCard } from '../../src/components/ui'
 import { wrapper } from '../../src/store'
 import { useLocalStorage } from '../../src/hooks/useLocalStorage'
-import { deleteProduct, searcProduct, startLoadProducts } from '../../src/actions/wishListActions'
+import { searcProduct, startLoadProducts } from '../../src/actions/wishListActions'
 import LoadingScreen from '../../src/components/LoadingScreen'
 import { IconContext } from "react-icons";
 import { BsSearch } from 'react-icons/bs'
@@ -19,10 +19,10 @@ import { BsSearch } from 'react-icons/bs'
 const Wishlist = () => {
 
     const { categories } = useSelector((state) => state.faqs);
-    const { products, allProducts } = useSelector((state) => state.wishList);
+    const { products, allProducts, wishList } = useSelector((state) => state.wishList);
 
     const [loading, setLoading] = useState(false);
-    const [storedValue, setValue] = useLocalStorage('wishListProducts', '[]');
+    const [storedValue] = useLocalStorage('wishListProducts');
 
     const dispatch = useDispatch();
 
@@ -36,18 +36,14 @@ const Wishlist = () => {
         getProducts();
     }, []);
 
-    const deleteFromFavorites = (product_id) => {
-        dispatch(deleteProduct(product_id));
-        setValue(storedValue.filter(product => product.product_id !== product_id));
-    }
-
     const handleSeachProduct = (query) => {
-
-        let data = allProducts.filter((product) => {
-            return product.name.toLowerCase().includes(query.toLowerCase()) ||
-                product.description.toLowerCase().includes(query.toLowerCase())
-        })
-        dispatch(searcProduct(data));
+        if (wishList.length) {
+            let data = allProducts.filter((product) => {
+                return product.name.toLowerCase().includes(query.toLowerCase()) ||
+                    product.description.toLowerCase().includes(query.toLowerCase())
+            })
+            dispatch(searcProduct(data));
+        }
     }
 
     return (
