@@ -1,4 +1,3 @@
-
 import { useState } from "react"
 import { wrapper } from '../../src/store';
 import Layout from '../../src/components/Layouts'
@@ -9,21 +8,66 @@ import OrderDetail from "../../src/components/profile/OrderDetail";
 import helpersProducts from "../../src/helpers/helpersProducts";
 import { useRouter } from "next/router";
 import { startLoadFaqsCategories } from "../../src/actions/faqsActions";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
-const MisPedidos = ({ tabActive }) => {
+
+import Tabs from '@mui/material/Tabs';
+import Tab from '@mui/material/Tab';
+import Box from '@mui/material/Box';
+import { useToggle } from "../../src/hooks/useToggle";
+import { Modal } from "../../src/components/ui/modal";
+import { UploadProofOfPayment } from "../../src/components/checkout/uploadProofOfPayment";
+import { selectedOrderPendding, startLoadPendingOrders } from "../../src/actions/ordersActions";
+import {PendingPaymentOrderIndex} from "../../src/components/orders/pendingOrderPayment"
+
+function a11yProps(index) {
+    return {
+      id: `simple-tab-${index}`,
+      'aria-controls': `simple-tabpanel-${index}`,
+    };
+}
+
+function TabPanel(props) {
+    const { children, value, index, ...other } = props;
+    return (
+      <div
+        role="tabpanel"
+        hidden={value !== index}
+        id={`simple-tabpanel-${index}`}
+        aria-labelledby={`simple-tab-${index}`}
+        {...other}
+      >
+        {value === index && (
+         <div className="pt-10 mt-5 w-full">
+             {children}
+         </div>
+        )}
+      </div>
+    );
+  }
+  
+
+  
+const MisPedidos = () => {
 
     const router = useRouter();
+    const dispatch = useDispatch();
+    const {penddingOrders} = useSelector((state)=>state.orders)
 
     const { categories } = useSelector((state) => state.faqs)
 
-    const [openProductDetail, setOpenProductDetail] = useState(false);
-    const [order, setOrder] = useState(null)
+
+    const [valueTab , setValueTab ] = useState(0);
+    const [ openProofOfPayment , toggleProofOfPayment] = useToggle();
+
     const { filterSearch } = helpersProducts;
 
     const tabsData = [
-        { _id: 1, name: 'Pendiente de envío' },
-        { _id: 1, name: 'Pedidos cancelados' },
+        { _id: 1, name: 'Pendiente de pago' },
+        { _id: 2, name: 'Pedidos cancelados' },
+        { _id: 3, name: 'pendiente de aprobacion'},
+        { _id: 4, name: 'en proceso de enpaquetado'},
+        { _id: 5, name: 'enviados'}
     ]
 
     const orders = [
@@ -42,6 +86,15 @@ const MisPedidos = ({ tabActive }) => {
         setOrder(order)
     }
 
+    const handleChangeTab = (event , newValue) =>{
+        setValueTab(newValue);
+    }
+
+    const handleOpenProofOfPayment = (order_id) =>{
+        toggleProofOfPayment();
+        dispatch(selectedOrderPendding(order_id));
+    }
+
     return (
         <Layout
             categories={categories}
@@ -50,51 +103,76 @@ const MisPedidos = ({ tabActive }) => {
                 title="Mis Pedidos"
             />
 
-            <section className="container mx-auto mt-20 px-2 lg:px-0">
-                <div className="flex flex-wrap justify-start items-center text-[#888]">
-                    <span
-                        className={`cursor-pointer border-solid font-Poppins text-medium leading-[1.2] hover:text-[#333] hover:border-[#797979] ${tabActive == null && "text-[#333] border-[#797979]"
-                            } border-b-[1px] border-transparent mx-1 mr-8  duration-[0.4s] transition-all`}
-                    >
-                        Todos
-                    </span>
-                    {tabsData.map((tabData, index) => (
-                        <span
-                            className={`cursor-pointer border-solid font-Poppins text-medium leading-[1.9] hover:text-[#333] hover:border-[#797979] ${tabActive == index && "text-[#333] border-[#797979]"
-                                } border-b-[1px] border-transparent mx-1 mr-8  duration-[0.4s] transition-all`}
-                            key={tabData._id}
-                        >
-                            {tabData.name}
-                        </span>
-                    ))}
-                </div>
-                <div className="flex flex-row-reverse mt-3 ">
-                    <select name="" id="" className="w-full md:w-1/4 h-8 font-Poppins text-sm leading-[1.6] text-[#333] pl-[5px] outline-0 bg-gray-200" onChange={filterOrdersByDate}>
-                        <option value="last-week">Ultima semana</option>
-                        <option value="last-month">Ultimo mes</option>
-                        <option value="3-months-ago">3 Meses</option>
-                        <option value="last-year-ago">Un año</option>
-                    </select>
-                </div>
-                <div className="mb-44">
-                    {
-                        openProductDetail ? (
-                            <OrderDetail setOpenProductDetail={setOpenProductDetail} order={order} />//recibe la orden
-                        ) : (
-                            <OrdersSection handleClickOrder={handleClickOrder} orders={orders} />
-                        )
-                    }
-                </div>
+            <section className="container max-w-[920px] my-10 mx-auto">
+             <Box sx={{width:'100%'}}>
+              <Box sx={{borderBottom:1 , borderColor:'divider'}}>
+                <Tabs 
+                  value={valueTab} 
+                  onChange={handleChangeTab}
+                  aria-label="basic example"
+                  variant="scrollable"
+                  scrollButtons="auto"
+                >
+                 {tabsData.map((tabData, index) => (
+                    <Tab 
+                     key={tabData._id}
+                     label={tabData.name}
+                     {...a11yProps(index)}
+                     className="font-Poppins text-medium leading-[1.9]"
+                    />
+                  )
+                 )}
+                </Tabs>
+              </Box>
+              <TabPanel value={valueTab} index={0}>
+                  {
+                    penddingOrders.map(order=>(
+                        <PendingPaymentOrderIndex
+                          key={order._id}
+                          order={order}
+                          handleOpenProofOfPayment={handleOpenProofOfPayment}
+                          openProofOfPayment={openProofOfPayment}
+                        />
+                    ))
+                  }
+                
+              </TabPanel>
+              <TabPanel value={valueTab} index={1}>
+                   hola a
+              </TabPanel>
+              <TabPanel value={valueTab} index={2}>
+                   hola as
+              </TabPanel>
+              <TabPanel value={valueTab} index={3}>
+                   hola asd
+              </TabPanel>
+              <TabPanel value={valueTab} index={4}>
+                   hola asdf
+              </TabPanel>
+             </Box>
+               {/* modal comprobante de pago */}
+                <Modal
+                title="Sube tu comprobante de pago"
+                open={openProofOfPayment}
+                handleOpenCheckout={handleOpenProofOfPayment}
+                actions={false}
+                fullWidth={true}
+                maxWidth={'xs'}
+                >
+                <UploadProofOfPayment
+                    handleOpenProofOfPayment={handleOpenProofOfPayment}
+                />
+                </Modal>
             </section>
-
         </Layout >
     )
 }
 
 export const getServerSideProps = wrapper.getServerSideProps((store) =>
-    async () => {
+    async (ctx) => {
         await store.dispatch(startLoadAdministrableLogo());
         await store.dispatch(startLoadFaqsCategories());
+        await store.dispatch(startLoadPendingOrders(ctx.req.cookies.token));
     })
 
 export default MisPedidos

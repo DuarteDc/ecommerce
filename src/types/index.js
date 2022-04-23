@@ -108,4 +108,7 @@ export const types = {
     load_faqs_categories: '[FAQS] load faqs categories',
     load_faqs_per_category: '[FAQS] load faqs per category',
 
+    loadPenddingOrders: '[ORDERS] load pendding orders',
+    selectedOrderPendding:'[ORDERS] selected order pendding',
+    upload_proof_payment_order:'[ORDERS] upload proof payment order'
 }

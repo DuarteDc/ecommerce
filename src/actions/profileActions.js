@@ -4,6 +4,7 @@ import axios from 'axios';
 import client from '../config/axiosConfig';
 
 import { types } from '../types'
+import Swal from 'sweetalert2';
 
 export const startLoadDataUser = (ctx) => {
     return async (dispatch) => {
@@ -227,4 +228,6 @@ export const startUpdateDataUser = (formData) => {
 export const updateDataUser = (user) => ({
     type: types.update_data_user,
     payload: user,
-})
+});
+
+

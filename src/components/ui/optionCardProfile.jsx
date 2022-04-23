@@ -1,8 +1,17 @@
 import Image from "next/image"
+import { useRouter } from "next/router"
 
-export const OptionCardProfile = ({title , icon , description}) =>{
+export const OptionCardProfile = ({title , icon , description , path}) =>{
+    const router = useRouter();
+
+    const handleRedirectOptionProfile = (path) =>{
+      router.push(path);
+    }
+
     return(
-        <div className="w-full py-5 pl-10 pr-5 flex border-[1px] border-solid border-[#D5D9D9] cursor-pointer hover:bg-[#eee]">
+        <div className="w-full py-5 pl-10 pr-5 flex border-[1px] border-solid border-[#D5D9D9] cursor-pointer hover:bg-[#eee]"
+         onClick={()=>handleRedirectOptionProfile(path)}
+        >
         <div>
          <Image
           src={icon}

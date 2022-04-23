@@ -108,6 +108,7 @@ const Profile = () => {
                        title="Mis Pedidos"
                        icon={"/assets/icons/entrega-de-pedidos.png"}
                        description="Rastrea tus paquetes , devolver tus pedidos o comprar algo de nuevo"
+                       path="/perfil/mis-pedidos"
                       />
                      </Grid>
                      <Grid item xs={12} sm={12} md={4} lg={4} xl={4}>
@@ -115,6 +116,7 @@ const Profile = () => {
                        title="Inicio de Sesión y Seguridad"
                        icon={"/assets/icons/proteger.png"}
                        description="Rastrea tus paquetes , devolver tus pedidos o comprar algo de nuevo"
+                       path="/perfil/seguridad-y-contraseña"
                       />
                      </Grid>
                      <Grid item xs={12} sm={12} md={4} lg={4} xl={4}>
@@ -122,6 +124,7 @@ const Profile = () => {
                        title="Mis direcciones"
                        icon={"/assets/icons/localizacion.png"}
                        description="Rastrea tus paquetes , devolver tus pedidos o comprar algo de nuevo"
+                       path="/perfil/direcciones"
                       />
                      </Grid>
                      <Grid item xs={12} sm={12} md={4} lg={4} xl={4}>
@@ -129,6 +132,7 @@ const Profile = () => {
                        title="Mi Dirección Fiscal"
                        icon={"/assets/icons/cuenta.png"}
                        description="Rastrea tus paquetes , devolver tus pedidos o comprar algo de nuevo"
+                       path="/perfil/direccion-fiscal"
                       />
                      </Grid>
                      <Grid item xs={12} sm={12} md={4} lg={4} xl={4}>
@@ -136,6 +140,7 @@ const Profile = () => {
                        title="Servicio al Cliente"
                        icon={"/assets/icons/servicio-al-cliente.png"}
                        description="Rastrea tus paquetes , devolver tus pedidos o comprar algo de nuevo"
+                       path="/perfil/soporte"
                       />
                      </Grid>
 
@@ -144,7 +149,7 @@ const Profile = () => {
                 {/* <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                     <div className="w-full flex flex-col items-center p-4 drop-shadow-md">
                         <div className="rounded-full w-64 h-64 border-4 overflow-hidden relative z-10">
-                            <div className="absolute bottom-5 right-10 z-20 bg-[#222] rounded-full p-1 cursor-pointer text-white cursor-pointer hover:opacity-75"
+                            <div className="absolute bottom-5 right-10 z-20 bg-[#222] rounded-full p-1 cursor-pointer text-white  hover:opacity-75"
                                 onClick={onButtonClick}>
                                 <form>
                                     <ModeEditOutlineIcon />
@@ -169,8 +174,8 @@ const Profile = () => {
                     </div>
                     <ProfileSection user={user} />
                 </div> */}
-                <DirectionsSeccion directions={directions} />
-                <SeguritySection />
+                {/* <DirectionsSeccion directions={directions} />
+                <SeguritySection /> */}
             </section>
         </Layout >
     )
