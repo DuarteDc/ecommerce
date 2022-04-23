@@ -113,18 +113,9 @@ export const FormSignIn = () => {
                 </div>
 
                 <div className="text-right text-gray-500 text-sm font-semibold my-3">
-                    <Link href='/Auth/PassFV'>
-                        <a className="hover:text-black transition-all duration-700 ease-out">¿Has olvidado la contraseña?</a>
+                    <Link href='/auth/forgot-password'>
+                        <a className="hover:text-gray-900 transition-all duration-700 ease-out">¿Has olvidado la contraseña?</a>
                     </Link>
-                </div>
-                <div className="my-5">
-                    <GoogleLogin
-                        clientId={process.env.NEXT_PUBLIC_GOOGLE_ID}
-                        buttonText="Iniciar sesión"
-                        onSuccess={responseGoogle}
-                        onFailure={responseGoogle}
-                        cookiePolicy={'single_host_origin'}
-                    />
                 </div>
                 <div>
                     <button className="bg-black w-full text-white py-4 uppercase hover:bg-white border-2 border-black hover:text-black transition-all duration-700 ease-in-out"
@@ -132,6 +123,21 @@ export const FormSignIn = () => {
                     >
                         Iniciar Sesion
                     </button>
+                </div>
+                <div className="my-5">
+                    <div className="flex items-center">
+                        <hr className="w-full h-0.5 bg-gray-500 mr-2"/>
+                        <p className="text-gray-500 font-semibold">O</p>
+                        <hr className="w-full h-0.5 bg-gray-500 ml-2"/>
+                    </div>
+                    <GoogleLogin
+                        clientId={process.env.NEXT_PUBLIC_GOOGLE_ID}
+                        buttonText="Continuar con Google"
+                        className="w-full mt-5 py-3"
+                        onSuccess={responseGoogle}
+                        onFailure={responseGoogle}
+                        cookiePolicy={'single_host_origin'}
+                    />
                 </div>
             </form>
         </>
