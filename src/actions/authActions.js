@@ -39,7 +39,7 @@ export const startLoginGoogle = (idToken) => {
 
         try {
             let url = '/auth/login-google';
-            const res = await client.post(url, {idToken});
+            const res = await client.post(url, { idToken });
             const { token, user } = res.data;
             Cookies.set('token', token);
             dispatch(loginGoogle(token, user));
@@ -202,6 +202,30 @@ export const resetPassword = async (formData) => {
         return {
             hasError: true,
             message: "No se pudo restablecer la contraseña - Intente más tarde"
+        }
+    }
+}
+
+export const emailVerified = async (token) => {
+    let url = '/auth';
+    try {
+        const res = await client.get(url, {
+            headers: {
+                'Authorization': token
+            }
+        });
+        return res.data;
+    } catch (error) {
+        if (axios.isAxiosError(error)) {
+            return {
+                hasError: true,
+                user: error?.response?.data?.message
+            }
+        }
+
+        return {
+            hasError: true,
+            user: "No se pudo enviar el correo - Intente más tarde"
         }
     }
 }

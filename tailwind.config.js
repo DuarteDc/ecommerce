@@ -15,6 +15,7 @@ module.exports = {
         'wine':'#ff0000'
       },
       backgroundImage: {
+        'register': "url('/assets/images/category.jpg')",
         'imgcreateaccount': "url('/assets/images/login.jpeg')",
         'imgcreateaccountc': "url('/assets/images/createAccount.jpeg')",
         'imgpasswvalidation': "url('/assets/images/imgPWV.png')",
