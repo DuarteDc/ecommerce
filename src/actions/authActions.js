@@ -181,3 +181,27 @@ export const forgotPassword = async (email) => {
         }
     }
 }
+
+
+export const resetPassword = async (formData) => {
+    let url = '/auth/reset-password';
+    try {
+        const res = await client.post(url, formData);
+        return {
+            hasError: false,
+            message: res?.data?.message,
+        }
+    } catch (error) {
+        if (axios.isAxiosError(error)) {
+            return {
+                hasError: true,
+                message: error?.response?.data?.message
+            }
+        }
+
+        return {
+            hasError: true,
+            message: "No se pudo restablecer la contraseña - Intente más tarde"
+        }
+    }
+}
