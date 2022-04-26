@@ -22,13 +22,6 @@ const AboutPage = () => {
     }
   }, [logged]);
 
-  useEffect(() => {
-    if (logged) {
-      const shoppingCart = localStorage.getItem('cart') ? JSON.parse(localStorage.getItem('cart')) : [];
-      dispatch(addShoppingCartFromLocalStorage(shoppingCart))
-    }
-  }, [logged]);
-
   return (
     <>
       <BannerImage

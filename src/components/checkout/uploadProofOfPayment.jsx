@@ -1,11 +1,16 @@
+import { Grid } from "@mui/material";
+import { useFormik } from "formik";
 import { useEffect, useRef, useState } from "react";
 import {BsFileEarmarkImage} from "react-icons/bs";
+import { useDispatch } from "react-redux";
 import Swal from "sweetalert2";
+import * as Yup from 'yup';
+import { startUploadProofOfPayment } from "../../actions/ordersActions";
 
-export const UploadProofOfPayment = ({setIsTransfer , handleOpenProofOfPayment}) =>{
+export const UploadProofOfPayment = ({handleOpenProofOfPayment}) =>{
     const dropRef = useRef();
     const fileInput = useRef(null);
-
+    const dispatch = useDispatch();
 
     const [ isLoadImage , setIsLoadImage ] = useState(false);
     const [ dragging , setDragging ] = useState(false);
@@ -15,6 +20,65 @@ export const UploadProofOfPayment = ({setIsTransfer , handleOpenProofOfPayment})
         imagePayment:''
     });
     const { urlPhoto , imagePayment} = image;
+
+    const initialValues = {
+        amount: '',
+        reference: ''
+    }
+    const validationSchema = {
+        amount: Yup.number().required("El monto es requerido"),
+        reference: Yup.string().required("La referencia es requerida")
+    }
+
+    const formik = useFormik({
+        initialValues,
+        validationSchema: Yup.object(validationSchema),
+        onSubmit: (data) => {
+            handleUploadPaymentImage(data);
+        }
+    });
+
+    const handleUploadPaymentImage = (data) =>{
+       data.image = imagePayment;
+       if(!imagePayment){
+        handleOpenProofOfPayment();
+        Swal.fire({
+            icon:"error",
+            title:"¡Ups , hubo un problema!",
+            text:"Al parecer no has subido el comprobante de pago , subelo y vuelve a intentarlo"
+        });
+        
+        return;
+      }
+      handleOpenProofOfPayment();
+
+    //   Swal.fire({
+    //     title:"¿Estás seguro?",
+    //     text:"Una vez enviado el comprobante , revisaremos que los datos de pago coincidan con el total del carrito",
+    //     icon:"warning",
+    //     showCancelButton: true,
+    //     confirmButtonColor: '#3085d6',
+    //     cancelButtonColor: '#d33',
+    //     confirmButtonText: 'Si, enviar!'
+    // }).then((result)=>{
+    //     if(result.isConfirmed){
+    //         const formData = new FormData();
+    //         formData.append("image",data.image);
+    //         formData.append("image",data.reference);
+    //         formData.append("image",data.amount);
+    //         dispatch(startUploadProofOfPayment(formData));
+    //      }else{
+    //       handleOpenProofOfPayment();
+    //     }
+    // })
+    const formData = new FormData();
+    formData.append("image",data.image);
+    formData.append("image",data.reference);
+    formData.append("image",data.amount);
+    dispatch(startUploadProofOfPayment(formData));
+
+
+    }
 
     useEffect(() => {
         let div = dropRef.current;
@@ -89,53 +153,19 @@ export const UploadProofOfPayment = ({setIsTransfer , handleOpenProofOfPayment})
     }
 
     const handleCancelMethodPayment = () =>{
-        if(localStorage.getItem('bankAccountSelected')){
-            localStorage.removeItem('bankAccountSelected');
-            setIsTransfer(false);
             handleOpenProofOfPayment();
-        }
     }
 
-    const handleClickSendProofOfPayment = () =>{
-      if(!imagePayment){
-        handleOpenProofOfPayment();
-        Swal.fire({
-            icon:"error",
-            title:"¡Ups , hubo un problema!",
-            text:"Al parecer no has subido el comprobante de pago , subelo y vuelve a intentarlo"
-        });
-        
-        return;
-      }
-      handleOpenProofOfPayment();
-
-      Swal.fire({
-          title:"¿Estás seguro?",
-          text:"Una vez enviado el comprobante , revisaremos que los datos de pago coincidan con el total del carrito",
-          icon:"warning",
-          showCancelButton: true,
-          confirmButtonColor: '#3085d6',
-          cancelButtonColor: '#d33',
-          confirmButtonText: 'Si, enviar!'
-      }).then((result)=>{
-          console.log(result);
-          if(result.isConfirmed){
-
-          }else{
-            handleOpenProofOfPayment();
-          }
-      })
-    }
     
     return(
         <div>
             <div className="upload-area__header">
-                <p className="text-[0.9rem] text-[#c4c3c4d9] mt-0">
+                <p className="text-[0.9rem] text-[#888] mt-0">
                  El archivo debé ser una imagen en formato JPG, JPEG o PNG.
                 </p>
             </div>
 
-            <div className="relative h-50 flex justify-center items-center flex-col border-[2px] border-dashed border-[#888] rounded-2xl mt-9 cursor-pointer transition-all hover:border-[#008cdd] py-8 px-3 hover:opacity-[0.7] min-h-[200px] "
+            <div className="relative mb-5 h-50 flex justify-center items-center flex-col border-[2px] border-dashed border-[#888] rounded-2xl mt-9 cursor-pointer transition-all hover:border-[#008cdd] py-8 px-3 hover:opacity-[0.7] min-h-[200px] "
             onClick={()=>handleClickDropzone()}
             ref={dropRef}
             >
@@ -153,7 +183,7 @@ export const UploadProofOfPayment = ({setIsTransfer , handleOpenProofOfPayment})
                  <span className="flex text-6xl text-[#008cdd] transition-opacity ">
                  <BsFileEarmarkImage/>
                  </span>
-                 <p className="text-base text-[#c4c3c4d9]  m-0 mt-[0.6rem]">
+                 <p className="text-base text-[#888]  m-0 mt-[0.6rem]">
                       Arrastra la imagen aqui o da click sobre el recuadro
                  </p>
                 </>
@@ -179,20 +209,48 @@ export const UploadProofOfPayment = ({setIsTransfer , handleOpenProofOfPayment})
               onChange={handleChangeProofOfPayment}
             />
         </div>
+        <form onSubmit={formik.handleSubmit}>
+        <Grid container spacing={2}>
+            <Grid item xs={12} sm={12} md={12} lg={12} xl={12}>
+             <label className="font-Poppins text-sm text-[#888] leading-10">Agrega Monto del ticket:</label>
+             <input
+               name="amount"
+               className="w-full h-12 font-Poppins text-[13px] leading-[1.6] text-[#333] pr-[30px] pl-[30px] outline-0 border-[1px] border-solid border-[#D5D9D9]"
+               placeholder="Ej. 280"
+               onChange={formik.handleChange}
+             />
+              {formik.touched.amount && formik.errors.amount ? (
+                        <span className="text-red-500">{formik.errors.amount}</span>
+                    ) : null}
+            </Grid>
+            <Grid item xs={12} sm={12} md={12} lg={12} xl={12}>
+             <label className="font-Poppins text-sm text-[#888] leading-10">Agrega Referencia del ticket:</label>
+             <input
+               name="reference"
+               className="w-full h-12 font-Poppins text-[13px] leading-[1.6] text-[#333] pr-[30px] pl-[30px] outline-0 border-[1px] border-solid border-[#D5D9D9]"
+               placeholder="Ej. 1854673285872"
+               onChange={formik.handleChange}
+             />
+               {formik.touched.reference && formik.errors.reference ? (
+                        <span className="text-red-500">{formik.errors.reference}</span>
+                ) : null}
+            </Grid>
+        </Grid>
         <div className="flex flex-col my-8">
+          <button 
+            type="submit"
+            className="uppercase w-full  mb-5 bg-[#008cdd] text-luz py-4 font-Poppins text-base cursor-pointer"
+          >
+             Enviar Comprobante
+          </button>
+          
           <button className="uppercase w-full mb-5 bg-[#f57c00] text-luz py-4 font-Poppins text-base cursor-pointer"
           onClick={handleCancelMethodPayment}
           >
               Cancelar Pago por Transferencia
           </button>
-          
-              <button 
-                className="uppercase w-full bg-[#008cdd] text-luz py-4 font-Poppins text-base cursor-pointer"
-                onClick={()=>handleClickSendProofOfPayment()}
-            >
-                Enviar Comprobante
-            </button>
         </div>
+        </form>
         </div>
     )
 }

@@ -10,7 +10,7 @@ import { startLoadDataSliders } from "../src/actions/slidersActions";
 import { startLoadCategoriesHome } from "../src/actions/categoryActions";
 import { startLoadAdministrableLogo } from "../src/actions/administrableActions";
 import { startLoadTags } from "../src/actions/tagsActions";
-
+import Cookie from 'js-cookie';
 
 /**Components */
 import {
@@ -26,9 +26,12 @@ import {
 
 /**Actions */
 import {addShoppingCartFromLocalStorage, shoppingCartNotLoggedfromLocalStorage } from "../src/actions/shoppingCartActions";
+import { useRouter } from "next/router";
+import Swal from "sweetalert2";
 
 export default function HomePage() {
   const dispatch = useDispatch();
+  const router = useRouter();
   const { logged } = useSelector((state)=>state.auth);
   
   useEffect(() => {
@@ -39,11 +42,21 @@ export default function HomePage() {
   }, [logged]);
 
   useEffect(() => {
-    if (logged){
-      const shoppingCart = localStorage.getItem('cart') ? JSON.parse(localStorage.getItem('cart')) : [];
-      dispatch(addShoppingCartFromLocalStorage(shoppingCart))
+    if(router.query.redirect_status === 'succeeded'){
+       localStorage.removeItem('cart');
+       Cookie.remove('client_secret');
+       Swal.fire({
+         icon:"success",
+         title:"Venta finalizada con exito",
+         text:"Revisa el apartado mis pedidos para obtener más detalles del envio de tus productos",
+         confirmButtonText:"Cerrar",
+       }).then((result)=>{
+         if(result.isConfirmed){
+           
+         }
+       })
     }
-  }, [logged]);
+  }, [router]);
 
 
   return (

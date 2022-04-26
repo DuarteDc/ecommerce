@@ -16,7 +16,6 @@ import { startLoadAdministrableLogo } from "../../src/actions/administrableActio
 import { BannerImage } from "../../src/components/ui/bannerImage";
 import { ProductCard } from "../../src/components/ui";
 
-import { useLocalStorage } from "../../src/hooks/useLocalStorage";
 import { useEffect, useState } from "react";
 import PaginationItem from '@mui/material/PaginationItem';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
@@ -35,7 +34,6 @@ const Products = () => {
     const { products, filteredProducts, results, filters } = useSelector((state) => state.products);
 
     const { brands } = useSelector((state) => state.brands);
-    const { logged } = useSelector((state) => state.auth);
     const { categories } = useSelector((state) => state.categories);
     const { categories: CategoriesFaqs } = useSelector((state) => state.faqs);
     const { tags } = useSelector((state) => state.tags);

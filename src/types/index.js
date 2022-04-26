@@ -84,13 +84,11 @@ export const types = {
     remove_one_product_from_wishList: '[WishList] remove one product from wishlist',
     search_product:'[WishList] search product',
 
-    loadSecretClientStripe: '[Checkout] load secret client stripe',
-    loadSecretClientfromCookies: '[Checkout] load secret client from cookies',
     loadSecretClientStripe : '[Checkout] load secret client stripe',
     loadSecretClientfromCookies : '[Checkout] load secret client from cookies',
     loadBanksAccounts: '[Checkout] load banks accounts',
     loadBankAccountSelected:'[Checkout] load bank account selected',
-
+    loadSecretClientStripe: '[Checkout] load secret client stripe',
 
     addProductShoppingCart: '[ShoppingCart] add product to shopping cart',
     loadShoppingCartFromCookies: '[ShoppingCart] load shopping cart from cookies',
@@ -110,4 +108,7 @@ export const types = {
     load_faqs_categories: '[FAQS] load faqs categories',
     load_faqs_per_category: '[FAQS] load faqs per category',
 
+    loadPenddingOrders: '[ORDERS] load pendding orders',
+    selectedOrderPendding:'[ORDERS] selected order pendding',
+    upload_proof_payment_order:'[ORDERS] upload proof payment order'
 }

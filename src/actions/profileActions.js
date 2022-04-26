@@ -4,6 +4,7 @@ import axios from 'axios';
 import client from '../config/axiosConfig';
 
 import { types } from '../types'
+import Swal from 'sweetalert2';
 
 export const startLoadDataUser = (ctx) => {
     return async (dispatch) => {

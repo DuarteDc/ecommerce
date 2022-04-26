@@ -52,8 +52,7 @@ const NavBar = () => {
     if (logged) {
       const shoppingCartNotLogged = localStorage.getItem('cartNotlogged') ? JSON.parse(localStorage.getItem('cartNotlogged')) : [];
 
-      const token = Cookies.get('token') || '';
-      if (!shoppingCartNotLogged.length) return;
+     const token = Cookies.get('token') || '';
 
      if(!shoppingCartNotLogged.length){
         dispatch(startLoadShoppingCart(token))
@@ -138,8 +137,6 @@ const NavBar = () => {
 
           }
           </div>
-  
-          
 
           <div className="hidden lg:flex justify-between items-center w-full">
             <div className="px-12 w-full flex justify-center">
@@ -227,7 +224,7 @@ const NavBar = () => {
           }
         </div>
       </div>
-    </div> 
+    </div>
   );
 };
 

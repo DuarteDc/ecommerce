@@ -6,7 +6,7 @@ import { Meta } from '../meta/meta';
 import Script from 'next/script';
 import 'react-toastify/dist/ReactToastify.css';
 
-const Layout = ({ children  , canonical , title , keywords  , description , ogTitle , ogType , ogUrl , ogImage , robots, categories }) => {
+const Layout = ({ children  , canonical , title , keywords  , description , ogTitle , ogType , ogUrl , ogImage , robots , categories }) => {
     return (
         <>
             <Meta

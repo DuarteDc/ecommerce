@@ -24,6 +24,7 @@ module.exports = {
         'about-us':"url('/assets/images/bg-01.jpg')",
         'testimonial':"url('/assets/images/testimonial.jpg')",
         'login':"url('/assets/images/login.jpg')",
+        'entrega-de-pedidos':"url('/assets/icons/entrega-de-pedidos.png')"
       },
       screens: {
         'peque': { 'max': '639px' },

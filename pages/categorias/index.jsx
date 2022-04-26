@@ -8,8 +8,7 @@ import Layout from '../../src/components/Layouts';
 import { CardProduct } from '../../src/components/ui';
 import { BannerImage } from '../../src/components/ui/bannerImage';
 import { wrapper } from '../../src/store';
-import Cookie from 'js-cookie';
-import { addShoppingCartFromLocalStorage, shoppingCartNotLoggedfromLocalStorage } from '../../src/actions/shoppingCartActions';
+import { addShoppingCartFromLocalStorage,shoppingCartNotLoggedfromLocalStorage } from '../../src/actions/shoppingCartActions';
 import { useEffect } from 'react';
 import { startLoadFaqsCategories } from '../../src/actions/faqsActions';
 
@@ -27,12 +26,6 @@ const Categories = () => {
         }
     }, [logged]);
 
-    useEffect(() => {
-        if (logged) {
-            const shoppingCart = localStorage.getItem('cart') ? JSON.parse(localStorage.getItem('cart')) : [];
-            dispatch(addShoppingCartFromLocalStorage(shoppingCart))
-        }
-    }, [logged]);
 
     const handleClickCard = (url) => {
         history.push(`/categorias/${url}`)

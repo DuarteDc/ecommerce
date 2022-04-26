@@ -68,8 +68,6 @@ export const ProductCard = ({product}) =>{
                          }
 
         if(logged){
-          let shoppingCart = [...cart  , itemCart ];
-          localStorage.setItem('cart' , JSON.stringify(shoppingCart));
           dispatch(startAddProductShoppingCart(itemCart , product.name));
           return;
         }else{

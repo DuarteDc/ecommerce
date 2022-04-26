@@ -26,12 +26,6 @@ const Brands = () => {
     }
   }, [logged]);
 
-  useEffect(() => {
-    if (logged) {
-      const shoppingCart = localStorage.getItem('cart') ? JSON.parse(localStorage.getItem('cart')) : [];
-      dispatch(addShoppingCartFromLocalStorage(shoppingCart))
-    }
-  }, [logged]);
 
   const handleClickCard = (url) => {
     history.push(`/marcas/${url}`)
