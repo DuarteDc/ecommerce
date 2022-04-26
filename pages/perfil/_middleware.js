@@ -1,35 +1,25 @@
 import { NextResponse } from "next/server";
-import client from "../../src/config/axiosConfig";
+import { emailVerified } from "../../src/actions/authActions";
 
 export async function middleware(req, ev) {
 
     const { token } = req.cookies;
-    const emailVerified = async (userToken) => {
-        let url = '/auth';
-        try {
-            const res = await client.get(url, {
-                headers: {
-                    'Authorization': userToken
-                }
-            });
-            return res.data.user;
-        } catch (error) {
-            return {
-                hasError: true,
-                user: error?.response?.data?.message
-            }
 
-        }
+    const baseUrl = req.nextUrl.clone().origin;
+
+    const handleEmailVerified = async (token) => {
+        return await emailVerified(token);
     }
 
     if (token) {
-
-        const data = await emailVerified(token);
-        console.log(data);
-        return NextResponse.next();
+        const { email_verified } = await handleEmailVerified(token);
+        if (email_verified) {
+            return NextResponse.next();
+        }
+        return NextResponse.redirect(`${baseUrl}/verificar-cuenta`);
     }
 
-    const baseUrl = req.nextUrl.clone().origin;
+
     const requestedPage = req.page.name;
 
     return NextResponse.redirect(`${baseUrl}/auth/login?p=${requestedPage}`);

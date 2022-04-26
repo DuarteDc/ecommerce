@@ -207,25 +207,20 @@ export const resetPassword = async (formData) => {
 }
 
 export const emailVerified = async (token) => {
-    let url = '/auth';
+    let url = `${process.env.REACT_APP_BACKEND_URL}/auth`;
     try {
-        const res = await client.get(url, {
+        const response = await fetch(url, {
+            method: 'GET',
             headers: {
-                'Authorization': token
-            }
+                Authorization: token
+            },
         });
-        return res.data;
+        const data = await response.json();
+        return data.user;
     } catch (error) {
-        if (axios.isAxiosError(error)) {
-            return {
-                hasError: true,
-                user: error?.response?.data?.message
-            }
-        }
-
         return {
             hasError: true,
-            user: "No se pudo enviar el correo - Intente más tarde"
+            message: "No se pudo enviar el correo - Intente más tarde"
         }
     }
 }
