@@ -80,7 +80,7 @@ const Wishlist = () => {
                             : (
                                 <div className="text-center col-span-full">
                                     <h4 className="text-2xl uppercase font-semibold mt-20 mb-10">Guarda tus articulos favoritos</h4>
-                                    <p className="mb-16 px-96">No has guardado nada todavía. No te preocupes ¡es muy sencillo! Para hacer tu selección más fácil, agrega productos a tu lista de favoritos dando clic en el corazón que está en la esquina inferior izquierda de cada uno de nuestros productos.</p>
+                                    <p className="mb-16 px-5 lg:px-96">No has guardado nada todavía. No te preocupes ¡es muy sencillo! Para hacer tu selección más fácil, agrega productos a tu lista de favoritos dando clic en el corazón que está en la esquina inferior izquierda de cada uno de nuestros productos.</p>
                                     <Link href="/productos">
                                         <a className="bg-[#222] w-full text-white py-4 uppercase hover:bg-white hover:text-[#222] border-2 border-[#222] transition-all duration-700 ease-in-out px-10">Explorar ahora</a>
                                     </Link>
