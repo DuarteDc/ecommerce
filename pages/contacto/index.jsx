@@ -17,6 +17,7 @@ import { useFormik } from "formik";
 import * as Yup from 'yup';
 import { startSendMessage } from "../../src/actions/contactActions";
 import LoadingScreen from "../../src/components/LoadingScreen";
+import { errorNotify, successNotify } from "../../src/helpers/helpers";
 
 const ContactUs = () => {
   const dispatch = useDispatch();
@@ -40,14 +41,10 @@ const ContactUs = () => {
     const { hasError, message } = await startSendMessage(formData);
 
     if (hasError) {
-      setError(true);
-      setMessageError(message || '');
-      setTimeout(() => setError(false), 4000);
-      setLoading(false);
+      errorNotify(message)
       return;
     }
-
-    
+    successNotify(message);
     setLoading(false);
   }
 
