@@ -51,6 +51,7 @@ export default function HomePage() {
          title:"Venta finalizada con exito",
          text:"Revisa el apartado mis pedidos para obtener más detalles del envio de tus productos",
          confirmButtonText:"Cerrar",
+         allowOutsideClick:false
        }).then((result)=>{
          if(result.isConfirmed){
           router.push({

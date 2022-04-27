@@ -47,8 +47,7 @@ const ContactUs = () => {
       return;
     }
 
-    const destination = router.query.p?.toString() || '';
-    router.replace(destination); router.replace('/');
+    
     setLoading(false);
   }
 
@@ -70,8 +69,8 @@ const ContactUs = () => {
     initialValues,
     validationSchema: Yup.object(validationSchema),
     onSubmit: (formData) => {
-      //handelSendMessage(formData);
-      alert(JSON.stringify(formData));
+      handelSendMessage(formData);
+      //alert(JSON.stringify(formData));
     }
   });
 
