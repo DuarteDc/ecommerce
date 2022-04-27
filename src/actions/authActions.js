@@ -224,3 +224,23 @@ export const emailVerified = async (token) => {
         }
     }
 }
+
+
+export const cartNotEmpty = async (token) => {
+    let url = `${process.env.REACT_APP_BACKEND_URL}/cart`;
+    try {
+        const response = await fetch(url, {
+            method: 'GET',
+            headers: {
+                Authorization: token
+            },
+        });
+        const data = await response.json();
+        return data;
+    } catch (error) {
+        return {
+            hasError: true,
+            message: "No se pudo enviar el correo - Intente más tarde"
+        }
+    }
+}

@@ -20,9 +20,7 @@ const Offers = () => {
               <Image
                 src={offer.imageWeb}
                 alt={offer.text}
-                width="100"
-                height="100"
-                layout="responsive"
+                layout="fill"
                 blurDataURL
                 placeholder="blur"
               />

@@ -32,6 +32,7 @@ import Swal from "sweetalert2";
 export default function HomePage() {
   const dispatch = useDispatch();
   const router = useRouter();
+  
   const { logged } = useSelector((state)=>state.auth);
   
   useEffect(() => {
@@ -52,7 +53,11 @@ export default function HomePage() {
          confirmButtonText:"Cerrar",
        }).then((result)=>{
          if(result.isConfirmed){
-           
+          router.push({
+            pathname: router.path,
+        },
+            undefined, { shallow: true }
+        )
          }
        })
     }

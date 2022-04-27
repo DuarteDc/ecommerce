@@ -37,9 +37,9 @@ export const CartItems = ({product}) =>{
 
     useEffect(() => {
       if(Object.keys(quantityInputadd).length > 0){
-         if(Number(quantityInputadd) > Number(product.stock)){
+         if(Number(quantityInputadd) > Number(product.product_id.quantity)){
            notify('No puedes agregar más cantidad de la que se tiene en stock');
-           setQuantityInput(product.quantity)
+           setQuantityInput(product.product_id.quantity)
            return;
          }
 
