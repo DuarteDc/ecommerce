@@ -54,7 +54,7 @@ export const profileReducer = (state = initialState, { type, payload }) => {
         case types.update_image_user:
             return {
                 ...state,
-                user: {...state.user, profileImage: state.user.profileImage = payload}
+                user: {...state.user, payload}
             }
 
         default:

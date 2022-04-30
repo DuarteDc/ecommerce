@@ -13,6 +13,7 @@ import {addProductToCartClientsNotLogged, startAddProductShoppingCart } from "..
 import { addOneProduct, removeOneProduct } from "../../actions/wishListActions";
 import {helpers } from "../../helpers";
 import {BsFillCartCheckFill} from "react-icons/bs";
+import Cookies from "js-cookie";
 
 export const ProductCard = ({product}) =>{
     const { _id , name , price , url , quantity , discount } = product; 
@@ -68,7 +69,8 @@ export const ProductCard = ({product}) =>{
                          }
 
         if(logged){
-          dispatch(startAddProductShoppingCart(itemCart , product.name));
+          const token = Cookies.get('token') || '';
+          dispatch(startAddProductShoppingCart(itemCart , product.name , token));
           return;
         }else{
           let shoppingCart = [...cartNotLogged  , itemCart ];

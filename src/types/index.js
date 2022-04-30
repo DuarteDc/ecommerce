@@ -110,5 +110,9 @@ export const types = {
 
     loadPenddingOrders: '[ORDERS] load pendding orders',
     selectedOrderPendding:'[ORDERS] selected order pendding',
-    upload_proof_payment_order:'[ORDERS] upload proof payment order'
+    upload_proof_payment_order:'[ORDERS] upload proof payment order',
+    loadOrdersCanceled:'[ORDERS] load orders canceled',
+    loadOrdersApproved:'[ORDERS] load orders approved',
+    loadShippedOrders:'[ORDERS] load orders shipped',
+    loadCancelOrder:'[ORDERS] load order cancel'
 }

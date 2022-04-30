@@ -3,8 +3,7 @@ import { useSelector } from "react-redux";
 import { Table, Thead, Tbody, Tr, Th, Td } from 'react-super-responsive-table';
 import { CartItems } from './cartItems';
 import 'react-super-responsive-table/dist/SuperResponsiveTableStyle.css';
-import { IconContext } from "react-icons";
-import {MdOutlineRemoveShoppingCart} from "react-icons/md";
+
 
 export const CartMobile = () =>{
     const [ shoppingCart , setShoppingCart] = useState([])

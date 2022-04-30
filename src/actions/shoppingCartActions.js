@@ -14,7 +14,7 @@ export const startLoadShoppingCart = (token) =>{
             headers:{
                'Authorization': token
             }
-         });  
+         }); 
          if(data.cart.products.length > 0){
             dispatch(loadShoppingCart(data.cart.products)); 
          }
@@ -33,13 +33,17 @@ export const loadShoppingCart = (shoppingCart) =>({
 
 
 /**Agregar productos al carrito de compras */
-export const startAddProductShoppingCart = (product ,name) =>{
+export const startAddProductShoppingCart = (product ,name , token) =>{
    return async (dispatch) =>{
       try {
          delete product.product_id;
          product.product_id = product._id
          let url = '/cart';
-         const {data} = await client.post(url , product);
+         const {data} = await client.post(url , product ,{
+            headers: {
+                'Authorization': token
+            }
+          });
          const shoppingCart = data.cart.products;
          Swal.fire({
             icon:"success",

@@ -17,8 +17,11 @@ import Box from '@mui/material/Box';
 import { useToggle } from "../../src/hooks/useToggle";
 import { Modal } from "../../src/components/ui/modal";
 import { UploadProofOfPayment } from "../../src/components/checkout/uploadProofOfPayment";
-import { selectedOrderPendding, startLoadPendingOrders } from "../../src/actions/ordersActions";
+import { selectedOrderPendding, startLoadOrdersCanceled, startLoadPendingOrders ,startLoadOrdersApproved , startLoadOrdersShipped , shippedOrders} from "../../src/actions/ordersActions";
 import {PendingPaymentOrderIndex} from "../../src/components/orders/pendingOrderPayment"
+import { NotFoundOrders } from "../../src/components/orders/notFoundOrders";
+import { Breadcrumbs, Grid,  Typography } from "@mui/material";
+import Link from "next/link";
 
 function a11yProps(index) {
     return {
@@ -52,7 +55,7 @@ const MisPedidos = () => {
 
     const router = useRouter();
     const dispatch = useDispatch();
-    const {penddingOrders} = useSelector((state)=>state.orders)
+    const { penddingOrders , canceledOrders , approvedOrders ,  shippedOrders} = useSelector((state)=>state.orders)
 
     const { categories } = useSelector((state) => state.faqs)
 
@@ -63,17 +66,10 @@ const MisPedidos = () => {
     const { filterSearch } = helpersProducts;
 
     const tabsData = [
-        { _id: 1, name: 'Pendiente de pago' },
+        { _id: 1, name: 'Pendiente de aprobación' },
         { _id: 2, name: 'Pedidos cancelados' },
-        { _id: 3, name: 'pendiente de aprobacion'},
-        { _id: 4, name: 'en proceso de enpaquetado'},
-        { _id: 5, name: 'enviados'}
-    ]
-
-    const orders = [
-        { id: "0329jdm02939uu0ok" },
-        { id: "dp9eud09u03ue09u0" },
-        { id: "p0932489yfh9j0pok" }
+        { _id: 3, name: 'pendiente de envío'},
+        { _id: 4, name: 'enviados'}
     ]
 
     const filterOrdersByDate = ({ target }) => {
@@ -92,7 +88,10 @@ const MisPedidos = () => {
 
     const handleOpenProofOfPayment = (order_id) =>{
         toggleProofOfPayment();
-        dispatch(selectedOrderPendding(order_id));
+        if(order_id){
+           dispatch(selectedOrderPendding(order_id));
+        }
+       
     }
 
     return (
@@ -104,7 +103,20 @@ const MisPedidos = () => {
             />
 
             <section className="container max-w-[920px] my-10 mx-auto">
-             <Box sx={{width:'100%'}}>
+              <Grid container>
+                <Grid item xs={12} sm={12} md={12} lg={12} xl={12}>
+                  <Breadcrumbs aria-label="breadcrumb" className="px-6">
+                    <Link  underline="hover" color="inherit" href="/">
+                      Inicio
+                    </Link>
+                    <Link underline="hover" color="inherit" href="/perfil" className="">
+                      Perfil
+                    </Link>
+                    <Typography color="text.primary">Mis Pedidos</Typography>
+                  </Breadcrumbs>
+                </Grid>
+              </Grid>
+             <Box sx={{width:'100%',marginTop:'20px'}}>
               <Box sx={{borderBottom:1 , borderColor:'divider'}}>
                 <Tabs 
                   value={valueTab} 
@@ -126,28 +138,80 @@ const MisPedidos = () => {
               </Box>
               <TabPanel value={valueTab} index={0}>
                   {
+                    !penddingOrders.length ? 
+                      <NotFoundOrders
+                         text="No cuentas con ordenes pendientes"
+                        
+                      />
+                    :
                     penddingOrders.map(order=>(
                         <PendingPaymentOrderIndex
                           key={order._id}
                           order={order}
                           handleOpenProofOfPayment={handleOpenProofOfPayment}
                           openProofOfPayment={openProofOfPayment}
+                          status={0}
+                          text_description=" Pedido Pendiente de Pago"
+                          text_color="text-[#333]"
                         />
                     ))
                   }
                 
               </TabPanel>
               <TabPanel value={valueTab} index={1}>
-                   hola a
+                  {
+                    !canceledOrders.length ? 
+                      <NotFoundOrders
+                        text="No cuentas con ordenes canceladas"
+                      />
+                    :
+                    canceledOrders.map(order=>(
+                      <PendingPaymentOrderIndex
+                        key={order._id}
+                        order={order}
+                        status={1}
+                        text_description="Pedido Cancelado"
+                        text_color="text-[#333]"
+                      />
+                    ))
+                  }
               </TabPanel>
               <TabPanel value={valueTab} index={2}>
-                   hola as
+                   {
+                     !approvedOrders.length ?
+                      <NotFoundOrders
+                        text="No cuentas con ordenes aprobadas"
+                      />
+                     :
+                     approvedOrders.map(order=>(
+                      <PendingPaymentOrderIndex
+                        key={order._id}
+                        order={order}
+                        status={2}
+                        text_description="Pedido Aprobado"
+                        text_color="text-[#333]"
+                      />
+                     ))
+
+                   }
               </TabPanel>
               <TabPanel value={valueTab} index={3}>
-                   hola asd
-              </TabPanel>
-              <TabPanel value={valueTab} index={4}>
-                   hola asdf
+                  {
+                    !shippedOrders.length ? 
+                    <NotFoundOrders
+                    text="No cuentas con ordenes enviadas"
+                    />
+                     :
+                     shippedOrders.map(order=>(
+                      <PendingPaymentOrderIndex
+                        key={order._id}
+                        order={order}
+                        status={3}
+                        text_description="Pedido Enviado"
+                        text_color="text-[#333]"
+                      />
+                     ))
+                  }
               </TabPanel>
              </Box>
                {/* modal comprobante de pago */}
@@ -173,6 +237,9 @@ export const getServerSideProps = wrapper.getServerSideProps((store) =>
         await store.dispatch(startLoadAdministrableLogo());
         await store.dispatch(startLoadFaqsCategories());
         await store.dispatch(startLoadPendingOrders(ctx.req.cookies.token));
-    })
+        await store.dispatch(startLoadOrdersCanceled(ctx.req.cookies.token));
+        await store.dispatch(startLoadOrdersApproved(ctx.req.cookies.token));
+        await store.dispatch(startLoadOrdersShipped(ctx.req.cookies.token));
+})
 
 export default MisPedidos

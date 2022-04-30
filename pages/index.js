@@ -52,7 +52,7 @@ export default function HomePage() {
          confirmButtonText:"Cerrar",
        }).then((result)=>{
          if(result.isConfirmed){
-           
+           router.push('/');
          }
        })
     }

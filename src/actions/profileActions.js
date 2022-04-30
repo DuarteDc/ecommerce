@@ -195,19 +195,28 @@ export const startUpdateDataUser = (formData) => {
         let url = `/auth/update-user-info`;
         try {
             const token = await Cookies.get('token');
-            const res = await client.put(url, formData, {
+            const {data} = await client.put(url, formData, {
                 headers: {
                     'Authorization': token
                 }
             });
-            console.log(res.data);
-            if (res.data.status === 'ok') {
-                dispatch(updateDataUser(res.data.user));
-            }
-            return {
-                hasError: false,
-                message: res?.data?.message,
-            }
+            const Toast = Swal.mixin({
+                toast: true,
+                position: 'top-end',
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true,
+                didOpen: (toast) => {
+                    toast.addEventListener('mouseenter', Swal.stopTimer)
+                    toast.addEventListener('mouseleave', Swal.resumeTimer)
+                }
+            });
+            
+              Toast.fire({
+                icon: 'success',
+                title: data.message
+              });
+            dispatch(updateDataUser(data.user));
 
         } catch (error) {
             if (axios.isAxiosError(error)) {
@@ -241,11 +250,24 @@ export const startUpdateImageUser = (formData) => {
                     'Authorization': token
                 }
             });
-            dispatch(updateImageUser(res.data.profileImage));
-            return {
-                hasError: false,
-                message: res?.data?.message,
-            }
+
+            const Toast = Swal.mixin({
+                toast: true,
+                position: 'top-end',
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true,
+                didOpen: (toast) => {
+                    toast.addEventListener('mouseenter', Swal.stopTimer)
+                    toast.addEventListener('mouseleave', Swal.resumeTimer)
+                }
+            });
+            
+              Toast.fire({
+                icon: 'success',
+                title: 'Imagen de perfil actualizada satisfactoriamente'
+              });
+              dispatch(updateImageUser(res.data.user));
 
         } catch (error) {
             if (axios.isAxiosError(error)) {
@@ -263,7 +285,93 @@ export const startUpdateImageUser = (formData) => {
     }
 }
 
-export const updateImageUser = (image) => ({
+export const updateImageUser = (user) => ({
     type: types.update_image_user,
-    payload: image,
-})
+    payload: user,
+});
+
+
+export const startUpdatePhoneNumber = (phone_number) =>{
+    return async (dispatch) =>{
+        try {
+            const token = await Cookies.get('token');
+            let url = '/auth/update-phone-number';
+            const {data} = await client.put(url , phone_number ,{
+                headers: {
+                    'Authorization': token
+                }
+            });
+
+            const Toast = Swal.mixin({
+                toast: true,
+                position: 'top-end',
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true,
+                didOpen: (toast) => {
+                    toast.addEventListener('mouseenter', Swal.stopTimer)
+                    toast.addEventListener('mouseleave', Swal.resumeTimer)
+                }
+            });
+            
+            Toast.fire({
+              icon: 'success',
+              title: data.message
+            });
+
+            dispatch(loadDataUser(data.user));
+        } catch (error) {
+            console.log(error);
+        }
+    }
+}
+
+export const startUpdatedPasswordClient = (password) =>{
+    return async ()=>{
+        try {
+            const token = await Cookies.get('token');
+            let url = '/auth/changePassword';
+            await client.post(url , password ,{
+                headers: {
+                    'Authorization': token
+                }
+            });
+
+            const Toast = Swal.mixin({
+                toast: true,
+                position: 'top-end',
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true,
+                didOpen: (toast) => {
+                    toast.addEventListener('mouseenter', Swal.stopTimer)
+                    toast.addEventListener('mouseleave', Swal.resumeTimer)
+                }
+            });
+            
+            Toast.fire({
+              icon: 'success',
+              title:"Contraseña actualizada satisfactoriamente"
+            });
+            
+        } catch (error) {
+            console.log(error);
+            const Toast = Swal.mixin({
+                toast: true,
+                position: 'top-end',
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true,
+                didOpen: (toast) => {
+                    toast.addEventListener('mouseenter', Swal.stopTimer)
+                    toast.addEventListener('mouseleave', Swal.resumeTimer)
+                }
+            });
+            
+            Toast.fire({
+              icon: 'error',
+              title:error.response.data.message
+            });
+        }
+    }
+}

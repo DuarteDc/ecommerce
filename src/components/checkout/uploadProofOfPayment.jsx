@@ -39,45 +39,39 @@ export const UploadProofOfPayment = ({handleOpenProofOfPayment}) =>{
     });
 
     const handleUploadPaymentImage = (data) =>{
-       data.image = imagePayment;
-       if(!imagePayment){
-        handleOpenProofOfPayment();
-        Swal.fire({
-            icon:"error",
-            title:"¡Ups , hubo un problema!",
-            text:"Al parecer no has subido el comprobante de pago , subelo y vuelve a intentarlo"
-        });
+        data.image = imagePayment;
+        if(!imagePayment){
+         handleOpenProofOfPayment();
+         Swal.fire({
+             icon:"error",
+             title:"¡Ups , hubo un problema!",
+             text:"Al parecer no has subido el comprobante de pago , subelo y vuelve a intentarlo"
+         });
         
-        return;
-      }
-      handleOpenProofOfPayment();
+         return;
+       }
+           handleOpenProofOfPayment();
 
-    //   Swal.fire({
-    //     title:"¿Estás seguro?",
-    //     text:"Una vez enviado el comprobante , revisaremos que los datos de pago coincidan con el total del carrito",
-    //     icon:"warning",
-    //     showCancelButton: true,
-    //     confirmButtonColor: '#3085d6',
-    //     cancelButtonColor: '#d33',
-    //     confirmButtonText: 'Si, enviar!'
-    // }).then((result)=>{
-    //     if(result.isConfirmed){
-    //         const formData = new FormData();
-    //         formData.append("image",data.image);
-    //         formData.append("image",data.reference);
-    //         formData.append("image",data.amount);
-    //         dispatch(startUploadProofOfPayment(formData));
-    //      }else{
-    //       handleOpenProofOfPayment();
-    //     }
-    // })
-    const formData = new FormData();
-    formData.append("image",data.image);
-    formData.append("image",data.reference);
-    formData.append("image",data.amount);
-    dispatch(startUploadProofOfPayment(formData));
-
-
+        Swal.fire({
+          title:"¿Estás seguro?",
+          text:"Una vez enviado el comprobante , revisaremos que los datos de pago coincidan con el total del carrito",
+          icon:"warning",
+          showCancelButton: true,
+          confirmButtonColor: '#3085d6',
+          cancelButtonColor: '#d33',
+          confirmButtonText: 'Si, enviar!'
+      }).then((result)=>{
+          if(result.isConfirmed){
+            const formData = new FormData();
+            formData.append("image",data.image);
+            formData.append("reference",data.reference);
+            formData.append("amount",data.amount);
+            dispatch(startUploadProofOfPayment(formData));
+            return;
+           }else{
+            handleOpenProofOfPayment();
+          }
+      })
     }
 
     useEffect(() => {
@@ -142,14 +136,17 @@ export const UploadProofOfPayment = ({handleOpenProofOfPayment}) =>{
     }
 
     const handleChangeProofOfPayment = (e) =>{
-        setIsLoadImage(true);
-        setTimeout(() => {
-            setIsLoadImage(false);
-            setImage({
-                urlPhoto:URL.createObjectURL(e.target.files[0]),
-                imagePayment:e.target.files[0]
-            })
-        }, 1500);
+
+        if(e.target.files.length > 0){
+            setIsLoadImage(true);
+            setTimeout(() => {
+                setIsLoadImage(false);
+                setImage({
+                    urlPhoto:URL.createObjectURL(e.target.files[0]),
+                    imagePayment:e.target.files[0]
+                })
+            }, 1500);
+        }
     }
 
     const handleCancelMethodPayment = () =>{

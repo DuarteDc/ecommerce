@@ -230,12 +230,9 @@ const Checkout = () => {
 }
 
 
-export const getStaticProps = wrapper.getStaticProps((store)=> async()=>{
+export const getServerSideProps = wrapper.getServerSideProps((store)=> async()=>{
     await store.dispatch(startLoadAdministrableLogo());
     await store.dispatch(startLoadBanksAccounts());
-    return{
-        revalidate:3600
-    }
 });
 
 export default Checkout
