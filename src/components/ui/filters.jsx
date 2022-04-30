@@ -27,7 +27,6 @@ export const FiltersArea = ({
   ]
 
   const order = [
-    { name: 'Default' },
     { name: 'Precio: Bajo a Alto', value: 'LowTohigh' },
     { name: 'Precio: Alto a Bajo', value: 'HighTolow' },
   ]
@@ -49,7 +48,7 @@ export const FiltersArea = ({
                   onClick={() => getDataToFilterOrder(order.value)}
                 >
                   <a className={`${orderBy === order.value ? 'text-[#222]' : 'text-[#aaa]'} font-Poppins text-base leading-[1.2] border-b-[1px] border-b-solid border-transparent`}>
-                    {order.value}
+                    {order.name}
                   </a>
                 </li>
               ))

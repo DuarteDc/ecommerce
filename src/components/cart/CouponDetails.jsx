@@ -1,0 +1,74 @@
+
+import { helpers } from "../../helpers"
+import { AiOutlineCloseCircle } from "react-icons/ai"
+import { IconContext } from "react-icons";
+const CouponDetails = ({ handleApplyCoupon, setInputCoupon, coupon, handleRemoveCoupon, subtotalWithCoupon }) => {
+    const subtotal = helpers.priceFormat(subtotalWithCoupon);
+    return (
+        <>
+            {
+                !coupon && (
+                    <div className="w-full">
+                        <div>
+                            <span className="font-Poppins text-[15px] leading-[1.4] text-[#333]">
+                                Agregar Cupón:
+                            </span>
+                        </div>
+                        <form onSubmit={handleApplyCoupon}>
+                            <div className="w-full mt-5 flex items-center justify-center">
+                                <input
+                                    name="cupon"
+                                    placeholder="Aplicar cupon"
+                                    onChange={(e) => setInputCoupon(e.target.value)}
+                                    type="text"
+                                    className="py-2 border-2 broder-gray-500 focus:outline-none focus:ring-1 focus:ring-gray-900 px-2 w-full"
+                                />
+                                <button
+                                    className="w-full bg-[#222] py-2 text-white ml-2 w-4/12 border-2 border-[#222]"
+                                >
+                                    Aplicar
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                )
+            }
+            {
+                coupon && (
+                    <div className="w-full">
+                        <span className="font-Poppins text-[15px] leading-[1.4] text-[#333] mt-3">
+                            Cupon:
+                        </span>
+                        <div className="flex justify-between items-center">
+                            <div>
+                                <p className="text-lg">{coupon.code}</p>
+                            </div>
+                            <div className="flex items-center">
+                                <p className="text-lg">-{coupon.discount}%</p>
+                                <IconContext.Provider
+                                    value={{ className: "text-xl cursor-pointer ml-2 hover:text-red-600 " }}
+                                >
+                                    <AiOutlineCloseCircle onClick={handleRemoveCoupon} />
+                                </IconContext.Provider>
+                            </div>
+                        </div>
+                        <div className="flex items-center mt-5">
+                            <div className="w-[34.5%]">
+                                <span className="font-Poppins text-[15px] leading-[1.4] text-[#333]">
+                                    Subtotal con cupon aplicado:
+                                </span>
+                            </div>
+                            <div className="w-[65%] pr-[18px] flex justify-end">
+                                <span className="font-Poppins text-[18px] leading-[1.2] text-[#333]">
+                                    {subtotal}
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                )
+            }
+        </>
+    )
+}
+
+export default CouponDetails

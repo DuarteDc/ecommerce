@@ -32,6 +32,7 @@ import Swal from "sweetalert2";
 export default function HomePage() {
   const dispatch = useDispatch();
   const router = useRouter();
+  
   const { logged } = useSelector((state)=>state.auth);
   
   useEffect(() => {
@@ -50,9 +51,14 @@ export default function HomePage() {
          title:"Venta finalizada con exito",
          text:"Revisa el apartado mis pedidos para obtener más detalles del envio de tus productos",
          confirmButtonText:"Cerrar",
+         allowOutsideClick:false
        }).then((result)=>{
          if(result.isConfirmed){
-           router.push('/');
+          router.push({
+            pathname: router.path,
+        },
+            undefined, { shallow: true }
+        )
          }
        })
     }

@@ -3,6 +3,8 @@ import { types } from "../types";
 const initialState = {
     cart: [],
     cartNotLogged:[],
+    coupon:'',
+    subtotalWithCoupon:0,
     subtotal:0,
     total:0,
     superTotal:{},
@@ -25,6 +27,7 @@ export const shoppingCartReducer = (state = initialState, { type, payload }) => 
         case types.calculateTotalShoppingCart:
             return{
                 ...state,
+                subtotalWithCoupon: payload.subtotalWithCoupon,
                 subtotal:payload.subtotalCart,
                 total:payload.total,
                 shipping_costs:payload.shippingSelected
@@ -85,6 +88,22 @@ export const shoppingCartReducer = (state = initialState, { type, payload }) => 
                 ...state,
                 addressSelected:payload
             }
+
+        case types.add_coupon:
+
+                return{
+                    ...state, 
+                    subtotal: payload.subtotal,
+                    coupon:payload.coupon,
+                }
+
+        case types.remove_coupon:
+            return{
+                ...state, 
+                coupon: initialState.coupon
+            }
+                
+
        default:
            return state;
     }

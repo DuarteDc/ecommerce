@@ -1,7 +1,5 @@
 import { useSelector } from "react-redux";
 import { startLoadAdministrableLogo } from "../../../src/actions/administrableActions";
-import { startLoadFaqsCategories } from "../../../src/actions/faqsActions";
-import Layout from "../../../src/components/Layouts";
 import { wrapper } from "../../../src/store";
 import { MdOutlineMailOutline } from "react-icons/md";
 import { IconContext } from "react-icons";
@@ -11,22 +9,35 @@ import * as Yup from 'yup';
 import { useState } from "react";
 import { errorNotify, successNotify } from "../../../src/helpers/helpers";
 import Link from "next/link";
+import Image from "next/image";
+import { useRouter } from "next/router";
+
+import { MdError } from "react-icons/md";
+import Layout from "../../../src/components/Layouts";
+import { startLoadFaqsCategories } from "../../../src/actions/faqsActions";
 
 const ForgotPassword = () => {
 
-  const { categories } = useSelector((state) => state.faqs);
+  const { logo } = useSelector((state) => state.administrable);
+  const { categories } = useSelector(state => state.faqs)
+
+
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(false);
+  const [messageError, setMessageError] = useState('');
+
+  const router = useRouter();
 
   const handleForgotPassword = async (email) => {
-    setLoading(true);
     const { hasError, message } = await forgotPassword(email);
     if (hasError) {
-      errorNotify(message);
-      setLoading(false);
+      setError(true);
+      setMessageError(message);
+      setTimeout(() => setError(false), 4000);
       return;
     }
-    setLoading(false);
     successNotify(message);
+    router.replace('/auth/login');
   }
 
   const initialValues = {
@@ -46,17 +57,22 @@ const ForgotPassword = () => {
   });
 
   return (
-    <Layout
-      categories={categories}
-    >
-      <section className="bg-testimonial bg-center bg-cover bg-no-repeat px-3 md:px-0 pb-20">
-        <div className="container mx-auto min-h-screen relative">
-          <div className="w-full md:w-8/12 lg:w-7/12 right-0 top-1/4 absolute bg-white p-10 lg:p-20">
+    <Layout categories={categories}>
+      <section className="px-6 md:px-0 font-Poppins">
+        <div className="container mx-auto min-h-screen flex justify-center items-center">
+          <div className="w-full md:w-8/12 lg:w-7/12 lg:p-20 border-2 border-gray-200 bg-white p-10">
             <form onSubmit={formik.handleSubmit}>
               <div className="mb-10">
-                <h1 className="text-2xl font-Poppins font-bold mb-5">Olvide mi contraseña</h1>
-                <p className="text-lg my-1">Ingresa tu correo electronico asociado con tu cuenta.</p>
-                <p>Te enviaremos un correo con las instrucciones a seguir.</p>
+                <div className="flex justify-center">
+                  <Image
+                    src={logo}
+                    alt="Wapizima"
+                    width={150}
+                    height={100}
+                  />
+                </div>
+                <h1 className="text-2xl font-bold mb-5 text-center">¿Olvidaste tu contraseña?</h1>
+                <p className="text-lg my-1 font-light">Ingresa la dirección de correo electrónico que utilizaste para crear tu cuenta y nosotros te enviaremos un enlace para que restablezcas tu contraseña.</p>
               </div>
               <div className="border-[1px] border-solid border-[#e6e6e6] rounded-sm flex items-center">
                 <IconContext.Provider
@@ -74,8 +90,28 @@ const ForgotPassword = () => {
                 />
               </div>
               {formik.touched.email && formik.errors.email ? (
-                <span className="text-red-500 text-sm">{formik.errors.email}</span>
+                <span className="flex items-center">
+                  <IconContext.Provider
+                    value={{ className: "text-red-600  mr-1" }}
+                  >
+                    <MdError />
+                  </IconContext.Provider>
+                  <p className="text-red-600 text-sm">{formik.errors.email}</p>
+                </span>
               ) : null}
+              {
+                error &&
+                (
+                  <span className="flex items-center mt-1">
+                    <IconContext.Provider
+                      value={{ className: "text-red-600 mr-1" }}
+                    >
+                      <MdError />
+                    </IconContext.Provider>
+                    <p className="text-red-600 text-sm">{messageError}</p>
+                  </span>
+                )
+              }
               <button
                 className="w-full cursor-pointer text-center bg-[#222] text-white py-4 hover:bg-[#444] transition-all duration-700 ease-in-out mt-10"
                 type="submit"
@@ -84,22 +120,22 @@ const ForgotPassword = () => {
                 Enviar
               </button>
             </form>
-            <div className="text-gray-500 mt-5 underline hover:text-gray-900 text-sm">
+            <div className="text-gray-500 text-sm font-semibold my-3">
               <Link href="/auth/login">
-                <a>Iniciar Sesión</a>
+                <a className="hover:text-gray-900 transition-all duration-700 ease-out">Iniciar Sesión</a>
               </Link>
             </div>
           </div>
         </div>
       </section>
-    </Layout >
+    </Layout>
   )
 }
 
 
 export const getStaticProps = wrapper.getStaticProps((store) => async () => {
   await store.dispatch(startLoadAdministrableLogo());
-  await store.dispatch(startLoadFaqsCategories())
+  await store.dispatch(startLoadFaqsCategories());
   return {
     revalidate: 86400
   }

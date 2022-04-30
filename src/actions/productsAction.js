@@ -1,5 +1,7 @@
 import client from '../config/axiosConfig';
 import { types } from "../types";
+import { helpersProducts } from '../helpers';
+
 
 export const startLoadProducts = () => {
     return async (dispatch) => {
@@ -140,7 +142,8 @@ export const loadProductPerPagination = (products) => ({
 
 export const startFilterPriductsFromHome = (path) => {
     return async (dispatch) => {
-        let url = `/products/filter/products${path}`;
+        const newPath = helpersProducts.getQueryParams(path)
+        let url = `/products/filter/products${newPath}`;
         try {
             const res = await client.get(url);
             dispatch(filterPriductsFromHome(res.data.products));
@@ -153,4 +156,25 @@ export const startFilterPriductsFromHome = (path) => {
 export const filterPriductsFromHome = (products) => ({
     type: types.filter_products_from_home,
     payload: products,
+})
+
+
+/**************************buscar producto*********************************/
+
+
+export const startSearchProduct = (query) => {
+    return async (dispatch) => {
+        const url = `/search/products/${query}`
+        try {
+            const res = await client.get(url);
+            dispatch(searchProduct(res.data.results));
+        } catch (error) {
+            console.log(error);
+        }
+    }
+}
+
+export const searchProduct = (products) => ({
+    type: types.search_products,
+    payload: products
 })

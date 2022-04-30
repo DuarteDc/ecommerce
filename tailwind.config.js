@@ -15,6 +15,7 @@ module.exports = {
         'wine':'#ff0000'
       },
       backgroundImage: {
+        'register': "url('/assets/images/category.jpg')",
         'imgcreateaccount': "url('/assets/images/login.jpeg')",
         'imgcreateaccountc': "url('/assets/images/createAccount.jpeg')",
         'imgpasswvalidation': "url('/assets/images/imgPWV.png')",
@@ -22,6 +23,7 @@ module.exports = {
         'shop-cart': "url('/assets/images/shop-cart.png')",
         'about-us':"url('/assets/images/bg-01.jpg')",
         'testimonial':"url('/assets/images/testimonial.jpg')",
+        'login':"url('/assets/images/login.jpg')",
         'entrega-de-pedidos':"url('/assets/icons/entrega-de-pedidos.png')"
       },
       screens: {

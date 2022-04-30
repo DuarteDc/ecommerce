@@ -39,7 +39,7 @@ export const startLoginGoogle = (idToken) => {
 
         try {
             let url = '/auth/login-google';
-            const res = await client.post(url, {idToken});
+            const res = await client.post(url, { idToken });
             const { token, user } = res.data;
             Cookies.set('token', token);
             dispatch(loginGoogle(token, user));
@@ -178,6 +178,98 @@ export const forgotPassword = async (email) => {
         return {
             hasError: true,
             message: "No se pudo enviar el correo - Intente más tarde"
+        }
+    }
+}
+
+
+export const resetPassword = async (formData) => {
+    let url = '/auth/reset-password';
+    try {
+        const res = await client.post(url, formData);
+        return {
+            hasError: false,
+            message: res?.data?.message,
+        }
+    } catch (error) {
+        if (axios.isAxiosError(error)) {
+            return {
+                hasError: true,
+                message: error?.response?.data?.message
+            }
+        }
+
+        return {
+            hasError: true,
+            message: "No se pudo restablecer la contraseña - Intente más tarde"
+        }
+    }
+}
+
+export const emailVerified = async (token) => {
+    let url = `${process.env.REACT_APP_BACKEND_URL}/auth`;
+    try {
+        const response = await fetch(url, {
+            method: 'GET',
+            headers: {
+                Authorization: token
+            },
+        });
+        const data = await response.json();
+        return data.user;
+    } catch (error) {
+        return {
+            hasError: true,
+            message: "No se pudo enviar el correo - Intente más tarde"
+        }
+    }
+}
+
+
+export const cartNotEmpty = async (token) => {
+    let url = `${process.env.REACT_APP_BACKEND_URL}/cart`;
+    try {
+        const response = await fetch(url, {
+            method: 'GET',
+            headers: {
+                Authorization: token
+            },
+        });
+        const data = await response.json();
+        return data;
+    } catch (error) {
+        return {
+            hasError: true,
+            message: "No se pudo enviar el correo - Intente más tarde"
+        }
+    }
+}
+
+
+export const startResendEmail = async (email) => {
+    let url = 'auth/resend-email';
+    try {
+        const token = Cookies.get('token');
+        const res = await client.post(url, email,{
+            headers: {
+                'Authorization': token
+            }
+        });
+        return {
+            hasError: false,
+            message: res?.data?.message,
+        }
+    } catch (error) {
+        if (axios.isAxiosError(error)) {
+            return {
+                hasError: true,
+                message: error?.response?.data?.message
+            }
+        }
+
+        return {
+            hasError: true,
+            message: "No se encontro tu correo - Intente más tarde"
         }
     }
 }
