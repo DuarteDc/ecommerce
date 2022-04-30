@@ -35,6 +35,7 @@ export const ProductsArea = () => {
 
   const [loading, setLoading] = useState(false);
   const [counter, setCounter] = useState(0);
+  const [query, setQuery] = useState('');
 
   const router = useRouter();
 
@@ -78,8 +79,13 @@ export const ProductsArea = () => {
 
   }, [router.query])
 
-  const onRequestSearch = async () => {
-
+  const onRequestSearch = async (event) => {
+    event.preventDefault();
+    if (!query) return;
+    router.push({
+      pathname: '/buscar/[product]',
+      query: { product: query },
+    })
   }
 
   const getDataToFilterBrand = async (brand) => {
@@ -167,6 +173,7 @@ export const ProductsArea = () => {
               openSearch={openSearch}
               placeholder="Buscar..."
               onRequestSearch={onRequestSearch}
+              setQuery={setQuery}
             />
             <FiltersArea
               brands={brandsHome}

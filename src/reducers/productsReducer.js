@@ -65,6 +65,12 @@ export const productsReducer = (state = initalState, { type, payload }) => {
                 results: initalState.results,
             }
 
+        case types.search_products:
+            return{
+                ...state, 
+                products: payload
+            }
+
         case types.load_products_home:
             return {
                 ...state,
