@@ -1,6 +1,8 @@
 import { Grid, TextField } from "@mui/material"
+import { useFormik } from "formik";
 import Select from "react-select";
 import { taxt_system } from "../../../staticData/text_system";
+import * as Yup from 'yup';
 
 export const FormFiscalAddressProfile = () =>{
 
@@ -8,9 +10,31 @@ export const FormFiscalAddressProfile = () =>{
         legal_name: '',
         tax_id: '',
         email:'',
-        phone:''
-
+        phone:'',
+        tax_system:{},
+        street:'',
+        interior:'',
+        neighborhood:'',
+        city:'',
+        state:{},
+        municipality:{}
     }
+
+
+    const validationSchema = {
+      email: Yup.string().email("La dirección de correo no es valida").required("El correo es requerido"),
+      password: Yup.string().min(8, 'La contraseña debe contener al menos 8 caracteres').required("La contraseña es requerida")
+  }
+
+  const formik = useFormik({
+      initialValues,
+      validationSchema: Yup.object(validationSchema),
+      onSubmit: (formData) => {
+          handleLoginUser(formData);
+      }
+  });
+
+
 
     return (
       <form className="">
@@ -27,6 +51,7 @@ export const FormFiscalAddressProfile = () =>{
                 size="small"
                 id="outlined-required"
                 label="Nombre fiscal o Razón Social"
+                onChange={formik.handleChange}
               />
             </Grid>
             <Grid item xs={12} sm={12} md={6} lg={6} xl={6}>
@@ -37,6 +62,7 @@ export const FormFiscalAddressProfile = () =>{
                 id="outlined-required"
                 label="RFC"
                 size="small"
+                onChange={formik.handleChange}
               />
             </Grid>
             <Grid item xs={12} sm={12} md={6} lg={6} xl={6}>
@@ -47,6 +73,7 @@ export const FormFiscalAddressProfile = () =>{
                 size="small"
                 id="outlined-required"
                 label="Correo Electronico"
+                onChange={formik.handleChange}
               />
             </Grid>
             <Grid item xs={12} sm={12} md={6} lg={6} xl={6}>
@@ -57,6 +84,7 @@ export const FormFiscalAddressProfile = () =>{
                 size="small"
                 id="outlined-required"
                 label="Número Telefonico"
+                onChange={formik.handleChange}
               />
             </Grid>
             <Grid item xs={12} sm={12} md={12} lg={12} xl={12}>
@@ -64,6 +92,7 @@ export const FormFiscalAddressProfile = () =>{
                 name="tax_system"
                 placeholder="Selecciona un regimen fiscal"
                 options={taxt_system}
+                onChange={formik.handleChange}
               />
             </Grid>
        </Grid>
@@ -81,6 +110,7 @@ export const FormFiscalAddressProfile = () =>{
                 size="small"
                 id="outlined-required"
                 label="Calle"
+                onChange={formik.handleChange}
               />
             </Grid>
             <Grid item xs={12} sm={12} md={3} lg={3} xl={3}>
@@ -91,6 +121,7 @@ export const FormFiscalAddressProfile = () =>{
                 id="outlined-required"
                 label="No.Int"
                 size="small"
+                onChange={formik.handleChange}
               />
             </Grid>
             <Grid item xs={12} sm={12} md={3} lg={3} xl={3}>
@@ -101,6 +132,7 @@ export const FormFiscalAddressProfile = () =>{
                 size="small"
                 id="outlined-required"
                 label="No.Ext"
+                onChange={formik.handleChange}
               />
             </Grid>
             <Grid item xs={12} sm={12} md={6} lg={6} xl={6}>
@@ -111,6 +143,7 @@ export const FormFiscalAddressProfile = () =>{
                 size="small"
                 id="outlined-required"
                 label="Colonia"
+                onChange={formik.handleChange}
               />
             </Grid>
             <Grid item xs={12} sm={12} md={6} lg={6} xl={6}>
@@ -121,25 +154,30 @@ export const FormFiscalAddressProfile = () =>{
                 size="small"
                 id="outlined-required"
                 label="Ciudad"
+                onChange={formik.handleChange}
               />
             </Grid>
             <Grid item xs={12} sm={12} md={12} lg={12} xl={12}>
               <Select
-                name="tax_system"
+                name="state"
                 placeholder="Selecciona un estado"
                 options={taxt_system}
+                onChange={formik.handleChange}
               />
             </Grid>
             <Grid item xs={12} sm={12} md={12} lg={12} xl={12}>
               <Select
-                name="tax_system"
+                name="municipality"
                 placeholder="Selecciona un municipio"
                 options={taxt_system}
+                onChange={formik.handleChange}
               />
             </Grid>
             <Grid item xs={12} sm={12} md={6} lg={6} xl={6}>
                 <div className="flex justify-center">
-                    <button className="rounded-none bg-[#333] w-[100%] h-[50px] font-Poppins text-[15px] leading-[1.4] uppercase text-[#fff] flex  items-center  justify-center hover:bg-[#000] hover:transition-all">
+                    <button className="rounded-none bg-[#333] w-[100%] h-[50px] font-Poppins text-[15px] leading-[1.4] uppercase text-[#fff] flex  items-center  justify-center hover:bg-[#000] hover:transition-all"
+                    type="submit"
+                    >
                     Guardar
                     </button>
                 </div>

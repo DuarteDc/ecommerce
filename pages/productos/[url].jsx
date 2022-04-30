@@ -158,19 +158,8 @@ const Show = () => {
                         <div>
                             <div className="flex mt-10">
                                 {product?.multimedia?.map(multimedia => (
-                                    <div
-                                        className="overflow-hidden border-2 border-gray-300 w-24 h-24 mx-1 cursor-pointer relative"
-                                        key={multimedia._id}
-                                    >
-                                        <img
-                                            src={multimedia?.path}
-                                            alt={product.name}
-                                            onClick={e => showImage(e.target.src)}
-                                            className="w-full h-full object-fill"
-                                            width={200}
-                                            height={200}
-                                        />
-                                    </div>
+                                   
+                                   <></>
                                 ))
                                 }
                             </div>
