@@ -26,7 +26,7 @@ export const startLoadProduct = (slug) => {
         try {
             const res = await client.get(url);
             const { product, relatedProducts } = res.data;
-            dispatch(loadProduct(product));
+            dispatch(loadProduct(product, relatedProducts));
         } catch (error) {
             console.log(error);
         }
@@ -37,6 +37,7 @@ export const loadProduct = (product, relatedProducts) => ({
     type: types.loadProduct,
     payload: {
         product,
+        relatedProducts
     }
 })
 

@@ -25,6 +25,7 @@ export const productsReducer = (state = initalState, { type, payload }) => {
             return {
                 ...state,
                 product: payload.product,
+                relatedProducts: payload.relatedProducts
             }
 
         case types.addProductSelected:
