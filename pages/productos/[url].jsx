@@ -16,6 +16,7 @@ import { helpers } from "../../src/helpers";
 import { addProductToCartClientsNotLogged, addShoppingCartFromLocalStorage, shoppingCartNotLoggedfromLocalStorage, startAddProductShoppingCart } from "../../src/actions/shoppingCartActions";
 import Swal from "sweetalert2";
 import { useRouter } from "next/router";
+import { ProductCard } from "../../src/components/ui";
 
 const Show = () => {
     const router = useRouter();
@@ -191,14 +192,14 @@ const Show = () => {
                                 <h3 className="font-semibold text-lg">Categoria:</h3>
                                 <p className="text-second-100 font-semibold ml-2 
                                     cursor-pointer hover:text-gray-700 duration-500">
-                                    {product?.category}
+                                    {product?.category?.name}
                                 </p>
                             </div>
                             <div className="flex items-center">
                                 <h3 className="font-semibold text-lg">Marca:</h3>
                                 <p className="text-second-100 font-semibold ml-2 
                                     cursor-pointer hover:text-gray-700 duration-500">
-                                    {product?.brand}
+                                    {product?.brand?.name}
                                 </p>
                             </div>
                             <div className="mt-5">
@@ -206,9 +207,9 @@ const Show = () => {
                                 <div className="md:inline-flex">
                                     {
                                         product.tags.map(tag => (
-                                            <span key={tag._id}>
+                                            <span key={tag.tag_id._id}>
                                                 <p className="text-second-100 font-semibold mr-4 cursor-pointer hover:text-gray-700 duration-500">
-                                                    {tag.tag_id}
+                                                    {tag.tag_id.name}
                                                 </p>
                                             </span>
                                         ))
@@ -275,6 +276,13 @@ const Show = () => {
                     </p>
                 </div>
                 <p className="uppercase font-bold text-center text-2xl mt-20 py-3 bg-gray-50">Productos relacionados</p>
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 my-24">
+                    {
+                        relatedProducts.map(product => (
+                             <ProductCard product={product} key={product._id} />
+                        ))
+                    }
+                </div>
             </section>
         </Layout>
     )

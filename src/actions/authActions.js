@@ -250,7 +250,7 @@ export const startResendEmail = async (email) => {
     let url = 'auth/resend-email';
     try {
         const token = Cookies.get('token');
-        const res = await client.post(url, email,{
+        const res = await client.post(url, { email: email }, {
             headers: {
                 'Authorization': token
             }
