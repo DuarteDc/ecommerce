@@ -15,7 +15,7 @@ const Offers = () => {
       <section className="font-Poppins">
         {
           offers.map(offer => (
-            <div className="w-full relative lg:min-h-screen max-h-screen h-4/6">
+            <div className="w-full relative lg:min-h-screen max-h-screen h-4/6" key={offer._id}>
               <div className="opacity-50 bg-[#333] w-full h-full absolute z-20 "></div>
               <Image
                 src={offer.imageWeb}

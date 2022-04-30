@@ -34,26 +34,17 @@ export const loadShoppingCart = (shoppingCart) => ({
 
 
 /**Agregar productos al carrito de compras */
-<<<<<<< HEAD
 export const startAddProductShoppingCart = (product ,name , token) =>{
    return async (dispatch) =>{
-=======
-export const startAddProductShoppingCart = (product, name) => {
-   return async (dispatch) => {
->>>>>>> e35e569f828a3b3f1333bbec9682c9dfc688d81a
       try {
          delete product.product_id;
          product.product_id = product._id
          let url = '/cart';
-<<<<<<< HEAD
          const {data} = await client.post(url , product ,{
             headers: {
                 'Authorization': token
             }
           });
-=======
-         const { data } = await client.post(url, product);
->>>>>>> e35e569f828a3b3f1333bbec9682c9dfc688d81a
          const shoppingCart = data.cart.products;
          Swal.fire({
             icon: "success",

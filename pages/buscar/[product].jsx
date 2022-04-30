@@ -18,7 +18,7 @@ const Search = () => {
     <Layout categories={categories}>
       <section className="min-h-screen font-Poppins container mx-auto">
         <div className="px-3 md:px-0">
-          <h2 className="text-4xl mt-28 mb-10">Mostrando resultados para "{router.query.product}"</h2>
+          <h2 className="text-4xl mt-28 mb-10">Mostrando resultados para {router.query.product}</h2>
           <div className="flex flex-row-reverse text-gray-500">
             <p>{products.length} {products.length > 1 ? 'resultados' : 'resultado'} para tu busqueda</p>
           </div>

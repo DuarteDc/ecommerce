@@ -75,7 +75,10 @@ const Wishlist = () => {
                     {
                         allProducts.length > 0 ? (
                             products.map(product => (
-                                <ProductCard product={product} />
+                                <ProductCard 
+                                  key={product._id}
+                                  product={product} 
+                                />
                             )))
                             : (
                                 <div className="text-center col-span-full">
