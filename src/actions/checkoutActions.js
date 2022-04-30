@@ -3,7 +3,7 @@ import Cookies from "js-cookie";
 import { types } from "../types";
 
 export const startLoadClientSecret = (token) =>{
-    return async (dispatch , getState) =>{
+    return async (dispatch ,   getState ) =>{
         const {order_id} = getState().cart;
         try {
             let url = `/orders/stripe/clients/${order_id}`;

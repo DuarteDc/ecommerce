@@ -121,6 +121,15 @@ export const calculatNewTotalToPay = (porcentage, subtotal) => {
   };
 };
 
+const applyCoupon = (subtotal, cuponDiscount) => {
+
+  const discount = (subtotal * Number(cuponDiscount)) / 100;
+  const newTotal = subtotal - discount.toFixed(3);
+
+  return newTotal;
+  
+}
+
 
 export default {
   priceFormat,
@@ -131,7 +140,7 @@ export default {
   infoNotify,
   warningNotify,
   errorNotify,
-  calculatNewTotalToPay
-
+  calculatNewTotalToPay,
+  applyCoupon
 
 }

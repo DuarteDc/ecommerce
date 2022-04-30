@@ -31,6 +31,8 @@ export const types = {
     add_one_from_cart: '[CART] add one from cart',
     remove_all_from_cart: '[CART] remove all from cart',
     clear_cart: '[CART] clear cart',
+    add_coupon: '[CART] add coupon',
+    remove_coupon: '[CART] remove_coupon',
 
     loadOffers: '[Offers] load offers',
 
@@ -82,12 +84,12 @@ export const types = {
     load_wishList_from_back: '[WishList] load wishList from back',
     add_one_product_from_wishList: '[WishList] add one product to wishlist',
     remove_one_product_from_wishList: '[WishList] remove one product from wishlist',
-    search_product:'[WishList] search product',
+    search_product: '[WishList] search product',
 
-    loadSecretClientStripe : '[Checkout] load secret client stripe',
-    loadSecretClientfromCookies : '[Checkout] load secret client from cookies',
+    loadSecretClientStripe: '[Checkout] load secret client stripe',
+    loadSecretClientfromCookies: '[Checkout] load secret client from cookies',
     loadBanksAccounts: '[Checkout] load banks accounts',
-    loadBankAccountSelected:'[Checkout] load bank account selected',
+    loadBankAccountSelected: '[Checkout] load bank account selected',
     loadSecretClientStripe: '[Checkout] load secret client stripe',
 
     addProductShoppingCart: '[ShoppingCart] add product to shopping cart',
@@ -96,9 +98,9 @@ export const types = {
     calculateTotalShoppingCart: '[ShoppingCart] calculate subtotal and total in shoppingCart',
     finaliceCheckoutCart: '[ShoppingCart]  start finalice checkout cart',
     loadTotalsFromCookies: '[ShoppingCart] load totals checkout from cookies',
-    loadDirectionsShoppingCart:'[ShoppingCart] load shippingCart client',
-    addAddressSelected:'[ShoppingCart] load shipping Address selected',
-    successFinaliceTransfer:'[ShoppingCart] successFinaliceTrasfer',
+    loadDirectionsShoppingCart: '[ShoppingCart] load shippingCart client',
+    addAddressSelected: '[ShoppingCart] load shipping Address selected',
+    successFinaliceTransfer: '[ShoppingCart] successFinaliceTrasfer',
 
 
     loadWishListfromLocalStorage: '[WishList] load wishlist from localStorage',
@@ -109,6 +111,6 @@ export const types = {
     load_faqs_per_category: '[FAQS] load faqs per category',
 
     loadPenddingOrders: '[ORDERS] load pendding orders',
-    selectedOrderPendding:'[ORDERS] selected order pendding',
-    upload_proof_payment_order:'[ORDERS] upload proof payment order'
+    selectedOrderPendding: '[ORDERS] selected order pendding',
+    upload_proof_payment_order: '[ORDERS] upload proof payment order'
 }

@@ -67,6 +67,7 @@ const ContactUs = () => {
     validationSchema: Yup.object(validationSchema),
     onSubmit: (formData) => {
       handelSendMessage(formData);
+      resetForm({ values: initialValues })
       //alert(JSON.stringify(formData));
     }
   });

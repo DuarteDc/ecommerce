@@ -13,7 +13,7 @@ import { startLoadFaqsCategories } from '../../src/actions/faqsActions';
 const ShoppingCart = () => {
     const dispatch = useDispatch();
     const router = useRouter();
-    const { cart , cartNotLogged ,  success } = useSelector((state) => state.cart);
+    const { cart , cartNotLogged ,  success, coupon, subtotalWithCoupon } = useSelector((state) => state.cart);
     const { logged } = useSelector((state)=>state.auth);
     const { categories } = useSelector((state)=>state.faqs);
 
@@ -41,7 +41,7 @@ const ShoppingCart = () => {
 
     useEffect(() => {
          dispatch(startCalculateTotalSale());
-    }, [cart , cartNotLogged]);
+    }, [cart , cartNotLogged,subtotalWithCoupon, coupon, ]);
 
     useEffect(() => {
         if(success){

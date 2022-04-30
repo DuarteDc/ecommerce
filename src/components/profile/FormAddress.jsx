@@ -60,7 +60,7 @@ const FormAddress = ({ setShowForm }) => {
         postalcode: Yup.number().min(5, 'El campo debe contener al menos 5 caracteres').required('el campo es requerido'),
         city: Yup.string().min(5, 'El campo debe contener al menos 8 caracteres').required('El campo es requerido'),
         references: Yup.string().min(8, 'El campo debe contener al menos 8 caracteres').required('El campo es requerido'),
-        no_int: Yup.number().required('El campo es requerido'),
+        no_int: Yup.number().typeError('El número no es valido').required('El campo es requerido'),
         state: Yup.string().required('El campo es requerido'),
         municipality: Yup.string().required('El campo es requerido')
     }
@@ -74,10 +74,16 @@ const FormAddress = ({ setShowForm }) => {
         }
     });
     return (
-        <div className="overflow-hidden mx-auto py-8 px-2 bg-white mt-5 animate__animated animate__fadeIn">
-            <h2 className="font-bold text-xl">
-                Nueva Dirección
-            </h2>
+        <div className="overflow-hidden mx-auto py-8 px-2 bg-white mt-5 animate__animated animate__fadeIn font-Poppins">
+            <div className="flex items-center justify-between">
+                <h2 className="font-bold text-xl mb-10">
+                    Nueva Dirección
+                </h2>
+                <p
+                    onClick={() => setShowForm(false)} className="cursor-pointer">
+                    cancelar
+                </p>
+            </div>
             <form onSubmit={formik.handleSubmit}>
                 <div className="grid grid-cols-1 md:grid-cols-2">
                     <div className="my-2 md:px-2">
@@ -167,8 +173,8 @@ const FormAddress = ({ setShowForm }) => {
                             type="text"
                             className="py-4 bg-gray-50  focus:outline-none focus:border-black focus:ring-1 focus:ring-gray-900 px-5 w-full my-1"
                         />
-                        {formik.touched.references && formik.errors.references ? (
-                            <span className="text-red-500 text-sm">{formik.errors.references}</span>
+                        {formik.touched.no_int && formik.errors.no_int ? (
+                            <span className="text-red-500 text-sm">{formik.errors.no_int}</span>
                         ) : null}
                     </div>
                     <div className="my-2 grid grid-cols-1 lg:grid-cols-2">
@@ -220,7 +226,7 @@ const FormAddress = ({ setShowForm }) => {
                         }
                     </div>
                 </div>
-                <button className="bg-black w-full text-white py-4 uppercase hover:bg-white border-2 border-black hover:text-black transition-all duration-700 ease-in-out mt-2"
+                <button className="bg-[#222] w-full text-white py-4 uppercase hover:bg-[#333] border-2 border-[#222] transition-all duration-700 ease-in-out mt-10"
                     type="submit"
                 >
                     Guardar Dirección
