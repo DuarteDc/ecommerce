@@ -244,3 +244,32 @@ export const cartNotEmpty = async (token) => {
         }
     }
 }
+
+
+export const startResendEmail = async (email) => {
+    let url = 'auth/resend-email';
+    try {
+        const token = Cookies.get('token');
+        const res = await client.post(url, email,{
+            headers: {
+                'Authorization': token
+            }
+        });
+        return {
+            hasError: false,
+            message: res?.data?.message,
+        }
+    } catch (error) {
+        if (axios.isAxiosError(error)) {
+            return {
+                hasError: true,
+                message: error?.response?.data?.message
+            }
+        }
+
+        return {
+            hasError: true,
+            message: "No se encontro tu correo - Intente más tarde"
+        }
+    }
+}
