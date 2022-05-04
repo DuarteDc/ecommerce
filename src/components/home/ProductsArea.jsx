@@ -14,6 +14,7 @@ import LoadingScreen from '../LoadingScreen';
 
 
 
+
 export const ProductsArea = () => {
   const dispatch = useDispatch();
   const { brandsHome } = useSelector((state) => state.brands);
@@ -39,7 +40,7 @@ export const ProductsArea = () => {
 
   const router = useRouter();
 
-  const { filterSearch } = helpersProducts;
+  const { filterSearch, countQueryParams } = helpersProducts;
 
   useEffect(() => {
     if (tabActive === null) {
@@ -91,8 +92,10 @@ export const ProductsArea = () => {
   const getDataToFilterBrand = async (brand) => {
     setLoading(true)
     setBrandQuery(brand);
+    filterSearch({ router, brand_id: brand });
     setCounter(Object.keys(router.query).length)
-    filterSearch({ router, brand_id: brand, counter });
+    setCounter(countQueryParams(router.query))
+    filterSearch({ router, counter });
     await dispatch(startFilterPriductsFromHome(router.asPath));
     setLoading(false)
 
@@ -101,8 +104,9 @@ export const ProductsArea = () => {
   const getDataToFilterOrder = async (orderBy) => {
     setLoading(true);
     setOrderBy(orderBy);
+    filterSearch({ router, order: orderBy });
     setCounter(Object.keys(router.query).length)
-    filterSearch({ router, order: orderBy, counter });
+    filterSearch({ router, counter });
     await dispatch(startFilterPriductsFromHome(router.asPath))
     setLoading(false)
   }

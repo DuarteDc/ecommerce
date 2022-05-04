@@ -29,7 +29,18 @@ const getQueryParams = (query) => {
 }
 
 
+const countQueryParams = (query) => {
+
+    const asArray = Object.entries(query);
+    const filtered = asArray.filter(([key, value]) => key !== 'counter');
+    const counter = Object.fromEntries(filtered);
+
+    return counter;
+
+}
+
 export default {
     filterSearch,
     getQueryParams,
+    countQueryParams,
 }

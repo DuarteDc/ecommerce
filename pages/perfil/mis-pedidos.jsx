@@ -102,7 +102,7 @@ const MisPedidos = () => {
                 title="Mis Pedidos"
             />
 
-            <section className="container max-w-[920px] my-10 mx-auto">
+            <section className="container max-w-[920px] my-10 mx-auto min-h-screen">
               <Grid container>
                 <Grid item xs={12} sm={12} md={12} lg={12} xl={12}>
                   <Breadcrumbs aria-label="breadcrumb" className="px-6">
