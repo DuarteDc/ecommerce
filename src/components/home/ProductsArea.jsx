@@ -60,25 +60,33 @@ export const ProductsArea = () => {
     setLoading(false);
   }
 
-
   const handleResetTab = () => {
     setTabActive(null);
+  }
+  const getCurrentData = async (path) => {
+    await dispatch(startFilterPriductsFromHome(path))
   }
 
   useEffect(() => {
 
-    setLoading(true);
-    if (router.query.brand_id) setBrandQuery(router.query.brand_id);
-    if (router.query.tag_id) setTagQuery(router.query.tag_id);
+    if (Object.keys(router.query).length > 0) {
 
-    const getCurrentData = async () => {
-      await dispatch(startFilterPriductsFromHome(router.asPath))
+      console.log(Object.keys(router.query).length >0)
+
+      setOpenFilter(true);
+      setLoading(true);
+
+      if (router.query.hasOwnProperty('brand_id')) { setBrandQuery(router.query.hasOwnProperty('brand_id')); }
+      if (router.query.hasOwnProperty('tag_id')) { setTagQuery(router.query.tag_id); }
+      if (router.query.lowPrice && router.query.maxPrice) { setPriceQuery({ lowPrice: router.query.lowPrice, maxPrice: router.query.maxPrice }); }
+      if (router.query.order) { setOrderBy(router.query.order); }
+
+      getCurrentData(router.asPath);
+
     }
-
-    getCurrentData();
     setLoading(false);
 
-  }, [router.query])
+  }, [])
 
   const onRequestSearch = async (event) => {
     event.preventDefault();
@@ -93,9 +101,7 @@ export const ProductsArea = () => {
     setLoading(true)
     setBrandQuery(brand);
     filterSearch({ router, brand_id: brand });
-    setCounter(Object.keys(router.query).length)
-    setCounter(countQueryParams(router.query))
-    filterSearch({ router, counter });
+    filterSearch({ router, counter: countQueryParams(router.query) });
     await dispatch(startFilterPriductsFromHome(router.asPath));
     setLoading(false)
 
@@ -105,8 +111,7 @@ export const ProductsArea = () => {
     setLoading(true);
     setOrderBy(orderBy);
     filterSearch({ router, order: orderBy });
-    setCounter(Object.keys(router.query).length)
-    filterSearch({ router, counter });
+    filterSearch({ router, counter: countQueryParams(router.query) });
     await dispatch(startFilterPriductsFromHome(router.asPath))
     setLoading(false)
   }
@@ -115,6 +120,7 @@ export const ProductsArea = () => {
     setLoading(true)
     setTagQuery(tag)
     filterSearch({ router, tag_id: tag });
+    filterSearch({ router, counter: countQueryParams(router.query) });
     await dispatch(startFilterPriductsFromHome(router.asPath))
     setLoading(false)
 
@@ -124,28 +130,16 @@ export const ProductsArea = () => {
     setLoading(true);
     setCounter(Object.keys(router.query).length)
     if (lowPrice === 0) {
-      filterSearch({ router, lowPrice: "0", maxPrice: "" });
+      filterSearch({ router, lowPrice: "0", maxPrice: "50" });
       await dispatch(startFilterPriductsFromHome(router.asPath));
       setPriceQuery({
-        ...priceQuery,
         lowPrice: lowPrice,
         maxPrice: maxPrice,
       })
-
-    } else if (lowPrice === 1000) {
-      filterSearch({ router, lowPrice });
-      await dispatch(startFilterPriductsFromHome(router.asPath));
-      setPriceQuery({
-        ...priceQuery,
-        lowPrice: lowPrice,
-        maxPrice: maxPrice,
-      })
-
     } else {
       filterSearch({ router, lowPrice, maxPrice });
       await dispatch(startFilterPriductsFromHome(router.asPath))
       setPriceQuery({
-        ...priceQuery,
         lowPrice: lowPrice,
         maxPrice: maxPrice,
       })

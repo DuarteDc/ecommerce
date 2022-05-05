@@ -33,7 +33,11 @@ const countQueryParams = (query) => {
 
     const asArray = Object.entries(query);
     const filtered = asArray.filter(([key, value]) => key !== 'counter');
-    const counter = Object.fromEntries(filtered);
+    const params = Object.fromEntries(filtered);
+
+    const counter = Object.keys(params).length;
+
+    console.log(counter);
 
     return counter;
 

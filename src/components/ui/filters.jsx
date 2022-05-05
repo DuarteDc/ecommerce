@@ -23,7 +23,7 @@ export const FiltersArea = ({
     { min: 50, max: 100 },
     { min: 100, max: 500 },
     { min: 500, max: 1000 },
-    { min: 1000, max: "" },
+    { min: 1000, max: 10000 },
   ]
 
   const order = [
