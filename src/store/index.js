@@ -28,6 +28,7 @@ const reducer = (state, action) => {
       ...state,
       ...action.payload
     }
+
     return nextState;
   } else {
     return reducers(state, action);

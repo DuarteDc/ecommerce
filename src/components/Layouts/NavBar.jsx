@@ -18,6 +18,8 @@ import Button from '@mui/material/Button';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 
+import { logout } from '../../actions/authActions'
+
 
 const NavBar = () => {
     const router = useRouter();
@@ -47,6 +49,13 @@ const NavBar = () => {
         };
     }, []);
 
+    const logoutSession = () => {
+        dispatch(logout);
+        Cookies.remove('token')
+        router.replace('/')
+    }
+
+
 
     useEffect(() => {
         if (logged) {
@@ -75,12 +84,6 @@ const NavBar = () => {
     const handleMenuopen = () => {
         toggle();
     }
-
-    useEffect(() => {
-        if (Cookies.get('token')) {
-            dispatch(startVerifyToken());
-        }
-    }, []);
 
     const [anchorEl, setAnchorEl] = useState(null);
 
@@ -178,7 +181,7 @@ const NavBar = () => {
                                             <Link href="/perfil/mis-pedidos">
                                                 <MenuItem onClick={handleClose}>Mis Pedidos</MenuItem>
                                             </Link>
-                                            <MenuItem onClick={handleClose}>Cerrar Sesión</MenuItem>
+                                            <MenuItem onClick={(e) => { handleClose(e); logoutSession() }}>Cerrar Sesión</MenuItem>
                                         </Menu>
                                     </span>
                                 ) : (
