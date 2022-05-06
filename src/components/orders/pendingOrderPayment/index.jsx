@@ -6,19 +6,24 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import { Autoplay, Navigation, Pagination } from "swiper";
 import { OrderProductsList } from "./orderProductsList";
 import moment from "moment";
-import {AiFillCaretDown} from "react-icons/ai";
+import { AiFillCaretDown } from "react-icons/ai";
 import { useToggle } from "../../../hooks/useToggle";
 import { Modal } from "../../ui/modal";
-import { useDispatch } from "react-redux";
-import { startOrderCancel } from "../../../actions/ordersActions";
+import { useDispatch, useSelector } from "react-redux";
+import { startGetOrder, startOrderCancel } from "../../../actions/ordersActions";
 import { Grid } from "@mui/material";
+import { OrderDetails } from "./orderDetail";
+import Swal from "sweetalert2";
+import { startInvoidedOrder } from "../../../actions/profileActions";
 
 export const PendingPaymentOrderIndex = ({order , handleOpenProofOfPayment , status ,text_description ,  text_color}) =>{
    
     const dispatch = useDispatch();
+    const {fiscalAddress} = useSelector((state)=>state.profile)
     const total =  helpers.priceFormat(order.total);
     const date = moment(order.createdAt).format('L');
     const [ open , toggle ] = useToggle();
+    const [openOrderDetail , toggleOrderDetail] = useToggle();
 
     const handleClickAddress = () =>{
        toggle();
@@ -28,11 +33,44 @@ export const PendingPaymentOrderIndex = ({order , handleOpenProofOfPayment , sta
       dispatch(startOrderCancel(order._id));
     }
 
+    const handleClickOrderDetail = () =>{
+      toggleOrderDetail();
+      dispatch(startGetOrder(order._id));
+    }
+
+    const handleClickInvoicedOrder = (order_id) =>{
+      if (!fiscalAddress){
+        Swal.fire({
+          title:'Ups , accion no permitida',
+          text:'Detectamos que no has agregado tus datos fiscales , agregalos y vuelve a internarlo',
+          icon:'warning'
+        });
+         return;
+      }
+
+      Swal.fire({
+        title:"¿Deseas Facturar este pedido?",
+        text:"Antes de continuar, válida que la información de tus datos fiscales sea correcta, en caso de presentar algún problema, será necesario que te contactés con nosotros.",
+        icon:"question",
+        showCancelButton:true,
+        cancelButtonText: 'Cancelar!',
+        cancelButtonColor:"#b71c1c",
+        confirmButtonText:"Continuar",
+        confirmButtonColor:"#1976d2",
+        reverseButtons: true
+      }).then((result)=>{
+        if(result.isConfirmed){
+         dispatch(startInvoidedOrder(order_id));
+        }
+      })
+    }
+
+
     return(
      <div className="mb-6 border border-solid border-[#D5D9D9]  rounded-t-[6px]">
         <Grid container>
           <Grid item xs={12} sm={12} md={6} lg={6} xl={6}>
-           <div className="bg-[#eee] flex p-6">
+           <div className="bg-[#eee] flex p-8">
             <div className="w-1/2 font-Poppins">
             <span className="uppercase text-sm leading-6 text-[#333]">
                 Pedido realizado
@@ -49,7 +87,7 @@ export const PendingPaymentOrderIndex = ({order , handleOpenProofOfPayment , sta
                 {total}
             </p>
           </div>
-          <div className="w-1/3 text-center font-Poppins cursor-pointer h-full"
+          <div className="w-full text-center font-Poppins cursor-pointer h-full"
           onClick={()=>handleClickAddress()}
           >
            <span className="uppercase text-sm leading-6 text-[#333]">
@@ -64,11 +102,27 @@ export const PendingPaymentOrderIndex = ({order , handleOpenProofOfPayment , sta
            </div>
           </Grid>
           <Grid item xs={12} sm={12} md={6} lg={6} xl={6}>
-            <div className="font-Poppins text-center bg-[#eee] p-6 flex flex-wrap justify-center">
+            <div className="font-Poppins text-center bg-[#eee] p-8 flex flex-wrap justify-center">
               <span className="text-sm text-[#333]">Pedido N.º {order._id}</span>
               <div className="w-full mr-6 text-[#1976d2]">
-               <span className="text-sm  cursor-pointer border-b-3 hover:border-solid hover:text-[#880e4f] hover:transition-all mr-5">Ver detalle del Pedido</span> 
-               <span className="text-sm cursor-pointer hover:border-3 hover:border-solid hover:text-[#880e4f] hover:transition-all">Ver recibo</span>    
+                {
+                  order.invoiced && (status !== 0 || status !==1) && 
+                  <span className="text-sm  cursor-pointer border-b-3 hover:border-solid hover:text-[#880e4f] hover:transition-all mr-5">Pedido ya facturado</span>
+                }
+                {
+                  (!order.invoiced) && (status !== 0 || status !==1) && 
+                  <button className="text-sm  cursor-pointer border-b-3 hover:border-solid hover:text-[#880e4f] hover:transition-all mr-5"
+                  onClick={()=>handleClickInvoicedOrder(order._id)}
+                  >
+                    Factura CFDI
+                  </button> 
+                }
+               <button 
+                 className="text-sm cursor-pointer  hover:border-3 hover:border-solid hover:text-[#880e4f] hover:transition-all"
+                 onClick={()=>handleClickOrderDetail()}
+               >
+                 Detalles del pedido
+               </button>    
               </div>  
             </div>
           </Grid>
@@ -154,6 +208,17 @@ export const PendingPaymentOrderIndex = ({order , handleOpenProofOfPayment , sta
         <p className="font-Poppins font-medium text-base capitalize text-[#333] leading-6">Referencia</p>
         <span className="text-base text-[#888] capitalize">{order?.shippment_direction?.references}</span>
       </div>  
+    </Modal>
+
+    <Modal
+       title="Detalle del pedido"
+       open={openOrderDetail}
+       handleOpenCheckout={toggleOrderDetail}
+       actions={false}
+       fullWidth={true}
+       maxWidth={'sm'}
+    >
+      <OrderDetails/>
     </Modal>
     </div>
     )

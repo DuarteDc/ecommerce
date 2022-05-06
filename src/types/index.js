@@ -58,10 +58,17 @@ export const types = {
 
     load_data_user: '[PROFILE] load data user',
     load_directions: '[PROFILE] load directions',
+    load_states:'[PROFILE] load states',
+    load_municipalities:'[PROFILE] load municipalities',
+    load_fiscal_address:'[PROFILE]load fiscal address',
     change_default_addres: '[PROFILE] change default address',
     add_new_address: '[PROFILE] add new address',
     delete_addres: '[PROFILE] delete address',
     update_image_user: '[PROFILE] update image user',
+    update_data_user: '[PROFILE] update data user',
+    
+
+
 
     addProductShoppingCart: '[ShoppingCart] add product to shopping cart',
     loadShoppingCartFromLocalStorage: '[ShoppingCart] load shopping cart from loadShoppingCartFromLocalStorage',
@@ -105,17 +112,18 @@ export const types = {
 
 
     loadWishListfromLocalStorage: '[WishList] load wishlist from localStorage',
-    update_data_user: '[PROFILE] update data user',
+  
 
     load_faqs: '[FAQS] load_faqs',
     load_faqs_categories: '[FAQS] load faqs categories',
     load_faqs_per_category: '[FAQS] load faqs per category',
 
     loadPenddingOrders: '[ORDERS] load pendding orders',
-    selectedOrderPendding:'[ORDERS] selected order pendding',
-    upload_proof_payment_order:'[ORDERS] upload proof payment order',
     loadOrdersCanceled:'[ORDERS] load orders canceled',
     loadOrdersApproved:'[ORDERS] load orders approved',
     loadShippedOrders:'[ORDERS] load orders shipped',
-    loadCancelOrder:'[ORDERS] load order cancel'
+    loadCancelOrder:'[ORDERS] load order cancel',
+    loadOrderById:'[ORDERS] load order by id',
+    selectedOrderPendding:'[ORDERS] selected order pendding',
+    upload_proof_payment_order:'[ORDERS] upload proof payment order',
 }

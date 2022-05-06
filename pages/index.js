@@ -43,13 +43,13 @@ export default function HomePage() {
   }, [logged]);
 
   useEffect(() => {
-    if(router.query.redirect_status === 'succeeded'){
+    if(router.query.successTransfer === 'true'){
        localStorage.removeItem('cart');
        Cookie.remove('client_secret');
        Swal.fire({
          icon:"success",
          title:"Venta finalizada con exito",
-         text:"Revisa el apartado mis pedidos para obtener más detalles del envio de tus productos",
+         text:"Revisa el apartado mis pedidos para subir los comprobantes de pago y una vez verificada la información enviaremos tus productos.",
          confirmButtonText:"Cerrar",
          allowOutsideClick:false
        }).then((result)=>{
@@ -63,7 +63,6 @@ export default function HomePage() {
        })
     }
   }, [router]);
-
 
   return (
     <>

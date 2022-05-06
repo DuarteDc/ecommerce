@@ -12,7 +12,7 @@ import { useRouter } from "next/router";
 import { useToggle } from "../../hooks/useToggle";
 import { pages } from "../../staticData/pages";
 import Cookies from "js-cookie";
-import { startVerifyToken } from "../../actions/authActions";
+import { logout, startVerifyToken } from "../../actions/authActions";
 
 import Button from '@mui/material/Button';
 import Menu from '@mui/material/Menu';
@@ -92,6 +92,12 @@ const NavBar = () => {
   const handleClose = () => {
     setAnchorEl(null);
   };
+
+  const handleLogout = () =>{
+    dispatch(logout());
+    Cookies.remove('token');
+    router.replace('/');
+  }
 
 
   return (
@@ -181,7 +187,7 @@ const NavBar = () => {
                       <Link href="/perfil/mis-pedidos">
                       <MenuItem onClick={handleClose}>Mis Pedidos</MenuItem>
                       </Link>
-                      <MenuItem onClick={handleClose}>Cerrar Sesión</MenuItem>
+                      <MenuItem onClick={handleLogout}>Cerrar Sesión</MenuItem>
                     </Menu>
                   </span>
                 ) : (

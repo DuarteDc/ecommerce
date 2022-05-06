@@ -159,9 +159,9 @@ export const orderCancel = (order_id) =>({
 export const startGetOrder = (_id) =>{
     return async (dispatch) =>{
         try {
-            let url = `/order/${_id}`;
+            let url = `/orders/${_id}`;
             const {data} = await client.get(url);
-            dispatch(getOrder(data))
+            dispatch(getOrder(data.order))
         } catch (error) {
             console.log(error);
         }
@@ -169,6 +169,6 @@ export const startGetOrder = (_id) =>{
 }
 
 export const getOrder = (order) =>({
-    type:types,
+    type:types.loadOrderById,
     payload:order
 });

@@ -33,65 +33,15 @@ import { OptionCardProfile } from "../../src/components/ui";
 
 const Profile = () => {
     const { categories } = useSelector((state) => state.faqs);
-
-    const img = useRef();
-    const router = useRouter();
-
-    const inputFile = useRef(null)
-    const dispatch = useDispatch();
-
-    const [loading, setLoading] = useState(false);
-
-    const handleUpdateImageUser = async (formData) => {
-
+    const [ loading, setLoading ] = useState(false);
+   
+    useEffect(() => {
         setLoading(true);
-        const data = new FormData();
-        data.append('profileImage', formData);
-
-        const { hasError, message } = await dispatch(startUpdateImageUser(data))
-
-        if (hasError) {
-            errorNotify(message);
+        setTimeout(() => {
             setLoading(false);
-            return false;
-        }
-        successNotify(message);
+        }, 1500);
+    }, []);
 
-        setLoading(false);
-        return true;
-    }
-
-    const onFileChange = async (event) => {
-        if (event.target.files && event.target.files.length > 0) {
-            const file = event.target.files[0];
-            if (file.type.includes('image')) {
-                const hasError = await handleUpdateImageUser(file);
-                if (!hasError) {
-                    return;
-                }
-                const reader = new FileReader();
-                reader.readAsDataURL(file);
-
-                reader.onload = function load() {
-                    img.current.src = reader.result
-                }
-            } else {
-                errorNotify("El formato de la imagen no es valido");
-            }
-        }
-    }
-
-    const onButtonClick = () => {
-        inputFile.current.click();
-    };
-
-    const { user, directions } = useSelector(state => state.profile);
-
-    const logoutSession = () => {
-        dispatch(logout);
-        Cookies.remove('token')
-        router.replace('/')
-    }
 
     return (
         <Layout

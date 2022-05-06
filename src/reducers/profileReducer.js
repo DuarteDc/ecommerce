@@ -3,6 +3,11 @@ import { types } from "../types";
 const initialState = {
     user: null,
     directions: [],
+    states:[],
+    municipalities:[],
+    fiscalAddress:{},
+    stateSelected:{},
+    municipalitySelected:{}
 }
 
 
@@ -56,7 +61,23 @@ export const profileReducer = (state = initialState, { type, payload }) => {
                 ...state,
                 user: {...state.user, payload}
             }
-
+        case types.load_states:
+            return{
+                ...state,
+                states:payload
+            }
+        case types.load_municipalities:
+            return{
+                ...state,
+                municipalities:payload
+            }
+        case types.load_fiscal_address:
+            return{
+                ...state,
+                fiscalAddress:payload.customer,
+                stateSelected:payload.state,
+                municipalitySelected:payload.municipality
+            }
         default:
             return state;
     }

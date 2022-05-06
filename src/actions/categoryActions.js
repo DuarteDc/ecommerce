@@ -1,6 +1,11 @@
 import client from '../config/axiosConfig';
 import { types } from '../types';
 
+/**
+ * It's an async function that returns a function that dispatches a function that returns a promise
+ * that dispatches a function.
+ * @returns An object with a type and a payload.
+ */
 export const startLoadCategories = () => {
     return async (dispatch) => {
         let url = '/categories';
@@ -13,12 +18,32 @@ export const startLoadCategories = () => {
     }
 }
 
+/**
+ * It returns an object with a type property and a payload property. 
+ * 
+ * The type property is a string that is the same as the string in the types object.  
+ * 
+ * The type property is the string that is the same as the string in the types object. 
+ * 
+ * The payload property is the data that is passed into the function. 
+ * 
+ * The function is called with the data that is to be passed into the payload property. 
+ * 
+ * The function returns an object with the type property and the payload property. 
+ * 
+ * The type property is the string that is the same as the string
+ * @param categories - Array of category objects
+ */
 export const loadCategories = (categories) => ({
     type: types.loadCategories,
     payload: categories
 });
 
 
+/**
+ * It's an async function that dispatches an action to the reducer.
+ * @returns An object with a type and a payload.
+ */
 export const startLoadCategoriesHome = () => {
     return async (dispatch) => {
         let url = '/categories/categories-home';
@@ -30,12 +55,22 @@ export const startLoadCategoriesHome = () => {
         }
     }
 }
+/**
+ * It takes an array of categories and returns an object with a type and a payload.
+ * @param categories - [{id: 1, name: 'category1'}, {id: 2, name: 'category2'}]
+ */
 
 export const loadCategoriesHome = (categories) => ({
     type: types.loadCategoriesHome,
     payload: categories
 })
 
+/**
+ * It's an async function that returns a function that dispatches an action creator that returns an
+ * action object.
+ * @param category - the category name
+ * @returns an object with a type of "LOAD_PRODUCTS_PER_CATEGORY" and a payload of the category.
+ */
 export const startLoadProductsPerCategory = (category) => {
     return async (dispatch) => {
         let url = `/categories/slug/${category}`;
@@ -48,6 +83,10 @@ export const startLoadProductsPerCategory = (category) => {
     }
 }
 
+/**
+ * It returns an object with a type and a payload.
+ * @param category - the category of the products to be loaded
+ */
 export const loadProductsPerCategory = (category) => ({
     type: types.load_products_from_category,
     payload: category
@@ -67,6 +106,25 @@ export const startFilterProductsPerBrandAndCategory = (brand, category_id) => {
     }
 }
 
+/**
+ * It takes a brand and a list of products and returns an object with a type and a payload.
+ * 
+ * The payload is an object with a filter and a list of products.
+ * 
+ * The filter is the brand.
+ * 
+ * The list of products is the list of products.
+ * 
+ * The type is a string.
+ * 
+ * The string is a constant.
+ * 
+ * The constant is a string.
+ * 
+ * The string is a string.
+ * @param brand - is the brand name
+ * @param products - is an array of objects
+ */
 export const filterProductsPerBrandAndCategory = (brand, products) => ({
     type: types.filters_to_products_from_categories_with_brands,
     payload: {
@@ -75,6 +133,12 @@ export const filterProductsPerBrandAndCategory = (brand, products) => ({
     }
 })
 
+/**
+ * It's an async function that takes a dispatch function as an argument, and returns a promise that
+ * resolves to a dispatch function that takes a tag and an array of products as arguments.
+ * @param tag - {
+ * @returns a function that takes dispatch as a parameter.
+ */
 export const startloadProductsPerTagsInCategory = (tag) => {
     return async (dispatch) => {
         let url = `/products/tag/${tag._id}`;
@@ -87,6 +151,11 @@ export const startloadProductsPerTagsInCategory = (tag) => {
     }
 }
 
+/**
+ * This function takes a tag and a list of products and returns an object with a type and a payload.
+ * @param tag - is the tag that is clicked on
+ * @param products - is an array of objects
+ */
 export const loadProductsPerTags = (tag, products) => ({
     type: types.filters_to_products_from_categories_with_brands,
     payload: {
@@ -96,6 +165,9 @@ export const loadProductsPerTags = (tag, products) => ({
 });
 
 
+/**
+ * It returns an object with a type property and a value of clear_filters_form_categories.
+ */
 export const clearAll = () => ({
     type: types.clear_filters_form_categories
 })

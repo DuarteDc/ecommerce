@@ -22,6 +22,7 @@ import {PendingPaymentOrderIndex} from "../../src/components/orders/pendingOrder
 import { NotFoundOrders } from "../../src/components/orders/notFoundOrders";
 import { Breadcrumbs, Grid,  Typography } from "@mui/material";
 import Link from "next/link";
+import { startLoadFiscalAddress } from "../../src/actions/profileActions";
 
 function a11yProps(index) {
     return {
@@ -102,7 +103,7 @@ const MisPedidos = () => {
                 title="Mis Pedidos"
             />
 
-            <section className="container max-w-[920px] my-10 mx-auto">
+            <section className="container max-w-[1200px] my-10 mx-auto">
               <Grid container>
                 <Grid item xs={12} sm={12} md={12} lg={12} xl={12}>
                   <Breadcrumbs aria-label="breadcrumb" className="px-6">
@@ -240,6 +241,7 @@ export const getServerSideProps = wrapper.getServerSideProps((store) =>
         await store.dispatch(startLoadOrdersCanceled(ctx.req.cookies.token));
         await store.dispatch(startLoadOrdersApproved(ctx.req.cookies.token));
         await store.dispatch(startLoadOrdersShipped(ctx.req.cookies.token));
+        await store.dispatch(startLoadFiscalAddress(ctx.req.cookies.token));
 })
 
 export default MisPedidos
