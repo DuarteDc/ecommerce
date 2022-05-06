@@ -15,9 +15,9 @@ export const startLoadShoppingCart = (token) => {
             headers: {
                'Authorization': token
             }
-         }); 
-         if(data.cart.products.length > 0){
-            dispatch(loadShoppingCart(data.cart.products)); 
+         });
+         if (data.cart.products.length > 0) {
+            dispatch(loadShoppingCart(data.cart.products));
          }
 
       } catch (error) {
@@ -34,17 +34,17 @@ export const loadShoppingCart = (shoppingCart) => ({
 
 
 /**Agregar productos al carrito de compras */
-export const startAddProductShoppingCart = (product ,name , token) =>{
-   return async (dispatch) =>{
+export const startAddProductShoppingCart = (product, name, token) => {
+   return async (dispatch) => {
       try {
          delete product.product_id;
          product.product_id = product._id
          let url = '/cart';
-         const {data} = await client.post(url , product ,{
+         const { data } = await client.post(url, product, {
             headers: {
-                'Authorization': token
+               'Authorization': token
             }
-          });
+         });
          const shoppingCart = data.cart.products;
          Swal.fire({
             icon: "success",
@@ -85,33 +85,49 @@ export const startCalculateTotalSale = () => {
       const { logged } = getState().auth;
 
       let subtotalCart = 0;
+      let subtotalCartWithDiscount = 0, subtotalCartWithoutDiscount = 0;
       let subtotalWithCoupon = 0;
       let total = 0;
 
       if (logged) {
-         subtotalCart = cart.map(prod => {
-            const { totalWithDiscountApply } = helpers.calculatNewTotalToPay(prod.product_id.discount, prod.product_id.price);
+         subtotalCartWithoutDiscount = cart.filter(prod => prod.product_id.discount < 1)
+            .map(prod => {
+               prod.subtotal = prod.product_id.price * prod.quantity;
+               return prod;
+            }).reduce((prev, curr) => prev + Number(curr.subtotal), 0);
 
-            prod.subtotal = totalWithDiscountApply * prod.quantity;
-            return prod;
-         }).reduce((prev, curr) => prev + Number(curr.subtotal), 0);
+         subtotalCartWithDiscount = cart.filter(prod => prod.product_id.discount > 0)
+            .map(prod => {
+               const { totalWithDiscountApply } = helpers.calculatNewTotalToPay(prod.product_id.discount, prod.product_id.price);
+               prod.subtotal = totalWithDiscountApply * prod.quantity;
+               return prod;
+            }).reduce((prev, curr) => prev + Number(curr.subtotal), 0);
+
+         subtotalCart = subtotalCartWithDiscount + subtotalCartWithoutDiscount;
 
       } else {
 
-         subtotalCart = cartNotLogged.map(prod => {
-            const { totalWithDiscountApply } = helpers.calculatNewTotalToPay(prod.product_id.discount, prod.product_id.price);
+         subtotalCartWithoutDiscount = cartNotLogged.filter(prod => prod.product_id.discount < 1)
+            .map(prod => {
+               prod.subtotal = prod.product_id.price * prod.quantity;
+               return prod;
+            }).reduce((prev, curr) => prev + Number(curr.subtotal), 0);
 
-            prod.subtotal = totalWithDiscountApply * prod.quantity;
-            return prod;
-         }).reduce((prev, curr) => prev + Number(curr.subtotal), 0);
+         subtotalCartWithDiscount = cartNotLogged.filter(prod => prod.product_id.discount > 0)
+            .map(prod => {
+               const { totalWithDiscountApply } = helpers.calculatNewTotalToPay(prod.product_id.discount, prod.product_id.price);
+               prod.subtotal = totalWithDiscountApply * prod.quantity;
+               return prod;
+            }).reduce((prev, curr) => prev + Number(curr.subtotal), 0);
 
+         subtotalCart = subtotalCartWithDiscount + subtotalCartWithoutDiscount;
 
       }
 
       const shippingSelected = shippingCosts.filter((shipping) => shipping.minSale <= subtotalCart && shipping.maxSale >= subtotalCart);
       if (coupon) {
-         subtotalWithCoupon = helpers.applyCoupon(subtotalCart, coupon.discount)
-         total = Number(shippingSelected[0]?.shippingCosts) + Number(subtotalWithCoupon) || 0;
+         subtotalWithCoupon = helpers.applyCoupon(subtotalCartWithoutDiscount, coupon.discount)
+         total = Number(shippingSelected[0]?.shippingCosts) + Number(subtotalWithCoupon + subtotalCartWithDiscount) || 0;
       } else {
          total = Number(shippingSelected[0]?.shippingCosts) + Number(subtotalCart) || 0;
       }

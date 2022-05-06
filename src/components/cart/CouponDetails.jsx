@@ -53,8 +53,8 @@ const CouponDetails = ({ handleApplyCoupon, setInputCoupon, coupon, handleRemove
                             </div>
                         </div>
                         <div className="flex items-center mt-5">
-                            <div className="w-[34.5%]">
-                                <span className="font-Poppins text-[15px] leading-[1.4] text-[#333]">
+                            <div className="w-full">
+                                <span className="font-Poppins text-[15px] leading-[1.4] text-[#333] text-sm">
                                     Subtotal con cupon aplicado:
                                 </span>
                             </div>
@@ -64,6 +64,11 @@ const CouponDetails = ({ handleApplyCoupon, setInputCoupon, coupon, handleRemove
                                 </span>
                             </div>
                         </div>
+                        <div className="w-full mt-5">
+                                <span className="font-Poppins text-[15px] leading-[1.4] text-[#333] text-xs font-semibold">
+                                    ¡El cupon solo es valido para productos sin descuento!
+                                </span>
+                            </div>
                     </div>
                 )
             }
