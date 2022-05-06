@@ -6,6 +6,7 @@ import client from '../config/axiosConfig';
 import { types } from '../types'
 import Swal from 'sweetalert2';
 
+
 export const startLoadDataUser = (ctx) => {
     return async (dispatch) => {
         let url = '/auth'
@@ -27,7 +28,7 @@ export const startLoadDataUser = (ctx) => {
 export const loadDataUser = (user, token) => ({
     type: types.load_data_user,
     payload: user
-})
+});
 
 export const getStates = async () => {
     try {
@@ -375,3 +376,217 @@ export const startUpdatedPasswordClient = (password) =>{
         }
     }
 }
+
+export const startGetStates = () =>{
+    return async (dispatch)=>{
+
+        try {
+            let url = '/states';
+            const {data} = await client.get(url);
+            const states = data.states.map(state=>{
+                
+                const stateSelect = {
+                label:state.name,
+                value:state._id
+                }
+
+                return stateSelect;
+            })
+            dispatch(getStatesData(states));
+        } catch (error) {
+            console.log(error);
+        }
+    }
+}
+
+export const getStatesData = (states) =>({
+    type:types.load_states,
+    payload:states
+});
+
+export const startGetMunicipality = (state_id) =>{
+    return async (dispatch) =>{
+        try {
+            let url = `/municipalities/${state_id}`;
+            const {data} =  await client.get(url);
+            const municipalities = data.municipalities.map(municipality=>{
+                
+                const municipalitySelect = {
+                label:municipality.name,
+                value:municipality._id
+                }
+
+                return municipalitySelect;
+            })
+            dispatch(getMunicipality(municipalities));
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+}
+
+export const getMunicipality = (municipalities) =>({
+    type:types.load_municipalities,
+    payload:municipalities
+});
+
+
+
+/**
+ * It's an async function that returns a function that dispatches an action creator that returns an
+ * action object.
+ * @param token - the token that is generated when the user logs in.
+ * @returns an object with a type and a payload.
+ */
+export const startLoadFiscalAddress = (token) =>{
+    return async (dispatch)=>{
+        try {
+            let url = '/auth/sat/direction';
+            const {data} = await client.get(url,{
+                headers: {
+                    'Authorization': token
+                }
+            });
+            dispatch(loadFiscalAddress(data.SATDirection , data.state , data.municipality));
+        } catch (error) {
+            console.log(error);
+        }
+    }
+}
+
+
+/**
+ * It returns an object with a type property and a payload property.
+ * @param customer - {
+ */
+export const loadFiscalAddress = (customer , state , municipality) =>({
+    type:types.load_fiscal_address,
+    payload:{
+        customer,
+        state,
+        municipality
+    }
+});
+
+/**
+ * This function is an asynchronous function that returns a function that takes a dispatch function as
+ * an argument.
+ * @returns An object with a property of type and a property of payload.
+ */
+ export const startAddFiscalAddress = (formData) =>{
+    return async(dispatch)=>{
+         try {
+            const token =  Cookies.get('token');
+            let url = '/auth/save-sat-direction';
+            const {data} = await client.post(url,formData,{
+                headers: {
+                    'Authorization': token
+                }
+            });
+           
+            const Toast = Swal.mixin({
+                toast: true,
+                position: 'top-end',
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true,
+                didOpen: (toast) => {
+                    toast.addEventListener('mouseenter', Swal.stopTimer)
+                    toast.addEventListener('mouseleave', Swal.resumeTimer)
+                }
+            });
+            
+            Toast.fire({
+              icon: 'success',
+              title:data.message
+            });
+
+            dispatch(AddFiscalAddress(data.customer));
+            
+         } catch (error) {
+             console.log(error);
+         }
+    }
+}
+
+/**
+ * AddFiscalAddress is a function that takes a customer object as an argument and returns an object
+ * with a type property and a payload property.
+ * @param customer - {
+ */
+export const AddFiscalAddress = (customer) =>({
+    type:types.load_fiscal_address,
+    payload:customer
+});
+
+
+export const startUpdateFiscalAddress = (fiscalAddress) =>{
+    return async (dispatch)=>{
+        try {
+            const token =  Cookies.get('token');
+            let url = '/auth/update-sat-direction';
+            const {data} = await client.put(url , fiscalAddress , {
+                headers: {
+                    'Authorization': token
+                }
+            });
+            const Toast = Swal.mixin({
+                toast: true,
+                position: 'top-end',
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true,
+                didOpen: (toast) => {
+                    toast.addEventListener('mouseenter', Swal.stopTimer)
+                    toast.addEventListener('mouseleave', Swal.resumeTimer)
+                }
+            });
+            
+            Toast.fire({
+              icon: 'success',
+              title:data.message
+            });
+            dispatch(updateFiscalAddress(data.customer , data.state , data.municipality));
+        } catch (error) {
+           console.log(error); 
+        }
+    }
+}
+
+export const updateFiscalAddress = (customer , state , municipality) =>({
+    type:types.load_fiscal_address,
+    payload:{
+        customer,
+        state,
+        municipality
+    }
+});
+
+
+export const startInvoidedOrder = (order_id) =>{
+    return async()=>{
+
+        try {
+            let url = `/orders/invoice/${order_id}`;
+            await client.post(url);
+            Swal.fire({
+              title:'Operación Exitosa',
+              text:"Tu factura ha sido generada satisfactoriamente , te hemos enviado la factura a tu correo electronico , revisa tu bandeja de entrada , si no has recibido el correo contacta al equipo de soporte",
+              icon:"success"  
+            })
+        } catch (error) {
+            console.log(error);
+            Swal.fire({
+                title:'Vaya ... Hubo un error',
+                text:'Contacta al equipo de soporte o verifica tus datos fiscales',
+                icon:"error"  
+            })
+        }
+    }
+}
+
+export const invoicedOrder = () =>({
+    type:types,
+
+})

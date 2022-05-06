@@ -142,7 +142,7 @@ const Products = () => {
     )
 }
 
-export const getStaticProps = wrapper.getStaticProps((store) =>
+export const getServerSideProps = wrapper.getServerSideProps((store) =>
     async () => {
         await store.dispatch(startLoadProducts());
         await store.dispatch(startLoadCategories());
@@ -150,10 +150,6 @@ export const getStaticProps = wrapper.getStaticProps((store) =>
         await store.dispatch(startLoadTags());
         await store.dispatch(startLoadAdministrableLogo());
         await store.dispatch(startLoadFaqsCategories());
-        return {
-            revalidate: 3600
-        }
-
     })
 
 export default Products;

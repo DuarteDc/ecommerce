@@ -33,7 +33,6 @@ const Checkout = () => {
     const [ isTransfer , setIsTransfer ] = useState(false);
     const [ open , toggle ] = useToggle();
     const [ openTransfer , toggleTransfer] = useToggle();
-    const [ openProofOfPayment , toggleProofOfPayment] = useToggle();
 
     const handleOpenCheckout = () =>{
       toggle();
@@ -41,10 +40,6 @@ const Checkout = () => {
 
     const handleOpenTransfer = () =>{
       toggleTransfer();
-    }
-
-    const handleOpenProofOfPayment = () =>{
-      toggleProofOfPayment();
     }
 
     const stripePromise = loadStripe("pk_test_51JQDmVCJKrEV4P25HqhKqz4fnKIZVF7d853icQ84CYZrCFxUorhPwAdjwyKhnP124hlGSaYfOEjZo7LibrwT6Azo002XEZChlH");
@@ -77,7 +72,7 @@ const Checkout = () => {
 
     useEffect(() => {
       if(success){
-        router.push('/');
+        router.push('/?successTransfer=true');
         Cookie.remove('superTotal'); 
         Cookie.remove('withDiscount');
         Cookie.remove('withoutDiscount');
@@ -207,20 +202,6 @@ const Checkout = () => {
                          handleOpenTransfer={handleOpenTransfer}
                         />
                           
-                      </Modal>
-                      {/* modal comprobante de pago */}
-                      <Modal
-                       title="Sube tu comprobante de pago"
-                       open={openProofOfPayment}
-                       handleOpenCheckout={handleOpenProofOfPayment}
-                       actions={false}
-                       fullWidth={true}
-                       maxWidth={'xs'}
-                      >
-                        <UploadProofOfPayment
-                         setIsTransfer={setIsTransfer}
-                         handleOpenProofOfPayment={handleOpenProofOfPayment}
-                        />
                       </Modal>
                    </div>
                  </div> 

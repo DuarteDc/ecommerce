@@ -5,7 +5,8 @@ const initialState = {
     canceledOrders:[],
     approvedOrders:[],
     shippedOrders:[],
-    order_id:''
+    order_id:'',
+    orderDetail:{}
 }
 
 
@@ -42,11 +43,15 @@ export const ordersReducer = ( state = initialState  , { type , payload }) =>{
                 shippedOrders:payload
             }
         case types.loadCancelOrder:
-            console.log(payload)
             return{
                 ...state,
                 penddingOrders: state.penddingOrders.filter(pendding =>pendding._id !== payload)
             }
+        case types.loadOrderById:
+           return {
+               ...state,
+               orderDetail:payload
+           }
         default:
             return state;
     }

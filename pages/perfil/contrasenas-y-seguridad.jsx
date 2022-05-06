@@ -1,9 +1,10 @@
 import { Avatar, Breadcrumbs, Grid, Typography } from "@mui/material";
 import Link from "next/link";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Swal from "sweetalert2";
 import { startLoadAdministrableLogo } from "../../src/actions/administrableActions";
+import { logout } from "../../src/actions/authActions";
 import { startUpdateImageUser } from "../../src/actions/profileActions";
 import Layout from "../../src/components/Layouts";
 import { ChangeEmailProfile } from "../../src/components/profile/sessionAndSecurity/changeEmailProfile";
@@ -11,12 +12,15 @@ import { ChangePasswordProfile } from "../../src/components/profile/sessionAndSe
 import { ChangePhoneNumberProfile } from "../../src/components/profile/sessionAndSecurity/changePhoneNumberProfile";
 import { ChangePhotoProfile } from "../../src/components/profile/sessionAndSecurity/changePhotoProfile";
 import { ChangeUserName } from "../../src/components/profile/sessionAndSecurity/changeUserName";
+import { useRouter } from "next/router";
 import { Modal } from "../../src/components/ui/modal";
 import { useToggle } from "../../src/hooks/useToggle";
 import { wrapper } from "../../src/store";
+import Cookies from 'js-cookie';
 
 const PasswordAndSecurity = () =>{
     const dispatch = useDispatch();
+    const router = useRouter();
     const { user } = useSelector((state)=>state.auth);
     const [ open , toggle ] = useToggle();
     const [ type , setType ] = useState(0);
@@ -96,6 +100,12 @@ const PasswordAndSecurity = () =>{
             });
 
         }
+    }
+
+    const handleLogout = () =>{
+      dispatch(logout());
+      Cookies.remove('token');
+      router.replace('/')
     }
 
 
@@ -192,6 +202,14 @@ const PasswordAndSecurity = () =>{
                         Modificar
                     </button>
                   </div>
+               </div>
+               <div className="flex justify-center items-center border-[1px] border-solid border-b-[#e7e7e7] py-5 px-5">
+                    <button
+                      className="bg-[#e7e9ec] cursor-pointer text-center text-[#333] py-2 px-5 font-Poppins rounded-sm border-[1px] border-solid border-[#8d9096] hover:bg-[#8d9096] hover:text-luz transition"
+                      onClick={handleLogout}
+                    >
+                      Cerrar Sesion
+                    </button>
                </div>
             </div>
          </div>

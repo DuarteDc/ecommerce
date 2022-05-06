@@ -47,7 +47,7 @@ const DirectionsSeccion = ({ directions }) => {
     }
 
     return (
-        <div className="w-full mt-10 p-8 flex px-5 lg:px-32 flex flex-col md:flex-row">
+        <div className="w-full mt-10 p-8 flex px-5 lg:px-32  flex-col md:flex-row">
             {
                 !showForm ? (
                     <>

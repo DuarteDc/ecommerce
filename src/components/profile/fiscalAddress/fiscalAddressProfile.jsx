@@ -1,5 +1,15 @@
+import { useSelector } from "react-redux"
+import {taxt_system} from "../../../staticData/text_system";
 
 export const FiscalAddressProfile = () =>{
+    const { fiscalAddress , stateSelected , municipalitySelected} = useSelector((state)=>state.profile);
+ 
+    const taxt_selected = taxt_system.filter(taxt=>taxt.value === fiscalAddress.tax_system);
+
+
+  
+
+  
     return(
         <>
         <div className="border-b-solid border-dashed text-lg font-Poppins leading-8 text-center px-5 py-5 border-b-2">
@@ -8,14 +18,14 @@ export const FiscalAddressProfile = () =>{
         <div className="p-5 font-Poppins text-[#888]">
             <div className="flex justify-between items-center flex-wrap">
              <p className="leading-8">Nombre Fiscal o Razón Social:</p> 
-             <span>Rodrigo Alaguna Moreno</span>
+             <span>{fiscalAddress?.legal_name || 'No Agregado'}</span>
             </div>
             <div className="flex justify-between items-center">
               <p className="leading-8">
                   RFC:
               </p>
              <span>
-               XAXX010101000
+               {fiscalAddress.tax_id || 'No Agregado'}
              </span>
             </div>
             <div className="flex justify-between items-center">
@@ -23,7 +33,7 @@ export const FiscalAddressProfile = () =>{
                   Régimen Fiscal:
               </p>
              <span>
-               XAXX010101000
+              {taxt_selected[0]?.label || 'No Seleccionado'}
              </span>
            
             </div>
@@ -32,7 +42,7 @@ export const FiscalAddressProfile = () =>{
                   Correo:
               </p>
              <span>
-              rodrigoalagunamoreno@gmail.com
+             {fiscalAddress.email || 'No Agregado'}
              </span>
             </div>
             <div className="flex justify-between items-center">
@@ -40,7 +50,7 @@ export const FiscalAddressProfile = () =>{
                   Teléfono:
               </p>
              <span>
-             7292420885
+               {fiscalAddress.phone || 'No Agregado'}
              </span>
             </div>
         </div>
@@ -50,31 +60,31 @@ export const FiscalAddressProfile = () =>{
         <div className="p-5 font-Poppins text-[#888]">
          <div className="flex justify-between items-center flex-wrap">
            <p className="leading-8">Calle:</p> 
-           <span>Rodrigo Alaguna Moreno</span>
+           <span>{fiscalAddress?.address?.street || 'No Agregado'}</span>
          </div>
          <div className="flex justify-between items-center flex-wrap">
            <p className="leading-8">No.Int:</p> 
-           <span>Rodrigo Alaguna Moreno</span>
+           <span>{fiscalAddress?.address?.interior || 'No Agregado'}</span>
          </div>
          <div className="flex justify-between items-center flex-wrap">
            <p className="leading-8">No.Ext:</p> 
-           <span>Rodrigo Alaguna Moreno</span>
+           <span>{fiscalAddress?.address?.exterior || 'No Agregado'}</span>
          </div>
          <div className="flex justify-between items-center flex-wrap">
            <p className="leading-8">Colonia:</p> 
-           <span>Rodrigo Alaguna Moreno</span>
+           <span>{fiscalAddress?.address?.neighborhood || 'No Agregado'}</span>
          </div>
          <div className="flex justify-between items-center flex-wrap">
            <p className="leading-8">Ciudad:</p> 
-           <span>Rodrigo Alaguna Moreno</span>
+           <span>{fiscalAddress?.address?.city || 'No Agregado'}</span>
          </div>
          <div className="flex justify-between items-center flex-wrap">
            <p className="leading-8">Municipio:</p> 
-           <span>Rodrigo Alaguna Moreno</span>
+           <span>{municipalitySelected?.name || 'No Seleccionado'}</span>
          </div>
          <div className="flex justify-between items-center flex-wrap">
            <p className="leading-8">Estado:</p> 
-           <span>Rodrigo Alaguna Moreno</span>
+           <span>{stateSelected?.name || 'No Seleccionado'}</span>
          </div>
         </div>
         </>
