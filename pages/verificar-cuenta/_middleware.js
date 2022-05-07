@@ -13,10 +13,10 @@ export async function middleware(req, ev) {
 
     if (token) {
         const { email_verified } = await handleEmailVerified(token);
-        if (email_verified) {
-            return NextResponse.redirect(baseUrl);
+        if (!email_verified) {
+            return NextResponse.next();
         }
-        return NextResponse.redirect(`${baseUrl}/verificar-cuenta`);
+        return NextResponse.redirect(baseUrl);
     }
 
 

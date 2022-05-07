@@ -98,6 +98,8 @@ export const loadOrdersShipped = (ordersShipped) =>({
 export const startUploadProofOfPayment = (data) =>{
     return async (dispatch , getState)=>{
         const { order_id } = getState().orders
+        const amount = data.get('amount')
+        console.log(amount);
         try {
             let url = `payments/${order_id}`;
             await client.post(url, data , {
@@ -108,16 +110,19 @@ export const startUploadProofOfPayment = (data) =>{
                 text:"El comprobante de pago sera revisado , una vez verificado se aprobara la venta y se enviaran tus productos",
                 icon:"success"
             })
-            dispatch(uploadProofOfPayment(order_id))
+            dispatch(uploadProofOfPayment(order_id, amount))
         } catch (error) {
             console.log(error);
         }
     }
 }
 
-export const uploadProofOfPayment = (order_id) =>({
+export const uploadProofOfPayment = (order_id, amount) =>({
     type:types.upload_proof_payment_order,
-    payload:order_id
+    payload:{
+        order_id,
+        amount,
+    }
 });
 
 export const startOrderCancel = (order_id) =>{

@@ -21,6 +21,7 @@ export const PendingPaymentOrderIndex = ({order , handleOpenProofOfPayment , sta
     const dispatch = useDispatch();
     const {fiscalAddress} = useSelector((state)=>state.profile)
     const total =  helpers.priceFormat(order.total);
+    const totalPayments =  helpers.priceFormat(order.total_payments);
     const date = moment(order.createdAt).format('L');
     const [ open , toggle ] = useToggle();
     const [openOrderDetail , toggleOrderDetail] = useToggle();
@@ -71,7 +72,7 @@ export const PendingPaymentOrderIndex = ({order , handleOpenProofOfPayment , sta
         <Grid container>
           <Grid item xs={12} sm={12} md={6} lg={6} xl={6}>
            <div className="bg-[#eee] flex p-8">
-            <div className="w-1/2 font-Poppins">
+            <div className="w-2/3 font-Poppins">
             <span className="uppercase text-sm leading-6 text-[#333]">
                 Pedido realizado
             </span>
@@ -85,6 +86,14 @@ export const PendingPaymentOrderIndex = ({order , handleOpenProofOfPayment , sta
            </span>
             <p className="text-sm text-[#888]">
                 {total}
+            </p>
+          </div>
+          <div className="w-2/3 text-center font-Poppins">
+           <span className="uppercase text-sm leading-6 text-[#333]">
+               Total liquidado
+           </span>
+            <p className="text-sm text-[#888]">
+                {totalPayments}
             </p>
           </div>
           <div className="w-full text-center font-Poppins cursor-pointer h-full"
@@ -138,7 +147,7 @@ export const PendingPaymentOrderIndex = ({order , handleOpenProofOfPayment , sta
     <Grid item xs={12} sm={12} md={4} lg={4} xl={4} >
       <div className="flex justify-center  md:justify-start items-center h-3/4 w-full pr-10">
     {
-           status === 0 &&
+           status === 0 && order.total_payments < order.total &&
             <button className="bg-[#FFD814] font-Poppins text-[#333] py-[10px] px-[15px] uppercase text-sm mt-5 flex items-center justify-center w-full"
                 onClick={()=>handleOpenProofOfPayment(order._id)}
               >

@@ -166,7 +166,7 @@ const PasswordAndSecurity = () =>{
                <div className="flex justify-between items-center border-[1px] border-solid border-b-[#e7e7e7] py-5 px-5">
                   <div className="font-Poppins">
                     <p>Correo Electronico:</p>
-                    <span  className="text-sm text-[#888]">al221511338@gmail.com</span>  
+                    <span  className="text-sm text-[#888]">{email}</span>  
                   </div>
                   <div>
                     <button

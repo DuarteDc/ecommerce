@@ -25,6 +25,8 @@ export const ordersReducer = ( state = initialState  , { type , payload }) =>{
         case types.upload_proof_payment_order:
             return{
                 ...state,
+                penddingOrders: state.penddingOrders.map(order => order._id === payload.order_id
+                    && {...order, total_payments: order.total_payments = Number(order.total_payments) + Number(payload.amount)} ),
                 order_id:''
             }
         case types.loadOrdersCanceled:
