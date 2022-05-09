@@ -5,6 +5,7 @@ import { ToastContainer } from 'react-toastify';
 import { Meta } from '../meta/meta';
 import Script from 'next/script';
 import 'react-toastify/dist/ReactToastify.css';
+import { CookiesPrivacy } from '../cookiesPrivacy';
 
 const Layout = ({ children  , canonical , title , keywords  , description , ogTitle , ogType , ogUrl , ogImage , robots , categories }) => {
     return (
@@ -23,6 +24,7 @@ const Layout = ({ children  , canonical , title , keywords  , description , ogTi
             <NavBar />
             {children}
             <Footer  categories={categories} />
+            <CookiesPrivacy/>
             <ToastContainer
                 position="top-right"
                 autoClose={5000}

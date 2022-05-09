@@ -56,3 +56,7 @@ export const loadAdministrableAbout = (about) =>({
    
 });
 
+export const acceptCookies = () =>({
+    type:types.accept_cookies_politicy
+})
+

@@ -11,8 +11,9 @@ export const CategoryArea = () => {
   return (
     <section className="pb-[20px] my-10 px-2">
       <div className="max-w-[1140px] w-full mx-auto">
-        <div className="grid grid-cols-2 lg:grid-cols-3 gap-2">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-2">
           <div className="
+                    block
                       relative 
                       text-center 
                       overflow-hidden
@@ -26,7 +27,12 @@ export const CategoryArea = () => {
                       before:z-[2]"
             onClick={() => handleClickRedirect('productos')}
           >
-            <Image src="/assets/images/category.jpg" layout="fill" />
+            <Image 
+               src="/assets/images/category.jpg" 
+               layout="responsive" 
+               width={200} 
+               height={200} 
+            />
             <div className="absolute top-[25%] left-0 right-0 my-0 mx-auto z-[3] translate-y-2/4">
               <h2 className="mb-[40px] text-luz font-bold text-xl leading-tight">Productos</h2>
               <button
@@ -82,7 +88,8 @@ export const CategoryArea = () => {
                 </div>
               </div>
             </div>
-            <div className="                      
+            <div className="      
+                       block                
                       relative 
                       cursor-pointer
                       text-center 
@@ -99,7 +106,9 @@ export const CategoryArea = () => {
             >
               <Image
                 src="/assets/images/offer2.jpg"
-                layout="fill"
+                width={200}
+                height={200}
+                layout="responsive"
               />
               <div className="absolute top-[25%] left-0 right-0 my-0 mx-auto z-[3] translate-y-2/4">
                 <h2 className="mb-[40px] text-luz font-bold text-xl leading-tight">Ofertas</h2>

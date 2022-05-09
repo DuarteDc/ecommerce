@@ -71,7 +71,7 @@ const FormSignUp = () => {
 
     const validationSchema = {
         fullname: Yup.string().min(8, "El nombre debe contener al menos 8 caracteres").required("El nombre es requerido"),
-        email: Yup.string().email("El correo no tiene un valido").required("El correo escrequerido"),
+        email: Yup.string().email("El correo no tiene un valido").required("El correo es requerido"),
         password: Yup.string().min(8, "La contraseña debe contener al menos 8 caracteres").required("La contraseña es requerida"),
         passwordConfirmation: Yup.string().required('Confirma la contraseña').oneOf([Yup.ref('password'), null], 'Las contraseñas no coinciden. vuelve a intentarlo'),
         // phone: Yup.string().matches(phoneRegex, "El número de telefono no es valido").required("El numero de telefono es requerido")

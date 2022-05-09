@@ -17,6 +17,7 @@ import { logout, startVerifyToken } from "../../actions/authActions";
 import Button from '@mui/material/Button';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
+import { acceptCookies } from "../../actions/administrableActions";
 
 const NavBar = () => {
     const router = useRouter();
@@ -44,6 +45,12 @@ const NavBar = () => {
         return () => {
             window.removeEventListener('scroll', handleScroll);
         };
+    }, []);
+
+    useEffect(() => {
+        if(localStorage.getItem('acceptCookies')){
+          dispatch(acceptCookies());
+        }
     }, []);
 
     const logoutSession = () => {
