@@ -61,7 +61,7 @@ export const startSaveNewAddress = (data) => {
                     'Authorization': token
                 }
             });
-            dispatch(saveNewAddress(data));
+            dispatch(saveNewAddress(res.data.direction));
             return {
                 hasError: false,
                 message: res?.data?.message,

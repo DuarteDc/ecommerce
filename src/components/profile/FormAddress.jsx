@@ -57,7 +57,7 @@ const FormAddress = ({ setShowForm }) => {
         name: Yup.string().required('La nombre es requerido'),
         street: Yup.string().min(8, 'La direccion debe contener al menos 8 caracteres').required('La dirección es requerida'),
         between_street: Yup.string().min(8, 'El campo debe contener al menos 8 caracteres').required('El campo es requerido'),
-        postalcode: Yup.number().min(5, 'El campo debe contener al menos 5 caracteres').required('el campo es requerido'),
+        postalcode: Yup.number().typeError('El número no es valido').min(5, 'El campo debe contener al menos 5 caracteres').required('el campo es requerido').max(5, 'El campo no debe contener mas de 5 caracteres'),
         city: Yup.string().min(5, 'El campo debe contener al menos 8 caracteres').required('El campo es requerido'),
         references: Yup.string().min(8, 'El campo debe contener al menos 8 caracteres').required('El campo es requerido'),
         no_int: Yup.number().typeError('El número no es valido').required('El campo es requerido'),
@@ -113,11 +113,11 @@ const FormAddress = ({ setShowForm }) => {
                         ) : null}
                     </div>
                     <div className="my-2 md:px-2">
-                        <label className="text-sm">Entre(calle)</label>
+                        <label className="text-sm">Entre calle y calle</label>
                         <input
                             name="between_street"
                             onChange={formik.handleChange}
-                            placeholder="Entre(calle)"
+                            placeholder="Entre calle y calle"
                             type="text"
                             className="py-4 bg-gray-50  focus:outline-none focus:border-black focus:ring-1 focus:ring-gray-900 px-5 w-full my-1"
                         />

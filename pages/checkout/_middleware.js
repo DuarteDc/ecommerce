@@ -3,23 +3,15 @@ import { emailVerified, cartNotEmpty } from "../../src/actions/authActions";
 
 export async function middleware(req, ev) {
 
-    const { token } = req.cookies;
+    const { token, order_id } = req.cookies;
 
     const baseUrl = req.nextUrl.clone().origin;
     const requestedPage = req.page.name;
 
-    const handleEmailVerified = async (token) => {
-        return await emailVerified(token);
-    }
-
-    const handleCartNotEmpty = async (token) => {
-        return await cartNotEmpty(token);
-    }
-
-    if (token) {
-        const { email_verified } = await handleEmailVerified(token);
+    if (token && order_id) {
+        const { email_verified } = await emailVerified(token);
         if (email_verified) {
-            const { cart } = await handleCartNotEmpty(token);
+            const { cart } = await cartNotEmpty(token);
             if(cart){
                 return NextResponse.next();
             }

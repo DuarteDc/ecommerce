@@ -201,13 +201,13 @@ const Show = () => {
                                 >
                                     +
                                 </button>
+                                <input
+                                    type="number"
+                                    className="py-4 px-4 w-full outline-none border-0 text-center font-bold"
+                                    value={1}
+                                    // onChange={(e) => handleChangeQuantity(e)}
+                                />
 
-                                <span
-                                    className="py-4 px-4 w-full outline-none 
-                                    border-0 text-center font-bold"
-                                >
-                                    {counter}
-                                </span>
                                 {
                                     isEnable ?
                                         <button

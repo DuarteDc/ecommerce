@@ -7,12 +7,8 @@ export async function middleware(req, ev) {
 
     const baseUrl = req.nextUrl.clone().origin;
 
-    const handleEmailVerified = async (token) => {
-        return await emailVerified(token);
-    }
-
     if (token) {
-        const { email_verified } = await handleEmailVerified(token);
+        const { email_verified } = await emailVerified(token);
         if (!email_verified) {
             return NextResponse.next();
         }
