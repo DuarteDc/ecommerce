@@ -84,7 +84,7 @@ const DirectionsSeccion = ({ directions }) => {
                                         >
                                             <p className="font-semibold">{address.default && ' (Principal) :'}</p>
                                             <p className="font-light">
-                                                {`${address?.street}, #${address?.no_int}, ${address?.city}, ${address?.postalcode}, ${address?.municipality?.name}, ${address?.state?.name}`}
+                                                {`${address?.street}, #${address?.no_int}, ${address?.city}, ${address?.postalcode}, ${address?.municipality?.name || address.municipality}, ${address?.state?.name || address.state}`}
                                             </p>
                                         </div>
                                     </div>

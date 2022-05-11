@@ -7,7 +7,8 @@ const initialState = {
     instagram:'',
     tiktok:'',
     aboutUs:{},
-    mission:{}
+    mission:{},
+    acceptCookiesPoliticy:false
 }
 
 
@@ -27,6 +28,11 @@ export const administrableReducer = (state = initialState, { type, payload }) =>
                 ...state,
                 aboutUs: payload.about.aboutThat,
                 mission: payload.about.mission
+            }
+        case types.accept_cookies_politicy:
+            return{
+                ...state,
+                acceptCookiesPoliticy:true
             }
         default:
             return state;

@@ -22,13 +22,13 @@ const Wishlist = () => {
     const { products, allProducts, wishList } = useSelector((state) => state.wishList);
 
     const [loading, setLoading] = useState(false);
-    const [storedValue] = useLocalStorage('wishListProducts');
+    const [storedValue, setValue] = useLocalStorage('wishListProducts');
 
     const dispatch = useDispatch();
 
     const getProducts = async () => {
         setLoading(true);
-        await dispatch(startLoadProducts(storedValue));
+        const { products } = await dispatch(startLoadProducts(storedValue));
         setLoading(false);
     }
 
@@ -75,9 +75,9 @@ const Wishlist = () => {
                     {
                         allProducts.length > 0 ? (
                             products.map(product => (
-                                <ProductCard 
-                                  key={product._id}
-                                  product={product} 
+                                <ProductCard
+                                    key={product._id}
+                                    product={product}
                                 />
                             )))
                             : (

@@ -5,6 +5,7 @@ import client from '../config/axiosConfig';
 
 import { types } from '../types'
 import Swal from 'sweetalert2';
+import { data } from 'autoprefixer';
 
 
 export const startLoadDataUser = (ctx) => {
@@ -193,7 +194,7 @@ export const deleteAddress = (addres_id) => ({
 
 export const startUpdateDataUser = (formData) => {
     return async (dispatch) => {
-        let url = `/auth/update-user-info`;
+        let url = `/auth/update-fullname`;
         try {
             const token = await Cookies.get('token');
             const {data} = await client.put(url, formData, {
@@ -268,7 +269,8 @@ export const startUpdateImageUser = (formData) => {
                 icon: 'success',
                 title: 'Imagen de perfil actualizada satisfactoriamente'
               });
-              dispatch(updateImageUser(res.data.user));
+
+              dispatch(updateImageUser(res.data.profileImage));
 
         } catch (error) {
             if (axios.isAxiosError(error)) {

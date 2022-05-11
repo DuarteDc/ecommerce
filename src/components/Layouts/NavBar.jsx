@@ -12,11 +12,12 @@ import { useRouter } from "next/router";
 import { useToggle } from "../../hooks/useToggle";
 import { pages } from "../../staticData/pages";
 import Cookies from "js-cookie";
-import { logout, startVerifyToken } from "../../actions/authActions";
+import { logout } from "../../actions/authActions";
 
 import Button from '@mui/material/Button';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
+import { acceptCookies } from "../../actions/administrableActions";
 
 const NavBar = () => {
     const router = useRouter();
@@ -46,8 +47,14 @@ const NavBar = () => {
         };
     }, []);
 
+    useEffect(() => {
+        if(localStorage.getItem('acceptCookies')){
+          dispatch(acceptCookies());
+        }
+    }, []);
+
     const logoutSession = () => {
-        dispatch(logout);
+        dispatch(logout());
         Cookies.remove('token')
         router.replace('/')
     }
@@ -89,16 +96,14 @@ const NavBar = () => {
     const handleClick = (event) => {
         setAnchorEl(event.currentTarget);
     };
+
     const handleClose = () => {
         setAnchorEl(null);
     };
 
-  const handleLogout = () =>{
-    dispatch(logout());
-    Cookies.remove('token');
-    router.replace('/');
-  }
-
+    const handleClickLogo = () =>{
+        router.replace('/');
+    }
 
     return (
         <div className={`bg-luz py-2 shadow-sm  w-full z-[99] ${scrollPosition >= 130 && 'fixed top-0'} space-y-1 static`}>
@@ -109,6 +114,8 @@ const NavBar = () => {
                         alt="Wapizima"
                         width={150}
                         height={100}
+                        priority
+                        onClick={handleClickLogo}
                     />
                     <div className="flex justify-between items-center ">
                         <span className="flex items-center border-transparent border-b-2 mx-1 cursor-pointer text-lg text-[#888] font-['Poppins'] font-normal transition duration-700 ease-in-out  lg:hidden xl:hidden">
@@ -189,9 +196,9 @@ const NavBar = () => {
                                     </span>
                                 ) : (
                                     <span
-                                        onClick={() => router.push(`/auth/login?p=${router.asPath}`)}
+                                        onClick={() => router.push(`/auth/register?p=${router.asPath}`)}
                                         className="border-transparent border-b-2 mx-4 cursor-pointer  text-[#888] font-['Poppins'] font-normal transition duration-700 ease-in-out flex flex-col min-w-[7.6rem] uppercase">
-                                        Iniciar Sesión
+                                        Registrate
                                     </span>
                                 )
                             }
@@ -237,9 +244,9 @@ const NavBar = () => {
                                 </Link>
                             ) : (
                                 <span
-                                    onClick={() => router.push(`/auth/login?p=${router.asPath}`)}
-                                    className="border-transparent border-b-2 mx-2 cursor-pointer  text-white font-['Poppins'] font-normal transition duration-700 ease-in-out flex flex-col min-w-[7.6rem] uppercase">
-                                    Iniciar Sesión
+                                    onClick={() => router.push(`/auth/register?p=${router.asPath}`)}
+                                    className="border-transparent border-b-2 mx-2 cursor-pointer  text-white font-['Poppins'] font-normal transition duration-700 ease-in-out flex flex-col min-w-[7.6rem]">
+                                    Registrate
                                 </span>
                             )
                         }

@@ -3,11 +3,11 @@ import { types } from "../types";
 const initialState = {
     user: null,
     directions: [],
-    states:[],
-    municipalities:[],
-    fiscalAddress:{},
-    stateSelected:{},
-    municipalitySelected:{}
+    states: [],
+    municipalities: [],
+    fiscalAddress: {},
+    stateSelected: {},
+    municipalitySelected: {}
 }
 
 
@@ -50,8 +50,9 @@ export const profileReducer = (state = initialState, { type, payload }) => {
         case types.update_data_user:
             return {
                 ...state,
-                user:{...state.user, fullname: state.user.fullname = payload.fullname,
-                    email:state.user.email = payload.email,
+                user: {
+                    ...state.user, fullname: state.user.fullname = payload.fullname,
+                    email: state.user.email = payload.email,
                     phone: state.user.phone = payload.phone,
                 }
             }
@@ -59,24 +60,24 @@ export const profileReducer = (state = initialState, { type, payload }) => {
         case types.update_image_user:
             return {
                 ...state,
-                user: {...state.user, payload}
+                user: { ...state.user, profileImage: state.user.profileImage = payload }
             }
         case types.load_states:
-            return{
+            return {
                 ...state,
-                states:payload
+                states: payload
             }
         case types.load_municipalities:
-            return{
+            return {
                 ...state,
-                municipalities:payload
+                municipalities: payload
             }
         case types.load_fiscal_address:
-            return{
+            return {
                 ...state,
-                fiscalAddress:payload.customer,
-                stateSelected:payload.state,
-                municipalitySelected:payload.municipality
+                fiscalAddress: payload.customer,
+                stateSelected: payload.state,
+                municipalitySelected: payload.municipality
             }
         default:
             return state;

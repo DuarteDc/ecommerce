@@ -14,6 +14,7 @@ import LoadingScreen from "../LoadingScreen";
 import { GoogleLogin } from 'react-google-login';
 import { IconContext } from "react-icons";
 import { MdError } from "react-icons/md";
+import { TextField } from "@mui/material";
 
 export const FormSignIn = () => {
 
@@ -78,30 +79,30 @@ export const FormSignIn = () => {
             <form onSubmit={formik.handleSubmit}>
                 <div className="pb-3">
                     <label className="uppercase my-5 block">Correo electronico</label>
-                    <input
-                        name="email"
-                        onChange={formik.handleChange}
-                        placeholder="Correo electronico"
-                        type="email"
-                        className="py-4 bg-gray-50  focus:outline-none focus:border-black focus:ring-1 focus:ring-gray-900 px-5 w-full mb-2"
+                    <TextField
+                      type="email"
+                      name="email"
+                      onChange={formik.handleChange}
+                      placeholder="Correo electronico"
+                      fullWidth
+                      error={formik.touched.email && formik.errors.email? true : false}
+                      helperText={formik.touched.email && formik.errors.email && formik.errors.email}
+    
                     />
-                    {formik.touched.email && formik.errors.email ? (
-                        <span className="text-red-500">{formik.errors.email}</span>
-                    ) : null}
 
                 </div>
                 <div className="pb-3">
                     <label className="uppercase my-5 w-full block">Contraseña</label>
-                    <input
-                        name="password"
-                        onChange={formik.handleChange}
-                        placeholder="Contraseña"
-                        type="password"
-                        className="py-4 bg-gray-50  focus:outline-none focus:border-black focus:ring-1 focus:ring-gray-900 px-5 w-full mb-2"
+                    <TextField
+                      type="password"
+                      name="password"
+                      onChange={formik.handleChange}
+                      placeholder="Contraseña"
+                      fullWidth
+                      error={formik.touched.password && formik.errors.password? true : false}
+                      helperText={formik.touched.password && formik.errors.password && formik.errors.password}
+    
                     />
-                    {formik.touched.password && formik.errors.password ? (
-                        <span className="text-red-600">{formik.errors.password}</span>
-                    ) : null}
                 </div>
                 {
                     error &&

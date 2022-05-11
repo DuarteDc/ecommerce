@@ -6,7 +6,6 @@ import Cookie from 'js-cookie';
 import Layout from "../../src/components/Layouts"
 import { BannerImage } from "../../src/components/ui";
 import { wrapper } from "../../src/store";
-import { BillingForm } from "../../src/components/checkout/billingForm";
 import { OrderInfo } from "../../src/components/checkout/orderInfo";
 import { CheckoutForm } from "../../src/components/checkout/checkoutForm";
 import { Elements } from "@stripe/react-stripe-js";
@@ -17,9 +16,8 @@ import {FaCcStripe} from "react-icons/fa";
 import {BiTransferAlt} from "react-icons/bi";
 import {MdOutlineFileUpload} from "react-icons/md";
 import { IconContext } from "react-icons";
-import { addClientSecretFromCookies, loadBankAccountSelected, startLoadBanksAccounts, startLoadClientSecret } from "../../src/actions/checkoutActions";
+import { addClientSecretFromCookies, startLoadBanksAccounts, startLoadClientSecret } from "../../src/actions/checkoutActions";
 import { CheckoutTransfer } from "../../src/components/checkout/checkoutTransfer";
-import { UploadProofOfPayment } from "../../src/components/checkout/uploadProofOfPayment";
 import { ShoppingCartDetails } from "../../src/components/checkout/shoppingCartDetails";
 import { Router } from "@mui/icons-material";
 import { useRouter } from "next/router";
@@ -63,12 +61,6 @@ const Checkout = () => {
       }
     }, [client_secret]);
 
-    useEffect(() => {
-      if(localStorage.getItem('bankAccountSelected')){
-        const bankAccountSelected = JSON.parse(localStorage.getItem('bankAccountSelected'));
-        dispatch(loadBankAccountSelected(bankAccountSelected))
-      }
-    }, []);
 
     useEffect(() => {
       if(success){
@@ -115,7 +107,6 @@ const Checkout = () => {
 
       if(!Object.keys(client_secret).length){
         const token = Cookie.get('token') ? Cookie.get('token') : '';
-        console.log(token);
         dispatch(startLoadClientSecret(token));
       }
       toggle();

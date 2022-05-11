@@ -1,11 +1,9 @@
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { startStoreNewsletterSuscription } from '../../actions/newsletterActions';
-import { Form } from "semantic-ui-react";
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
 import { toast, ToastContainer } from 'react-toastify';
-import { Container, Grid } from '@mui/material';
 
 export const Newsletter = () => {
   const dispatch = useDispatch();
@@ -38,7 +36,7 @@ export const Newsletter = () => {
   return (
     <section className="border-t-2  border-[#f6f6f6] border-solid py-16">
       <div className="w-full m-auto px-3">
-        <div className="grid grid-cols-1 lg:grid-cols-2 px-5 md:px-10 lg:px-20 flex items-center">
+        <div className="grid grid-cols-1 lg:grid-cols-2 px-5 md:px-10 lg:px-20  items-center">
           <div className="w-full mb-10 md:px-2">
             <h2 className="text-lg uppercase font-semibold  font-['Poppins']">Suscribete a Nuestro Newsletter</h2>
             <p className="text-base text-[#666] font-['Poppins']">Suscribete para recibir nuestras promociones , ofertas y nuevos productos que están por salir.</p>

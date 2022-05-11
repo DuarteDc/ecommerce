@@ -1,6 +1,6 @@
 import { Dialog, DialogActions, DialogContent, DialogTitle } from "@mui/material"
 
-export const Modal = ({children , title , open , handleOpenCheckout , fullWidth , maxWidth , actions})=>{
+export const Modal = ({children , title , open , handleOpenCheckout , fullWidth , maxWidth , actions , showTitle=true , background=''})=>{
     return(
         <Dialog
           open={open}
@@ -9,12 +9,17 @@ export const Modal = ({children , title , open , handleOpenCheckout , fullWidth 
           aria-describedby="alert-dialog-description"
           fullWidth={fullWidth}
           maxWidth={maxWidth}
+         
 
         >
-            <DialogTitle>
-              {title}
-            </DialogTitle>
-            <DialogContent id="alert-dialog-description">
+            {
+                showTitle &&
+                    <DialogTitle>
+                    {title}
+                    </DialogTitle>
+
+            }
+            <DialogContent id="alert-dialog-description" className={`${background ? background : ''}`}>
              {children}
             </DialogContent>
             {

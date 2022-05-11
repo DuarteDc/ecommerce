@@ -1,6 +1,7 @@
 import { Grid, Table, TableBody, TableCell, TableHead, TableRow } from "@mui/material"
 import { useSelector } from "react-redux"
 import { helpers } from "../../../helpers";
+import OrderStatus from "../OrderStatus";
 
 export const OrderDetails = () =>{
    const {orderDetail} = useSelector((state)=>state.orders);
@@ -60,7 +61,10 @@ export const OrderDetails = () =>{
                    </TableRow>
                  </TableBody>
                </Table>
-         </div>
+         </div>        
+         <div className="mt-10">
+          <OrderStatus status={orderDetail.orderStatus} />
+        </div>
         </Grid>
       </Grid>
     )

@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import Swal from "sweetalert2";
 import { startLoadAdministrableLogo } from "../../src/actions/administrableActions";
 import { logout } from "../../src/actions/authActions";
-import { startUpdateImageUser } from "../../src/actions/profileActions";
+import { startLoadDataUser, startUpdateImageUser } from "../../src/actions/profileActions";
 import Layout from "../../src/components/Layouts";
 import { ChangeEmailProfile } from "../../src/components/profile/sessionAndSecurity/changeEmailProfile";
 import { ChangePasswordProfile } from "../../src/components/profile/sessionAndSecurity/changePasswordUser";
@@ -21,7 +21,7 @@ import Cookies from 'js-cookie';
 const PasswordAndSecurity = () =>{
     const dispatch = useDispatch();
     const router = useRouter();
-    const { user } = useSelector((state)=>state.auth);
+    const { user } = useSelector((state)=>state.profile);
     const [ open , toggle ] = useToggle();
     const [ type , setType ] = useState(0);
     const [ image , setImage ] = useState({
@@ -54,6 +54,7 @@ const PasswordAndSecurity = () =>{
         }
     }, [user]);
 
+    console.log(user?.profileImage);
 
     const [ isLoadImage , setIsLoadImage ] = useState(false);
     
@@ -269,9 +270,10 @@ const PasswordAndSecurity = () =>{
     )
 }
 
-export const getStaticProps = wrapper.getStaticProps((store) =>
-    async () => {
+export const getServerSideProps = wrapper.getServerSideProps((store) =>
+    async (ctx) => {
         await store.dispatch(startLoadAdministrableLogo());
+        await store.dispatch(startLoadDataUser(ctx))
 });
 
 export default PasswordAndSecurity;

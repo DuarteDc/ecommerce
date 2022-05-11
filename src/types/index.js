@@ -55,6 +55,7 @@ export const types = {
 
     loadAdministrableLogo: '[Administrable] load data administrable logo',
     loadAdministrableAbout: '[Administrable] load data administrable about ',
+    accept_cookies_politicy:'[Administrable] accept cookies politicy',
 
     load_data_user: '[PROFILE] load data user',
     load_directions: '[PROFILE] load directions',

@@ -37,17 +37,7 @@ export const OrderProductsList = ({product ,index ,  status , handleCancelOrder}
              </Grid>
              <Grid item xs={12} sm={12} md={4} lg={4} xl={4}>
                  <div className="flex justify-end items-center h-3/4 w-full md:ml-7">
-             {
-                      (!index) && (status === 0) && 
-                        <button className="bg-[#ef5350] text-luz py-[10px] px-[15px] flex items-center justify-center font-Poppins text-sm hover:bg-[#c62828] transition-all w-full"
-                        onClick={()=>handleCancelOrder()}
-                        >
-                            <IconContext.Provider value={{className:"mr-3 text-base"}}>
-                                <GiCancel/>
-                            </IconContext.Provider>
-                            Cancelar pedido
-                        </button>
-                  }
+             
                   </div>
              </Grid>
             </Grid>

@@ -1,6 +1,5 @@
 import { useEffect } from 'react';
 import { useRouter } from 'next/router';
-import { SessionProvider } from "next-auth/react"
 import { wrapper } from '../src/store';
 import '../src/assets/styles/globals.css';
 import "swiper/css";
@@ -8,6 +7,12 @@ import "swiper/css/pagination";
 import "swiper/css/navigation";
 import 'animate.css';
 import * as ga from '../src/libs/ga';
+
+import {
+  GoogleReCaptchaProvider,
+  GoogleReCaptcha
+} from 'react-google-recaptcha-v3';
+
 
 
 
@@ -31,9 +36,9 @@ const MyApp = ({ Component, pageProps, session }) => {
 
   const getLayout = Component.getLayout || ((page) => page);
   return getLayout(
-    <SessionProvider session={session}>
-        <Component {...pageProps} />
-    </SessionProvider>
+    <GoogleReCaptchaProvider reCaptchaKey={process.env.NEXT_PUBLIC_RECAPTCHA}>
+      <Component {...pageProps} />
+    </GoogleReCaptchaProvider>
   )
 
 }

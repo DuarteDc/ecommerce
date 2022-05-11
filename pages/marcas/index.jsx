@@ -1,16 +1,21 @@
-import Layout from "../../src/components/Layouts"
-import { startLoadBrandsHome } from "../../src/actions/brandsActions";
-import { startLoadAdministrableLogo } from "../../src/actions/administrableActions";
-import { wrapper } from "../../src/store";
-import { useDispatch, useSelector } from "react-redux";
-import { BannerImage } from "../../src/components/ui/bannerImage";
-import { CardProduct } from "../../src/components/ui";
-import { Newsletter } from "../../src/components/home";
-import { useRouter } from "next/router";
-import { addShoppingCartFromLocalStorage, shoppingCartNotLoggedfromLocalStorage } from "../../src/actions/shoppingCartActions";
+import Link from "next/link";
 import { useEffect } from "react";
-import Cookie from 'js-cookie';
+import { useRouter } from "next/router";
+import { wrapper } from "../../src/store";
+import Layout from "../../src/components/Layouts"
+import { useDispatch, useSelector } from "react-redux";
+
+// actions
+import { startLoadBrandsHome } from "../../src/actions/brandsActions";
 import { startLoadFaqsCategories } from "../../src/actions/faqsActions";
+import { startLoadAdministrableLogo } from "../../src/actions/administrableActions";
+import { shoppingCartNotLoggedfromLocalStorage } from "../../src/actions/shoppingCartActions";
+
+import { CardProduct , BannerImage } from "../../src/components/ui";
+import { Newsletter } from "../../src/components/home";
+import { Breadcrumbs, Container, Grid, Typography } from "@mui/material";
+import { GoHome } from "react-icons/go";
+import NavigateNextIcon from '@mui/icons-material/NavigateNext';
 
 const Brands = () => {
   const dispatch = useDispatch();
@@ -40,12 +45,28 @@ const Brands = () => {
       <BannerImage
         title="Marcas"
       />
-      <section className="container mx-auto relative mt-20 max-w-[1290px]">
-        <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4  gap-6 px-2'>
-          {
+      <Container className="my-20">
+        <Grid container spacing={5}>
+         <Grid item xs={12} sm={12} md={12} lg={12} xl={12}>
+         <Breadcrumbs 
+            aria-label="breadcrumb"
+            separator={<NavigateNextIcon fontSize="small"/>}
+         >
+           <Link href="/">
+            <div className="flex items-center justify-between cursor-pointer">
+              <GoHome/>
+              <span className="text-lg font-Poppins ml-3 ">Inicio</span>
+            </div>
+           </Link>
+           <Typography variant="subtitle1" className="text-base font-Poppins text-[#1976d2]">
+             Marcas
+           </Typography>
+          </Breadcrumbs>
+         </Grid>
+         {
             brandsHome.map(brand => (
-              <CardProduct
-                key={brand._id}
+         <Grid item xs={12} sm={12} md={3} lg={3} xl={3} key={brand._id}>
+            <CardProduct
                 image={brand.image}
                 name={brand.name}
                 url={brand.url}
@@ -54,11 +75,11 @@ const Brands = () => {
                 width={250}
                 height={250}
               />
-
-            ))
-          }
-        </div>
-      </section>
+         </Grid>
+          ))
+        }
+        </Grid>
+      </Container>
       <Newsletter />
     </Layout>
   )

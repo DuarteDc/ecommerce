@@ -22,7 +22,8 @@ export const ChangePhoneNumberProfile = ({phone_number ,userInfo, setUserInfo , 
            }
            setError(false);
            const phone = {
-               phone_number : phone_number
+               phone_number : phone_number,
+               prefix: "52"
            }
       
            dispatch(startUpdatePhoneNumber(phone));

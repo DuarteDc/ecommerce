@@ -22,7 +22,7 @@ export const ChangeUserName = ({fullname ,userInfo, setUserInfo , toggle}) =>{
            }
            setError(false);
            const formData = new FormData();
-           formData.append("fullname",fullname)
+           formData.append("fullname",fullname)           
            dispatch(startUpdateDataUser(formData));
            toggle();
     }

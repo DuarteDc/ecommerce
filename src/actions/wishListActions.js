@@ -11,19 +11,19 @@ export const deleteProduct = (product_id) => ({
     payload: product_id,
 });
 
-export const addOneProduct = (product_id) =>({
+export const addOneProduct = (product_id) => ({
     type: types.add_one_product_from_wishList,
-    payload:product_id,
+    payload: product_id,
 });
 
-export const removeOneProduct = (product_id) =>({
+export const removeOneProduct = (product_id) => ({
     type: types.remove_one_product_from_wishList,
-    payload:product_id,
+    payload: product_id,
 });
 
-export const searcProduct = (products) =>({
+export const searcProduct = (products) => ({
     type: types.search_product,
-    payload:products,
+    payload: products,
 })
 
 export const startLoadProducts = (wishList) => {
@@ -32,7 +32,10 @@ export const startLoadProducts = (wishList) => {
             const url = '/cart/show/no-auth';
             const res = await client.post(url, { products: wishList });
             dispatch(loadProducts(res.data.products));
-            return true;
+            return {
+                status: true,
+                products: res.data.products
+            };
         } catch (error) {
             return false;
         }

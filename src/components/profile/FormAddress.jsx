@@ -57,10 +57,10 @@ const FormAddress = ({ setShowForm }) => {
         name: Yup.string().required('La nombre es requerido'),
         street: Yup.string().min(8, 'La direccion debe contener al menos 8 caracteres').required('La dirección es requerida'),
         between_street: Yup.string().min(8, 'El campo debe contener al menos 8 caracteres').required('El campo es requerido'),
-        postalcode: Yup.number().typeError('El número no es valido').min(5, 'El campo debe contener al menos 5 caracteres').required('el campo es requerido').max(5, 'El campo no debe contener mas de 5 caracteres'),
+        postalcode: Yup.string().min(5, 'El campo debe contener al menos 5 caracteres').required('el campo es requerido').max(5, 'El campo no debe contener mas de 5 caracteres'),
         city: Yup.string().min(5, 'El campo debe contener al menos 8 caracteres').required('El campo es requerido'),
         references: Yup.string().min(8, 'El campo debe contener al menos 8 caracteres').required('El campo es requerido'),
-        no_int: Yup.number().typeError('El número no es valido').required('El campo es requerido'),
+        // no_int: Yup.number().typeError('El número no es valido').required('El campo es requerido'),
         state: Yup.string().required('El campo es requerido'),
         municipality: Yup.string().required('El campo es requerido')
     }

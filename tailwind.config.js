@@ -6,6 +6,8 @@ module.exports = {
   theme: {
     extend: {
       colors: {
+        'primary':"#333",
+        'secondary':"#fff",
         'second': {
           100: '#47000e',
         },
@@ -25,7 +27,10 @@ module.exports = {
         'testimonial':"url('/assets/images/testimonial.jpg')",
         'login':"url('/assets/images/login.jpg')",
         'entrega-de-pedidos':"url('/assets/icons/entrega-de-pedidos.png')",
-        'address-billing':"url('/assets/images/addressBilling.png')"
+        'address-billing':"url('/assets/images/addressBilling.png')",
+        'offers':"url('/assets/images/bg-offers1.webp')",
+        'oferta-ejemplo':"url('/assets/images/oferta-ejemplo.webp')",
+
       },
       screens: {
         'peque': { 'max': '639px' },
