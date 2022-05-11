@@ -62,10 +62,10 @@ const Categories = () => {
                    </Breadcrumbs>
                  </Grid>
                  {categories?.map((category) => (
-                 <Grid item xs={12} sm={12} md={3} lg={3} xl={3}>
+                 <Grid item xs={12} sm={12} md={3} lg={3} xl={3} key={category?._id}>
                  <div className="mx-auto">
                   <CardProduct
-                            key={category?._id}
+                            
                             image={category.imageWeb}
                             name={category?.name}
                             url={category?.url}

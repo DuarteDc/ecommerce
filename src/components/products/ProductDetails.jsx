@@ -58,7 +58,7 @@ const ProductDetails = ({ product }) => {
                     <div className="flex items-center">
                         <button className="rounded-lg text-white mx-1 bg-[#f58d16] font-bold p-4 hover:bg-[#ff9f30]" onClick={() => setQuantity(quantity + 1)}>+</button>
                         <button className="rounded-lg text-white mx-1 bg-[#f58d16] font-bold p-4 hover:bg-[#ff9f30]" onClick={() => setQuantity(quantity - 1)}>-</button>
-                        <button className="w-full mx-2 md:w-4/12 rounded-lg text-white mx-1 bg-[#f58d16] font-bold p-4 hover:bg-[#ff9f30]">
+                        <button className="w-full  md:w-4/12 rounded-lg text-white mx-1 bg-[#f58d16] font-bold p-4 hover:bg-[#ff9f30]">
                             <ShoppingCartIcon />
                         </button>
                     </div>

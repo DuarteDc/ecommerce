@@ -92,14 +92,14 @@ const ProductInfo = ({ product, closeModal }) => {
                 <div className="mt-12 lg:mt-20">
                     <div className="flex items-center">
                         <button
-                            className="hover:text-white mx-1 hover:bg-black font-bold px-3 py-4 border-2 border-black transition-all duration-700 ease-in-out"
+                            className="text-white mx-1 hover:bg-black font-bold px-3 py-4 border-2 border-black transition-all duration-700 ease-in-out"
                             onClick={() => increaseBy(-1)}
                         >-</button>
 
-                        <button className="hover:text-white mx-1 hover:bg-black font-bold px-3 py-4 border-2 border-black transition-all duration-700 ease-in-out" onClick={() => increaseBy(+1)}
+                        <button className="text-white mx-1 hover:bg-black font-bold px-3 py-4 border-2 border-black transition-all duration-700 ease-in-out" onClick={() => increaseBy(+1)}
                         >+</button>
 
-                        <span className="py-4 px-4 w-full w-full outline-none border-0 text-center font-bold">{counter} </span>
+                        <span className="py-4 px-4 w-full outline-none border-0 text-center font-bold">{counter} </span>
 
                         <button className="text-xs lg:text-sm  w-full mx-2 text-white  bg-black font-bold p-4 border-2 hover:bg-white hover:text-black hover:border-2 border-black transition-all duration-700 ease-in-out uppercase"
                             onClick={() => { addCart(product, counter), closeModal(), setCounter(1) }}>

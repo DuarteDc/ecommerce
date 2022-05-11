@@ -5,9 +5,10 @@ import { types } from "../types";
 export const startLoadClientSecret = (token) =>{
     return async (dispatch ,   getState ) =>{
         const {order_id} = getState().cart;
+        console.log(token);
         try {
             let url = `/orders/stripe/clients/${order_id}`;
-            const {data} =  await client.post(url,{
+            const {data} =  await client.post(url,'',{
                 headers: {
                     'Authorization': token
                 }
@@ -51,7 +52,7 @@ export const loadBanksAccounts = (banksAccounts) =>({
     payload:banksAccounts
 });
 
-export const startfinaliceTransferCheckout = (bank_account_id) =>{
+export const startfinaliceTransferCheckout = (bank_account_id , token) =>{
     return async (dispatch , getState) =>{
         const {order_id} = getState().cart;
         const bank ={
@@ -59,7 +60,11 @@ export const startfinaliceTransferCheckout = (bank_account_id) =>{
         }
         try {
             let url = `/orders/finalize/sale/${order_id}`;
-            await client.post(url , bank);
+            await client.post(url , bank ,{
+                headers: {
+                    'Authorization': token
+                }
+            });
             dispatch(finaliceTransferCheckout());
         } catch (error) {
            console.log(error); 

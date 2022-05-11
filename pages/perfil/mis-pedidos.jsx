@@ -1,28 +1,36 @@
-import { useState } from "react"
-import { wrapper } from '../../src/store';
-import Layout from '../../src/components/Layouts'
-import { startLoadAdministrableLogo } from '../../src/actions/administrableActions'
-import { BannerImage } from '../../src/components/ui/bannerImage';
-import OrdersSection from '../../src/components/profile/OrdersSection';
-import OrderDetail from "../../src/components/profile/OrderDetail";
-import helpersProducts from "../../src/helpers/helpersProducts";
+import { useEffect, useState } from "react"
+import Link from "next/link";
 import { useRouter } from "next/router";
-import { startLoadFaqsCategories } from "../../src/actions/faqsActions";
 import { useDispatch, useSelector } from "react-redux";
+import { wrapper } from '../../src/store';
 
-
-import Tabs from '@mui/material/Tabs';
-import Tab from '@mui/material/Tab';
-import Box from '@mui/material/Box';
-import { useToggle } from "../../src/hooks/useToggle";
-import { Modal } from "../../src/components/ui/modal";
-import { UploadProofOfPayment } from "../../src/components/checkout/uploadProofOfPayment";
+// actions
+import { startLoadFaqsCategories } from "../../src/actions/faqsActions";
+import { startLoadFiscalAddress } from "../../src/actions/profileActions";
+import { startLoadAdministrableLogo } from '../../src/actions/administrableActions';
 import { selectedOrderPendding, startLoadOrdersCanceled, startLoadPendingOrders ,startLoadOrdersApproved , startLoadOrdersShipped , shippedOrders} from "../../src/actions/ordersActions";
+
+{/** Custom Hooks */}
+import { useToggle } from "../../src/hooks/useToggle";
+
+{/* Components import */}
+import Layout from '../../src/components/Layouts'
+import { Modal } from "../../src/components/ui/modal";
+import { BannerImage } from '../../src/components/ui/bannerImage';
+import { UploadProofOfPayment } from "../../src/components/checkout/uploadProofOfPayment";
 import {PendingPaymentOrderIndex} from "../../src/components/orders/pendingOrderPayment"
 import { NotFoundOrders } from "../../src/components/orders/notFoundOrders";
-import { Breadcrumbs, Grid,  Typography } from "@mui/material";
-import Link from "next/link";
-import { startLoadFiscalAddress } from "../../src/actions/profileActions";
+
+
+import { Breadcrumbs, Grid,  Rating,  TextareaAutosize,  Typography , Tabs , Tab ,Box} from "@mui/material";
+import Cookies from 'js-cookie';
+
+import { customIcons } from "../../src/staticData/customIcons";
+import { tabsData } from "../../src/staticData/ordersTabsData";
+
+{/**Helpers */}
+import helpersProducts from "../../src/helpers/helpersProducts";
+
 
 function a11yProps(index) {
     return {
@@ -50,6 +58,10 @@ function TabPanel(props) {
     );
   }
   
+  function IconContainer(props) {
+    const { value, ...other } = props;
+    return <span {...other}>{customIcons[value].icon}</span>;
+  }
 
   
 const MisPedidos = () => {
@@ -62,16 +74,11 @@ const MisPedidos = () => {
 
 
     const [valueTab , setValueTab ] = useState(0);
+    const [ testimonialModal , setTestimonialModal  ] = useState(false);
     const [ openProofOfPayment , toggleProofOfPayment] = useToggle();
 
     const { filterSearch } = helpersProducts;
 
-    const tabsData = [
-        { _id: 1, name: 'Pendiente de aprobación' },
-        { _id: 2, name: 'Pedidos cancelados' },
-        { _id: 3, name: 'pendiente de envío'},
-        { _id: 4, name: 'enviados'}
-    ]
 
     const filterOrdersByDate = ({ target }) => {
         const date = target.value;
@@ -94,6 +101,27 @@ const MisPedidos = () => {
         }
        
     }
+
+    const handleCloseTestimonialArea = () =>{
+      setTestimonialModal(false);
+      Cookies.set('modalTestimonialOpen',false);
+    }
+
+    useEffect(() => {
+      const modalTestimonialOpen =  Cookies.get('modalTestimonialOpen');
+      if(modalTestimonialOpen && modalTestimonialOpen === "false"){
+        setTestimonialModal(false);
+        return;
+      }
+    }, []);
+
+    useEffect(() => {
+      const modalTestimonialOpen =  Cookies.get('modalTestimonialOpen');
+      if(approvedOrders.length > 0 && !modalTestimonialOpen ){
+        setTestimonialModal(true);
+        return;
+      }
+    }, []);
 
     return (
         <Layout
@@ -227,6 +255,63 @@ const MisPedidos = () => {
                 <UploadProofOfPayment
                     handleOpenProofOfPayment={handleOpenProofOfPayment}
                 />
+                </Modal>
+                
+                {/* modal reseña */}
+                
+                <Modal
+                  open={testimonialModal}
+                  handleOpenCheckout={handleCloseTestimonialArea}
+                  fullWidth={true}
+                  maxWidth="sm"
+                  actions={false}
+                  showTitle={false}
+
+                >
+                  <Grid container>
+                     <Grid item xs={12} sm={12} md={12} lg={12} xl={12}>
+                      <div className="w-full flex justify-center flex-col ">
+                      <Typography variant="h3" className="leading-6 mb-7 text-center text-2xl font-Poppins text-[#333]">
+                        ¿Qué tal te parecio nuestro servicio? 
+                      </Typography>
+                      <Typography variant="h4" className="leading-6 mb-7 text-center text-2xl font-Poppins text-[#888]">
+                          Déjanos tu reseña
+                      </Typography>
+                      </div>
+                     </Grid>
+                     <Grid item xs={12} sm={12} md={12} lg={12} xl={12}>
+                      <div className="flex justify-center mt-2">
+                        <Rating
+                         name="rating"
+                         defaultValue={4}
+                         IconContainerComponent={IconContainer}
+                         highlightSelectedOnly
+                        />
+                      </div>
+                     </Grid>
+                     <Grid item xs={12} sm={12} md={12} lg={12} xl={12}>
+                       <div className="w-full mt-5">
+                       <TextareaAutosize
+                         placeholder="Ingresa tu comentario"
+                         style={{width:'100%'}}
+                         minRows={6}
+                         className="p-5 border-[1px] border-solid border-[#888]"
+                       />
+                       </div>
+                     </Grid>
+                     <Grid item xs={12} sm={12} md={12} lg={12} xl={12}>
+                       <div className="w-full flex justify-center mt-5">
+                         <button 
+                           className="bg-primary text-secondary py-3 px-16 mr-5"
+                           onClick={handleCloseTestimonialArea}
+                         >
+                           Cancelar
+                         </button>
+                         <button className="bg-primary text-secondary py-3 px-16 ml-5">Enviar</button>
+                       </div>
+                     </Grid>
+                  </Grid>
+                  
                 </Modal>
             </section>
         </Layout >

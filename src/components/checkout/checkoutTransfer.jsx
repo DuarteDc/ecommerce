@@ -6,6 +6,7 @@ import { IconButton } from "@mui/material";
 import { useState } from "react";
 import Image from "next/image";
 import {startfinaliceTransferCheckout } from "../../actions/checkoutActions";
+import Cookies from "js-cookie";
 
 export const CheckoutTransfer = ({handleOpenTransfer}) =>{
     const dispatch = useDispatch();
@@ -27,7 +28,8 @@ export const CheckoutTransfer = ({handleOpenTransfer}) =>{
 
     const handleFinaliceTransfer = (e) =>{
         e.preventDefault();
-        dispatch(startfinaliceTransferCheckout(bankAccountSelected[0]?._id));
+        const token = Cookies.get('token');
+        dispatch(startfinaliceTransferCheckout(bankAccountSelected[0]?._id , token));
         handleOpenTransfer();
     }
 

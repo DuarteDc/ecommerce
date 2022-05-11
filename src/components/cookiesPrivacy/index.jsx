@@ -1,4 +1,3 @@
-import {AiOutlineCloseSquare} from "react-icons/ai";
 import { useDispatch, useSelector } from "react-redux";
 import { acceptCookies } from "../../actions/administrableActions";
 
@@ -12,10 +11,7 @@ export const CookiesPrivacy = () =>{
     }
 
     return(
-        <div className={`w-full bg-[#333333] text-luz bottom-0 left-0 z-[34] h-[110px] fixed font-Poppins text-sm opacity-[0.9] ${acceptCookiesPoliticy ? 'hidden' : 'visible'}`}>
-            <div className="float-right p-3 cursor-pointer">
-             <AiOutlineCloseSquare/>
-            </div>
+        <div className={`w-full bg-[#333333] text-luz bottom-0 left-0 z-[34] h-[150px] fixed font-Poppins text-sm opacity-[0.9] ${acceptCookiesPoliticy ? 'hidden' : 'visible'}`}>
             <div className="text-center py-[20px] px-[10px]">
                 <p>Este sitio web utiliza cookies propias y de terceros para el correcto funcionamiento y visualización del sitio web por parte del usuario.</p>
             </div>

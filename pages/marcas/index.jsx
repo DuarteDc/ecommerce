@@ -65,9 +65,8 @@ const Brands = () => {
          </Grid>
          {
             brandsHome.map(brand => (
-         <Grid item xs={12} sm={12} md={3} lg={3} xl={3}>
+         <Grid item xs={12} sm={12} md={3} lg={3} xl={3} key={brand._id}>
             <CardProduct
-                key={brand._id}
                 image={brand.image}
                 name={brand.name}
                 url={brand.url}

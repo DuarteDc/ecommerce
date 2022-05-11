@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 
 import { useDispatch, useSelector } from "react-redux";
 import { wrapper } from "../../src/store";
@@ -8,39 +8,40 @@ import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import Layout from "../../src/components/Layouts";
 
 import { startLoadProduct } from "../../src/actions/productsAction";
-import { useCounter } from "../../src/hooks/useCounter";
 
 //import { newProduct } from "../../src/actions/shoppingCartActions";
 import { startLoadAdministrableLogo } from "../../src/actions/administrableActions";
-import { successNotify } from "../../src/helpers/helpers";
 import { helpers } from "../../src/helpers";
 import { addProductToCartClientsNotLogged, addShoppingCartFromLocalStorage, shoppingCartNotLoggedfromLocalStorage, startAddProductShoppingCart } from "../../src/actions/shoppingCartActions";
 import Swal from "sweetalert2";
 import { useRouter } from "next/router";
-import { ProductCard } from "../../src/components/ui";
+import { ButtonGroup, ProductCard } from "../../src/components/ui";
 import Image from "next/image";
+import Cookies from "js-cookie";
+import { Breadcrumbs, Container, Typography } from "@mui/material";
+
+import { GoHome } from "react-icons/go";
+import NavigateNextIcon from '@mui/icons-material/NavigateNext';
+import Link from "next/link";
+import { useDebounce } from "../../src/hooks/useDebounce";
 
 
 const Show = () => {
     const router = useRouter();
+    const dispatch = useDispatch();
     const { product, relatedProducts } = useSelector((state) => state.products);
+    
     const { cart, cartNotLogged } = useSelector((state) => state.cart);
     const { logged } = useSelector((state) => state.auth);
 
-    const dispatch = useDispatch();
-
-    const img = useRef();
 
     const [isEnable, setIsEnable] = useState(false);
+    const [quantityInput , setQuantityInput] = useState(1);
+    const quantityInputadd = useDebounce(quantityInput , 1000);
 
-    // const showImage = (newImg) => {
-    //     img.current.src = newImg;
-    // }
-
-    const { totalWithDiscountApply } = helpers.calculatNewTotalToPay(product.discount, product.price);
+    const { totalWithDiscountApply } = helpers.calculatNewTotalToPay(product?.discount, product?.price);
     const sale_price_discount = helpers.priceFormat(totalWithDiscountApply);
-
-    const { counter, increaseBy, setCounter } = useCounter(1);
+    const price = helpers.priceFormat(product?.price)
 
     const addProductCard = (product) => {
         const exists = helpers.existInShoppingCart(product._id, cart);
@@ -59,14 +60,15 @@ const Show = () => {
                 name: product.name,
                 discount: product.discount
             },
-            quantity: counter,
+            quantity: quantityInput,
             _id: product._id
         }
 
         if (logged) {
+            const token = Cookies.get('token');
             let shoppingCart = [...cart, itemCart];
             localStorage.setItem('cart', JSON.stringify(shoppingCart));
-            dispatch(startAddProductShoppingCart(itemCart, product.name));
+            dispatch(startAddProductShoppingCart(itemCart, product.name , token));
             return;
         } else {
             let shoppingCart = [...cartNotLogged, itemCart];
@@ -86,14 +88,40 @@ const Show = () => {
     }
 
     const handleClickButtonAdd = () => {
-        Swal.fire({
-            icon: "warning",
-            title: "Ups , hubo un problema",
-            text: "El producto ya se encuentra agregado al carrito de compras",
+        const Toast = Swal.mixin({
+            toast: true,
+            position: 'top-end',
+            showConfirmButton: false,
             timer: 3000,
             timerProgressBar: true,
-            showConfirmButton: false
-        });
+            didOpen: (toast) => {
+                toast.addEventListener('mouseenter', Swal.stopTimer)
+                toast.addEventListener('mouseleave', Swal.resumeTimer)
+            }
+            });
+            
+            Toast.fire({
+            icon: "warning",
+            title:"El producto ya se encuentra agregado al carrito de compras"
+            });
+
+
+
+
+    }
+
+    const increaseDecreaseQuantityProduct = (value) =>{
+        if(value === -1){
+            if(Number(quantityInput) === 1) return;
+            setQuantityInput(prev=>Number(prev) - 1);
+        }else{
+            if(Number(quantityInput) === Number(product?.quantity)) return;
+            setQuantityInput(prev=>Number(prev) + 1);
+        }
+    }
+
+    const handleChangeQuantity = (e) =>{
+          setQuantityInput(e.target.value)
     }
 
     const handleClickRedirectCart = () => {
@@ -120,15 +148,76 @@ const Show = () => {
     }, [logged]);
 
     useEffect(() => {
-        if (logged) {
-            const shoppingCart = localStorage.getItem('cart') ? JSON.parse(localStorage.getItem('cart')) : [];
-            dispatch(addShoppingCartFromLocalStorage(shoppingCart))
-        }
-    }, [logged]);
+        const Toast = Swal.mixin({
+            toast: true,
+            position: 'top-end',
+            showConfirmButton: false,
+            timer: 3000,
+            timerProgressBar: true,
+            didOpen: (toast) => {
+                toast.addEventListener('mouseenter', Swal.stopTimer)
+                toast.addEventListener('mouseleave', Swal.resumeTimer)
+            }
+            });
+        if(Object.keys(quantityInputadd).length > 0){
+           if(Number(quantityInputadd) > Number(product?.quantity)){
+             Toast.fire({
+                icon: "warning",
+                title:"No puedes agregar más cantidad de la que se tiene en stock"
+             });
+             setQuantityInput(product?.quantity)
+             return;
+           }
+  
+           if(Number(quantityInputadd) === 0){
+            Toast.fire({
+                icon: "warning",
+                title:"La cantidad del producto no puede ser igual a 0"
+             });
+            setQuantityInput(product?.quantity);
+            return;
+           }
+          }
+  
+          if(!quantityInput){
+            Toast.fire({
+                icon: "warning",
+                title:"Ups , la cantidad del producto es requerida , no puede estar vacia"
+             });
+            setQuantityInput(product?.quantity)
+            return;
+           }
+      }, [quantityInputadd]);
+  
+  
+      
+
 
     return (
         <Layout>
             <section className="container mx-auto mt-20 font-Poppins">
+                <Container>
+                <div className="grid grid-cols-1">
+                <Breadcrumbs 
+                      aria-label="breadcrumb"
+                      separator={<NavigateNextIcon fontSize="small" />}
+                   >
+                       <Link href="/">
+                       <div className="flex items-center justify-between cursor-pointer">
+                       <GoHome/>
+                       <span className="text-lg font-Poppins ml-3 ">Inicio</span>
+                       </div>
+                       </Link>
+                       <Link href="/productos">
+                       <div className="flex items-center justify-between cursor-pointer">
+                       <span className="text-lg font-Poppins ml-3 ">Productos</span>
+                       </div>
+                       </Link>
+                       <Typography variant="subtitle1" className="text-base font-Poppins text-[#1976d2]">
+                        {product?.name}
+                       </Typography>
+                   </Breadcrumbs>
+                </div>
                 <div className="grid grid-cols-1 md:grid-cols-2 p-2 md:p-5 lg:p-10">
                     <div className="lg:pb-5 md:px-5">
                         <Image
@@ -140,18 +229,18 @@ const Show = () => {
                         />
                     </div>
                     <div className="mt-5 md:mt-0 p-2 md:pl-5 lg:pl-10">
-                        <h1 className="text-3xl uppercase font-medium">{product?.name}</h1>
+                        <h1 className="text-[22px] font-Poppins font-normal capitalize leading-[1.5] text-[#212529]">{product?.name}</h1>
                         <div className="mt-5">
-                            <div className="flex">
+                            <div className="flex mb-[5px] fle">
                                 {
-                                    product.discount > 0 && (
-                                        <p className="text-3xl text-second-100 mr-12">
+                                product?.discount > 0 && (
+                                        <p className="text-[18px] text-[#333] mr-5 ">
                                             {sale_price_discount}
                                         </p>
                                     )
                                 }
-                                <p className={`mr-12 ${product.discount > 0 ? 'line-through text-gray-500 text-2xl font-thin' : 'text-3xl text-second-100'}`}>
-                                    ${product?.price}
+                                <p className={`mr-12 ${product?.discount > 0 ? 'line-through text-[#333] text-[18px] font-thin' : 'text-[18px] text-[#333]'}`}>
+                                    {price}
                                 </p>
                             </div>
                             <p className="mt-4 font-medium uppercase">
@@ -160,29 +249,32 @@ const Show = () => {
                         </div>
                         <div className="mt-5">
                             <div className="flex items-center">
-                                <h3 className="font-medium text-lg">Categoria:</h3>
-                                <p className="text-second-100 font-medium ml-2 
+                                <h3 className="text-[#666] text-[16px]">Categoria:</h3>
+                                <p className="text-[#333] font-medium ml-2 
                                     cursor-pointer hover:text-gray-700 duration-500">
                                     {product?.category?.name}
                                 </p>
                             </div>
                             <div className="flex items-center">
-                                <h3 className="font-medium text-lg">Marca:</h3>
-                                <p className="text-second-100 font-medium ml-2 
+                                <h3 className="text-[#666] text-[16px]">Marca:</h3>
+                                <p className="text-[#333] font-medium ml-2 
                                     cursor-pointer hover:text-gray-700 duration-500">
                                     {product?.brand?.name}
                                 </p>
                             </div>
                             <div className="mt-5">
-                                <h3 className="font-medium text-lg mb-2">Tags:</h3>
-                                <div className="md:inline-flex">
+                                <h3 className="text-[#666] text-[16px] leading-8">Tags:</h3>
+                                <div className="flex">
                                     {
-                                        product.tags.map(tag => (
-                                            <span key={tag.tag_id._id}>
-                                                <p className="text-second-100 font-medium mr-4 cursor-pointer hover:text-gray-700 duration-500">
+                                        product?.tags.map(tag => (
+                                            <div key={tag.tag_id._id} className="bg-[#333] rounded-3xl px-4 py-1 mr-2 cursor-pointer ">
+                                                <span className="text-secondary font-medium mr-4 
+                                                duration-500
+                                                text-center
+                                                ">
                                                     {tag.tag_id.name}
-                                                </p>
-                                            </span>
+                                                </span>
+                                            </div>
                                         ))
                                     }
                                 </div>
@@ -190,29 +282,17 @@ const Show = () => {
                         </div>
                         <div className="mt-12 lg:mt-20">
                             <div className="flex items-center">
-                                <button
-                                    className="hover:text-white mx-1 hover:bg-black font-bold px-3 py-4 border-2 border-black transition-all duration-700 ease-in-out"
-                                    onClick={() => increaseBy(-1)}
-                                >
-                                    -
-                                </button>
-
-                                <button className="hover:text-white mx-1 hover:bg-black font-bold px-3 py-4 border-2 border-black transition-all duration-700 ease-in-out" onClick={() => increaseBy(+1)}
-                                >
-                                    +
-                                </button>
-
-                                <span
-                                    className="py-4 px-4 w-full outline-none 
-                                    border-0 text-center font-bold"
-                                >
-                                    {counter}
-                                </span>
+                            <ButtonGroup
+                                quantity={quantityInput}
+                                increaseDecreaseQuantityProduct={increaseDecreaseQuantityProduct}
+                                handleChangeQuantity={handleChangeQuantity}
+                            />
+                                
                                 {
                                     isEnable ?
                                         <button
-                                            className="text-xs lg:text-sm  w-full mx-2 text-[#fff] bg-[#333]
-                                        font-bold p-4 border-2  border-[#888] transition-all duration-700 ease-in-out uppercase"
+                                            className="bg-[#dc3545] text-secondary  h-[45px] top-[-2px] relative cursor-pointer py-[11px] px-[25px] rounded-none uppercase font-normal text-[14px]
+                                          transition-all duration-700 ease-in-out"
                                             onClick={() => handleClickButtonAdd()}
                                         >
                                             Ya agregado al carrito
@@ -220,7 +300,8 @@ const Show = () => {
                                         :
 
                                         <button
-                                            className="text-xs lg:text-sm w-full mx-2 text-white bg-[#333] font-bold p-4 border-2 hover:bg-white hover:text-[#333] hover:border-2 border-[#333] transition-all duration-700 ease-in-out uppercase"
+                                            className="h-[45px] top-[-2px] relative cursor-pointer border-[1px] border-solid border-[#333] py-[11px] px-[25px] rounded-none uppercase font-normal text-[14px]
+                                            hover:bg-[#333] hover:text-secondary transition-all duration-700 ease-in-out"
                                             onClick={() => addProductCard(product)}>
                                             <ShoppingCartIcon />
                                             Añadir a carrito
@@ -229,8 +310,9 @@ const Show = () => {
                                 }
 
                             </div>
-                            <button className="border-[#333] border-2 hover:bg-[#333] hover:text-white mt-16 py-4 w-full font-bold
+                            <button className="bg-[#333] border-2 text-white mt-16 py-4 w-full font-bold
                             transition-all duration-700 ease-in-out
+                            hover:bg-[#000]
                             "
                                 onClick={() => handleClickRedirectCart()}
                             >
@@ -239,14 +321,16 @@ const Show = () => {
                         </div>
                     </div>
                 </div>
-                <div className="px-10 w-full break-words">
-                    <h2 className="uppercase font-bold text-center text-2xl my-5">Descripción</h2>
+                <div className="px-10 w-full break-words text-center">
+                    <h3 className="inline-block text-[14px] relative pl-[18px] uppercase text-[#666]">Descripción</h3>
                     <hr />
-                    <p className="mt-7 font-normal">
-                        {product.description}
+                    <p className="text-left my-[20px] text-[#666] leading-[1.8] text-[14px]">
+                        {product?.description || ''}
                     </p>
                 </div>
-                <p className="uppercase font-bold text-center text-2xl mt-20 py-3 bg-gray-50">Relacionados</p>
+                <div className="mb-[40px] text-center bg-[#f8f8f8] p-[15px]">
+                <h3 className="mb-0 inline-block relative pl-[20px]  text-[20px] font-semibold">Productos Relacionados</h3>
+                </div>
                 <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 my-24">
                     {
                         relatedProducts.map(product => (
@@ -254,6 +338,7 @@ const Show = () => {
                         ))
                     }
                 </div>
+                </Container>
             </section>
         </Layout>
     )

@@ -14,6 +14,7 @@ import LoadingScreen from "../LoadingScreen";
 
 import { IconContext } from "react-icons";
 import { MdError } from "react-icons/md";
+import { TextField } from "@mui/material";
 
 const FormSignUp = () => {
 
@@ -113,28 +114,29 @@ const FormSignUp = () => {
                 <div className="mx-auto mt-10">
                     <div className="">
                         <label className="uppercase mb-5 block">Nombre Completo</label>
-                        <input
-                            onChange={formik.handleChange}
+                        <TextField
+                            type="text"
                             name="fullname"
-                            className="py-4 bg-gray-50  focus:outline-none focus:border-black focus:ring-1 focus:ring-gray-900 px-5 w-full"
-                            autoComplete="off"
+                            onChange={formik.handleChange}
+                            placeholder="Tú Nombre"
+                            fullWidth
+                            error={formik.touched.fullname && formik.errors.fullname? true : false}
+                            helperText={formik.touched.fullname && formik.errors.fullname && formik.errors.fullname}
+                            autoComplete={false}
                         />
-                        {formik.touched.fullname && formik.errors.fullname ? (
-                            <span className="text-red-500 text-sm">{formik.errors.fullname}</span>
-                        ) : null}
                     </div>
                     <div className="">
                         <label className="uppercase my-5 block">Correo Electronico</label>
-                        <input
-                            onChange={formik.handleChange}
-                            label="Correo electronico"
+                        <TextField
+                            type="email"
                             name="email"
-                            className="py-4 bg-gray-50  focus:outline-none focus:border-black focus:ring-1 focus:ring-gray-900 px-5 w-full"
-                            autoComplete="off"
+                            onChange={formik.handleChange}
+                            placeholder="Correo electronico"
+                            fullWidth
+                            error={formik.touched.email && formik.errors.email? true : false}
+                            helperText={formik.touched.email && formik.errors.email && formik.errors.email}
+                            autoComplete={false}
                         />
-                        {formik.touched.email && formik.errors.email ? (
-                            <span className="text-red-500 text-sm">{formik.errors.email}</span>
-                        ) : null}
                     </div>
                     {/* <div className="">
                         <label className="uppercase my-5 block">Número de teléfono celular</label>
@@ -154,31 +156,29 @@ const FormSignUp = () => {
                     </div> */}
                     <div className="">
                         <label className="uppercase my-5 block">Contraseña</label>
-                        <input
-                            onChange={formik.handleChange}
+                        <TextField
                             type="password"
                             name="password"
-                            className="py-4 bg-gray-50  focus:outline-none focus:border-black focus:ring-1 focus:ring-gray-900 px-5 w-full"
-                            error={formik.errors.password}
-                            autoComplete="off"
+                            onChange={formik.handleChange}
+                            placeholder="Tú contraseña"
+                            fullWidth
+                            error={formik.touched.password && formik.errors.password? true : false}
+                            helperText={formik.touched.password && formik.errors.password && formik.errors.password}
+                            autoComplete={false}
                         />
-                        {formik.touched.password && formik.errors.password ? (
-                            <span className="text-red-500 text-sm">{formik.errors.password}</span>
-                        ) : null}
                     </div>
                     <div className="">
                         <label className="uppercase my-5 block">Repetir Contraseña</label>
-                        <input
-                            onChange={formik.handleChange}
-                            type='password'
+                        <TextField
+                            type="password"
                             name="passwordConfirmation"
-                            className="py-4 bg-gray-50  focus:outline-none focus:border-black focus:ring-1 focus:ring-gray-900 px-5 w-full"
-                            error={formik.errors.passwordConfirmation}
-                            autoComplete="off"
+                            onChange={formik.handleChange}
+                            placeholder="Tú contraseña"
+                            fullWidth
+                            error={formik.touched.passwordConfirmation && formik.errors.passwordConfirmation? true : false}
+                            helperText={formik.touched.passwordConfirmation && formik.errors.passwordConfirmation && formik.errors.passwordConfirmation}
+                            autoComplete={false}
                         />
-                        {formik.touched.passwordConfirmation && formik.errors.passwordConfirmation ? (
-                            <span className="text-red-500 text-sm">{formik.errors.passwordConfirmation}</span>
-                        ) : null}
                     </div>
                     {/*
                 <div className="grid grid-cols-1 lg:grid-cols-2">
