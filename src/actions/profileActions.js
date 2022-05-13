@@ -78,11 +78,48 @@ export const startSaveNewAddress = (data) => {
 
             return {
                 hasError: true,
+                message: "No se pudo guardar la dirección - intente mas tarde"
+            }
+        }
+    }
+}
+
+export const startUpdateAddress = (data, _id) => {
+
+    return async (dispatch) => {
+        let url = `auth/update-directions/${_id}`;
+        try {
+            const token = await Cookies.get('token');
+            const res = await client.put(url, data, {
+                headers: {
+                    'Authorization': token
+                }
+            });
+            dispatch(updateAddress(res.data.directions));
+            return {
+                hasError: false,
+                message: res?.data?.message,
+            }
+
+        } catch (error) {
+            if (axios.isAxiosError(error)) {
+                return {
+                    hasError: true,
+                    message: error?.response?.data?.message,
+                }
+            }
+
+            return {
+                hasError: true,
                 message: "No se pudo actualizar la dirección - intente mas tarde"
             }
         }
     }
 }
+export const updateAddress = (directions) => ({
+    type: types.update_direction_user,
+    payload: directions
+})
 
 export const saveNewAddress = (data) => ({
     type: types.add_new_address,
@@ -110,6 +147,15 @@ export const getDirections = (directions) => ({
     type: types.load_directions,
     payload: directions
 });
+
+export const selectDirection = (direction) => ({
+    type: types.select_one_direction,
+    payload: direction
+})
+
+export const clearDirection = () => ({
+    type: types.clear_direction,
+})
 
 export const setDefaultAddress = (data, id) => {
     return async (dispatch) => {
@@ -197,7 +243,7 @@ export const startUpdateDataUser = (formData) => {
         let url = `/auth/update-fullname`;
         try {
             const token = await Cookies.get('token');
-            const {data} = await client.put(url, formData, {
+            const { data } = await client.put(url, formData, {
                 headers: {
                     'Authorization': token
                 }
@@ -213,11 +259,11 @@ export const startUpdateDataUser = (formData) => {
                     toast.addEventListener('mouseleave', Swal.resumeTimer)
                 }
             });
-            
-              Toast.fire({
+
+            Toast.fire({
                 icon: 'success',
                 title: data.message
-              });
+            });
             dispatch(updateDataUser(data.user));
 
         } catch (error) {
@@ -264,13 +310,13 @@ export const startUpdateImageUser = (formData) => {
                     toast.addEventListener('mouseleave', Swal.resumeTimer)
                 }
             });
-            
-              Toast.fire({
+
+            Toast.fire({
                 icon: 'success',
                 title: 'Imagen de perfil actualizada satisfactoriamente'
-              });
+            });
 
-              dispatch(updateImageUser(res.data.profileImage));
+            dispatch(updateImageUser(res.data.profileImage));
 
         } catch (error) {
             if (axios.isAxiosError(error)) {
@@ -294,12 +340,12 @@ export const updateImageUser = (user) => ({
 });
 
 
-export const startUpdatePhoneNumber = (phone_number) =>{
-    return async (dispatch) =>{
+export const startUpdatePhoneNumber = (phone_number) => {
+    return async (dispatch) => {
         try {
             const token = await Cookies.get('token');
             let url = '/auth/update-phone-number';
-            const {data} = await client.put(url , phone_number ,{
+            const { data } = await client.put(url, phone_number, {
                 headers: {
                     'Authorization': token
                 }
@@ -316,10 +362,10 @@ export const startUpdatePhoneNumber = (phone_number) =>{
                     toast.addEventListener('mouseleave', Swal.resumeTimer)
                 }
             });
-            
+
             Toast.fire({
-              icon: 'success',
-              title: data.message
+                icon: 'success',
+                title: data.message
             });
 
             dispatch(loadDataUser(data.user));
@@ -329,12 +375,12 @@ export const startUpdatePhoneNumber = (phone_number) =>{
     }
 }
 
-export const startUpdatedPasswordClient = (password) =>{
-    return async ()=>{
+export const startUpdatedPasswordClient = (password) => {
+    return async () => {
         try {
             const token = await Cookies.get('token');
             let url = '/auth/changePassword';
-            await client.post(url , password ,{
+            await client.post(url, password, {
                 headers: {
                     'Authorization': token
                 }
@@ -351,12 +397,12 @@ export const startUpdatedPasswordClient = (password) =>{
                     toast.addEventListener('mouseleave', Swal.resumeTimer)
                 }
             });
-            
+
             Toast.fire({
-              icon: 'success',
-              title:"Contraseña actualizada satisfactoriamente"
+                icon: 'success',
+                title: "Contraseña actualizada satisfactoriamente"
             });
-            
+
         } catch (error) {
             console.log(error);
             const Toast = Swal.mixin({
@@ -370,26 +416,26 @@ export const startUpdatedPasswordClient = (password) =>{
                     toast.addEventListener('mouseleave', Swal.resumeTimer)
                 }
             });
-            
+
             Toast.fire({
-              icon: 'error',
-              title:error.response.data.message
+                icon: 'error',
+                title: error.response.data.message
             });
         }
     }
 }
 
-export const startGetStates = () =>{
-    return async (dispatch)=>{
+export const startGetStates = () => {
+    return async (dispatch) => {
 
         try {
             let url = '/states';
-            const {data} = await client.get(url);
-            const states = data.states.map(state=>{
-                
+            const { data } = await client.get(url);
+            const states = data.states.map(state => {
+
                 const stateSelect = {
-                label:state.name,
-                value:state._id
+                    label: state.name,
+                    value: state._id
                 }
 
                 return stateSelect;
@@ -401,21 +447,21 @@ export const startGetStates = () =>{
     }
 }
 
-export const getStatesData = (states) =>({
-    type:types.load_states,
-    payload:states
+export const getStatesData = (states) => ({
+    type: types.load_states,
+    payload: states
 });
 
-export const startGetMunicipality = (state_id) =>{
-    return async (dispatch) =>{
+export const startGetMunicipality = (state_id) => {
+    return async (dispatch) => {
         try {
             let url = `/municipalities/${state_id}`;
-            const {data} =  await client.get(url);
-            const municipalities = data.municipalities.map(municipality=>{
-                
+            const { data } = await client.get(url);
+            const municipalities = data.municipalities.map(municipality => {
+
                 const municipalitySelect = {
-                label:municipality.name,
-                value:municipality._id
+                    label: municipality.name,
+                    value: municipality._id
                 }
 
                 return municipalitySelect;
@@ -428,9 +474,9 @@ export const startGetMunicipality = (state_id) =>{
 
 }
 
-export const getMunicipality = (municipalities) =>({
-    type:types.load_municipalities,
-    payload:municipalities
+export const getMunicipality = (municipalities) => ({
+    type: types.load_municipalities,
+    payload: municipalities
 });
 
 
@@ -441,16 +487,16 @@ export const getMunicipality = (municipalities) =>({
  * @param token - the token that is generated when the user logs in.
  * @returns an object with a type and a payload.
  */
-export const startLoadFiscalAddress = (token) =>{
-    return async (dispatch)=>{
+export const startLoadFiscalAddress = (token) => {
+    return async (dispatch) => {
         try {
             let url = '/auth/sat/direction';
-            const {data} = await client.get(url,{
+            const { data } = await client.get(url, {
                 headers: {
                     'Authorization': token
                 }
             });
-            dispatch(loadFiscalAddress(data.SATDirection , data.state , data.municipality));
+            dispatch(loadFiscalAddress(data.SATDirection, data.state, data.municipality));
         } catch (error) {
             console.log(error);
         }
@@ -462,9 +508,9 @@ export const startLoadFiscalAddress = (token) =>{
  * It returns an object with a type property and a payload property.
  * @param customer - {
  */
-export const loadFiscalAddress = (customer , state , municipality) =>({
-    type:types.load_fiscal_address,
-    payload:{
+export const loadFiscalAddress = (customer, state, municipality) => ({
+    type: types.load_fiscal_address,
+    payload: {
         customer,
         state,
         municipality
@@ -476,17 +522,17 @@ export const loadFiscalAddress = (customer , state , municipality) =>({
  * an argument.
  * @returns An object with a property of type and a property of payload.
  */
- export const startAddFiscalAddress = (formData) =>{
-    return async(dispatch)=>{
-         try {
-            const token =  Cookies.get('token');
+export const startAddFiscalAddress = (formData) => {
+    return async (dispatch) => {
+        try {
+            const token = Cookies.get('token');
             let url = '/auth/save-sat-direction';
-            const {data} = await client.post(url,formData,{
+            const { data } = await client.post(url, formData, {
                 headers: {
                     'Authorization': token
                 }
             });
-           
+
             const Toast = Swal.mixin({
                 toast: true,
                 position: 'top-end',
@@ -498,17 +544,17 @@ export const loadFiscalAddress = (customer , state , municipality) =>({
                     toast.addEventListener('mouseleave', Swal.resumeTimer)
                 }
             });
-            
+
             Toast.fire({
-              icon: 'success',
-              title:data.message
+                icon: 'success',
+                title: data.message
             });
 
             dispatch(AddFiscalAddress(data.customer));
-            
-         } catch (error) {
-             console.log(error);
-         }
+
+        } catch (error) {
+            console.log(error);
+        }
     }
 }
 
@@ -517,18 +563,18 @@ export const loadFiscalAddress = (customer , state , municipality) =>({
  * with a type property and a payload property.
  * @param customer - {
  */
-export const AddFiscalAddress = (customer) =>({
-    type:types.load_fiscal_address,
-    payload:customer
+export const AddFiscalAddress = (customer) => ({
+    type: types.load_fiscal_address,
+    payload: customer
 });
 
 
-export const startUpdateFiscalAddress = (fiscalAddress) =>{
-    return async (dispatch)=>{
+export const startUpdateFiscalAddress = (fiscalAddress) => {
+    return async (dispatch) => {
         try {
-            const token =  Cookies.get('token');
+            const token = Cookies.get('token');
             let url = '/auth/update-sat-direction';
-            const {data} = await client.put(url , fiscalAddress , {
+            const { data } = await client.put(url, fiscalAddress, {
                 headers: {
                     'Authorization': token
                 }
@@ -544,21 +590,21 @@ export const startUpdateFiscalAddress = (fiscalAddress) =>{
                     toast.addEventListener('mouseleave', Swal.resumeTimer)
                 }
             });
-            
+
             Toast.fire({
-              icon: 'success',
-              title:data.message
+                icon: 'success',
+                title: data.message
             });
-            dispatch(updateFiscalAddress(data.customer , data.state , data.municipality));
+            dispatch(updateFiscalAddress(data.customer, data.state, data.municipality));
         } catch (error) {
-           console.log(error); 
+            console.log(error);
         }
     }
 }
 
-export const updateFiscalAddress = (customer , state , municipality) =>({
-    type:types.load_fiscal_address,
-    payload:{
+export const updateFiscalAddress = (customer, state, municipality) => ({
+    type: types.load_fiscal_address,
+    payload: {
         customer,
         state,
         municipality
@@ -566,29 +612,29 @@ export const updateFiscalAddress = (customer , state , municipality) =>({
 });
 
 
-export const startInvoidedOrder = (order_id) =>{
-    return async()=>{
+export const startInvoidedOrder = (order_id) => {
+    return async () => {
 
         try {
             let url = `/orders/invoice/${order_id}`;
             await client.post(url);
             Swal.fire({
-              title:'Operación Exitosa',
-              text:"Tu factura ha sido generada satisfactoriamente , te hemos enviado la factura a tu correo electronico , revisa tu bandeja de entrada , si no has recibido el correo contacta al equipo de soporte",
-              icon:"success"  
+                title: 'Operación Exitosa',
+                text: "Tu factura ha sido generada satisfactoriamente , te hemos enviado la factura a tu correo electronico , revisa tu bandeja de entrada , si no has recibido el correo contacta al equipo de soporte",
+                icon: "success"
             })
         } catch (error) {
             console.log(error);
             Swal.fire({
-                title:'Vaya ... Hubo un error',
-                text:'Contacta al equipo de soporte o verifica tus datos fiscales',
-                icon:"error"  
+                title: 'Vaya ... Hubo un error',
+                text: 'Contacta al equipo de soporte o verifica tus datos fiscales',
+                icon: "error"
             })
         }
     }
 }
 
-export const invoicedOrder = () =>({
-    type:types,
+export const invoicedOrder = () => ({
+    type: types,
 
 })

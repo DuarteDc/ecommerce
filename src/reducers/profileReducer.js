@@ -3,6 +3,7 @@ import { types } from "../types";
 const initialState = {
     user: null,
     directions: [],
+    direction: [],
     states: [],
     municipalities: [],
     fiscalAddress: {},
@@ -39,6 +40,24 @@ export const profileReducer = (state = initialState, { type, payload }) => {
                 directions: state.directions.map(direction => direction._id === payload
                     ? { ...direction, default: direction.default = true }
                     : { ...direction, default: direction.default = false })
+            }
+
+        case types.select_one_direction:
+            return {
+                ...state,
+                direction: payload,
+            }
+
+        case types.update_direction_user:
+            return {
+                ...state,
+                directions:payload,
+            }
+
+        case types.clear_direction:
+            return {
+                ...state,
+                direction: '',
             }
 
         case types.delete_addres:

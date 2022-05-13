@@ -1,5 +1,5 @@
 import { IconContext } from "react-icons";
-import { MdOutlineFileUpload } from "react-icons/md";
+import { MdOutlineFileUpload, MdOutlineCancel } from "react-icons/md";
 import { helpers } from "../../../helpers";
 // Import Swiper React components
 import { Swiper, SwiperSlide } from 'swiper/react';
@@ -11,11 +11,12 @@ import { useToggle } from "../../../hooks/useToggle";
 import { Modal } from "../../ui/modal";
 import { useDispatch, useSelector } from "react-redux";
 import { startGetOrder, startOrderCancel } from "../../../actions/ordersActions";
-import { Grid } from "@mui/material";
+import { Grid, TextField } from "@mui/material";
 import { OrderDetails } from "./orderDetail";
 import Swal from "sweetalert2";
 import { startInvoidedOrder } from "../../../actions/profileActions";
 import OrderStatus from "../OrderStatus";
+import TextareaAutosize from '@mui/material/TextareaAutosize';
 
 export const PendingPaymentOrderIndex = ({ order, handleOpenProofOfPayment, status, text_description, text_color }) => {
 
@@ -26,13 +27,15 @@ export const PendingPaymentOrderIndex = ({ order, handleOpenProofOfPayment, stat
   const date = moment(order.createdAt).format('L');
   const [open, toggle] = useToggle();
   const [openOrderDetail, toggleOrderDetail] = useToggle();
+  const [openCancelSOrder, toggleCancelOrder] = useToggle();
 
   const handleClickAddress = () => {
     toggle();
   }
 
   const handleCancelOrder = () => {
-    dispatch(startOrderCancel(order._id));
+    toggleCancelOrder();
+    // dispatch(startOrderCancel(order._id));
   }
 
   const handleClickOrderDetail = () => {
@@ -163,6 +166,19 @@ export const PendingPaymentOrderIndex = ({ order, handleOpenProofOfPayment, stat
               </button>
             }
           </div>
+          <div className="flex justify-center md:justify-start items-center w-full pr-10 ">
+            {
+              status === 0 &&
+              <button className="bg-red-500  font-Poppins cursor-pointer text-white py-[10px] px-[15px] uppercase text-sm mt-5 flex items-center justify-center w-full"
+                onClick={handleCancelOrder}
+              >
+                <IconContext.Provider value={{ className: "color-[#fff] , text-[20px] , mr-[10px]" }}>
+                  <MdOutlineCancel />
+                </IconContext.Provider>
+                <span>Cancelar pedido</span>
+              </button>
+            }
+          </div>
         </Grid>
       </Grid>
       <div className="border-x border-b border-solid border-[#D5D9D9] py-3 px-10">
@@ -233,6 +249,37 @@ export const PendingPaymentOrderIndex = ({ order, handleOpenProofOfPayment, stat
         maxWidth={'sm'}
       >
         <OrderDetails status={order.orderStatus} />
+      </Modal>
+      <Modal
+        title="Cancelar Pedido"
+        open={openCancelSOrder}
+        handleOpenCheckout={toggleCancelOrder}
+        actions={false}
+        fullWidth={true}
+        maxWidth={'sm'}
+      >
+        <div className="my-2">
+          <TextField
+            name="legal_name"
+            // error={formik.touched.legal_name && formik.errors.legal_name ? true : false}
+            // helperText={
+            //   formik.touched.legal_name && formik.errors.legal_name ?
+            //     formik.errors.legal_name : ""
+            // }
+            fullWidth={true}
+            size="small"
+            id="outlined-required"
+            label="Asunto"
+          // onChange={formik.handleChange}
+          // value={formik.values.legal_name}
+          />
+          <TextareaAutosize
+            size="small"
+            aria-label="empty textarea"
+            placeholder="Motivo"
+            style={{ width: '100%', marginTop: 20 }}
+          />
+        </div>
       </Modal>
     </div>
   )

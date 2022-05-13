@@ -67,6 +67,9 @@ export const types = {
     delete_addres: '[PROFILE] delete address',
     update_image_user: '[PROFILE] update image user',
     update_data_user: '[PROFILE] update data user',
+    select_one_direction: '[PROFILE] select one direction',
+    update_direction_user: '[PROFILE] update direction user',
+    clear_direction: '[PROFILE] clear direction',
     
 
 
@@ -127,4 +130,6 @@ export const types = {
     loadOrderById:'[ORDERS] load order by id',
     selectedOrderPendding:'[ORDERS] selected order pendding',
     upload_proof_payment_order:'[ORDERS] upload proof payment order',
+
+    start_load_reviews: '[REVIEWS] start load reviews',
 }

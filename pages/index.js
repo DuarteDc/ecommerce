@@ -31,6 +31,7 @@ import Swal from "sweetalert2";
 import { Modal } from "../src/components/ui/modal";
 import { Container, Grid, Typography } from "@mui/material";
 import { OfferCard } from "../src/components/offers/offerCard";
+import { startLoadReviews } from "../src/actions/reviewsActions";
 
 export default function HomePage() {
   const dispatch = useDispatch();
@@ -209,6 +210,7 @@ export const getStaticProps = wrapper.getStaticProps((store) =>
     await store.dispatch(startLoadBrandsHome());
     await store.dispatch(startLoadTags());
     await store.dispatch(startLoadBrands());
+    await store.dispatch(startLoadReviews());
     return{
       revalidate:480
     }
