@@ -4,20 +4,23 @@ import { useDispatch } from "react-redux";
 import { loadWishListfromLocalStorage } from "../../actions/wishListActions";
 import { startVerifyToken } from "../../actions/authActions";
 import Cookies from "js-cookie";
+import { useRouter } from "next/router";
 
 export const Meta = ({ title, canonical, keywords, description, ogTitle, ogType, ogUrl, ogImage, robots }) => {
     const dispatch = useDispatch();
 
+    const router = useRouter()
+
     useEffect(() => {
         const localStorageWishList = localStorage.getItem('wishListProducts') ? JSON.parse(localStorage.getItem('wishListProducts')) : [];
         dispatch(loadWishListfromLocalStorage(localStorageWishList))
-    }, []);
+    }, [router]);
 
     useEffect(() => {
         if (Cookies.get('token')) {
             dispatch(startVerifyToken());
         }
-    }, []);
+    }, [router]);
 
     return (
         <Head>

@@ -49,6 +49,12 @@ const ShoppingCart = () => {
     }
   }, [success]);
 
+  useEffect(() => {
+    if (router.pathname === 'mi-carrito'){
+      router.prefetch(router.asPath);
+    }
+  }, [router])
+
 
   return (
     <Layout categories={categories}>

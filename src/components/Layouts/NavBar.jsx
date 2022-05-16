@@ -152,7 +152,7 @@ const NavBar = () => {
                         <div className="px-12 w-full flex justify-center">
                             {
                                 pages.map(({ path, name }) => (
-                                    <Link href={path} key={name}>
+                                    <Link href={path} key={name} prefetch={false}>
                                         <span className="text-[#888] border-transparent border-b-2 hover:text-[#333] mx-4 cursor-pointer  font-Poppins text-[15px] font-medium transition uppercase duration-700 ease-in-out">
                                             {name}
                                         </span>

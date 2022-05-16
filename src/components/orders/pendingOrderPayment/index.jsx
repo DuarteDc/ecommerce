@@ -14,9 +14,12 @@ import { startGetOrder, startOrderCancel } from "../../../actions/ordersActions"
 import { Grid, TextField } from "@mui/material";
 import { OrderDetails } from "./orderDetail";
 import Swal from "sweetalert2";
-import { startInvoidedOrder } from "../../../actions/profileActions";
+import { cancelOrder, startInvoidedOrder } from "../../../actions/profileActions";
 import OrderStatus from "../OrderStatus";
 import TextareaAutosize from '@mui/material/TextareaAutosize';
+
+import { useFormik } from "formik";
+import * as Yup from 'yup';
 
 export const PendingPaymentOrderIndex = ({ order, handleOpenProofOfPayment, status, text_description, text_color }) => {
 
@@ -42,6 +45,30 @@ export const PendingPaymentOrderIndex = ({ order, handleOpenProofOfPayment, stat
     toggleOrderDetail();
     dispatch(startGetOrder(order._id));
   }
+  //2702
+  const sendCancelOrder = async (formData) => {
+    await startOrderCancel(formData, order._id)
+  }
+
+  const initialValues = {
+    subject: '',
+    description: '',
+  }
+
+  const validationSchema = {
+    subject: Yup.string().min(8, "El nombre debe contener al menos 8 caracteres").required("El nombre es requerido"),
+    description: Yup.string().required("El correo es requerido"),
+  }
+
+  const formik = useFormik({
+    initialValues,
+    validationSchema: Yup.object(validationSchema),
+    onSubmit: (formData) => {
+      sendCancelOrder(formData)
+      //alert(JSON.stringify(formData));
+      // resetForm({ values: initialValues })
+    }
+  });
 
   const handleClickInvoicedOrder = (order_id) => {
     if (!fiscalAddress) {
@@ -69,7 +96,6 @@ export const PendingPaymentOrderIndex = ({ order, handleOpenProofOfPayment, stat
       }
     })
   }
-
 
   return (
     <div className="mb-6 border border-solid border-[#D5D9D9]  rounded-t-[6px]">
@@ -258,29 +284,49 @@ export const PendingPaymentOrderIndex = ({ order, handleOpenProofOfPayment, stat
         fullWidth={true}
         maxWidth={'sm'}
       >
-        <div className="my-2">
+        <form onSubmit={formik.handleSubmit} className="py-5">
           <TextField
-            name="legal_name"
-            // error={formik.touched.legal_name && formik.errors.legal_name ? true : false}
-            // helperText={
-            //   formik.touched.legal_name && formik.errors.legal_name ?
-            //     formik.errors.legal_name : ""
-            // }
+            name="subject"
+            error={formik.touched.subject && formik.errors.subject ? true : false}
+            helperText={
+              formik.touched.subject && formik.errors.subject ?
+                formik.errors.subject : ""
+            }
             fullWidth={true}
-            size="small"
+            size="large"
             id="outlined-required"
             label="Asunto"
-          // onChange={formik.handleChange}
-          // value={formik.values.legal_name}
+            onChange={formik.handleChange}
+            value={formik.values.subject}
           />
           <TextareaAutosize
-            size="small"
             aria-label="empty textarea"
-            placeholder="Motivo"
-            style={{ width: '100%', marginTop: 20 }}
+            className="input"
+            placeholder="Descripción"
+            name="description"
+            onChange={formik.handleChange}
+            value={formik.values.description}
+            onBlur={formik.handleBlur}
+            minRows={10}
+            error={formik.touched.description && formik.errors.description ? true : false}
+            helperText={
+              formik.touched.description && formik.errors.description ?
+                formik.errors.description : ""
+            }
+            style={{ width: '100%', marginTop: 20, marginBottom: 20, padding: 10, resize: "none", border:'solid 1px', borderColor: "#ccc" }}
           />
-        </div>
+          <button className="w-full px-2 py-4 bg-[#222] text-white hover:bg-[#333]" type="submit">
+            Enviar
+          </button>
+        </form>
       </Modal>
     </div>
   )
 }
+
+
+/*
+
+
+
+*/

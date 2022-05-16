@@ -163,13 +163,13 @@ export const startVerifyToken = () => {
                 }
             });
             const { user, token } = res.data;
+            Cookies.set('token', token)
             dispatch(verifyToken(user, token))
         } catch (error) {
             Cookies.remove('token');
         }
     }
 }
-
 
 /**
  * VerifyToken is a function that returns an object with a type and a payload property.

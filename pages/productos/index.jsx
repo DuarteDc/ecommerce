@@ -27,6 +27,7 @@ import TagsList from "../../src/components/tags/TagsList";
 import LoadingScreen from "../../src/components/LoadingScreen";
 import Filters from "../../src/components/products/Filters";
 import { startLoadFaqsCategories } from "../../src/actions/faqsActions";
+import { getStateAuth, startVerifyToken } from "../../src/actions/authActions";
 
 
 const Products = () => {
@@ -143,7 +144,7 @@ const Products = () => {
 }
 
 export const getServerSideProps = wrapper.getServerSideProps((store) =>
-    async () => {
+    async (ctx) => {
         await store.dispatch(startLoadProducts());
         await store.dispatch(startLoadCategories());
         await store.dispatch(startLoadBrands());

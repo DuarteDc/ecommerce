@@ -334,6 +334,36 @@ export const startUpdateImageUser = (formData) => {
     }
 }
 
+// export const cancelOrder = async (formData) => {
+
+//     try {
+//         const token = await Cookies.get('token');
+//         let url = '/auth/update-phone-number';
+//         const { data } = await client.post(url, formData, {
+//             headers: {
+//                 'Authorization': token
+//             }
+//         });
+
+//         return {
+//             hasError: false,
+//             message: data?.message
+//         }
+//     } catch (error) {
+//         if (axios.isAxiosError(error)) {
+//             return {
+//                 hasError: false,
+//                 message: error?.response?.data?.message
+//             }
+//         }
+//         return {
+//             hasError: false,
+//             message: "No se pudo cancelar la orden - Intenta más tarde"
+//         }
+//     }
+
+// }
+
 export const updateImageUser = (user) => ({
     type: types.update_image_user,
     payload: user,
@@ -370,7 +400,23 @@ export const startUpdatePhoneNumber = (phone_number) => {
 
             dispatch(loadDataUser(data.user));
         } catch (error) {
-            console.log(error);
+            if (axios.isAxiosError(error)) {
+                const Toast = Swal.mixin({
+                    toast: true,
+                    position: 'top-end',
+                    showConfirmButton: false,
+                    timer: 3000,
+                    timerProgressBar: true,
+                    didOpen: (toast) => {
+                        toast.addEventListener('mouseenter', Swal.stopTimer)
+                        toast.addEventListener('mouseleave', Swal.resumeTimer)
+                    }
+                });
+                Toast.fire({
+                    icon: 'error',
+                    title: error?.response?.data?.message
+                });
+            }
         }
     }
 }
