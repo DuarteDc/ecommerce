@@ -49,7 +49,7 @@ export const TestimonialArea = () => {
         >
           {
             reviews?.map(review => (
-              <SwiperSlide>
+              <SwiperSlide key={review._id}>
                 <div className="text-center my-0 mx-auto max-w-[745px] px-6">
                   <div className="mb-[30px]">
                     <Image

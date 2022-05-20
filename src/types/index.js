@@ -18,7 +18,7 @@ export const types = {
     load_products_per_brand: '[PRODUCTS] load products per brand',
     load_products_per_pagination: '[PRODUCTS] load products per pagination',
     filters_to_products: '[PRODUCTS] filters to products',
-    search_products:'[PRODUCTS] seach products',
+    search_products: '[PRODUCTS] seach products',
 
     loadCategories: '[CATEGORIES] start load categories',
     loadCategoriesHome: '[CATEGORIES HOME] start load categories',
@@ -55,13 +55,13 @@ export const types = {
 
     loadAdministrableLogo: '[Administrable] load data administrable logo',
     loadAdministrableAbout: '[Administrable] load data administrable about ',
-    accept_cookies_politicy:'[Administrable] accept cookies politicy',
+    accept_cookies_politicy: '[Administrable] accept cookies politicy',
 
     load_data_user: '[PROFILE] load data user',
     load_directions: '[PROFILE] load directions',
-    load_states:'[PROFILE] load states',
-    load_municipalities:'[PROFILE] load municipalities',
-    load_fiscal_address:'[PROFILE]load fiscal address',
+    load_states: '[PROFILE] load states',
+    load_municipalities: '[PROFILE] load municipalities',
+    load_fiscal_address: '[PROFILE]load fiscal address',
     change_default_addres: '[PROFILE] change default address',
     add_new_address: '[PROFILE] add new address',
     delete_addres: '[PROFILE] delete address',
@@ -70,7 +70,7 @@ export const types = {
     select_one_direction: '[PROFILE] select one direction',
     update_direction_user: '[PROFILE] update direction user',
     clear_direction: '[PROFILE] clear direction',
-    
+
 
 
 
@@ -116,20 +116,20 @@ export const types = {
 
 
     loadWishListfromLocalStorage: '[WishList] load wishlist from localStorage',
-  
+
 
     load_faqs: '[FAQS] load_faqs',
     load_faqs_categories: '[FAQS] load faqs categories',
     load_faqs_per_category: '[FAQS] load faqs per category',
 
     loadPenddingOrders: '[ORDERS] load pendding orders',
-    loadOrdersCanceled:'[ORDERS] load orders canceled',
-    loadOrdersApproved:'[ORDERS] load orders approved',
-    loadShippedOrders:'[ORDERS] load orders shipped',
-    loadCancelOrder:'[ORDERS] load order cancel',
-    loadOrderById:'[ORDERS] load order by id',
-    selectedOrderPendding:'[ORDERS] selected order pendding',
-    upload_proof_payment_order:'[ORDERS] upload proof payment order',
-
+    loadOrdersCanceled: '[ORDERS] load orders canceled',
+    loadOrdersApproved: '[ORDERS] load orders approved',
+    loadShippedOrders: '[ORDERS] load orders shipped',
+    loadCancelOrder: '[ORDERS] load order cancel',
+    loadOrderById: '[ORDERS] load order by id',
+    selectedOrderPendding: '[ORDERS] selected order pendding',
+    upload_proof_payment_order: '[ORDERS] upload proof payment order',
+    cancel_order: '[ORDERS] cancel orders',
     start_load_reviews: '[REVIEWS] start load reviews',
 }

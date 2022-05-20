@@ -11,7 +11,6 @@ const OrderStatus = ({ status }) => {
         'Enviada',
     ];
 
-
     return (
         <Box sx={{ width: '100%' }}>
             <Stepper activeStep={status} alternativeLabel>

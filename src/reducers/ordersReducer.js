@@ -1,59 +1,68 @@
 import { types } from "../types";
 
 const initialState = {
-    penddingOrders:[],
-    canceledOrders:[],
-    approvedOrders:[],
-    shippedOrders:[],
-    order_id:'',
-    orderDetail:{}
+    penddingOrders: [],
+    canceledOrders: [],
+    approvedOrders: [],
+    shippedOrders: [],
+    order_id: '',
+    orderDetail: {}
 }
 
 
-export const ordersReducer = ( state = initialState  , { type , payload }) =>{
+export const ordersReducer = (state = initialState, { type, payload }) => {
     switch (type) {
         case types.loadPenddingOrders:
-            return{
-              ...state,
-              penddingOrders:payload
+            return {
+                ...state,
+                penddingOrders: payload
             }
         case types.selectedOrderPendding:
-            return{
+            return {
                 ...state,
-                order_id:payload
+                order_id: payload
             }
         case types.upload_proof_payment_order:
-            return{
+            return {
                 ...state,
                 penddingOrders: state.penddingOrders.map(order => order._id === payload.order_id
-                    && {...order, total_payments: order.total_payments = Number(order.total_payments) + Number(payload.amount)} ),
-                order_id:''
+                    ? { ...order, total_payments: order.total_payments = Number(order.total_payments) + Number(payload.amount) }
+                    : order),
+                order_id: ''
+            }
+        case types.cancel_order:
+            const { order_id, order } = payload;
+            return {
+                ...state,
+                penddingOrders: state.penddingOrders.map(orderDetail => orderDetail._id === order_id
+                    ? { ...order }
+                    : { ...orderDetail })
             }
         case types.loadOrdersCanceled:
-            return{
+            return {
                 ...state,
-                canceledOrders:payload
+                canceledOrders: payload
             }
         case types.loadOrdersApproved:
-            return{
+            return {
                 ...state,
-                approvedOrders:payload
+                approvedOrders: payload
             }
         case types.loadShippedOrders:
-            return{
+            return {
                 ...state,
-                shippedOrders:payload
+                shippedOrders: payload
             }
         case types.loadCancelOrder:
-            return{
+            return {
                 ...state,
-                penddingOrders: state.penddingOrders.filter(pendding =>pendding._id !== payload)
+                penddingOrders: state.penddingOrders.filter(pendding => pendding._id !== payload)
             }
         case types.loadOrderById:
-           return {
-               ...state,
-               orderDetail:payload
-           }
+            return {
+                ...state,
+                orderDetail: payload
+            }
         default:
             return state;
     }

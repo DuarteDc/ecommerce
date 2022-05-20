@@ -20,6 +20,7 @@ import TextareaAutosize from '@mui/material/TextareaAutosize';
 
 import { useFormik } from "formik";
 import * as Yup from 'yup';
+import { fontFamily } from "@mui/system";
 
 export const PendingPaymentOrderIndex = ({ order, handleOpenProofOfPayment, status, text_description, text_color }) => {
 
@@ -46,8 +47,26 @@ export const PendingPaymentOrderIndex = ({ order, handleOpenProofOfPayment, stat
     dispatch(startGetOrder(order._id));
   }
   //2702
-  const sendCancelOrder = async (formData) => {
-    await startOrderCancel(formData, order._id)
+
+
+  const sendCancelOrder = async (formData, resetForm) => {
+    toggleCancelOrder();
+    Swal.fire({
+      title: "¿Deseas Cancelar este pedido?",
+      text: "El pedido será revisado por nosotros antes de cancelarce por completo.",
+      icon: "question",
+      showCancelButton: true,
+      cancelButtonText: 'Cancelar!',
+      cancelButtonColor: "#b71c1c",
+      confirmButtonText: "Continuar",
+      confirmButtonColor: "#1976d2",
+      reverseButtons: true
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        await dispatch(startOrderCancel(formData, order._id));
+        resetForm({ values: initialValues });
+      }
+    })
   }
 
   const initialValues = {
@@ -63,8 +82,8 @@ export const PendingPaymentOrderIndex = ({ order, handleOpenProofOfPayment, stat
   const formik = useFormik({
     initialValues,
     validationSchema: Yup.object(validationSchema),
-    onSubmit: (formData) => {
-      sendCancelOrder(formData)
+    onSubmit: (formData, { resetForm }) => {
+      sendCancelOrder(formData, resetForm)
       //alert(JSON.stringify(formData));
       // resetForm({ values: initialValues })
     }
@@ -98,117 +117,87 @@ export const PendingPaymentOrderIndex = ({ order, handleOpenProofOfPayment, stat
   }
 
   return (
-    <div className="mb-6 border border-solid border-[#D5D9D9]  rounded-t-[6px]">
-      <Grid container>
-        <Grid item xs={12} sm={12} md={6} lg={6} xl={6}>
-          <div className="bg-[#eee] flex p-8">
-            <div className="w-2/3 font-Poppins">
-              <span className="uppercase text-sm leading-6 text-[#333]">
+    <div>
+      <div className="flex w-full bg-[#eee] p-8  rounded-t-[6px]  font-Poppins">
+        <div className="grid grid-cols-1 w-full md:grid-cols-3 lg:grid-cols-3">
+          <div className="flex justify-between w-full items-center">
+            <div className="flex flex-col justify-center items-center">
+              <span className="uppercase text-sm text-[#333]">
                 Pedido realizado
               </span>
               <p className="text-sm text-[#888]">
                 {date}
               </p>
             </div>
-            <div className="w-1/3 text-center font-Poppins">
-              <span className="uppercase text-sm leading-6 text-[#333]">
+            <div className="flex flex-col justify-center items-center">
+              <span className="uppercase text-sm text-[#333]">
                 Total
               </span>
               <p className="text-sm text-[#888]">
                 {total}
               </p>
             </div>
-            {
-              status === 0 && (
-                <div className="w-2/3 text-center font-Poppins">
-                  <span className="uppercase text-sm leading-6 text-[#333]">
-                    Total liquidado
-                  </span>
-                  <p className="text-sm text-[#888]">
-                    {totalPayments}
-                  </p>
-                </div>
-              )
-            }
-            <div className="w-full text-center font-Poppins cursor-pointer h-full"
+            <div className="flex flex-col justify-center items-center">
+              {
+                status === 0 && (
+                  <>
+                    <span className="uppercase text-sm  text-[#333]">
+                      Total liquidado
+                    </span>
+                    <p className="text-sm text-[#888]">
+                      {totalPayments}
+                    </p>
+                  </>
+                )
+              }
+            </div>
+          </div>
+          <div>
+            <div className="text-center cursor-pointer flex flex-col"
               onClick={() => handleClickAddress()}
             >
               <span className="uppercase text-sm leading-6 text-[#333]">
                 Enviar a:
               </span>
-              <span className="text-sm text-center text-[#1976d2] cursor-pointer border-b-3 hover:border-solid hover:text-[#880e4f] hover:transition-all flex items-center justify-center"
+              <span className="text-sm text-[#1976d2] cursor-pointer border-b-3 hover:border-solid hover:text-[#880e4f] hover:transition-all flex justify-center"
               >
                 {order?.shippment_direction?.name}
                 <AiFillCaretDown />
               </span>
             </div>
           </div>
-        </Grid>
-        <Grid item xs={12} sm={12} md={6} lg={6} xl={6}>
-          <div className="font-Poppins text-center bg-[#eee] p-8 flex flex-wrap justify-center">
-            <span className="text-sm text-[#333]">Pedido N.º {order._id}</span>
-            <div className="w-full mr-6 text-[#1976d2]">
-              {
-                order.invoiced && status !== 0 && status !== 1 &&
-                <span className="text-sm  cursor-pointer border-b-3 hover:border-solid hover:text-[#880e4f] hover:transition-all mr-5">Pedido ya facturado</span>
-              }
-              {
-                (!order.invoiced) && status !== 0 && status !== 1 &&
-                <button className="text-sm  cursor-pointer border-b-3 hover:border-solid hover:text-[#880e4f] hover:transition-all mr-5"
-                  onClick={() => handleClickInvoicedOrder(order._id)}
-                >
-                  Factura CFDI
-                </button>
-              }
-              <button
-                className="text-sm cursor-pointer  hover:border-3 hover:border-solid hover:text-[#880e4f] hover:transition-all"
-                onClick={() => handleClickOrderDetail()}
-              >
-                Detalles del pedido
-              </button>
+          <div>
+            <div>
+              <div className="text-center cursor-pointer">
+                <span className="text-sm text-[#333]">Pedido N.º {order.folio}</span>
+                <div className="w-full mr-6 text-[#1976d2]">
+                  {
+                    order.invoiced && status !== 0 && status !== 1 &&
+                    <span className="text-sm  cursor-pointer border-b-3 hover:border-solid hover:text-[#880e4f] hover:transition-all mr-5">Pedido ya facturado</span>
+                  }
+                  {
+                    (!order.invoiced) && status !== 0 && status !== 1 &&
+                    <button className="text-sm  cursor-pointer border-b-3 hover:border-solid hover:text-[#880e4f] hover:transition-all mr-5"
+                      onClick={() => handleClickInvoicedOrder(order._id)}
+                    >
+                      Factura CFDI
+                    </button>
+                  }
+                  <button
+                    className="text-sm cursor-pointer  hover:border-3 hover:border-solid hover:text-[#880e4f] hover:transition-all"
+                    onClick={() => handleClickOrderDetail()}
+                  >
+                    Detalles del pedido
+                  </button>
+                </div>
+              </div>
             </div>
           </div>
-        </Grid>
-      </Grid>
-      <Grid container spacing={5}>
-        <Grid item xs={12} sm={12} md={8} lg={8} xl={8}>
-          <div className="flex items-center w-full h-full px-10">
-            <h3 className={`font-Poppins text-lg leading-6 ${text_color}`}>
-              {text_description}
-            </h3>
-          </div>
-        </Grid>
-        <Grid item xs={12} sm={12} md={4} lg={4} xl={4} >
-          <div className="flex justify-center  md:justify-start items-center h-3/4 w-full pr-10">
-            {
-              status === 0 && order.total_payments < order.total &&
-              <button className="bg-[#FFD814] font-Poppins text-[#333] py-[10px] px-[15px] uppercase text-sm mt-5 flex items-center justify-center w-full"
-                onClick={() => handleOpenProofOfPayment(order._id)}
-              >
-                <IconContext.Provider value={{ className: "color-[#fff] , text-[20px] , mr-[10px]" }}>
-                  <MdOutlineFileUpload />
-                </IconContext.Provider>
-                <span>Comprobante de pago</span>
-              </button>
-            }
-          </div>
-          <div className="flex justify-center md:justify-start items-center w-full pr-10 ">
-            {
-              status === 0 &&
-              <button className="bg-red-500  font-Poppins cursor-pointer text-white py-[10px] px-[15px] uppercase text-sm mt-5 flex items-center justify-center w-full"
-                onClick={handleCancelOrder}
-              >
-                <IconContext.Provider value={{ className: "color-[#fff] , text-[20px] , mr-[10px]" }}>
-                  <MdOutlineCancel />
-                </IconContext.Provider>
-                <span>Cancelar pedido</span>
-              </button>
-            }
-          </div>
-        </Grid>
-      </Grid>
-      <div className="border-x border-b border-solid border-[#D5D9D9] py-3 px-10">
-        <div className="w-full flex ">
+        </div>
+      </div>
+
+      <div className="mb-6 grid grid-cols-1 lg:grid-cols-3  rounded-t-[6px] border-x border-b border-solid border-[#D5D9D9] py-3 px-10 py-10">
+        <div className="w-full flex lg:col-span-2">
           <Swiper
             pagination={{ clickable: true }}
             scrollbar={{ draggable: true }}
@@ -233,7 +222,35 @@ export const PendingPaymentOrderIndex = ({ order, handleOpenProofOfPayment, stat
             }
           </Swiper>
         </div>
+        <div className="flex flex-col justify-center  items-center w-11/12 mx-auto">
+          {
+            status === 0 && order.total_payments < order.total && !order.cancelation &&
+            <button className="bg-[#FFD814] font-Poppins text-[#333] py-[10px] px-[15px] uppercase text-sm mt-5 flex items-center justify-center w-full"
+              onClick={() => handleOpenProofOfPayment(order._id)}
+            >
+              <IconContext.Provider value={{ className: "color-[#fff] , text-[20px] , mr-[10px]" }}>
+                <MdOutlineFileUpload />
+              </IconContext.Provider>
+              <span>Comprobante de pago</span>
+            </button>
+          }
+
+          {
+            status === 0 && !order.cancelation && 
+            <button className="bg-red-500  font-Poppins cursor-pointer text-white py-[10px] px-[15px] uppercase text-sm mt-5 flex items-center justify-center w-full"
+              onClick={handleCancelOrder}
+            >
+              <IconContext.Provider value={{ className: "color-[#fff] , text-[20px] , mr-[10px]" }}>
+                <MdOutlineCancel />
+              </IconContext.Provider>
+              <span>Cancelar pedido</span>
+            </button>
+          }
+        </div>
       </div>
+
+
+
       <Modal
         title="Dirección de envio"
         open={open}
@@ -265,7 +282,6 @@ export const PendingPaymentOrderIndex = ({ order, handleOpenProofOfPayment, stat
           <span className="text-base text-[#888] capitalize">{order?.shippment_direction?.references}</span>
         </div>
       </Modal>
-
       <Modal
         title="Detalle del pedido"
         open={openOrderDetail}
@@ -274,7 +290,7 @@ export const PendingPaymentOrderIndex = ({ order, handleOpenProofOfPayment, stat
         fullWidth={true}
         maxWidth={'sm'}
       >
-        <OrderDetails status={order.orderStatus} />
+        <OrderDetails status={status} />
       </Modal>
       <Modal
         title="Cancelar Pedido"
@@ -283,8 +299,14 @@ export const PendingPaymentOrderIndex = ({ order, handleOpenProofOfPayment, stat
         actions={false}
         fullWidth={true}
         maxWidth={'sm'}
+        className="font-Poppins"
       >
-        <form onSubmit={formik.handleSubmit} className="py-5">
+        <form onSubmit={formik.handleSubmit}>
+          <div className="upload-area__header py-5">
+            <p className="text-[0.9rem] text-[#888]">
+              Escribe el motivo de tu cancelación y sera revisada por nosotros
+            </p>
+          </div>
           <TextField
             name="subject"
             error={formik.touched.subject && formik.errors.subject ? true : false}
@@ -313,7 +335,7 @@ export const PendingPaymentOrderIndex = ({ order, handleOpenProofOfPayment, stat
               formik.touched.description && formik.errors.description ?
                 formik.errors.description : ""
             }
-            style={{ width: '100%', marginTop: 20, marginBottom: 20, padding: 10, resize: "none", border:'solid 1px', borderColor: "#ccc" }}
+            style={{ width: '100%', marginTop: 20, marginBottom: 20, padding: 10, resize: "none", border: 'solid 1px', borderColor: "#ccc" }}
           />
           <button className="w-full px-2 py-4 bg-[#222] text-white hover:bg-[#333]" type="submit">
             Enviar
@@ -324,9 +346,3 @@ export const PendingPaymentOrderIndex = ({ order, handleOpenProofOfPayment, stat
   )
 }
 
-
-/*
-
-
-
-*/

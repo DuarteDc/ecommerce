@@ -15,8 +15,11 @@ import LoadingScreen from '../../src/components/LoadingScreen'
 import { IconContext } from "react-icons";
 import { BsSearch } from 'react-icons/bs'
 import Link from 'next/link'
+import { useRouter } from 'next/router'
 
 const Wishlist = () => {
+
+    const router = useRouter();
 
     const { categories } = useSelector((state) => state.faqs);
     const { products, allProducts, wishList } = useSelector((state) => state.wishList);
@@ -29,12 +32,16 @@ const Wishlist = () => {
     const getProducts = async () => {
         setLoading(true);
         const { products } = await dispatch(startLoadProducts(storedValue));
+        const wishList = products?.map(product => ({ product_id: product._id }));
+        // setValue(wishList)
+        console.log(wishList)
         setLoading(false);
     }
 
     useEffect(() => {
+        if (!storedValue) setValue([]);
         getProducts();
-    }, []);
+    }, [router]);
 
     const handleSeachProduct = (query) => {
         if (wishList.length) {
@@ -53,7 +60,7 @@ const Wishlist = () => {
             <section className="container mx-auto py-32 min-h-screen px-5 lg:px-0 font-Poppins">
                 {
                     allProducts.length > 0 && (
-                        <div className="flex flex-row-reverse">
+                        <div className="flex flex-row-reverse mb-10">
                             <div className="border-[1px] border-solid border-[#e6e6e6] rounded-sm flex items-center mb-6 w-full md:w-5/12">
                                 <input
                                     type="text"

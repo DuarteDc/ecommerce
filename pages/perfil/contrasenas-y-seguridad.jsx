@@ -83,11 +83,7 @@ const PasswordAndSecurity = () =>{
     const handleSavePhotoImage = () =>{
         if(type === 0 ){
             if(!imageProfile){
-                Swal.fire({
-                    title:"Ups , algo ha ocurrido",
-                    text:"No has subido una nueva imagen de perfil , selecciona una imagen y vuelve a intentarlo",
-                    icon:"warning"
-                });
+                errorNotify("No has subido una nueva imagen de perfil , selecciona una imagen y vuelve a intentarlo");
                 handleClickUpdateSessionSecurity();
                 return;
             }            

@@ -51,7 +51,7 @@ export const profileReducer = (state = initialState, { type, payload }) => {
         case types.update_direction_user:
             return {
                 ...state,
-                directions:payload,
+                directions: payload,
             }
 
         case types.clear_direction:
@@ -92,11 +92,12 @@ export const profileReducer = (state = initialState, { type, payload }) => {
                 municipalities: payload
             }
         case types.load_fiscal_address:
+            const { customer, state: states , municipality } = payload;
             return {
                 ...state,
-                fiscalAddress: payload.customer,
-                stateSelected: payload.state,
-                municipalitySelected: payload.municipality
+                fiscalAddress: { ...customer },
+                stateSelected: { ...states},
+                municipalitySelected: { ...municipality },
             }
         default:
             return state;

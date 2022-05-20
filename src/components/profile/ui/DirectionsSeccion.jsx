@@ -64,11 +64,11 @@ const DirectionsSeccion = ({ directions }) => {
                         </div>
                         {
                             directions?.map(direction => (
-                                <div
+                                <div key={direction._id}
                                     className="relative border-gray-300 border-2 mt-5 w-11/12 mx-auto h-72 mr-4 cursor-pointer overflow-hidden flex flex-col font-Poppins rounded-md"
                                 >
                                     <div className="font-Poppins bg-[#eee] px-10 py-5">
-                                        <p className="">{direction.name}</p>
+                                        <p className="uppercase">{direction.name}</p>
                                     </div>
                                     <div className="px-10 my-10">
                                         <p className="uppercase text-sm font-medium">{direction.street} {(direction.no_ext) && `, #${direction.no_ext}`}</p>

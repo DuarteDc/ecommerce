@@ -1,6 +1,8 @@
 import Swal from "sweetalert2";
 import client from "../config/axiosConfig";
+import { errorNotify, successNotify } from "../helpers/helpers";
 import { types } from "../types";
+import axios from "axios";
 
 export const startLoadPendingOrders = (token) => {
     return async (dispatch) => {
@@ -98,21 +100,20 @@ export const loadOrdersShipped = (ordersShipped) => ({
 export const startUploadProofOfPayment = (data) => {
     return async (dispatch, getState) => {
         const { order_id } = getState().orders
-        const amount = data.get('amount')
-        console.log(amount);
+        const amount = data.get('amount');
         try {
             let url = `payments/${order_id}`;
             await client.post(url, data, {
                 headers: { 'Content-Type': 'multipart/form-data' }
             });
-            Swal.fire({
-                title: "Comprobante de pago se ha subido correctamente",
-                text: "El comprobante de pago sera revisado , una vez verificado se aprobara la venta y se enviaran tus productos",
-                icon: "success"
-            })
+            successNotify("Comprobante de pago se ha subido correctamente");
             dispatch(uploadProofOfPayment(order_id, amount))
         } catch (error) {
-            console.log(error);
+            if (axios.isAxiosError(error)) {
+                errorNotify(error?.response?.data?.message);
+                return;
+            }
+            errorNotify("No se pudo subir el comprobante de pago - Intenta mas tarder")
         }
     }
 }
@@ -125,37 +126,30 @@ export const uploadProofOfPayment = (order_id, amount) => ({
     }
 });
 
-export const startOrderCancel = async (formData, order_id) => {
-    try {
-        let url = `/orders/request-cancel/${order_id}`;
-        await client.post(url, formData);
-        const Toast = Swal.mixin({
-            toast: true,
-            position: 'top-end',
-            showConfirmButton: false,
-            timer: 3000,
-            timerProgressBar: true,
-            didOpen: (toast) => {
-                toast.addEventListener('mouseenter', Swal.stopTimer)
-                toast.addEventListener('mouseleave', Swal.resumeTimer)
+export const startOrderCancel = (formData, order_id) => {
+    return async (dispatch) => {
+        try {
+            let url = `/orders/request-cancel/${order_id}`;
+            const { data } = await client.post(url, formData);
+            dispatch(orderCancel(order_id, data.order));
+            successNotify(data.message);
+        } catch (error) {
+            if (axios.isAxiosError(error)) {
+                errorNotify(error?.response?.data?.message);
+                return;
             }
-        });
-
-        Toast.fire({
-            icon: 'success',
-            title: 'Tu pedido ha sido cancelado satisfactoriamente'
-        });
-
-    } catch (error) {
-        console.log(error);
+            errorNotify("No se pudo cancelar la order - Intenta mas tarder")
+        }
     }
 }
 
-// export const orderCancel = (order_id) => ({
-//     type: types.loadCancelOrder,
-//     payload: order_id
-
-// });
+export const orderCancel = (order_id, order) => ({
+    type: types.cancel_order,
+    payload: {
+        order_id,
+        order
+    }
+});
 
 
 export const startGetOrder = (_id) => {

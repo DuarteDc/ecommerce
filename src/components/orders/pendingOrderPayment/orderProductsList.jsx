@@ -13,7 +13,7 @@ export const OrderProductsList = ({product ,index ,  status , handleCancelOrder}
         <div className="flex items-center justify-center flex-wrap">
             <Grid container spacing={3}>
              <Grid item xs={12} sm={12} md={8} lg={8} xl={8}>
-               <div className="flex flex-wrap md:flex-nowrap justify-start">
+               <div className="flex flex-wrap md:flex-nowrap justify-start mb-3">
                 <Image
                  src={productList?.multimedia[0]?.path}
                  width={200}

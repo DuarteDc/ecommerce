@@ -48,8 +48,8 @@ const NavBar = () => {
     }, []);
 
     useEffect(() => {
-        if(localStorage.getItem('acceptCookies')){
-          dispatch(acceptCookies());
+        if (localStorage.getItem('acceptCookies')) {
+            dispatch(acceptCookies());
         }
     }, []);
 
@@ -101,7 +101,7 @@ const NavBar = () => {
         setAnchorEl(null);
     };
 
-    const handleClickLogo = () =>{
+    const handleClickLogo = () => {
         router.replace('/');
     }
 
@@ -116,6 +116,7 @@ const NavBar = () => {
                         height={100}
                         priority
                         onClick={handleClickLogo}
+                        className="cursor-pointer"
                     />
                     <div className="flex justify-between items-center ">
                         <span className="flex items-center border-transparent border-b-2 mx-1 cursor-pointer text-lg text-[#888] font-['Poppins'] font-normal transition duration-700 ease-in-out  lg:hidden xl:hidden">
@@ -184,22 +185,60 @@ const NavBar = () => {
                                             MenuListProps={{
                                                 'aria-labelledby': 'basic-button',
                                             }}
+                                            PaperProps={{
+                                                elevation: 0,
+                                                sx: {
+                                                    overflow: 'visible',
+                                                    filter: 'drop-shadow(0px 2px 8px rgba(0,0,0,0.32))',
+                                                    mt: 1,
+                                                    '& .MuiAvatar-root': {
+                                                        width: 40,
+                                                        height: 32,
+                                                        ml: -0.5,
+                                                        mr: 1,
+                                                    },
+                                                    '&:before': {
+                                                        content: '""',
+                                                        display: 'block',
+                                                        position: 'absolute',
+                                                        top: 0,
+                                                        right: 25,
+                                                        width: 10,
+                                                        height: 10,
+                                                        bgcolor: 'background.paper',
+                                                        transform: 'translateY(-50%) rotate(45deg)',
+                                                        zIndex: 0,
+                                                    },
+                                                },
+                                            }}
+                                            transformOrigin={{ horizontal: 'right', vertical: 'top' }}
+                                            anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
                                         >
                                             <Link href="/perfil">
-                                                <MenuItem onClick={handleClose}>Mi Perfil</MenuItem>
+                                                <MenuItem onClick={handleClose} sx={{ paddingRight: 15, fontSize: '14px' }} className="hover:text-black">Mi Cuenta</MenuItem>
                                             </Link>
                                             <Link href="/perfil/mis-pedidos">
-                                                <MenuItem onClick={handleClose}>Mis Pedidos</MenuItem>
+                                                <MenuItem onClick={handleClose} sx={{ paddingRight: 15, fontSize: '14px' }} className="hover:text-black">Mis Pedidos</MenuItem>
                                             </Link>
-                                            <MenuItem onClick={(e) => { handleClose(e); logoutSession() }}>Cerrar Sesión</MenuItem>
+                                            <Link href="/perfil/direcciones">
+                                                <MenuItem onClick={handleClose} sx={{ paddingRight: 15, fontSize: '14px' }} className="hover:text-black">Mis Direcciones</MenuItem>
+                                            </Link>
+                                            <MenuItem onClick={(e) => { handleClose(e); logoutSession() }} sx={{ paddingRight: 15, fontSize: '14px' }} className="hover:text-black">Cerrar Sesión</MenuItem>
                                         </Menu>
                                     </span>
                                 ) : (
-                                    <span
-                                        onClick={() => router.push(`/auth/register?p=${router.asPath}`)}
-                                        className="border-transparent border-b-2 mx-4 cursor-pointer  text-[#888] font-['Poppins'] font-normal transition duration-700 ease-in-out flex flex-col min-w-[7.6rem] uppercase">
-                                        Registrate
-                                    </span>
+                                    <div className="flex items-center">
+                                        <span
+                                            onClick={() => router.push(`/auth/login?p=${router.asPath}`)}
+                                            className="text-[#888] border-transparent border-b-2 hover:text-[#333] cursor-pointer  font-Poppins text-[15px] font-medium transition uppercase duration-700 ease-in-out min- w-[7rem] flex">
+                                            Iniciar Sesión
+                                        </span>
+                                        <span
+                                            onClick={() => router.push(`/auth/register?p=${router.asPath}`)}
+                                            className="text-[#888] border-transparent border-b-2 hover:text-[#333] ml-2 cursor-pointer  font-Poppins text-[15px] font-medium transition uppercase duration-700 ease-in-out">
+                                            Registrate
+                                        </span>
+                                    </div>
                                 )
                             }
                             <span className="block h-6 w-[1px] bg-[#e5e5e5] mx-4 mt-2"></span>
@@ -232,7 +271,7 @@ const NavBar = () => {
                             </Link>
                         ))
                     }
-                    <div className="flex items-center">
+                    <div className="flex items-center relative">
                         {
                             logged ? (
                                 <Link href="/perfil">
@@ -243,11 +282,18 @@ const NavBar = () => {
                                     </a>
                                 </Link>
                             ) : (
-                                <span
-                                    onClick={() => router.push(`/auth/register?p=${router.asPath}`)}
-                                    className="border-transparent border-b-2 mx-2 cursor-pointer  text-white font-['Poppins'] font-normal transition duration-700 ease-in-out flex flex-col min-w-[7.6rem]">
-                                    Registrate
-                                </span>
+                                <div>
+                                    <span
+                                        onClick={() => router.push(`/auth/login?p=${router.asPath}`)}
+                                        className="border-transparent border-b-2 mx-2 cursor-pointer  text-white font-['Poppins'] font-normal transition duration-700 ease-in-out flex flex-col min-w-[7.6rem] pt-3">
+                                        Iniciar Sesión
+                                    </span>
+                                    <span
+                                        onClick={() => router.push(`/auth/register?p=${router.asPath}`)}
+                                        className="border-transparent border-b-2 mx-2 cursor-pointer  text-white font-['Poppins'] font-normal transition duration-700 ease-in-out flex flex-col min-w-[7.6rem] pt-3">
+                                        Registrate
+                                    </span>
+                                </div>
                             )
                         }
                     </div>

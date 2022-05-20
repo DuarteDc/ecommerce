@@ -51,13 +51,12 @@ const Profile = () => {
             />
             <section className="container mx-auto mb-16 min-h-screen mt-44">
                 <div className="max-w-[1235px] m-auto">
-
                     <Grid container spacing={3}>
                         <Grid item xs={12} sm={6} md={6} lg={4} xl={4}>
                             <OptionCardProfile
                                 title="Mis Pedidos"
                                 icon={"/assets/icons/entrega-de-pedidos.png"}
-                                description="Rastrea tus paquetes , devolver tus pedidos o comprar algo de nuevo"
+                                description="Rastrea tus paquetes, devolver tus pedidos o comprar algo de nuevo"
                                 path="/perfil/mis-pedidos"
                             />
                         </Grid>
@@ -65,7 +64,7 @@ const Profile = () => {
                             <OptionCardProfile
                                 title="Inicio de Sesión y Seguridad"
                                 icon={"/assets/icons/proteger.png"}
-                                description="Rastrea tus paquetes , devolver tus pedidos o comprar algo de nuevo"
+                                description="Editar inicio de sesión, nombre y número de teléfono"
                                 path="perfil/contrasenas-y-seguridad"
                             />
                         </Grid>
@@ -73,7 +72,7 @@ const Profile = () => {
                             <OptionCardProfile
                                 title="Mis direcciones"
                                 icon={"/assets/icons/localizacion.png"}
-                                description="Rastrea tus paquetes , devolver tus pedidos o comprar algo de nuevo"
+                                description="Editar direcciones para tus pedidos"
                                 path="/perfil/direcciones"
                             />
                         </Grid>
@@ -81,7 +80,7 @@ const Profile = () => {
                             <OptionCardProfile
                                 title="Mi Dirección Fiscal"
                                 icon={"/assets/icons/cuenta.png"}
-                                description="Rastrea tus paquetes , devolver tus pedidos o comprar algo de nuevo"
+                                description="Editar direcciones fiscales para generar tus facturas"
                                 path="/perfil/direccion-fiscal"
                             />
                         </Grid>

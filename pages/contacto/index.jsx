@@ -34,7 +34,7 @@ const ContactUs = () => {
   }, [logged]);
 
 
-  const handelSendMessage = async (formData) => {
+  const handelSendMessage = async (formData, resetForm) => {
 
     setLoading(true);
 
@@ -45,6 +45,7 @@ const ContactUs = () => {
       return;
     }
     successNotify(message);
+    resetForm({ values: initialValues })
     setLoading(false);
   }
 
@@ -65,9 +66,8 @@ const ContactUs = () => {
   const formik = useFormik({
     initialValues,
     validationSchema: Yup.object(validationSchema),
-    onSubmit: (formData) => {
-      handelSendMessage(formData);
-      resetForm({ values: initialValues })
+    onSubmit: (formData, { resetForm }) => {
+      handelSendMessage(formData, resetForm);
       //alert(JSON.stringify(formData));
     }
   });
@@ -152,7 +152,7 @@ const ContactUs = () => {
                       <textarea
                         placeholder="¿Como podemos ayudarte?"
                         name="message"
-                        className="w-full min-h-[199px] font-Poppins text-xs leading-[1-6923] text-[#333] px-[28px] pt-[25px] block outline-0"
+                        className="w-full min-h-[199px] font-Poppins text-xs leading-[1-6923] text-[#333] px-[28px] pt-[25px] block outline-0 resize-none"
                         onChange={formik.handleChange}
                       ></textarea>
                     </div>

@@ -6,6 +6,7 @@ import client from '../config/axiosConfig';
 import { types } from '../types'
 import Swal from 'sweetalert2';
 import { data } from 'autoprefixer';
+import { errorNotify, successNotify } from '../helpers/helpers';
 
 
 export const startLoadDataUser = (ctx) => {
@@ -248,36 +249,17 @@ export const startUpdateDataUser = (formData) => {
                     'Authorization': token
                 }
             });
-            const Toast = Swal.mixin({
-                toast: true,
-                position: 'top-end',
-                showConfirmButton: false,
-                timer: 3000,
-                timerProgressBar: true,
-                didOpen: (toast) => {
-                    toast.addEventListener('mouseenter', Swal.stopTimer)
-                    toast.addEventListener('mouseleave', Swal.resumeTimer)
-                }
-            });
-
-            Toast.fire({
-                icon: 'success',
-                title: data.message
-            });
+            successNotify(data.message);
             dispatch(updateDataUser(data.user));
 
         } catch (error) {
+
             if (axios.isAxiosError(error)) {
-                return {
-                    hasError: true,
-                    message: error?.response?.data?.message
-                }
+                errorNotify(error?.response?.data?.message);
             }
 
-            return {
-                hasError: true,
-                message: "No se pudo eliminar la dirección - intente mas tarde"
-            }
+            errorNotify("No se pudo actualizar - Intenta más tarde");
+
         }
     }
 }
@@ -299,22 +281,7 @@ export const startUpdateImageUser = (formData) => {
                 }
             });
 
-            const Toast = Swal.mixin({
-                toast: true,
-                position: 'top-end',
-                showConfirmButton: false,
-                timer: 3000,
-                timerProgressBar: true,
-                didOpen: (toast) => {
-                    toast.addEventListener('mouseenter', Swal.stopTimer)
-                    toast.addEventListener('mouseleave', Swal.resumeTimer)
-                }
-            });
-
-            Toast.fire({
-                icon: 'success',
-                title: 'Imagen de perfil actualizada satisfactoriamente'
-            });
+            successNotify("Imagen de perfil actualizada satisfactoriamente")
 
             dispatch(updateImageUser(res.data.profileImage));
 
@@ -381,42 +348,16 @@ export const startUpdatePhoneNumber = (phone_number) => {
                 }
             });
 
-            const Toast = Swal.mixin({
-                toast: true,
-                position: 'top-end',
-                showConfirmButton: false,
-                timer: 3000,
-                timerProgressBar: true,
-                didOpen: (toast) => {
-                    toast.addEventListener('mouseenter', Swal.stopTimer)
-                    toast.addEventListener('mouseleave', Swal.resumeTimer)
-                }
-            });
-
-            Toast.fire({
-                icon: 'success',
-                title: data.message
-            });
+            successNotify(data.message);
 
             dispatch(loadDataUser(data.user));
         } catch (error) {
             if (axios.isAxiosError(error)) {
-                const Toast = Swal.mixin({
-                    toast: true,
-                    position: 'top-end',
-                    showConfirmButton: false,
-                    timer: 3000,
-                    timerProgressBar: true,
-                    didOpen: (toast) => {
-                        toast.addEventListener('mouseenter', Swal.stopTimer)
-                        toast.addEventListener('mouseleave', Swal.resumeTimer)
-                    }
-                });
-                Toast.fire({
-                    icon: 'error',
-                    title: error?.response?.data?.message
-                });
+                errorNotify(error?.response?.data?.message);
+                return;
             }
+
+            errorNotify("No se pudo actualizar - Intenta más tarde");
         }
     }
 }
@@ -432,41 +373,13 @@ export const startUpdatedPasswordClient = (password) => {
                 }
             });
 
-            const Toast = Swal.mixin({
-                toast: true,
-                position: 'top-end',
-                showConfirmButton: false,
-                timer: 3000,
-                timerProgressBar: true,
-                didOpen: (toast) => {
-                    toast.addEventListener('mouseenter', Swal.stopTimer)
-                    toast.addEventListener('mouseleave', Swal.resumeTimer)
-                }
-            });
-
-            Toast.fire({
-                icon: 'success',
-                title: "Contraseña actualizada satisfactoriamente"
-            });
-
+            successNotify("Contraseña actualizada satisfactoriamente");
         } catch (error) {
-            console.log(error);
-            const Toast = Swal.mixin({
-                toast: true,
-                position: 'top-end',
-                showConfirmButton: false,
-                timer: 3000,
-                timerProgressBar: true,
-                didOpen: (toast) => {
-                    toast.addEventListener('mouseenter', Swal.stopTimer)
-                    toast.addEventListener('mouseleave', Swal.resumeTimer)
-                }
-            });
-
-            Toast.fire({
-                icon: 'error',
-                title: error.response.data.message
-            });
+            if (axios.isAxiosError(error)) {
+                errorNotify(error.response.data.message);
+                return;
+            }
+            errorNotify("No se pudo actualizar el número - Intenta más tarde");
         }
     }
 }
@@ -579,27 +492,17 @@ export const startAddFiscalAddress = (formData) => {
                 }
             });
 
-            const Toast = Swal.mixin({
-                toast: true,
-                position: 'top-end',
-                showConfirmButton: false,
-                timer: 3000,
-                timerProgressBar: true,
-                didOpen: (toast) => {
-                    toast.addEventListener('mouseenter', Swal.stopTimer)
-                    toast.addEventListener('mouseleave', Swal.resumeTimer)
-                }
-            });
-
-            Toast.fire({
-                icon: 'success',
-                title: data.message
-            });
+            successNotify(data.message);
 
             dispatch(AddFiscalAddress(data.customer));
 
         } catch (error) {
-            console.log(error);
+            if (axios.isAxiosError(error)) {
+                errorNotify(error?.response?.data?.message);
+                return;
+            }
+
+            errorNotify("No se pudo guardar la dirección fiscal - Intenta más tarde");
         }
     }
 }
@@ -625,25 +528,19 @@ export const startUpdateFiscalAddress = (fiscalAddress) => {
                     'Authorization': token
                 }
             });
-            const Toast = Swal.mixin({
-                toast: true,
-                position: 'top-end',
-                showConfirmButton: false,
-                timer: 3000,
-                timerProgressBar: true,
-                didOpen: (toast) => {
-                    toast.addEventListener('mouseenter', Swal.stopTimer)
-                    toast.addEventListener('mouseleave', Swal.resumeTimer)
-                }
-            });
 
-            Toast.fire({
-                icon: 'success',
-                title: data.message
-            });
+            successNotify(data.message);
             dispatch(updateFiscalAddress(data.customer, data.state, data.municipality));
+
         } catch (error) {
-            console.log(error);
+
+            if (axios.isAxiosError(error)) {
+                errorNotify(error?.response?.data?.message);
+                return;
+            }
+
+            errorNotify("No se pudo actualizar la dirección fiscal - Intenta más tarde");
+
         }
     }
 }
