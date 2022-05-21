@@ -2,7 +2,7 @@ import dynamic from 'next/dynamic'
 import { useDispatch, useSelector } from "react-redux";
 import { useFormik } from "formik";
 import * as Yup from 'yup';
-import { Grid, TextField } from "@mui/material"
+import { Grid, TextField, InputLabel } from "@mui/material"
 const Select = dynamic(() => import('react-select'), { ssr: false });
 import { taxt_system } from "../../../staticData/text_system";
 import { startAddFiscalAddress, startGetMunicipality, startUpdateFiscalAddress } from '../../../actions/profileActions';
@@ -55,7 +55,6 @@ export const FormFiscalAddressProfile = () => {
     validationSchema: Yup.object(validationSchema),
     onSubmit: (formData) => {
 
-      console.log(formData)
       const data = {
         legal_name: formData.legal_name,
         tax_id: formData.tax_id,
@@ -73,10 +72,9 @@ export const FormFiscalAddressProfile = () => {
           zip: formData.zip
         }
       }
-      
+
+
       if (Object.keys(fiscalAddress).length > 0) {
-        data.address.state = formData.state.value;
-        data.address.municipality = formData.municipality.value;
         dispatch(startUpdateFiscalAddress(data));
       } else {
         dispatch(startAddFiscalAddress(data));
@@ -250,11 +248,13 @@ export const FormFiscalAddressProfile = () => {
             />
           </Grid>
           <Grid item xs={12} sm={12} md={12} lg={12} xl={12}>
+            <InputLabel id="demo-simple-select-label">Estado</InputLabel>
             <Select
+              labelId="demo-simple-select-label"
               name="state"
               placeholder="Selecciona un estado"
               options={states}
-              id="state"
+              id="react-select-32-live-region1"              
               onChange={selectedOption => {
                 formik.setFieldValue("state", selectedOption.value),
                   handleChangeState(selectedOption.value)
@@ -263,14 +263,16 @@ export const FormFiscalAddressProfile = () => {
             />
           </Grid>
           <Grid item xs={12} sm={12} md={12} lg={12} xl={12}>
+            <InputLabel id="demo-simple-select-label1">Municipio</InputLabel>
             <Select
+              labelId="demo-simple-select-label1"
               name="municipality"
               placeholder="Selecciona un municipio"
               options={municipalities}
+              id="react-select-32-live-region2"
               onChange={selectedOption =>
                 formik.setFieldValue("municipality", selectedOption.value)
               }
-              id="react-select-32-live-region"
               defaultValue={formik.values.municipality}
             />
           </Grid>

@@ -502,8 +502,6 @@ export const startAddFiscalAddress = (formData) => {
                 errorNotify(error?.response?.data?.message);
                 return;
             }
-
-            errorNotify("No se pudo guardar la dirección fiscal - Intenta más tarde");
         }
     }
 }
@@ -513,7 +511,7 @@ export const startAddFiscalAddress = (formData) => {
  * with a type property and a payload property.
  * @param customer - {
  */
-export const AddFiscalAddress = (customer) => ({
+export const AddFiscalAddress = (customer, state, municipality) => ({
     type: types.save_fiscal_address,
     payload: {
         customer,
