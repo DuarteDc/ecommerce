@@ -62,6 +62,8 @@ export const types = {
     load_states: '[PROFILE] load states',
     load_municipalities: '[PROFILE] load municipalities',
     load_fiscal_address: '[PROFILE]load fiscal address',
+    update_fiscal_address: '[PROFILE] update fiscal address',
+    save_fiscal_address: '[PROFILE] save fiscal address',
     change_default_addres: '[PROFILE] change default address',
     add_new_address: '[PROFILE] add new address',
     delete_addres: '[PROFILE] delete address',

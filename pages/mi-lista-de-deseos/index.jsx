@@ -33,7 +33,9 @@ const Wishlist = () => {
         setLoading(true);
         const { products } = await dispatch(startLoadProducts(storedValue));
         const wishList = products?.map(product => ({ product_id: product._id }));
-        // setValue(wishList)
+        if(Array.isArray(wishList)){
+            setValue(wishList)
+        }
         console.log(wishList)
         setLoading(false);
     }

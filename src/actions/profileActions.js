@@ -494,7 +494,8 @@ export const startAddFiscalAddress = (formData) => {
 
             successNotify(data.message);
 
-            dispatch(AddFiscalAddress(data.customer));
+            dispatch(AddFiscalAddress(data.customer, data.state, data.municipality));
+            return;
 
         } catch (error) {
             if (axios.isAxiosError(error)) {
@@ -513,8 +514,12 @@ export const startAddFiscalAddress = (formData) => {
  * @param customer - {
  */
 export const AddFiscalAddress = (customer) => ({
-    type: types.load_fiscal_address,
-    payload: customer
+    type: types.save_fiscal_address,
+    payload: {
+        customer,
+        state,
+        municipality
+    }
 });
 
 
@@ -546,7 +551,7 @@ export const startUpdateFiscalAddress = (fiscalAddress) => {
 }
 
 export const updateFiscalAddress = (customer, state, municipality) => ({
-    type: types.load_fiscal_address,
+    type: types.update_fiscal_address,
     payload: {
         customer,
         state,

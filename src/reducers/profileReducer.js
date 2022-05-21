@@ -91,12 +91,31 @@ export const profileReducer = (state = initialState, { type, payload }) => {
                 ...state,
                 municipalities: payload
             }
-        case types.load_fiscal_address:
-            const { customer, state: states , municipality } = payload;
+        case types.load_fiscal_address: {
+            const { customer, state: states, municipality } = payload;
             return {
                 ...state,
                 fiscalAddress: { ...customer },
-                stateSelected: { ...states},
+                stateSelected: { ...states },
+                municipalitySelected: { ...municipality },
+            }
+        }
+        case types.save_fiscal_address: {
+            const { customer, state: states, municipality } = payload;
+            return {
+                ...state,
+                fiscalAddress: { ...customer },
+                stateSelected: { ...states },
+                municipalitySelected: { ...municipality },
+            }
+        }
+
+        case types.update_fiscal_address:
+            const { customer, state: states, municipality } = payload;
+            return {
+                ...state,
+                fiscalAddress: { ...customer },
+                stateSelected: { ...states },
                 municipalitySelected: { ...municipality },
             }
         default:

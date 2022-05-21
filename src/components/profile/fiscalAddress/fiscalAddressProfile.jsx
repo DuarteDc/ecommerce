@@ -3,7 +3,7 @@ import {taxt_system} from "../../../staticData/text_system";
 
 export const FiscalAddressProfile = () =>{
     const { fiscalAddress , stateSelected , municipalitySelected} = useSelector((state)=>state.profile);
- 
+
     const taxt_selected = taxt_system.filter(taxt=>taxt.value === fiscalAddress.tax_system);
 
 

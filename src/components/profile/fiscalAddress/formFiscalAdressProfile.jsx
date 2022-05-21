@@ -33,7 +33,7 @@ export const FormFiscalAddressProfile = () => {
 
   useEffect(() => {
     if (fiscalAddress) {
-        formik.values.tax_system = fiscalAddress.tax_system;
+      formik.values.tax_system = fiscalAddress.tax_system;
     }
   }, []);
 
@@ -55,6 +55,7 @@ export const FormFiscalAddressProfile = () => {
     validationSchema: Yup.object(validationSchema),
     onSubmit: (formData) => {
 
+      console.log(formData)
       const data = {
         legal_name: formData.legal_name,
         tax_id: formData.tax_id,
@@ -72,7 +73,7 @@ export const FormFiscalAddressProfile = () => {
           zip: formData.zip
         }
       }
-
+      
       if (Object.keys(fiscalAddress).length > 0) {
         data.address.state = formData.state.value;
         data.address.municipality = formData.municipality.value;
