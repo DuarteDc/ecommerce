@@ -55,6 +55,7 @@ export const FormFiscalAddressProfile = () => {
     validationSchema: Yup.object(validationSchema),
     onSubmit: (formData) => {
 
+
       const data = {
         legal_name: formData.legal_name,
         tax_id: formData.tax_id,
@@ -69,12 +70,13 @@ export const FormFiscalAddressProfile = () => {
           exterior: formData.exterior,
           neighborhood: formData.neighborhood,
           city: formData.city,
-          zip: formData.zip
+          zip: formData.zip,
         }
       }
 
 
       if (Object.keys(fiscalAddress).length > 0) {
+        data.address.state = formData.state.value || formData.state;
         dispatch(startUpdateFiscalAddress(data));
       } else {
         dispatch(startAddFiscalAddress(data));
@@ -106,6 +108,7 @@ export const FormFiscalAddressProfile = () => {
                   formik.errors.legal_name : ""
               }
               fullWidth={true}
+              required={true}
               size="small"
               id="outlined-required"
               label="Nombre fiscal o Razón Social"
@@ -117,6 +120,7 @@ export const FormFiscalAddressProfile = () => {
             <TextField
               name="tax_id"
               fullWidth={true}
+              required={true}
               id="outlined-required"
               label="RFC"
               size="small"
@@ -133,6 +137,7 @@ export const FormFiscalAddressProfile = () => {
             <TextField
               name="email"
               fullWidth={true}
+              required={true}
               size="small"
               id="outlined-required"
               label="Correo Electronico"
@@ -145,6 +150,7 @@ export const FormFiscalAddressProfile = () => {
             <TextField
               name="phone"
               fullWidth={true}
+              required={true}
               size="small"
               id="outlined-required"
               label="Número Telefonico"
@@ -180,6 +186,7 @@ export const FormFiscalAddressProfile = () => {
             <TextField
               name="street"
               fullWidth={true}
+              required={true}
               size="small"
               id="outlined-required"
               label="Calle"
@@ -191,6 +198,7 @@ export const FormFiscalAddressProfile = () => {
             <TextField
               name="zip"
               fullWidth={true}
+              required={true}
               id="outlined-required"
               label="C.P"
               size="small"
@@ -205,6 +213,18 @@ export const FormFiscalAddressProfile = () => {
           </Grid>
           <Grid item xs={12} sm={12} md={4} lg={4} xl={4}>
             <TextField
+              name="exterior"
+              required={true}
+              fullWidth={true}
+              size="small"
+              id="outlined-required"
+              label="No.Ext"
+              onChange={formik.handleChange}
+              value={formik.values.exterior}
+            />
+          </Grid>
+          <Grid item xs={12} sm={12} md={4} lg={4} xl={4}>
+            <TextField
               name="interior"
               fullWidth={true}
               id="outlined-required"
@@ -214,21 +234,11 @@ export const FormFiscalAddressProfile = () => {
               value={formik.values.interior}
             />
           </Grid>
-          <Grid item xs={12} sm={12} md={4} lg={4} xl={4}>
-            <TextField
-              name="exterior"
-              fullWidth={true}
-              size="small"
-              id="outlined-required"
-              label="No.Ext"
-              onChange={formik.handleChange}
-              value={formik.values.exterior}
-            />
-          </Grid>
           <Grid item xs={12} sm={12} md={6} lg={6} xl={6}>
             <TextField
               name="neighborhood"
               fullWidth={true}
+              required={true}
               size="small"
               id="outlined-required"
               label="Colonia"
@@ -240,6 +250,7 @@ export const FormFiscalAddressProfile = () => {
             <TextField
               name="city"
               fullWidth={true}
+              required={true}
               size="small"
               id="outlined-required"
               label="Ciudad"
@@ -254,10 +265,12 @@ export const FormFiscalAddressProfile = () => {
               name="state"
               placeholder="Selecciona un estado"
               options={states}
-              id="react-select-32-live-region1"              
+              required={true}
+              id="react-select-32-live-region1"
               onChange={selectedOption => {
                 formik.setFieldValue("state", selectedOption.value),
-                  handleChangeState(selectedOption.value)
+                  handleChangeState(selectedOption.value),
+                  formik.setFieldValue("municipality", '')
               }}
               defaultValue={formik.values.state}
             />
@@ -269,6 +282,7 @@ export const FormFiscalAddressProfile = () => {
               name="municipality"
               placeholder="Selecciona un municipio"
               options={municipalities}
+              required={true}
               id="react-select-32-live-region2"
               onChange={selectedOption =>
                 formik.setFieldValue("municipality", selectedOption.value)

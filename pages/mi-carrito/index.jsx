@@ -10,12 +10,19 @@ import { useRouter } from 'next/router';
 import { Grid } from '@mui/material';
 import { startLoadFaqsCategories } from '../../src/actions/faqsActions';
 
+import { Modal } from "../../src/components/ui/modal";
+
+import { useToggle } from '../../src/hooks/useToggle';
+import FormAddress from '../../src/components/cart/FormAddress';
+
 const ShoppingCart = () => {
   const dispatch = useDispatch();
   const router = useRouter();
   const { cart, cartNotLogged, success, coupon, subtotalWithCoupon } = useSelector((state) => state.cart);
   const { logged } = useSelector((state) => state.auth);
   const { categories } = useSelector((state) => state.faqs);
+  const [open, toggle] = useToggle();
+
 
   useEffect(() => {
     if (!logged && !cart.length) {
@@ -50,11 +57,14 @@ const ShoppingCart = () => {
   }, [success]);
 
   useEffect(() => {
-    if (router.pathname === 'mi-carrito'){
+    if (router.pathname === 'mi-carrito') {
       router.prefetch(router.asPath);
     }
   }, [router])
 
+  const handleOpenFormAddress = () => {
+    toggle();
+  }
 
   return (
     <Layout categories={categories}>
@@ -68,10 +78,21 @@ const ShoppingCart = () => {
             <CartMobile />
           </Grid>
           <Grid item xs={12} sm={12} md={12} lg={4} xl={4}>
-            <CartTotals />
+            <CartTotals
+              handleOpenFormAddress={handleOpenFormAddress}
+            />
           </Grid>
         </Grid>
       </section>
+      <Modal
+        open={open}
+        handleOpenCheckout={toggle}
+        actions={false}
+        fullWidth={true}
+        maxWidth={'sm'}
+      >
+        <FormAddress toggle={toggle}/>
+      </Modal>
     </Layout>
   )
 }

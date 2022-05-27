@@ -122,9 +122,9 @@ export const updateAddress = (directions) => ({
     payload: directions
 })
 
-export const saveNewAddress = (data) => ({
+export const saveNewAddress = (direction) => ({
     type: types.add_new_address,
-    payload: data,
+    payload: direction,
 });
 
 export const startGetDirections = (ctx) => {
@@ -556,31 +556,3 @@ export const updateFiscalAddress = (customer, state, municipality) => ({
         municipality
     }
 });
-
-
-export const startInvoidedOrder = (order_id) => {
-    return async () => {
-
-        try {
-            let url = `/orders/invoice/${order_id}`;
-            await client.post(url);
-            Swal.fire({
-                title: 'Operación Exitosa',
-                text: "Tu factura ha sido generada satisfactoriamente , te hemos enviado la factura a tu correo electronico , revisa tu bandeja de entrada , si no has recibido el correo contacta al equipo de soporte",
-                icon: "success"
-            })
-        } catch (error) {
-            console.log(error);
-            Swal.fire({
-                title: 'Vaya ... Hubo un error',
-                text: 'Contacta al equipo de soporte o verifica tus datos fiscales',
-                icon: "error"
-            })
-        }
-    }
-}
-
-export const invoicedOrder = () => ({
-    type: types,
-
-})

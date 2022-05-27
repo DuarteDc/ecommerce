@@ -33,7 +33,7 @@ const Wishlist = () => {
         setLoading(true);
         const { products } = await dispatch(startLoadProducts(storedValue));
         const wishList = products?.map(product => ({ product_id: product._id }));
-        if(Array.isArray(wishList)){
+        if (Array.isArray(wishList)) {
             setValue(wishList)
         }
         console.log(wishList)
@@ -51,7 +51,9 @@ const Wishlist = () => {
                 return product.name.toLowerCase().includes(query.toLowerCase()) ||
                     product.description.toLowerCase().includes(query.toLowerCase())
             })
-            dispatch(searcProduct(data));
+            if (data.length > 0) {
+                dispatch(searcProduct(data));
+            }
         }
     }
 
@@ -83,12 +85,23 @@ const Wishlist = () => {
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
                     {
                         allProducts.length > 0 ? (
-                            products.map(product => (
-                                <ProductCard
-                                    key={product._id}
-                                    product={product}
-                                />
-                            )))
+                            products.length > 0 ? (
+                                products.map(product => (
+                                    <ProductCard
+                                        key={product._id}
+                                        product={product}
+                                    />
+                                ))
+                            ) : (
+                                <div className="text-center col-span-full">
+                                    <h4 className="text-2xl uppercase font-semibold mt-20 mb-10">No hay resultados para tu busqueda</h4>
+                                    <Image
+                                        src={"/assets/icons/extraviado.png"}
+                                        width={150}
+                                        height={150}
+                                    />
+                                </div>
+                            ))
                             : (
                                 <div className="text-center col-span-full">
                                     <h4 className="text-2xl uppercase font-semibold mt-20 mb-10">Guarda tus articulos favoritos</h4>

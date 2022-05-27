@@ -113,6 +113,7 @@ export const types = {
     finaliceCheckoutCart: '[ShoppingCart]  start finalice checkout cart',
     loadTotalsFromCookies: '[ShoppingCart] load totals checkout from cookies',
     loadDirectionsShoppingCart: '[ShoppingCart] load shippingCart client',
+    addDirectionInCart: '[ShoppingCart] add direction in cart',
     addAddressSelected: '[ShoppingCart] load shipping Address selected',
     successFinaliceTransfer: '[ShoppingCart] successFinaliceTrasfer',
 
@@ -133,5 +134,6 @@ export const types = {
     selectedOrderPendding: '[ORDERS] selected order pendding',
     upload_proof_payment_order: '[ORDERS] upload proof payment order',
     cancel_order: '[ORDERS] cancel orders',
+    invoiced_order: '[ORDER] invoiced order',
     start_load_reviews: '[REVIEWS] start load reviews',
 }

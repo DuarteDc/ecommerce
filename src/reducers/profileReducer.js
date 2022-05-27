@@ -95,18 +95,18 @@ export const profileReducer = (state = initialState, { type, payload }) => {
             const { customer, state: states, municipality } = payload;
             return {
                 ...state,
-                fiscalAddress: { ...customer },
-                stateSelected: { ...states },
-                municipalitySelected: { ...municipality },
+                fiscalAddress: customer ,
+                stateSelected: states,
+                municipalitySelected: municipality,
             }
         }
         case types.save_fiscal_address: {
             const { customer, state: states, municipality } = payload;
             return {
                 ...state,
-                fiscalAddress: { ...customer },
-                stateSelected: { ...states },
-                municipalitySelected: { ...municipality },
+                fiscalAddress: customer,
+                stateSelected: states,
+                municipalitySelected: municipality ,
             }
         }
 
@@ -114,9 +114,9 @@ export const profileReducer = (state = initialState, { type, payload }) => {
             const { customer, state: states, municipality } = payload;
             return {
                 ...state,
-                fiscalAddress: { ...customer },
-                stateSelected: { ...states },
-                municipalitySelected: { ...municipality },
+                fiscalAddress: customer,
+                stateSelected: states,
+                municipalitySelected: municipality,
             }
         default:
             return state;

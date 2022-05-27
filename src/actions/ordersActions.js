@@ -3,6 +3,7 @@ import client from "../config/axiosConfig";
 import { errorNotify, successNotify } from "../helpers/helpers";
 import { types } from "../types";
 import axios from "axios";
+import Cookies from 'js-cookie'
 
 export const startLoadPendingOrders = (token) => {
     return async (dispatch) => {
@@ -22,13 +23,16 @@ export const startLoadPendingOrders = (token) => {
 
 export const loadPendingOrders = (pendingOrders) => ({
     type: types.loadPenddingOrders,
-    payload: pendingOrders
+    payload: pendingOrders,
 });
 
-export const selectedOrderPendding = (order_id) => ({
+export const selectedOrderPendding = (order_id, total, totalPayments) => ({
     type: types.selectedOrderPendding,
-    payload: order_id
-
+    payload: {
+        order_id,
+        total,
+        totalPayments
+    }
 })
 
 
@@ -156,7 +160,12 @@ export const startGetOrder = (_id) => {
     return async (dispatch) => {
         try {
             let url = `/orders/${_id}`;
-            const { data } = await client.get(url);
+            const token = Cookies.get('token')
+            const { data } = await client.get(url, {
+                headers: {
+                    'Authorization': token
+                }
+            });
             dispatch(getOrder(data.order))
         } catch (error) {
             console.log(error);
@@ -170,3 +179,33 @@ export const getOrder = (order) => ({
 });
 
 
+export const startInvoidedOrder = (order_id, status) => {
+    return async (dispatch) => {
+
+        try {
+            let url = `/orders/invoice/${order_id}`;
+            const { data } = await client.post(url);
+            dispatch(invoicedOrder(data.order, status));
+            Swal.fire({
+                title: 'Operación Exitosa',
+                text: "Tu factura ha sido generada satisfactoriamente , te hemos enviado la factura a tu correo electronico , revisa tu bandeja de entrada , si no has recibido el correo contacta al equipo de soporte",
+                icon: "success"
+            })
+        } catch (error) {
+            console.log(error);
+            Swal.fire({
+                title: 'Vaya ... Hubo un error',
+                text: 'Contacta al equipo de soporte o verifica tus datos fiscales',
+                icon: "error"
+            })
+        }
+    }
+}
+
+export const invoicedOrder = (order, status) => ({
+    type: types.invoiced_order,
+    payload: {
+        order,
+        status,
+    }
+})

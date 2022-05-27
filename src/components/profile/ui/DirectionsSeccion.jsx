@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import ClearIcon from '@mui/icons-material/Clear';
+import Swal from "sweetalert2";
 import { clearDirection, selectDirection, setDefaultAddress, startDeleteAddress } from "../../../../src/actions/profileActions"
 import { useDispatch, useSelector } from 'react-redux';
 import { errorNotify, infoNotify, successNotify } from '../../../helpers/helpers';
@@ -27,19 +27,30 @@ const DirectionsSeccion = ({ directions }) => {
 
     }
 
-    const handleDeleteAddress = async (address_id, address_default) => {
+    const handleDeleteAddress = async (address_id) => {
 
-        if (address_default) {
-            return infoNotify("No se puede eliminar la dirección porque esta establecida como principal");
-        }
+        Swal.fire({
+            title: "¿Deseas eliminar esta direccion?",
+            icon: "question",
+            showCancelButton: true,
+            cancelButtonText: 'Cancelar!',
+            cancelButtonColor: "#b71c1c",
+            confirmButtonText: "Continuar",
+            confirmButtonColor: "#1976d2",
+            reverseButtons: true
+        }).then(async (result) => {
+            if (result.isConfirmed) {
+                const { hasError, message } = await dispatch(startDeleteAddress(address_id));
 
-        const { hasError, message } = await dispatch(startDeleteAddress(address_id));
+                if (hasError) {
+                    errorNotify(message);
+                    return;
+                }
+                
+                successNotify(message);
+            }
+        })
 
-        if (hasError) {
-            errorNotify(message);
-            return;
-        }
-        successNotify(message);
     }
 
     return (
@@ -48,7 +59,7 @@ const DirectionsSeccion = ({ directions }) => {
                 !showForm ? (
                     <>
                         <div
-                            className="border-2 border-gray-400 mt-5 w-11/12 mx-auto h-72 mr-4 cursor-pointer overflow-hidden flex flex-col items-center justify-center border-dashed rounded-md"
+                            className="border-2 border-gray-400 mt-5 w-11/12 mx-auto h-72 md:mr-4 cursor-pointer overflow-hidden flex flex-col items-center justify-center border-dashed rounded-md"
                             onClick={() => { setShowForm(true); dispatch(clearDirection()); setIsEditing(false) }}
                         >
                             <div>
@@ -65,13 +76,13 @@ const DirectionsSeccion = ({ directions }) => {
                         {
                             directions?.map(direction => (
                                 <div key={direction._id}
-                                    className="relative border-gray-300 border-2 mt-5 w-11/12 mx-auto h-72 mr-4 cursor-pointer overflow-hidden flex flex-col font-Poppins rounded-md"
+                                    className="relative border-gray-300 border-2 mt-5 w-11/12 mx-auto h-72 h-auto md:mr-4 overflow-hidden flex flex-col font-Poppins rounded-md"
                                 >
                                     <div className="font-Poppins bg-[#eee] px-10 py-5">
-                                        <p className="uppercase">{direction.name}</p>
+                                        <p className="uppercase truncate">{direction.name}</p>
                                     </div>
                                     <div className="px-10 my-10">
-                                        <p className="uppercase text-sm font-medium">{direction.street} {(direction.no_ext) && `, #${direction.no_ext}`}</p>
+                                        <p className="uppercase text-sm font-medium truncate">{direction.street} {(direction.no_ext) && `, #${direction.no_ext}`}</p>
                                         <p className="uppercase text-sm font-medium">{direction.municipality.name || direction.municipality}, {direction.state.name || direction.state} , {direction.postalcode}</p>
                                         <p className="uppercase text-sm font-light">{direction.city}</p>
                                     </div>
@@ -83,7 +94,7 @@ const DirectionsSeccion = ({ directions }) => {
                                         </p>
                                         <p className="text-sm cursor-pointer  hover:border-3 hover:border-solid hover:text-[#880e4f] hover:transition-all mx-2">|</p>
                                         <p className="text-sm text-center text-[#1976d2] cursor-pointer border-b-3 hover:border-solid hover:text-[#880e4f] hover:transition-all flex items-center justify-center"
-                                            onClick={() => { handleDeleteAddress(direction._id, direction.default) }}
+                                            onClick={() => { handleDeleteAddress(direction._id) }}
                                         >
                                             Descartar
                                         </p>

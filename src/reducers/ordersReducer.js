@@ -6,6 +6,8 @@ const initialState = {
     approvedOrders: [],
     shippedOrders: [],
     order_id: '',
+    totalOrder: 0,
+    totalPayments: 0,
     orderDetail: {}
 }
 
@@ -20,7 +22,9 @@ export const ordersReducer = (state = initialState, { type, payload }) => {
         case types.selectedOrderPendding:
             return {
                 ...state,
-                order_id: payload
+                order_id: payload.order_id,
+                totalOrder: payload.total,
+                totalPayments: payload.totalPayments
             }
         case types.upload_proof_payment_order:
             return {
@@ -63,6 +67,25 @@ export const ordersReducer = (state = initialState, { type, payload }) => {
                 ...state,
                 orderDetail: payload
             }
+
+        case types.invoiced_order: {
+
+            const { order, status } = payload;
+
+            return status === 2 ? {
+                ...state,
+                approvedOrders: state.approvedOrders.map(orders => orders._id === order._id
+                    ? { ...order }
+                    : { ...orders })
+            } : {
+                ...state,
+                shippedOrders: state.shippedOrders.map(orders => orders._id === order._id
+                    ? { ...order }
+                    : { ...orders })
+            }
+
+        }
+
         default:
             return state;
     }

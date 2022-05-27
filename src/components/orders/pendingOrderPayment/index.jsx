@@ -11,16 +11,18 @@ import { useToggle } from "../../../hooks/useToggle";
 import { Modal } from "../../ui/modal";
 import { useDispatch, useSelector } from "react-redux";
 import { startGetOrder, startOrderCancel } from "../../../actions/ordersActions";
-import { Grid, TextField } from "@mui/material";
+import { TextField } from "@mui/material";
 import { OrderDetails } from "./orderDetail";
 import Swal from "sweetalert2";
-import { cancelOrder, startInvoidedOrder } from "../../../actions/profileActions";
-import OrderStatus from "../OrderStatus";
+import { startInvoidedOrder } from "../../../actions/ordersActions";
 import TextareaAutosize from '@mui/material/TextareaAutosize';
 
 import { useFormik } from "formik";
 import * as Yup from 'yup';
 import { fontFamily } from "@mui/system";
+import { useRouter } from "next/router";
+import OrderStatus from "../OrderStatus";
+import OrderCancelStatus from "../OrderCancelStatus";
 
 export const PendingPaymentOrderIndex = ({ order, handleOpenProofOfPayment, status, text_description, text_color }) => {
 
@@ -48,6 +50,7 @@ export const PendingPaymentOrderIndex = ({ order, handleOpenProofOfPayment, stat
   }
   //2702
 
+  const router = useRouter();
 
   const sendCancelOrder = async (formData, resetForm) => {
     toggleCancelOrder();
@@ -89,13 +92,18 @@ export const PendingPaymentOrderIndex = ({ order, handleOpenProofOfPayment, stat
     }
   });
 
-  const handleClickInvoicedOrder = (order_id) => {
-    if (!fiscalAddress) {
+  const handleClickInvoicedOrder = (order_id, status) => {
+    if (Object.keys(fiscalAddress) < 1) {
       Swal.fire({
         title: 'Ups , accion no permitida',
         text: 'Detectamos que no has agregado tus datos fiscales , agregalos y vuelve a internarlo',
-        icon: 'warning'
-      });
+        icon: 'warning',
+        allowOutsideClick: false,
+      }).then((result) => {
+        if (result.isConfirmed) {
+          router.push('/perfil/direccion-fiscal');
+        }
+      })
       return;
     }
 
@@ -108,10 +116,11 @@ export const PendingPaymentOrderIndex = ({ order, handleOpenProofOfPayment, stat
       cancelButtonColor: "#b71c1c",
       confirmButtonText: "Continuar",
       confirmButtonColor: "#1976d2",
+      allowOutsideClick: false,
       reverseButtons: true
     }).then((result) => {
       if (result.isConfirmed) {
-        dispatch(startInvoidedOrder(order_id));
+        dispatch(startInvoidedOrder(order_id, status));
       }
     })
   }
@@ -142,7 +151,7 @@ export const PendingPaymentOrderIndex = ({ order, handleOpenProofOfPayment, stat
                 status === 0 && (
                   <>
                     <span className="uppercase text-sm  text-[#333]">
-                      Total liquidado
+                      Pagado
                     </span>
                     <p className="text-sm text-[#888]">
                       {totalPayments}
@@ -178,7 +187,7 @@ export const PendingPaymentOrderIndex = ({ order, handleOpenProofOfPayment, stat
                   {
                     (!order.invoiced) && status !== 0 && status !== 1 &&
                     <button className="text-sm  cursor-pointer border-b-3 hover:border-solid hover:text-[#880e4f] hover:transition-all mr-5"
-                      onClick={() => handleClickInvoicedOrder(order._id)}
+                      onClick={() => handleClickInvoicedOrder(order._id, status)}
                     >
                       Factura CFDI
                     </button>
@@ -197,7 +206,7 @@ export const PendingPaymentOrderIndex = ({ order, handleOpenProofOfPayment, stat
       </div>
 
       <div className="mb-6 grid grid-cols-1 lg:grid-cols-3  rounded-t-[6px] border-x border-b border-solid border-[#D5D9D9] py-3 px-10 py-10">
-        <div className="w-full flex lg:col-span-2">
+        <div className="w-full flex md:col-span-2 justify-center">
           <Swiper
             pagination={{ clickable: true }}
             scrollbar={{ draggable: true }}
@@ -222,11 +231,21 @@ export const PendingPaymentOrderIndex = ({ order, handleOpenProofOfPayment, stat
             }
           </Swiper>
         </div>
-        <div className="flex flex-col justify-center  items-center w-11/12 mx-auto">
+        <div className="flex flex-col justify-center  items-center w-full mx-auto">
+          {
+            status !== 1 && !order.cancelation && (
+              <OrderStatus status={order.orderStatus} />
+            )
+          }
+          {
+            order.orderStatus === 1 && order.cancelation && (
+              <OrderCancelStatus status={status} />
+            )
+          }
           {
             status === 0 && order.total_payments < order.total && !order.cancelation &&
             <button className="bg-[#FFD814] font-Poppins text-[#333] py-[10px] px-[15px] uppercase text-sm mt-5 flex items-center justify-center w-full"
-              onClick={() => handleOpenProofOfPayment(order._id)}
+              onClick={() => { handleOpenProofOfPayment(order._id, order.total, order.total_payments) }}
             >
               <IconContext.Provider value={{ className: "color-[#fff] , text-[20px] , mr-[10px]" }}>
                 <MdOutlineFileUpload />
@@ -236,7 +255,7 @@ export const PendingPaymentOrderIndex = ({ order, handleOpenProofOfPayment, stat
           }
 
           {
-            status === 0 && !order.cancelation && 
+            status === 0 && !order.cancelation &&
             <button className="bg-red-500  font-Poppins cursor-pointer text-white py-[10px] px-[15px] uppercase text-sm mt-5 flex items-center justify-center w-full"
               onClick={handleCancelOrder}
             >
@@ -283,7 +302,7 @@ export const PendingPaymentOrderIndex = ({ order, handleOpenProofOfPayment, stat
         </div>
       </Modal>
       <Modal
-        title="Detalle del pedido"
+        title="Agregar dirección"
         open={openOrderDetail}
         handleOpenCheckout={toggleOrderDetail}
         actions={false}

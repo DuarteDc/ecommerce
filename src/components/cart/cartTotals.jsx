@@ -11,7 +11,7 @@ import jsCookie from "js-cookie"
 import { useState, useEffect } from "react"
 import CouponDetails from "./CouponDetails"
 
-export const CartTotals = () => {
+export const CartTotals = ({ handleOpenFormAddress }) => {
   const dispatch = useDispatch();
   const { logged } = useSelector((state) => state.auth);
   const { cart, subtotal, total, shipping_costs, shippingAddress, addressSelected, coupon, subtotalWithCoupon } = useSelector((state) => state.cart);
@@ -36,7 +36,7 @@ export const CartTotals = () => {
         timerProgressBar: true,
         showConfirmButton: false
       });
-      router.push('/perfil');
+      router.push('/perfil/direcciones');
       return;
     }
 
@@ -101,7 +101,7 @@ export const CartTotals = () => {
       <div className="border-b-[1px] border-dashed border-[#d9d9d9] flex flex-wrap flex-start pt-[20px]">
         <InfoShippingCosts />
         <div className="w-full flex justify-center flex-wrap my-[20px]">
-          <ShippingAddress />
+          <ShippingAddress handleOpenFormAddress={handleOpenFormAddress} />
         </div>
         <div className="w-full">
           <CouponDetails

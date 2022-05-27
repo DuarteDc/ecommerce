@@ -2,109 +2,114 @@ import { types } from "../types";
 
 const initialState = {
     cart: [],
-    cartNotLogged:[],
-    coupon:'',
-    subtotalWithCoupon:0,
-    subtotal:0,
-    total:0,
-    superTotal:{},
-    withDiscount:{},
-    withoutDiscount:{},
-    shipping_costs:{},
-    order_id:'',
-    success:false,
-    shippingAddress:[],
-    addressSelected:{}
+    cartNotLogged: [],
+    coupon: '',
+    subtotalWithCoupon: 0,
+    subtotal: 0,
+    total: 0,
+    superTotal: {},
+    withDiscount: {},
+    withoutDiscount: {},
+    shipping_costs: {},
+    order_id: '',
+    success: false,
+    shippingAddress: [],
+    addressSelected: {}
 }
 
 export const shoppingCartReducer = (state = initialState, { type, payload }) => {
     switch (type) {
-       case types.addProductShoppingCart:
-           return{
-               ...state,
-               cart:payload
-           }
+        case types.addProductShoppingCart:
+            return {
+                ...state,
+                cart: payload
+            }
         case types.calculateTotalShoppingCart:
-            return{
+            return {
                 ...state,
                 subtotalWithCoupon: payload.subtotalWithCoupon,
-                subtotal:payload.subtotalCart,
-                total:payload.total,
-                shipping_costs:payload.shippingSelected
+                subtotal: payload.subtotalCart,
+                total: payload.total,
+                shipping_costs: payload.shippingSelected
             }
         case types.finaliceCheckoutCart:
-            return{
+            return {
                 ...state,
-                superTotal:payload.superTotal,
-                withDiscount:payload.withDiscount,
-                withoutDiscount:payload.withoutDiscount,
-                order_id:payload.order_id,
-                success:true  
+                superTotal: payload.superTotal,
+                withDiscount: payload.withDiscount,
+                withoutDiscount: payload.withoutDiscount,
+                order_id: payload.order_id,
+                success: true
             }
         case types.loadTotalsFromCookies:
-           return{
-               ...state,
-               superTotal:payload.superTotal,
-               withDiscount:payload.withDiscount,
-               withoutDiscount:payload.withoutDiscount,
-               shipping_costs:payload.shippingCosts,
-               order_id:payload.order_id
-           }
-       case types.removeProductShoppingCart:
-       case types.loadShoppingCart:
-       case types.updatedShoppingCart:
-       case types.loadShoppingCartFromLocalStorage:
-       case types.loadShoppingCartFussion:
-       case types.updatedProductQuantity:
-           return{
-               ...state,
-               cart:payload,
-               cartNotLogged:[]
-           }
+            return {
+                ...state,
+                superTotal: payload.superTotal,
+                withDiscount: payload.withDiscount,
+                withoutDiscount: payload.withoutDiscount,
+                shipping_costs: payload.shippingCosts,
+                order_id: payload.order_id
+            }
+        case types.removeProductShoppingCart:
+        case types.loadShoppingCart:
+        case types.updatedShoppingCart:
+        case types.loadShoppingCartFromLocalStorage:
+        case types.loadShoppingCartFussion:
+        case types.updatedProductQuantity:
+            return {
+                ...state,
+                cart: payload,
+                cartNotLogged: []
+            }
         case types.loadShoppingCartNotLoggedFromLocalStorage:
         case types.addProductShoppingCartNoLoggued:
-            return{
+            return {
                 ...state,
-                cartNotLogged:payload,
-                cart:[],
+                cartNotLogged: payload,
+                cart: [],
             }
         case types.updatedProductQuantityCartNotLogged:
-            return{
+            return {
                 ...state,
-                cartNotLogged:state.cartNotLogged.map(product=>product.product_id._id === payload.product_id._id ? payload : product)
+                cartNotLogged: state.cartNotLogged.map(product => product.product_id._id === payload.product_id._id ? payload : product)
             }
         case types.deleteProductShoppingCartNotLogged:
-            return{
+            return {
                 ...state,
-                cartNotLogged:state.cartNotLogged.filter((cart)=>cart.product_id._id !== payload)
+                cartNotLogged: state.cartNotLogged.filter((cart) => cart.product_id._id !== payload)
             }
         case types.loadDirectionsShoppingCart:
-            return{
+            return {
                 ...state,
-                shippingAddress:payload
+                shippingAddress: payload
             }
         case types.addAddressSelected:
+            return {
+                ...state,
+                addressSelected: payload
+            }
+        case types.addDirectionInCart:
             return{
                 ...state,
-                addressSelected:payload
+                shippingAddress: [...state.shippingAddress, payload]
             }
 
         case types.add_coupon:
 
-                return{
-                    ...state, 
-                    subtotal: payload.subtotal,
-                    coupon:payload.coupon,
-                }
+            return {
+                ...state,
+                subtotal: payload.subtotal,
+                coupon: payload.coupon,
+            }
 
         case types.remove_coupon:
-            return{
-                ...state, 
+            return {
+                ...state,
                 coupon: initialState.coupon
             }
-                
 
-       default:
-           return state;
+
+        default:
+            return state;
     }
 }

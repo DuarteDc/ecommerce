@@ -12,16 +12,7 @@ export const OrderDetails = ({ status }) => {
   return (
     <Grid container spacing={3} className="font-Poppins">
       <Grid item xs={12} sm={12} md={12} lg={12} xl={12}>
-        <div className="flex justify-between">
-          <p>Dirección de envÍo:</p>
-          <p className="max-w-[300px] text-[#888] text-sm font-light">{orderDetail?.shippment_direction?.street},{' '}
-            {orderDetail?.shippment_direction?.postalcode}, {' '}
-            {orderDetail?.shippment_direction?.city}{' '}
-          </p>
-        </div>
-      </Grid>
-      <Grid item xs={12} sm={12} md={12} lg={12} xl={12}>
-        <div className="flex justify-between">
+        <div className="flex justify-between items-center">
           <p>Dirección de envÍo:</p>
           <p className="max-w-[300px] text-[#888] text-sm font-light">{orderDetail?.shippment_direction?.street},{' '}
             {orderDetail?.shippment_direction?.postalcode}, {' '}
@@ -63,20 +54,6 @@ export const OrderDetails = ({ status }) => {
             </TableBody>
           </Table>
         </div>
-        {
-          status !== 1 && !orderDetail.cancelation && (
-            <div className="mt-10">
-              <OrderStatus status={orderDetail.orderStatus} />
-            </div>
-          )
-        }
-        {
-          orderDetail.orderStatus === 1 && orderDetail.cancelation && (
-            <div className="mt-10">
-              <OrderCancelStatus status={status} />
-            </div>
-          )
-        }
       </Grid>
     </Grid>
   )

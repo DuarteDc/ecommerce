@@ -13,8 +13,8 @@ const OrderCancelStatus = ({ status }) => {
     };
 
     return (
-        <Box sx={{ width: '100%' }}>
-            <Stepper activeStep={1}>
+        <Box sx={{ width: '100%' }} >
+            <Stepper activeStep={status} alternativeLabel>
                 {steps.map((label, index) => {
                     const labelProps = {};
                     if (isStepFailed(index)) {

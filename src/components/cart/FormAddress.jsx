@@ -1,25 +1,22 @@
 import { useEffect, useState } from 'react';
 
-import Modal from '@mui/material/Modal';
-
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
-import { clearDirection, getMinicipilitesPerState, getStates, startSaveNewAddress, startUpdateAddress } from '../../actions/profileActions';
+import { getMinicipilitesPerState, getStates } from '../../actions/profileActions';
+import {startSaveNewAddress} from '../../actions/shoppingCartActions';
 import { errorNotify, successNotify } from '../../helpers/helpers';
 import { useDispatch } from 'react-redux';
 
-const FormAddress = ({ setShowForm, direction, isEditing }) => {
+
+const FormAddress = ({ toggle }) => {
 
     const dispatch = useDispatch();
 
     const [states, setStates] = useState(null);
-    const [municipalities, setMunicipalities] = useState(null)
+    const [municipalities, setMunicipalities] = useState(null);
 
     useEffect(() => {
         loadStates();
-        if (isEditing) {
-            loadMunicipalities(direction?.state?._id);
-        }
     }, []);
 
     const loadStates = async () => {
@@ -46,32 +43,21 @@ const FormAddress = ({ setShowForm, direction, isEditing }) => {
             return;
         }
         successNotify(message);
-        setShowForm(false)
-    }
+        toggle();
 
-    const handleUpdateAddress = async (formData) => {
-
-        const { hasError, message } = await dispatch(startUpdateAddress(formData, direction._id));
-
-        if (hasError) {
-            errorNotify(message);
-            return;
-        }
-        successNotify(message);
-        setShowForm(false)
     }
 
     const initialValues = {
-        name: direction.name,
-        street: direction.street,
-        between_street: direction.between_street,
-        postalcode: direction.postalcode,
-        city: direction.city,
-        references: direction.references,
-        no_int: direction.no_int,
-        no_ext: direction.no_ext,
-        state: direction.state?._id,
-        municipality: direction.municipality?._id,
+        name: '',
+        street: '',
+        between_street: '',
+        postalcode: '',
+        city: '',
+        references: '',
+        no_int: '',
+        no_ext: '',
+        state: '',
+        municipality: '',
     }
 
     const validationSchema = {
@@ -91,31 +77,18 @@ const FormAddress = ({ setShowForm, direction, isEditing }) => {
         initialValues,
         validationSchema: Yup.object(validationSchema),
         onSubmit: (formData) => {
-            if (isEditing) {
-                handleUpdateAddress(formData);
-            } else {
-                handleSaveNewAddress(formData);
-            }
-            closeModal();
+            handleSaveNewAddress(formData);
         }
     });
+
     return (
         <div className="overflow-hidden mx-auto py-8 px-5 bg-white mt-5 animate__animated animate__fadeIn font-Poppins">
             <div className="flex items-center justify-between">
-
-                {
-                    !isEditing ? (
-                        <h2 className="font-bold text-xl mb-10">
-                            Nueva Dirección
-                        </h2>
-                    ) : (
-                        <h2 className="font-bold text-xl mb-10">
-                            Editar Dirección
-                        </h2>
-                    )
-                }
+                <h2 className="font-bold md:text-xl -mt-16">
+                    Agregar Dirección
+                </h2>
                 <p
-                    onClick={() => { setShowForm(false); dispatch(clearDirection()); }} className="cursor-pointer">
+                    onClick={toggle} className="cursor-pointer text-xs md:text-base">
                     cancelar
                 </p>
             </div>
@@ -287,21 +260,11 @@ const FormAddress = ({ setShowForm, direction, isEditing }) => {
                         ) : null}
                     </div>
                 </div>
-                {
-                    !isEditing ? (
-                        <button className="bg-[#222] w-full text-white py-4 uppercase hover:bg-[#333] border-2 border-[#222] transition-all duration-700 ease-in-out mt-10"
-                            type="submit"
-                        >
-                            Guardar Dirección
-                        </button>
-                    ) : (
-                        <button className="bg-[#222] w-full text-white py-4 uppercase hover:bg-[#333] border-2 border-[#222] transition-all duration-700 ease-in-out mt-10"
-                            type="submit"
-                        >
-                            Actualizar Dirección
-                        </button>
-                    )
-                }
+                <button className="bg-[#222] w-full text-white py-4 uppercase hover:bg-[#333] border-2 border-[#222] transition-all duration-700 ease-in-out mt-10"
+                    type="submit"
+                >
+                    Guardar Dirección
+                </button>
             </form>
         </div>
     )

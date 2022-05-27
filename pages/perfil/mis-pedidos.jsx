@@ -117,10 +117,10 @@ const MisPedidos = () => {
     setValueTab(newValue);
   }
 
-  const handleOpenProofOfPayment = (order_id) => {
+  const handleOpenProofOfPayment = (order_id, total, totalPayments) => {
     toggleProofOfPayment();
-    if (order_id) {
-      dispatch(selectedOrderPendding(order_id));
+    if (order_id && total) {
+      dispatch(selectedOrderPendding(order_id, total, totalPayments));
     }
 
   }

@@ -333,6 +333,42 @@ export const addShippingAddressSelected = (address) => ({
    payload: address
 })
 
+export const startSaveNewAddress = (data) => {
+
+   return async (dispatch) => {
+       let url = 'auth/save-directions';
+       try {
+           const token = await Cookies.get('token');
+           const res = await client.post(url, data, {
+               headers: {
+                   'Authorization': token
+               }
+           });
+           dispatch(saveNewAddress(res.data.direction));
+           return {
+               hasError: false,
+               message: res?.data?.message,
+           }
+
+       } catch (error) {
+           if (axios.isAxiosError(error)) {
+               return {
+                   hasError: true,
+                   message: error?.response?.data?.message,
+               }
+           }
+
+           return {
+               hasError: true,
+               message: "No se pudo guardar la dirección - intente mas tarde"
+           }
+       }
+   }
+}
+export const saveNewAddress = (direction) => ({
+   type: types.addDirectionInCart,
+   payload: direction,
+});
 
 /****************cupones*********************/
 
