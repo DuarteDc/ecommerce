@@ -134,7 +134,12 @@ export const startOrderCancel = (formData, order_id) => {
     return async (dispatch) => {
         try {
             let url = `/orders/request-cancel/${order_id}`;
-            const { data } = await client.post(url, formData);
+            const token = Cookies.get('token')
+            const { data } = await client.post(url, formData, {
+                headers: {
+                    'Authorization': token
+                }
+            });
             dispatch(orderCancel(order_id, data.order));
             successNotify(data.message);
         } catch (error) {
@@ -183,8 +188,15 @@ export const startInvoidedOrder = (order_id, status) => {
     return async (dispatch) => {
 
         try {
+
+            const token = Cookies.get('token')
+
             let url = `/orders/invoice/${order_id}`;
-            const { data } = await client.post(url);
+            const { data } = await client.post(url, {
+                headers: {
+                    'Authorization': token
+                }
+            });
             dispatch(invoicedOrder(data.order, status));
             Swal.fire({
                 title: 'Operación Exitosa',
