@@ -155,7 +155,12 @@ export const startRemoveProductShoppingCart = (_id) => {
    return async (dispatch) => {
       try {
          let url = `/cart/product/${_id}`;
-         const res = await client.delete(url);
+         const token = Cookies.get('token');
+         const res = await client.delete(url,{
+            headers: {
+               'Authorization': token
+            }
+         });
          dispatch(removeProductShoppingCart(res.data.cart.products));
       } catch (error) {
          console.log(error);
@@ -174,7 +179,12 @@ export const startUpdatedProductQuantity = (product) => {
    return async (dispatch) => {
       try {
          let url = '/cart';
-         const { data } = await client.post(url, product);
+         const token = Cookies.get('token');
+         const { data } = await client.post(url, product,{
+            headers: {
+               'Authorization': token
+            }
+         });
          dispatch(updatedProductQuantity(data.cart.products));
       } catch (error) {
          console.log(error);
@@ -271,6 +281,16 @@ export const updatedProductQuantityCartNotLogged = (product) => ({
    payload: product
 });
 
+export const startRemoveProductsShoppingCartNotLogged = (_id) => {
+   return (dispatch) => {
+      let cartNoAuth = JSON.parse(localStorage.getItem('cartNotlogged') || '');
+      const newCart = cartNoAuth.filter((cart) => cart.product_id._id !== _id);
+      localStorage.setItem('cartNotlogged', JSON.stringify(newCart));
+      dispatch(removeProductsShoppingCartNotLogged(_id))
+   }
+
+}
+
 export const removeProductsShoppingCartNotLogged = (_id) => ({
    type: types.deleteProductShoppingCartNotLogged,
    payload: _id
@@ -281,14 +301,12 @@ export const removeProductsShoppingCartNotLogged = (_id) => ({
 
 /**shoppingCart Fussion */
 
-export const startloadshoppingCartFussion = (shoppingCartNotLogged, token) => {
+export const startloadshoppingCartFussion = (products, token) => {
    return async (dispatch) => {
       try {
          let url = '/cart/fussion';
-         const products = {
-            "products": shoppingCartNotLogged
-         }
-         const { data } = await client.post(url, products, {
+       
+         const { data } = await client.post(url, {products}, {
             headers: {
                'Authorization': token
             }
@@ -336,33 +354,33 @@ export const addShippingAddressSelected = (address) => ({
 export const startSaveNewAddress = (data) => {
 
    return async (dispatch) => {
-       let url = 'auth/save-directions';
-       try {
-           const token = await Cookies.get('token');
-           const res = await client.post(url, data, {
-               headers: {
-                   'Authorization': token
-               }
-           });
-           dispatch(saveNewAddress(res.data.direction));
-           return {
-               hasError: false,
-               message: res?.data?.message,
-           }
+      let url = 'auth/save-directions';
+      try {
+         const token = await Cookies.get('token');
+         const res = await client.post(url, data, {
+            headers: {
+               'Authorization': token
+            }
+         });
+         dispatch(saveNewAddress(res.data.direction));
+         return {
+            hasError: false,
+            message: res?.data?.message,
+         }
 
-       } catch (error) {
-           if (axios.isAxiosError(error)) {
-               return {
-                   hasError: true,
-                   message: error?.response?.data?.message,
-               }
-           }
-
-           return {
+      } catch (error) {
+         if (axios.isAxiosError(error)) {
+            return {
                hasError: true,
-               message: "No se pudo guardar la dirección - intente mas tarde"
-           }
-       }
+               message: error?.response?.data?.message,
+            }
+         }
+
+         return {
+            hasError: true,
+            message: "No se pudo guardar la dirección - intente mas tarde"
+         }
+      }
    }
 }
 export const saveNewAddress = (direction) => ({

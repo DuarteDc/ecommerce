@@ -1,18 +1,20 @@
-import { HYDRATE } from "next-redux-wrapper";
+import { Slide } from 'react-slideshow-image';
+import 'react-slideshow-image/dist/styles.css'
+
 import { types } from "../types";
 
 const initalState = {
-   slidersData:[]
+    sliders: []
 }
 
-export const sliderReducer = (state = initalState , {type, payload}) =>{
-   switch (type) {
-       case types.loadSlidersData:
-           return{
-               ...state,
-               slidersData:payload
-           }
-       default:
-           return state;
-   }   
+export const sliderReducer = (state = initalState, { type, payload }) => {
+    switch (type) {
+        case types.loadSlidersData:
+            return {
+                ...state,
+                sliders: payload
+            }
+        default:
+            return state;
+    }
 }

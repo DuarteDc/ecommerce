@@ -127,7 +127,7 @@ export default function HomePage() {
 
   return (
     <>
-      <Slider />
+      <Slider/>
       <FacilityArea />
       <ProductsArea />
       <CategoryArea />

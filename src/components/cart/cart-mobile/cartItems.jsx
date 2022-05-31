@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import Image from "next/image"
 import { helpers } from "../../../helpers"
 import { ButtonGroup } from "../../ui";
-import { startRemoveProductShoppingCart, updatedProductQuantityCartNotLogged, removeProductsShoppingCartNotLogged, startUpdatedProductQuantity } from "../../../actions/shoppingCartActions";
+import { startRemoveProductShoppingCart, updatedProductQuantityCartNotLogged, startUpdatedProductQuantity, startRemoveProductsShoppingCartNotLogged } from "../../../actions/shoppingCartActions";
 import { useDispatch, useSelector } from "react-redux";
 import { useDebounce } from "../../../hooks/useDebounce";
 import { toast } from "react-toastify";
@@ -99,11 +99,10 @@ export const CartItems = ({ product }) => {
   }
 
   const handleRemoveProduct = (_id) => {
-
     if (logged) {
       dispatch(startRemoveProductShoppingCart(_id));
     } else {
-      dispatch(removeProductsShoppingCartNotLogged(_id));
+      dispatch(startRemoveProductsShoppingCartNotLogged(_id));
     }
   }
 
@@ -111,7 +110,7 @@ export const CartItems = ({ product }) => {
     <Tr>
       <Td data-testid="td" className="px-4 py-5 border-b border-gray-200 bg-white text-sm flex items-center text-center">
         <Image
-          src={product.product_id.multimedia[0].path}
+          src={(product.product_id.multimedia.length > 0) ? product.product_id.multimedia[0].path : 'https://upload.wikimedia.org/wikipedia/commons/d/d1/Image_not_available.png'}
           alt={product.name}
           width={150}
           height={150}

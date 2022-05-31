@@ -40,10 +40,12 @@ export const CheckoutForm = ({handleOpenCheckout}) =>{
         });
       }, [stripe]);
     
+      console.log(stripe?.elements)
 
       const handleSubmit = async (e) => {
         e.preventDefault();
     
+        
         if (!stripe || !elements) {
           // Stripe.js has not yet loaded.
           // Make sure to disable form submission until Stripe.js has loaded.
@@ -75,6 +77,7 @@ export const CheckoutForm = ({handleOpenCheckout}) =>{
 
     return(
         <form className="mt-[10px] border-t-[1px] border-[#eaedff]" id="payment-form" onSubmit={handleSubmit}>
+          
              <PaymentElement id="payment-element"/>
             <button 
               type="submit"

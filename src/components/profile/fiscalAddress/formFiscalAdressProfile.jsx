@@ -77,6 +77,7 @@ export const FormFiscalAddressProfile = () => {
 
       if (Object.keys(fiscalAddress).length > 0) {
         data.address.state = formData.state.value || formData.state;
+        data.address.municipality = formData.municipality.value || formData.municipality;
         dispatch(startUpdateFiscalAddress(data));
       } else {
         dispatch(startAddFiscalAddress(data));

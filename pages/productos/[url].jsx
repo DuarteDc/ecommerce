@@ -113,6 +113,7 @@ const Show = () => {
     }
 
     const handleClickRedirectCart = () => {
+        addProductCard(product)
         router.push('/mi-carrito');
     }
 
@@ -262,9 +263,8 @@ const Show = () => {
                                         {
                                             product?.tags.map(tag => (
                                                 <div key={tag.tag_id._id} className="bg-[#333] rounded-3xl px-4 py-1 mr-2 cursor-pointer ">
-                                                    <span className="text-secondary font-medium
-                                                    duration-500
-                                                    text-center
+                                                    <span className="text-secondary font-medium text-xs 
+                                                    duration-500 flex items-center justify-center
                                                     ">
                                                         {tag.tag_id.name}
                                                     </span>

@@ -15,8 +15,8 @@ const OrderStatus = ({ status }) => {
         <Box sx={{ width: '100%' }}>
             <Stepper activeStep={status} alternativeLabel>
                 {steps.map((label) => (
-                    <Step key={label}>
-                        <StepLabel>{label}</StepLabel>
+                    <Step key={label} color="secondary">
+                        <StepLabel  style={{color: 'red'}}>{label}</StepLabel>
                     </Step>
                 ))}
             </Stepper>

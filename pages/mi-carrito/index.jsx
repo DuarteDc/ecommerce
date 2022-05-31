@@ -63,6 +63,11 @@ const ShoppingCart = () => {
   }, [router])
 
   const handleOpenFormAddress = () => {
+    if (!logged) {
+      router.push(`/auth/login?p=${router.asPath}`);
+      return;
+    }
+
     toggle();
   }
 
@@ -91,7 +96,7 @@ const ShoppingCart = () => {
         fullWidth={true}
         maxWidth={'sm'}
       >
-        <FormAddress toggle={toggle}/>
+        <FormAddress toggle={toggle} />
       </Modal>
     </Layout>
   )

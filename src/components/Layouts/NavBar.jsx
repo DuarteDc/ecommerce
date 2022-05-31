@@ -18,6 +18,7 @@ import Button from '@mui/material/Button';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import { acceptCookies } from "../../actions/administrableActions";
+import { helpers } from "../../helpers";
 
 const NavBar = () => {
     const router = useRouter();
@@ -26,6 +27,8 @@ const NavBar = () => {
     const { wishList } = useSelector((state) => state.wishList);
     const { logged } = useSelector((state) => state.auth);
     const { logo } = useSelector((state) => state.administrable);
+
+    const { prepareProductsToFussion } = helpers;
 
     const [open, toggle] = useToggle();
 
@@ -67,16 +70,18 @@ const NavBar = () => {
 
             const token = Cookies.get('token') || '';
 
+            const products = prepareProductsToFussion(shoppingCartNotLogged);
+
             if (!shoppingCartNotLogged.length) {
                 dispatch(startLoadShoppingCart(token))
                 return;
             }
 
-            dispatch(startloadshoppingCartFussion(cartNotLogged, token));
+            dispatch(startloadshoppingCartFussion(products, token));
 
             localStorage.removeItem('cartNotlogged');
         }
-    }, [logged]);
+    }, [logged, router]);
 
     useEffect(() => {
         if (cart.length > 0) {
@@ -262,7 +267,7 @@ const NavBar = () => {
             </div>
 
 
-            <div className={`animate__animated lg:hidden ${open ? 'block animate__fadeInDown  absolute z-[10] w-full' : 'animate__fadeOutUp hidden'} `}>
+            <div className={`animate__animated lg:hidden ${open ? 'block animate__fadeInDown  absolute z-[30] w-full' : 'animate__fadeOutUp hidden'} `}>
                 <div className="px-2 pt-2 pb-3 space-y-1 bg-[#333] ">
                     {
                         pages.map(route => (

@@ -53,6 +53,17 @@ const existInShoppingCart = (_id, ShoppingCart) => {
   } else {
     return true;
   }
+
+}
+
+const prepareProductsToFussion = (cartNoAuth) => {
+
+  const products = cartNoAuth.map(cart => ({
+    product_id: cart._id,
+    quantity: cart.quantity,
+  }));
+  return products;
+
 }
 
 
@@ -61,7 +72,7 @@ export const successNotify = (message) => {
     position: "bottom-left",
     autoClose: 5000,
     hideProgressBar: false,
-    style: { backgroundColor: '#E5097E', color:'white' },
+    style: { backgroundColor: '#E5097E', color: 'white' },
     closeOnClick: true,
     pauseOnHover: false,
     draggable: true,
@@ -74,7 +85,7 @@ export const infoNotify = (message) => {
     position: "bottom-left",
     autoClose: 5000,
     hideProgressBar: false,
-    style: { backgroundColor: '#E5097E', color:'white' },
+    style: { backgroundColor: '#E5097E', color: 'white' },
     closeOnClick: true,
     pauseOnHover: false,
     draggable: true,
@@ -86,7 +97,7 @@ export const warningNotify = (message) => {
     position: "bottom-left",
     autoClose: 5000,
     hideProgressBar: false,
-    style: { backgroundColor: '#E5097E', color:'white' },
+    style: { backgroundColor: '#E5097E', color: 'white' },
     closeOnClick: true,
     pauseOnHover: false,
     draggable: true,
@@ -99,7 +110,7 @@ export const errorNotify = (message) => {
     position: "bottom-left",
     autoClose: 5000,
     hideProgressBar: false,
-    style: { backgroundColor: 'rgb(239 68 68)', color:'white' },
+    style: { backgroundColor: 'rgb(239 68 68)', color: 'white' },
     closeOnClick: true,
     pauseOnHover: false,
     draggable: true,
@@ -127,7 +138,7 @@ const applyCoupon = (subtotal, cuponDiscount) => {
   const newTotal = subtotal - discount.toFixed(3);
 
   return newTotal;
-  
+
 }
 
 
@@ -141,6 +152,7 @@ export default {
   warningNotify,
   errorNotify,
   calculatNewTotalToPay,
-  applyCoupon
+  applyCoupon,
+  prepareProductsToFussion,
 
 }

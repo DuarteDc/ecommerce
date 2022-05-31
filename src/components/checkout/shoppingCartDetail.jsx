@@ -2,11 +2,11 @@ import Image from "next/image"
 import helpers from "../../helpers/helpers"
 
 export const ShoppingCartDetail = ({shopping}) =>{
+
     const {totalWithDiscountApply , discountApply} = helpers.calculatNewTotalToPay(shopping.product_id.discount , shopping.product_id.price);
     const subtotal = helpers.priceFormat(Number(totalWithDiscountApply * shopping.quantity));
-    const discount = helpers.priceFormat(Number())
+    const discount = helpers.priceFormat(Number(shopping.product_id.price))
 
-    console.log(discountApply);
     return (
         <div className="flex py-[30px] px-[60px]" key={shopping._id}>
         <div className="mr-[20px]">
@@ -29,13 +29,13 @@ export const ShoppingCartDetail = ({shopping}) =>{
             {
               discountApply > 0 &&
               <p>
-                Descuento:{'  '}
+                Subtotal:{'  '}
                   <span className="text-[#858585] text-[15px] line-through inline-block  mr-1">{discount}</span>
               </p>
 
             }
            <p>
-             Subtotal:{'  '}
+             Total:{'  '}
             <span className="leading-10 text-[#333]"> {subtotal} </span>
            </p>
           </div>

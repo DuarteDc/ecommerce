@@ -3,8 +3,10 @@ import Select from "react-select";
 import { addShippingAddressSelected } from "../../actions/shoppingCartActions";
 
 export const ShippingAddress = ({ handleOpenFormAddress }) => {
+
     const dispatch = useDispatch();
     const { shippingAddress } = useSelector((state) => state.cart);
+    const { logged } = useSelector(state => state.auth);
 
     const address = shippingAddress.map(address => {
         let add = {
@@ -35,8 +37,8 @@ export const ShippingAddress = ({ handleOpenFormAddress }) => {
                     options={address}
                     onChange={(value) => handleChangeAddress(value)}
                 />
-                <p className="text-[#1976d2] text-[14px] cursor-pointer  hover:border-solid hover:text-[#880e4f] hover:transition-all flex flex-row-reverse"
-                onClick={handleOpenFormAddress}
+                <p className="flex flex-row-reverse font-semibold text-sm cursor-pointer text-[#e91e63] hover:border-3 hover:border-solid hover:text-[#880e4f] hover:transition-all"
+                    onClick={handleOpenFormAddress}
                 >
                     Agregar dirección
                 </p>

@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { IconContext } from "react-icons";
 import { MdOutlineFileUpload, MdOutlineCancel } from "react-icons/md";
 import { helpers } from "../../../helpers";
@@ -23,6 +24,9 @@ import { fontFamily } from "@mui/system";
 import { useRouter } from "next/router";
 import OrderStatus from "../OrderStatus";
 import OrderCancelStatus from "../OrderCancelStatus";
+import LoadingScreen from "../../LoadingScreen";
+import CircularProgress from '@mui/material/CircularProgress';
+
 
 export const PendingPaymentOrderIndex = ({ order, handleOpenProofOfPayment, status, text_description, text_color }) => {
 
@@ -35,6 +39,9 @@ export const PendingPaymentOrderIndex = ({ order, handleOpenProofOfPayment, stat
   const [openOrderDetail, toggleOrderDetail] = useToggle();
   const [openCancelSOrder, toggleCancelOrder] = useToggle();
 
+  const [loading, setLoading] = useState(false);
+  const [loadingDetail, setLoadingDetail] = useState(false);
+
   const handleClickAddress = () => {
     toggle();
   }
@@ -44,9 +51,11 @@ export const PendingPaymentOrderIndex = ({ order, handleOpenProofOfPayment, stat
     // dispatch(startOrderCancel(order._id));
   }
 
-  const handleClickOrderDetail = () => {
+  const handleClickOrderDetail = async () => {
     toggleOrderDetail();
-    dispatch(startGetOrder(order._id));
+    setLoadingDetail(true)
+    await dispatch(startGetOrder(order._id));
+    setLoadingDetail(false);
   }
   //2702
 
@@ -118,250 +127,262 @@ export const PendingPaymentOrderIndex = ({ order, handleOpenProofOfPayment, stat
       confirmButtonColor: "#1976d2",
       allowOutsideClick: false,
       reverseButtons: true
-    }).then((result) => {
+    }).then(async (result) => {
       if (result.isConfirmed) {
-        dispatch(startInvoidedOrder(order_id, status));
+        setLoading(true);
+        await dispatch(startInvoidedOrder(order_id, status));
+        setLoading(false);
       }
     })
   }
 
   return (
-    <div>
-      <div className="flex w-full bg-[#eee] p-8  rounded-t-[6px]  font-Poppins">
-        <div className="grid grid-cols-1 w-full md:grid-cols-3 lg:grid-cols-3">
-          <div className="flex justify-between w-full items-center">
-            <div className="flex flex-col justify-center items-center">
-              <span className="uppercase text-sm text-[#333]">
-                Pedido realizado
-              </span>
-              <p className="text-sm text-[#888]">
-                {date}
-              </p>
+    <>
+      {loading && <LoadingScreen />}
+      <div>
+        <div className="flex w-full bg-[#eee] p-8  rounded-t-[6px]  font-Poppins">
+          <div className="grid grid-cols-1 w-full md:grid-cols-3 lg:grid-cols-3">
+            <div className="flex justify-between w-full items-center">
+              <div className="flex flex-col justify-center items-center">
+                <span className="uppercase text-sm text-[#333]">
+                  Pedido realizado
+                </span>
+                <p className="text-sm text-[#888]">
+                  {date}
+                </p>
+              </div>
+              <div className="flex flex-col justify-center items-center">
+                <span className="uppercase text-sm text-[#333]">
+                  Total
+                </span>
+                <p className="text-sm text-[#888]">
+                  {total}
+                </p>
+              </div>
+              <div className="flex flex-col justify-center items-center">
+                {
+                  status === 0 && (
+                    <>
+                      <span className="uppercase text-sm  text-[#333]">
+                        Pagado
+                      </span>
+                      <p className="text-sm text-[#888]">
+                        {totalPayments}
+                      </p>
+                    </>
+                  )
+                }
+              </div>
             </div>
-            <div className="flex flex-col justify-center items-center">
-              <span className="uppercase text-sm text-[#333]">
-                Total
-              </span>
-              <p className="text-sm text-[#888]">
-                {total}
-              </p>
-            </div>
-            <div className="flex flex-col justify-center items-center">
-              {
-                status === 0 && (
-                  <>
-                    <span className="uppercase text-sm  text-[#333]">
-                      Pagado
-                    </span>
-                    <p className="text-sm text-[#888]">
-                      {totalPayments}
-                    </p>
-                  </>
-                )
-              }
-            </div>
-          </div>
-          <div>
-            <div className="text-center cursor-pointer flex flex-col"
-              onClick={() => handleClickAddress()}
-            >
-              <span className="uppercase text-sm leading-6 text-[#333]">
-                Enviar a:
-              </span>
-              <span className="text-sm text-[#1976d2] cursor-pointer border-b-3 hover:border-solid hover:text-[#880e4f] hover:transition-all flex justify-center"
-              >
-                {order?.shippment_direction?.name}
-                <AiFillCaretDown />
-              </span>
-            </div>
-          </div>
-          <div>
             <div>
-              <div className="text-center cursor-pointer">
-                <span className="text-sm text-[#333]">Pedido N.º {order.folio}</span>
-                <div className="w-full mr-6 text-[#1976d2]">
-                  {
-                    order.invoiced && status !== 0 && status !== 1 &&
-                    <span className="text-sm  cursor-pointer border-b-3 hover:border-solid hover:text-[#880e4f] hover:transition-all mr-5">Pedido ya facturado</span>
-                  }
-                  {
-                    (!order.invoiced) && status !== 0 && status !== 1 &&
-                    <button className="text-sm  cursor-pointer border-b-3 hover:border-solid hover:text-[#880e4f] hover:transition-all mr-5"
-                      onClick={() => handleClickInvoicedOrder(order._id, status)}
+              <div className="text-center cursor-pointer flex flex-col"
+                onClick={() => handleClickAddress()}
+              >
+                <span className="uppercase text-sm leading-6 text-[#333]">
+                  Enviar a:
+                </span>
+                <span className="text-sm text-[#1976d2]  text-[#e91e63]  cursor-pointer border-b-3 hover:border-solid hover:text-[#880e4f] hover:transition-all flex justify-center"
+                >
+                  {order?.shippment_direction?.name}
+                  <AiFillCaretDown />
+                </span>
+              </div>
+            </div>
+            <div>
+              <div>
+                <div className="text-center cursor-pointer">
+                  <span className="text-sm text-[#333]">Pedido N.º {order.folio}</span>
+                  <div className="w-full mr-6 text-[#1976d2]">
+                    {
+                      order.invoiced && status !== 0 && status !== 1 &&
+                      <span className="text-sm  cursor-pointer border-b-3 text-[#e91e63]  hover:border-solid hover:text-[#880e4f] hover:transition-all mr-5">Pedido ya facturado</span>
+                    }
+                    {
+                      (!order.invoiced) && status !== 0 && status !== 1 &&
+                      <button className="text-sm  cursor-pointer border-b-3  text-[#e91e63] hover:border-solid hover:text-[#880e4f] hover:transition-all mr-5"
+                        onClick={() => handleClickInvoicedOrder(order._id, status)}
+                      >
+                        Factura CFDI
+                      </button>
+                    }
+                    <button
+                      className="text-sm cursor-pointer text-[#e91e63] hover:border-3 hover:border-solid hover:text-[#880e4f] hover:transition-all"
+                      onClick={() => handleClickOrderDetail()}
                     >
-                      Factura CFDI
+                      Detalles del pedido
                     </button>
-                  }
-                  <button
-                    className="text-sm cursor-pointer  hover:border-3 hover:border-solid hover:text-[#880e4f] hover:transition-all"
-                    onClick={() => handleClickOrderDetail()}
-                  >
-                    Detalles del pedido
-                  </button>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
 
-      <div className="mb-6 grid grid-cols-1 lg:grid-cols-3  rounded-t-[6px] border-x border-b border-solid border-[#D5D9D9] py-3 px-10 py-10">
-        <div className="w-full flex md:col-span-2 justify-center">
-          <Swiper
-            pagination={{ clickable: true }}
-            scrollbar={{ draggable: true }}
-            slidesPerView={1}
-            navigation={false}
-            loop={false}
-            className="mySwiper w-full"
-            modules={[Pagination, Autoplay, Navigation]}
+        <div className="mb-6 grid grid-cols-1 lg:grid-cols-3  rounded-t-[6px] border-x border-b border-solid border-[#D5D9D9] py-3 px-10 py-10">
+          <div className="w-full flex md:col-span-2 justify-center">
+            <Swiper
+              pagination={{ clickable: true }}
+              scrollbar={{ draggable: true }}
+              slidesPerView={1}
+              navigation={false}
+              loop={false}
+              className="mySwiper w-full"
+              modules={[Pagination, Autoplay, Navigation]}
 
-          >
-            {
-              order.products_list.map((product, index) => (
-                <SwiperSlide key={product.product_id}>
-                  <OrderProductsList
-                    product={product}
-                    status={status}
-                    index={index}
-                    handleCancelOrder={handleCancelOrder}
-                  />
-                </SwiperSlide>
-              ))
-            }
-          </Swiper>
-        </div>
-        <div className="flex flex-col justify-center  items-center w-full mx-auto">
-          {
-            status !== 1 && !order.cancelation && (
-              <OrderStatus status={order.orderStatus} />
-            )
-          }
-          {
-            order.orderStatus === 1 && order.cancelation && (
-              <OrderCancelStatus status={status} />
-            )
-          }
-          {
-            status === 0 && order.total_payments < order.total && !order.cancelation &&
-            <button className="bg-[#FFD814] font-Poppins text-[#333] py-[10px] px-[15px] uppercase text-sm mt-5 flex items-center justify-center w-full"
-              onClick={() => { handleOpenProofOfPayment(order._id, order.total, order.total_payments) }}
             >
-              <IconContext.Provider value={{ className: "color-[#fff] , text-[20px] , mr-[10px]" }}>
-                <MdOutlineFileUpload />
-              </IconContext.Provider>
-              <span>Comprobante de pago</span>
-            </button>
-          }
-
-          {
-            status === 0 && !order.cancelation &&
-            <button className="bg-red-500  font-Poppins cursor-pointer text-white py-[10px] px-[15px] uppercase text-sm mt-5 flex items-center justify-center w-full"
-              onClick={handleCancelOrder}
-            >
-              <IconContext.Provider value={{ className: "color-[#fff] , text-[20px] , mr-[10px]" }}>
-                <MdOutlineCancel />
-              </IconContext.Provider>
-              <span>Cancelar pedido</span>
-            </button>
-          }
-        </div>
-      </div>
-
-
-
-      <Modal
-        title="Dirección de envio"
-        open={open}
-        handleOpenCheckout={handleClickAddress}
-        actions={false}
-        fullWidth={true}
-        maxWidth={'sm'}
-      >
-        <div className="flex justify-between mb-2 ">
-          <p className="font-Poppins font-medium text-base capitalize text-[#333] leading-6">Calle</p>
-          <span className="text-base text-[#888] capitalize">{order?.shippment_direction?.street}</span>
-        </div>
-        <div className="flex justify-between mb-2 ">
-          <p className="font-Poppins font-medium text-base capitalize text-[#333] leading-6">Entre Calle y Calle</p>
-          <span className="text-base text-[#888] capitalize">{order?.shippment_direction?.between_street}</span>
-        </div>
-        <div className="flex justify-between mb-2 ">
-          <p className="font-Poppins font-medium text-base capitalize text-[#333] leading-6">
-            Código
-          </p>
-          <span className="text-base text-[#888] capitalize">{order?.shippment_direction?.postalcode}</span>
-        </div>
-        <div className="flex justify-between mb-2 ">
-          <p className="font-Poppins font-medium text-base capitalize text-[#333] leading-6">Ciudad</p>
-          <span className="text-base text-[#888] capitalize">{order?.shippment_direction?.city}</span>
-        </div>
-        <div className="flex justify-between mb-2 ">
-          <p className="font-Poppins font-medium text-base capitalize text-[#333] leading-6">Referencia</p>
-          <span className="text-base text-[#888] capitalize">{order?.shippment_direction?.references}</span>
-        </div>
-      </Modal>
-      <Modal
-        title="Agregar dirección"
-        open={openOrderDetail}
-        handleOpenCheckout={toggleOrderDetail}
-        actions={false}
-        fullWidth={true}
-        maxWidth={'sm'}
-      >
-        <OrderDetails status={status} />
-      </Modal>
-      <Modal
-        title="Cancelar Pedido"
-        open={openCancelSOrder}
-        handleOpenCheckout={toggleCancelOrder}
-        actions={false}
-        fullWidth={true}
-        maxWidth={'sm'}
-        className="font-Poppins"
-      >
-        <form onSubmit={formik.handleSubmit}>
-          <div className="upload-area__header py-5">
-            <p className="text-[0.9rem] text-[#888]">
-              Escribe el motivo de tu cancelación y sera revisada por nosotros
-            </p>
+              {
+                order.products_list.map((product, index) => (
+                  <SwiperSlide key={product.product_id}>
+                    <OrderProductsList
+                      product={product}
+                      status={status}
+                      index={index}
+                      handleCancelOrder={handleCancelOrder}
+                    />
+                  </SwiperSlide>
+                ))
+              }
+            </Swiper>
           </div>
-          <TextField
-            name="subject"
-            error={formik.touched.subject && formik.errors.subject ? true : false}
-            helperText={
-              formik.touched.subject && formik.errors.subject ?
-                formik.errors.subject : ""
+          <div className="flex flex-col justify-center  items-center w-full mx-auto">
+            {
+              status !== 1 && !order.cancelation && (
+                <OrderStatus status={order.orderStatus} />
+              )
             }
-            fullWidth={true}
-            size="large"
-            id="outlined-required"
-            label="Asunto"
-            onChange={formik.handleChange}
-            value={formik.values.subject}
-          />
-          <TextareaAutosize
-            aria-label="empty textarea"
-            className="input"
-            placeholder="Descripción"
-            name="description"
-            onChange={formik.handleChange}
-            value={formik.values.description}
-            onBlur={formik.handleBlur}
-            minRows={10}
-            error={formik.touched.description && formik.errors.description ? true : false}
-            helperText={
-              formik.touched.description && formik.errors.description ?
-                formik.errors.description : ""
+            {
+              order.orderStatus === 1 && order.cancelation && (
+                <OrderCancelStatus status={status} />
+              )
             }
-            style={{ width: '100%', marginTop: 20, marginBottom: 20, padding: 10, resize: "none", border: 'solid 1px', borderColor: "#ccc" }}
-          />
-          <button className="w-full px-2 py-4 bg-[#222] text-white hover:bg-[#333]" type="submit">
-            Enviar
-          </button>
-        </form>
-      </Modal>
-    </div>
+            {
+              status === 0 && order.total_payments < order.total && !order.cancelation &&
+              <button className="bg-[#FFD814] font-Poppins text-[#333] py-[10px] px-[15px] uppercase text-sm mt-5 flex items-center justify-center w-full"
+                onClick={() => { handleOpenProofOfPayment(order._id, order.total, order.total_payments) }}
+              >
+                <IconContext.Provider value={{ className: "color-[#fff] , text-[20px] , mr-[10px]" }}>
+                  <MdOutlineFileUpload />
+                </IconContext.Provider>
+                <span>Comprobante de pago</span>
+              </button>
+            }
+
+            {
+              status === 0 && !order.cancelation &&
+              <button className="bg-red-500  font-Poppins cursor-pointer text-white py-[10px] px-[15px] uppercase text-sm mt-5 flex items-center justify-center w-full"
+                onClick={handleCancelOrder}
+              >
+                <IconContext.Provider value={{ className: "color-[#fff] , text-[20px] , mr-[10px]" }}>
+                  <MdOutlineCancel />
+                </IconContext.Provider>
+                <span>Cancelar pedido</span>
+              </button>
+            }
+          </div>
+        </div>
+
+
+
+        <Modal
+          title="Dirección de envio"
+          open={open}
+          handleOpenCheckout={handleClickAddress}
+          actions={false}
+          fullWidth={true}
+          maxWidth={'sm'}
+        >
+          <div className="flex justify-between mb-2 ">
+            <p className="font-Poppins font-medium text-base capitalize text-[#333] leading-6">Calle</p>
+            <span className="text-base text-[#888] capitalize">{order?.shippment_direction?.street}</span>
+          </div>
+          <div className="flex justify-between mb-2 ">
+            <p className="font-Poppins font-medium text-base capitalize text-[#333] leading-6">Entre Calle y Calle</p>
+            <span className="text-base text-[#888] capitalize">{order?.shippment_direction?.between_street}</span>
+          </div>
+          <div className="flex justify-between mb-2 ">
+            <p className="font-Poppins font-medium text-base capitalize text-[#333] leading-6">
+              Código
+            </p>
+            <span className="text-base text-[#888] capitalize">{order?.shippment_direction?.postalcode}</span>
+          </div>
+          <div className="flex justify-between mb-2 ">
+            <p className="font-Poppins font-medium text-base capitalize text-[#333] leading-6">Ciudad</p>
+            <span className="text-base text-[#888] capitalize">{order?.shippment_direction?.city}</span>
+          </div>
+          <div className="flex justify-between mb-2 ">
+            <p className="font-Poppins font-medium text-base capitalize text-[#333] leading-6">Referencia</p>
+            <span className="text-base text-[#888] capitalize">{order?.shippment_direction?.references}</span>
+          </div>
+        </Modal>
+        <Modal
+          title="Detalles del pedido"
+          open={openOrderDetail}
+          handleOpenCheckout={toggleOrderDetail}
+          actions={false}
+          fullWidth={true}
+          maxWidth={'sm'}
+        >
+          {
+            loadingDetail ?
+              <div className="flex justify-center items-center">
+                <CircularProgress />
+              </div>
+              : 
+              <OrderDetails status={status} />
+          }
+        </Modal>
+        <Modal
+          title="Cancelar Pedido"
+          open={openCancelSOrder}
+          handleOpenCheckout={toggleCancelOrder}
+          actions={false}
+          fullWidth={true}
+          maxWidth={'sm'}
+          className="font-Poppins"
+        >
+          <form onSubmit={formik.handleSubmit}>
+            <div className="upload-area__header py-5">
+              <p className="text-[0.9rem] text-[#888]">
+                Escribe el motivo de tu cancelación y sera revisada por nosotros
+              </p>
+            </div>
+            <TextField
+              name="subject"
+              error={formik.touched.subject && formik.errors.subject ? true : false}
+              helperText={
+                formik.touched.subject && formik.errors.subject ?
+                  formik.errors.subject : ""
+              }
+              fullWidth={true}
+              size="large"
+              id="outlined-required"
+              label="Asunto"
+              onChange={formik.handleChange}
+              value={formik.values.subject}
+            />
+            <TextareaAutosize
+              aria-label="empty textarea"
+              className="input"
+              placeholder="Descripción"
+              name="description"
+              onChange={formik.handleChange}
+              value={formik.values.description}
+              onBlur={formik.handleBlur}
+              minRows={10}
+              error={formik.touched.description && formik.errors.description ? true : false}
+              helperText={
+                formik.touched.description && formik.errors.description ?
+                  formik.errors.description : ""
+              }
+              style={{ width: '100%', marginTop: 20, marginBottom: 20, padding: 10, resize: "none", border: 'solid 1px', borderColor: "#ccc" }}
+            />
+            <button className="w-full px-2 py-4 bg-[#222] text-white hover:bg-[#333]" type="submit">
+              Enviar
+            </button>
+          </form>
+        </Modal>
+      </div>
+    </>
   )
 }
 

@@ -8,6 +8,10 @@ import "swiper/css/navigation";
 import 'animate.css';
 import * as ga from '../src/libs/ga';
 
+import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { purple } from '@mui/material/colors';
+
+
 import {
   GoogleReCaptchaProvider,
   GoogleReCaptcha
@@ -35,10 +39,24 @@ const MyApp = ({ Component, pageProps, session }) => {
   }, [router.events])
 
   const getLayout = Component.getLayout || ((page) => page);
+
+  const theme = createTheme({
+    palette: {
+      primary: {
+        light: '#a31545',
+        main: '#e91e63',
+        dark: '#ed4b82',
+        contrastText: '#fff',
+      },
+    },
+  });
+
   return getLayout(
-    <GoogleReCaptchaProvider reCaptchaKey={process.env.NEXT_PUBLIC_RECAPTCHA}>
-      <Component {...pageProps} />
-    </GoogleReCaptchaProvider>
+    <ThemeProvider theme={theme}>
+      <GoogleReCaptchaProvider reCaptchaKey={process.env.NEXT_PUBLIC_RECAPTCHA}>
+        <Component {...pageProps} />
+      </GoogleReCaptchaProvider>
+    </ThemeProvider>
   )
 
 }
