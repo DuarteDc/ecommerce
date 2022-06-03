@@ -9,8 +9,6 @@ import 'animate.css';
 import * as ga from '../src/libs/ga';
 
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import { purple } from '@mui/material/colors';
-
 
 import {
   GoogleReCaptchaProvider,
@@ -20,8 +18,19 @@ import {
 
 
 
-const MyApp = ({ Component, pageProps, session }) => {
+const MyApp = ({ Component, pageProps }) => {
   const router = useRouter()
+
+    const theme = createTheme({
+    palette: {
+      primary: {
+        light: '#a31545',
+        main: '#e91e63',
+        dark: '#ed4b82',
+        contrastText: '#fff',
+      },
+    },
+  });
 
   useEffect(() => {
     const handleRouteChange = (url) => {
@@ -39,17 +48,6 @@ const MyApp = ({ Component, pageProps, session }) => {
   }, [router.events])
 
   const getLayout = Component.getLayout || ((page) => page);
-
-  const theme = createTheme({
-    palette: {
-      primary: {
-        light: '#a31545',
-        main: '#e91e63',
-        dark: '#ed4b82',
-        contrastText: '#fff',
-      },
-    },
-  });
 
   return getLayout(
     <ThemeProvider theme={theme}>

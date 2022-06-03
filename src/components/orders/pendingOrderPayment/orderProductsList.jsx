@@ -8,7 +8,7 @@ import { Grid } from "@mui/material";
 import Zoom from 'react-medium-image-zoom'
 import 'react-medium-image-zoom/dist/styles.css'
 
-export const OrderProductsList = ({ product, index, status, handleCancelOrder }) => {
+export const OrderProductsList = ({ product }) => {
     const { product: productList, quantity, subtotal } = product;
     const subtotalProduct = helpers.priceFormat(subtotal);
     return (
@@ -22,6 +22,7 @@ export const OrderProductsList = ({ product, index, status, handleCancelOrder })
                                     src={productList?.multimedia[0]?.path}
                                     width={200}
                                     height={200}
+                                    layout="fixed"
                                 />
                             </picture>
                         </Zoom>

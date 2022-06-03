@@ -14,7 +14,15 @@ import FormControl from '@mui/material/FormControl';
 
 const FormAddress = ({ toggle }) => {
 
-    const dispatch = useDispatch();
+    const dispatch = useDispatch()
+    ;
+    const handleKeyPress = (e) =>{
+        let key = window.event ? e.which : e.keyCode;
+        if (key < 48 || key > 57) {
+            e.preventDefault();
+        }
+    }
+
 
     const [states, setStates] = useState(null);
     const [municipalities, setMunicipalities] = useState(null);
@@ -71,8 +79,8 @@ const FormAddress = ({ toggle }) => {
         postalcode: Yup.string().min(5, 'El código postal debe contener al menos 5 caracteres').required('el código postal es requerido').max(5, 'El código postal no debe contener mas de 5 caracteres'),
         city: Yup.string().min(5, 'La ciudad debe contener al menos 8 caracteres').required('La ciudad es requerida'),
         references: Yup.string().min(8, 'Las referencias debe contener al menos 8 caracteres').required('Las referencias son requeridas'),
-        no_ext: Yup.number().typeError('El número exterior no es valido').required('El número exterior es requerido'),
-        no_int: Yup.number().typeError('El número interior no es valido'),
+        no_ext: Yup.string().required('El número exterior es requerido'),
+        no_int: Yup.string(),
         state: Yup.string().required('El estado es requerido'),
         municipality: Yup.string().required('El municipio es requerido')
     }
@@ -176,8 +184,8 @@ const FormAddress = ({ toggle }) => {
                                 required={true}
                                 name="street"
                                 onChange={formik.handleChange}
-                                value={formik.values.name}
-                                placeholder="Nombre"
+                                value={formik.values.street}
+                                placeholder="Calle"
                             />
                             {formik.touched.street && formik.errors.street ? (
                                 <span className="text-red-500 text-sm">{formik.errors.street}</span>
@@ -206,6 +214,7 @@ const FormAddress = ({ toggle }) => {
                                 name="postalcode"
                                 required={true}
                                 onChange={formik.handleChange}
+                                onKeyPress={handleKeyPress}
                                 value={formik.values.postalcode}
                                 placeholder="Código postal"
                                 label="Código postal"
@@ -252,6 +261,7 @@ const FormAddress = ({ toggle }) => {
                                 onChange={formik.handleChange}
                                 value={formik.values.no_ext}
                                 placeholder="No. Exterior"
+                                onKeyPress={handleKeyPress}
                                 required={true}
                                 label="No.exterior"
                             />
@@ -266,6 +276,7 @@ const FormAddress = ({ toggle }) => {
                                 name="no_int"
                                 onChange={formik.handleChange}
                                 placeholder="No. Interior"
+                                onKeyPress={handleKeyPress}
                                 value={formik.values.no_int}
                                 label="No. Interior"
 

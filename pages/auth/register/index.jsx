@@ -17,7 +17,7 @@ const index = () => {
           <div className="hidden lg:block bg-register bg-no-repeat bg-cover relative mr-20">
             <div className="text-center bg-gray-900 w-full h-full opacity-50">
             </div>
-            <h3 className="inset-y-1/3 px-20 text-4xl font-bold opacity-100 absolute z-20 text-white text-center">Obtén acceso a privilegiado a más ofertas, nuevos modelos y más.
+            <h3 className="inset-y-1/3 px-20 text-4xl font-bold opacity-100 absolute z-20 text-white text-center">Obtén acceso privilegiado a ofertas, nuevos modelos y más.
             </h3>
           </div>
         </div>
@@ -30,7 +30,7 @@ export const getStaticProps = wrapper.getStaticProps((store) =>
   async () => {
     await store.dispatch(startLoadAdministrableLogo());
     return {
-      revalidate: 86400
+      revalidate: 480
     }
   });
 

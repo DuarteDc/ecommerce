@@ -70,13 +70,13 @@ const ProductInfo = ({ product, closeModal }) => {
                 <div className="mt-12">
                     <h3 className="text-xl font-semibold">Categorias</h3>
                     <div className="flex">
-                        <Link href="/">
+                        <Link href="/" passHref>
                             <p className="text-second-100 font-semibold mr-4 cursor-pointer text-lg hover:text-gray-700 duration-500">hola mundo</p>
                         </Link>
-                        <Link href="/">
+                        <Link href="/" passHref>
                             <p className="text-second-100 font-semibold mr-4 cursor-pointer text-lg hover:text-gray-700 duration-500">hola mundo</p>
                         </Link>
-                        <Link href="/">
+                        <Link href="/" passHref>
                             <p className="text-second-100 font-semibold mr-4 cursor-pointer text-lg hover:text-gray-700 duration-500">hola mundo</p>
                         </Link>
                     </div>

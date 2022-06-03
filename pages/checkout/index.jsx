@@ -16,10 +16,9 @@ import { FaCcStripe } from "react-icons/fa";
 import { BiTransferAlt } from "react-icons/bi";
 import { MdOutlineFileUpload } from "react-icons/md";
 import { IconContext } from "react-icons";
-import { addClientSecretFromCookies, startLoadBanksAccounts, startLoadClientSecret } from "../../src/actions/checkoutActions";
+import { startLoadBanksAccounts, startLoadClientSecret } from "../../src/actions/checkoutActions";
 import { CheckoutTransfer } from "../../src/components/checkout/checkoutTransfer";
 import { ShoppingCartDetails } from "../../src/components/checkout/shoppingCartDetails";
-import { Router } from "@mui/icons-material";
 import { useRouter } from "next/router";
 
 const Checkout = () => {
@@ -27,7 +26,6 @@ const Checkout = () => {
   const router = useRouter();
   const { superTotal } = useSelector((state) => state.cart);
   const { client_secret, bankAccountSelected, success } = useSelector((state) => state.checkout);
-  const [clientSecretStripe, setClientSecret] = useState('');
   const [isTransfer, setIsTransfer] = useState(false);
   const [open, toggle] = useToggle();
   const [openTransfer, toggleTransfer] = useToggle();
@@ -50,18 +48,6 @@ const Checkout = () => {
       setIsTransfer(false);
     }
   }, [bankAccountSelected]);
-
-  useEffect(() => {
-    const client_secret = Cookie.get('client_secret') ? JSON.parse(Cookie.get('client_secret')) : '';
-    dispatch(addClientSecretFromCookies(client_secret));
-  }, []);
-
-  useEffect(() => {
-    if (Object.keys(client_secret).length > 0) {
-      setClientSecret(client_secret);
-    }
-  }, [client_secret]);
-
 
   useEffect(() => {
     if (success) {
@@ -96,26 +82,24 @@ const Checkout = () => {
   }, []);
 
   const appearance = {
-    theme: "stripe"
+    theme: "minimal"
   }
 
   const options = {
-    clientSecret: clientSecretStripe,
+    clientSecret: client_secret,
     appearance
   }
 
   const handleClickPaymentStripe = async () => {
 
-    if (client_secret) {
-      setLoadingForm(true);
-      const token = await Cookie.get('token') || '';
+    const token = await Cookie.get('token') || '';
+    if (!client_secret) {
       await dispatch(startLoadClientSecret(token));
-      setLoadingForm(false);
-
+    } else {
+      await dispatch(startLoadClientSecret(token));
     }
 
     toggle();
-
   }
 
   return (
@@ -131,7 +115,7 @@ const Checkout = () => {
           </div>
           <div className=" col-span-12 lg:col-span-5 xl:col-span-5">
             <h3 className="font-Poppins text-[20px] font-semibold leading-[1.4] text-[#333] mb-10 text-center">
-              Detalle de la ordén
+              Detalle de la órden
             </h3>
             <div className="w-full mb-[20px] block">
               <OrderInfo />
@@ -178,7 +162,7 @@ const Checkout = () => {
               handleOpenCheckout={handleOpenCheckout}
               actions={false}
             >
-              {clientSecretStripe && (
+              {client_secret && (
                 <Elements options={options} stripe={stripePromise}>
                   <CheckoutForm
                     handleOpenCheckout={handleOpenCheckout}

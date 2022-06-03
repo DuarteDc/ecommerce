@@ -86,6 +86,13 @@ export const ordersReducer = (state = initialState, { type, payload }) => {
 
         }
 
+        case types.cancel_order_by_id:
+            return {
+                ...state,
+                penddingOrders: state.penddingOrders.filter(order => order._id !== payload._id),
+                canceledOrders: [payload, ...state.canceledOrders],
+            }
+
         default:
             return state;
     }

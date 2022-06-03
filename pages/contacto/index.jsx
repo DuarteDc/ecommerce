@@ -31,7 +31,7 @@ const ContactUs = () => {
       let cartNotLogged = localStorage.getItem('cartNotlogged') ? JSON.parse(localStorage.getItem('cartNotlogged')) : [];
       dispatch(shoppingCartNotLoggedfromLocalStorage(cartNotLogged))
     }
-  }, [logged]);
+  }, [logged, dispatch]);
 
 
   const handelSendMessage = async (formData, resetForm) => {

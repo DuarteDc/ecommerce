@@ -11,7 +11,7 @@ import { AiFillCaretDown } from "react-icons/ai";
 import { useToggle } from "../../../hooks/useToggle";
 import { Modal } from "../../ui/modal";
 import { useDispatch, useSelector } from "react-redux";
-import { startGetOrder, startOrderCancel } from "../../../actions/ordersActions";
+import { startCancelOrderByID, startGetOrder, startOrderCancel } from "../../../actions/ordersActions";
 import { TextField } from "@mui/material";
 import { OrderDetails } from "./orderDetail";
 import Swal from "sweetalert2";
@@ -28,7 +28,7 @@ import LoadingScreen from "../../LoadingScreen";
 import CircularProgress from '@mui/material/CircularProgress';
 
 
-export const PendingPaymentOrderIndex = ({ order, handleOpenProofOfPayment, status, text_description, text_color }) => {
+export const PendingPaymentOrderIndex = ({ order, handleOpenProofOfPayment, status, handleCancelInvoice }) => {
 
   const dispatch = useDispatch();
   const { fiscalAddress } = useSelector((state) => state.profile)
@@ -37,7 +37,7 @@ export const PendingPaymentOrderIndex = ({ order, handleOpenProofOfPayment, stat
   const date = moment(order.createdAt).format('L');
   const [open, toggle] = useToggle();
   const [openOrderDetail, toggleOrderDetail] = useToggle();
-  const [openCancelSOrder, toggleCancelOrder] = useToggle();
+  // const [openCancelSOrder, toggleCancelOrder] = useToggle();
 
   const [loading, setLoading] = useState(false);
   const [loadingDetail, setLoadingDetail] = useState(false);
@@ -46,8 +46,10 @@ export const PendingPaymentOrderIndex = ({ order, handleOpenProofOfPayment, stat
     toggle();
   }
 
-  const handleCancelOrder = () => {
-    toggleCancelOrder();
+  const handleCancelOrder = (order_id) => {
+
+    dispatch(startCancelOrderByID(order_id))
+    // toggleCancelOrder();
     // dispatch(startOrderCancel(order._id));
   }
 
@@ -61,45 +63,45 @@ export const PendingPaymentOrderIndex = ({ order, handleOpenProofOfPayment, stat
 
   const router = useRouter();
 
-  const sendCancelOrder = async (formData, resetForm) => {
-    toggleCancelOrder();
-    Swal.fire({
-      title: "¿Deseas Cancelar este pedido?",
-      text: "El pedido será revisado por nosotros antes de cancelarce por completo.",
-      icon: "question",
-      showCancelButton: true,
-      cancelButtonText: 'Cancelar!',
-      cancelButtonColor: "#b71c1c",
-      confirmButtonText: "Continuar",
-      confirmButtonColor: "#1976d2",
-      reverseButtons: true
-    }).then(async (result) => {
-      if (result.isConfirmed) {
-        await dispatch(startOrderCancel(formData, order._id));
-        resetForm({ values: initialValues });
-      }
-    })
-  }
+  // const sendCancelOrder = async (formData, resetForm) => {
+  //   // toggleCancelOrder();
+  //   // Swal.fire({
+  //   //   title: "¿Deseas Cancelar este pedido?",
+  //   //   text: "El pedido será revisado por nosotros antes de cancelarce por completo.",
+  //   //   icon: "question",
+  //   //   showCancelButton: true,
+  //   //   cancelButtonText: 'Cancelar!',
+  //   //   cancelButtonColor: "#b71c1c",
+  //   //   confirmButtonText: "Continuar",
+  //   //   confirmButtonColor: "#1976d2",
+  //   //   reverseButtons: true
+  //   // }).then(async (result) => {
+  //   //   if (result.isConfirmed) {
+  //   //     await dispatch(startOrderCancel(formData, order._id));
+  //   //     resetForm({ values: initialValues });
+  //   //   }
+  //   // })
+  // }
 
-  const initialValues = {
-    subject: '',
-    description: '',
-  }
+  // const initialValues = {
+  //   subject: '',
+  //   description: '',
+  // }
 
-  const validationSchema = {
-    subject: Yup.string().min(8, "El nombre debe contener al menos 8 caracteres").required("El nombre es requerido"),
-    description: Yup.string().required("El correo es requerido"),
-  }
+  // const validationSchema = {
+  //   subject: Yup.string().min(8, "El nombre debe contener al menos 8 caracteres").required("El nombre es requerido"),
+  //   description: Yup.string().required("El correo es requerido"),
+  // }
 
-  const formik = useFormik({
-    initialValues,
-    validationSchema: Yup.object(validationSchema),
-    onSubmit: (formData, { resetForm }) => {
-      sendCancelOrder(formData, resetForm)
-      //alert(JSON.stringify(formData));
-      // resetForm({ values: initialValues })
-    }
-  });
+  // const formik = useFormik({
+  //   initialValues,
+  //   validationSchema: Yup.object(validationSchema),
+  //   onSubmit: (formData, { resetForm }) => {
+  //     sendCancelOrder(formData, resetForm)
+  //     //alert(JSON.stringify(formData));
+  //     // resetForm({ values: initialValues })
+  //   }
+  // });
 
   const handleClickInvoicedOrder = (order_id, status) => {
     if (Object.keys(fiscalAddress) < 1) {
@@ -175,13 +177,11 @@ export const PendingPaymentOrderIndex = ({ order, handleOpenProofOfPayment, stat
               </div>
             </div>
             <div>
-              <div className="text-center cursor-pointer flex flex-col"
-                onClick={() => handleClickAddress()}
-              >
+              <div className="text-center flex flex-col">
                 <span className="uppercase text-sm leading-6 text-[#333]">
                   Enviar a:
                 </span>
-                <span className="text-sm text-[#1976d2]  text-[#e91e63]  cursor-pointer border-b-3 hover:border-solid hover:text-[#880e4f] hover:transition-all flex justify-center"
+                <span className="text-sm text-[#e91e63] cursor-pointer border-b-3 hover:border-solid hover:text-[#e91e63] hover:transition-all flex justify-center items-center" onClick={() => handleClickAddress()}
                 >
                   {order?.shippment_direction?.name}
                   <AiFillCaretDown />
@@ -190,12 +190,18 @@ export const PendingPaymentOrderIndex = ({ order, handleOpenProofOfPayment, stat
             </div>
             <div>
               <div>
-                <div className="text-center cursor-pointer">
+                <div className="text-center">
                   <span className="text-sm text-[#333]">Pedido N.º {order.folio}</span>
                   <div className="w-full mr-6 text-[#1976d2]">
                     {
-                      order.invoiced && status !== 0 && status !== 1 &&
-                      <span className="text-sm  cursor-pointer border-b-3 text-[#e91e63]  hover:border-solid hover:text-[#880e4f] hover:transition-all mr-5">Pedido ya facturado</span>
+                      order.invoiced && status !== 0 && status !== 1 && (
+                        <button
+                          className="text-sm  cursor-pointer border-b-3 text-[#e91e63]  hover:border-solid hover:text-[#880e4f] hover:transition-all mr-5"
+                        // onClick={() => handleCancelInvoice()}
+                        >
+                          Pedido facturado
+                        </button>
+                      )
                     }
                     {
                       (!order.invoiced) && status !== 0 && status !== 1 &&
@@ -235,9 +241,6 @@ export const PendingPaymentOrderIndex = ({ order, handleOpenProofOfPayment, stat
                   <SwiperSlide key={product.product_id}>
                     <OrderProductsList
                       product={product}
-                      status={status}
-                      index={index}
-                      handleCancelOrder={handleCancelOrder}
                     />
                   </SwiperSlide>
                 ))
@@ -251,7 +254,7 @@ export const PendingPaymentOrderIndex = ({ order, handleOpenProofOfPayment, stat
               )
             }
             {
-              order.orderStatus === 1 && order.cancelation && (
+              order.orderStatus === 1 && !order.status && (
                 <OrderCancelStatus status={status} />
               )
             }
@@ -270,7 +273,7 @@ export const PendingPaymentOrderIndex = ({ order, handleOpenProofOfPayment, stat
             {
               status === 0 && !order.cancelation &&
               <button className="bg-red-500  font-Poppins cursor-pointer text-white py-[10px] px-[15px] uppercase text-sm mt-5 flex items-center justify-center w-full"
-                onClick={handleCancelOrder}
+                onClick={() => { handleCancelOrder(order._id) }}
               >
                 <IconContext.Provider value={{ className: "color-[#fff] , text-[20px] , mr-[10px]" }}>
                   <MdOutlineCancel />
@@ -327,11 +330,11 @@ export const PendingPaymentOrderIndex = ({ order, handleOpenProofOfPayment, stat
               <div className="flex justify-center items-center">
                 <CircularProgress />
               </div>
-              : 
+              :
               <OrderDetails status={status} />
           }
         </Modal>
-        <Modal
+        {/* <Modal
           title="Cancelar Pedido"
           open={openCancelSOrder}
           handleOpenCheckout={toggleCancelOrder}
@@ -380,7 +383,7 @@ export const PendingPaymentOrderIndex = ({ order, handleOpenProofOfPayment, stat
               Enviar
             </button>
           </form>
-        </Modal>
+        </Modal> */}
       </div>
     </>
   )

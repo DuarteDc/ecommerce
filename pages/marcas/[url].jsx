@@ -62,7 +62,7 @@ const Show = () => {
         }
         getCurrentData();
 
-    }, [router.query]);
+    }, [router.query, dispatch]);
 
 
 

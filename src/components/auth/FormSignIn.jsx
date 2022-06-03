@@ -82,6 +82,8 @@ export const FormSignIn = () => {
                     <TextField
                       type="email"
                       name="email"
+                      required={true}
+                      label="Correo electrónico"
                       onChange={formik.handleChange}
                       placeholder="Correo electronico"
                       fullWidth
@@ -96,6 +98,8 @@ export const FormSignIn = () => {
                     <TextField
                       type="password"
                       name="password"
+                      required={true}
+                      label="Contraseña"
                       onChange={formik.handleChange}
                       placeholder="Contraseña"
                       fullWidth

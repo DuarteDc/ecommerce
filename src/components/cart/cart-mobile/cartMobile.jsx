@@ -18,17 +18,17 @@ export const CartMobile = () => {
   return (
     <div className="mx-[25px]">
       <div className="border border-solid border-[#888]">
-        <Table className="min-w-full leading-normal">
+        <Table className="min-w-full leading-normal font-Poppins">
           <Thead>
             <Tr>
-              <Th className="px-5 py-3 border-b-2 border-gray-200 bg-[#333] text-xs font-semibold text-[#fff] uppercase tracking-wider text-center flex i">
+              <Th className="px-5 py-4 border-b-2 border-gray-200 text-lg bg-[#333] text-xs font-semibold text-[#fff] uppercase tracking-wider text-center flex">
                 Producto
               </Th>
-              <Th className="px-5 py-3 border-b-2 border-gray-200 bg-[#333] text-xs font-semibold text-[#fff] uppercase tracking-wider text-center">Precio</Th>
-              <Th className="px-5 py-3 border-b-2 border-gray-200 bg-[#333] text-xs font-semibold text-[#fff] uppercase tracking-wider text-center">Existente</Th>
-              <Th className="px-5 py-3 border-b-2 border-gray-200 bg-[#333] text-xs font-semibold text-[#fff] uppercase tracking-wider text-center">Cantidad</Th>
-              <Th className="px-5 py-3 border-b-2 border-gray-200 bg-[#333] text-xs font-semibold text-[#fff] uppercase tracking-wider text-center">Subtotal</Th>
-              <Th className="px-5 py-3 border-b-2 border-gray-200 bg-[#333] text-xs font-semibold text-[#fff] uppercase tracking-wider text-center">
+              <Th className="px-5 py-4 border-b-2 border-gray-200 text-lg bg-[#333] text-xs font-semibold text-[#fff] uppercase tracking-wider text-center">Precio</Th>
+              <Th className="px-5 py-4 border-b-2 border-gray-200 text-lg bg-[#333] text-xs font-semibold text-[#fff] uppercase tracking-wider text-center">Existente</Th>
+              <Th className="px-5 py-4 border-b-2 border-gray-200 text-lg bg-[#333] text-xs font-semibold text-[#fff] uppercase tracking-wider text-center">Cantidad</Th>
+              <Th className="px-5 py-4 border-b-2 border-gray-200 text-lg bg-[#333] text-xs font-semibold text-[#fff] uppercase tracking-wider text-center">Subtotal</Th>
+              <Th className="px-5 py-4 border-b-2 border-gray-200 text-lg bg-[#333] text-xs font-semibold text-[#fff] uppercase tracking-wider text-center">
                 Opciones
               </Th>
             </Tr>

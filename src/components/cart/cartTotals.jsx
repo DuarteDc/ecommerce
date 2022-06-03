@@ -71,6 +71,9 @@ export const CartTotals = ({ handleOpenFormAddress }) => {
 
   const handleApplyCoupon = async (event) => {
     event.preventDefault();
+
+    if (inputCoupon < 1) return;
+
     const { hasError, message } = await dispatch(getCoupon(subtotal, inputCoupon));
     if (hasError) {
       Swal.fire({

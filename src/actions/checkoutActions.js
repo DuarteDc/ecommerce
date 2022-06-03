@@ -13,7 +13,7 @@ export const startLoadClientSecret = (token) => {
                     'Authorization': token
                 }
             });
-            Cookies.set('client_secret', JSON.stringify(data.client_secret));
+            Cookies.set('client_secret', data.client_secret);
             dispatch(loadClientSecret(data.client_secret))
         } catch (error) {
             console.log(error)

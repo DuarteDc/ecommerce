@@ -36,8 +36,6 @@ const Show = () => {
     const { cart, cartNotLogged } = useSelector((state) => state.cart);
     const { logged } = useSelector((state) => state.auth);
 
-
-    const [isEnable, setIsEnable] = useState(false);
     const [quantityInput, setQuantityInput] = useState(1);
     const quantityInputadd = useDebounce(quantityInput, 1000);
 
@@ -46,17 +44,6 @@ const Show = () => {
     const price = helpers.priceFormat(product?.price)
 
     const addProductCard = (product) => {
-        // const exists = helpers.existInShoppingCart(product._id, cart);
-
-        // if (exists) {
-        //     infoNotify('El producto ya ha sido agregado al carrito de compras');
-        //     return;
-        // }
-
-        if (quantityInput > product.quantity) {
-            setQuantityInput(quantityInput);
-            return;
-        }
 
         const itemCart = {
             product_id: {
@@ -76,9 +63,17 @@ const Show = () => {
             let shoppingCart = [...cart, itemCart];
             localStorage.setItem('cart', JSON.stringify(shoppingCart));
             dispatch(startAddProductShoppingCart(itemCart, product.name, token));
-            return;
         } else {
-            let shoppingCart = [...cartNotLogged, itemCart];
+            let shoppingCart;
+            let productInCart = cartNotLogged.find(cart => cart._id === itemCart._id);
+            if (productInCart) {
+                shoppingCart = cartNotLogged.map(cart => cart._id === itemCart._id
+                    ? { ...cart, quantity: itemCart.quantity }
+                    : cart
+                );
+            } else {
+                shoppingCart = [...cartNotLogged, itemCart];
+            }
             dispatch(addProductToCartClientsNotLogged(shoppingCart));
             localStorage.setItem('cartNotlogged', JSON.stringify(shoppingCart));
             Swal.fire({
@@ -89,7 +84,6 @@ const Show = () => {
                 timerProgressBar: true,
                 showConfirmButton: false
             })
-            return;
         }
 
     }
@@ -105,78 +99,32 @@ const Show = () => {
     }
 
     const handleChangeQuantity = ({ target }) => {
+
+        if (target.value.length < 1) {
+            setQuantityInput(1);
+            return;
+        }
+
         if (target.value > product.quantity) {
             setQuantityInput(product.quantity);
             return;
         }
-        setQuantityInput(target.value)
+        const quantity = target.value.replace(/^0+/, '');
+        setQuantityInput(quantity)
     }
+
 
     const handleClickRedirectCart = () => {
         addProductCard(product)
         router.push('/mi-carrito');
     }
-
-    useEffect(() => {
-        if (logged) {
-            const exists = helpers.existInShoppingCart(product._id, cart);
-            setIsEnable(exists);
-        } else {
-            const exists = helpers.existInShoppingCart(product._id, cartNotLogged);
-            setIsEnable(exists);
-        }
-
-    }, [cart, cartNotLogged]);
-
-
     useEffect(() => {
         if (!logged) {
-            let cartNotLogged = localStorage.getItem('cartNotlogged') ? JSON.parse(localStorage.getItem('cartNotlogged')) : [];
+            let cartNotLogged = JSON.parse(localStorage.getItem('cartNotlogged')) || [];
             dispatch(shoppingCartNotLoggedfromLocalStorage(cartNotLogged))
         }
     }, [logged]);
 
-    useEffect(() => {
-        const Toast = Swal.mixin({
-            toast: true,
-            position: 'top-end',
-            showConfirmButton: false,
-            timer: 3000,
-            timerProgressBar: true,
-            didOpen: (toast) => {
-                toast.addEventListener('mouseenter', Swal.stopTimer)
-                toast.addEventListener('mouseleave', Swal.resumeTimer)
-            }
-        });
-        if (Object.keys(quantityInputadd).length > 0) {
-            if (Number(quantityInputadd) > Number(product?.quantity)) {
-                Toast.fire({
-                    icon: "warning",
-                    title: "No puedes agregar más cantidad de la que se tiene en stock"
-                });
-                setQuantityInput(product?.quantity)
-                return;
-            }
-
-            if (Number(quantityInputadd) === 0) {
-                Toast.fire({
-                    icon: "warning",
-                    title: "La cantidad del producto no puede ser igual a 0"
-                });
-                setQuantityInput(product?.quantity);
-                return;
-            }
-        }
-
-        if (!quantityInput) {
-            Toast.fire({
-                icon: "warning",
-                title: "Ups , la cantidad del producto es requerida , no puede estar vacia"
-            });
-            setQuantityInput(product?.quantity)
-            return;
-        }
-    }, [quantityInputadd]);
 
     return (
         <Layout>
@@ -187,18 +135,18 @@ const Show = () => {
                             aria-label="breadcrumb"
                             separator={<NavigateNextIcon fontSize="small" />}
                         >
-                            <Link href="/">
+                            <Link href="/" passHref>
                                 <div className="flex items-center justify-between cursor-pointer">
                                     <GoHome />
                                     <span className="text-lg font-Poppins ml-3 ">Inicio</span>
                                 </div>
                             </Link>
-                            <Link href="/productos">
+                            <Link href="/productos" passHref>
                                 <div className="flex items-center justify-between cursor-pointer">
                                     <span className="text-lg font-Poppins ml-3 ">Productos</span>
                                 </div>
                             </Link>
-                            <Typography variant="subtitle1" className="text-base font-Poppins text-[#1976d2]">
+                            <Typography variant="subtitle1" className="text-base font-Poppins text-[#e91e63]">
                                 {product?.name}
                             </Typography>
                         </Breadcrumbs>
@@ -264,7 +212,7 @@ const Show = () => {
                                             product?.tags.map(tag => (
                                                 <div key={tag.tag_id._id} className="bg-[#333] rounded-3xl px-4 py-1 mr-2 cursor-pointer ">
                                                     <span className="text-secondary font-medium text-xs 
-                                                    duration-500 flex items-center justify-center
+                                                    duration-500 flex items-center justify-center text-center
                                                     ">
                                                         {tag.tag_id.name}
                                                     </span>

@@ -33,6 +33,7 @@ import { tabsData } from "../../src/staticData/ordersTabsData";
 {/**Helpers */ }
 import helpersProducts from "../../src/helpers/helpersProducts";
 import { startSendReview } from "../../src/actions/reviewsActions";
+import FormCancelInvoice from "../../src/components/orders/pendingOrderPayment/FormCancelInvoice";
 
 
 function a11yProps(index) {
@@ -78,6 +79,7 @@ const MisPedidos = () => {
   const [valueTab, setValueTab] = useState(0);
   const [testimonialModal, setTestimonialModal] = useState(false);
   const [openProofOfPayment, toggleProofOfPayment] = useToggle();
+  const [openCancelInvoice, toggleCancelInvoice] = useToggle();
 
   const { filterSearch } = helpersProducts;
 
@@ -111,6 +113,10 @@ const MisPedidos = () => {
   const handleClickOrder = (order) => {
     setOpenProductDetail(true);
     setOrder(order)
+  }
+
+  const handleCancelInvoice = (id = '1') => {
+    toggleCancelInvoice();
   }
 
   const handleChangeTab = (event, newValue) => {
@@ -240,6 +246,7 @@ const MisPedidos = () => {
                     key={order._id}
                     order={order}
                     status={2}
+                    handleCancelInvoice={handleCancelInvoice}
                     text_description="Pedido Aprobado"
                     text_color="text-[#333]"
                   />
@@ -281,6 +288,17 @@ const MisPedidos = () => {
         </Modal>
 
         {/* modal reseña */}
+
+        <Modal
+          title="Cancelar Factura"
+          open={openCancelInvoice}
+          handleOpenCheckout={toggleCancelInvoice}
+          actions={false}
+          fullWidth={true}
+          maxWidth={'xs'}
+        >
+          <FormCancelInvoice />
+        </Modal>
 
         <Modal
           open={testimonialModal}

@@ -54,7 +54,7 @@ const NavBar = () => {
         if (localStorage.getItem('acceptCookies')) {
             dispatch(acceptCookies());
         }
-    }, []);
+    }, [dispatch]);
 
     const logoutSession = () => {
         dispatch(logout());
@@ -81,7 +81,7 @@ const NavBar = () => {
 
             localStorage.removeItem('cartNotlogged');
         }
-    }, [logged, router]);
+    }, [logged, router, dispatch]);
 
     useEffect(() => {
         if (cart.length > 0) {
@@ -158,7 +158,7 @@ const NavBar = () => {
                         <div className="px-12 w-full flex justify-center">
                             {
                                 pages.map(({ path, name }) => (
-                                    <Link href={path} key={name} prefetch={false}>
+                                    <Link href={path} passHref  key={name} prefetch={false}>
                                         <span className="text-[#888] border-transparent border-b-2 hover:text-[#333] mx-4 cursor-pointer  font-Poppins text-[15px] font-medium transition uppercase duration-700 ease-in-out">
                                             {name}
                                         </span>
@@ -177,7 +177,8 @@ const NavBar = () => {
                                             aria-haspopup="true"
                                             aria-expanded={openMenu ? 'true' : undefined}
                                             onClick={handleClick}
-                                            className="border-transparent border-b-2 mx-4 cursor-pointer text-lg  text-[#888] font-['Poppins'] font-normal transition duration-700 ease-in-out">
+                                            sx={{ color: '#888' }}
+                                            className="border-transparent border-b-2 mx-4 cursor-pointer text-lg font-['Poppins'] font-normal transition duration-700 ease-in-out">
                                             <IconContext.Provider value={{ size: "1.6rem" }}>
                                                 <BsPersonCircle />
                                             </IconContext.Provider>
@@ -219,13 +220,13 @@ const NavBar = () => {
                                             transformOrigin={{ horizontal: 'right', vertical: 'top' }}
                                             anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
                                         >
-                                            <Link href="/perfil">
+                                            <Link href="/perfil" passHref>
                                                 <MenuItem onClick={handleClose} sx={{ paddingRight: 15, fontSize: '14px' }} className="hover:text-black">Mi Cuenta</MenuItem>
                                             </Link>
-                                            <Link href="/perfil/mis-pedidos">
+                                            <Link href="/perfil/mis-pedidos" passHref>
                                                 <MenuItem onClick={handleClose} sx={{ paddingRight: 15, fontSize: '14px' }} className="hover:text-black">Mis Pedidos</MenuItem>
                                             </Link>
-                                            <Link href="/perfil/direcciones">
+                                            <Link href="/perfil/direcciones" passHref>
                                                 <MenuItem onClick={handleClose} sx={{ paddingRight: 15, fontSize: '14px' }} className="hover:text-black">Mis Direcciones</MenuItem>
                                             </Link>
                                             <MenuItem onClick={(e) => { handleClose(e); logoutSession() }} sx={{ paddingRight: 15, fontSize: '14px' }} className="hover:text-black">Cerrar Sesión</MenuItem>
@@ -282,7 +283,7 @@ const NavBar = () => {
                                 <Link href="/perfil">
                                     <a className="border-transparent border-b-2 cursor-pointer text-lg mx-2  text-white font-['Poppins'] font-normal transition duration-700 ease-in-out">
                                         <IconContext.Provider value={{ size: "1.6rem" }}>
-                                            <BsPersonCircle />
+                                            <BsPersonCircle sx={{ color: '#888' }} />
                                         </IconContext.Provider>
                                     </a>
                                 </Link>

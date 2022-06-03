@@ -20,7 +20,7 @@ const AboutPage = () => {
       let cartNotLogged = localStorage.getItem('cartNotlogged') ? JSON.parse(localStorage.getItem('cartNotlogged')) : [];
       dispatch(shoppingCartNotLoggedfromLocalStorage(cartNotLogged))
     }
-  }, [logged]);
+  }, [logged, dispatch]);
 
   return (
     <>

@@ -33,28 +33,9 @@ export const CartItems = ({ product }) => {
     if (Object.keys(productSelectedUpdated).length > 0) {
       dispatch(startUpdatedProductQuantity(product));
     }
-  }, [productSelectedUpdated]);
+  }, [productSelectedUpdated, dispatch]);
 
   useEffect(() => {
-    if (Object.keys(quantityInputadd).length > 0) {
-      if (Number(quantityInputadd) > Number(product.product_id.quantity)) {
-        notify('No puedes agregar más cantidad de la que se tiene en stock');
-        setQuantityInput(product.product_id.quantity)
-        return;
-      }
-
-      if (Number(quantityInputadd) === 0) {
-        notify('La cantidad del producto no puede ser igual a 0');
-        setQuantityInput(product.quantity);
-        return;
-      }
-    }
-
-    if (!quantityInput) {
-      notify('Ups , la cantidad del producto es requerida , no puede estar vacia');
-      setQuantityInput(product.quantity)
-      return;
-    }
 
     product.quantity = Number(quantityInputadd);
 
@@ -63,7 +44,7 @@ export const CartItems = ({ product }) => {
     } else {
       dispatch(updatedProductQuantityCartNotLogged(product));
     }
-  }, [quantityInputadd]);
+  }, [quantityInputadd, logged]);
 
 
   const increaseDecreaseQuantityProduct = (value) => {
@@ -91,11 +72,18 @@ export const CartItems = ({ product }) => {
   }
 
   const handleChangeQuantity = ({ target }) => {
+
+    if (target.value.length < 1) {
+      setQuantityInput(1);
+      return;
+    }
+
     if (target.value > product_id.quantity) {
       setQuantityInput(product_id.quantity);
       return;
     }
-    setQuantityInput(target.value);
+    const quantity = target.value.replace(/^0+/, '');
+    setQuantityInput(quantity)
   }
 
   const handleRemoveProduct = (_id) => {
@@ -108,14 +96,17 @@ export const CartItems = ({ product }) => {
 
   return (
     <Tr>
-      <Td data-testid="td" className="px-4 py-5 border-b border-gray-200 bg-white text-sm flex items-center text-center">
-        <Image
-          src={(product.product_id.multimedia.length > 0) ? product.product_id.multimedia[0].path : 'https://upload.wikimedia.org/wikipedia/commons/d/d1/Image_not_available.png'}
-          alt={product.name}
-          width={150}
-          height={150}
-        />
-        <span className="text-gray-900 whitespace-no-wrap px-4 ">
+      <Td data-testid="td" className="px-4 py-5 border-b border-gray-200 bg-white text-sm flex items-center text-center overflow-hidden">
+        <div>
+          <Image
+            src={(product.product_id.multimedia.length > 0) ? product.product_id.multimedia[0].path : 'https://upload.wikimedia.org/wikipedia/commons/d/d1/Image_not_available.png'}
+            alt={product.name}
+            width={150}
+            height={150}
+            layout="fixed"
+          />
+        </div>
+        <span className="text-gray-900 px-4 whitespace-no-wrap ">
           {product_id.name}
         </span>
       </Td>

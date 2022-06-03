@@ -95,28 +95,28 @@ const Footer = ({ categories }) => {
              <div className="w-full lg:w-[40%] text-center">
                <h3>Encuentranos en:</h3>
                <div className="flex mt-6 justify-center mb-4">
-                <Link href="/" className="mx-3 text-sm ">
+                <Link href="/" passHref className="mx-3 text-sm ">
                   <IconContext.Provider
                     value={{ size: "1.1rem", className: "hover:text-[#3b5998]  mr-3" }}
                   >
                     <BsFacebook />
                   </IconContext.Provider>
                 </Link>
-                <Link href="/" className="mx-3 text-sm">
+                <Link href="/" passHref className="mx-3 text-sm">
                   <IconContext.Provider
                     value={{ size: "1.1rem", className: "hover:text-[#E1306C]  mr-3" }}
                   >
                     <BsInstagram />
                   </IconContext.Provider>
                 </Link>
-                <Link href="/" className="mx-3 text-sm">
+                <Link href="/" passHref className="mx-3 text-sm">
                   <IconContext.Provider
                     value={{ size: "1.1rem", className: "hover:text-[#00acee]  mr-3" }}
                   >
                     <BsTwitter />
                   </IconContext.Provider>
                 </Link>
-                <Link href="/" className="mx-3 text-sm">
+                <Link href="/" passHref className="mx-3 text-sm">
                   <IconContext.Provider
                     value={{ size: "1.1rem", className: "hover:text-[#c4302b]  mr-3" }}
                   >
@@ -134,6 +134,7 @@ const Footer = ({ categories }) => {
                    className="bg-[#f5f5f5] w-[70%] py-1 px-10 text-sm leading-normal text-[#222] border-none rounded-none transition-all outline-none"
                    value={formik.values.email}
                    onChange={formik.handleChange}
+
                 />
                
                 <button 
@@ -161,21 +162,25 @@ const Footer = ({ categories }) => {
               src="/assets/images/creditCards/card1.png"
               width={50}
               height={30}
+              alt="card"
              />
              <Image
               src="/assets/images/creditCards/card2.png"
               width={50}
               height={30}
+              alt="card"
              />
              <Image
               src="/assets/images/creditCards/card3.png"
               width={50}
               height={30}
+              alt="card"
              />
              <Image
               src="/assets/images/creditCards/card4.png"
               width={50}
               height={30}
+              alt="card"
              />
            </div>
            </div>

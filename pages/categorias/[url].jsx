@@ -56,7 +56,7 @@ const Category = () => {
 
         getCurrentData();
 
-    }, [router.query])
+    }, [router.query, brands, category._id, dispatch, tags])
 
     return (
         <Layout

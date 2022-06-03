@@ -119,7 +119,9 @@ const FormSignUp = () => {
                             name="fullname"
                             onChange={formik.handleChange}
                             placeholder="Tú Nombre"
+                            label="Tu Nombre"
                             fullWidth
+                            required={true}
                             error={formik.touched.fullname && formik.errors.fullname? true : false}
                             helperText={formik.touched.fullname && formik.errors.fullname && formik.errors.fullname}
                             autoComplete={false}
@@ -130,6 +132,8 @@ const FormSignUp = () => {
                         <TextField
                             type="email"
                             name="email"
+                            label="Correo electrónico"
+                            required={true}
                             onChange={formik.handleChange}
                             placeholder="Correo electronico"
                             fullWidth
@@ -160,6 +164,8 @@ const FormSignUp = () => {
                             type="password"
                             name="password"
                             onChange={formik.handleChange}
+                            label="Contraseña"
+                            required={true}
                             placeholder="Tú contraseña"
                             fullWidth
                             error={formik.touched.password && formik.errors.password? true : false}
@@ -168,11 +174,13 @@ const FormSignUp = () => {
                         />
                     </div>
                     <div className="">
-                        <label className="uppercase my-5 block">Repetir Contraseña</label>
+                        <label className="uppercase my-5 block">Confirmar Contraseña</label>
                         <TextField
                             type="password"
                             name="passwordConfirmation"
                             onChange={formik.handleChange}
+                            label="Confirmar contraseña"
+                            required={true}
                             placeholder="Tú contraseña"
                             fullWidth
                             error={formik.touched.passwordConfirmation && formik.errors.passwordConfirmation? true : false}

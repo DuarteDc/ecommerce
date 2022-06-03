@@ -27,7 +27,7 @@ const Categories = () => {
             let cartNotLogged = localStorage.getItem('cartNotlogged') ? JSON.parse(localStorage.getItem('cartNotlogged')) : [];
             dispatch(shoppingCartNotLoggedfromLocalStorage(cartNotLogged))
         }
-    }, [logged]);
+    }, [logged, dispatch]);
 
 
     const handleClickCard = (url) => {
@@ -50,13 +50,13 @@ const Categories = () => {
                             aria-label="breadcrumb"
                             separator={<NavigateNextIcon fontSize="small" />}
                         >
-                            <Link href="/">
+                            <Link href="/" passHref>
                                 <div className="flex items-center justify-between cursor-pointer">
                                     <GoHome />
                                     <span className="text-lg font-Poppins ml-3 ">Inicio</span>
                                 </div>
                             </Link>
-                            <Typography variant="subtitle1" className="text-base font-Poppins text-[#1976d2]">
+                            <Typography variant="subtitle1" className="text-base font-Poppins text-[#e91e63]">
                                 Categorias
                             </Typography>
                         </Breadcrumbs>

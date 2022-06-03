@@ -137,7 +137,7 @@ export const getStaticProps = wrapper.getStaticProps((store) => async () => {
   await store.dispatch(startLoadAdministrableLogo());
   await store.dispatch(startLoadFaqsCategories());
   return {
-    revalidate: 86400
+    revalidate: 480
   }
 });
 

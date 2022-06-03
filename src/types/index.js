@@ -133,7 +133,8 @@ export const types = {
     loadOrderById: '[ORDERS] load order by id',
     selectedOrderPendding: '[ORDERS] selected order pendding',
     upload_proof_payment_order: '[ORDERS] upload proof payment order',
-    cancel_order: '[ORDERS] cancel orders',
+    // cancel_order: '[ORDERS] cancel orders',
+    cancel_order_by_id: '[ORDERS] cancel order by id',
     invoiced_order: '[ORDER] invoiced order',
     start_load_reviews: '[REVIEWS] start load reviews',
 }

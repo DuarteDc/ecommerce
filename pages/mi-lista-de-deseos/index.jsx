@@ -98,6 +98,7 @@ const Wishlist = () => {
                                     <Image
                                         src={"/assets/icons/extraviado.png"}
                                         width={150}
+                                        alt="Not found"
                                         height={150}
                                     />
                                 </div>

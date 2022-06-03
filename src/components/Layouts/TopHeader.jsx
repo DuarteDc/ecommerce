@@ -27,17 +27,17 @@ const TopHeader = () => {
       <div className="w-full mr-auto ml-auto ">
           <div className="grid grid-cols-3">
           <div className="flex justify-start mx-24 ">
-            <Link href={facebook} className="mx-3 text-sm">
+            <Link href={facebook} passHref className="mx-3 text-sm">
             <IconContext.Provider value={{size:"1.1rem", className:"hover:text-[#3b5998] text-[#fff] mr-3 cursor-pointer"}}>
               <BsFacebook/>
             </IconContext.Provider>
             </Link>
-            <Link href={instagram} className="mx-3 text-sm text-[#333]">
+            <Link href={instagram} passHref className="mx-3 text-sm text-[#333]">
             <IconContext.Provider value={{size:"1.1rem"  , className:"hover:text-[#E1306C] text-[#fff] mx-3 cursor-pointer"}}>
               <BsInstagram/>
             </IconContext.Provider>
             </Link>
-            <Link href="/" className="mx-3 text-sm">
+            <Link href="/" passHref className="mx-3 text-sm">
             <IconContext.Provider value={{size:"1.1rem" , className:"hover:text-[#000000] text-[#fff] mx-3 cursor-pointer"}}>
                 <FaTiktok/>
             </IconContext.Provider>
@@ -47,10 +47,10 @@ const TopHeader = () => {
               <p className="text-[#fff] font-Poppins">{top_text}</p>
           </div>
           <div className="flex justify-end mx-24">
-            <Link href="/">
+            <Link href="/" passHref>
                 <span  className="mx-3 text-sm text-[#fff] font-Poppins">Blog</span>
             </Link>
-            <Link href="/">
+            <Link href="/" passHref>
                 <span className="mx-3 text-sm text-[#fff] font-Poppins">Lenguage</span>
             </Link>
           </div>

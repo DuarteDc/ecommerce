@@ -6,10 +6,10 @@ import Typography from '@mui/material/Typography';
 
 const OrderCancelStatus = ({ status }) => {
 
-    const steps = ['Pendiente de cancelación', 'Pedido cancelado'];
+    const steps = ['Pedido cancelado'];
 
     const isStepFailed = (step) => {
-        return step === status;
+        return step === 0;
     };
 
     return (

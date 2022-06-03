@@ -62,6 +62,7 @@ export const CheckoutTransfer = ({handleOpenTransfer}) =>{
                   src={bankAccountSelected[0]?.bank?.image || ''}
                   width={100}
                   height={100}
+                  alt="backAccount"
                   layout="responsive"
                  />
                </div>

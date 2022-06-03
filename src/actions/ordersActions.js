@@ -221,3 +221,48 @@ export const invoicedOrder = (order, status) => ({
         status,
     }
 })
+
+
+export const startCancelOrderByID = (order_id) => {
+    return async (dispatch) => {
+        try {
+
+            const token = Cookies.get('token')
+
+            let url = `/orders/cancel/${order_id}`;
+            const { data } = await client.delete(url, {
+                headers: {
+                    'Authorization': token
+                }
+            });
+            dispatch(cancelOrderByID(data.order));
+            Swal.fire({
+                title: 'Operación Exitosa',
+                text: data?.message,
+                icon: "success"
+            })
+        } catch (error) {
+
+            if (axios.isAxiosError(error)) {
+                return Swal.fire({
+                    title: 'Vaya ... Hubo un error',
+                    text: error.response.data.message,
+                    icon: "error"
+                })
+
+            }
+
+            Swal.fire({
+                title: 'Vaya ... Hubo un error',
+                text: 'Parece que hubo un error - Intenta más tarde',
+                icon: "error"
+            })
+
+        }
+    }
+}
+
+const cancelOrderByID = (order) => ({
+    type: types.cancel_order_by_id,
+    payload: order
+});
