@@ -271,7 +271,7 @@ export const PendingPaymentOrderIndex = ({ order, handleOpenProofOfPayment, stat
             }
 
             {
-              status === 0 && !order.cancelation &&
+              status === 0 && !order.cancelation && order.total_payments < 1 &&
               <button className="bg-red-500  font-Poppins cursor-pointer text-white py-[10px] px-[15px] uppercase text-sm mt-5 flex items-center justify-center w-full"
                 onClick={() => { handleCancelOrder(order._id) }}
               >
