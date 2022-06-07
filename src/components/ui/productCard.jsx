@@ -110,6 +110,7 @@ export const ProductCard = ({product}) =>{
               alt={'name'}
               width={250}
               height={300}
+              property
               layout="responsive"
               className="flex items-center"
             />

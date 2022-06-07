@@ -31,17 +31,18 @@ export const ShippingAddress = ({ handleOpenFormAddress }) => {
                     Dirección de Envío:
                 </span>
             </div>
-            <div className="w-full pr-[18px] mt-5">
+            <div className="w-full mt-5 flex items-center">
                 <Select
                     placeholder="Selecciona una dirección envío"
                     options={address}
                     onChange={(value) => handleChangeAddress(value)}
                 />
-                <p className="flex flex-row-reverse font-semibold text-sm cursor-pointer text-[#e91e63] hover:border-3 hover:border-solid hover:text-[#880e4f] hover:transition-all"
+                <button
+                    className="w-full bg-[#222] py-[5.5px] text-white ml-2 w-4/12 border-2 border-[#222]"
                     onClick={handleOpenFormAddress}
                 >
-                    Agregar dirección
-                </p>
+                    Agregar
+                </button>
             </div>
         </>
     )

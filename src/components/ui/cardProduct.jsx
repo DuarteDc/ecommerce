@@ -16,6 +16,7 @@ export const CardProduct = ({ image, name, titleButton, url, width, height, hand
               height={height}
               layout="responsive"
               className="flex items-center"
+              property
             />
 
             <div className={`absolute w-full h-full top-0 left-0 ${(hasName) ? 'bg-[rgba(0,0,0,0.5)]' : 'bg-[rgba(0,0,0,0.2)]'} opacity-0 hover:opacity-[1] transition-all	duration-[0.4s] ease-linear delay-0`}>

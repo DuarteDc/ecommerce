@@ -127,7 +127,7 @@ export default function HomePage() {
 
   return (
     <>
-      <Slider/>
+      <Slider />
       <FacilityArea />
       <ProductsArea />
       <CategoryArea />
@@ -198,7 +198,7 @@ HomePage.getLayout = function getLayout(page) {
   )
 }
 
-export const getStaticProps = wrapper.getStaticProps((store) =>
+export const getServerSideProps = wrapper.getServerSideProps((store) =>
   async () => {
     await store.dispatch(startLoadAdministrableLogo());
     await store.dispatch(startLoadCategoriesHome());
@@ -208,9 +208,6 @@ export const getStaticProps = wrapper.getStaticProps((store) =>
     await store.dispatch(startLoadTags());
     await store.dispatch(startLoadBrands());
     await store.dispatch(startLoadReviews());
-    return {
-      revalidate: 480
-    }
   });
 
 

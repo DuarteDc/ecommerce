@@ -89,10 +89,7 @@ const Brands = () => {
 export const getStaticProps = wrapper.getStaticProps((store) => async () => {
   await store.dispatch(startLoadBrands());
   await store.dispatch(startLoadAdministrableLogo());
-  await store.dispatch(startLoadFaqsCategories())
-  return {
-    revalidate: 480
-  }
+  await store.dispatch(startLoadFaqsCategories());
 });
 
 
