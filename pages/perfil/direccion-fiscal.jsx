@@ -1,7 +1,7 @@
 import { wrapper } from "../../src/store";
 import Layout from "../../src/components/Layouts";
 import { startLoadAdministrableLogo } from "../../src/actions/administrableActions";
-import { startGetStates, startLoadFiscalAddress } from "../../src/actions/profileActions";
+import { startGetStates, startLoadFiscalAddress, startLoadTaxSystem } from "../../src/actions/profileActions";
 import { Breadcrumbs, Container, Grid, Typography } from "@mui/material";
 import {FiscalAddressProfile} from "../../src/components/profile/fiscalAddress/fiscalAddressProfile";
 import { FormFiscalAddressProfile } from "../../src/components/profile/fiscalAddress/formFiscalAdressProfile";
@@ -46,6 +46,7 @@ export const getServerSideProps = wrapper.getServerSideProps((store) =>
         await store.dispatch(startLoadAdministrableLogo());
         await store.dispatch(startGetStates());
         await store.dispatch(startLoadFiscalAddress(ctx.req.cookies.token));
+        await store.dispatch(startLoadTaxSystem(ctx.req.cookies.token));
 });
 
 export default FiscalAddress;

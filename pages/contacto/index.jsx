@@ -205,7 +205,7 @@ export const getStaticProps = wrapper.getStaticProps((store) => async () => {
   await store.dispatch(startLoadFaqsCategories());
 
   return {
-    revalidate: 3600
+    revalidate: 300
   }
 });
 

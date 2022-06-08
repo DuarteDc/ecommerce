@@ -72,6 +72,7 @@ export const types = {
     select_one_direction: '[PROFILE] select one direction',
     update_direction_user: '[PROFILE] update direction user',
     clear_direction: '[PROFILE] clear direction',
+    laod_tax_system: '[PROFILE] load tax system',
 
 
 

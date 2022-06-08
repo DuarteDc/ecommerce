@@ -13,7 +13,7 @@ import { shoppingCartNotLoggedfromLocalStorage } from "../../src/actions/shoppin
 
 import { CardProduct, BannerImage } from "../../src/components/ui";
 import { Newsletter } from "../../src/components/home";
-import { Breadcrumbs, Container, Grid, Typography } from "@mui/material";
+import { Breadcrumbs, Grid, Typography } from "@mui/material";
 import { GoHome } from "react-icons/go";
 import NavigateNextIcon from '@mui/icons-material/NavigateNext';
 

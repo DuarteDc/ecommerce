@@ -36,10 +36,6 @@ const FormAddress = ({ toggle }) => {
         setStates(_states);
     }
 
-    const loadMunicipalities = async (_id) => {
-        const _municipalities = await getMinicipilitesPerState(_id);
-        setMunicipalities(_municipalities);
-    }
     const handleChangeState = async (e) => {
         const _id = e.target.value
         const _municipalities = await getMinicipilitesPerState(_id);

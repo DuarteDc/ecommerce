@@ -2,40 +2,67 @@ import dynamic from 'next/dynamic'
 import { useDispatch, useSelector } from "react-redux";
 import { useFormik } from "formik";
 import * as Yup from 'yup';
-import { Grid, TextField, InputLabel } from "@mui/material"
-const Select = dynamic(() => import('react-select'), { ssr: false });
-import { taxt_system } from "../../../staticData/text_system";
-import { startAddFiscalAddress, startGetMunicipality, startUpdateFiscalAddress } from '../../../actions/profileActions';
-import { useEffect } from 'react';
+import { Grid, TextField } from "@mui/material"
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+import FormControl from '@mui/material/FormControl';
+import Select from '@mui/material/Select';
+import { getMinicipilitesPerState, getStates, startAddFiscalAddress, startGetMunicipality, startUpdateFiscalAddress } from '../../../actions/profileActions';
+import { useEffect, useState } from 'react';
 
 
 export const FormFiscalAddressProfile = () => {
+
   const dispatch = useDispatch();
-  const { states, municipalities, stateSelected, municipalitySelected } = useSelector((state) => state.profile);
-  const { fiscalAddress } = useSelector((state) => state.profile);
-  const taxt_selected = taxt_system.filter(taxt => taxt.value === fiscalAddress.tax_system);
+
+  const { taxes } = useSelector((state) => state.profile);
+  const { fiscalAddress, stateSelected, municipalitySelected } = useSelector((state) => state.profile);
+
+  const [states, setStates] = useState(null);
+  const [municipalities, setMunicipalities] = useState(null);
+
+  const loadStates = async () => {
+    const _states = await getStates();
+    setStates(_states);
+  }
+
+  useEffect(() => {
+    loadStates();
+  }, []);
+
+  useEffect(() => {
+    if (Object.keys(fiscalAddress).length > 0) {
+      loadMunicipalities(stateSelected?._id);
+    }
+  }, []);
+
+  const loadMunicipalities = async (_id) => {
+    const _municipalities = await getMinicipilitesPerState(_id);
+    setMunicipalities(_municipalities);
+  }
+
+  const handleChangeState = async ({ target }) => {
+    const _id = target.value
+    const _municipalities = await getMinicipilitesPerState(_id);
+    setMunicipalities(_municipalities);
+  }
 
   const initialValues = {
     legal_name: fiscalAddress.legal_name || '',
     tax_id: fiscalAddress.tax_id || '',
     email: fiscalAddress.email || '',
     phone: fiscalAddress.phone || '',
-    tax_system: taxt_selected[0] || '',
+    tax_system: fiscalAddress?.tax_system || '',
     street: fiscalAddress?.address?.street || '',
     interior: fiscalAddress?.address?.interior || '',
     exterior: fiscalAddress?.address?.exterior || '',
     neighborhood: fiscalAddress?.address?.neighborhood || '',
     city: fiscalAddress?.address?.city || '',
-    state: { label: stateSelected.name, value: stateSelected._id } || '',
-    municipality: { label: municipalitySelected.name, value: municipalitySelected._id } || '',
+    state: stateSelected?._id || '',
+    municipality: municipalitySelected?._id || '',
     zip: fiscalAddress?.address?.zip || ''
   }
 
-  useEffect(() => {
-    if (fiscalAddress) {
-      formik.values.tax_system = fiscalAddress.tax_system;
-    }
-  }, []);
 
   const validationSchema = {
     legal_name: Yup.string().required("Nombre fiscal o Razón social es requerido"),
@@ -45,12 +72,8 @@ export const FormFiscalAddressProfile = () => {
     zip: Yup.string().required("El Código Postal es requerido"),
   }
 
-  const handleChangeState = (state_id) => {
-    dispatch(startGetMunicipality(state_id));
-  }
-
-
   const formik = useFormik({
+
     initialValues,
     validationSchema: Yup.object(validationSchema),
     onSubmit: (formData) => {
@@ -85,13 +108,6 @@ export const FormFiscalAddressProfile = () => {
 
     }
   });
-
-
-  useEffect(() => {
-    if (stateSelected) {
-      handleChangeState(stateSelected._id);
-    }
-  }, [stateSelected]);
 
   return (
     <form onSubmit={formik.handleSubmit}>
@@ -160,21 +176,23 @@ export const FormFiscalAddressProfile = () => {
             />
           </Grid>
           <Grid item xs={12} sm={12} md={12} lg={12} xl={12}>
-            <Select
-              name="tax_system"
-              placeholder="Selecciona un regimen fiscal"
-              options={taxt_system}
-              onChange={selectedOption =>
-                formik.setFieldValue("tax_system", selectedOption.value)
-              }
-              id="react-select-32-live-region"
-              className="z-[30]"
-              defaultValue={formik.values.tax_system}
-            />
-            {formik.touched.tax_system && formik.errors.tax_system ? (
-              <span className="text-[#d32f2f] text-[0.75em] font-bold	 leading-[1.66] text-left mt-[4px] mr-[14px] mb-0 ml-[14px]">{formik.errors.tax_system}</span>
-            ) : null
-            }
+            <FormControl fullWidth size="small">
+              <InputLabel id="demo-simple-select-label">Regimen fiscal</InputLabel>
+              <Select
+                labelId="demo--ssimpleelect-label"
+                id="demo-simple-select"
+                value={formik.values.tax_system}
+                label="Regimen fiscal"
+                onChange={formik.handleChange}
+                name="tax_system"
+              >
+                {
+                  taxes.map(({ name, code }) => (
+                    <MenuItem key={code} value={code}>{name}</MenuItem>
+                  ))
+                }
+              </Select>
+            </FormControl>
           </Grid>
         </Grid>
       </div>
@@ -260,36 +278,43 @@ export const FormFiscalAddressProfile = () => {
             />
           </Grid>
           <Grid item xs={12} sm={12} md={12} lg={12} xl={12}>
-            <InputLabel id="demo-simple-select-label">Estado</InputLabel>
-            <Select
-              labelId="demo-simple-select-label"
-              name="state"
-              placeholder="Selecciona un estado"
-              options={states}
-              required={true}
-              id="react-select-32-live-region1"
-              onChange={selectedOption => {
-                formik.setFieldValue("state", selectedOption.value),
-                  handleChangeState(selectedOption.value),
-                  formik.setFieldValue("municipality", '')
-              }}
-              defaultValue={formik.values.state}
-            />
+            <FormControl fullWidth size="small">
+              <InputLabel id="demo-select-small">Estado</InputLabel>
+              <Select
+                labelId="demo-select-small"
+                id="demo-select-small"
+                value={formik.values.state}
+                label="Estado"
+                onChange={(e) => { formik.handleChange(e), handleChangeState(e) }}
+                name="state"
+              >
+                {
+                  states?.map(({ _id, name }) => (
+                    <MenuItem key={_id} value={_id}> {name} </MenuItem>
+                  ))
+                }
+              </Select>
+            </FormControl>
           </Grid>
           <Grid item xs={12} sm={12} md={12} lg={12} xl={12}>
-            <InputLabel id="demo-simple-select-label1">Municipio</InputLabel>
-            <Select
-              labelId="demo-simple-select-label1"
-              name="municipality"
-              placeholder="Selecciona un municipio"
-              options={municipalities}
-              required={true}
-              id="react-select-32-live-region2"
-              onChange={selectedOption =>
-                formik.setFieldValue("municipality", selectedOption.value)
-              }
-              defaultValue={formik.values.municipality}
-            />
+            <FormControl fullWidth size="small">
+              <InputLabel id="demo-select-small-municipalities">Municipio</InputLabel>
+              <Select
+                labelId="demo-select-small-municipalities"
+                id="demo-select-municipalities"
+                value={formik.values.municipality}
+                label="Municipio"
+                onChange={formik.handleChange}
+                placeholder="Municipio"
+                name="municipality"
+              >
+                {
+                  municipalities?.map(({ _id, name }) => (
+                    <MenuItem key={_id} value={_id}>{name}</MenuItem>
+                  ))
+                }
+              </Select>
+            </FormControl>
           </Grid>
           <Grid item xs={12} sm={12} md={6} lg={6} xl={6}>
             <div className="flex justify-center">

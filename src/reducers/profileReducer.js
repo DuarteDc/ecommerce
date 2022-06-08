@@ -8,7 +8,8 @@ const initialState = {
     municipalities: [],
     fiscalAddress: {},
     stateSelected: {},
-    municipalitySelected: {}
+    municipalitySelected: {},
+    taxes: [],
 }
 
 
@@ -95,7 +96,7 @@ export const profileReducer = (state = initialState, { type, payload }) => {
             const { customer, state: states, municipality } = payload;
             return {
                 ...state,
-                fiscalAddress: customer ,
+                fiscalAddress: customer,
                 stateSelected: states,
                 municipalitySelected: municipality,
             }
@@ -106,7 +107,7 @@ export const profileReducer = (state = initialState, { type, payload }) => {
                 ...state,
                 fiscalAddress: customer,
                 stateSelected: states,
-                municipalitySelected: municipality ,
+                municipalitySelected: municipality,
             }
         }
 
@@ -118,6 +119,13 @@ export const profileReducer = (state = initialState, { type, payload }) => {
                 stateSelected: states,
                 municipalitySelected: municipality,
             }
+
+        case types.laod_tax_system:
+            return {
+                ...state,
+                taxes: payload
+            }
+
         default:
             return state;
     }

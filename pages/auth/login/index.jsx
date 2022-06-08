@@ -1,4 +1,4 @@
-
+import { useEffect } from "react";
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import React from 'react'
@@ -6,12 +6,24 @@ import { startLoadAdministrableLogo } from '../../../src/actions/administrableAc
 import { FormSignIn } from '../../../src/components/auth/FormSignIn'
 import Layout from '../../../src/components/Layouts'
 import { wrapper } from '../../../src/store'
+import { useSelector, useDispatch } from 'react-redux';
+
+import { shoppingCartNotLoggedfromLocalStorage } from '../../../src/actions/shoppingCartActions'
 
 
 const Login = () => {
 
   const router = useRouter();
+  const dispatch = useDispatch();
+  
+  const { logged } = useSelector((state) => state.auth);
 
+  useEffect(() => {
+    if (!logged) {
+      let cartNotLogged = localStorage.getItem('cartNotlogged') ? JSON.parse(localStorage.getItem('cartNotlogged')) : [];
+      dispatch(shoppingCartNotLoggedfromLocalStorage(cartNotLogged))
+    }
+  }, [logged]);
 
   return (
     <Layout>

@@ -1,10 +1,24 @@
-import React from 'react'
+import { useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 import { startLoadAdministrableLogo } from '../../../src/actions/administrableActions'
+import { shoppingCartNotLoggedfromLocalStorage } from '../../../src/actions/shoppingCartActions'
 import FormSignUp from '../../../src/components/auth/FormSignUp'
 import Layout from '../../../src/components/Layouts'
 import { wrapper } from '../../../src/store'
 
-const index = () => {
+const Register = () => {
+
+  const dispatch = useDispatch();
+
+  const { logged } = useSelector((state) => state.auth);
+
+  useEffect(() => {
+    if (!logged) {
+      let cartNotLogged = localStorage.getItem('cartNotlogged') ? JSON.parse(localStorage.getItem('cartNotlogged')) : [];
+      dispatch(shoppingCartNotLoggedfromLocalStorage(cartNotLogged))
+    }
+  }, [logged]);
+
   return (
     <Layout>
       <section className="min-h-screen container mx-auto font-Poppins">
@@ -35,4 +49,4 @@ export const getStaticProps = wrapper.getStaticProps((store) =>
   });
 
 
-export default index
+export default Register

@@ -556,3 +556,34 @@ export const updateFiscalAddress = (customer, state, municipality) => ({
         municipality
     }
 });
+
+
+/********************************** Get tax System *************************************************/
+
+export const startLoadTaxSystem = (token) => {
+    return async (dispatch) => {
+        try {
+
+            let url = '/tax_system';
+            const { data } = await client.get(url, {
+                headers: {
+                    'Authorization': token
+                }
+            });
+
+            dispatch(loadTaxSystem(data.taxes));
+            return;            
+
+        } catch (error) {
+            if (axios.isAxiosError(error)) {
+                errorNotify(error?.response?.data?.message);
+                return;
+            }
+        }
+    }
+}
+
+const loadTaxSystem = (taxes) => ({
+    type: types.laod_tax_system,
+    payload: taxes
+})

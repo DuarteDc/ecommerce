@@ -28,18 +28,26 @@ import LoadingScreen from "../../src/components/LoadingScreen";
 import Filters from "../../src/components/products/Filters";
 import { startLoadFaqsCategories } from "../../src/actions/faqsActions";
 import { getStateAuth, startVerifyToken } from "../../src/actions/authActions";
+import { shoppingCartNotLoggedfromLocalStorage } from "../../src/actions/shoppingCartActions";
 
 
 const Products = () => {
 
-    const { products, filteredProducts, results, filters } = useSelector((state) => state.products);
+    const dispatch = useDispatch();
 
+    const { products, filteredProducts, results, filters } = useSelector((state) => state.products);
+    const { logged } = useSelector((state) => state.auth);
     const { brands } = useSelector((state) => state.brands);
     const { categories } = useSelector((state) => state.categories);
     const { categories: CategoriesFaqs } = useSelector((state) => state.faqs);
     const { tags } = useSelector((state) => state.tags);
 
-    const dispatch = useDispatch();
+    useEffect(() => {
+        if (!logged) {
+            let cartNotLogged = localStorage.getItem('cartNotlogged') ? JSON.parse(localStorage.getItem('cartNotlogged')) : [];
+            dispatch(shoppingCartNotLoggedfromLocalStorage(cartNotLogged))
+        }
+    }, [logged]);
 
     const router = useRouter();
 
