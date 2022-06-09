@@ -86,7 +86,7 @@ const Brands = () => {
   )
 }
 
-export const getStaticProps = wrapper.getStaticProps((store) => async () => {
+export const getServerSideProps = wrapper.getServerSideProps((store) => async () => {
   await store.dispatch(startLoadBrands());
   await store.dispatch(startLoadAdministrableLogo());
   await store.dispatch(startLoadFaqsCategories());

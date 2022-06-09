@@ -33,8 +33,9 @@ export const ShippingAddress = ({ handleOpenFormAddress }) => {
             </div>
             <div className="w-full mt-5 flex items-center">
                 <Select
-                    placeholder="Selecciona una dirección envío"
+                    placeholder="Dirección de envío"
                     options={address}
+                    className="w-full"
                     onChange={(value) => handleChangeAddress(value)}
                 />
                 <button

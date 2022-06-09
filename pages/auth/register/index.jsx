@@ -43,9 +43,6 @@ const Register = () => {
 export const getStaticProps = wrapper.getStaticProps((store) =>
   async () => {
     await store.dispatch(startLoadAdministrableLogo());
-    return {
-      revalidate: 480
-    }
   });
 
 

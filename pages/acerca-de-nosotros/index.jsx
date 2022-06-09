@@ -97,11 +97,10 @@ AboutPage.getLayout = function getLayout(page, categories) {
 };
 
 
-export const getStaticProps = wrapper.getStaticProps((store) => async () => {
+export const getServerSideProps = wrapper.getServerSideProps((store) => async () => {
   await store.dispatch(startLoadAdministrableLogo());
   await store.dispatch(startLoadAdministrableAbout());
   await store.dispatch(startLoadFaqsCategories());
-
 });
 
 export default AboutPage

@@ -15,7 +15,7 @@ const Login = () => {
 
   const router = useRouter();
   const dispatch = useDispatch();
-  
+
   const { logged } = useSelector((state) => state.auth);
 
   useEffect(() => {
@@ -54,9 +54,6 @@ const Login = () => {
 export const getStaticProps = wrapper.getStaticProps((store) =>
   async () => {
     await store.dispatch(startLoadAdministrableLogo());
-    return {
-      revalidate: 480
-    }
   });
 
 

@@ -14,7 +14,9 @@ export const ShoppingCartDetail = ({ shopping }) => {
           src={shopping?.product_id?.multimedia[0]?.path}
           width={200}
           height={200}
+          layout="fixed"
           alt={shopping?.product_id.name}
+          priority
         />
       </div>
       <div className="flex justify-between w-full">
