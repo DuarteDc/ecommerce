@@ -16,7 +16,7 @@ import { useToggle } from '../../src/hooks/useToggle';
 import FormAddress from '../../src/components/cart/FormAddress';
 
 const ShoppingCart = () => {
-  
+
   const dispatch = useDispatch();
   const router = useRouter();
   const { cart, cartNotLogged, success, coupon, subtotalWithCoupon } = useSelector((state) => state.cart);
@@ -78,17 +78,17 @@ const ShoppingCart = () => {
         title="Mi Carrito"
         imageBackground="bg-about-us"
       />
-      <section className="max-w-[1480px] mx-auto my-20 px-[15px] w-full">
-        <Grid container spacing={5}>
-          <Grid item xs={12} sm={12} md={12} lg={8} xl={8}>
+      <section className="max-w-[1480px] mx-auto my-20 w-full">
+        <div className="container grid grid-cols-1 lg:grid-cols-3 mx-auto">
+          <div className="lg:col-span-2  mx-[25px] overflow-x-hidden">
             <CartMobile />
-          </Grid>
-          <Grid item xs={12} sm={12} md={12} lg={4} xl={4}>
+          </div>
+          <div>
             <CartTotals
               handleOpenFormAddress={handleOpenFormAddress}
             />
-          </Grid>
-        </Grid>
+          </div>
+        </div>
       </section>
       <Modal
         open={open}

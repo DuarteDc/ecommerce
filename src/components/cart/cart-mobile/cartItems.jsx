@@ -95,48 +95,48 @@ export const CartItems = ({ product }) => {
   }
 
   return (
-    <Tr>
-      <Td data-testid="td" className="px-4 py-5 border-b border-gray-200 bg-white text-sm flex items-center text-center overflow-hidden">
+    <tr className="border-b border-gray-200">
+      <td className="px-4 py-5 bg-white text-sm flex items-center text-center truncate max-w-sm">
         <div>
           <Image
             src={(product.product_id.multimedia.length > 0) ? product.product_id.multimedia[0].path : 'https://upload.wikimedia.org/wikipedia/commons/d/d1/Image_not_available.png'}
             alt={product.name}
-            width={150}
-            height={150}
+            width={120}
+            height={120}
             layout="fixed"
           />
         </div>
-        <span className="text-gray-900 px-4 whitespace-no-wrap ">
-          {product_id.name}
-        </span>
-      </Td>
-      <Td className="px-5 py-5 border-b border-gray-200 bg-white text-sm text-center">
-        <p className="text-gray-900 whitespace-no-wrap ">
-          {price_product}
-        </p>
-      </Td>
-      <Td className="px-5 py-5 border-b border-gray-200 bg-white text-sm text-center">
+        <div className="flex flex-col">
+          <span className="text-gray-900 font-normal px-4 whitespace-no-wrap truncate">
+            {product_id.name}
+          </span>
+          <span className="text-gray-900 px-4 whitespace-no-wrap text-lg flex">
+            {price_product}
+          </span>
+        </div>
+      </td>
+      <td className="px-5 py-5 bg-white text-sm text-center">
         <p className="text-gray-900 whitespace-no-wrap ">
           {product_id.quantity}
         </p>
-      </Td>
-      <Td className="px-5 py-5 border-b border-gray-200 bg-white text-sm text-center">
+      </td>
+      <td className="px-5 py-5 bg-white text-sm text-center">
         <ButtonGroup
           quantity={quantityInput}
           increaseDecreaseQuantityProduct={increaseDecreaseQuantityProduct}
           handleChangeQuantity={handleChangeQuantity}
         />
-      </Td>
-      <Td className="px-5 py-5 border-b border-gray-200 bg-white text-sm text-center">
+      </td>
+      <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm text-center">
         <p className="text-gray-900 whitespace-no-wrap ">
           {subtotal}
         </p>
-      </Td>
-      <Td className="px-5 py-5 border-b border-gray-200 bg-white text-sm text-center">
+      </td>
+      <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm text-center">
         <IconButton onClick={() => handleRemoveProduct(product_id._id)}>
           <DeleteIcon />
         </IconButton>
-      </Td>
-    </Tr>
+      </td>
+    </tr>
   )
 }

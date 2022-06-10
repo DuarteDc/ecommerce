@@ -9,119 +9,78 @@ export const CategoryArea = () => {
   }
 
   return (
-   <section className="pb-[20px] my-10">
+    <section className="pb-[20px] my-10 px-2">
       <div className="max-w-[1140px] w-full mx-auto">
-        <div className="flex flex-wrap">
-          <div className="px-3 flex-grow-0 flex-shrink-0 basis-auto w-full lg:w-[33%]">
-           <div className="mb-8 
-              relative 
-              text-center 
-              overflow-hidden
-              before:absolute 
-              before:top-0 
-              left-0  
-              before:w-full
-              before:h-[98.6%] 
-             before:bg-[#333] 
-              before:opacity-[0.45] 
-              before:z-[2]"
-              onClick={()=>handleClickRedirect('productos')}
-              >
-           <Image
-            src="/assets/images/category.jpg"
-            width={390}
-            height={450}
-           />
-           <div className="absolute top-[25%] left-0 right-0 my-0 mx-auto z-[3] translate-y-2/4">
-            <h3 className="mb-[40px] text-luz font-bold text-xl leading-tight">Productos</h3>
-            <button className="bg-transparent text-[#fff] border-[#fff] border-solid border mt-5 py-4 px-10 leading-normal rounded-none uppercase font-normal text-sm cursor-pointer"  onClick={()=>handleClickRedirect('productos')}>Ver más</button>
-           </div>
-           </div>
+        <div className="grid grid-cols-2">
+          <div className="
+            relative 
+            text-center 
+            overflow-hidden
+            before:absolute 
+            before:top-0 
+            before:left-0 
+            before:w-full
+            before:h-full 
+            before:bg-[#333] 
+            before:opacity-[0.45] 
+            before:z-[2]"
+            onClick={() => handleClickRedirect('productos')}
+          >
+            <Image src="/assets/images/category.jpg" layout="fill" />
+            <div className="absolute top-[25%] left-0 right-0 my-0 mx-auto z-[3] translate-y-2/4">
+              <h2 className="mb-[40px] text-luz font-bold text-2xl leading-tight">Productos</h2>
+              <button
+                className="bg-transparent text-[#fff] border-[#fff] border-solid border mt-5 py-4 px-10 leading-normal rounded-none uppercase font-normal text-sm cursor-pointer hover:bg-white hover:text-gray-900 transition-all duration-700 ease-in-out"
+                onClick={() => handleClickRedirect('productos')}>Ver más</button>
+            </div>
           </div>
-          <div className="flex-grow-0 flex-shrink-0 basis-auto w-full lg:w-[66.6%]">
-            <div className="flex flex-wrap">
-              <div className="px-3 flex-grow-0 flex-shrink-0 basis-auto w-full lg:w-[50%]">
-              <div className="mb-1
-              relative 
-              text-center 
-              overflow-hidden
-              before:absolute 
-              before:top-0 
-              left-0 
-              cursor-pointer
-              before:w-full
-              before:h-[97%] 
-              before:bg-[#333] 
-              before:opacity-[0.45] 
-              before:z-[2]"
-              onClick={()=>handleClickRedirect('marcas')}
+          <div className="bg-red-300 grid grid-row-2">
+            <div className=" 
+                h-[300px]
+                cursor-pointer
+                relative 
+                text-center 
+                before:absolute 
+                before:top-0 
+                before:left-0 
+                before:w-full
+                before:h-[300px]
+                before:bg-[#333] 
+                before:opacity-[0.45] 
+                before:z-[2]"
+              onClick={() => handleClickRedirect('marcas')}
             >
-           <Image
-            src="/assets/images/brands.jpg"
-            width={350}
-            height={220}
-            className="w-full"
-           />
-           <div className="absolute top-[25%] left-0 right-0 my-0 mx-auto z-[3] translate-y-2/4">
-            <h3 className="mb-[40px] text-luz font-bold text-xl leading-tight">Marcas</h3>
-           </div>
-           </div>
+              <Image src="/assets/images/brands.jpg" width={300} height={300} layout="fill" />
+              <div className="absolute top-[25%] left-0 right-0 my-0 mx-auto z-[3] translate-y-2/4">
+                <h2 className="mb-[40px] text-luz font-bold text-2xl leading-tight">Marcas</h2>
               </div>
-              <div className="px-3 flex-grow-0 flex-shrink-0 basis-auto w-full lg:w-[50%]">
-              <div className="mb-1
-              relative 
-              text-center 
-              overflow-hidden
-              before:absolute 
-              before:top-0 
-              left-0 
-              cursor-pointer
-              before:w-full
-              before:h-[97%] 
-             before:bg-[#333] 
-              before:opacity-[0.45] 
-              before:z-[2]"
-              onClick={()=>handleClickRedirect('categorias')}
+            </div>
+            <div className=" 
+            h-[300px]
+          relative 
+          cursor-pointer
+          text-center 
+          overflow-hidden
+          before:absolute 
+          before:top-0 
+          before:left-0 
+          before:w-full
+          before:h-full 
+          before:bg-[#333] 
+          before:opacity-[0.45] 
+          before:z-[2]"
+              onClick={() => handleClickRedirect('categorias')}
             >
-           <Image
-            src="/assets/images/category.jpg"
-            width={350}
-            height={220}
-           />
-           <div className="absolute top-[25%] left-0 right-0 my-0 mx-auto z-[3] translate-y-2/4">
-            <h3 className="mb-[40px] text-luz font-bold text-xl leading-tight">Categorias</h3>
-           </div>
-           </div>
-           </div>
-           <div className="flex-grow-0 flex-shrink-0 basis-auto w-[100%] px-3">
-              <div className="
-              mb-8 
-              relative 
-              text-center 
-              overflow-hidden
-              before:absolute 
-              before:top-0 
-              left-0 
-              w-full
-              cursor-pointer
-              before:w-[100%]
-              before:h-[97%] 
-             before:bg-[#333] 
-              before:opacity-[0.45] 
-              before:z-[2]"
-              onClick={()=>handleClickRedirect('ofertas')}
-            >
-           <Image
-            src="/assets/images/offers.jpg"
-            width={760}
-            height={177}
-           />
-           <div className="absolute top-[20%] left-0 right-0 my-0 mx-auto z-[3] translate-y-2/4">
-            <h3 className="mb-[40px] text-luz font-bold text-xl leading-tight">Ofertas</h3>
-           </div>
-           </div>
-           </div>
-           </div>
+              <Image
+                src="/assets/images/categorias.jpg"
+                width={300}
+                height={300}
+                layout="fill"
+              />
+              <div className="absolute top-[25%] left-0 right-0 my-0 mx-auto z-[3] translate-y-2/4">
+                <h2 className="mb-[40px] text-luz font-bold text-2xl leading-tight">Categorias</h2>
+              </div>
+            </div>
           </div>
         </div>
       </div>
