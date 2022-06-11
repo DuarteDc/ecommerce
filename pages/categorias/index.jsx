@@ -84,10 +84,13 @@ const Categories = () => {
     )
 }
 
-export const getServerSideProps = wrapper.getServerSideProps((store) => async () => {
+export const getStaticProps = wrapper.getStaticProps((store) => async () => {
     await store.dispatch(startLoadCategories());
     await store.dispatch(startLoadAdministrableLogo());
     await store.dispatch(startLoadFaqsCategories());
+    return {
+        revalidate: 300
+    }
 });
 
 

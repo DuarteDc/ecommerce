@@ -198,7 +198,7 @@ HomePage.getLayout = function getLayout(page) {
   )
 }
 
-export const getServerSideProps = wrapper.getServerSideProps((store) =>
+export const getStaticProps = wrapper.getStaticProps((store) =>
   async () => {
     await store.dispatch(startLoadAdministrableLogo());
     await store.dispatch(startLoadCategoriesHome());
@@ -208,6 +208,11 @@ export const getServerSideProps = wrapper.getServerSideProps((store) =>
     await store.dispatch(startLoadTags());
     await store.dispatch(startLoadBrands());
     await store.dispatch(startLoadReviews());
+
+    return{
+      revalidate: 300
+    }
+    
   });
 
 
