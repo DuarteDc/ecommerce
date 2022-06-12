@@ -9,5 +9,8 @@ module.exports = {
               'upload.wikimedia.org',
               'cdn.pngsumo.com'
              ]
+  },
+  experimental: {
+    outputStandalone: true
   }
 }

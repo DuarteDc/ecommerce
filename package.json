@@ -4,7 +4,7 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start",
+    "start": "next start -p ${PORT:=3000}",
     "lint": "next lint"
   },
   "dependencies": {
@@ -45,6 +45,7 @@
     "redux-thunk": "^2.4.1",
     "semantic-ui-css": "^2.4.1",
     "semantic-ui-react": "^2.1.1",
+    "sharp": "^0.30.6",
     "sweetalert2": "^11.4.8",
     "swiper": "^8.0.1",
     "yup": "^0.32.11"
