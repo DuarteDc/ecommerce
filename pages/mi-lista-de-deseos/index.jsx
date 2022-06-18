@@ -36,7 +36,6 @@ const Wishlist = () => {
         if (Array.isArray(wishList)) {
             setValue(wishList)
         }
-        console.log(wishList)
         setLoading(false);
     }
 

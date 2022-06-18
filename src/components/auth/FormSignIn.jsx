@@ -141,7 +141,7 @@ export const FormSignIn = () => {
                     </div>
                     <GoogleLogin
                         clientId={process.env.NEXT_PUBLIC_GOOGLE_ID}
-                        buttonText="Continuar con Google"
+                        buttonText="Iniciar con Google"
                         className="w-full mt-5 py-3"
                         onSuccess={responseGoogle}
                         onFailure={responseGoogle}

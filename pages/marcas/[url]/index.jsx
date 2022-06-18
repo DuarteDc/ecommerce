@@ -5,29 +5,29 @@ import { useDispatch } from 'react-redux';
 
 
 
-import Layout from '../../src/components/Layouts';
-import Card from '../../src/components/Layouts/Card';
-import CategoriesList from '../../src/components/categories/CategoriesList';
+import Layout from '../../../src/components/Layouts';
+import Card from '../../../src/components/Layouts/Card';
+import CategoriesList from '../../../src/components/categories/CategoriesList';
 
 
-import { wrapper } from '../../src/store';
-import { startFilterProductsPerBrandAndCategory, startLoadProductsPerBrand, startloadProductsPerTagsInBrand } from '../../src/actions/brandsActions';
-import { startLoadCategories } from '../../src/actions/categoryActions';
+import { wrapper } from '../../../src/store';
+import { startFilterProductsPerBrandAndCategory, startLoadProductsPerBrand, startloadProductsPerTagsInBrand } from '../../../src/actions/brandsActions';
+import { startLoadCategories } from '../../../src/actions/categoryActions';
 
-import { startLoadAdministrableLogo } from '../../src/actions/administrableActions';
-import { BannerImage, ProductCard } from '../../src/components/ui';
+import { startLoadAdministrableLogo } from '../../../src/actions/administrableActions';
+import { BannerImage, ProductCard } from '../../../src/components/ui';
 
-import { startLoadTags } from '../../src/actions/tagsActions';
+import { startLoadTags } from '../../../src/actions/tagsActions';
 import { useEffect, useState } from 'react';
 
-import AsideBar from '../../src/components/categories/AsideBar';
+import AsideBar from '../../../src/components/categories/AsideBar';
 
 
-import LoadingScreen from '../../src/components/LoadingScreen';
-import { useLocalStorage } from '../../src/hooks/useLocalStorage';
-import BrandFilter from '../../src/components/brands/BrandFilter';
-import TagsList from '../../src/components/tags/TagsList';
-import { startLoadFaqsCategories } from '../../src/actions/faqsActions';
+import LoadingScreen from '../../../src/components/LoadingScreen';
+import { useLocalStorage } from '../../../src/hooks/useLocalStorage';
+import BrandFilter from '../../../src/components/brands/BrandFilter';
+import TagsList from '../../../src/components/tags/TagsList';
+import { startLoadFaqsCategories } from '../../../src/actions/faqsActions';
 
 const Show = () => {
 

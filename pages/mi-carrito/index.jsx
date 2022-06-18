@@ -10,6 +10,8 @@ import { useRouter } from 'next/router';
 import { Grid } from '@mui/material';
 import { startLoadFaqsCategories } from '../../src/actions/faqsActions';
 
+import Cookies from 'js-cookie';
+
 import { Modal } from "../../src/components/ui/modal";
 
 import { useToggle } from '../../src/hooks/useToggle';
@@ -19,11 +21,11 @@ const ShoppingCart = () => {
 
   const dispatch = useDispatch();
   const router = useRouter();
+
   const { cart, cartNotLogged, success, coupon, subtotalWithCoupon } = useSelector((state) => state.cart);
-  const { logged } = useSelector((state) => state.auth);
+  const { logged, user } = useSelector((state) => state.auth);
   const { categories } = useSelector((state) => state.faqs);
   const [open, toggle] = useToggle();
-
 
   useEffect(() => {
     if (!logged && !cart.length) {
@@ -66,6 +68,11 @@ const ShoppingCart = () => {
   const handleOpenFormAddress = () => {
     if (!logged) {
       router.push(`/auth/login?p=${router.asPath}`);
+      return;
+    }
+
+    if (!user.email_verified) {
+      router.push(`/verificar-cuenta`);
       return;
     }
 

@@ -89,7 +89,7 @@ export const shoppingCartReducer = (state = initialState, { type, payload }) => 
                 addressSelected: payload
             }
         case types.addDirectionInCart:
-            return{
+            return {
                 ...state,
                 shippingAddress: [...state.shippingAddress, payload]
             }
@@ -108,6 +108,11 @@ export const shoppingCartReducer = (state = initialState, { type, payload }) => 
                 coupon: initialState.coupon
             }
 
+        case types.removeAddressFromCart:
+            return {
+                ...state,
+                addressSelected: ''
+            }
 
         default:
             return state;

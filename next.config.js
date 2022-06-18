@@ -7,7 +7,8 @@ module.exports = {
     domains: ['ecommerce-taco.s3.us-east-2.amazonaws.com',
               'lh3.googleusercontent.com',
               'upload.wikimedia.org',
-              'cdn.pngsumo.com'
+              'cdn.pngsumo.com',
+              'cdn.wapizima.com'
              ]
   },
   experimental: {

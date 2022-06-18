@@ -429,4 +429,8 @@ export const addCoupon = (subtotal, coupon) => ({
 
 export const removeCoupon = () => ({
    type: types.remove_coupon,
-})
+});
+
+export const removeAddressFromCart = () =>({
+   type: types.removeAddressFromCart,
+});

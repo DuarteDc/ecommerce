@@ -1,8 +1,17 @@
-.each-slide > div {
+.each-slide>div {
     display: flex;
     justify-content: center;
     background-size: contain;
     background-position: center;
     height: 450px;
+
+}
+
+.each-slide-card>div {
+    display: flex;
+    justify-content: center;
+    background-position: center;
+    height: 500px;
+    background-repeat: no-repeat;
 
 }

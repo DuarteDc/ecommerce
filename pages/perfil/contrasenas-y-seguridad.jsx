@@ -54,8 +54,6 @@ const PasswordAndSecurity = () =>{
         }
     }, [user]);
 
-    console.log(user?.profileImage);
-
     const [ isLoadImage , setIsLoadImage ] = useState(false);
     
     const handleClickUpdateSessionSecurity = (type) =>{

@@ -14,6 +14,7 @@ import { addOneProduct, removeOneProduct } from "../../actions/wishListActions";
 import { helpers } from "../../helpers";
 import { BsFillCartCheckFill } from "react-icons/bs";
 import Cookies from "js-cookie";
+import SliderProductCard from "../products/SliderProductCard";
 
 export const ProductCard = ({ product }) => {
   const { _id, name, price, url, quantity, discount } = product;
@@ -108,15 +109,16 @@ export const ProductCard = ({ product }) => {
         <Image
           src={(product.multimedia.length > 0) ? product.multimedia[0].path : 'https://upload.wikimedia.org/wikipedia/commons/d/d1/Image_not_available.png'}
           alt={'name'}
-          width={250}
-          height={300}
+          width={100}
+          height={100}
           property
           layout="responsive"
           placeholder="blur"
           blurDataURL="/assets/images/animation.gif"
-          className="flex items-center"
+          className="flex items-center cursor-pointer"
+          onClick={() => handleShowProduct()}
         />
-
+        {/* <SliderProductCard images={product.multimedia} /> */}
         {
           quantity === 0 &&
           <div className="text-center 
@@ -208,7 +210,7 @@ export const ProductCard = ({ product }) => {
               </button>
             </div>
             <div className="flex justify-between">
-              <span className="w-[35px] 
+              {/* <span className="w-[35px] 
                                      h-[35px] 
                                      leading-[38px] 
                                      text-center  
@@ -228,7 +230,7 @@ export const ProductCard = ({ product }) => {
                 >
                   <BiShowAlt />
                 </IconContext.Provider>
-              </span>
+              </span> */}
 
               <span className="w-[35px] 
                                      h-[35px] 

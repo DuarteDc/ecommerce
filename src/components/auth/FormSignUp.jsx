@@ -5,6 +5,9 @@ import { useRouter } from "next/router";
 import * as Yup from 'yup';
 import { useFormik } from "formik";
 import { useDispatch } from "react-redux";
+import { startLoginGoogle } from "../../actions/authActions";
+
+import { GoogleLogin } from 'react-google-login';
 
 import { startRegister } from "../../actions/authActions";
 import LoadingScreen from "../LoadingScreen";
@@ -95,6 +98,22 @@ const FormSignUp = () => {
     const [phoneNumber, setPhoneNumber] = useState();
     const [country, setCountry] = useState();
 
+    const responseGoogle = async ({ tokenId }) => {
+        setLoading(true)
+        const isValid = await dispatch(startLoginGoogle(tokenId));
+
+        if (!isValid) {
+            setError(true);
+            setTimeout(() => setError(false), 4000);
+            setLoading(false);
+            return;
+        }
+
+        const destination = router.query.p?.toString() || '';
+        router.replace(destination);
+        setLoading(false);
+    }
+
     return (
         <>{loading && <LoadingScreen />}
             <form onSubmit={formik.handleSubmit} className="w-full">
@@ -122,7 +141,7 @@ const FormSignUp = () => {
                             label="Tu Nombre"
                             fullWidth
                             required={true}
-                            error={formik.touched.fullname && formik.errors.fullname? true : false}
+                            error={formik.touched.fullname && formik.errors.fullname ? true : false}
                             helperText={formik.touched.fullname && formik.errors.fullname && formik.errors.fullname}
                             autoComplete={false}
                         />
@@ -137,7 +156,7 @@ const FormSignUp = () => {
                             onChange={formik.handleChange}
                             placeholder="Correo electronico"
                             fullWidth
-                            error={formik.touched.email && formik.errors.email? true : false}
+                            error={formik.touched.email && formik.errors.email ? true : false}
                             helperText={formik.touched.email && formik.errors.email && formik.errors.email}
                             autoComplete={false}
                         />
@@ -168,7 +187,7 @@ const FormSignUp = () => {
                             required={true}
                             placeholder="Tú contraseña"
                             fullWidth
-                            error={formik.touched.password && formik.errors.password? true : false}
+                            error={formik.touched.password && formik.errors.password ? true : false}
                             helperText={formik.touched.password && formik.errors.password && formik.errors.password}
                             autoComplete={false}
                         />
@@ -183,7 +202,7 @@ const FormSignUp = () => {
                             required={true}
                             placeholder="Tú contraseña"
                             fullWidth
-                            error={formik.touched.passwordConfirmation && formik.errors.passwordConfirmation? true : false}
+                            error={formik.touched.passwordConfirmation && formik.errors.passwordConfirmation ? true : false}
                             helperText={formik.touched.passwordConfirmation && formik.errors.passwordConfirmation && formik.errors.passwordConfirmation}
                             autoComplete={false}
                         />
@@ -228,6 +247,21 @@ const FormSignUp = () => {
                                 <a className="hover:text-gray-900 transition-all duration-700 ease-out">¿Ya tienes Cuenta?</a>
                             </Link>
                         </div>
+                    </div>
+                    <div className="my-5">
+                        <div className="flex items-center">
+                            <hr className="w-full h-0.5 bg-gray-200 mr-2" />
+                            <p className="text-gray-200 font-semibold">O</p>
+                            <hr className="w-full h-0.5 bg-gray-200 ml-2" />
+                        </div>
+                        <GoogleLogin
+                            clientId={process.env.NEXT_PUBLIC_GOOGLE_ID}
+                            buttonText="Registrarme con Google"
+                            className="w-full mt-5 py-3"
+                            onSuccess={responseGoogle}
+                            onFailure={responseGoogle}
+                            cookiePolicy={'single_host_origin'}
+                        />
                     </div>
                 </div>
             </form>

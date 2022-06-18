@@ -1,7 +1,8 @@
 
 import { helpers } from "../../helpers"
-import { AiOutlineCloseCircle } from "react-icons/ai"
+import { AiOutlineCloseCircle } from "react-icons/ai";
 import { IconContext } from "react-icons";
+
 const CouponDetails = ({ handleApplyCoupon, setInputCoupon, coupon, handleRemoveCoupon, subtotalWithCoupon }) => {
     const subtotal = helpers.priceFormat(subtotalWithCoupon);
     return (

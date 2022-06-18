@@ -135,44 +135,48 @@ export default function HomePage() {
       <PartnerArea />
       <Newsletter />
       <TestimonialArea />
-      <Modal
-        showTitle={false}
-        open={open}
-        fullWidth={true}
-        maxWidth="sm"
-        actions={false}
-        handleOpenCheckout={handleOpenModalOffers}
-        background="bg-offers opacity-[0.9]"
-      >
-        <Container>
-          <Grid container>
-            <Grid item xs={12} sm={12} md={12} lg={12} xl={12}>
-              <Typography variant="h3" className="font-Poppins font-normal text-[30px] text-primary text-center uppercase mb-6">
-                Ofertas del dia
-              </Typography>
-            </Grid>
-            {
-              offers.map(offer => (
-                <Grid item xs={12} sm={12} md={12} lg={12} xl={12} key={offer._id}>
-                  <OfferCard
-                    offer={offer}
-                  />
+      {
+        offers.length && (
+          <Modal
+            showTitle={false}
+            open={open}
+            fullWidth={true}
+            maxWidth="sm"
+            actions={false}
+            handleOpenCheckout={handleOpenModalOffers}
+            background="bg-offers opacity-[0.9]"
+          >
+            <Container>
+              <Grid container>
+                <Grid item xs={12} sm={12} md={12} lg={12} xl={12}>
+                  <Typography variant="h3" className="font-Poppins font-normal text-[30px] text-primary text-center uppercase mb-6">
+                    Ofertas del dia
+                  </Typography>
                 </Grid>
-              ))
-            }
-          </Grid>
-          <Grid item xs={12} sm={12} md={12} lg={12} xl={12}>
-            <div className="w-full flex justify-center">
-              <button
-                className="bg-[#333] text-secondary py-4 px-10 rounded-none w-full hover:bg-[#000]"
-                onClick={handleButtonCloseModalOffers}
-              >
-                Cerrar
-              </button>
-            </div>
-          </Grid>
-        </Container>
-      </Modal>
+                {
+                  offers.map(offer => (
+                    <Grid item xs={12} sm={12} md={12} lg={12} xl={12} key={offer._id}>
+                      <OfferCard
+                        offer={offer}
+                      />
+                    </Grid>
+                  ))
+                }
+              </Grid>
+              <Grid item xs={12} sm={12} md={12} lg={12} xl={12}>
+                <div className="w-full flex justify-center">
+                  <button
+                    className="bg-[#333] text-secondary py-4 px-10 rounded-none w-full hover:bg-[#000]"
+                    onClick={handleButtonCloseModalOffers}
+                  >
+                    Cerrar
+                  </button>
+                </div>
+              </Grid>
+            </Container>
+          </Modal>
+        )
+      }
 
     </>
   )
@@ -209,10 +213,10 @@ export const getStaticProps = wrapper.getStaticProps((store) =>
     await store.dispatch(startLoadBrands());
     await store.dispatch(startLoadReviews());
 
-    return{
-      revalidate: 300
+    return {
+      revalidate: 3600
     }
-    
+
   });
 
 

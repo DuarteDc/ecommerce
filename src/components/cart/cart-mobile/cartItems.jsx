@@ -8,7 +8,8 @@ import { useDebounce } from "../../../hooks/useDebounce";
 import { toast } from "react-toastify";
 import { IconButton } from "@mui/material";
 import DeleteIcon from '@mui/icons-material/Delete';
-import { Tr, Td } from 'react-super-responsive-table';
+import Zoom from 'react-medium-image-zoom';
+import 'react-medium-image-zoom/dist/styles.css';
 
 
 export const CartItems = ({ product }) => {
@@ -96,15 +97,22 @@ export const CartItems = ({ product }) => {
 
   return (
     <tr className="border-b border-gray-200">
-      <td className="px-4 py-5 bg-white text-sm flex items-center text-center truncate max-w-sm">
+      <td className="px-4 bg-white text-sm flex items-center text-center truncate max-w-sm">
         <div>
-          <Image
-            src={(product.product_id.multimedia.length > 0) ? product.product_id.multimedia[0].path : 'https://upload.wikimedia.org/wikipedia/commons/d/d1/Image_not_available.png'}
-            alt={product.name}
-            width={120}
-            height={120}
-            layout="fixed"
-          />
+          <Zoom zoomMargin={45}>
+            <picture>
+              <source media="(max-width: 10px)" srcSet={ product.product_id.multimedia[0].path } />
+              <Image
+                src={(product.product_id.multimedia.length > 0) ? product.product_id.multimedia[0].path : 'https://upload.wikimedia.org/wikipedia/commons/d/d1/Image_not_available.png'}
+                alt={product.name}
+                width={160}
+                height={140}
+                layout="fixed"
+                quality={100}
+                priority
+              />
+            </picture>
+          </Zoom>
         </div>
         <div className="flex flex-col">
           <span className="text-gray-900 font-normal px-4 whitespace-no-wrap truncate">

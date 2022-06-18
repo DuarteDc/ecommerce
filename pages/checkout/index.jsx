@@ -20,8 +20,12 @@ import { startLoadBanksAccounts, startLoadClientSecret } from "../../src/actions
 import { CheckoutTransfer } from "../../src/components/checkout/checkoutTransfer";
 import { ShoppingCartDetails } from "../../src/components/checkout/shoppingCartDetails";
 import { useRouter } from "next/router";
+import LoadingScreen from "../../src/components/LoadingScreen";
+
+const stripePromise = loadStripe("pk_test_51JQDmVCJKrEV4P25HqhKqz4fnKIZVF7d853icQ84CYZrCFxUorhPwAdjwyKhnP124hlGSaYfOEjZo7LibrwT6Azo002XEZChlH");
 
 const Checkout = () => {
+
   const dispatch = useDispatch();
   const router = useRouter();
   const { superTotal } = useSelector((state) => state.cart);
@@ -31,15 +35,14 @@ const Checkout = () => {
   const [openTransfer, toggleTransfer] = useToggle();
   const [loadingForm, setLoadingForm] = useState(false);
 
-  const handleOpenCheckout = () => {
-    toggle();
-  }
-
   const handleOpenTransfer = () => {
     toggleTransfer();
   }
 
-  const stripePromise = loadStripe("pk_test_51JQDmVCJKrEV4P25HqhKqz4fnKIZVF7d853icQ84CYZrCFxUorhPwAdjwyKhnP124hlGSaYfOEjZo7LibrwT6Azo002XEZChlH");
+  useEffect(() => {
+    setLoadingForm(true);
+    handleClickPaymentStripe();
+  }, [])
 
   useEffect(() => {
     if (bankAccountSelected) {
@@ -82,8 +85,47 @@ const Checkout = () => {
   }, []);
 
   const appearance = {
-    theme: "minimal"
-  }
+    labels: 'floating',
+    theme: 'flat',
+    variables: {
+      fontFamily: ' "Gill Sans", sans-serif',
+      fontLineHeight: '1.5',
+      borderRadius: '3px',
+      colorBackground: '#F6F8FA',
+      colorPrimaryText: '#262626'
+    },
+    rules: {
+      '.Block': {
+        backgroundColor: 'var(--colorBackground)',
+        boxShadow: 'none',
+        padding: '12px'
+      },
+      '.Input:focus': {
+        padding: '12px',
+        border: '1px solid #e91e63',
+        boxShadow: '-4px 1px 31px -14px rgba(233,30,99,0.59)'
+      },
+      '.Input:disabled, .Input--invalid:disabled': {
+        color: '#a31545'
+      },
+      '.Tab': {
+        padding: '10px 12px 8px 12px',
+        border: 'none'
+      },
+      '.Tab:hover': {
+        border: 'none',
+        boxShadow: '0px 1px 1px rgba(0, 0, 0, 0.03), 0px 3px 7px rgba(18, 42, 66, 0.04)'
+      },
+      '.Tab--selected, .Tab--selected:focus, .Tab--selected:hover': {
+        border: 'none',
+        backgroundColor: '#fff',
+        boxShadow: '0 0 0 1.5px var(--colorPrimaryText), 0px 1px 1px rgba(0, 0, 0, 0.03), 0px 3px 7px rgba(18, 42, 66, 0.04)'
+      },
+      '.Label': {
+        fontWeight: '500'
+      }
+    }
+  };
 
   const options = {
     clientSecret: client_secret,
@@ -93,17 +135,16 @@ const Checkout = () => {
   const handleClickPaymentStripe = async () => {
 
     const token = await Cookie.get('token') || '';
-    if (!client_secret) {
-      await dispatch(startLoadClientSecret(token));
-    } else {
-      await dispatch(startLoadClientSecret(token));
-    }
 
-    toggle();
+    await dispatch(startLoadClientSecret(token));
+
   }
 
   return (
     <Layout>
+      {
+        loadingForm && (<LoadingScreen />)
+      }
       <BannerImage
         title="Realizar Pago"
         imageBackground="bg-about-us"
@@ -135,14 +176,16 @@ const Checkout = () => {
 
                 :
                 <div>
-                  <button className="bg-[#008cdd] text-luz py-[15px] px-[20px] w-full uppercase text-[15px] hover:bg-[#1e90ff] mt-5 flex items-center justify-center"
-                    onClick={() => handleClickPaymentStripe()}
-                  >
-                    <IconContext.Provider value={{ className: "color-[#fff] , text-[40px] , mr-[30px]" }}>
-                      <FaCcStripe />
-                    </IconContext.Provider>
-                    <span>Pago con Tarjeta</span>
-                  </button>
+                  <div>
+                    {client_secret && (
+                      <Elements options={options} stripe={stripePromise}>
+                        <CheckoutForm
+                          loadingForm={loadingForm}
+                          setLoadingForm={setLoadingForm}
+                        />
+                      </Elements>
+                    )}
+                  </div>
                   <button className="bg-[#fb8c00] text-luz py-[15px] px-[20px] w-full uppercase text-[15px] hover:bg-[#e65100] mt-5 flex items-center justify-center"
                     onClick={() => handleOpenTransfer()}
                   >
@@ -155,22 +198,6 @@ const Checkout = () => {
                 </div>
             }
 
-            {/* modal pago por stripe */}
-            <Modal
-              title="Proceder al Pago"
-              open={open}
-              handleOpenCheckout={handleOpenCheckout}
-              actions={false}
-            >
-              {client_secret && (
-                <Elements options={options} stripe={stripePromise}>
-                  <CheckoutForm
-                    handleOpenCheckout={handleOpenCheckout}
-                    loadingForm={loadingForm}
-                  />
-                </Elements>
-              )}
-            </Modal>
             {/* modal pago por transferencia */}
             <Modal
               title="Pago Por Transferencia"

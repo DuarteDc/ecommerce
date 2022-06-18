@@ -98,7 +98,6 @@ export const startFilterProductsPerBrandAndCategory = (brand, category) => {
         const url = `/products/brands/categories/${brand._id}/${category._id}`;
         try {
             const res = await client.get(url);
-            console.log(res.data.products);
             dispatch(filterProductsPerBrandAndCategory(category, res.data.products));
         } catch (error) {
             console.log(error);
@@ -171,3 +170,18 @@ export const loadProductsPerTags = (tag, products) => ({
         products
     }
 });
+
+
+export const existBrand = async () => {
+    let url = `${process.env.REACT_APP_BACKEND_URL}/brands`;
+    try {
+        const response = await fetch(url, { method: 'GET', });
+        const data = await response.json();
+        return data.brands;
+    } catch (error) {
+        return {
+            hasError: true,
+            message: "No se pudo enviar el correo - Intente más tarde"
+        }
+    }
+}

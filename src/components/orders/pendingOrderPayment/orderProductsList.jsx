@@ -5,8 +5,8 @@ import { GiCancel } from "react-icons/gi";
 import { useDispatch } from "react-redux";
 import { startOrderCancel } from "../../../actions/ordersActions";
 import { Grid } from "@mui/material";
-import Zoom from 'react-medium-image-zoom'
-import 'react-medium-image-zoom/dist/styles.css'
+import Zoom from 'react-medium-image-zoom';
+import 'react-medium-image-zoom/dist/styles.css';
 
 export const OrderProductsList = ({ product }) => {
     const { product: productList, quantity, subtotal } = product;

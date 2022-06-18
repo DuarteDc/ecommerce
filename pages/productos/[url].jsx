@@ -192,35 +192,47 @@ const Show = () => {
                             </div>
                             <div className="mt-5">
                                 <div className="flex items-center">
-                                    <h3 className="text-[#666] text-[16px]">Categoria:</h3>
-                                    <p className="text-[#333] font-medium ml-2 
-                                    cursor-pointer hover:text-gray-700 duration-500">
-                                        {product?.category?.name}
-                                    </p>
-                                </div>
-                                <div className="flex items-center">
                                     <h3 className="text-[#666] text-[16px]">Marca:</h3>
                                     <p className="text-[#333] font-medium ml-2 
                                     cursor-pointer hover:text-gray-700 duration-500">
                                         {product?.brand?.name}
                                     </p>
                                 </div>
-                                <div className="mt-5">
-                                    <h3 className="text-[#666] text-[16px] leading-8">Tags:</h3>
-                                    <div className="flex">
-                                        {
-                                            product?.tags.map(tag => (
-                                                <div key={tag.tag_id._id} className="bg-[#333] rounded-3xl px-4 py-1 mr-2 cursor-pointer ">
-                                                    <span className="text-secondary font-medium text-xs 
-                                                    duration-500 flex items-center justify-center text-center
-                                                    ">
-                                                        {tag.tag_id.name}
-                                                    </span>
-                                                </div>
-                                            ))
-                                        }
-                                    </div>
+                                <div className="flex items-center">
+                                    <h3 className="text-[#666] text-[16px]">Categoría:</h3>
+                                    <p className="text-[#333] font-medium ml-2  
+                                    cursor-pointer hover:text-gray-700 duration-500">
+                                        {product?.category?.name}
+                                    </p>
                                 </div>
+                                <div className="flex items-center">
+                                    <h3 className="text-[#666] text-[16px]">Subcategoría:</h3>
+                                    <p className="text-[#333] font-medium ml-2 
+                                    cursor-pointer hover:text-gray-700 duration-500">
+                                        {product?.subcategory?.name}
+                                    </p>
+                                </div>
+                                {
+                                    product?.tags.length > 0 && (
+                                        <div className="mt-5">
+                                            <h3 className="text-[#666] text-[16px] leading-8">Tags:</h3>
+                                            <div className="flex">
+                                                {
+                                                    product?.tags.map(tag => (
+                                                        <div key={tag.tag_id._id} className="bg-[#333] rounded-3xl px-4 py-1 mr-2 cursor-pointer ">
+                                                            <span className="text-secondary font-medium text-xs 
+                                                        duration-500 flex items-center justify-center text-center
+                                                        ">
+                                                                {tag.tag_id.name}
+                                                            </span>
+                                                        </div>
+                                                    ))
+                                                }
+                                            </div>
+                                        </div>
+                                    )
+                                }
+
                             </div>
                             <div className="mt-12 lg:mt-20">
                                 <div className="flex items-center">
@@ -279,7 +291,7 @@ const Show = () => {
                     <div className="mb-[40px] text-center bg-[#f8f8f8] p-[15px]">
                         <h3 className="mb-0 inline-block relative pl-[20px]  text-[20px] font-semibold">Productos Relacionados</h3>
                     </div>
-                    <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 my-24">
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 my-24">
                         {
                             relatedProducts.map(product => (
                                 <ProductCard product={product} key={product._id} />

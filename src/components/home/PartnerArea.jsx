@@ -9,25 +9,26 @@ import { useRouter } from "next/router";
 export const PartnerArea = () => {
   const { brands } = useSelector((state) => state.brands);
   const router = useRouter();
-  
-  const handleClickBrand = (name) =>{
-    router.push(`/marcas/${name}`)
+
+  const handleClickBrand = (url) => {
+    router.push(`/marcas/${url}`)
   }
 
   return (
     <section className="bg-[#f5f5f5] py-8 m-auto">
       <div className="mx-auto px-6 max-w-[1420px] flex justify-around ">
-          {brands.map((brand) => (
-              <div className="text-center h-auto " key={brand._id} onClick={()=>handleClickBrand(brand.name)}>
-               
-                  <Image
-                    src={brand.image}
-                    width={100}
-                    height={100}
-                    className="w-auto inline-block cursor-pointer"
-                  />
-              </div>
-               ))}
+        {brands.map((brand) => (
+          <Link href={`/marcas/${brand.url}`} passHref key={brand._id}>
+            <div className="text-center h-auto " key={brand._id}>
+              <Image
+                src={brand.image}
+                width={100}
+                height={100}
+                className="w-auto inline-block cursor-pointer"
+              />
+            </div>
+          </Link>
+        ))}
       </div>
     </section>
   );
