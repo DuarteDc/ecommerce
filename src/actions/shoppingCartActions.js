@@ -362,7 +362,7 @@ export const startSaveNewAddress = (data) => {
                'Authorization': token
             }
          });
-         dispatch(saveNewAddress(res.data.direction));
+         dispatch(saveNewAddress(res.data.directions));
          return {
             hasError: false,
             message: res?.data?.message,
@@ -383,9 +383,9 @@ export const startSaveNewAddress = (data) => {
       }
    }
 }
-export const saveNewAddress = (direction) => ({
+export const saveNewAddress = (directions) => ({
    type: types.addDirectionInCart,
-   payload: direction,
+   payload: directions,
 });
 
 /****************cupones*********************/

@@ -7,7 +7,7 @@ import { BannerImage } from '../../src/components/ui';
 import { CartMobile, CartTotals } from '../../src/components/cart';
 import { shoppingCartNotLoggedfromLocalStorage, startCalculateTotalSale, startGetDirections, startLoadShoppingCart } from '../../src/actions/shoppingCartActions';
 import { useRouter } from 'next/router';
-import { Grid } from '@mui/material';
+
 import { startLoadFaqsCategories } from '../../src/actions/faqsActions';
 
 import Cookies from 'js-cookie';

@@ -109,7 +109,7 @@ const Products = () => {
                     {
                         Object.keys(filters).length !== 0 && (
                             <p className="text-gray-500 px-2 text-xl text-right">
-                                {results.quantity} {results.quantity > 1 ? 'resultados' : 'resultado'}  sobre {results.name}
+                                {results.quantity} {results.quantity !== 1 ? 'resultados' : 'resultado'}  sobre {results.name}
                             </p>
                         )
                     }

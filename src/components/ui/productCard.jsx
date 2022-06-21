@@ -210,7 +210,7 @@ export const ProductCard = ({ product }) => {
               </button>
             </div>
             <div className="flex justify-between">
-              {/* <span className="w-[35px] 
+              <span className="w-[35px] 
                                      h-[35px] 
                                      leading-[38px] 
                                      text-center  
@@ -230,7 +230,7 @@ export const ProductCard = ({ product }) => {
                 >
                   <BiShowAlt />
                 </IconContext.Provider>
-              </span> */}
+              </span>
 
               <span className="w-[35px] 
                                      h-[35px] 

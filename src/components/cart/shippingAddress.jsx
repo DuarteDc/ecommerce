@@ -1,3 +1,4 @@
+
 import { useDispatch, useSelector } from "react-redux"
 
 import { addShippingAddressSelected, removeAddressFromCart } from "../../actions/shoppingCartActions";
@@ -12,8 +13,6 @@ export const ShippingAddress = ({ handleOpenFormAddress }) => {
     const dispatch = useDispatch();
     const { shippingAddress, addressSelected } = useSelector((state) => state.cart);
 
-    const { logged } = useSelector(state => state.auth);
-
     const address = shippingAddress.map(address => {
         let add = {
             label: `${address.street} #${address.no_ext}, ${address.postalcode}, ${address?.state?.name || address?.state}`,
@@ -23,10 +22,14 @@ export const ShippingAddress = ({ handleOpenFormAddress }) => {
     });
 
     const handleChangeAddress = (value) => {
-        const shippingAddressSelected = shippingAddress.filter(shipping => shipping._id === value);
-        if (shippingAddressSelected.length > 0) {
-            dispatch(addShippingAddressSelected(shippingAddressSelected[0]));
+ 
+        const shippingAddressSelected = shippingAddress.find(address => address._id === value);
+
+        if (shippingAddressSelected) {
+            
+            dispatch(addShippingAddressSelected(shippingAddressSelected));
         }
+
     }
 
     const handleRemoveAddress = () => {
@@ -49,7 +52,7 @@ export const ShippingAddress = ({ handleOpenFormAddress }) => {
                             <InputLabel id="demo-simple-select-label">Dirección de envío</InputLabel>
                             <Select
                                 placeholder="Dirección de envío"
-                                value={addressSelected}
+                                
                                 label="Dirección de envío"
                                 labelId="demo-simple-select-label"
                                 id="demo-simple-select"
@@ -57,7 +60,7 @@ export const ShippingAddress = ({ handleOpenFormAddress }) => {
                             >
                                 {
                                     address.map(({ label, value }) => (
-                                        <MenuItem key={label} value={value} className="truncate">{label}</MenuItem>
+                                        <MenuItem key={label} value={value}>{label}</MenuItem>
                                     ))
                                 }
                             </Select>

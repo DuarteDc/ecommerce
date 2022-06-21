@@ -18,7 +18,7 @@ const CategoriesList = ({ categories, setLoading, brand }) => {
                 <p className="text-lg font-bold uppercase">Categorías</p>
                 {open ? <ExpandLessIcon /> : <ExpandMoreIcon />}
             </div>
-            <ul className="relative">
+            <ul className="relative max-h-60 overflow-y-auto">
                 {
                     categories?.map(category => (
                         <Collapse in={open} timeout="auto" unmountOnExit

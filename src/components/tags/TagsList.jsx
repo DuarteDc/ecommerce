@@ -17,7 +17,7 @@ const TagsList = ({ tags, brand, setLoading }) => {
                 <p className="text-lg font-bold uppercase">Tags</p>
                 {open ? <ExpandLessIcon /> : <ExpandMoreIcon />}
             </div>
-            <ul className="relative">
+            <ul className="relative max-h-60 overflow-y-auto">
                 {
                     tags?.map(tag => (
                         <Collapse in={open} timeout="auto" unmountOnExit

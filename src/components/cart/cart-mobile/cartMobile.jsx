@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { CartItems } from './cartItems';
-import 'react-super-responsive-table/dist/SuperResponsiveTableStyle.css';
 
 export const CartMobile = () => {
   const [shoppingCart, setShoppingCart] = useState([])

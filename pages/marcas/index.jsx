@@ -94,7 +94,7 @@ export const getStaticProps = wrapper.getStaticProps((store) => async () => {
   return {
     revalidate: 3600
   }
-  
+
 });
 
 
