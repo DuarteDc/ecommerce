@@ -11,7 +11,7 @@ import CategoriesList from '../../../src/components/categories/CategoriesList';
 
 
 import { wrapper } from '../../../src/store';
-import { startFilterProductsPerBrandAndCategory, startLoadProductsPerBrand, startloadProductsPerTagsInBrand } from '../../../src/actions/brandsActions';
+import { startFilterProductsPerBrandAndCategory, startLoadProductsPerBrand, startloadProductsPerTagsInBrand, startLoadSubcategories } from '../../../src/actions/brandsActions';
 import { startLoadCategories } from '../../../src/actions/categoryActions';
 
 import { startLoadAdministrableLogo } from '../../../src/actions/administrableActions';
@@ -28,43 +28,39 @@ import { useLocalStorage } from '../../../src/hooks/useLocalStorage';
 import BrandFilter from '../../../src/components/brands/BrandFilter';
 import TagsList from '../../../src/components/tags/TagsList';
 import { startLoadFaqsCategories } from '../../../src/actions/faqsActions';
+import { useQueryParams } from '../../../src/hooks/useQueryParams';
+import { startFilterPriducts } from '../../../src/actions/productsAction';
+import SubcategoriesList from '../../../src/components/subcategories/SubcategoriesList';
+import RangePrice from '../../../src/components/prices/RangePrice';
+
+import PaginationItem from "@mui/material/PaginationItem";
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
+import Pagination from '@mui/material/Pagination';
+import Stack from '@mui/material/Stack';
 
 const Show = () => {
-
+    
     const router = useRouter();
-    const { query } = router;
-    const dispatch = useDispatch();
-
+    
     const [loading, setLoading] = useState(false);
-
-    const { brand, filteredProducts, results, BrandFilters } = useSelector((state) => state.brands);
+    
+    
+    const { brand, filteredProducts, results, BrandFilters, subcategories } = useSelector((state) => state.brands);
+    const { products } = useSelector((state) => state.products);
     const { categories } = useSelector((state) => state.categories);
     const { categories: CategoriesFaqs } = useSelector((state) => state.faqs);
-    const { tags } = useSelector((state) => state.tags);
+    
+    const endpoint = `/products/filter-brand/products-paginated/${router.query.url}`;
+    const [queryParams, startSearchByQueryParams, starClearQueryParams] = useQueryParams(endpoint, { router });
 
-
-    useEffect(() => {
-
-        const getCurrentData = async () => {
-            setLoading(true)
-            if (Object.keys(router.query).length > 0) {
-                if (router.query.hasOwnProperty('category_id')) {
-                    const category = await categories.filter(category => category._id === router.query.category_id);
-                    await dispatch(startFilterProductsPerBrandAndCategory(brand, ...category));
-                }
-
-                if (router.query.hasOwnProperty('tag_id')) {
-                    const tag = await tags.filter(tag => tag._id === router.query.tag_id);
-                    await dispatch(startloadProductsPerTagsInBrand(...tag));
-                }
-            }
-            setLoading(false)
-        }
-        getCurrentData();
-
-    }, [router.query, dispatch]);
-
-
+    const handelClickPage = async (e, value) => {
+        await startSearchByQueryParams({page: value});
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        });
+    }
 
 
     return (
@@ -72,14 +68,15 @@ const Show = () => {
             categories={CategoriesFaqs}
         >
             <BannerImage
-                title={`${brand.name}`}
+                title={`${products?.products[0].brand.name}`}
             />
             {loading && <LoadingScreen />}
             <section className="container mx-auto grid grid-cols-1 md:grid-cols-3 mt-20 lg:grid-cols-4">
                 <AsideBar>
                     <BrandFilter url={brand.url} />
-                    <CategoriesList categories={categories} setLoading={setLoading} brand={brand} />
-                    <TagsList tags={tags} setLoading={setLoading} />
+                    <RangePrice startSearchByQueryParams={startSearchByQueryParams}/>
+                    <CategoriesList categories={categories} setLoading={setLoading} brand={brand} startSearchByQueryParams={startSearchByQueryParams}/>
+                    <SubcategoriesList subcategories={subcategories} startSearchByQueryParams={startSearchByQueryParams} />
                 </AsideBar>
                 <div className="col-span-4 md:col-span-2 lg:col-span-3">
                     {
@@ -91,17 +88,34 @@ const Show = () => {
                     }
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 lg:col-span-3">
                         {
-                            filteredProducts.length > 0 ? (
-                                filteredProducts?.map(product => (
-                                    <ProductCard key={product?._id} product={product} />
-                                ))
-                            ) : (
-                                brand?.data?.map(product => (
-                                    <ProductCard key={product?._id} product={product} />
-                                ))
-                            )
+                            products?.products?.map(product => (
+                                <ProductCard 
+                                    key={product?._id}
+                                    product={product} 
+                                />
+                            ))   
                         }
                     </div>
+                    {
+                        (products.hasNextPage || products.hasPrevPage) && (
+                            <div className="flex justify-center my-10">
+                                <Stack spacing={2}>
+                                    <Pagination
+                                        count={products.totalPages}
+                                        page={products.page}
+                                        renderItem={(item) => (
+                                            <PaginationItem
+                                                components={{ previous: ArrowBackIcon, next: ArrowForwardIcon }}
+                                                {...item}
+                                            />
+                                        )}
+                                        onChange={handelClickPage}
+                                        size="large"
+                                    />
+                                </Stack>
+                            </div>
+                        )                        
+                    }
                 </div>
             </section>
         </Layout >
@@ -110,9 +124,11 @@ const Show = () => {
 
 export const getServerSideProps = wrapper.getServerSideProps((store) =>
     async (ctx) => {
-        await store.dispatch(startLoadProductsPerBrand(ctx.query.url));
+        const endpoint = `/products/filter-brand/products-paginated/${ctx.query.url}`;
+        await store.dispatch(startFilterPriducts(endpoint));
         await store.dispatch(startLoadCategories());
         await store.dispatch(startLoadTags())
+        await store.dispatch(startLoadSubcategories())
         await store.dispatch(startLoadAdministrableLogo());
         await store.dispatch(startLoadFaqsCategories())
     })

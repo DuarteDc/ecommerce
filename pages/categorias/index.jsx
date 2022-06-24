@@ -11,7 +11,7 @@ import { wrapper } from '../../src/store';
 import { shoppingCartNotLoggedfromLocalStorage } from '../../src/actions/shoppingCartActions';
 import { useEffect } from 'react';
 import { startLoadFaqsCategories } from '../../src/actions/faqsActions';
-import { Breadcrumbs, Container, Grid, Typography } from '@mui/material';
+import { Breadcrumbs, Grid, Typography } from '@mui/material';
 import { GoHome } from "react-icons/go";
 import NavigateNextIcon from '@mui/icons-material/NavigateNext';
 

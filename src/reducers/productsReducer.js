@@ -78,10 +78,10 @@ export const productsReducer = (state = initalState, { type, payload }) => {
                 products: payload
             }
 
-        case types.filter_products_from_home:
+        case types.filter_products:
             return {
                 ...state,
-                filteredProducts: payload
+                products: payload
             }
 
         case types.remove_filter: {

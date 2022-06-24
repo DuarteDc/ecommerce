@@ -8,7 +8,7 @@ import { types } from "../types"
  */
 export const startLoadBrandsHome = () => {
     return async (dispatch) => {
-        let url = '/brands/products/brand';
+        let url = '/brands';
 
         try {
             const res = await client.get(url);
@@ -185,3 +185,22 @@ export const existBrand = async () => {
         }
     }
 }
+
+export const startLoadSubcategories = () =>{
+   
+    return async (dispatch) =>{
+        const url = '/subcategories';
+        try {
+            const { data } = await client.get(url);            
+            dispatch(loadSubcategories(data.subcategories));
+        } catch (error) {
+            console.log(error);
+        }
+    }
+    
+}
+
+const loadSubcategories = (subcategories) => ({
+    type: types.load_subcategories,
+    payload: subcategories,
+})

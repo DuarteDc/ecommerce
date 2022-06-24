@@ -50,7 +50,7 @@ export const types = {
     addNewsletterSuscription: '[Home] add and show newsletter suscription menssage',
     loadSlidersData: '[Home] load data sliders offers',
     load_products_home: '[HOME] load products home',
-    filter_products_from_home: '[HOME] filter products from home',
+    filter_products: '[PRODUCTS] filter products',
 
 
     loadAdministrableLogo: '[Administrable] load data administrable logo',
@@ -74,7 +74,7 @@ export const types = {
     clear_direction: '[PROFILE] clear direction',
     laod_tax_system: '[PROFILE] load tax system',
 
-
+    load_subcategories: '[SUBCATEGORIES] load subcategories',
 
 
     addProductShoppingCart: '[ShoppingCart] add product to shopping cart',

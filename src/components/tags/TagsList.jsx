@@ -5,6 +5,8 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import ExpandLessIcon from '@mui/icons-material/ExpandLess';
 import TagItem from './TagItem';
 
+import styles from "../styles.module.css";
+
 const TagsList = ({ tags, brand, setLoading }) => {
 
     const [open, setOpen] = useState(true);
@@ -17,7 +19,7 @@ const TagsList = ({ tags, brand, setLoading }) => {
                 <p className="text-lg font-bold uppercase">Tags</p>
                 {open ? <ExpandLessIcon /> : <ExpandMoreIcon />}
             </div>
-            <ul className="relative max-h-60 overflow-y-auto">
+            <ul className={`relative max-h-60 overflow-y-auto ${styles.scrollbar}`}>
                 {
                     tags?.map(tag => (
                         <Collapse in={open} timeout="auto" unmountOnExit

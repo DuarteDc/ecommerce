@@ -7,7 +7,7 @@ import Stack from '@mui/material/Stack';
 import AsideBar from "../../src/components/categories/AsideBar";
 import Layout from "../../src/components/Layouts";
 
-import { startLoadProductPerPagination, startLoadProducts, startLoadProductsPerBrand, startLoadProductsPerCategory, startloadProductsPerTags } from "../../src/actions/productsAction";
+import { startFilterPriducts, startLoadProductPerPagination, startLoadProducts, startLoadProductsPerBrand, startLoadProductsPerCategory, startloadProductsPerTags } from "../../src/actions/productsAction";
 import { startLoadCategories } from "../../src/actions/categoryActions";
 import { startLoadBrands } from "../../src/actions/brandsActions";
 import { startLoadTags } from "../../src/actions/tagsActions";
@@ -21,21 +21,29 @@ import PaginationItem from '@mui/material/PaginationItem';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 
-import CategoriesList from "../../src/components/categories/CategoriesList";
-import BrandsList from "../../src/components/brands/BrandsList";
-import TagsList from "../../src/components/tags/TagsList";
-import LoadingScreen from "../../src/components/LoadingScreen";
-import Filters from "../../src/components/products/Filters";
-import { startLoadFaqsCategories } from "../../src/actions/faqsActions";
-import { getStateAuth, startVerifyToken } from "../../src/actions/authActions";
-import { shoppingCartNotLoggedfromLocalStorage } from "../../src/actions/shoppingCartActions";
+import CategoriesList from '../../src/components/categories/CategoriesList';
+import BrandsList from '../../src/components/brands/BrandsList';
+import TagsList from '../../src/components/tags/TagsList';
+import LoadingScreen from '../../src/components/LoadingScreen';
+import Filters from '../../src/components/products/Filters';
+import { startLoadFaqsCategories } from '../../src/actions/faqsActions';
 
+import { shoppingCartNotLoggedfromLocalStorage } from '../../src/actions/shoppingCartActions';
+
+import { useQueryParams } from '../../src/hooks/useQueryParams';
+import RangePrice from "../../src/components/prices/RangePrice";
+
+const endpoint = '/products/filter/products-paginated';
 
 const Products = () => {
 
     const dispatch = useDispatch();
+    const router = useRouter();
 
-    const { products, filteredProducts, results, filters } = useSelector((state) => state.products);
+    const [queryParams, startSearchByQueryParams, starClearQueryParams] = useQueryParams(endpoint, { router });
+
+    const { products, results, filters } = useSelector((state) => state.products);
+    
     const { logged } = useSelector((state) => state.auth);
     const { brands } = useSelector((state) => state.brands);
     const { categories } = useSelector((state) => state.categories);
@@ -49,44 +57,15 @@ const Products = () => {
         }
     }, [logged]);
 
-    const router = useRouter();
-
     const [loading, setLoading] = useState(false);
 
-    const handelClickPage = (e, value) => {
-        dispatch(startLoadProductPerPagination(value));
+    const handelClickPage = async (e, value) => {
+        await startSearchByQueryParams({page: value});
         window.scrollTo({
             top: 0,
             behavior: 'smooth'
         });
     }
-
-    useEffect(() => {
-
-        const getCurrentData = async () => {
-            setLoading(true)
-            if (Object.keys(router.query).length > 0) {
-                if (router.query.hasOwnProperty('brand_id')) {
-                    const brand = await brands.filter(brand => brand._id === router.query.brand_id);
-                    await dispatch(startLoadProductsPerBrand(...brand));
-                }
-
-                if (router.query.hasOwnProperty('category_id')) {
-                    const category = await categories.filter(category => category._id === router.query.category_id);
-                    await dispatch(startLoadProductsPerCategory(...category));
-                }
-
-                if (router.query.hasOwnProperty('tag_id')) {
-                    const tag = await tags.filter(tag => tag._id === router.query.tag_id);
-                    await dispatch(startloadProductsPerTags(...tag));
-                }
-            }
-            setLoading(false)
-        }
-
-        getCurrentData();
-
-    }, [router.query]);
 
     return (
         <Layout
@@ -100,10 +79,11 @@ const Products = () => {
             {loading && <LoadingScreen />}
             <section className="container mx-auto grid grid-cols-1 md:grid-cols-3 mt-20 lg:grid-cols-4">
                 <AsideBar>
-                    <Filters />
-                    <BrandsList brands={brands} setLoading={setLoading} />
-                    <CategoriesList categories={categories} setLoading={setLoading} />
-                    <TagsList tags={tags} setLoading={setLoading} />
+                    <Filters starClearQueryParams={starClearQueryParams} endpoint={endpoint} />
+                    <RangePrice startSearchByQueryParams={startSearchByQueryParams} />
+                    <BrandsList brands={brands} setLoading={setLoading} startSearchByQueryParams={startSearchByQueryParams} />
+                    <CategoriesList categories={categories} setLoading={setLoading} startSearchByQueryParams={startSearchByQueryParams} />
+                    {/* <TagsList tags={tags} setLoading={setLoading} /> */}
                 </AsideBar>
                 <div className="col-span-4 md:col-span-2 lg:col-span-3">
                     {
@@ -115,23 +95,27 @@ const Products = () => {
                     }
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 mb-20 mt-10">
                         {
-                            filteredProducts.length > 0 ? (
-                                filteredProducts.map((product, index) => (
-                                    <ProductCard key={index} product={product} />
-                                ))
-                            ) : (
-                                products.products?.map((product) => (
-                                    <ProductCard key={product._id} product={product} />
-                                ))
+                            products?.totalDocs > 0 ? (
+                            products?.products?.map((product) => (
+                                <ProductCard 
+                                    key={product._id} 
+                                    product={product} 
+                                />
+                            ))
+                            ):(
+                                <div className="text-center col-span-full">
+                                <h4 className="text-2xl uppercase font-semibold mt-20 mb-10">No hay resultados para tu busqueda</h4>
+                            </div>
                             )
                         }
                     </div>
                     {
-                        !filteredProducts.length > 0 && (
+                        (products.hasNextPage || products.hasPrevPage) && (
                             <div className="flex justify-center my-10">
                                 <Stack spacing={2}>
                                     <Pagination
                                         count={products.totalPages}
+                                        page={products.page}
                                         renderItem={(item) => (
                                             <PaginationItem
                                                 components={{ previous: ArrowBackIcon, next: ArrowForwardIcon }}
@@ -143,7 +127,7 @@ const Products = () => {
                                     />
                                 </Stack>
                             </div>
-                        )
+                        )                        
                     }
                 </div>
             </section>
@@ -151,9 +135,10 @@ const Products = () => {
     )
 }
 
-export const getServerSideProps = wrapper.getServerSideProps((store) =>
+export const getServerSideProps = wrapper.getServerSideProps((store, endpoint) =>
     async (ctx) => {
-        await store.dispatch(startLoadProducts());
+        const endpoint = '/products/filter/products-paginated';
+        await store.dispatch(startFilterPriducts(endpoint,''));
         await store.dispatch(startLoadCategories());
         await store.dispatch(startLoadBrands());
         await store.dispatch(startLoadTags());

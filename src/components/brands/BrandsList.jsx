@@ -6,7 +6,9 @@ import ExpandLessIcon from '@mui/icons-material/ExpandLess';
 
 import BrandItem from './BrandItem';
 
-const BrandsList = ({ brands, setLoading, category }) => {
+import styles from '../styles.module.css'
+
+const BrandsList = ({ brands, setLoading, category, startSearchByQueryParams }) => {
 
     const [open, setOpen] = useState(true);
 
@@ -20,7 +22,7 @@ const BrandsList = ({ brands, setLoading, category }) => {
                 </p>
                 {open ? <ExpandLessIcon /> : <ExpandMoreIcon />}
             </div>
-            <ul className="relative max-h-60 overflow-y-auto">
+            <ul className={`relative max-h-60 overflow-y-auto ${styles.scrollbar}`}>
                 {
                     brands.map(brand => (
                         <Collapse in={open} timeout="auto" unmountOnExit
@@ -30,6 +32,7 @@ const BrandsList = ({ brands, setLoading, category }) => {
                                 brand={brand} setOpen={setOpen}
                                 setLoading={setLoading}
                                 category={category}
+                                startSearchByQueryParams={startSearchByQueryParams}
                             />
                         </Collapse>
                     ))
