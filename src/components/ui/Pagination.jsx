@@ -1,26 +1,9 @@
-import PaginationItem from "@mui/material/PaginationItem";
-import ArrowBackIcon from "@mui/icons-material/ArrowBack";
-import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
+import React from 'react'
 
-const Pagination = ({ page, count, handelClickPage }) => {
-
-
+const Pagination = () => {
   return (
-    <Stack spacing={2}>
-      <Pagination
-        count={count}
-        page={page}
-        renderItem={(item) => (
-          <PaginationItem
-            components={{ previous: ArrowBackIcon, next: ArrowForwardIcon }}
-            {...item}
-          />
-        )}
-        onChange={handelClickPage}
-        size="large"
-      />
-    </Stack>
-  );
-};
+    <div>Pagination</div>
+  )
+}
 
-export default Pagination;
+export default Pagination

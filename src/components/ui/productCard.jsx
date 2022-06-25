@@ -106,7 +106,7 @@ export const ProductCard = ({ product }) => {
   return (
     <div className="mb-[30px] relative card px-2 animate__animated animate__zoomIn">
       <div className="relative overflow-hidden">
-        <Image
+        {/* <Image
           src={(product.multimedia.length > 0) ? product.multimedia[0].path : 'https://upload.wikimedia.org/wikipedia/commons/d/d1/Image_not_available.png'}
           alt={'name'}
           width={100}
@@ -117,8 +117,8 @@ export const ProductCard = ({ product }) => {
           blurDataURL="/assets/images/animation.gif"
           className="flex items-center cursor-pointer"
           onClick={() => handleShowProduct()}
-        />
-        {/* <SliderProductCard images={product.multimedia} /> */}
+        /> */}
+        <SliderProductCard images={product.multimedia.slice(0,2)} />
         {
           quantity === 0 &&
           <div className="text-center 

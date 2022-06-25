@@ -68,12 +68,12 @@ const Show = () => {
             categories={CategoriesFaqs}
         >
             <BannerImage
-                title={`${products?.products[0].brand.name}`}
+                title={`${products?.brand?.name}`}
             />
             {loading && <LoadingScreen />}
             <section className="container mx-auto grid grid-cols-1 md:grid-cols-3 mt-20 lg:grid-cols-4">
                 <AsideBar>
-                    <BrandFilter url={brand.url} />
+                    {/* <BrandFilter url={brand.url} /> */}
                     <RangePrice startSearchByQueryParams={startSearchByQueryParams}/>
                     <CategoriesList categories={categories} setLoading={setLoading} brand={brand} startSearchByQueryParams={startSearchByQueryParams}/>
                     <SubcategoriesList subcategories={subcategories} startSearchByQueryParams={startSearchByQueryParams} />
@@ -87,13 +87,19 @@ const Show = () => {
                         )
                     }
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 lg:col-span-3">
-                        {
-                            products?.products?.map(product => (
+                    {
+                            products?.totalDocs > 0 ? (
+                            products?.products?.map((product) => (
                                 <ProductCard 
-                                    key={product?._id}
+                                    key={product._id} 
                                     product={product} 
                                 />
-                            ))   
+                            ))
+                            ):(
+                                <div className="text-center col-span-full">
+                                <h4 className="text-2xl uppercase font-semibold mt-20 mb-10">No hay resultados para tu busqueda</h4>
+                            </div>
+                            )
                         }
                     </div>
                     {

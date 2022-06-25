@@ -91,7 +91,7 @@ export const shoppingCartReducer = (state = initialState, { type, payload }) => 
         case types.addDirectionInCart:
             return {
                 ...state,
-                shippingAddress: payload
+                shippingAddress: [...state.shippingAddress, payload]
             }
 
         case types.add_coupon:

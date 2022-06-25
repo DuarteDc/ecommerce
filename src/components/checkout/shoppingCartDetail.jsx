@@ -8,12 +8,12 @@ export const ShoppingCartDetail = ({ shopping }) => {
   const discount = helpers.priceFormat(Number(shopping.product_id.price))
 
   return (
-    <div className="flex py-[30px] px-[60px] font-Poppins" key={shopping._id}>
+    <div className="flex py-[30px] font-Poppins" key={shopping._id}>
       <div className="mr-[20px]">
         <Image
           src={shopping?.product_id?.multimedia[0]?.path}
-          width={200}
-          height={200}
+          width={150}
+          height={150}
           layout="fixed"
           alt={shopping?.product_id.name}
           priority

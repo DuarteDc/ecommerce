@@ -79,7 +79,7 @@ const Products = () => {
             {loading && <LoadingScreen />}
             <section className="container mx-auto grid grid-cols-1 md:grid-cols-3 mt-20 lg:grid-cols-4">
                 <AsideBar>
-                    <Filters starClearQueryParams={starClearQueryParams} endpoint={endpoint} />
+                    {/* <Filters starClearQueryParams={starClearQueryParams} endpoint={endpoint} /> */}
                     <RangePrice startSearchByQueryParams={startSearchByQueryParams} />
                     <BrandsList brands={brands} setLoading={setLoading} startSearchByQueryParams={startSearchByQueryParams} />
                     <CategoriesList categories={categories} setLoading={setLoading} startSearchByQueryParams={startSearchByQueryParams} />
