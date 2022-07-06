@@ -5,6 +5,7 @@ import { helpers } from "../helpers";
 import Cookies from "js-cookie";
 import Swal from "sweetalert2";
 import axios from "axios";
+import { errorNotify } from "../helpers/helpers";
 
 /** Obtener carrito de compras de la base de datos */
 export const startLoadShoppingCart = (token) => {
@@ -85,52 +86,62 @@ export const startCalculateTotalSale = () => {
       const { logged } = getState().auth;
 
       let subtotalCart = 0;
-      let subtotalCartWithDiscount = 0, subtotalCartWithoutDiscount = 0;
+      let subtotalCartWithDiscount = 0, subtotalCartWithoutDiscount = 0, subtotalCanvas = 0, shippingSelected = 0;
       let subtotalWithCoupon = 0;
       let total = 0;
-
       if (logged) {
-         subtotalCartWithoutDiscount = cart.filter(prod => prod.product_id.discount < 1)
+         subtotalCartWithoutDiscount = cart.filter(prod => prod.product_id.discount < 1 && prod.product_id.product_type === '1')
             .map(prod => {
                prod.subtotal = prod.product_id.price * prod.quantity;
                return prod;
             }).reduce((prev, curr) => prev + Number(curr.subtotal), 0);
 
-         subtotalCartWithDiscount = cart.filter(prod => prod.product_id.discount > 0)
+         subtotalCartWithDiscount = cart.filter(prod => prod.product_id.discount > 0 && prod.product_id.product_type === '1')
             .map(prod => {
                const { totalWithDiscountApply } = helpers.calculatNewTotalToPay(prod.product_id.discount, prod.product_id.price);
                prod.subtotal = totalWithDiscountApply * prod.quantity;
                return prod;
             }).reduce((prev, curr) => prev + Number(curr.subtotal), 0);
 
-         subtotalCart = subtotalCartWithDiscount + subtotalCartWithoutDiscount;
-
+         subtotalCanvas =  cart.filter(prod => prod.product_id.discount === 0 && prod.product_id.product_type === '2')
+         .map(prod => {
+            prod.subtotal = prod.product_id.price * prod.quantity;
+            return prod;
+         }).reduce((prev, curr) => prev + Number(curr.subtotal), 0);
       } else {
+         subtotalCartWithoutDiscount = cartNotLogged.filter(prod => prod.product_id.discount < 1 && prod.product_id.product_type === '1')
+         .map(prod => {
+            prod.subtotal = prod.product_id.price * prod.quantity;
+            return prod;
+         }).reduce((prev, curr) => prev + Number(curr.subtotal), 0);
 
-         subtotalCartWithoutDiscount = cartNotLogged.filter(prod => prod.product_id.discount < 1)
-            .map(prod => {
-               prod.subtotal = prod.product_id.price * prod.quantity;
-               return prod;
-            }).reduce((prev, curr) => prev + Number(curr.subtotal), 0);
+         subtotalCartWithDiscount = cartNotLogged.filter(prod => prod.product_id.discount > 0 && prod.product_id.product_type === '1')
+         .map(prod => {
+            const { totalWithDiscountApply } = helpers.calculatNewTotalToPay(prod.product_id.discount, prod.product_id.price);
+            prod.subtotal = totalWithDiscountApply * prod.quantity;
+            return prod;
+         }).reduce((prev, curr) => prev + Number(curr.subtotal), 0);
 
-         subtotalCartWithDiscount = cartNotLogged.filter(prod => prod.product_id.discount > 0)
-            .map(prod => {
-               const { totalWithDiscountApply } = helpers.calculatNewTotalToPay(prod.product_id.discount, prod.product_id.price);
-               prod.subtotal = totalWithDiscountApply * prod.quantity;
-               return prod;
-            }).reduce((prev, curr) => prev + Number(curr.subtotal), 0);
-
-         subtotalCart = subtotalCartWithDiscount + subtotalCartWithoutDiscount;
-
+         subtotalCanvas = cartNotLogged.filter(prod => prod.product_id.discount === 0 && prod.product_id.product_type === '2')
+         .map(prod => {
+            prod.subtotal = prod.product_id.price * prod.quantity;
+            return prod;
+         }).reduce((prev, curr) => prev + Number(curr.subtotal), 0);
       }
 
-      const shippingSelected = shippingCosts.filter((shipping) => shipping.minSale <= subtotalCart && shipping.maxSale >= subtotalCart);
+      subtotalCart = subtotalCartWithoutDiscount + subtotalCartWithDiscount  + subtotalCanvas;
+      
       if (coupon) {
          subtotalWithCoupon = helpers.applyCoupon(subtotalCartWithoutDiscount, coupon.discount)
-         total = Number(shippingSelected[0]?.shippingCosts) + Number(subtotalWithCoupon + subtotalCartWithDiscount) || 0;
+         shippingSelected = shippingCosts.find((shipping) => shipping.minSale <= subtotalWithCoupon && shipping.maxSale >= subtotalWithCoupon);
+         total = Number(shippingSelected?.shippingCosts) + Number(subtotalWithCoupon + subtotalCartWithDiscount + subtotalCanvas) || 0;
       } else {
-         total = Number(shippingSelected[0]?.shippingCosts) + Number(subtotalCart) || 0;
+         subtotalCart = subtotalCartWithoutDiscount + subtotalCartWithDiscount;
+         shippingSelected = shippingCosts.find((shipping) => shipping.minSale <= subtotalCart && shipping.maxSale >= subtotalCart);
+         subtotalCart = subtotalCart + subtotalCanvas;
+         total = Number(shippingSelected?.shippingCosts) + Number(subtotalCart) || 0;
       }
+
       dispatch(calculateTotalSale(subtotalWithCoupon, subtotalCart, total, shippingSelected))
 
    }
@@ -163,7 +174,11 @@ export const startRemoveProductShoppingCart = (_id) => {
          });
          dispatch(removeProductShoppingCart(res.data.cart.products));
       } catch (error) {
-         console.log(error);
+         if(axios.isAxiosError(error)){
+            errorNotify(error?.response?.data?.message);
+            return;
+         }
+         errorNotify("Parece que hubo un error - Intenta más tarde");
       }
    }
 }
@@ -206,14 +221,17 @@ export const addShoppingCartFromLocalStorage = (shoppingCart) => ({
 })
 
 /**load subtotals , totals in shoppingcart */
-export const loadTotalsFromCookies = (superTotal, withDiscount, withoutDiscount, shippingCosts, order_id) => ({
+export const loadTotalsFromCookies = (superTotal, withDiscount, withoutDiscount, shippingCosts, order_id, canvasTotals, business_rule, coupon) => ({
    type: types.loadTotalsFromCookies,
    payload: {
       superTotal,
       withDiscount,
       withoutDiscount,
       shippingCosts,
-      order_id
+      order_id,
+      canvasTotals,
+      business_rule,
+      coupon
    }
 })
 
@@ -238,27 +256,42 @@ export const startFinaliceSaleCheckout = (data) => {
          Cookies.set('withoutDiscount', JSON.stringify(res.data.withoutDiscount));
          Cookies.set('shippingCosts', JSON.stringify(shipping_costs || {}));
          Cookies.set('order_id', JSON.stringify(res.data.order_id));
+         Cookies.set('canvasTotals', JSON.stringify(res.data.canvasTotals));
+         Cookies.set('typeOrder', JSON.stringify(res.data.typeOrder));
+         Cookies.set('business_rule', JSON.stringify(res.data.business_rule));
+         Cookies.set('coupon', JSON.stringify(res.data.coupon));
 
-         dispatch(finaliceSaleCheckout(res.data.superTotal,
+         dispatch(finaliceSaleCheckout(
+            res.data.superTotal,
             res.data.withDiscount,
             res.data.withoutDiscount,
             res.data.order_id,
+            res.data.canvasTotals,
+            res.data.business_rule
          ));
+
       } catch (error) {
-         console.log(error);
+         if(axios.isAxiosError(error)){
+            errorNotify(`${error?.response?.data?.message}. ${error?.response?.data?.product?.name} Disponibles: ${error?.response?.data?.actual_stock}`);
+            // errorNotify(error?.response?.data?.product?.name);
+            return;
+         }
+         errorNotify("Parece que hubo un error - Intenta más tarde");
       }
 
    }
 }
 
-export const finaliceSaleCheckout = (superTotal, withDiscount, withoutDiscount, shippingCosts, order_id) => ({
+export const finaliceSaleCheckout = (superTotal, withDiscount, withoutDiscount, order_id, canvasTotals, business_rule, coupon) => ({
    type: types.finaliceCheckoutCart,
    payload: {
       superTotal,
       withDiscount,
       withoutDiscount,
-      shippingCosts,
       order_id,
+      canvasTotals,
+      business_rule,
+      coupon,
    }
 });
 

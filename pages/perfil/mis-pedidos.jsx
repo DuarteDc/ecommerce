@@ -34,6 +34,7 @@ import { tabsData } from "../../src/staticData/ordersTabsData";
 import helpersProducts from "../../src/helpers/helpersProducts";
 import { startSendReview } from "../../src/actions/reviewsActions";
 import FormCancelInvoice from "../../src/components/orders/pendingOrderPayment/FormCancelInvoice";
+import LoadingScreen from "../../src/components/LoadingScreen";
 
 
 function a11yProps(index) {
@@ -71,13 +72,14 @@ const MisPedidos = () => {
 
   const router = useRouter();
   const dispatch = useDispatch();
-  const { penddingOrders, canceledOrders, approvedOrders, shippedOrders } = useSelector((state) => state.orders)
+  const { penddingOrders, canceledOrders, approvedOrders, shippedOrders } = useSelector((state) => state.orders);
 
   const { categories } = useSelector((state) => state.faqs)
 
 
   const [valueTab, setValueTab] = useState(0);
   const [testimonialModal, setTestimonialModal] = useState(false);
+  const [loading, setLoading] = useState(false);
   const [openProofOfPayment, toggleProofOfPayment] = useToggle();
   const [openCancelInvoice, toggleCancelInvoice] = useToggle();
 
@@ -158,8 +160,9 @@ const MisPedidos = () => {
     >
       <BannerImage
         title="Mis Pedidos"
+        banner="bg-banner14"
       />
-
+      {loading && <LoadingScreen /> }
       <section className="container max-w-[1200px] my-10 mx-auto min-h-screen">
         <Grid container>
           <Grid item xs={12} sm={12} md={12} lg={12} xl={12}>
@@ -211,6 +214,8 @@ const MisPedidos = () => {
                     status={0}
                     text_description=" Pedido Pendiente de Pago"
                     text_color="text-[#333]"
+                    loading={loading}
+                    setLoading={setLoading}
                   />
                 ))
             }
@@ -230,6 +235,8 @@ const MisPedidos = () => {
                     status={1}
                     text_description="Pedido Cancelado"
                     text_color="text-[#333]"
+                    loading={loading}
+                    setLoading={setLoading}
                   />
                 ))
             }
@@ -249,6 +256,8 @@ const MisPedidos = () => {
                     handleCancelInvoice={handleCancelInvoice}
                     text_description="Pedido Aprobado"
                     text_color="text-[#333]"
+                    loading={loading}
+                    setLoading={setLoading}
                   />
                 ))
 
@@ -268,6 +277,8 @@ const MisPedidos = () => {
                     status={3}
                     text_description="Pedido Enviado"
                     text_color="text-[#333]"
+                    loading={loading}
+                    setLoading={setLoading}
                   />
                 ))
             }

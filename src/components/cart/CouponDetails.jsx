@@ -67,7 +67,7 @@ const CouponDetails = ({ handleApplyCoupon, setInputCoupon, coupon, handleRemove
                         </div>
                         <div className="w-full mt-5">
                                 <span className="font-Poppins text-[15px] leading-[1.4] text-[#333] text-xs font-semibold">
-                                    ¡El cupon solo es valido para productos sin descuento!
+                                    ¡El cupón solo es valido para productos sin descuento!
                                 </span>
                             </div>
                     </div>

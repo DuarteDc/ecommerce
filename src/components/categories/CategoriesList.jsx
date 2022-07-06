@@ -7,7 +7,7 @@ import ExpandLessIcon from "@mui/icons-material/ExpandLess";
 import CategoryItem from "./CategoryItem";
 import styles from "../styles.module.css";
 
-const CategoriesList = ({ categories, setLoading, brand, startSearchByQueryParams }) => {
+const CategoriesList = ({ categories, setLoading, startSearchByQueryParams, paramsFilters}) => {
   const [open, setOpen] = useState(true);
 
   return (
@@ -25,7 +25,7 @@ const CategoriesList = ({ categories, setLoading, brand, startSearchByQueryParam
             <CategoryItem
               category={category}
               setLoading={setLoading}
-              brand={brand}
+              paramsFilters={paramsFilters}
               startSearchByQueryParams={startSearchByQueryParams}
             />
           </Collapse>

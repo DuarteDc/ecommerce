@@ -1,4 +1,4 @@
-import Image from "next/image"
+import Image from "next/image";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { IconContext } from "react-icons";
@@ -9,7 +9,10 @@ import { useDispatch, useSelector } from "react-redux";
 
 import { toast } from "react-toastify";
 import Swal from "sweetalert2";
-import { addProductToCartClientsNotLogged, startAddProductShoppingCart } from "../../actions/shoppingCartActions";
+import {
+  addProductToCartClientsNotLogged,
+  startAddProductShoppingCart,
+} from "../../actions/shoppingCartActions";
 import { addOneProduct, removeOneProduct } from "../../actions/wishListActions";
 import { helpers } from "../../helpers";
 import { BsFillCartCheckFill } from "react-icons/bs";
@@ -25,17 +28,20 @@ export const ProductCard = ({ product }) => {
   const { logged } = useSelector((state) => state.auth);
   const [isEnable, setIsEnable] = useState(false);
 
-
-
-  const [isInWhisList, setisInWhisList] = useState(helpers.existInWishList(_id));
+  const [isInWhisList, setisInWhisList] = useState(
+    helpers.existInWishList(_id)
+  );
   const notify = (message) => toast(message);
-  const { totalWithDiscountApply } = helpers.calculatNewTotalToPay(product.discount, product.price);
+  const { totalWithDiscountApply } = helpers.calculatNewTotalToPay(
+    product.discount,
+    product.price
+  );
   const sale_price = helpers.priceFormat(price);
   const sale_price_discount = helpers.priceFormat(totalWithDiscountApply);
 
   const handleShowProduct = () => {
-    history.push(`/productos/${url}`)
-  }
+    history.push(`/productos/${url}`);
+  };
 
   const handleToogleWishList = (_id) => {
     const { message, existInWishList } = helpers.toggleWishListProducts(_id);
@@ -46,14 +52,22 @@ export const ProductCard = ({ product }) => {
     } else {
       dispatch(addOneProduct(_id));
     }
-  }
+  };
 
   const addProductCard = (product) => {
-    const exists = helpers.existInShoppingCart(product._id, cart);
-
-    if (exists) {
-      notify('El producto ya ha sido agregado al carrito de compras');
-      return;
+    const exists = false;
+    if(logged){
+       exists = helpers.existInShoppingCart(product._id, cart);
+       if (exists) {
+        notify("El producto ya ha sido agregado al carrito de compras");
+        return;
+      }
+    }else{
+      exists = helpers.existInShoppingCart(product._id, cartNotLogged);
+       if (exists) {
+        notify("El producto ya ha sido agregado al carrito de compras");
+        return;
+      }
     }
 
     const itemCart = {
@@ -63,32 +77,32 @@ export const ProductCard = ({ product }) => {
         multimedia: product.multimedia,
         _id: product._id,
         name: product.name,
-        discount: product.discount
+        discount: product.discount,
+        product_type: product.product_type,
       },
       quantity: 1,
-      _id: product._id
-    }
+      _id: product._id,
+    };
 
     if (logged) {
-      const token = Cookies.get('token') || '';
+      const token = Cookies.get("token") || "";
       dispatch(startAddProductShoppingCart(itemCart, product.name, token));
       return;
     } else {
       let shoppingCart = [...cartNotLogged, itemCart];
       dispatch(addProductToCartClientsNotLogged(shoppingCart));
-      localStorage.setItem('cartNotlogged', JSON.stringify(shoppingCart));
+      localStorage.setItem("cartNotlogged", JSON.stringify(shoppingCart));
       Swal.fire({
         icon: "success",
         title: "¡¡Buen Trabajo!!",
         html: `<p class="font-Poppins text-base">El producto ${product.name} ha sido agregado al carrito satisfactoriamente</p>`,
         timer: 2000,
         timerProgressBar: true,
-        showConfirmButton: false
-      })
+        showConfirmButton: false,
+      });
       return;
     }
-
-  }
+  };
 
   useEffect(() => {
     if (logged) {
@@ -98,10 +112,7 @@ export const ProductCard = ({ product }) => {
       const exists = helpers.existInShoppingCart(product._id, cartNotLogged);
       setIsEnable(exists);
     }
-
   }, [cart, cartNotLogged]);
-
-
 
   return (
     <div className="mb-[30px] relative card px-2 animate__animated animate__zoomIn">
@@ -118,10 +129,13 @@ export const ProductCard = ({ product }) => {
           className="flex items-center cursor-pointer"
           onClick={() => handleShowProduct()}
         /> */}
-        <SliderProductCard images={product.multimedia.slice(0,2)} />
-        {
-          quantity === 0 &&
-          <div className="text-center 
+        <SliderProductCard
+          images={product.multimedia.slice(0, 2)}
+          handleShowProduct={handleShowProduct}
+        />
+        {quantity === 0 && (
+          <div
+            className="text-center 
                                absolute 
                                top-[10px] 
                                left-[10px] 
@@ -131,13 +145,14 @@ export const ProductCard = ({ product }) => {
                                h-[10%] 
                                leading-[50px] 
                                rounded-[50%] 
-                               z-[3]">
+                               z-[3]"
+          >
             Agotado
           </div>
-        }
-        {
-          discount > 0 &&
-          <div className="text-center 
+        )}
+        {discount > 0 && (
+          <div
+            className="text-center 
                                absolute 
                                top-[10px] 
                                left-[10px] 
@@ -147,26 +162,25 @@ export const ProductCard = ({ product }) => {
                                h-[10%] 
                                leading-[50px] 
                                rounded-[50%] 
-                               z-[3]">
+                               z-[3]"
+          >
             -{discount}%
           </div>
-        }
+        )}
 
         <div className="mt-[20px]">
           <h3 className="text-[#333] mb-0 font-semibold text-[18px] capitalize truncate	">
             {name}
           </h3>
           <div className="mt-[8px] mb-[12px]">
-            <span className="text-[#858585] 
+            <span
+              className="text-[#858585] 
                                      text-[15px] 
                                      line-through 
                                      inline-block 
                                      mr-1"
             >
-              {
-                product.discount > 0 && sale_price
-              }
-
+              {product.discount > 0 && sale_price}
             </span>
             <span className="text-[17px] inline-block">
               {sale_price_discount}
@@ -174,10 +188,13 @@ export const ProductCard = ({ product }) => {
           </div>
           <div className="flex flex-wrap justify-between">
             <div className="btn-area">
-              <button className={`${isEnable ?
-                'bg-[#333] text-[#fff]'
-                :
-                'bg-[#fff] border-transparent'}
+              <button
+                onClick={() => addProductCard(product)}
+                className={`${
+                  isEnable
+                    ? "bg-[#333] text-[#fff]"
+                    : "bg-[#fff] border-transparent"
+                }
                                         py-[10px] 
                                         px-[20px] 
                                         cursor-pointer 
@@ -190,27 +207,28 @@ export const ProductCard = ({ product }) => {
                                         rounded-none 
                                         font-normal 
                                         uppercase 
-                                        text-sm`}
-                onClick={() => addProductCard(product)}
+                                        text-xs
+                                        md:text-sm`}
               >
-                {
-                  !isEnable ?
-                    <span className="flex items-center font-Poppins">
-                      Agregar
-                      <IconContext.Provider value={{ className: "ml-3 text-base" }}>
-                        <BsFillCartCheckFill />
-                      </IconContext.Provider>
-
-                    </span>
-                    :
-                    'Ya agregado al carrito'
-
-                }
-
+                {!isEnable ? (
+                  <span
+                    className="flex items-center font-Poppins"             
+                  >
+                    Agregar
+                    <IconContext.Provider
+                      value={{ className: "ml-3 text-base" }}
+                    >
+                      <BsFillCartCheckFill />
+                    </IconContext.Provider>
+                  </span>
+                ) : (
+                  "Ya agregado al carrito"
+                )}
               </button>
             </div>
             <div className="flex justify-between">
-              <span className="w-[35px] 
+              <span
+                className="w-[35px] 
                                      h-[35px] 
                                      leading-[38px] 
                                      text-center  
@@ -226,13 +244,17 @@ export const ProductCard = ({ product }) => {
                 onClick={() => handleShowProduct()}
               >
                 <IconContext.Provider
-                  value={{ className: "text-[25px] text-[#888] w-[90%] z-[2]  hover:text-[#fff] hover:transition" }}
+                  value={{
+                    className:
+                      "text-[25px] text-[#888] w-[90%] z-[2]  hover:text-[#fff] hover:transition",
+                  }}
                 >
                   <BiShowAlt />
                 </IconContext.Provider>
               </span>
 
-              <span className="w-[35px] 
+              <span
+                className="w-[35px] 
                                      h-[35px] 
                                      leading-[38px] 
                                      text-center  
@@ -245,27 +267,30 @@ export const ProductCard = ({ product }) => {
                                      hover:transition"
                 onClick={() => handleToogleWishList(_id)}
               >
-                {
-                  isInWhisList ?
-                    <IconContext.Provider
-                      value={{ className: "text-[25px] w-[60%] z-[2] hover:text-[#fff] hover:transition cursor-pointer" }}
-                    >
-                      <FcLike />
-                    </IconContext.Provider>
-                    :
-                    <IconContext.Provider
-                      value={{ className: "text-[25px] text-[#888] w-[60%] z-[2] hover:text-[#fff] hover:transition cursor-pointer" }}
-                    >
-                      <BsHeart />
-                    </IconContext.Provider>
-
-                }
-
+                {isInWhisList ? (
+                  <IconContext.Provider
+                    value={{
+                      className:
+                        "text-[25px] w-[60%] z-[2] hover:text-[#fff] hover:transition cursor-pointer",
+                    }}
+                  >
+                    <FcLike />
+                  </IconContext.Provider>
+                ) : (
+                  <IconContext.Provider
+                    value={{
+                      className:
+                        "text-[25px] text-[#888] w-[60%] z-[2] hover:text-[#fff] hover:transition cursor-pointer",
+                    }}
+                  >
+                    <BsHeart />
+                  </IconContext.Provider>
+                )}
               </span>
             </div>
           </div>
         </div>
       </div>
     </div>
-  )
-}
+  );
+};

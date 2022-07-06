@@ -26,14 +26,6 @@ const ContactUs = () => {
 
   const [loading, setLoading] = useState(false);
 
-  useEffect(() => {
-    if (!logged) {
-      let cartNotLogged = localStorage.getItem('cartNotlogged') ? JSON.parse(localStorage.getItem('cartNotlogged')) : [];
-      dispatch(shoppingCartNotLoggedfromLocalStorage(cartNotLogged))
-    }
-  }, [logged, dispatch]);
-
-
   const handelSendMessage = async (formData, resetForm) => {
 
     setLoading(true);
@@ -81,7 +73,7 @@ const ContactUs = () => {
       {loading && <LoadingScreen />}
       <BannerImage
         title="Contáctanos"
-        imageBackground="bg-about-us"
+        banner="bg-banner5"
       />
       <section className="bg-luz min-h-screen">
         <div>

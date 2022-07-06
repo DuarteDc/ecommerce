@@ -2,8 +2,7 @@ import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { startStoreNewsletterSuscription } from '../../actions/newsletterActions';
 import { useDispatch, useSelector } from 'react-redux';
-import { useEffect } from 'react';
-import { toast, ToastContainer } from 'react-toastify';
+
 
 export const Newsletter = () => {
   const dispatch = useDispatch();
@@ -14,15 +13,6 @@ export const Newsletter = () => {
   const validationSchema = {
     email: Yup.string().email(true).required("El correo requerido"),
   }
-
-  const notify = (message) => toast.success(message);
-
-  useEffect(() => {
-    if (message) {
-      notify(message)
-    }
-  }, [message]);
-
 
   const formik = useFormik({
     initialValues: initialValues,
@@ -48,7 +38,6 @@ export const Newsletter = () => {
 
               <button type="submit" className="border-none bg-[#333] ml-2 lg:ml-5 text-[#fff] px-2 md:px-5 text-[16px] transition-all">Suscribirme</button>
             </form>
-            <ToastContainer />
           </div>
         </div>
       </div>

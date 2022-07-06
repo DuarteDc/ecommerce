@@ -16,7 +16,7 @@ const MyDirections = () => {
     <Layout
       categories={categories}
     >
-      <BannerImage title="Mis direcciones" />
+      <BannerImage title="Mis direcciones" banner="bg-banner6"/>
       <section className="container mx-auto my-20 min-h-screen">
         <DirectionsSeccion
           directions={directions}

@@ -7,7 +7,7 @@ import Script from 'next/script';
 import 'react-toastify/dist/ReactToastify.css';
 import { CookiesPrivacy } from '../cookiesPrivacy';
 
-const Layout = ({ children, canonical, title, keywords, description, ogTitle, ogType, ogUrl, ogImage, robots, categories }) => {
+const Layout = ({ children, canonical, title, keywords, description, ogTitle, ogType, ogUrl, ogImage, robots, categories, price, curren, structuredData }) => {
 
   const [acceptCookies, setacceptCookies] = useState(false);
 
@@ -30,6 +30,9 @@ const Layout = ({ children, canonical, title, keywords, description, ogTitle, og
         ogImage={ogImage}
         robots={robots}
         canonical={canonical}
+        price={price}
+        curren={curren}
+        structuredData={structuredData}
       />
       <NavBar />
       {children}

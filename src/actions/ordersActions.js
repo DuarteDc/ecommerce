@@ -105,9 +105,10 @@ export const startUploadProofOfPayment = (data) => {
     return async (dispatch, getState) => {
         const { order_id } = getState().orders
         const amount = data.get('amount');
+        const token = Cookies.get('token');
         try {
             let url = `payments/${order_id}`;
-            await client.post(url, data, {
+            const { data } = await client.post(url, data, {
                 headers: { 'Content-Type': 'multipart/form-data' }
             });
             successNotify("Comprobante de pago se ha subido correctamente");

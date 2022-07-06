@@ -52,7 +52,6 @@ export const ShippingAddress = ({ handleOpenFormAddress }) => {
                             <InputLabel id="demo-simple-select-label">Dirección de envío</InputLabel>
                             <Select
                                 placeholder="Dirección de envío"
-                                
                                 label="Dirección de envío"
                                 labelId="demo-simple-select-label"
                                 id="demo-simple-select"

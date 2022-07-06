@@ -73,12 +73,18 @@ const Checkout = () => {
       const withoutDiscount = Cookie.get('withoutDiscount') ? JSON.parse(Cookie.get('withoutDiscount')) : {};
       const shippingCosts = Cookie.get('shippingCosts') ? JSON.parse(Cookie.get('shippingCosts')) : {};
       const order_id = Cookie.get('order_id') ? JSON.parse(Cookie.get('order_id')) : ''
+      const canvasTotals = Cookie.get('canvasTotals') ? JSON.parse(Cookie.get('canvasTotals')) : ''
+      const business_rule = Cookie.get('business_rule') ? JSON.parse(Cookie.get('business_rule')) : ''
+      const coupon = Cookie.get('coupon') ? JSON.parse(Cookie.get('coupon')) : ''
 
       dispatch(loadTotalsFromCookies(superTotal,
         withDiscount,
         withoutDiscount,
         shippingCosts,
-        order_id
+        order_id,
+        canvasTotals,
+        business_rule,
+        coupon,
       ));
 
     }
@@ -147,7 +153,7 @@ const Checkout = () => {
       }
       <BannerImage
         title="Realizar Pago"
-        imageBackground="bg-about-us"
+        banner="bg-banner4"
       />
       <section className="max-w-[1480px] mx-auto my-20 px-[15px] w-full">
         <div className="grid grid-cols-1 lg:grid-cols-12  md:my-10 gap-6">

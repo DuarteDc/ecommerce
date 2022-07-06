@@ -3,18 +3,14 @@ import { useDispatch, useSelector } from "react-redux";
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 import { clearAll } from "../../actions/brandsActions";
 
-const BrandFilter = ({ url }) => {
+const BrandFilter = ({ starClearQueryParams, endpoint }) => {   
 
-    const { BrandFilters } = useSelector((state) => state.brands);
+    const { filters } = useSelector((state) => state.products);
 
-    const dispatch = useDispatch();
-    const router = useRouter();
-
-    const handleClearFilters = () => {
-        router.replace(`/marcas/${url}`, undefined, { shallow: true });
-        dispatch(clearAll());
-        return;
-    }
+    const handleClearFilters = async () => {
+        if(!filters.length) return;
+        await starClearQueryParams(endpoint);
+    };
 
 
     return (
@@ -30,13 +26,13 @@ const BrandFilter = ({ url }) => {
             </div>
             <div>
                 {
-                    BrandFilters?.map((filter) => (
+                    filters?.map((filter) => (
                         <span className="hover:border-black hover:text-black cursor-pointer 
                         mr-2 mt-2 py-2 border-2 border-gray-200 px-2
                         text-center inline-block transition-all duration-700 ease-out text-xs text-gray-500"
                             key={filter?._id}
                         >
-                            {filter?.name}
+                            {filter?.name || `$${filter?.min} - $${filter?.max}`}
                         </span>
                     ))
                 }

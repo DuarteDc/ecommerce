@@ -15,18 +15,11 @@ const AboutPage = () => {
   const { logged } = useSelector((state) => state.auth);
   const { categories } = useSelector((state) => state.faqs);
 
-  useEffect(() => {
-    if (!logged) {
-      let cartNotLogged = localStorage.getItem('cartNotlogged') ? JSON.parse(localStorage.getItem('cartNotlogged')) : [];
-      dispatch(shoppingCartNotLoggedfromLocalStorage(cartNotLogged))
-    }
-  }, [logged, dispatch]);
-
   return (
     <>
       <BannerImage
         title="Acerca de Nosotros"
-        imageBackground="bg-about-us"
+        banner="bg-banner9            "
       />
       <section>
         <div className="w-full  lg:max-w-[1220px] m-auto px-4">

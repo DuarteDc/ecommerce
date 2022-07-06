@@ -22,14 +22,6 @@ const Categories = () => {
     const { categories } = useSelector((state) => state.categories);
     const { categories: categoriesFasq } = useSelector((state) => state.faqs);
 
-    useEffect(() => {
-        if (!logged) {
-            let cartNotLogged = localStorage.getItem('cartNotlogged') ? JSON.parse(localStorage.getItem('cartNotlogged')) : [];
-            dispatch(shoppingCartNotLoggedfromLocalStorage(cartNotLogged))
-        }
-    }, [logged, dispatch]);
-
-
     const handleClickCard = (url) => {
         history.push(`/categorias/${url}`)
     }
@@ -42,6 +34,7 @@ const Categories = () => {
         >
             <BannerImage
                 title="Categorias"
+                banner="bg-banner3"
             />
             <div className="container mx-auto my-20 px-5 lg:px-24">
                 <Grid container spacing={5}>

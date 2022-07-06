@@ -1,16 +1,19 @@
 import { useEffect, useState } from "react";
 import { wrapper } from "../src/store";
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch, useSelector } from "react-redux";
 import Layout from "../src/components/Layouts";
 
 /**Actions */
 import { startLoadOffers } from "../src/actions/offersActions";
-import { startLoadBrandsHome, startLoadBrands } from "../src/actions/brandsActions";
+import {
+  startLoadBrandsHome,
+  startLoadBrands,
+} from "../src/actions/brandsActions";
 import { startLoadDataSliders } from "../src/actions/slidersActions";
 import { startLoadCategoriesHome } from "../src/actions/categoryActions";
 import { startLoadAdministrableLogo } from "../src/actions/administrableActions";
 import { startLoadTags } from "../src/actions/tagsActions";
-import Cookie from 'js-cookie';
+import Cookie from "js-cookie";
 
 /**Components */
 import {
@@ -21,8 +24,8 @@ import {
   FacilityArea,
   ProductsArea,
   ProductsOfferArea,
-  TestimonialArea
-} from '../src/components/home';
+  TestimonialArea,
+} from "../src/components/home";
 
 /**Actions */
 import { shoppingCartNotLoggedfromLocalStorage } from "../src/actions/shoppingCartActions";
@@ -42,16 +45,9 @@ export default function HomePage() {
   const { offers } = useSelector((state) => state.offers);
 
   useEffect(() => {
-    if (!logged) {
-      let cartNotLogged = localStorage.getItem('cartNotlogged') ? JSON.parse(localStorage.getItem('cartNotlogged')) : [];
-      dispatch(shoppingCartNotLoggedfromLocalStorage(cartNotLogged))
-    }
-  }, [logged]);
-
-  useEffect(() => {
-    if (router.query.successTransfer === 'true') {
-      localStorage.removeItem('cart');
-      Cookie.remove('client_secret');
+    if (router.query.successTransfer === "true") {
+      localStorage.removeItem("cart");
+      Cookie.remove("client_secret");
       Swal.fire({
         icon: "success",
         title: "Venta finalizada con exito",
@@ -60,29 +56,31 @@ export default function HomePage() {
         cancelButtonText: "Ver mis pedidos",
         cancelButtonColor: "#1565c0",
         showCancelButton: true,
-        allowOutsideClick: false
+        allowOutsideClick: false,
       }).then((result) => {
         if (result.isConfirmed) {
-          router.push({
-            pathname: router.path,
-          },
-            undefined, { shallow: true }
-          )
+          router.push(
+            {
+              pathname: router.path,
+            },
+            undefined,
+            { shallow: true }
+          );
         }
 
         if (result.isDismissed) {
           router.push({
-            pathname: '/perfil/mis-pedidos'
-          })
+            pathname: "/perfil/mis-pedidos",
+          });
         }
-      })
+      });
     }
   }, [router]);
 
   useEffect(() => {
     if (router.query.redirect_status === "succeeded") {
-      localStorage.removeItem('cart');
-      Cookie.remove('client_secret');
+      localStorage.removeItem("cart");
+      Cookie.remove("client_secret");
       Swal.fire({
         icon: "success",
         title: "Venta finalizada con éxito",
@@ -91,24 +89,26 @@ export default function HomePage() {
         cancelButtonText: "Ver mis pedidos",
         cancelButtonColor: "#1565c0",
         showCancelButton: true,
-        allowOutsideClick: false
+        allowOutsideClick: false,
       }).then((result) => {
         if (result.isConfirmed) {
-          router.push({
-            pathname: router.path,
-          },
-            undefined, { shallow: true }
-          )
+          router.push(
+            {
+              pathname: router.path,
+            },
+            undefined,
+            { shallow: true }
+          );
         }
         if (result.isDismissed) {
-          router.replace('/perfil/mis-pedidos')
+          router.replace("/perfil/mis-pedidos");
         }
-      })
+      });
     }
   }, [router]);
 
   useEffect(() => {
-    const modalOfferOpen = Cookie.get('modalOfferOpen');
+    const modalOfferOpen = Cookie.get("modalOfferOpen");
 
     if (modalOfferOpen === "false") {
       setOpen(false);
@@ -116,14 +116,13 @@ export default function HomePage() {
   }, []);
 
   const handleButtonCloseModalOffers = () => {
-    Cookie.set('modalOfferOpen', false);
+    Cookie.set("modalOfferOpen", false);
     setOpen(false);
-  }
+  };
 
   const handleOpenModalOffers = () => {
     setOpen(!open);
-  }
-
+  };
 
   return (
     <>
@@ -135,54 +134,58 @@ export default function HomePage() {
       <PartnerArea />
       <Newsletter />
       <TestimonialArea />
-      {
-        offers.length && (
-          <Modal
-            showTitle={false}
-            open={open}
-            fullWidth={true}
-            maxWidth="sm"
-            actions={false}
-            handleOpenCheckout={handleOpenModalOffers}
-            background="bg-offers opacity-[0.9]"
-          >
-            <Container>
-              <Grid container>
-                <Grid item xs={12} sm={12} md={12} lg={12} xl={12}>
-                  <Typography variant="h3" className="font-Poppins font-normal text-[30px] text-primary text-center uppercase mb-6">
-                    Ofertas del dia
-                  </Typography>
-                </Grid>
-                {
-                  offers.map(offer => (
-                    <Grid item xs={12} sm={12} md={12} lg={12} xl={12} key={offer._id}>
-                      <OfferCard
-                        offer={offer}
-                      />
-                    </Grid>
-                  ))
-                }
-              </Grid>
+      {offers.length && (
+        <Modal
+          showTitle={false}
+          open={open}
+          fullWidth={true}
+          maxWidth="sm"
+          actions={false}
+          handleOpenCheckout={handleOpenModalOffers}
+          background="bg-offers opacity-[0.9]"
+        >
+          <Container>
+            <Grid container>
               <Grid item xs={12} sm={12} md={12} lg={12} xl={12}>
-                <div className="w-full flex justify-center">
-                  <button
-                    className="bg-[#333] text-secondary py-4 px-10 rounded-none w-full hover:bg-[#000]"
-                    onClick={handleButtonCloseModalOffers}
-                  >
-                    Cerrar
-                  </button>
-                </div>
+                <Typography
+                  variant="h3"
+                  className="font-Poppins font-normal text-[30px] text-primary text-center uppercase mb-6"
+                >
+                  Ofertas del dia
+                </Typography>
               </Grid>
-            </Container>
-          </Modal>
-        )
-      }
-
+              {offers.map((offer) => (
+                <Grid
+                  item
+                  xs={12}
+                  sm={12}
+                  md={12}
+                  lg={12}
+                  xl={12}
+                  key={offer._id}
+                >
+                  <OfferCard offer={offer} />
+                </Grid>
+              ))}
+            </Grid>
+            <Grid item xs={12} sm={12} md={12} lg={12} xl={12}>
+              <div className="w-full flex justify-center">
+                <button
+                  className="bg-[#333] text-secondary py-4 px-10 rounded-none w-full hover:bg-[#000]"
+                  onClick={handleButtonCloseModalOffers}
+                >
+                  Cerrar
+                </button>
+              </div>
+            </Grid>
+          </Container>
+        </Modal>
+      )}
     </>
-  )
+  );
 }
 
-const origin = (typeof window === 'undefined') ? '' : window.location.origin;
+const origin = typeof window === "undefined" ? "" : window.location.origin;
 
 HomePage.getLayout = function getLayout(page) {
   return (
@@ -199,24 +202,20 @@ HomePage.getLayout = function getLayout(page) {
     >
       {page}
     </Layout>
-  )
-}
+  );
+};
 
-export const getStaticProps = wrapper.getStaticProps((store) =>
-  async () => {
-    await store.dispatch(startLoadAdministrableLogo());
-    await store.dispatch(startLoadCategoriesHome());
-    await store.dispatch(startLoadDataSliders());
-    await store.dispatch(startLoadOffers());
-    await store.dispatch(startLoadBrandsHome());
-    await store.dispatch(startLoadTags());
-    await store.dispatch(startLoadBrands());
-    await store.dispatch(startLoadReviews());
+export const getStaticProps = wrapper.getStaticProps((store) => async () => {
+  await store.dispatch(startLoadAdministrableLogo());
+  await store.dispatch(startLoadCategoriesHome());
+  await store.dispatch(startLoadDataSliders());
+  await store.dispatch(startLoadOffers());
+  await store.dispatch(startLoadBrandsHome());
+  await store.dispatch(startLoadTags());
+  await store.dispatch(startLoadBrands());
+  await store.dispatch(startLoadReviews());
 
-    return {
-      revalidate: 3600
-    }
-
-  });
-
-
+  return {
+    revalidate: 3600,
+  };
+});

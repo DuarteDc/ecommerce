@@ -56,6 +56,7 @@ const FAQS = () => {
         >
             <BannerImage
                 title="Preguntas Frecuentes"
+                banner="bg-banner7"
             />
             {loading && <LoadingScreen />}
             <section className=" max-w-[1490px] mx-auto my-10 lg:my-20 px-4 min-h-screen">

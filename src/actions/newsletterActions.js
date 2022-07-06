@@ -1,34 +1,19 @@
-import Swal from "sweetalert2";
-import client from "../config/axiosConfig"
-import { types } from "../types";
+import axios from "axios";
+import client from "../config/axiosConfig";
+import { errorNotify, successNotify } from "../helpers/helpers";
 
-export const startStoreNewsletterSuscription = (email) =>{
-    return async() =>{
-         let url = 'newsletter';
-         try {
-          const {data} = await client.post(url, email);
-          const Toast = Swal.mixin({
-            toast: true,
-            position: 'top-end',
-            showConfirmButton: false,
-            timer: 3000,
-            timerProgressBar: true,
-            didOpen: (toast) => {
-                toast.addEventListener('mouseenter', Swal.stopTimer)
-                toast.addEventListener('mouseleave', Swal.resumeTimer)
-            }
-            });
-            
-            Toast.fire({
-            icon: 'success',
-            title:data.message
-            });
+export const startStoreNewsletterSuscription = (email) => {
+  return async () => {
+    let url = "newsletter";
+    try {
+      const { data } = await client.post(url, email);
+      successNotify(data.message);
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+          errorNotify(error?.response?.data?.message);
+      }
 
-            
-         } catch (error) {
-          console.log(error);
-         }
-       
-       
+      errorNotify("No se pudo guardar la dirección - intente mas tarde");
     }
-}
+  };
+};

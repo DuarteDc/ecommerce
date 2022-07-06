@@ -46,12 +46,12 @@ const existInWishList = (_id) => {
 
 const existInShoppingCart = (_id, ShoppingCart) => {
 
-  const existProduct = ShoppingCart.filter(cart => cart.product_id._id === _id);
+  const existProduct = ShoppingCart.find(cart => cart.product_id._id === _id);
 
-  if (!existProduct.length) {
-    return false;
-  } else {
+  if (existProduct) {
     return true;
+  } else {
+    return  false;
   }
 
 }
@@ -69,10 +69,10 @@ const prepareProductsToFussion = (cartNoAuth) => {
 
 export const successNotify = (message) => {
   toast.success(message, {
-    position: "bottom-left",
+    position: "top-right",
     autoClose: 5000,
     hideProgressBar: false,
-    style: { backgroundColor: '#333', color: 'white' },
+    style: { backgroundColor: 'black', color: 'white' },
     closeOnClick: true,
     pauseOnHover: false,
     draggable: true,
@@ -82,10 +82,10 @@ export const successNotify = (message) => {
 
 export const infoNotify = (message) => {
   toast.info(message, {
-    position: "bottom-left",
+    position: "bottom-right",
     autoClose: 5000,
     hideProgressBar: false,
-    style: { backgroundColor: '#333', color: 'white' },
+    style: { backgroundColor: 'black', color: 'white' },
     closeOnClick: true,
     pauseOnHover: false,
     draggable: true,
@@ -94,10 +94,10 @@ export const infoNotify = (message) => {
 }
 export const warningNotify = (message) => {
   toast.warn(message, {
-    position: "bottom-left",
+    position: "bottom-right",
     autoClose: 5000,
     hideProgressBar: false,
-    style: { backgroundColor: '#333', color: 'white' },
+    style: { backgroundColor: 'black', color: 'white' },
     closeOnClick: true,
     pauseOnHover: false,
     draggable: true,
@@ -107,10 +107,10 @@ export const warningNotify = (message) => {
 
 export const errorNotify = (message) => {
   toast.error(message, {
-    position: "bottom-left",
+    position: "bottom-right",
     autoClose: 5000,
     hideProgressBar: false,
-    style: { backgroundColor: '#333', color: 'white' },
+    style: { backgroundColor: 'black', color: 'white' },
     closeOnClick: true,
     pauseOnHover: false,
     draggable: true,

@@ -48,6 +48,7 @@ const Profile = () => {
         >
             <BannerImage
                 title="Mi cuenta"
+                banner="bg-banner4"
             />
             <section className="container mx-auto mb-16 min-h-screen mt-44">
                 <div className="max-w-[1235px] m-auto">

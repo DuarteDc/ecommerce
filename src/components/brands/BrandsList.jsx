@@ -8,7 +8,7 @@ import BrandItem from './BrandItem';
 
 import styles from '../styles.module.css'
 
-const BrandsList = ({ brands, setLoading, category, startSearchByQueryParams }) => {
+const BrandsList = ({ brands, setLoading, category, startSearchByQueryParams, paramsFilters }) => {
 
     const [open, setOpen] = useState(true);
 
@@ -29,10 +29,12 @@ const BrandsList = ({ brands, setLoading, category, startSearchByQueryParams }) 
                             key={brand._id}
                         >
                             <BrandItem
-                                brand={brand} setOpen={setOpen}
+                                brand={brand} 
+                                setOpen={setOpen}
                                 setLoading={setLoading}
                                 category={category}
                                 startSearchByQueryParams={startSearchByQueryParams}
+                                paramsFilters={paramsFilters}
                             />
                         </Collapse>
                     ))

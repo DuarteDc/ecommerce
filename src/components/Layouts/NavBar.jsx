@@ -7,6 +7,7 @@ import { IconContext } from "react-icons";
 import { AiOutlineHeart } from "react-icons/ai";
 import { AiOutlineClose } from "react-icons/ai";
 import {
+  shoppingCartNotLoggedfromLocalStorage,
   startLoadShoppingCart,
   startloadshoppingCartFussion,
 } from "../../actions/shoppingCartActions";
@@ -52,6 +53,15 @@ const NavBar = () => {
       window.removeEventListener("scroll", handleScroll);
     };
   }, []);
+
+  useEffect(() => {
+    if (!logged) {
+      let cartNotLogged = localStorage.getItem("cartNotlogged")
+        ? JSON.parse(localStorage.getItem("cartNotlogged"))
+        : [];
+      dispatch(shoppingCartNotLoggedfromLocalStorage(cartNotLogged));
+    }
+  }, [logged]);
 
   useEffect(() => {
     if (localStorage.getItem("acceptCookies")) {

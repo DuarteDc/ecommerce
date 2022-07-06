@@ -14,7 +14,7 @@ import CouponDetails from "./CouponDetails"
 export const CartTotals = ({ handleOpenFormAddress }) => {
   const dispatch = useDispatch();
   const { logged } = useSelector((state) => state.auth);
-  const { cart, subtotal, total, shipping_costs, shippingAddress, addressSelected, coupon, subtotalWithCoupon } = useSelector((state) => state.cart);
+  const { cart, subtotal, total, shipping_costs, shippingAddress, addressSelected, coupon, subtotalWithCoupon, canvas } = useSelector((state) => state.cart);
   const router = useRouter();
 
   const [inputCoupon, setInputCoupon] = useState('')
@@ -24,7 +24,6 @@ export const CartTotals = ({ handleOpenFormAddress }) => {
   const proceedToCheckout = () => {
     if (!logged) {
       router.push(`/auth/login?p=${router.asPath}`);
-      return;
     }
 
     if (!shippingAddress.length) {
@@ -51,21 +50,45 @@ export const CartTotals = ({ handleOpenFormAddress }) => {
       });
     }
 
-    let productsDiscount = cart.filter(product => product.product_id.discount > 0);
-    let productsWithoutDiscount = cart.filter(product => product.product_id.discount === 0);
-
-    if (!productsDiscount.length && !productsWithoutDiscount.length) {
+    if (!cart) {
       notify('Debes agregar almenos un producto al carrito de compras')
       return;
     }
-
+    
+      const products = cart.reduce(
+        (acc, item) => {
+          const { product_id } = item;
+          if (product_id.discount > 0  && product_id.product_type === '1') {
+            acc.productsDiscount.push({
+                    product_id: product_id._id,
+                    quantity: item.quantity,
+            });
+          } else if (product_id.discount === 0 && product_id.product_type === '1') {
+            acc.productsWithoutDiscount.push({
+                product_id: product_id._id,
+                quantity: item.quantity,
+            });
+          }else{
+            acc.productsCanvas.push({
+              product_id: product_id._id,
+              quantity: item.quantity,
+            });
+          }
+          return acc;
+        },
+        {productsDiscount: [], productsWithoutDiscount: [], productsCanvas: []},
+      );
+  
     const data = {
-      "productsDiscount": productsDiscount,
-      "productsWithoutDiscount": productsWithoutDiscount,
-      "shipment": shipping_costs[0]?.shippingCosts,
+      "productsDiscount": products.productsDiscount,
+      "productsWithoutDiscount": products.productsWithoutDiscount,
+      "shipment": shipping_costs?.shippingCosts,
       "coupon_id": coupon ? coupon._id : "",
-      "shippment_direction": addressSelected
+      "shippment_direction": addressSelected,
+      "productsCanvas": products.productsCanvas,
     }
+
+    
     dispatch(startFinaliceSaleCheckout(data));
   }
 
@@ -90,6 +113,7 @@ export const CartTotals = ({ handleOpenFormAddress }) => {
 
   const handleRemoveCoupon = () => {
     dispatch(removeCoupon());
+    setInputCoupon('');
   }
 
 

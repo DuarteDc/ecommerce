@@ -46,7 +46,7 @@ export const getServerSideProps = wrapper.getServerSideProps((store) =>
         await store.dispatch(startLoadAdministrableLogo());
         await store.dispatch(startGetStates());
         await store.dispatch(startLoadFiscalAddress(ctx.req.cookies.token));
-        await store.dispatch(startLoadTaxSystem(ctx.req.cookies.token));
+        await store.dispatch(startLoadTaxSystem(ctx.req.cookies.token)); 
 });
 
 export default FiscalAddress;

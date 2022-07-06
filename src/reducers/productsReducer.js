@@ -39,21 +39,17 @@ export const productsReducer = (state = initalState, { type, payload }) => {
                 ...state,
                 products: payload,
             }
-
+n
 
         case types.filters_to_products: {
 
-            const { filter, products } = payload;
-
-            let filterInFilters = state.filters.find(filterSelected => filterSelected._id === filter._id);
+            let filterInFilters = state.filters.find(filterSelected => filterSelected._id === payload._id);
 
             return filterInFilters ? {
                 ...state
             } : {
                 ...state,
-                filteredProducts: products.length > 0 ? [...products, ...state.filteredProducts] : [...state.filteredProducts],
-                filters: [filter, ...state.filters],
-                results: { quantity: products.length, name: filter.name },
+                filters: [payload, ...state.filters]
             }
 
         }
@@ -61,9 +57,7 @@ export const productsReducer = (state = initalState, { type, payload }) => {
         case types.clear_all_filter:
             return {
                 ...state,
-                filteredProducts: initalState.filteredProducts,
-                filters: initalState.filters,
-                results: initalState.results,
+                filters: initalState.filters                
             }
 
         case types.search_products:
@@ -81,7 +75,7 @@ export const productsReducer = (state = initalState, { type, payload }) => {
         case types.filter_products:
             return {
                 ...state,
-                products: payload
+                products: payload,
             }
 
         case types.remove_filter: {

@@ -24,14 +24,6 @@ const Brands = () => {
   const { logged } = useSelector((state) => state.auth);
   const { categories } = useSelector((state) => state.faqs);
 
-  useEffect(() => {
-    if (!logged) {
-      let cartNotLogged = localStorage.getItem('cartNotlogged') ? JSON.parse(localStorage.getItem('cartNotlogged')) : [];
-      dispatch(shoppingCartNotLoggedfromLocalStorage(cartNotLogged))
-    }
-  }, [logged]);
-
-
   const handleClickCard = (url) => {
     history.push(`/marcas/${url}`)
   }
@@ -44,6 +36,7 @@ const Brands = () => {
     >
       <BannerImage
         title="Marcas"
+        banner="bg-banner8"
       />
       <div className="container mx-auto my-20 px-5 lg:px-24">
         <Grid container spacing={5}>

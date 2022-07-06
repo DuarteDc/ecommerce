@@ -12,23 +12,19 @@ import { useToggle } from "../../../hooks/useToggle";
 import { Modal } from "../../ui/modal";
 import { useDispatch, useSelector } from "react-redux";
 import { startCancelOrderByID, startGetOrder, startOrderCancel } from "../../../actions/ordersActions";
-import { TextField } from "@mui/material";
+
 import { OrderDetails } from "./orderDetail";
 import Swal from "sweetalert2";
 import { startInvoidedOrder } from "../../../actions/ordersActions";
-import TextareaAutosize from '@mui/material/TextareaAutosize';
 
-import { useFormik } from "formik";
-import * as Yup from 'yup';
-import { fontFamily } from "@mui/system";
 import { useRouter } from "next/router";
 import OrderStatus from "../OrderStatus";
 import OrderCancelStatus from "../OrderCancelStatus";
-import LoadingScreen from "../../LoadingScreen";
+
 import CircularProgress from '@mui/material/CircularProgress';
 
 
-export const PendingPaymentOrderIndex = ({ order, handleOpenProofOfPayment, status, handleCancelInvoice }) => {
+export const PendingPaymentOrderIndex = ({ order, handleOpenProofOfPayment, status, loading, setLoading }) => {
 
   const dispatch = useDispatch();
   const { fiscalAddress } = useSelector((state) => state.profile)
@@ -38,8 +34,7 @@ export const PendingPaymentOrderIndex = ({ order, handleOpenProofOfPayment, stat
   const [open, toggle] = useToggle();
   const [openOrderDetail, toggleOrderDetail] = useToggle();
   // const [openCancelSOrder, toggleCancelOrder] = useToggle();
-
-  const [loading, setLoading] = useState(false);
+  
   const [loadingDetail, setLoadingDetail] = useState(false);
 
   const handleClickAddress = () => {
@@ -139,8 +134,6 @@ export const PendingPaymentOrderIndex = ({ order, handleOpenProofOfPayment, stat
   }
 
   return (
-    <>
-      {loading && <LoadingScreen />}
       <div>
         <div className="flex w-full bg-[#eee] p-8  rounded-t-[6px]  font-Poppins">
           <div className="grid grid-cols-1 w-full md:grid-cols-3 lg:grid-cols-3">
@@ -385,7 +378,6 @@ export const PendingPaymentOrderIndex = ({ order, handleOpenProofOfPayment, stat
           </form>
         </Modal> */}
       </div>
-    </>
   )
 }
 

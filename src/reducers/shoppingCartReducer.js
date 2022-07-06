@@ -10,6 +10,8 @@ const initialState = {
     superTotal: {},
     withDiscount: {},
     withoutDiscount: {},
+    canvas: {},
+    business_rule:{},
     shipping_costs: {},
     order_id: '',
     success: false,
@@ -39,6 +41,8 @@ export const shoppingCartReducer = (state = initialState, { type, payload }) => 
                 withDiscount: payload.withDiscount,
                 withoutDiscount: payload.withoutDiscount,
                 order_id: payload.order_id,
+                canvas: payload.canvasTotals,
+                coupon: payload.coupon,
                 success: true
             }
         case types.loadTotalsFromCookies:
@@ -48,7 +52,10 @@ export const shoppingCartReducer = (state = initialState, { type, payload }) => 
                 withDiscount: payload.withDiscount,
                 withoutDiscount: payload.withoutDiscount,
                 shipping_costs: payload.shippingCosts,
-                order_id: payload.order_id
+                order_id: payload.order_id,
+                canvas: payload.canvasTotals,
+                business_rule: payload.business_rule,
+                coupon: payload.coupon,
             }
         case types.removeProductShoppingCart:
         case types.loadShoppingCart:

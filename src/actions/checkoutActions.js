@@ -1,22 +1,29 @@
 import client from "../config/axiosConfig";
 import Cookies from "js-cookie";
 import { types } from "../types";
+import axios from "axios";
+import { errorNotify } from "../helpers/helpers";
 
 export const startLoadClientSecret = (token) => {
     return async (dispatch, getState) => {
 
         const { order_id } = getState().cart;
+        const typeOrder = Cookies.get('typeOrder');
+        typeOrder = Number(typeOrder);
         try {
             let url = `/orders/stripe/clients/${order_id}`;
-            const { data } = await client.post(url, '', {
+            const { data } = await client.post(url, {typeOrder}, {
                 headers: {
                     'Authorization': token
-                }
+                },
             });
             Cookies.set('client_secret', data.client_secret);
             dispatch(loadClientSecret(data.client_secret))
         } catch (error) {
-            console.log(error)
+            if(axios.isAxiosError(error)){
+                errorNotify(error?.response?.data?.message);
+                return;
+            }
         }
     }
 }
@@ -55,12 +62,14 @@ export const loadBanksAccounts = (banksAccounts) => ({
 export const startfinaliceTransferCheckout = (bank_account_id, token) => {
     return async (dispatch, getState) => {
         const { order_id } = getState().cart;
-        const bank = {
-            "bank_account_id": bank_account_id
+        const typeOrder = Cookies.get('typeOrder');
+        const data = {
+            bank_account_id,
+            typeOrder,
         }
         try {
             let url = `/orders/finalize/sale/${order_id}`;
-            await client.post(url, bank, {
+            await client.post(url, data, {
                 headers: {
                     'Authorization': token
                 }

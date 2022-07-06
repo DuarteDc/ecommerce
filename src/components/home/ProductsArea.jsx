@@ -21,7 +21,7 @@ export const ProductsArea = () => {
   const [openSearch, setOpenSearch] = useToggle(false);
   const [tabActive, setTabActive] = useState(null);
 
-  const [queryParams, startSearchByQueryParams] = useQueryParams(endpoint, { router });
+  const { queryParams, startSearchByQueryParams } = useQueryParams(endpoint, { router });
 
   const [query, setQuery] = useState("");
 

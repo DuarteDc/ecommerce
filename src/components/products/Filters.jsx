@@ -8,25 +8,10 @@ import { useRouter } from "next/router";
 
 const Filters = ({ starClearQueryParams, endpoint }) => {
 
-console.log(endpoint)
   const { filters } = useSelector((state) => state.products);
 
-  const dispatch = useDispatch();
-  const router = useRouter();
-
-  const handleRemoveFilter = (filter) => {
-    const asArray = Object.entries(router.query);
-    const newQuerys = asArray.filter(([key, value]) => value !== filter._id);
-    const justStrings = Object.fromEntries(newQuerys);
-    router.push({ pathname: "/productos", query: justStrings }, undefined, {
-      shallow: true,
-    });
-    dispatch(removeItemFromFilters(filter));
-  };
-
-  const handleClearFilters = async (endpoint) => {
-    alert(endpoint)
-    // router.push("/productos", undefined, { shallow: true });
+  const handleClearFilters = async () => {
+    if(!filters.length) return;
     await starClearQueryParams(endpoint);
   };
 
@@ -36,7 +21,7 @@ console.log(endpoint)
       <div className="flex flex-row-reverse text-sm mt-4">
         <span
           className="inline-flex text-gray-500 hover:text-gray-800 cursor-pointer items-center"
-          onClick={()=>{handleClearFilters(endpoint)}}
+          onClick={handleClearFilters}
         >
           <DeleteOutlineIcon sx={{ fontSize: 18 }} />
           <p>Limpiar todo</p>
@@ -45,12 +30,12 @@ console.log(endpoint)
       <div>
         {filters?.map((filter) => (
           <span
-            className="hover:border-black hover:text-black cursor-pointer 
+            className="hover:border-[#333] hover:text-[#333] cursor-pointer 
                             mr-2 mt-2 py-2 border-2 border-gray-200 px-2
                             text-center inline-block transition-all duration-700 ease-out text-xs text-gray-500"
             key={filter?._id}
           >
-            {filter?.name}
+            {filter?.name || `$${filter?.min} - $${filter?.max}`}
           </span>
         ))}
       </div>

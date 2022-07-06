@@ -3,7 +3,7 @@ import { helpers } from "../../helpers";
 
 export const InfoShippingCosts = () =>{
     const { shipping_costs } = useSelector((state)=>state.cart);
-     const shippingTotal =  helpers.priceFormat(shipping_costs[0]?.shippingCosts || 0)
+     const shippingTotal =  helpers.priceFormat(shipping_costs?.shippingCosts || 0)
     return (
         <>
         <div className="w-[35%]">

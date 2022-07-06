@@ -168,10 +168,6 @@ export const UploadProofOfPayment = ({ handleOpenProofOfPayment }) => {
         }
     }
 
-    const handleCancelMethodPayment = () => {
-        handleOpenProofOfPayment();
-    }
-
 
     return (
         <div>
@@ -252,7 +248,7 @@ export const UploadProofOfPayment = ({ handleOpenProofOfPayment }) => {
                         ) : null}
                     </Grid>
                 </Grid>
-                <div className="flex flex-col my-8">
+                <div className="flex flex-col mt-8">
                     <button
                         type="submit"
                         className="uppercase w-full  mb-5 bg-[#008cdd] text-luz py-4 font-Poppins text-base cursor-pointer"
@@ -260,11 +256,11 @@ export const UploadProofOfPayment = ({ handleOpenProofOfPayment }) => {
                         Enviar Comprobante
                     </button>
 
-                    <button className="uppercase w-full mb-5 bg-[#f57c00] text-luz py-4 font-Poppins text-base cursor-pointer"
+                    {/* <button className="uppercase w-full mb-5 bg-[#f57c00] text-luz py-4 font-Poppins text-base cursor-pointer"
                         onClick={handleCancelMethodPayment}
                     >
                         Cancelar Pago por Transferencia
-                    </button>
+                    </button> */}
                 </div>
             </form>
         </div>

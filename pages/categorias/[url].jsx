@@ -20,7 +20,7 @@ import { helpersProducts } from "../../src/helpers";
 import CategoryFilters from "../../src/components/categories/CategoryFilters";
 import { startLoadFaqsCategories } from "../../src/actions/faqsActions";
 import { useQueryParams } from "../../src/hooks/useQueryParams";
-import { startFilterPriducts } from "../../src/actions/productsAction";
+import { startFilterProducts } from "../../src/actions/productsAction";
 
 import Pagination from '@mui/material/Pagination';
 import Stack from '@mui/material/Stack';
@@ -45,7 +45,7 @@ const Category = () => {
     const dispatch = useDispatch();
 
     const endpoint = `/products/filter-category/products-paginated/${router.query.url}`;
-    const [queryParams, startSearchByQueryParams, starClearQueryParams] = useQueryParams(endpoint, { router });
+    const { startSearchByQueryParams, starClearQueryParams, paramsFilters } = useQueryParams(endpoint, { router });
 
 
     const handelClickPage = async (e, value) => {
@@ -56,21 +56,37 @@ const Category = () => {
         });
     }
 
-
     return (
         <Layout
             categories={categories}
         >
             <BannerImage
                 title={`${products?.category?.name}`}
+                banner="bg-banner2"
             />
             {loading && <LoadingScreen />}
             <section className="container mx-auto grid grid-cols-1 md:grid-cols-3 mt-20 lg:grid-cols-4">
                 <AsideBar>
-                    {/* <CategoryFilters url={category.url} /> */}
-                    <RangePrice startSearchByQueryParams={startSearchByQueryParams}/>
-                    <BrandsList brands={brands} setLoading={setLoading} category={category} startSearchByQueryParams={startSearchByQueryParams} />
-                    <SubcategoriesList subcategories={subcategories} startSearchByQueryParams={startSearchByQueryParams} />
+                    <CategoryFilters
+                        starClearQueryParams={starClearQueryParams}
+                        endpoint={endpoint} 
+                    />
+                    <RangePrice 
+                        startSearchByQueryParams={startSearchByQueryParams}
+                        paramsFilters={paramsFilters}
+                    />
+                    <BrandsList 
+                        brands={brands} 
+                        setLoading={setLoading} 
+                        paramsFilters={paramsFilters}
+                        category={category} 
+                        startSearchByQueryParams={startSearchByQueryParams} 
+                    />
+                    <SubcategoriesList 
+                        subcategories={subcategories}
+                        paramsFilters={paramsFilters} 
+                        startSearchByQueryParams={startSearchByQueryParams} 
+                    />
                 </AsideBar>
                 <div className="col-span-4 md:col-span-2 lg:col-span-3">
                     {
@@ -125,7 +141,7 @@ const Category = () => {
 export const getServerSideProps = wrapper.getServerSideProps((store) =>
     async (ctx) => {
         const endpoint = `/products/filter-category/products-paginated/${ctx.query.url}`;
-        await store.dispatch(startFilterPriducts(endpoint));
+        await store.dispatch(startFilterProducts(endpoint));
         await store.dispatch(startLoadBrands());
         await store.dispatch(startLoadTags())
         await store.dispatch(startLoadSubcategories())

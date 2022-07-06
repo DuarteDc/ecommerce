@@ -15,7 +15,7 @@ const prices = [
   { _id: "5", min: 1000, max: 10000 },
 ];
 
-const RangePrice = ({ startSearchByQueryParams }) => {
+const RangePrice = ({ startSearchByQueryParams, paramsFilters }) => {
   const [open, setOpen] = useState(true);
 
   return (
@@ -30,7 +30,11 @@ const RangePrice = ({ startSearchByQueryParams }) => {
       <ul className={`relative max-h-60 overflow-y-auto ${styles.scrollbar}`}>
         {prices.map((price) => (
           <Collapse in={open} timeout="auto" unmountOnExit key={price._id}>
-            <RangePriceItem price={price} startSearchByQueryParams={startSearchByQueryParams}/>
+            <RangePriceItem 
+              price={price} 
+              startSearchByQueryParams={startSearchByQueryParams}
+              paramsFilters={paramsFilters}
+              />
           </Collapse>
         ))}
       </ul>

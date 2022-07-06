@@ -9,7 +9,7 @@ import SubcategoryItem from './SubcategoryItem';
 import styles from '../styles.module.css'
 
 
-const SubcategoriesList = ({ subcategories, startSearchByQueryParams }) => {
+const SubcategoriesList = ({ subcategories, startSearchByQueryParams, paramsFilters }) => {
 
   const [open, setOpen] = useState(true);
 
@@ -33,6 +33,7 @@ const SubcategoriesList = ({ subcategories, startSearchByQueryParams }) => {
                         subcategory={subcategory} 
                         setOpen={setOpen}
                         startSearchByQueryParams={startSearchByQueryParams}
+                        paramsFilters={paramsFilters}
                     />
                 </Collapse>
             ))

@@ -17,7 +17,7 @@ module.exports = {
         'wine':'#ff0000'
       },
       backgroundImage: {
-        'register': "url('/assets/images/category.jpg')",
+        'register': "url('/assets/images/register.png')",
         'imgcreateaccount': "url('/assets/images/login.jpeg')",
         'imgcreateaccountc': "url('/assets/images/createAccount.jpeg')",
         'imgpasswvalidation': "url('/assets/images/imgPWV.png')",
@@ -30,7 +30,20 @@ module.exports = {
         'address-billing':"url('/assets/images/addressBilling.png')",
         'offers':"url('/assets/images/bg-offers1.webp')",
         'oferta-ejemplo':"url('/assets/images/oferta-ejemplo.webp')",
-
+        'banner1':"url('/assets/banners/1.jpg')",
+        'banner2':"url('/assets/banners/2.jpg')",
+        'banner3':"url('/assets/banners/3.jpg')",
+        'banner4':"url('/assets/banners/4.jpg')",
+        'banner5':"url('/assets/banners/5.jpg')",
+        'banner6':"url('/assets/banners/6.jpg')",
+        'banner7':"url('/assets/banners/7.jpg')",
+        'banner8':"url('/assets/banners/9.jpg')",
+        'banner9':"url('/assets/banners/10.jpg')",
+        'banner10':"url('/assets/banners/11.jpg')",
+        'banner11':"url('/assets/banners/12.jpg')",
+        'banner12':"url('/assets/banners/13.jpg')",
+        'banner13':"url('/assets/banners/14.jpg')",
+        'banner14':"url('/assets/banners/15.jpg')",
       },
       screens: {
         'peque': { 'max': '639px' },

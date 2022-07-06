@@ -47,8 +47,7 @@ const Wishlist = () => {
     const handleSeachProduct = (query) => {
         if (wishList.length) {
             let data = allProducts.filter((product) => {
-                return product.name.toLowerCase().includes(query.toLowerCase()) ||
-                    product.description.toLowerCase().includes(query.toLowerCase())
+                return product.name.toLowerCase().includes(query.toLowerCase())
             })
             if (data.length > 0) {
                 dispatch(searcProduct(data));
@@ -58,7 +57,7 @@ const Wishlist = () => {
 
     return (
         <Layout categories={categories}>
-            <BannerImage title="Mi lista de deseos" />
+            <BannerImage title="Mi lista de deseos" banner="bg-banner10"/>
             {loading && <LoadingScreen />}
             <section className="container mx-auto py-32 min-h-screen px-5 lg:px-0 font-Poppins">
                 {

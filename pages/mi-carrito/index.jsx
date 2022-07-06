@@ -83,7 +83,7 @@ const ShoppingCart = () => {
     <Layout categories={categories}>
       <BannerImage
         title="Mi Carrito"
-        imageBackground="bg-about-us"
+        banner="bg-banner2"
       />
       <section className="max-w-[1480px] mx-auto my-20 w-full">
         <div className="container grid grid-cols-1 lg:grid-cols-3 mx-auto">
