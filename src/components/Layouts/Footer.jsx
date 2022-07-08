@@ -15,8 +15,6 @@ const Footer = ({ categories }) => {
     (state) => state.administrable
   );
 
-  console.log(facebook);
-
   const dispatch = useDispatch();
   const initialValues = {
     email: "",
@@ -46,11 +44,11 @@ const Footer = ({ categories }) => {
                 </ul>
               </div>
               <div>
-                <h6>Ayuda y Apoyo</h6>
+                <h6>Ayuda y apoyo</h6>
                 <ul>
                   <li className="text-[12px]">
                     <Link href="/preguntas-frecuentes">
-                      Preguntas Frecuentes
+                      Preguntas frecuentes
                     </Link>
                   </li>
                   {categories?.map((category) => (
@@ -140,23 +138,17 @@ const Footer = ({ categories }) => {
               </div>
               <div className="w-full lg:w-[60%] mb-5">
                 <p className="leading-7 mb-5">
-                  SUSCRÍBETE PARA RECIBIR OFERTAS EXCLUSIVAS, PROMOCIONES Y MÁS
+                  Suscríbete para recibir ofertas exclusivas, promociones y más.
                 </p>
                 <form
                   onSubmit={formik.handleSubmit}
                   className="w-full flex justify-center"
                 >
-                  <input
-                    name="email"
-                    type="email"
-                    className="bg-[#f5f5f5] w-[70%] py-1 px-10 text-sm leading-normal text-[#222] border-none rounded-none transition-all outline-none"
-                    value={formik.values.email}
-                    onChange={formik.handleChange}
-                  />
-
+                  <input name="email" type="text" placeholder="Ingresa tu correo electronico" value={formik.values.email}
+                    onChange={formik.handleChange} className="bg-[#f5f5f5] w-full py-4 px-10 text-sm leading-normal text-[#222] border-none     rounded-none transition-all outline-none" />
                   <button
                     type="submit"
-                    className="border-none bg-[#000]  text-[#fff] px-2 py-1 md:px-5 text-[16px] transition-all"
+                    className="ml-2 border-none bg-[#000] text-[#fff] px-2 py-1 md:px-5 text-[16px] transition-all"
                   >
                     Enviar
                   </button>

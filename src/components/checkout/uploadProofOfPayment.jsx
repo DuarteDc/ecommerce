@@ -9,7 +9,7 @@ import { startUploadProofOfPayment } from "../../actions/ordersActions";
 import { infoNotify } from "../../helpers/helpers";
 
 
-export const UploadProofOfPayment = ({ handleOpenProofOfPayment }) => {
+export const UploadProofOfPayment = ({ handleOpenProofOfPayment, setLoading }) => {
     const dropRef = useRef();
     const fileInput = useRef(null);
     const dispatch = useDispatch();
@@ -80,13 +80,15 @@ export const UploadProofOfPayment = ({ handleOpenProofOfPayment }) => {
             confirmButtonColor: '#3085d6',
             cancelButtonColor: '#d33',
             confirmButtonText: 'Si, enviar!'
-        }).then((result) => {
+        }).then(async(result) => {
             if (result.isConfirmed) {
+                setLoading(true);
                 const formData = new FormData();
                 formData.append("image", data.image);
                 formData.append("reference", data.reference);
                 formData.append("amount", data.amount);
-                dispatch(startUploadProofOfPayment(formData));
+                await dispatch(startUploadProofOfPayment(formData));
+                setLoading(false);
             } else {
                 handleOpenProofOfPayment();
             }

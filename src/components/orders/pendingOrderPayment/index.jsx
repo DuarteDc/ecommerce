@@ -186,7 +186,7 @@ export const PendingPaymentOrderIndex = ({ order, handleOpenProofOfPayment, stat
                 <div className="text-center">
                   <span className="text-sm text-[#333]">Pedido N.º {order.folio}</span>
                   <div className="w-full mr-6 text-[#1976d2]">
-                    {
+                    {/* {
                       order.invoiced && status !== 0 && status !== 1 && (
                         <button
                           className="text-sm  cursor-pointer border-b-3 text-[#e91e63]  hover:border-solid hover:text-[#880e4f] hover:transition-all mr-5"
@@ -203,7 +203,7 @@ export const PendingPaymentOrderIndex = ({ order, handleOpenProofOfPayment, stat
                       >
                         Factura CFDI
                       </button>
-                    }
+                    } */}
                     <button
                       className="text-sm cursor-pointer text-[#e91e63] hover:border-3 hover:border-solid hover:text-[#880e4f] hover:transition-all"
                       onClick={() => handleClickOrderDetail()}

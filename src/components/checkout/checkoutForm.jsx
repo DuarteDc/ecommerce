@@ -1,11 +1,14 @@
 import { CircularProgress } from "@mui/material";
 import { PaymentElement, useElements, useStripe } from "@stripe/react-stripe-js";
+import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 
 export const CheckoutForm = ({ setLoadingForm }) => {
 
   const stripe = useStripe();
   const elements = useElements();
+
+  const router = useRouter();
 
   const [message, setMessage] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
@@ -14,6 +17,8 @@ export const CheckoutForm = ({ setLoadingForm }) => {
     if (!stripe) {
       return;
     }
+
+    const origin = typeof window === "undefined" ? "" : window.location.origin;
 
     const clientSecret = new URLSearchParams(window.location.search).get(
       "payment_intent_client_secret"
@@ -57,7 +62,7 @@ export const CheckoutForm = ({ setLoadingForm }) => {
       elements,
       confirmParams: {
         // Make sure to change this to your payment completion page
-        return_url: process.env.NODE_ENV === 'development' ? 'http://localhost:3000/' : 'https://test.wapizima.com/'
+        return_url: origin
       },
     });
 

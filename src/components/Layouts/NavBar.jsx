@@ -189,11 +189,19 @@ const NavBar = () => {
           <div className="hidden lg:flex justify-between items-center w-full">
             <div className="px-12 w-full flex justify-center">
               {pages.map(({ path, name }) => (
-                <Link href={path} passHref key={name} prefetch={false}>
-                  <span className="text-[#888] border-transparent border-b-2 hover:text-[#333] mx-4 cursor-pointer  font-Poppins text-[15px] font-medium transition uppercase duration-700 ease-in-out">
-                    {name}
-                  </span>
-                </Link>
+                name !== 'Escuela' ? (
+                  <Link href={path} passHref key={name} prefetch={false}>
+                    <span className="text-[#888] border-transparent border-b-2 hover:text-[#333] mx-4 cursor-pointer  font-Poppins text-[15px] font-medium transition uppercase duration-700 ease-in-out">
+                      {name}
+                    </span>
+                  </Link>
+                ):(
+                  <Link href={path} key={name} prefetch={false}>
+                    <a target="_blank" className="text-[#888] border-transparent border-b-2 hover:text-[#333] mx-4 cursor-pointer  font-Poppins text-[15px] font-medium transition uppercase duration-700 ease-in-out">
+                      {name}
+                    </a>
+                  </Link>
+                )
               ))}
             </div>
 
@@ -347,11 +355,19 @@ const NavBar = () => {
       >
         <div className="px-2 pt-2 pb-3 space-y-1 bg-[#333] ">
           {pages.map((route) => (
-            <Link href={route.path} key={route.path}>
+            route.name !== 'Escuela' ? (
+              <Link href={route.path} key={route.path}>
               <a className="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium">
                 {route.name}
               </a>
             </Link>
+            ):(
+              <Link href={route.path} key={route.path}>
+                <a target="_blank" className="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium">
+                {route.name}
+              </a>
+            </Link>
+            )            
           ))}
           <div className="items-center relative">
             {logged ? (

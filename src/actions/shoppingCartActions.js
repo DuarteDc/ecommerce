@@ -139,7 +139,10 @@ export const startCalculateTotalSale = () => {
          subtotalCart = subtotalCartWithoutDiscount + subtotalCartWithDiscount;
          shippingSelected = shippingCosts.find((shipping) => shipping.minSale <= subtotalCart && shipping.maxSale >= subtotalCart);
          subtotalCart = subtotalCart + subtotalCanvas;
-         total = Number(shippingSelected?.shippingCosts) + Number(subtotalCart) || 0;
+         if(shippingSelected){
+            total = Number(shippingSelected?.shippingCosts) + Number(subtotalCart) || 0;
+         }
+         total = subtotalCart || 0;
       }
 
       dispatch(calculateTotalSale(subtotalWithCoupon, subtotalCart, total, shippingSelected))

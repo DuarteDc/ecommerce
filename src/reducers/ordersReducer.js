@@ -8,7 +8,8 @@ const initialState = {
     order_id: '',
     totalOrder: 0,
     totalPayments: 0,
-    orderDetail: {}
+    orderDetail: {},
+    success: false,
 }
 
 
@@ -70,18 +71,14 @@ export const ordersReducer = (state = initialState, { type, payload }) => {
 
         case types.invoiced_order: {
 
-            const { order, status } = payload;
+            const { first_order, second_order,  status } = payload;
 
-            return status === 2 ? {
+            return first_order ? {
                 ...state,
-                approvedOrders: state.approvedOrders.map(orders => orders._id === order._id
-                    ? { ...order }
-                    : { ...orders })
-            } : {
+                success: true,
+            }:{
                 ...state,
-                shippedOrders: state.shippedOrders.map(orders => orders._id === order._id
-                    ? { ...order }
-                    : { ...orders })
+                success: false,
             }
 
         }

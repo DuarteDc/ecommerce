@@ -9,13 +9,16 @@ export const pages = [
     },
      {
       path: '/categorias',
-      name: 'Categorias'
+      name: 'Categorías'
     },
     {
       path: '/marcas',
       name: 'Marcas'
     },
-   
+    {
+      path: 'https://wapizima.com.mx',
+      name: 'Escuela'
+    },
     {
       path: '/contacto',
       name: 'Contácto'

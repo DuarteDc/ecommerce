@@ -22,7 +22,7 @@ import { ShoppingCartDetails } from "../../src/components/checkout/shoppingCartD
 import { useRouter } from "next/router";
 import LoadingScreen from "../../src/components/LoadingScreen";
 
-const stripePromise = loadStripe("pk_test_51JQDmVCJKrEV4P25HqhKqz4fnKIZVF7d853icQ84CYZrCFxUorhPwAdjwyKhnP124hlGSaYfOEjZo7LibrwT6Azo002XEZChlH");
+const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_CLIENT);
 
 const Checkout = () => {
 

@@ -1,12 +1,18 @@
 import Image from "next/image";
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { startLoadAdministrableAbout, startLoadAdministrableLogo } from "../../src/actions/administrableActions";
+import {
+  startLoadAdministrableAbout,
+  startLoadAdministrableLogo,
+} from "../../src/actions/administrableActions";
 import Layout from "../../src/components/Layouts";
 import { BannerImage } from "../../src/components/ui";
 import { wrapper } from "../../src/store";
-import Cookie from 'js-cookie';
-import { addShoppingCartFromLocalStorage, shoppingCartNotLoggedfromLocalStorage } from "../../src/actions/shoppingCartActions";
+import Cookie from "js-cookie";
+import {
+  addShoppingCartFromLocalStorage,
+  shoppingCartNotLoggedfromLocalStorage,
+} from "../../src/actions/shoppingCartActions";
 import { startLoadFaqsCategories } from "../../src/actions/faqsActions";
 
 const AboutPage = () => {
@@ -17,65 +23,67 @@ const AboutPage = () => {
 
   return (
     <>
-      <BannerImage
-        title="Acerca de Nosotros"
-        banner="bg-banner9            "
-      />
-      <section>
-        <div className="w-full  lg:max-w-[1220px] m-auto px-4">
-          <div className="grid grid-cols-1 lg:grid-rows-2 gap-10 my-20">
-            <div className="grid grid-cols-12 gap-10">
-              <div className="col-span-12 lg:col-span-8">
-                <div className="pr-[85px] pt-2">
-                  <div className="mb-[40px] text-center bg-[#f6f6f6] w-full p-[15px]">
-                    <h3 className="font-semibold text-2xl leading-[1.2] color-[#333] pb-4">Nuestra Historia</h3>
-                  </div>
-                  <div className="font-Poppins text-sm leading-7 text-[#888] pb-6" dangerouslySetInnerHTML={{ __html: aboutUs.aboutThat }}></div>
-                </div>
+      <BannerImage title="Acerca de Nosotros" banner="bg-banner9            " />
+      <section className="min-h-screen container mx-auto px-5 md:px-0">
+        <div>
+          <div className="grid grid-cols-1 lg:grid-cols-3 mt-20 gap-4">
+            <div className="col-span-2">
+              <div className="flex">
+                <span className="bg-gray-100 uppercase font-Poppins w-full py-4 text-center text-2xl mb-5">
+                  Nuestra Historia
+                </span>
               </div>
-              <div className="col-span-12 lg:col-span-4">
-                <div className="relative z-[1] before:bottom-[-21px] before:left-[-21px] before:block before:absolute before:z-[-1] before:w-full before:h-full before:border-solid before:border-[#ccc] before:border-[3px]">
-                  <div className="block overflow-hidden">
-                    <Image
-                      src={aboutUs.image}
-                      className="w-full h-full transition-all duration-[0.4s] ease-linear delay-0 hover:scale-[1.1] "
-                      width={400}
-                      height={500}
-                      alt="acerca de nosotros"
-                    />
-                  </div>
-                </div>
-              </div>
+              <div
+                className="font-Poppins text-sm leading-7 text-[#888] pb-6"
+                dangerouslySetInnerHTML={{ __html: aboutUs.aboutThat }}
+              ></div>
             </div>
-            <div className="grid grid-cols-12 gap-10">
-              <div className="col-span-12 lg:col-span-4">
-                <div className="relative z-[1] before:bottom-[-21px] before:left-[-21px] before:block before:absolute before:z-[-1] before:w-full before:h-full before:border-solid before:border-[#ccc] before:border-[3px]">
-                  <div className="block overflow-hidden">
-                    <Image
-                      src={mission.image}
-                      className="w-full h-full transition-all duration-[0.4s] ease-linear delay-0 hover:scale-[1.1] "
-                      width={400}
-                      height={500}
-                      alt="nuestra misión"
-                    />
-                  </div>
-                </div>
+            <div className="">
+              <Image
+                src={aboutUs.image}
+                className="w-full h-full transition-all duration-[0.4s] ease-linear delay-0 hover:scale-[1.1] "
+                width={100}
+                height={100}
+                alt="acerca de nosotros"
+                layout="responsive"
+              />
+            </div>
+          </div>
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 my-10">
+            <div className="hidden lg:block">
+              <Image
+                src={mission.image}
+                className="w-full h-full transition-all duration-[0.4s] ease-linear delay-0 hover:scale-[1.1] "
+                width={100}
+                height={100}
+                alt="acerca de nosotros"
+                layout="responsive"
+              />
+            </div>
+            <div className="col-span-2">
+            <div className="flex">
+                <span className="bg-gray-100 uppercase font-Poppins w-full py-4 text-center text-2xl mb-5">
+                  Nuestra Misión
+                </span>
               </div>
-              <div className="col-span-12 lg:col-span-8">
-                <div className="pr-[85px] pt-2">
-                  <div className="mb-[40px] text-center bg-[#f6f6f6] w-full p-[15px]">
-                    <h3 className="font-semibold text-2xl leading-[1.2] color-[#333] pb-4">Nuestra Misión</h3>
-                  </div>
-                  <div className="font-Poppins text-sm leading-7 text-[#888] pb-6" dangerouslySetInnerHTML={{ __html: mission.mission }}></div>
-                </div>
-              </div>
+              <div className="font-Poppins text-sm leading-7 text-[#888] pb-6" dangerouslySetInnerHTML={{ __html: mission.mission }}></div> 
+            </div>
+            <div className="block lg:hidden">
+              <Image
+                src={mission.image}
+                className="w-full h-full transition-all duration-[0.4s] ease-linear delay-0 hover:scale-[1.1]"
+                width={100}
+                height={100}
+                alt="acerca de nosotros"
+                layout="responsive"
+              />
             </div>
           </div>
         </div>
       </section>
     </>
   );
-}
+};
 
 AboutPage.getLayout = function getLayout(page, categories) {
   return (
@@ -89,11 +97,12 @@ AboutPage.getLayout = function getLayout(page, categories) {
   );
 };
 
+export const getServerSideProps = wrapper.getServerSideProps(
+  (store) => async () => {
+    await store.dispatch(startLoadAdministrableLogo());
+    await store.dispatch(startLoadAdministrableAbout());
+    await store.dispatch(startLoadFaqsCategories());
+  }
+);
 
-export const getServerSideProps = wrapper.getServerSideProps((store) => async () => {
-  await store.dispatch(startLoadAdministrableLogo());
-  await store.dispatch(startLoadAdministrableAbout());
-  await store.dispatch(startLoadFaqsCategories());
-});
-
-export default AboutPage
+export default AboutPage;

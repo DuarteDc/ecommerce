@@ -72,9 +72,22 @@ const MisPedidos = () => {
 
   const router = useRouter();
   const dispatch = useDispatch();
-  const { penddingOrders, canceledOrders, approvedOrders, shippedOrders } = useSelector((state) => state.orders);
+  const { penddingOrders, canceledOrders, approvedOrders, shippedOrders, success } = useSelector((state) => state.orders);
 
   const { categories } = useSelector((state) => state.faqs)
+  
+  const reloadData = async() =>{
+    const token = Cookies.get('token')
+    await dispatch(startLoadOrdersApproved(token));
+    await dispatch(startLoadOrdersShipped(token));
+  }
+  
+  useEffect(()=>{
+    if(success){
+      reloadData();
+    }
+  }, [success]);
+
 
 
   const [valueTab, setValueTab] = useState(0);
@@ -295,6 +308,7 @@ const MisPedidos = () => {
         >
           <UploadProofOfPayment
             handleOpenProofOfPayment={handleOpenProofOfPayment}
+            setLoading={setLoading}
           />
         </Modal>
 

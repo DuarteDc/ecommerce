@@ -11,7 +11,7 @@ export const FacilityArea = () => {
             <div className="px-5 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 ">
                 <FacilityBox
                   icon={<ImAirplane/>}
-                  title="Envíos Internacionales"
+                  title="Envíos Nacionales"
                 />
                 <FacilityBox
                   icon={<FaMoneyBillAlt/>}

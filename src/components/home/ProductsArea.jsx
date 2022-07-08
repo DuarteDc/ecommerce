@@ -96,7 +96,7 @@ export const ProductsArea = () => {
           <div className="w-full my-5 flex justify-center items-center flex-wrap">
             <Link href="/productos">
               <span
-                className="text-luz mt-4 mx-16 border-solid inline-block py-3 pl-12 pr-12 leading-normal rounded-sm uppercase font-normal text-sm border-2 bg-[#333] border-[#222] transition duration-700 ease-in-out font-Poppins cursor-pointer
+                className="text-luz mt-4 mx-16 border-solid inline-block py-3 pl-12 pr-12 leading-normal rounded-sm uppercase font-normal text-sm border-2 bg-[#D80D82] border-[#D80D82] hover:bg-[#fff] hover:text-[#000] hover:border-[#D80D82] transition duration-700 ease-in-out font-Poppins cursor-pointer
                  "
               >
                 Ver más

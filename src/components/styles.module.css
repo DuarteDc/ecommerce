@@ -4,15 +4,15 @@
 
 .scrollbar::-webkit-scrollbar-track {
   border-radius: 100vh;
-  background: #ccc;
+  background: rgb(229, 226, 226);
 }
 
 .scrollbar::-webkit-scrollbar-thumb {
-  background: #333;
+  background: #D80D82;
   border-radius: 100vh;
-  border: 3px solid #333;
+  border: 3px solid #D80D82;
 }
 
 .scrollbar::-webkit-scrollbar-thumb:hover {
-  background: #222;
+  background: #D80D82;
 }

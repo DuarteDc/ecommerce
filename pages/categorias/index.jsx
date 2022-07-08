@@ -28,12 +28,12 @@ const Categories = () => {
 
     return (
         <Layout
-            title="Wapizima - Categorias"
+            title="Wapizima - Categorías"
             robots="noindex"
             categories={categoriesFasq}
         >
             <BannerImage
-                title="Categorias"
+                title="Categorías"
                 banner="bg-banner3"
             />
             <div className="container mx-auto my-20 px-5 lg:px-24">
