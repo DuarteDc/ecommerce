@@ -114,7 +114,7 @@ export const startRegister = (data) => {
             if (axios.isAxiosError(error)) {
                 return {
                     hasError: true,
-                    message: error.response.data.message
+                    message: error?.response?.data?.message
                 }
             }
 

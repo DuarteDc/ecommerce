@@ -82,7 +82,7 @@ export const successNotify = (message) => {
 
 export const infoNotify = (message) => {
   toast.info(message, {
-    position: "bottom-right",
+    position: "top-right",
     autoClose: 5000,
     hideProgressBar: false,
     style: { backgroundColor: 'black', color: 'white' },
@@ -94,7 +94,7 @@ export const infoNotify = (message) => {
 }
 export const warningNotify = (message) => {
   toast.warn(message, {
-    position: "bottom-right",
+    position: "top-right",
     autoClose: 5000,
     hideProgressBar: false,
     style: { backgroundColor: 'black', color: 'white' },
@@ -107,7 +107,7 @@ export const warningNotify = (message) => {
 
 export const errorNotify = (message) => {
   toast.error(message, {
-    position: "bottom-right",
+    position: "top-right",
     autoClose: 5000,
     hideProgressBar: false,
     style: { backgroundColor: 'black', color: 'white' },
@@ -141,6 +141,20 @@ const applyCoupon = (subtotal, cuponDiscount) => {
 
 }
 
+const getLastRoute = (destination = '') => {
+
+  const reverse = destination.split("").reverse().join("");
+  const index = reverse.search('=p');
+  const route = reverse.substring(0, index).split("").reverse().join("");
+  
+  if(route.includes('auth')) {
+    return '/'
+  }
+
+  return route;
+
+}
+
 
 export default {
   priceFormat,
@@ -154,5 +168,5 @@ export default {
   calculatNewTotalToPay,
   applyCoupon,
   prepareProductsToFussion,
-
+  getLastRoute,
 }

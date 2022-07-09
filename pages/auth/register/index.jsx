@@ -12,13 +12,6 @@ const Register = () => {
 
   const { logged } = useSelector((state) => state.auth);
 
-  useEffect(() => {
-    if (!logged) {
-      let cartNotLogged = localStorage.getItem('cartNotlogged') ? JSON.parse(localStorage.getItem('cartNotlogged')) : [];
-      dispatch(shoppingCartNotLoggedfromLocalStorage(cartNotLogged))
-    }
-  }, [logged]);
-
   return (
     <Layout>
       <section className="min-h-screen container mx-auto font-Poppins">

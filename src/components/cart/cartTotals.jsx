@@ -10,6 +10,7 @@ import Swal from "sweetalert2"
 import jsCookie from "js-cookie"
 import { useState, useEffect } from "react"
 import CouponDetails from "./CouponDetails"
+import { errorNotify, infoNotify } from "../../helpers/helpers"
 
 export const CartTotals = ({ handleOpenFormAddress }) => {
   const dispatch = useDispatch();
@@ -22,11 +23,14 @@ export const CartTotals = ({ handleOpenFormAddress }) => {
   const notify = (message) => toast(message);
 
   const proceedToCheckout = () => {
+
     if (!logged) {
       router.push(`/auth/login?p=${router.asPath}`);
     }
 
-    if (!shippingAddress.length) {
+    if (cart.length < 1) return errorNotify('Debes agregar almenos un producto al carrito de compras');
+
+    if (shippingAddress.length > 1) {
       Swal.fire({
         icon: 'error',
         title: 'Ups , hubo un problema',
@@ -39,21 +43,7 @@ export const CartTotals = ({ handleOpenFormAddress }) => {
       return;
     }
 
-    if (shippingAddress.length > 0 && !Object.keys(addressSelected).length) {
-      Swal.fire({
-        icon: 'error',
-        title: 'Ups , hubo un problema',
-        text: 'Selecciona una dirección de envío',
-        timer: 3000,
-        timerProgressBar: true,
-        showConfirmButton: false
-      });
-    }
-
-    if (!cart) {
-      notify('Debes agregar almenos un producto al carrito de compras')
-      return;
-    }
+    if (Object.keys(addressSelected).length < 1) return errorNotify("¡Upps!, Selecciona una dirección de envío antes de continuar");
     
       const products = cart.reduce(
         (acc, item) => {
@@ -98,17 +88,7 @@ export const CartTotals = ({ handleOpenFormAddress }) => {
     if (inputCoupon < 1) return;
 
     const { hasError, message } = await dispatch(getCoupon(subtotal, inputCoupon));
-    if (hasError) {
-      Swal.fire({
-        icon: 'error',
-        title: 'Ups , hubo un problema',
-        text: message,
-        timer: 3000,
-        timerProgressBar: true,
-        showConfirmButton: false
-      });
-      return;
-    }
+    if (hasError) return errorNotify(`¡Upps! Parece que hubo un error, ${message}`);
   }
 
   const handleRemoveCoupon = () => {

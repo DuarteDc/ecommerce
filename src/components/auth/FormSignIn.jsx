@@ -15,6 +15,7 @@ import { GoogleLogin } from 'react-google-login';
 import { IconContext } from "react-icons";
 import { MdError } from "react-icons/md";
 import { TextField } from "@mui/material";
+import helpers from "../../helpers/helpers";
 
 export const FormSignIn = () => {
 
@@ -35,7 +36,8 @@ export const FormSignIn = () => {
         }
 
         const destination = router.query.p?.toString() || '';
-        router.replace(destination);
+        const newRoute = helpers.getLastRoute(destination);
+        router.replace(newRoute);
         setLoading(false);
     }
 
@@ -69,7 +71,8 @@ export const FormSignIn = () => {
         }
 
         const destination = router.query.p?.toString() || '';
-        router.replace(destination);
+        const newRoute = helpers.getLastRoute(destination);
+        router.replace(newRoute);
         setLoading(false);
     }
 

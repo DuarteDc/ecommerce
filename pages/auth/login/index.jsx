@@ -14,16 +14,6 @@ import { shoppingCartNotLoggedfromLocalStorage } from '../../../src/actions/shop
 const Login = () => {
 
   const router = useRouter();
-  const dispatch = useDispatch();
-
-  const { logged } = useSelector((state) => state.auth);
-
-  useEffect(() => {
-    if (!logged) {
-      let cartNotLogged = localStorage.getItem('cartNotlogged') ? JSON.parse(localStorage.getItem('cartNotlogged')) : [];
-      dispatch(shoppingCartNotLoggedfromLocalStorage(cartNotLogged))
-    }
-  }, [logged]);
 
   return (
     <Layout>

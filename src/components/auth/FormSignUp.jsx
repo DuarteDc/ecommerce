@@ -19,6 +19,8 @@ import { IconContext } from "react-icons";
 import { MdError } from "react-icons/md";
 import { TextField } from "@mui/material";
 
+import helpers from "../../helpers/helpers";
+
 const FormSignUp = () => {
 
     const [loading, setLoading] = useState();
@@ -50,14 +52,15 @@ const FormSignUp = () => {
 
         if (hasError) {
             setError(true);
-            setMessageError(message || '');
+            setMessageError(message);
             setTimeout(() => setError(false), 4000);
             setLoading(false);
             return;
         }
 
         const destination = router.query.p?.toString() || '';
-        router.replace(destination); router.replace('/');
+        const newRoute = helpers.getLastRoute(destination);
+        router.replace(newRoute);
         setLoading(false);
     }
 
@@ -99,6 +102,7 @@ const FormSignUp = () => {
     const [country, setCountry] = useState();
 
     const responseGoogle = async ({ tokenId }) => {
+
         setLoading(true)
         const isValid = await dispatch(startLoginGoogle(tokenId));
 
@@ -108,28 +112,16 @@ const FormSignUp = () => {
             setLoading(false);
             return;
         }
-
+    
         const destination = router.query.p?.toString() || '';
-        router.replace(destination);
+        const newRoute = helpers.getLastRoute(destination);
+        router.replace(newRoute);
         setLoading(false);
     }
 
     return (
         <>{loading && <LoadingScreen />}
             <form onSubmit={formik.handleSubmit} className="w-full">
-                {
-                    error &&
-                    (
-                        <span className="flex items-center mt-10 justify-center">
-                            <IconContext.Provider
-                                value={{ className: "text-red-600 mr-1" }}
-                            >
-                                <MdError />
-                            </IconContext.Provider>
-                            <p className="text-red-600 text-sm">{messageError}</p>
-                        </span>
-                    )
-                }
                 <div className="mx-auto mt-10">
                     <div className="">
                         <label className="uppercase mb-5 block">Nombre Completo</label>
@@ -207,6 +199,19 @@ const FormSignUp = () => {
                             autoComplete={false}
                         />
                     </div>
+                        {
+                        error &&
+                            (
+                            <span className="flex items-center mt-10 justify-center">
+                                <IconContext.Provider
+                                    value={{ className: "text-red-600 mr-1" }}
+                                >
+                                    <MdError />
+                                </IconContext.Provider>
+                                <p className="text-red-600 text-sm">{messageError}</p>
+                            </span>
+                            )
+                        }   
                     {/*
                 <div className="grid grid-cols-1 lg:grid-cols-2">
                     <div className="mr-1">
