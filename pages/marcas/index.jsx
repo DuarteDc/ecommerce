@@ -31,7 +31,7 @@ const Brands = () => {
   return (
     <Layout
       title="Wapizima - Marcas"
-      robots="noindex"
+      robots="index, follow"
       categories={categories}
     >
       <BannerImage
@@ -66,8 +66,6 @@ const Brands = () => {
                   url={brand.url}
                   titleButton="Ver más.."
                   handleClickCard={handleClickCard}
-                  height={370}
-                  width={400}
                 />
               </Grid>
             ))

@@ -59,6 +59,7 @@ const Category = () => {
     return (
         <Layout
             categories={categories}
+            robots="index, follow"
         >
             <BannerImage
                 title={`${products?.category?.name}`}

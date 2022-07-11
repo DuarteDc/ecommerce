@@ -145,13 +145,13 @@ const getLastRoute = (destination = '') => {
 
   const reverse = destination.split("").reverse().join("");
   const index = reverse.search('=p');
-  const route = reverse.substring(0, index).split("").reverse().join("");
+  const newRoute = reverse.substring(0, index).split("").reverse().join("");
   
-  if(route.includes('auth')) {
+  if(newRoute.includes('auth')) {
     return '/'
   }
 
-  return route;
+  return newRoute;
 
 }
 

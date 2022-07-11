@@ -56,7 +56,7 @@ const Wishlist = () => {
     }
 
     return (
-        <Layout categories={categories}>
+        <Layout categories={categories} robots="index, follow">
             <BannerImage title="Mi lista de deseos" banner="bg-banner10"/>
             {loading && <LoadingScreen />}
             <section className="container mx-auto py-32 min-h-screen px-5 lg:px-0 font-Poppins">
@@ -83,24 +83,12 @@ const Wishlist = () => {
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
                     {
                         allProducts.length > 0 ? (
-                            products.length > 0 ? (
                                 products.map(product => (
                                     <ProductCard
                                         key={product._id}
                                         product={product}
                                     />
-                                ))
-                            ) : (
-                                <div className="text-center col-span-full">
-                                    <h4 className="text-2xl uppercase font-semibold mt-20 mb-10">No hay resultados para tu busqueda</h4>
-                                    <Image
-                                        src={"/assets/icons/extraviado.png"}
-                                        width={150}
-                                        alt="Not found"
-                                        height={150}
-                                    />
-                                </div>
-                            ))
+                                )))
                             : (
                                 <div className="text-center col-span-full">
                                     <h4 className="text-2xl uppercase font-semibold mt-20 mb-10">Guarda tus articulos favoritos</h4>

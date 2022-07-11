@@ -8,7 +8,6 @@ import * as Yup from 'yup';
 import { useEffect, useState } from "react";
 import { successNotify } from "../../../src/helpers/helpers";
 import Link from "next/link";
-import Image from "next/image";
 import { useRouter } from "next/router";
 
 import { MdError } from "react-icons/md";

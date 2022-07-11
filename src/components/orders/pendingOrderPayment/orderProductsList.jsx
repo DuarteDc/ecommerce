@@ -18,7 +18,7 @@ export const OrderProductsList = ({ product }) => {
                     <div className="flex flex-wrap md:flex-nowrap md:justify-start justify-center mb-3">
                         <Zoom>
                             <picture>
-                                <Image
+                                <img
                                     src={productList?.multimedia[0]?.path}
                                     width={200}
                                     height={200}

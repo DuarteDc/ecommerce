@@ -10,13 +10,10 @@ export const ShoppingCartDetail = ({ shopping }) => {
   return (
     <div className="flex py-[30px] font-Poppins" key={shopping._id}>
       <div className="mr-[20px]">
-        <Image
+        <img
           src={shopping?.product_id?.multimedia[0]?.path}
-          width={150}
-          height={150}
-          layout="fixed"
           alt={shopping?.product_id.name}
-          priority
+          className="min-w-[7rem] min-h-[7rem] h-[7rem] w-[7rem]"
         />
       </div>
       <div className="flex justify-between w-full">

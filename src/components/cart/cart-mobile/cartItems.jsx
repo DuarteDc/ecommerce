@@ -102,14 +102,10 @@ export const CartItems = ({ product }) => {
           <Zoom zoomMargin={45}>
             <picture>
               <source media="(max-width: 10px)" srcSet={ product.product_id.multimedia[0].path } />
-              <Image
+              <img
                 src={(product.product_id.multimedia.length > 0) ? product.product_id.multimedia[0].path : 'https://upload.wikimedia.org/wikipedia/commons/d/d1/Image_not_available.png'}
                 alt={product.name}
-                width={160}
-                height={140}
-                layout="fixed"
-                quality={100}
-                priority
+                className="min-w-[6rem] min-h-[6rem] h-[6rem] w-[6rem]"
               />
             </picture>
           </Zoom>

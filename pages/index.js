@@ -190,14 +190,14 @@ const origin = typeof window === "undefined" ? "" : window.location.origin;
 HomePage.getLayout = function getLayout(page) {
   return (
     <Layout
-      title="Wapizima , Tienda en linea distribuidora de productos para uñas profesionales"
+      title="Wapizima"
       keywords="nails,cosmetic nails,uñas,gel uñas,fantasy nails,bonita,uñas,material uñas,productos uñas,gel nail,decoraciones uñas,decoracion uñas,cursos uñas,lampara uñas"
       description="Tienda en linea de distribución de productos profesionales para uñas  de calidad. Venta Menudeo y Mayoreo. Promociones , descuentos y mucho más."
-      ogTitle="Wapizima , Tienda en linea distribuidora de productos para uñas profesionales"
+      ogTitle="Wapizima, Tienda en linea distribuidora de productos para uñas profesionales"
       ogType="website"
       ogUrl={origin}
       ogImage=""
-      robots="noindex , nofollow"
+      robots="index, follow"
       canonical={origin}
     >
       {page}

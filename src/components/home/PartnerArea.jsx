@@ -10,21 +10,15 @@ export const PartnerArea = () => {
   const { brands } = useSelector((state) => state.brands);
   const router = useRouter();
 
-  const handleClickBrand = (url) => {
-    router.push(`/marcas/${url}`)
-  }
-
   return (
     <section className="bg-[#f5f5f5] py-8 m-auto">
       <div className="mx-auto px-6 max-w-[1420px] flex justify-around ">
         {brands.map((brand) => (
           <Link href={`/marcas/${brand.url}`} passHref key={brand._id}>
-            <div className="text-center h-auto " key={brand._id}>
-              <Image
+            <div className="text-center h-20 w-20 " key={brand._id}>
+              <img
                 src={brand.image}
-                width={100}
-                height={100}
-                className="w-auto inline-block cursor-pointer"
+                className="inline-block cursor-pointer min-h-[40px] max-h-[5rem]"
               />
             </div>
           </Link>

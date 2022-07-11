@@ -9,7 +9,6 @@ import * as Yup from 'yup';
 import { useState } from "react";
 import { errorNotify, successNotify } from "../../../src/helpers/helpers";
 import Link from "next/link";
-import Image from "next/image";
 import { useRouter } from "next/router";
 
 import { MdError } from "react-icons/md";
@@ -64,7 +63,7 @@ const ForgotPassword = () => {
             <form onSubmit={formik.handleSubmit}>
               <div className="mb-10">
                 <div className="flex justify-center">
-                  <Image
+                  <img
                     src={logo}
                     alt="Wapizima"
                     width={150}

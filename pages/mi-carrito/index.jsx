@@ -85,7 +85,7 @@ const ShoppingCart = () => {
         title="Mi Carrito"
         banner="bg-banner2"
       />
-      <section className="max-w-[1480px] mx-auto my-20 w-full">
+      <section className="max-w-[1480px] mx-auto my-20 w-full min-h-screen">
         <div className="container grid grid-cols-1 lg:grid-cols-3 mx-auto">
           <div className="lg:col-span-2  mx-[25px] overflow-x-hidden">
             <CartMobile />

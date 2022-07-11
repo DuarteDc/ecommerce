@@ -41,28 +41,37 @@ const SliderProductCard = ({ images, handleShowProduct }) => {
   return (
     <Slide {...properties}>
       {images?.map(({ path, _id }) => (
-        <div
-          className={`${styles["each-slide-card"]} cursor-pointer`}
-          key={_id}
-        >
-          <Image
-            key={_id}
-            src={
-              images.length > 0
-                ? path
-                : "https://upload.wikimedia.org/wikipedia/commons/d/d1/Image_not_available.png"
-            }
-            alt={"name"}
-            width={100}
-            height={112}
-            property
-            layout="responsive"
-            placeholder="blur"
-            blurDataURL="/assets/images/animation.gif"
+        <div className={`${styles["each-slide-card"]}  cursor-pointer`} key={_id}>
+        <div 
+            // style={{
+            //   backgroundImage: `url(${path})`,
+            //   backgroundSize : 'cover'
+            // }}
+            // onClick={handleShowProduct}
             className="flex items-center"
-            onClick={handleShowProduct}
-          />
+          >
+            <img src={path} alt="" />
         </div>
+      </div>
+        // <div
+        //   className={`${styles["each-slide-card"]} cursor-pointer`}
+        //   key={_id}
+        // >
+        //   <img
+        //     key={_id}
+        //     src={
+        //       images.length > 0
+        //         ? path
+        //         : "https://upload.wikimedia.org/wikipedia/commons/d/d1/Image_not_available.png"
+        //     }
+        //     alt={"name"}
+        //     property
+        //     placeholder="blur"
+        //     blurDataURL="/assets/images/animation.gif"
+        //     className="flex items-center"
+        //     onClick={handleShowProduct}
+        //   />
+        // </div>
       ))}
     </Slide>
   );

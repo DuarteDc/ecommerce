@@ -67,7 +67,7 @@ const ContactUs = () => {
   return (
     <Layout
       title="Wapizima - Contácto"
-      robots="noindex"
+      robots="index, follow"
       categories={categories}
     >
       {loading && <LoadingScreen />}
@@ -170,13 +170,13 @@ const ContactUs = () => {
                 <ContactInfo
                   icon={<BsTelephone />}
                   title="Hablemos"
-                  text="+52 (7292420885)"
+                  text="+52 (729 322 2418)"
                 />
 
                 <ContactInfo
                   icon={<MdOutlineMailOutline />}
                   title="Soporte de Venta"
-                  text="pruebitas.test@gmail.com"
+                  text="info@wapizima.com.mx"
                 />
               </div>
             </div>

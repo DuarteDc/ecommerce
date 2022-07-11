@@ -39,9 +39,9 @@ const AboutPage = () => {
               ></div>
             </div>
             <div className="">
-              <Image
+              <img
                 src={aboutUs.image}
-                className="w-full h-full transition-all duration-[0.4s] ease-linear delay-0 hover:scale-[1.1] "
+                className="w-full h-full transition-all duration-[0.4s] ease-linear delay-0 hover:scale-[1.02]"
                 width={100}
                 height={100}
                 alt="acerca de nosotros"
@@ -51,9 +51,9 @@ const AboutPage = () => {
           </div>
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 my-10">
             <div className="hidden lg:block">
-              <Image
+              <img
                 src={mission.image}
-                className="w-full h-full transition-all duration-[0.4s] ease-linear delay-0 hover:scale-[1.1] "
+                className="w-full h-full transition-all duration-[0.4s] ease-linear delay-0 hover:scale-[1.02] "
                 width={100}
                 height={100}
                 alt="acerca de nosotros"
@@ -69,9 +69,9 @@ const AboutPage = () => {
               <div className="font-Poppins text-sm leading-7 text-[#888] pb-6" dangerouslySetInnerHTML={{ __html: mission.mission }}></div> 
             </div>
             <div className="block lg:hidden">
-              <Image
+              <img
                 src={mission.image}
-                className="w-full h-full transition-all duration-[0.4s] ease-linear delay-0 hover:scale-[1.1]"
+                className="w-full h-full transition-all duration-[0.4s] ease-linear delay-0 hover:scale-[1.02]"
                 width={100}
                 height={100}
                 alt="acerca de nosotros"

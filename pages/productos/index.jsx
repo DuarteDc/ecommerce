@@ -61,7 +61,7 @@ const Products = () => {
   return (
     <Layout
       title="Wapizima - Productos"
-      robots="noindex"
+      robots="index, follow"
       categories={CategoriesFaqs}
     >
       <BannerImage title="Productos" banner="bg-banner1" />

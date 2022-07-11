@@ -28,11 +28,14 @@ const ProductSliderShow = ({ slideImages, product }) => {
         <>
             <Slide {...properties} ref={slideRef}>
                 {slideImages.map((slideImage, index) => (
-                    <div className={styles["each-slide"]} key={index}>
-                        <div style={{
+                    <div className={ `${styles["each-slide"]} w-full h-full`} key={index}>
+                        {/* <div style={{
                             'backgroundImage': `url(${slideImage.path})`,
                             'backgroundSize': 'cover'
-                        }}></div>
+                        }}></div> */}
+                        <div>
+                            <img src={slideImage.path} alt="" />
+                        </div>
                     </div>
                 ))}
             </Slide>

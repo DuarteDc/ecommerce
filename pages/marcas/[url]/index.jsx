@@ -68,6 +68,7 @@ const Show = () => {
     return (
         <Layout
             categories={CategoriesFaqs}
+            robots="index, follow"
         >
             <BannerImage
                 title={`${products?.brand?.name}`}

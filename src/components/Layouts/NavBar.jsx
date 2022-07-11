@@ -128,13 +128,13 @@ const NavBar = () => {
         scrollPosition >= 130 && "fixed top-0"
       } space-y-1 static`}
     >
-      <div className="w-full px-10  lg:px-16 xl:px-28 2xl:px-28">
+      <div className="w-full px-10  lg:px-2 xl:px-28 2xl:px-28">
         <nav className="flex max-h-16 justify-between items-center">
-          <Image
+          <img
             src={logo}
             alt="Wapizima"
-            width={150}
-            height={100}
+            width={110}
+            height={90}
             priority
             onClick={handleClickLogo}
             className="cursor-pointer"
@@ -191,13 +191,13 @@ const NavBar = () => {
               {pages.map(({ path, name }) => (
                 name !== 'Escuela' ? (
                   <Link href={path} passHref key={name} prefetch={false}>
-                    <span className="text-[#888] border-transparent border-b-2 hover:text-[#333] mx-4 cursor-pointer  font-Poppins text-[15px] font-medium transition uppercase duration-700 ease-in-out">
+                    <span className="text-[#888] border-transparent border-b-2 hover:text-[#333] mx-4 cursor-pointer  font-Poppins text-[12px] font-medium transition uppercase duration-700 ease-in-out">
                       {name}
                     </span>
                   </Link>
                 ):(
                   <Link href={path} key={name} prefetch={false}>
-                    <a target="_blank" className="text-[#888] border-transparent border-b-2 hover:text-[#333] mx-4 cursor-pointer  font-Poppins text-[15px] font-medium transition uppercase duration-700 ease-in-out">
+                    <a target="_blank" className="text-[#888] border-transparent border-b-2 hover:text-[#333] mx-4 cursor-pointer  font-Poppins text-[12px] font-medium transition uppercase duration-700 ease-in-out">
                       {name}
                     </a>
                   </Link>
@@ -303,7 +303,7 @@ const NavBar = () => {
                     onClick={() =>
                       router.push(`/auth/login?p=${router.asPath}`)
                     }
-                    className="text-[#888] border-transparent border-b-2 hover:text-[#333] cursor-pointer  font-Poppins text-[15px] font-medium transition uppercase duration-700 ease-in-out min- w-[7rem] flex"
+                    className="text-[#888] border-transparent border-b-2 hover:text-[#333] cursor-pointer  font-Poppins text-[12px] font-medium transition uppercase duration-700 ease-in-out min-w-[6rem] flex"
                   >
                     Iniciar Sesión
                   </span>
@@ -311,7 +311,7 @@ const NavBar = () => {
                     onClick={() =>
                       router.push(`/auth/register?p=${router.asPath}`)
                     }
-                    className="text-[#888] border-transparent border-b-2 hover:text-[#333] ml-2 cursor-pointer  font-Poppins text-[15px] font-medium transition uppercase duration-700 ease-in-out"
+                    className="text-[#888] border-transparent border-b-2 hover:text-[#333] cursor-pointer  font-Poppins text-[12px] font-medium transition uppercase duration-700 ease-in-out"
                   >
                     Registrate
                   </span>
@@ -325,7 +325,7 @@ const NavBar = () => {
                   onClick={() => handleRedirectClick("/mi-lista-de-deseos")}
                   className="mr-4"
                 >
-                  <IconContext.Provider value={{ size: "1.6rem" }}>
+                  <IconContext.Provider value={{ size: "1.3rem" }}>
                     <AiOutlineHeart />
                   </IconContext.Provider>
                 </Badge>
@@ -336,7 +336,7 @@ const NavBar = () => {
                   color="secondary"
                   onClick={() => handleRedirectClick("/mi-carrito")}
                 >
-                  <IconContext.Provider value={{ size: "1.5rem" }}>
+                  <IconContext.Provider value={{ size: "1.3rem" }}>
                     <BsHandbag />
                   </IconContext.Provider>
                 </Badge>
@@ -373,7 +373,7 @@ const NavBar = () => {
             {logged ? (
               <>
                 <Link href="/perfil" passHref>
-                  <span className="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium">
+                  <span className="text-gray-300 hover:bg-gray-700 hover:text-white block px-2 py-2 rounded-md text-base font-medium">
                     Mi Cuenta
                   </span>
                 </Link>
@@ -391,7 +391,7 @@ const NavBar = () => {
               <div>
                 <span
                   onClick={() => router.push(`/auth/login?p=${router.asPath}`)}
-                  className="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium"
+                  className="text-gray-300 hover:bg-gray-700 hover:text-white block px-2 py-2 rounded-md text-base font-medium"
                 >
                   Iniciar Sesión
                 </span>

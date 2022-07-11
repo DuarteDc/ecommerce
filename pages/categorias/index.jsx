@@ -29,7 +29,7 @@ const Categories = () => {
     return (
         <Layout
             title="Wapizima - Categorías"
-            robots="noindex"
+            robots="index, follow"
             categories={categoriesFasq}
         >
             <BannerImage

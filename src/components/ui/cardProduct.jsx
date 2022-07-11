@@ -1,7 +1,7 @@
 import Image from 'next/image';
 
 
-export const CardProduct = ({ image, name, titleButton, url, width, height, handleClickCard, hasName }) => {
+export const CardProduct = ({ image, name, titleButton, url, handleClickCard, hasName }) => {
 
   return (
     <>
@@ -9,13 +9,11 @@ export const CardProduct = ({ image, name, titleButton, url, width, height, hand
         <div className="block">
           <div className={`block-pick overflow-hidden relative  max-h-full `}>
 
-            <Image
+            <img
               src={image}
               alt={name}
-              width={width}
-              height={height}
               layout="responsive"
-              className="flex items-center"
+              className="flex items-center w-full h-full"
               property
             />
 
