@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useLayoutEffect, useState } from "react";
 
 import Collapse from "@mui/material/Collapse";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
@@ -8,7 +8,14 @@ import CategoryItem from "./CategoryItem";
 import styles from "../styles.module.css";
 
 const CategoriesList = ({ categories, setLoading, startSearchByQueryParams, paramsFilters}) => {
+
   const [open, setOpen] = useState(true);
+
+  useLayoutEffect(() => {
+    if(screen.width < 767) {
+      setOpen(false);
+    }
+  }, []);
 
   return (
     <div className={`mb-5`}>

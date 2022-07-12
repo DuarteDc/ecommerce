@@ -41,7 +41,7 @@ export default function HomePage() {
   const router = useRouter();
   const [open, setOpen] = useState(true);
 
-  const { logged } = useSelector((state) => state.auth);
+  const { logo } = useSelector((state) => state.administrable);
   const { offers } = useSelector((state) => state.offers);
 
   useEffect(() => {
@@ -124,8 +124,21 @@ export default function HomePage() {
     setOpen(!open);
   };
 
+  const origin = typeof window === "undefined" ? "" : window.location.origin;
+
+
   return (
-    <>
+    <Layout
+    title="Wapizima"
+    keywords="nails,cosmetic nails,uñas,gel uñas, fantasy nails, bonita, uñas, material uñas, productos uñas, gel nail, decoraciones uñas, decoracion uñas,cursos uñas,lampara uñas"
+    description="Tienda en línea de distribución de productos profesionales para uñas  de calidad. Venta Menudeo y Mayoreo. Promociones, descuentos y mucho más."
+    ogTitle="Wapizima, Tienda en línea distribuidora de productos para uñas profesionales"
+    ogType="website"
+    ogUrl={origin}
+    ogImage={logo}
+    robots="index, follow"
+    canonical={origin}
+  >
       <Slider />
       <FacilityArea />
       <ProductsArea />
@@ -181,29 +194,28 @@ export default function HomePage() {
           </Container>
         </Modal>
       )}
-    </>
+    </Layout>
   );
 }
 
-const origin = typeof window === "undefined" ? "" : window.location.origin;
+// HomePage.getLayout = function getLayout(page) {
 
-HomePage.getLayout = function getLayout(page) {
-  return (
-    <Layout
-      title="Wapizima"
-      keywords="nails,cosmetic nails,uñas,gel uñas,fantasy nails,bonita,uñas,material uñas,productos uñas,gel nail,decoraciones uñas,decoracion uñas,cursos uñas,lampara uñas"
-      description="Tienda en linea de distribución de productos profesionales para uñas  de calidad. Venta Menudeo y Mayoreo. Promociones , descuentos y mucho más."
-      ogTitle="Wapizima, Tienda en linea distribuidora de productos para uñas profesionales"
-      ogType="website"
-      ogUrl={origin}
-      ogImage=""
-      robots="index, follow"
-      canonical={origin}
-    >
-      {page}
-    </Layout>
-  );
-};
+//   return (
+//     <Layout
+//       title="Wapizima"
+//       keywords="nails,cosmetic nails,uñas,gel uñas, fantasy nails, bonita, uñas, material uñas, productos uñas, gel nail, decoraciones uñas, decoracion uñas,cursos uñas,lampara uñas"
+//       description="Tienda en línea de distribución de productos profesionales para uñas  de calidad. Venta Menudeo y Mayoreo. Promociones, descuentos y mucho más."
+//       ogTitle="Wapizima, Tienda en línea distribuidora de productos para uñas profesionales"
+//       ogType="website"
+//       ogUrl={origin}
+//       ogImage={logo}
+//       robots="index, follow"
+//       canonical={origin}
+//     >
+//       {page}
+//     </Layout>
+//   );
+// };
 
 export const getStaticProps = wrapper.getStaticProps((store) => async () => {
   await store.dispatch(startLoadAdministrableLogo());

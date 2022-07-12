@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useLayoutEffect } from 'react';
 
 import Collapse from '@mui/material/Collapse';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
@@ -12,6 +12,12 @@ import styles from '../styles.module.css'
 const SubcategoriesList = ({ subcategories, startSearchByQueryParams, paramsFilters }) => {
 
   const [open, setOpen] = useState(true);
+
+  useLayoutEffect(() => {
+    if(screen.width < 767) {
+      setOpen(false);
+    }
+  }, []);
 
   return (
     <div className="mb-5">

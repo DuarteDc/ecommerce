@@ -21,7 +21,7 @@ import { errorNotify, successNotify } from "../../src/helpers/helpers";
 
 const ContactUs = () => {
   const dispatch = useDispatch();
-  const { logged } = useSelector((state) => state.auth);
+  const { logo } = useSelector((state) => state.administrable);
   const { categories } = useSelector((state) => state.faqs);
 
   const [loading, setLoading] = useState(false);
@@ -64,11 +64,20 @@ const ContactUs = () => {
     }
   });
 
+  const origin = typeof window === "undefined" ? "" : window.location.href;
+
   return (
     <Layout
       title="Wapizima - Contácto"
       robots="index, follow"
       categories={categories}
+      keywords={`Wapizima, Contácto, info@wapizima.com.mx, 7293222418, Dr. Andrés Benavides 304, Residencial Colón y Col Ciprés, 50120 Toluca de Lerdo, Méx.`}
+      ogTitle="Wapizima - Contácto"
+      ogType="website"
+      ogImage={logo}
+      description="Tienda en línea de distribución de productos profesionales para uñas  de calidad. Venta Menudeo y Mayoreo. Promociones , descuentos y mucho más."
+      ogUrl={origin}
+      canonical={origin}
     >
       {loading && <LoadingScreen />}
       <BannerImage

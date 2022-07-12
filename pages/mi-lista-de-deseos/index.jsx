@@ -23,6 +23,7 @@ const Wishlist = () => {
 
     const { categories } = useSelector((state) => state.faqs);
     const { products, allProducts, wishList } = useSelector((state) => state.wishList);
+    const { logo } = useSelector((state) => state.administrable);
 
     const [loading, setLoading] = useState(false);
     const [storedValue, setValue] = useLocalStorage('wishListProducts');
@@ -55,8 +56,21 @@ const Wishlist = () => {
         }
     }
 
+    const origin = typeof window === "undefined" ? "" : window.location.href;
+
     return (
-        <Layout categories={categories} robots="index, follow">
+        <Layout 
+            title="Wapizima - Mi lista de deseos"
+            categories={categories} 
+            robots="index, follow"
+            keywords={`Wapizima, Mi lista de deseos, Guarda tus articulos favoritos, productos}`}
+            ogTitle="Wapizima - Mi lista de deseos"
+            ogType="website"
+            description="No has guardado nada todavía. No te preocupes ¡es muy sencillo! Para hacer tu selección más fácil, agrega productos a tu lista de favoritos dando clic en el corazón que está en la esquina inferior izquierda de cada uno de nuestros productos."
+            ogUrl={origin}
+            ogImage={logo}
+            canonical={origin}
+            >
             <BannerImage title="Mi lista de deseos" banner="bg-banner10"/>
             {loading && <LoadingScreen />}
             <section className="container mx-auto py-32 min-h-screen px-5 lg:px-0 font-Poppins">

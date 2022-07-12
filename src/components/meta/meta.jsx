@@ -56,6 +56,7 @@ export const Meta = ({
       <link rel="canonical" href={canonical} />
 
       <title>{title}</title>
+      
       <script type="application/ld+json">
         {
           JSON.stringify(structuredData, null, 2)

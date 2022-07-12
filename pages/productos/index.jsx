@@ -15,7 +15,7 @@ import { startLoadAdministrableLogo } from "../../src/actions/administrableActio
 import { BannerImage } from "../../src/components/ui/bannerImage";
 import { ProductCard } from "../../src/components/ui";
 
-import { useEffect, useState } from "react";
+import { useEffect, useLayoutEffect, useState } from "react";
 import PaginationItem from "@mui/material/PaginationItem";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
@@ -41,9 +41,9 @@ const Products = () => {
 
   const { startSearchByQueryParams, starClearQueryParams, paramsFilters } = useQueryParams(endpoint, { router });
 
-  const { products, results, filters } = useSelector((state) => state.products);
+  const { products } = useSelector((state) => state.products);
 
-  const { logged } = useSelector((state) => state.auth);
+  const { logo } = useSelector((state) => state.administrable);
   const { brands } = useSelector((state) => state.brands);
   const { categories } = useSelector((state) => state.categories);
   const { categories: CategoriesFaqs } = useSelector((state) => state.faqs);
@@ -58,11 +58,23 @@ const Products = () => {
     });
   };
 
+
+
+  const origin = typeof window === "undefined" ? "" : window.location.href;
+
   return (
     <Layout
       title="Wapizima - Productos"
       robots="index, follow"
+      keywords={`Wapizima, Productos, ${brands?.map(brand => brand?.name)}, ${categories.map(category => category?.name)}`}
       categories={CategoriesFaqs}
+      // description={product?.description}
+      ogTitle="Wapizima - Productos"
+      ogType="website"
+      description="Tienda en línea de distribución de productos profesionales para uñas  de calidad. Venta Menudeo y Mayoreo. Promociones , descuentos y mucho más."
+      ogUrl={origin}
+      ogImage={logo}
+      canonical={origin}
     >
       <BannerImage title="Productos" banner="bg-banner1" />
       {loading && <LoadingScreen />}

@@ -18,7 +18,7 @@ import NavigateNextIcon from '@mui/icons-material/NavigateNext';
 const Categories = () => {
     const history = useRouter();
     const dispatch = useDispatch();
-    const { logged } = useSelector((state) => state.auth);
+    const { logo } = useSelector((state) => state.administrable);
     const { categories } = useSelector((state) => state.categories);
     const { categories: categoriesFasq } = useSelector((state) => state.faqs);
 
@@ -26,11 +26,20 @@ const Categories = () => {
         history.push(`/categorias/${url}`)
     }
 
+    const origin = typeof window === "undefined" ? "" : window.location.href;
+
     return (
         <Layout
             title="Wapizima - Categorías"
-            robots="index, follow"
             categories={categoriesFasq}
+            robots="index, follow"
+            keywords={`Wapizima, Categorías, ${categories.map(category => category?.name)}`}
+            ogTitle="Wapizima - Categorías"
+            ogType="website"
+            ogImage={logo}
+            description="Tienda en línea de distribución de productos profesionales para uñas  de calidad. Venta Menudeo y Mayoreo. Promociones , descuentos y mucho más."
+            ogUrl={origin}
+            canonical={origin}
         >
             <BannerImage
                 title="Categorías"

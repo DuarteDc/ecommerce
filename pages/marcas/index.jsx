@@ -21,18 +21,27 @@ const Brands = () => {
   const dispatch = useDispatch();
   const { brands } = useSelector((state) => state.brands);
   const history = useRouter();
-  const { logged } = useSelector((state) => state.auth);
+  const { logo } = useSelector((state) => state.administrable);
   const { categories } = useSelector((state) => state.faqs);
 
   const handleClickCard = (url) => {
     history.push(`/marcas/${url}`)
   }
 
+  const origin = typeof window === "undefined" ? "" : window.location.href;
+
   return (
     <Layout
       title="Wapizima - Marcas"
       robots="index, follow"
       categories={categories}
+      keywords={`Wapizima, Categorías, ${brands.map(brand => brand?.name)}`}
+      ogTitle="Wapizima - Marcas"
+      ogType="website"
+      ogImage={logo}
+      description="Tienda en línea de distribución de productos profesionales para uñas  de calidad. Venta Menudeo y Mayoreo. Promociones , descuentos y mucho más."
+      ogUrl={origin}
+      canonical={origin}
     >
       <BannerImage
         title="Marcas"

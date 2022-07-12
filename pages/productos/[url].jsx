@@ -162,7 +162,7 @@ const Show = () => {
   return (
     <Layout
       title={`Wapizima - ${product?.name}`}
-      keywords={`wapizima, ${product?.category?.name}, ${
+      keywords={`Wapizima, ${product?.category?.name}, ${
         product?.brand?.name
       }. ${
         product?.subcategory?.name
@@ -175,7 +175,7 @@ const Show = () => {
       ogType="Product"
       ogUrl={origin}
       ogImage={product?.multimedia[0]?.path}
-      robots="index , follow"
+      robots="index, follow"
       canonical={origin}
       price={product?.price}
       curren="MXN"

@@ -130,7 +130,7 @@ export const ProductCard = ({ product }) => {
           onClick={() => handleShowProduct()}
         /> */}
         <SliderProductCard
-          images={product.multimedia.slice(0, 2)}
+          images={product.multimedia}
           handleShowProduct={handleShowProduct}
         />
         {quantity === 0 && (
@@ -169,7 +169,7 @@ export const ProductCard = ({ product }) => {
         )}
 
         <div className="">
-          <h3 className="text-[#333] mb-0 font-semibold text-[18px] capitalize truncate	">
+          <h3 className="text-[#333] mb-0 font-semibold text-[18px] capitalize truncate	mt-6">
             {name}
           </h3>
           <div className="mt-[8px] mb-[12px]">
