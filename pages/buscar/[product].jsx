@@ -12,7 +12,7 @@ const Search = () => {
   const router = useRouter();
 
   const { categories } = useSelector(state => state.faqs);
-  const { products } = useSelector(state => state.products)
+  const { searchedProducts } = useSelector(state => state.products)
 
   return (
     <Layout categories={categories}>
@@ -20,12 +20,12 @@ const Search = () => {
         <div className="px-3 md:px-0">
           <h2 className="text-4xl mt-28 mb-10">Mostrando resultados para {router.query.product}</h2>
           <div className="flex flex-row-reverse text-gray-500">
-            <p>{products.length} {products.length > 1 ? 'resultados' : 'resultado'} para tu busqueda</p>
+            <p>{searchedProducts.length} {searchedProducts.length > 1 ? 'resultados' : 'resultado'} para tu busqueda</p>
           </div>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 my-20">
           {
-            products.map(product => (
+            searchedProducts.map(product => (
               <ProductCard
                 key={product._id}
                 product={product}

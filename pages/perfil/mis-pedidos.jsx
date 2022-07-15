@@ -96,6 +96,7 @@ const MisPedidos = () => {
   const [openProofOfPayment, toggleProofOfPayment] = useToggle();
   const [openCancelInvoice, toggleCancelInvoice] = useToggle();
 
+
   const { filterSearch } = helpersProducts;
 
   const initialValues = {

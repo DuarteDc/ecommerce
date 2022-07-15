@@ -84,6 +84,7 @@ export const CheckoutForm = ({ setLoadingForm }) => {
     <div className="mt-10">
       <form id="payment-form" onSubmit={handleSubmit}>
         <PaymentElement id="payment-element" onReady={() => setLoadingForm(false)} />
+        {message && <div id="payment-message">{message}</div>}
         <button
           type="submit"
           className="bg-[#333] text-luz py-[23px] px-[0px] w-full uppercase text-[15px] hover:bg-[#000] mt-5"

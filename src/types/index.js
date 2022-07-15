@@ -87,6 +87,7 @@ export const types = {
     updatedShoppingCart: '[ShoppingCart] updated shoppingCart',
     removeProductShoppingCart: '[ShoppingCart] remove product shoppingcart',
     removeAddressFromCart: '[SoppingCart] remove address from cart',
+    load_business_rules: '[ShoppingCart] load_business_rules',
 
     addProductShoppingCartNoLoggued: '[ShoppingCart] add product to cart clients not logged',
     loadShoppingCartNotLoggedFromLocalStorage: '[ShoppingCart] load shoppingcart clients no logged from localStorage',

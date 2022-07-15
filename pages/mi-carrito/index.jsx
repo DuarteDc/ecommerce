@@ -16,6 +16,7 @@ import { Modal } from "../../src/components/ui/modal";
 
 import { useToggle } from '../../src/hooks/useToggle';
 import FormAddress from '../../src/components/cart/FormAddress';
+import BusinessRules from '../../src/components/businessRules/BusinessRules';
 
 const ShoppingCart = () => {
 
@@ -25,7 +26,9 @@ const ShoppingCart = () => {
   const { cart, cartNotLogged, success, coupon, subtotalWithCoupon } = useSelector((state) => state.cart);
   const { logged, user } = useSelector((state) => state.auth);
   const { categories } = useSelector((state) => state.faqs);
+
   const [open, toggle] = useToggle();
+  const [openBusinessRule, toggleBusinessRule] = useToggle();
 
   useEffect(() => {
     if (!logged && !cart.length) {
@@ -93,6 +96,7 @@ const ShoppingCart = () => {
           <div>
             <CartTotals
               handleOpenFormAddress={handleOpenFormAddress}
+              toggleBusinessRule={toggleBusinessRule}
             />
           </div>
         </div>
@@ -105,6 +109,16 @@ const ShoppingCart = () => {
         maxWidth={'sm'}
       >
         <FormAddress toggle={toggle} />
+      </Modal>
+      <Modal
+        open={openBusinessRule}
+        handleOpenCheckout={toggleBusinessRule}
+        actions={false}
+        fullWidth={true}
+        maxWidth={'sm'}
+      >
+        {/* <h2 className="font-bold uppercase text-xl mb-2">Descuentos</h2> */}
+        <BusinessRules />
       </Modal>
     </Layout>
   )

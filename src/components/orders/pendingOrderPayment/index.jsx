@@ -33,6 +33,7 @@ export const PendingPaymentOrderIndex = ({ order, handleOpenProofOfPayment, stat
   const date = moment(order.createdAt).format('L');
   const [open, toggle] = useToggle();
   const [openOrderDetail, toggleOrderDetail] = useToggle();
+  const [openBankAccountDetail, toggleBankAccountDetail] = useToggle();
   // const [openCancelSOrder, toggleCancelOrder] = useToggle();
   
   const [loadingDetail, setLoadingDetail] = useState(false);
@@ -42,10 +43,23 @@ export const PendingPaymentOrderIndex = ({ order, handleOpenProofOfPayment, stat
   }
 
   const handleCancelOrder = (order_id) => {
-
-    dispatch(startCancelOrderByID(order_id))
-    // toggleCancelOrder();
-    // dispatch(startOrderCancel(order._id));
+    Swal.fire({
+      title: "¿Deseas cancelar este pedido?",
+      icon: "question",
+      showCancelButton: true,
+      cancelButtonText: 'Cancelar!',
+      cancelButtonColor: "#b71c1c",
+      confirmButtonText: "Continuar",
+      confirmButtonColor: "#1976d2",
+      allowOutsideClick: false,
+      reverseButtons: true
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        setLoading(true);
+        await dispatch(startCancelOrderByID(order_id));
+        setLoading(false);
+      }
+    });
   }
 
   const handleClickOrderDetail = async () => {
@@ -54,7 +68,7 @@ export const PendingPaymentOrderIndex = ({ order, handleOpenProofOfPayment, stat
     await dispatch(startGetOrder(order._id));
     setLoadingDetail(false);
   }
-  //2702
+
 
   const router = useRouter();
 
@@ -205,11 +219,21 @@ export const PendingPaymentOrderIndex = ({ order, handleOpenProofOfPayment, stat
                       </button>
                     } */}
                     <button
-                      className="text-sm cursor-pointer text-[#e91e63] hover:border-3 hover:border-solid hover:text-[#880e4f] hover:transition-all"
-                      onClick={() => handleClickOrderDetail()}
+                      className="pr-1 text-sm cursor-pointer text-[#e91e63] hover:border-3 hover:border-solid hover:text-[#880e4f] hover:transition-all"
+                      onClick={handleClickOrderDetail}
                     >
                       Detalles del pedido
                     </button>
+                   {
+                    status === 0 &&(
+                      <button
+                      className="pl-1 text-sm cursor-pointer text-[#e91e63] hover:border-3 hover:border-solid hover:text-[#880e4f] hover:transition-all"
+                      onClick={toggleBankAccountDetail}
+                    >
+                      Información bancaria
+                    </button>
+                    )
+                   }
                   </div>
                 </div>
               </div>
@@ -326,6 +350,29 @@ export const PendingPaymentOrderIndex = ({ order, handleOpenProofOfPayment, stat
               :
               <OrderDetails status={status} />
           }
+        </Modal>
+        <Modal
+          title="Información Bancaria"
+          open={openBankAccountDetail}
+          handleOpenCheckout={toggleBankAccountDetail}
+          actions={false}
+          fullWidth={true}
+          maxWidth={'sm'}
+        >
+          <div className="flex justify-between mb-2 ">
+            <p className="font-Poppins font-medium text-base capitalize text-[#333] leading-6">Beneficiario:</p>
+            <span className="text-base text-[#888] font-medium capitalize">{order?.bank_account_id?.beneficiary}</span>
+          </div>
+          <div className="flex justify-between mb-2 ">
+            <p className="font-Poppins font-medium text-base capitalize text-[#333] leading-6">Número de cuenta:</p>
+            <span className="text-base text-[#888] font-medium capitalize">{order?.bank_account_id?.account_number}</span>
+          </div>
+          <div className="flex justify-between mb-2 ">
+            <p className="font-Poppins font-medium text-base capitalize text-[#333] leading-6">
+              Clave interbancaria:
+            </p>
+            <span className="text-base text-[#888] font-medium capitalize">{order?.bank_account_id?.interbank}</span>
+          </div>  
         </Modal>
         {/* <Modal
           title="Cancelar Pedido"

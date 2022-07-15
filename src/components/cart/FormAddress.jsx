@@ -14,8 +14,7 @@ import FormControl from '@mui/material/FormControl';
 
 const FormAddress = ({ toggle }) => {
 
-    const dispatch = useDispatch()
-    ;
+    const dispatch = useDispatch();
     const handleKeyPress = (e) =>{
         let key = window.event ? e.which : e.keyCode;
         if (key < 48 || key > 57) {
@@ -26,6 +25,10 @@ const FormAddress = ({ toggle }) => {
 
     const [states, setStates] = useState(null);
     const [municipalities, setMunicipalities] = useState(null);
+
+    const phoneRegex = RegExp(
+        /^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$/
+    );
 
     useEffect(() => {
         loadStates();
@@ -66,6 +69,8 @@ const FormAddress = ({ toggle }) => {
         no_ext: '',
         state: '',
         municipality: '',
+        colony: '',
+        phone_number: '',
     }
 
     const validationSchema = {
@@ -78,7 +83,9 @@ const FormAddress = ({ toggle }) => {
         no_ext: Yup.string().required('El número exterior es requerido'),
         no_int: Yup.string(),
         state: Yup.string().required('El estado es requerido'),
-        municipality: Yup.string().required('El municipio es requerido')
+        municipality: Yup.string().required('El municipio es requerido'),
+        colony: Yup.string().required('El municipio es requerido'),
+        phone_number: Yup.string().matches(phoneRegex, "El número de telefono no es valido").required("El numero de telefono es requerido"),
     }
 
     const formik = useFormik({
@@ -105,13 +112,13 @@ const FormAddress = ({ toggle }) => {
                     <div className="md:mr-1 mt-2">
                         <FormControl fullWidth>
                             <TextField
-                                label="Nombre"
+                                label="Nombre de la dirección"
                                 required={true}
                                 variant="outlined"
                                 name="name"
                                 onChange={formik.handleChange}
                                 value={formik.values.name}
-                                placeholder="Nombre"
+                                placeholder="Nombre de la dirección"
                             />
                             {formik.touched.name && formik.errors.name ? (
                                 <span className="text-red-500 text-sm">{formik.errors.name}</span>
@@ -217,6 +224,37 @@ const FormAddress = ({ toggle }) => {
                             />
                             {formik.touched.postalcode && formik.errors.postalcode ? (
                                 <span className="text-red-500 text-sm">{formik.errors.postalcode}</span>
+                            ) : null}
+                        </FormControl>
+                    </div>
+                    <div className="mt-2 md:mr-1">
+                        <FormControl fullWidth>
+                            <TextField
+                                name="phone_number"
+                                required={true}
+                                onChange={formik.handleChange}
+                                onKeyPress={handleKeyPress}
+                                value={formik.values.phone_number}
+                                placeholder="Número telefónico"
+                                label="Número telefónico"
+                            />
+                            {formik.touched.phone_number && formik.errors.phone_number ? (
+                                <span className="text-red-500 text-sm">{formik.errors.phone_number}</span>
+                            ) : null}
+                        </FormControl>
+                    </div>
+                    <div className="mt-2 md:ml-1">
+                        <FormControl fullWidth>
+                            <TextField
+                                name="colony"
+                                required={true}
+                                onChange={formik.handleChange}
+                                value={formik.values.colony}
+                                placeholder="Colonia"
+                                label="Colonia"
+                            />
+                            {formik.touched.postalcode && formik.errors.colony ? (
+                                <span className="text-red-500 text-sm">{formik.errors.colony}</span>
                             ) : null}
                         </FormControl>
                     </div>

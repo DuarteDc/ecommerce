@@ -41,16 +41,14 @@ const SliderProductCard = ({ images, handleShowProduct }) => {
   return (
     <Slide {...properties}>
       {images?.map(({ path, _id }) => (
-        <div className={`${styles["each-slide-card"]}  cursor-pointer`} key={_id}>
-        <div 
-            onClick={handleShowProduct}
-          >
-            <img 
-              src={path} 
-              alt="product" 
-            />
+        <div
+          className={`${styles["each-slide-card"]}  cursor-pointer`}
+          key={_id}
+        >
+          <div onClick={handleShowProduct}>
+            <img src={path} alt="product" />
+          </div>
         </div>
-      </div>
       ))}
     </Slide>
   );

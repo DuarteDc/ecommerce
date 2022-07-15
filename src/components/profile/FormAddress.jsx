@@ -24,6 +24,10 @@ const FormAddress = ({ setShowForm, direction, isEditing }) => {
         }
     }
 
+    const phoneRegex = RegExp(
+        /^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$/
+    );
+
     const [states, setStates] = useState(null);
     const [municipalities, setMunicipalities] = useState(null)
 
@@ -84,6 +88,8 @@ const FormAddress = ({ setShowForm, direction, isEditing }) => {
         no_ext: direction.no_ext,
         state: direction.state?._id,
         municipality: direction.municipality?._id,
+        colony: direction.colony,
+        phone_number: direction.phone_number,
     }
 
     const validationSchema = {
@@ -96,7 +102,9 @@ const FormAddress = ({ setShowForm, direction, isEditing }) => {
         no_ext: Yup.string().required('El número exterior es requerido'),
         no_int: Yup.string(),
         state: Yup.string().required('El estado es requerido'),
-        municipality: Yup.string().required('El municipio es requerido')
+        municipality: Yup.string().required('El municipio es requerido'),
+        colony: Yup.string().required('El municipio es requerido'),
+        phone_number: Yup.string().matches(phoneRegex, "El número de telefono no es valido").required("El número de telefono es requerido"),
     }
 
     const formik = useFormik({
@@ -133,7 +141,7 @@ const FormAddress = ({ setShowForm, direction, isEditing }) => {
             </div>
             <form onSubmit={formik.handleSubmit}>
                 <div className="grid grid-cols-1 md:grid-cols-2">
-                    <div className="mt-5 md:mr-1">
+                    <div className="mt-4 md:mr-1">
                         <FormControl fullWidth>
                             <TextField
                                 label="Nombre"
@@ -149,7 +157,7 @@ const FormAddress = ({ setShowForm, direction, isEditing }) => {
                             ) : null}
                         </FormControl>
                     </div>
-                    <div className="mt-5 md:ml-1">
+                    <div className="mt-4 md:ml-1">
                         <FormControl fullWidth required>
                             <InputLabel id="demo-simple-select-required-label">Estado</InputLabel>
                             <Select
@@ -175,7 +183,7 @@ const FormAddress = ({ setShowForm, direction, isEditing }) => {
                     </div>
                     {
                         states && (
-                            <div className="mt-5 md:mr-1">
+                            <div className="mt-4 md:mr-1">
                                 <FormControl fullWidth required>
                                     <InputLabel id="demo-simple-select-required-label1">Municipio</InputLabel>
                                     <Select
@@ -203,7 +211,7 @@ const FormAddress = ({ setShowForm, direction, isEditing }) => {
                             </div>
                         )
                     }
-                    <div className="mt-5 md:ml-1">
+                    <div className="mt-4 md:ml-1">
                         <FormControl fullWidth>
                             <TextField
                                 label="Calle"
@@ -219,7 +227,7 @@ const FormAddress = ({ setShowForm, direction, isEditing }) => {
                             ) : null}
                         </FormControl>
                     </div>
-                    <div className="mt-5 md:mr-1">
+                    <div className="mt-4 md:mr-1">
                         <FormControl fullWidth>
                             <TextField
                                 name="between_street"
@@ -235,7 +243,7 @@ const FormAddress = ({ setShowForm, direction, isEditing }) => {
                             ) : null}
                         </FormControl>
                     </div>
-                    <div className="mt-5 md:ml-1">
+                    <div className="mt-4 md:ml-1">
                         <FormControl fullWidth>
                             <TextField
                                 name="postalcode"
@@ -251,7 +259,38 @@ const FormAddress = ({ setShowForm, direction, isEditing }) => {
                             ) : null}
                         </FormControl>
                     </div>
-                    <div className="mt-5 md:mr-1">
+                    <div className="mt-4 md:mr-1">
+                        <FormControl fullWidth>
+                            <TextField
+                                name="phone_number"
+                                required={true}
+                                onChange={formik.handleChange}
+                                onKeyPress={handleKeyPress}
+                                value={formik.values.phone_number}
+                                placeholder="Número telefónico"
+                                label="Número telefónico"
+                            />
+                            {formik.touched.phone_number && formik.errors.phone_number ? (
+                                <span className="text-red-500 text-sm">{formik.errors.phone_number}</span>
+                            ) : null}
+                        </FormControl>
+                    </div>
+                    <div className="mt-4 md:ml-1">
+                        <FormControl fullWidth>
+                            <TextField
+                                name="colony"
+                                required={true}
+                                onChange={formik.handleChange}
+                                value={formik.values.colony}
+                                placeholder="Colonia"
+                                label="Colonia"
+                            />
+                            {formik.touched.colony && formik.errors.colony ? (
+                                <span className="text-red-500 text-sm">{formik.errors.colony}</span>
+                            ) : null}
+                        </FormControl>
+                    </div>
+                    <div className="mt-4 md:mr-1">
                         <FormControl fullWidth>
                             <TextField
                                 name="city"
@@ -266,7 +305,7 @@ const FormAddress = ({ setShowForm, direction, isEditing }) => {
                             ) : null}
                         </FormControl>
                     </div>
-                    <div className="mt-5 md:ml-1">
+                    <div className="mt-4 md:ml-1">
                         <FormControl fullWidth>
                             <TextField
                                 name="references"
@@ -281,14 +320,14 @@ const FormAddress = ({ setShowForm, direction, isEditing }) => {
                             ) : null}
                         </FormControl>
                     </div>
-                    <div className="mt-5 md:mr-1">
+                    <div className="mt-4 md:mr-1">
                         <FormControl fullWidth>
                             <TextField
                                 name="no_ext"
                                 onChange={formik.handleChange}
                                 value={formik.values.no_ext}
-                                onKeyPress={handleKeyPress}
                                 placeholder="No. Exterior"
+                                onKeyPress={handleKeyPress}
                                 required={true}
                                 label="No.exterior"
                             />
@@ -297,7 +336,7 @@ const FormAddress = ({ setShowForm, direction, isEditing }) => {
                             ) : null}
                         </FormControl>
                     </div>
-                    <div className="mt-5 md:ml-1">
+                    <div className="mt-4 md:ml-1">
                         <FormControl fullWidth>
                             <TextField
                                 name="no_int"

@@ -51,6 +51,7 @@ export const ProductsArea = () => {
               Te recomendamos
             </h2>
           </div>
+
           <Tabs
             tabActive={tabActive}
             queryParams={queryParams}

@@ -81,19 +81,19 @@ const DirectionsSeccion = ({ directions }) => {
                                     <div className="font-Poppins bg-[#eee] px-10 py-5">
                                         <p className="uppercase truncate">{direction.name}</p>
                                     </div>
-                                    <div className="px-10 my-10">
+                                    <div className="px-10 my-10 pb-14">
                                         <p className="uppercase text-sm font-medium truncate">{direction.street} {(direction.no_ext) && `, #${direction.no_ext}`}</p>
                                         <p className="uppercase text-sm font-medium">{direction.municipality.name || direction.municipality}, {direction.state.name || direction.state} , {direction.postalcode}</p>
                                         <p className="uppercase text-sm font-light">{direction.city}</p>
                                     </div>
                                     <div className="absolute bottom-8 flex text-sm font-medium px-10">
-                                        <p className="text-sm text-center text-[#1976d2] cursor-pointer border-b-3 hover:border-solid hover:text-[#880e4f] hover:transition-all flex items-center justify-center"
+                                        <p className="text-sm text-[#e91e63] cursor-pointer border-b-3 hover:border-solid hover:text-[#e91e63] hover:transition-all flex justify-center items-center"
                                             onClick={() => handleEditDirecction(direction)}
                                         >
                                             Editar
                                         </p>
                                         <p className="text-sm cursor-pointer  hover:border-3 hover:border-solid hover:text-[#880e4f] hover:transition-all mx-2">|</p>
-                                        <p className="text-sm text-center text-[#1976d2] cursor-pointer border-b-3 hover:border-solid hover:text-[#880e4f] hover:transition-all flex items-center justify-center"
+                                        <p className="text-sm text-[#e91e63] cursor-pointer border-b-3 hover:border-solid hover:text-[#e91e63] hover:transition-all flex justify-center items-center"
                                             onClick={() => { handleDeleteAddress(direction._id) }}
                                         >
                                             Descartar

@@ -1,3 +1,4 @@
+import { useState, useEffect } from "react"
 import { useRouter } from "next/router"
 import { useDispatch, useSelector } from "react-redux"
 import { getCoupon, removeCoupon, startFinaliceSaleCheckout } from "../../actions/shoppingCartActions"
@@ -5,22 +6,21 @@ import { InfoShippingCosts } from "./infoShippingCosts"
 import { SubtotalInfo } from "./subtotalInfo"
 import { ShippingAddress } from "./shippingAddress"
 import { TotalShoppingCart } from "./totalShoppingCart"
-import { toast } from "react-toastify";
 import Swal from "sweetalert2"
-import jsCookie from "js-cookie"
-import { useState, useEffect } from "react"
 import CouponDetails from "./CouponDetails"
-import { errorNotify, infoNotify } from "../../helpers/helpers"
+import { errorNotify } from "../../helpers/helpers"
 
-export const CartTotals = ({ handleOpenFormAddress }) => {
+import { IconContext } from "react-icons";
+import { BsFillChatSquareTextFill } from 'react-icons/bs'
+
+export const CartTotals = ({ handleOpenFormAddress, toggleBusinessRule }) => {
+
   const dispatch = useDispatch();
   const { logged } = useSelector((state) => state.auth);
   const { cart, subtotal, total, shipping_costs, shippingAddress, addressSelected, coupon, subtotalWithCoupon, canvas } = useSelector((state) => state.cart);
   const router = useRouter();
 
   const [inputCoupon, setInputCoupon] = useState('')
-
-  const notify = (message) => toast(message);
 
   const proceedToCheckout = () => {
 
@@ -30,7 +30,7 @@ export const CartTotals = ({ handleOpenFormAddress }) => {
 
     if (cart.length < 1) return errorNotify('Debes agregar almenos un producto al carrito de compras');
 
-    if (shippingAddress.length > 1) {
+    if (shippingAddress.length < 1) {
       Swal.fire({
         icon: 'error',
         title: 'Ups , hubo un problema',
@@ -96,10 +96,18 @@ export const CartTotals = ({ handleOpenFormAddress }) => {
     setInputCoupon('');
   }
 
-
   return (
     <div className="mx-[25px] border-[1px] border-solid border-[#888] py-[60px] px-[30px]">
-      <h4 className="font-Poppins text-[20px] text-center leading-[1.3] uppercase pb-[30px]">Total Carrito</h4>
+      <h4 className="font-Poppins text-[20px] text-center leading-[1.3] uppercase pb-[2px]">Total Carrito</h4>
+      <div 
+        className="flex flex-row-reverse pr-5 mb-4" 
+      >
+        <IconContext.Provider
+            value={{ className: "text-[19px] text-[#888] cursor-pointer hover:text-[#e91e63]" }}
+            >
+              <BsFillChatSquareTextFill onClick={toggleBusinessRule} />
+        </IconContext.Provider>
+      </div>
       <div className="border-b-[1px] flex justify-start flex-wrap pb-[13px]">
         <SubtotalInfo
           subtotal={subtotal}

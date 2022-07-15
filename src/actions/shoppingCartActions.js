@@ -470,3 +470,26 @@ export const removeCoupon = () => ({
 export const removeAddressFromCart = () =>({
    type: types.removeAddressFromCart,
 });
+
+export const startLoadBusinessRules = () => {
+   return async (dispatch) => {
+      let url = `/business-rules`
+      try {
+         const { data } = await client.get(url);
+         dispatch(loadBusinesRules(data.business_rules));
+      } catch (error) {
+         if (axios.isAxiosError(error)) {
+            errorNotify(error?.response?.data?.message);
+         }
+         return {
+            hasError: true,
+            message: "Parece que hubo un error - Intente más tarde"
+         }
+      }
+   }
+}
+
+const loadBusinesRules = (businesRules) => ({
+   type: types.load_business_rules,
+   payload: businesRules
+})

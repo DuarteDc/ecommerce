@@ -34,13 +34,6 @@ const Card = ({ product }) => {
             <div className="hover:first:flex overflow-hidden cursor-pointer h-3/4 w-full relative"
                 onClick={() => handleClickModal(product)}
             >
-                {/* <Image
-                    className="object-fill w-full h-full"
-                    src={product?.multimedia[0]?.path}
-                    alt={product?.name}
-                    layout="fill"
-                    priority
-                /> */}
                 {
                     product.discount > 0 && (
                         <span className="absolute py-2 px-4 bg-amber-800 text-white font-bold drop-shadow-lg">

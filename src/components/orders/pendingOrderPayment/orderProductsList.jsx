@@ -20,9 +20,7 @@ export const OrderProductsList = ({ product }) => {
                             <picture>
                                 <img
                                     src={productList?.multimedia[0]?.path}
-                                    width={200}
-                                    height={200}
-                                    layout="fixed"
+                                    className="min-w-[7rem] min-h-[7rem] h-[10rem] w-[10rem]"
                                 />
                             </picture>
                         </Zoom>

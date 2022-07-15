@@ -21,10 +21,22 @@ export const startLoginEmailPassword = (data) => {
             const { token, user } = res.data;
             Cookies.set('token', token);
             dispatch(login(token, user));
-            return true;
+            return {
+                hasError: false,
+            };
 
         } catch (error) {
-            return false;
+            if (axios.isAxiosError(error)) {
+                return {
+                    hasError: true,
+                    message: error?.response?.data?.message
+                }
+            }
+
+            return {
+                hasError: true,
+                message: "No se pudo crear el usuario - intente mas tarde"
+            }
         }
     }
 }
@@ -59,10 +71,22 @@ export const startLoginGoogle = (idToken) => {
             const { token, user } = res.data;
             Cookies.set('token', token);
             dispatch(loginGoogle(token, user));
-            return res.data;
+            return {
+                hasError: false,
+            }
 
         } catch (error) {
-            return false;
+            if (axios.isAxiosError(error)) {
+                return {
+                    hasError: true,
+                    message: error?.response?.data?.message
+                }
+            }
+
+            return {
+                hasError: true,
+                message: "No se pudo crear el usuario - intente mas tarde"
+            }
         }
     }
 }

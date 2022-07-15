@@ -94,12 +94,11 @@ const FormSignUp = () => {
                 password: formData.password,
             }
             handelRegisterUser(data);
-            //alert(JSON.stringify(formData));
         }
     });
 
-    const [phoneNumber, setPhoneNumber] = useState();
-    const [country, setCountry] = useState();
+    // const [phoneNumber, setPhoneNumber] = useState();
+    // const [country, setCountry] = useState();
 
     const responseGoogle = async ({ tokenId }) => {
 
@@ -108,6 +107,7 @@ const FormSignUp = () => {
 
         if (!isValid) {
             setError(true);
+            setMessageError(message);
             setTimeout(() => setError(false), 4000);
             setLoading(false);
             return;
@@ -153,22 +153,6 @@ const FormSignUp = () => {
                             autoComplete={false}
                         />
                     </div>
-                    {/* <div className="">
-                        <label className="uppercase my-5 block">Número de teléfono celular</label>
-                        <div className="flex">
-                            <CountrySelect labels={en} value={country} onChange={setCountry} name="countrySelect" />
-                            <input
-                                name="phone"
-                                country={country}
-                                value={phoneNumber}
-                                onChange={(e) => { setPhoneNumber(e.target.value); formik.handleChange(e) }}
-                                className="py-4 bg-gray-50  focus:outline-none focus:border-black focus:ring-1 focus:ring-gray-900 px-5 w-full"
-                            />
-                        </div>
-                        {formik.touched.phone && formik.errors.phone ? (
-                            <span className="text-red-500 text-sm">{formik.errors.phone}</span>
-                        ) : null}
-                    </div> */}
                     <div className="">
                         <label className="uppercase my-5 block">Contraseña</label>
                         <TextField

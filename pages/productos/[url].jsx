@@ -138,7 +138,7 @@ const Show = () => {
   }, [logged]);
 
   const structuredData = {
-    "@context": url,
+    "@context": "http://www.schema.org",
     "@type": "Product",
     "description": product?.description,
     "name": product?.name,
@@ -148,15 +148,12 @@ const Show = () => {
       "@type": "Brand",
       "name": product?.brand?.name,
     },
-    ...(product?.discount > 0) && ({
-      "offers": {
-        "@type": "Offer",
-        "availability": url,
-        "price": sale_price_discount,
-        "priceCurrency": "MXN",
-      }
-      
-    }),
+    "offers": {
+      "@type": "Offer",
+      "url": url,
+      "price": product.price,
+      "priceCurrency": "MXN",
+    }
   };
 
   return (
@@ -168,7 +165,7 @@ const Show = () => {
         product?.subcategory?.name
       }, ${product?.name.toLowerCase()}, ${product?.description?.toLowerCase()}, ${
         product?.tags.length > 0 &&
-        product?.tags.map((tags) => tags.tag_id.name)
+        product?.tags.map((tags) => tags?.tag_id?.name)
       }`}
       description={product?.description}
       ogTitle={`Wapizima - ${product?.name}`}
@@ -283,7 +280,7 @@ const Show = () => {
                     <div className="flex">
                       {product?.tags.map((tag) => (
                         <div
-                          key={tag.tag_id._id}
+                          key={tag?.tag_id?._id}
                           className="bg-[#333] rounded-3xl px-4 py-1 mr-2 cursor-pointer "
                         >
                           <span
@@ -291,7 +288,7 @@ const Show = () => {
                                                         duration-500 flex items-center justify-center text-center
                                                         "
                           >
-                            {tag.tag_id.name}
+                            {tag?.tag_id?.name}
                           </span>
                         </div>
                       ))}

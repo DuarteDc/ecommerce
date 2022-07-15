@@ -10,6 +10,7 @@ const initalState = {
     filteredProducts: [],
     categoriesSelected: [],
     results: {},
+    searchedProducts: [],
 }
 
 export const productsReducer = (state = initalState, { type, payload }) => {
@@ -63,7 +64,7 @@ n
         case types.search_products:
             return{
                 ...state, 
-                products: payload
+                searchedProducts: payload
             }
 
         case types.load_products_home:

@@ -134,8 +134,7 @@ const NavBar = () => {
             src={logo}
             alt="Wapizima"
             width={110}
-            height={90}
-            priority
+            height={90}            
             onClick={handleClickLogo}
             className="cursor-pointer"
           />

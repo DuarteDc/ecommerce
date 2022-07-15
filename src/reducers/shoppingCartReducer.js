@@ -16,6 +16,7 @@ const initialState = {
     order_id: '',
     success: false,
     shippingAddress: [],
+    BusinessRules: [],
     addressSelected: {}
 }
 
@@ -119,6 +120,12 @@ export const shoppingCartReducer = (state = initialState, { type, payload }) => 
             return {
                 ...state,
                 addressSelected: ''
+            }
+
+        case types.load_business_rules:
+            return {
+                ...state,
+                BusinessRules: payload,
             }
 
         default:

@@ -28,7 +28,7 @@ const ProductSliderShow = ({ slideImages, product }) => {
         <>
             <Slide {...properties} ref={slideRef}>
                 {slideImages.map((slideImage, index) => (
-                    <div className={ `${styles["each-slide"]} w-full h-full`} key={index}>
+                    <div className={ `${styles["each-slide"]} w-full h-full`} key={index+1}>
                         {/* <div style={{
                             'backgroundImage': `url(${slideImage.path})`,
                             'backgroundSize': 'cover'

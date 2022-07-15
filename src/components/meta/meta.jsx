@@ -57,11 +57,11 @@ export const Meta = ({
 
       <title>{title}</title>
       
-      <script type="application/ld+json">
-        {
-          JSON.stringify(structuredData, null, 2)
-        }
-      </script>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
+      />
+
     </Head>
   );
 };

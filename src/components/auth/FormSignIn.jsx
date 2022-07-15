@@ -26,9 +26,9 @@ export const FormSignIn = () => {
     const handleLoginUser = async (formData) => {
 
         setLoading(true)
-        const isValid = await dispatch(startLoginEmailPassword(formData));
+        const { hasError, message } = await dispatch(startLoginEmailPassword(formData));
 
-        if (!isValid) {
+        if (hasError) {
             setError(true);
             setTimeout(() => setError(false), 4000);
             setLoading(false);
@@ -61,9 +61,9 @@ export const FormSignIn = () => {
 
     const responseGoogle = async ({ tokenId }) => {
         setLoading(true)
-        const isValid = await dispatch(startLoginGoogle(tokenId));
+        const { hasError, message } = await dispatch(startLoginGoogle(tokenId));
 
-        if (!isValid) {
+        if (hasError) {
             setError(true);
             setTimeout(() => setError(false), 4000);
             setLoading(false);
