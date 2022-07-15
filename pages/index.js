@@ -13,6 +13,10 @@ import { startLoadDataSliders } from "../src/actions/slidersActions";
 import { startLoadCategoriesHome } from "../src/actions/categoryActions";
 import { startLoadAdministrableLogo } from "../src/actions/administrableActions";
 import { startLoadTags } from "../src/actions/tagsActions";
+
+/************************     RSS FEED  ********************** */
+import getRSS from "../src/lib/generateRSS";
+
 import Cookie from "js-cookie";
 
 /**Components */
@@ -28,7 +32,6 @@ import {
 } from "../src/components/home";
 
 /**Actions */
-import { shoppingCartNotLoggedfromLocalStorage } from "../src/actions/shoppingCartActions";
 import { useRouter } from "next/router";
 import Swal from "sweetalert2";
 import { Modal } from "../src/components/ui/modal";
@@ -226,7 +229,7 @@ export const getStaticProps = wrapper.getStaticProps((store) => async () => {
   await store.dispatch(startLoadTags());
   await store.dispatch(startLoadBrands());
   await store.dispatch(startLoadReviews());
-
+  await getRSS();
   return {
     revalidate: 3600,
   };

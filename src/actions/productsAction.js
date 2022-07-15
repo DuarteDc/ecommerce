@@ -156,3 +156,14 @@ export const searchProduct = (products) => ({
   type: types.search_products,
   payload: products,
 });
+
+
+export const startLoadProductsRSS = async () => {
+    let url = "/products";
+    try {
+      const res = await client.get(url);
+      return  res.data.products;
+    } catch (error) {
+      console.log(error);
+    }
+};
