@@ -42,7 +42,7 @@ const BusinessRules = () => {
                         <tbody>
                         {
                         BusinessRules.map(rule =>(
-                            <tr className="border-b border-gray-200 text-center">
+                            <tr className="border-b border-gray-200 text-center" key={rule._id}>
                                 <td className="py-2">${rule.minimum_money}</td>
                                 <td className="py-2">${rule.maximum_money}</td>
                                 <td className="py-2">%{rule.discount}</td>
