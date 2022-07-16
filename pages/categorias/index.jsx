@@ -68,6 +68,7 @@ const Categories = () => {
                     {categories?.map((category) => (
                         category.totalProducts > 0 && (
                             <CardProduct
+                                key={category._id}
                                 image={category.imageWeb}
                                 name={category?.name}
                                 url={category?.url}

@@ -38,9 +38,9 @@ const Footer = ({ categories }) => {
           <Grid item xs={12} sm={12} md={12} lg={5} xl={5}>
             <div className="flex justify-between flex-wrap">
               <div>
-                <h6>Sobre Nosotros</h6>
+                <h6>Sobre nosotros</h6>
                 <ul>
-                  <li className="text-[12px]">Acerca de Nostros</li>
+                  <li className="text-[12px]">Acerca de nostros</li>
                 </ul>
               </div>
               <div>

@@ -5,12 +5,35 @@ import OrderCancelStatus from "../OrderCancelStatus";
 import OrderStatus from "../OrderStatus";
 
 export const OrderDetails = ({ status }) => {
-  const { orderDetail } = useSelector((state) => state.orders);
+  const { orderDetail, shippingDetail } = useSelector((state) => state.orders);
+
   const subtotal = helpers.priceFormat(orderDetail.subtotal);
   const shippment = helpers.priceFormat(orderDetail.shippment);
   const total = helpers.priceFormat(orderDetail.subtotal + orderDetail.shippment)
   return (
     <Grid container spacing={3} className="font-Poppins">
+      {
+        status === 3 && (
+          <>
+          <Grid item xs={12} sm={12} md={12} lg={12} xl={12}>
+            <div className="flex justify-between items-center">
+              <p>Paquetería:</p>
+              <p className="max-w-[300px] text-[#888] text-sm font-light">
+                {shippingDetail?.shipment_id?.name}
+              </p>
+            </div>
+          </Grid>
+          <Grid item xs={12} sm={12} md={12} lg={12} xl={12}>
+            <div className="flex justify-between items-center">
+              <p>Número de guía:</p>
+              <p className="max-w-[300px] text-[#888] text-sm font-light">
+                {shippingDetail?.no_guide}
+              </p>
+            </div>
+          </Grid>
+          </>
+        )
+      }
       <Grid item xs={12} sm={12} md={12} lg={12} xl={12}>
         <div className="flex justify-between items-center">
           <p>Dirección de envÍo:</p>

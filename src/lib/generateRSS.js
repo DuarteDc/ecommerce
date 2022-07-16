@@ -39,16 +39,5 @@ export default async function getRSS() {
     });
   });
 
-  // id: product._id,
-  // title: product.name,
-  // link: `${siteURL}/productos/${product.url}`,
-  // availability: product.quantity,
-  // date: product.createdAt,
-  // description: product.description,
-  // condition: 'used',
-  // price: helpers.priceFormat(product.price),
-  // image_link: product.multimedia[0].path,
-  // brand: product.brand.name,
-
   writeFileSync("./public/feed.xml", feed.xml({ indent: true }));
 }

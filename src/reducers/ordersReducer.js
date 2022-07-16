@@ -9,6 +9,7 @@ const initialState = {
     totalOrder: 0,
     totalPayments: 0,
     orderDetail: {},
+    shippingDetail: {},
     success: false,
 }
 
@@ -66,7 +67,8 @@ export const ordersReducer = (state = initialState, { type, payload }) => {
         case types.loadOrderById:
             return {
                 ...state,
-                orderDetail: payload
+                orderDetail: payload.order,
+                shippingDetail: payload?.shipping
             }
 
         case types.invoiced_order: {

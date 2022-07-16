@@ -61,11 +61,9 @@ const Products = () => {
   };
 
   const handleSearch = async (querySearch) => {
-    console.log(querySearch)
     if (!querySearch) return setQuery('');
     dispatch(startSearchProduct(querySearch));
     setQuery(querySearch);
-    console.log(querySearch)
   }
 
   const origin = typeof window === "undefined" ? "" : window.location.href;

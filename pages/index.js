@@ -229,7 +229,7 @@ export const getStaticProps = wrapper.getStaticProps((store) => async () => {
   await store.dispatch(startLoadTags());
   await store.dispatch(startLoadBrands());
   await store.dispatch(startLoadReviews());
-  await getRSS();
+  // await getRSS();
   return {
     revalidate: 3600,
   };
