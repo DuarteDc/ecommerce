@@ -12,15 +12,13 @@ import { Elements } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
 import { useToggle } from "../../src/hooks/useToggle";
 import { Modal } from "../../src/components/ui/modal";
-import { FaCcStripe } from "react-icons/fa";
-import { BiTransferAlt } from "react-icons/bi";
-import { MdOutlineFileUpload } from "react-icons/md";
-import { IconContext } from "react-icons";
 import { startLoadBanksAccounts, startLoadClientSecret } from "../../src/actions/checkoutActions";
 import { CheckoutTransfer } from "../../src/components/checkout/checkoutTransfer";
 import { ShoppingCartDetails } from "../../src/components/checkout/shoppingCartDetails";
 import { useRouter } from "next/router";
 import LoadingScreen from "../../src/components/LoadingScreen";
+import ImportExportIcon from '@mui/icons-material/ImportExport';
+
 
 const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_CLIENT);
 
@@ -173,9 +171,9 @@ const Checkout = () => {
                   <button className="bg-[#008cdd] text-luz py-[15px] px-[20px] w-full uppercase text-[15px] hover:bg-[#1e90ff] mt-5 flex items-center justify-center"
                     onClick={() => handleOpenProofOfPayment()}
                   >
-                    <IconContext.Provider value={{ className: "color-[#fff] , text-[40px] , mr-[30px]" }}>
-                      <MdOutlineFileUpload />
-                    </IconContext.Provider>
+                    <ImportExportIcon 
+                        className = "color-[#fff] text-[40px] mr-[30px]"
+                    />
                     <span>Comprobante de pago</span>
                   </button>
                 </div>
@@ -192,13 +190,9 @@ const Checkout = () => {
                       </Elements>
                     )}
                   </div>
-                  <button className="bg-[#fb8c00] text-luz py-[15px] px-[20px] w-full uppercase text-[15px] hover:bg-[#e65100] mt-5 flex items-center justify-center"
+                  <button className="bg-[#fb8c00] text-luz py-[23px] px-[20px] w-full uppercase text-[15px] hover:bg-[#e65100] mt-5 flex items-center justify-center"
                     onClick={() => handleOpenTransfer()}
                   >
-                    <IconContext.Provider value={{ className: "color-[#fff] , text-[40px] , mr-[30px]" }}>
-
-                      <BiTransferAlt />
-                    </IconContext.Provider>
                     <span>Pago por transferencia</span>
                   </button>
                 </div>

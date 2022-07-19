@@ -1,5 +1,4 @@
-import { BsSearch } from "react-icons/bs";
-import { IconContext } from "react-icons";
+import SearchIcon from '@mui/icons-material/Search';
 
 export const Tabs = ({
   tabsData,
@@ -46,12 +45,7 @@ export const Tabs = ({
             "
             onClick={handleOpenSearch}
           >
-            <IconContext.Provider
-              value={{ size: "15px", className: "mr-[6px]" }}
-            >
-              <BsSearch />
-            </IconContext.Provider>
-
+            <SearchIcon  className="mr-[6px]"/>
             <span>Buscar</span>
           </div>
         )}

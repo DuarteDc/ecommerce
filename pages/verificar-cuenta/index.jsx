@@ -2,8 +2,7 @@ import { wrapper } from "../../src/store";
 import { startLoadAdministrableLogo } from "../../src/actions/administrableActions";
 import Image from "next/image";
 import { useSelector } from "react-redux";
-import { MdMarkEmailRead } from "react-icons/md";
-import { IconContext } from "react-icons";
+import MarkEmailReadIcon from '@mui/icons-material/MarkEmailRead';
 import Layout from "../../src/components/Layouts";
 import { startResendEmail } from "../../src/actions/authActions";
 import { errorNotify, successNotify } from "../../src/helpers/helpers";
@@ -39,9 +38,9 @@ const VerifyAccount = () => {
                             />
                         </div>
                         <div className="border-2 border-black p-12 rounded-full">
-                            <IconContext.Provider value={{ className: "text-9xl" }}>
-                                <MdMarkEmailRead />
-                            </IconContext.Provider>
+                            <MarkEmailReadIcon 
+                                className="text-9xl"
+                            />
                         </div>
                         <h2 className="text-4xl uppercase mt-10">Verifique su dirección de correo electrónico</h2>
                         <p className="mt-20 text-lg">

@@ -24,8 +24,8 @@ import { ButtonGroup, ProductCard } from "../../src/components/ui";
 import Image from "next/image";
 import Cookies from "js-cookie";
 import { Breadcrumbs, Container, Typography } from "@mui/material";
+import HomeIcon from '@mui/icons-material/Home';
 
-import { GoHome } from "react-icons/go";
 import NavigateNextIcon from "@mui/icons-material/NavigateNext";
 import Link from "next/link";
 import { useDebounce } from "../../src/hooks/useDebounce";
@@ -151,7 +151,7 @@ const Show = () => {
     "offers": {
       "@type": "Offer",
       "url": url,
-      "price": product.price,
+      "price": product?.price,
       "priceCurrency": "MXN",
     }
   };
@@ -187,7 +187,7 @@ const Show = () => {
             >
               <Link href="/" passHref>
                 <div className="flex items-center justify-between cursor-pointer">
-                  <GoHome />
+                  <HomeIcon />
                   <span className="text-lg font-Poppins ml-3 ">Inicio</span>
                 </div>
               </Link>

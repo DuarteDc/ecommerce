@@ -1,7 +1,6 @@
 import { useSelector } from "react-redux"
-import {MdOutlineRemoveShoppingCart} from "react-icons/md";
-import { IconContext } from "react-icons";
 import { ShoppingCartDetail } from "./shoppingCartDetail";
+import RemoveShoppingCartIcon from '@mui/icons-material/RemoveShoppingCart';
 
 export const ShoppingCartDetails = () =>{
     const { cart } = useSelector((state)=>state.cart);
@@ -13,9 +12,7 @@ export const ShoppingCartDetails = () =>{
             {
             !cart.length ?
               <div className="flex justify-center py-[30px] px-[60px] items-center">
-                  <IconContext.Provider value={{className:"text-6xl"}}>
-                   <MdOutlineRemoveShoppingCart/>
-                  </IconContext.Provider>
+                  <RemoveShoppingCartIcon className = "text-6xl" />
                   No hay productos en el resumen de orden
               </div>
             :

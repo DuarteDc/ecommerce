@@ -1,11 +1,6 @@
 import Link from "next/link";
-import Image from "next/image";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { BsHandbag, BsPersonCircle } from "react-icons/bs";
-import { IconContext } from "react-icons";
-import { AiOutlineHeart } from "react-icons/ai";
-import { AiOutlineClose } from "react-icons/ai";
 import {
   shoppingCartNotLoggedfromLocalStorage,
   startLoadShoppingCart,
@@ -23,6 +18,11 @@ import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import { acceptCookies } from "../../actions/administrableActions";
 import { helpers } from "../../helpers";
+
+import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
+import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import CloseIcon from '@mui/icons-material/Close';
 
 const NavBar = () => {
   const router = useRouter();
@@ -146,9 +146,7 @@ const NavBar = () => {
                 onClick={() => handleRedirectClick("/mi-lista-de-deseos")}
                 className="mr-5"
               >
-                <IconContext.Provider value={{ size: "1.6rem" }}>
-                  <AiOutlineHeart />
-                </IconContext.Provider>
+                <FavoriteBorderIcon />
               </Badge>
               <Badge
                 badgeContent={logged ? cart?.length : cartNotLogged?.length}
@@ -156,9 +154,7 @@ const NavBar = () => {
                 onClick={() => handleRedirectClick("/mi-carrito")}
                 className="mr-5"
               >
-                <IconContext.Provider value={{ size: "1.5rem" }}>
-                  <BsHandbag />
-                </IconContext.Provider>
+                <ShoppingCartIcon />
               </Badge>
             </span>
 
@@ -176,11 +172,9 @@ const NavBar = () => {
                 className="space-y-2  lg:hidden xl:hidden border  border-gray-600"
                 onClick={() => handleMenuopen()}
               >
-                <IconContext.Provider
-                  value={{ className: "text-gray-600 text-[30px] block" }}
-                >
-                  <AiOutlineClose />
-                </IconContext.Provider>
+                <CloseIcon 
+                  className = "text-gray-600 text-[30px] block"
+                />
               </button>
             )}
           </div>
@@ -213,12 +207,10 @@ const NavBar = () => {
                     aria-haspopup="true"
                     aria-expanded={openMenu ? "true" : undefined}
                     onClick={handleClick}
-                    sx={{ color: "#888" }}
+                    sx={{ color: "#999" }}
                     className="border-transparent border-b-2 mx-4 cursor-pointer text-lg font-['Poppins'] font-normal transition duration-700 ease-in-out"
                   >
-                    <IconContext.Provider value={{ size: "1.6rem" }}>
-                      <BsPersonCircle />
-                    </IconContext.Provider>
+                    <AccountCircleIcon className="text-3xl" />
                   </Button>
                   <Menu
                     id="basic-menu"
@@ -324,9 +316,7 @@ const NavBar = () => {
                   onClick={() => handleRedirectClick("/mi-lista-de-deseos")}
                   className="mr-4"
                 >
-                  <IconContext.Provider value={{ size: "1.3rem" }}>
-                    <AiOutlineHeart />
-                  </IconContext.Provider>
+                  <FavoriteBorderIcon />
                 </Badge>
               </span>
               <span className="flex items-center border-transparent border-b-2 cursor-pointer text-lg  text-[#888] font-['Poppins'] font-normal transition duration-700 ease-in-out">
@@ -335,9 +325,7 @@ const NavBar = () => {
                   color="secondary"
                   onClick={() => handleRedirectClick("/mi-carrito")}
                 >
-                  <IconContext.Provider value={{ size: "1.3rem" }}>
-                    <BsHandbag />
-                  </IconContext.Provider>
+                  <ShoppingCartIcon />
                 </Badge>
               </span>
             </div>

@@ -1,10 +1,6 @@
-import Image from "next/image";
+
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
-import { IconContext } from "react-icons";
-import { BiShowAlt } from "react-icons/bi";
-import { BsHeart } from "react-icons/bs";
-import { FcLike } from "react-icons/fc";
 import { useDispatch, useSelector } from "react-redux";
 
 import { toast } from "react-toastify";
@@ -15,9 +11,13 @@ import {
 } from "../../actions/shoppingCartActions";
 import { addOneProduct, removeOneProduct } from "../../actions/wishListActions";
 import { helpers } from "../../helpers";
-import { BsFillCartCheckFill } from "react-icons/bs";
 import Cookies from "js-cookie";
 import SliderProductCard from "../products/SliderProductCard";
+
+import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
+import VisibilityIcon from '@mui/icons-material/Visibility';
+import FavoriteIcon from '@mui/icons-material/Favorite';
+import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 
 export const ProductCard = ({ product }) => {
   const { _id, name, price, url, quantity, discount } = product;
@@ -215,11 +215,7 @@ export const ProductCard = ({ product }) => {
                     className="flex items-center font-Poppins"             
                   >
                     Agregar
-                    <IconContext.Provider
-                      value={{ className: "ml-3 text-base" }}
-                    >
-                      <BsFillCartCheckFill />
-                    </IconContext.Provider>
+                      <AddShoppingCartIcon className="ml-3 text-base" />
                   </span>
                 ) : (
                   "Ya agregado al carrito"
@@ -243,14 +239,9 @@ export const ProductCard = ({ product }) => {
                                      hover:transition"
                 onClick={() => handleShowProduct()}
               >
-                <IconContext.Provider
-                  value={{
-                    className:
-                      "text-[25px] text-[#888] w-[90%] z-[2]  hover:text-[#fff] hover:transition",
-                  }}
-                >
-                  <BiShowAlt />
-                </IconContext.Provider>
+                <VisibilityIcon 
+                  className="text-[25px] text-[#888] w-[90%] z-[2]  hover:text-[#fff] hover:transition"
+                />
               </span>
 
               <span
@@ -268,23 +259,9 @@ export const ProductCard = ({ product }) => {
                 onClick={() => handleToogleWishList(_id)}
               >
                 {isInWhisList ? (
-                  <IconContext.Provider
-                    value={{
-                      className:
-                        "text-[25px] w-[60%] z-[2] hover:text-[#fff] hover:transition cursor-pointer",
-                    }}
-                  >
-                    <FcLike />
-                  </IconContext.Provider>
+                  <FavoriteIcon className="text-[25px] text-red-600 w-[60%] z-[2] hover:text-red-600 hover:transition cursor-pointer" />
                 ) : (
-                  <IconContext.Provider
-                    value={{
-                      className:
-                        "text-[25px] text-[#888] w-[60%] z-[2] hover:text-[#fff] hover:transition cursor-pointer",
-                    }}
-                  >
-                    <BsHeart />
-                  </IconContext.Provider>
+                  <FavoriteBorderIcon className="text-[25px] text-[#888] w-[60%] z-[2] hover:text-[#fff] hover:transition cursor-pointer"/>
                 )}
               </span>
             </div>

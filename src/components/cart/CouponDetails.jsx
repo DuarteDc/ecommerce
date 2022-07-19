@@ -1,7 +1,6 @@
 
-import { helpers } from "../../helpers"
-import { AiOutlineCloseCircle } from "react-icons/ai";
-import { IconContext } from "react-icons";
+import { helpers } from "../../helpers";
+import HighlightOffIcon from '@mui/icons-material/HighlightOff';
 
 const CouponDetails = ({ handleApplyCoupon, setInputCoupon, coupon, handleRemoveCoupon, subtotalWithCoupon }) => {
     const subtotal = helpers.priceFormat(subtotalWithCoupon);
@@ -46,11 +45,10 @@ const CouponDetails = ({ handleApplyCoupon, setInputCoupon, coupon, handleRemove
                             </div>
                             <div className="flex items-center">
                                 <p className="text-lg">-{coupon.discount}%</p>
-                                <IconContext.Provider
-                                    value={{ className: "text-xl cursor-pointer ml-2 hover:text-red-600 " }}
-                                >
-                                    <AiOutlineCloseCircle onClick={handleRemoveCoupon} />
-                                </IconContext.Provider>
+                                <HighlightOffIcon 
+                                    className="text-xl cursor-pointer ml-2 hover:text-red-600"
+                                    onClick={handleRemoveCoupon}
+                                />
                             </div>
                         </div>
                         <div className="flex items-center mt-5">

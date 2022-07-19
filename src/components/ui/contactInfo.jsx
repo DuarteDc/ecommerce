@@ -1,14 +1,14 @@
-import { IconContext } from "react-icons"
+
 
 export const ContactInfo = ({icon , title , text}) =>{
     return (
         <div className="w-full flex flex-wrap pb-[42px] items-center">
                          <span className="w-[60px] text-[#222] text-center text-lg">
-                         <IconContext.Provider 
+                         <span
                                value={{className:"text-[25px] text-[#888] w-[35%]"}}
                             >
                            {icon}
-                         </IconContext.Provider>
+                         </span>
                          </span>
                          <div className="w-[calc(100%_-_60px)] pt-[2px]">
                            <span className="font-Poppins text-lg leading-[1.2] text-[#333]">{title}</span>

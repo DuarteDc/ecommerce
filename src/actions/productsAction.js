@@ -122,7 +122,7 @@ export const loadProductPerPagination = (products) => ({
 
 /********************+filtro de productos *******************************/
 
-export const startFilterProducts = (endpoint, params='') => {
+export const startFilterProducts = (endpoint, params = '') => {
   return async (dispatch) => {
     try {
       const { data } = await client.get(`${endpoint}${params}`);

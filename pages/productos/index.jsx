@@ -15,24 +15,22 @@ import { startLoadAdministrableLogo } from "../../src/actions/administrableActio
 import { BannerImage } from "../../src/components/ui/bannerImage";
 import { ProductCard } from "../../src/components/ui";
 
-import { useEffect, useLayoutEffect, useState } from "react";
+import { useState } from "react";
 import PaginationItem from "@mui/material/PaginationItem";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 
 import CategoriesList from "../../src/components/categories/CategoriesList";
 import BrandsList from "../../src/components/brands/BrandsList";
-import TagsList from "../../src/components/tags/TagsList";
 import LoadingScreen from "../../src/components/LoadingScreen";
 import Filters from "../../src/components/products/Filters";
 import { startLoadFaqsCategories } from "../../src/actions/faqsActions";
 
-import { IconContext } from "react-icons";
-import { BsSearch } from 'react-icons/bs'
-
 import { useQueryParams } from "../../src/hooks/useQueryParams";
 import RangePrice from "../../src/components/prices/RangePrice";
 import { startFilterProducts, startSearchProduct } from "../../src/actions/productsAction";
+
+import SearchIcon from '@mui/icons-material/Search';
 
 const endpoint = "/products/filter/products-paginated";
 
@@ -44,10 +42,10 @@ const Products = () => {
 
   const { products, searchedProducts } = useSelector((state) => state.products);
 
-  const { logo } = useSelector((state) => state.administrable);
-  const { brands } = useSelector((state) => state.brands);
-  const { categories } = useSelector((state) => state.categories);
-  const { categories: CategoriesFaqs } = useSelector((state) => state.faqs);
+  const { logo } = useSelector((state) => state?.administrable);
+  const { brands } = useSelector((state) => state?.brands);
+  const { categories } = useSelector((state) => state?.categories);
+  const { categories: CategoriesFaqs } = useSelector((state) => state?.faqs);
 
   const [loading, setLoading] = useState(false);
   const [query, setQuery] = useState('');
@@ -72,12 +70,11 @@ const Products = () => {
     <Layout
       title="Wapizima - Productos"
       robots="index, follow"
-      keywords={`Wapizima, Productos, ${brands?.map(brand => brand?.name)}, ${categories.map(category => category?.name)}`}
+      keywords={`Wapizima, Productos, ${brands?.map(brand => brand?.name)}, ${categories?.map(category => category?.name)}`}
       categories={CategoriesFaqs}
-      // description={product?.description}
       ogTitle="Wapizima - Productos"
       ogType="website"
-      description="Tienda en línea de distribución de productos profesionales para uñas  de calidad. Venta Menudeo y Mayoreo. Promociones , descuentos y mucho más."
+      description="Tienda en línea de distribución de productos profesionales para uñas  de calidad. Venta Menudeo y Mayoreo. Promociones, descuentos y mucho más."
       ogUrl={origin}
       ogImage={logo}
       canonical={origin}
@@ -123,11 +120,7 @@ const Products = () => {
                 className="w-full h-12 font-Poppins text-[13px] leading-[1.6] text-[#333] pr-[30px] pl-[15px] outline-0"
                 onChange={()=>handleSearch(event.target.value)}
             />
-            <IconContext.Provider
-                value={{ className: "text-[25px] text-[#888] w-[20%] " }}
-            >
-                <BsSearch />
-            </IconContext.Provider>
+            <SearchIcon className="text-[25px] text-[#888] w-[20%]"/>
           </div>
         </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 mb-20 mt-10">
@@ -135,7 +128,7 @@ const Products = () => {
               (searchedProducts?.length > 0 && query) ? (
                 (searchedProducts?.length > 0 && query) ? (                
                   searchedProducts?.map((product) => (
-                    <ProductCard key={product._id} product={product} />
+                    <ProductCard key={product?._id} product={product} />
                   ))
               ):(
                 <div className="text-center col-span-full">
@@ -158,12 +151,12 @@ const Products = () => {
               )
             }
           </div>
-          {((products.hasNextPage || products.hasPrevPage) && !query) && (
+          {((products?.hasNextPage || products?.hasPrevPage) && !query) && (
             <div className="flex justify-center my-10">
               <Stack spacing={2}>
                 <Pagination
-                  count={products.totalPages}
-                  page={products.page}
+                  count={products?.totalPages}
+                  page={products?.page}
                   renderItem={(item) => (
                     <PaginationItem
                       components={{
@@ -187,7 +180,8 @@ const Products = () => {
 
 export const getServerSideProps = wrapper.getServerSideProps(
   (store) => async (ctx) => {
-    await store.dispatch(startFilterProducts("/products/filter/products-paginated"));
+    const endpoint = '/products/filter/products-paginated';
+    await store.dispatch(startFilterProducts(endpoint));
     await store.dispatch(startLoadCategories());
     await store.dispatch(startLoadBrands());
     await store.dispatch(startLoadAdministrableLogo());

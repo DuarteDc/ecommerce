@@ -1,7 +1,5 @@
 import Image from "next/image"
-import { IconContext } from "react-icons";
 import { helpers } from "../../../helpers";
-import { GiCancel } from "react-icons/gi";
 import { useDispatch } from "react-redux";
 import { startOrderCancel } from "../../../actions/ordersActions";
 import { Grid } from "@mui/material";

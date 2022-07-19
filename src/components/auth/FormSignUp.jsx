@@ -15,11 +15,10 @@ import LoadingScreen from "../LoadingScreen";
 // import Input, { getCountries, getCountryCallingCode } from 'react-phone-number-input/input';
 // import en from 'react-phone-number-input/locale/en.json';
 
-import { IconContext } from "react-icons";
-import { MdError } from "react-icons/md";
 import { TextField } from "@mui/material";
 
 import helpers from "../../helpers/helpers";
+import ErrorIcon from '@mui/icons-material/Error';
 
 const FormSignUp = () => {
 
@@ -187,11 +186,9 @@ const FormSignUp = () => {
                         error &&
                             (
                             <span className="flex items-center mt-10 justify-center">
-                                <IconContext.Provider
-                                    value={{ className: "text-red-600 mr-1" }}
-                                >
-                                    <MdError />
-                                </IconContext.Provider>
+                                <ErrorIcon 
+                                    className = "text-red-600 mr-1"
+                                />
                                 <p className="text-red-600 text-sm">{messageError}</p>
                             </span>
                             )

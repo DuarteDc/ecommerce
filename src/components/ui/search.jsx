@@ -1,4 +1,5 @@
-import {BsSearch} from "react-icons/bs";
+
+import SearchIcon from '@mui/icons-material/Search';
 
 export const Search = ({openSearch ,
                         placeholder,
@@ -11,7 +12,7 @@ export const Search = ({openSearch ,
                 className="w-[38px] h-[60px] text-[#333] flex justify-center items-center text-sm cursor-pointer transition-all	duration-[0.4s] ease-linear delay-0"
                 onClick={onRequestSearch}
               >
-                  <BsSearch/>
+                  <SearchIcon />
               </button>
               <form onSubmit={onRequestSearch}  className="w-full">
                 <input 

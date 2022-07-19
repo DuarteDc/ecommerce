@@ -1,12 +1,13 @@
 import { Grid } from "@mui/material";
 import { useFormik } from "formik";
 import { useEffect, useRef, useState } from "react";
-import { BsFileEarmarkImage } from "react-icons/bs";
 import { useDispatch, useSelector } from "react-redux";
 import Swal from "sweetalert2";
 import * as Yup from 'yup';
 import { startUploadProofOfPayment } from "../../actions/ordersActions";
 import { infoNotify } from "../../helpers/helpers";
+
+import AddPhotoAlternateIcon from '@mui/icons-material/AddPhotoAlternate';
 
 
 export const UploadProofOfPayment = ({ handleOpenProofOfPayment, setLoading }) => {
@@ -195,7 +196,7 @@ export const UploadProofOfPayment = ({ handleOpenProofOfPayment, setLoading }) =
                     !isLoadImage && !Object.keys(urlPhoto).length && !dragging ?
                         <>
                             <span className="flex text-6xl text-[#008cdd] transition-opacity ">
-                                <BsFileEarmarkImage />
+                                <AddPhotoAlternateIcon />
                             </span>
                             <p className="text-base text-[#888]  m-0 mt-[0.6rem]">
                                 Arrastra la imagen aqui o da click sobre el recuadro

@@ -1,23 +1,23 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { startLoadAdministrableLogo } from "../../src/actions/administrableActions";
 import Layout from "../../src/components/Layouts"
 import { BannerImage, ContactInfo } from "../../src/components/ui";
 import { wrapper } from "../../src/store";
-import { MdOutlineMailOutline } from "react-icons/md";
-import { IconContext } from "react-icons";
-import { GoLocation, GoPerson } from "react-icons/go";
-import { BsTelephone, BsTelephoneFill } from "react-icons/bs";
 
-import { addShoppingCartFromLocalStorage, shoppingCartNotLoggedfromLocalStorage, } from "../../src/actions/shoppingCartActions";
 import { useDispatch, useSelector } from "react-redux";
 import { startLoadFaqsCategories } from "../../src/actions/faqsActions";
-import { HiMail } from "react-icons/hi";
 
 import { useFormik } from "formik";
 import * as Yup from 'yup';
 import { startSendMessage } from "../../src/actions/contactActions";
 import LoadingScreen from "../../src/components/LoadingScreen";
 import { errorNotify, successNotify } from "../../src/helpers/helpers";
+
+import PersonIcon from '@mui/icons-material/Person';
+import EmailIcon from '@mui/icons-material/Email';
+import LocalPhoneIcon from '@mui/icons-material/LocalPhone';
+
+import LocationOnIcon from '@mui/icons-material/LocationOn';
 
 const ContactUs = () => {
   const dispatch = useDispatch();
@@ -93,12 +93,7 @@ const ContactUs = () => {
                   <h4 className="font-Poppins text-[24px] leading-[1.5] text-[#333] text-center pb-[30px]">Envianos un mensaje</h4>
                   <div className="mb-6">
                     <div className="border-[1px] border-solid border-[#e6e6e6] rounded-sm flex items-center">
-
-                      <IconContext.Provider
-                        value={{ className: "text-[25px] text-[#888] w-[20%] " }}
-                      >
-                        <GoPerson />
-                      </IconContext.Provider>
+                      <PersonIcon className="text-[25px] text-[#888] w-[20%]"  />
                       <input type="text"
                         name="name"
                         placeholder="Ingresa tu nombre"
@@ -112,11 +107,7 @@ const ContactUs = () => {
                   </div>
                   <div className="mb-6">
                     <div className="border-[1px] border-solid border-[#e6e6e6] rounded-sm flex items-center">
-                      <IconContext.Provider
-                        value={{ className: "text-[25px] text-[#888] w-[20%] " }}
-                      >
-                        < HiMail />
-                      </IconContext.Provider>
+                      <EmailIcon className="text-[25px] text-[#888] w-[20%]" />
                       <input
                         type="text"
                         name="email"
@@ -131,11 +122,7 @@ const ContactUs = () => {
                   </div>
                   <div className="mb-6">
                     <div className="border-[1px] border-solid border-[#e6e6e6] rounded-sm flex items-center">
-                      <IconContext.Provider
-                        value={{ className: "text-[25px] text-[#888] w-[20%] " }}
-                      >
-                        <BsTelephoneFill />
-                      </IconContext.Provider>
+                      <LocalPhoneIcon className="text-[25px] text-[#888] w-[20%]"/>
                       <input
                         type="text"
                         name="phone"
@@ -171,19 +158,19 @@ const ContactUs = () => {
               <div className="border-solid border-[2px] border-[#e6e6e6] w-full lg:w-1/2 xl:w-1/2 p-16 flex justify-center flex-wrap items-center">
 
                 <ContactInfo
-                  icon={<GoLocation />}
+                  icon={<LocationOnIcon />}
                   title="Dirección"
                   text="Dr. Andrés Benavides 304, Residencial Colón y Col Ciprés, 50120 Toluca de Lerdo, Méx."
                 />
 
                 <ContactInfo
-                  icon={<BsTelephone />}
+                  icon={<LocalPhoneIcon />}
                   title="Hablemos"
                   text="+52 (729 322 2418)"
                 />
 
                 <ContactInfo
-                  icon={<MdOutlineMailOutline />}
+                  icon={<EmailIcon />}
                   title="Soporte de Venta"
                   text="info@wapizima.com.mx"
                 />

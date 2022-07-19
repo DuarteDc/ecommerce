@@ -12,10 +12,10 @@ import { startLoginGoogle } from "../../actions/authActions";
 import LoadingScreen from "../LoadingScreen";
 
 import { GoogleLogin } from 'react-google-login';
-import { IconContext } from "react-icons";
-import { MdError } from "react-icons/md";
 import { TextField } from "@mui/material";
 import helpers from "../../helpers/helpers";
+import ErrorIcon from '@mui/icons-material/Error';
+
 
 export const FormSignIn = () => {
 
@@ -60,7 +60,8 @@ export const FormSignIn = () => {
     });
 
     const responseGoogle = async ({ tokenId }) => {
-        setLoading(true)
+
+        setLoading(true);
         const { hasError, message } = await dispatch(startLoginGoogle(tokenId));
 
         if (hasError) {
@@ -115,11 +116,9 @@ export const FormSignIn = () => {
                     error &&
                     (
                         <span className="flex items-center mt-1">
-                            <IconContext.Provider
-                                value={{ className: "text-red-600 mr-1" }}
-                            >
-                                <MdError />
-                            </IconContext.Provider>
+                            <ErrorIcon 
+                                className = "text-red-600 mr-1"
+                            />
                             <p className="text-red-600 text-sm">Correo electrónico o contraseña incorrectos, intenta de nuevo.</p>
                         </span>
                     )

@@ -1,8 +1,6 @@
 import { useSelector } from "react-redux";
 import { startLoadAdministrableLogo } from "../../../src/actions/administrableActions";
 import { wrapper } from "../../../src/store";
-import { MdOutlineMailOutline } from "react-icons/md";
-import { IconContext } from "react-icons";
 import { forgotPassword } from "../../../src/actions/authActions";
 import { useFormik } from "formik";
 import * as Yup from 'yup';
@@ -11,9 +9,12 @@ import { errorNotify, successNotify } from "../../../src/helpers/helpers";
 import Link from "next/link";
 import { useRouter } from "next/router";
 
-import { MdError } from "react-icons/md";
 import Layout from "../../../src/components/Layouts";
 import { startLoadFaqsCategories } from "../../../src/actions/faqsActions";
+
+import MarkEmailReadIcon from '@mui/icons-material/MarkEmailRead';
+
+import ErrorIcon from '@mui/icons-material/Error';
 
 const ForgotPassword = () => {
 
@@ -74,11 +75,9 @@ const ForgotPassword = () => {
                 <p className="text-lg my-1 font-light">Ingresa la dirección de correo electrónico que utilizaste para crear tu cuenta y nosotros te enviaremos un enlace para que restablezcas tu contraseña.</p>
               </div>
               <div className="border-[1px] border-solid border-[#e6e6e6] rounded-sm flex items-center">
-                <IconContext.Provider
-                  value={{ className: "text-[25px] text-[#888] w-[20%]" }}
-                >
-                  <MdOutlineMailOutline />
-                </IconContext.Provider>
+                <MarkEmailReadIcon 
+                  className="text-[25px] text-[#888] w-[20%]"
+                />
                 <input
                   type="text"
                   name="email"
@@ -90,11 +89,9 @@ const ForgotPassword = () => {
               </div>
               {formik.touched.email && formik.errors.email ? (
                 <span className="flex items-center">
-                  <IconContext.Provider
-                    value={{ className: "text-red-600  mr-1" }}
-                  >
-                    <MdError />
-                  </IconContext.Provider>
+                  <ErrorIcon 
+                    className = "text-red-600  mr-1"
+                  />
                   <p className="text-red-600 text-sm">{formik.errors.email}</p>
                 </span>
               ) : null}
@@ -102,11 +99,9 @@ const ForgotPassword = () => {
                 error &&
                 (
                   <span className="flex items-center mt-1">
-                    <IconContext.Provider
-                      value={{ className: "text-red-600 mr-1" }}
-                    >
-                      <MdError />
-                    </IconContext.Provider>
+                  <ErrorIcon 
+                    className = "text-red-600  mr-1"
+                  />
                     <p className="text-red-600 text-sm">{messageError}</p>
                   </span>
                 )
@@ -136,7 +131,7 @@ export const getStaticProps = wrapper.getStaticProps((store) => async () => {
   await store.dispatch(startLoadAdministrableLogo());
   await store.dispatch(startLoadFaqsCategories());
   return {
-    revalidate: 480
+    revalidate: 3600
   }
 });
 

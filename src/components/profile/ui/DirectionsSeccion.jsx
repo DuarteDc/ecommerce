@@ -5,9 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { errorNotify, infoNotify, successNotify } from '../../../helpers/helpers';
 import { useModal } from '../../../hooks/useModal';
 import FormAddress from '../FormAddress';
-import { AiOutlinePlus } from 'react-icons/ai';
-import { IconContext } from "react-icons";
-
+import AddIcon from '@mui/icons-material/Add';
 
 const DirectionsSeccion = ({ directions }) => {
 
@@ -63,11 +61,9 @@ const DirectionsSeccion = ({ directions }) => {
                             onClick={() => { setShowForm(true); dispatch(clearDirection()); setIsEditing(false) }}
                         >
                             <div>
-                                <IconContext.Provider
-                                    value={{ className: "text-[#888] text-5xl" }}
-                                >
-                                    <AiOutlinePlus />
-                                </IconContext.Provider>
+                                <AddIcon 
+                                    className = "text-[#888] text-5xl"
+                                />
                             </div>
                             <div>
                                 <h2 className="text-xl font-semibold font-Poppins">Agregar Dirección</h2>

@@ -2,11 +2,12 @@ import Image from "next/image";
 
 import { Slide } from "react-slideshow-image";
 
-import { IconContext } from "react-icons";
-import { IoIosArrowForward, IoIosArrowBack } from "react-icons/io";
 
 import "react-slideshow-image/dist/styles.css";
 import styles from "./ProductSlideshow.module.css";
+
+import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
+import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 
 const properties = {
   duration: 3000,
@@ -15,24 +16,12 @@ const properties = {
   slidesToScroll: 1,
   prevArrow: (
     <div style={{ width: "30px", marginRight: "-30px" }}>
-      <IconContext.Provider
-        value={{
-          className: "text-[#333] text-4xl cursor-pointer hover:text-slate-500",
-        }}
-      >
-        <IoIosArrowBack />
-      </IconContext.Provider>
+      <ArrowBackIosIcon className = "text-[#333] text-4xl cursor-pointer hover:text-slate-500"/>
     </div>
   ),
   nextArrow: (
     <div style={{ width: "30px", marginLeft: "-30px" }}>
-      <IconContext.Provider
-        value={{
-          className: "text-[#333] text-4xl cursor-pointer hover:text-slate-500",
-        }}
-      >
-        <IoIosArrowForward />
-      </IconContext.Provider>
+      <ArrowForwardIosIcon className = "text-[#333] text-4xl cursor-pointer hover:text-slate-500" />
     </div>
   ),
 };

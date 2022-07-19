@@ -1,8 +1,6 @@
 import { useSelector } from "react-redux";
 import { startLoadAdministrableLogo } from "../../../src/actions/administrableActions";
 import { wrapper } from "../../../src/store";
-import { MdOutlineMailOutline, MdOutlinePassword } from "react-icons/md";
-import { IconContext } from "react-icons";
 import { useFormik } from "formik";
 import * as Yup from 'yup';
 import { useEffect, useState } from "react";
@@ -10,16 +8,18 @@ import { successNotify } from "../../../src/helpers/helpers";
 import Link from "next/link";
 import { useRouter } from "next/router";
 
-import { MdError } from "react-icons/md";
-
+import ErrorIcon from '@mui/icons-material/Error';
 import Layout from "../../../src/components/Layouts";
 import { startLoadFaqsCategories } from "../../../src/actions/faqsActions";
 import { resetPassword } from "../../../src/actions/authActions";
 
+import PasswordIcon from '@mui/icons-material/Password';
 
 const ResetPassword = () => {
 
-  const { categories } = useSelector(state => state.faqs);
+  
+  const { logo } = useSelector((state) => state.administrable);
+  const { categories } = useSelector(state => state.faqs)
 
   const router = useRouter();
 
@@ -48,8 +48,8 @@ const ResetPassword = () => {
   }
 
   const validationSchema = {
-    password: Yup.string().required("El correo electronico es requerido"),
-    confirm_password: Yup.string().required("El correo electronico es requerido"),
+    password: Yup.string().required("La nueva contraseña es requerida"),
+    confirm_password: Yup.string().required("Confirma tu contraseña"),
   }
 
   const formik = useFormik({
@@ -66,13 +66,18 @@ const ResetPassword = () => {
         <div className="container mx-auto min-h-screen flex justify-center items-center">
           <div className="w-full md:w-8/12 lg:w-7/12 lg:p-20 border-2 border-gray-200 bg-white p-10">
             <form onSubmit={formik.handleSubmit}>
+              <div className="flex justify-center">  
+              <img
+                  src={logo}
+                  width={150}
+                  height={100}
+                />
+              </div>
               <h1 className="text-4xl font-bold mb-5 text-center uppercase">Restablecer la contraseña</h1>
-              <div className="border-[1px] border-solid border-[#e6e6e6] rounded-sm flex items-center my-10">
-                <IconContext.Provider
-                  value={{ className: "text-[25px] text-[#888] w-[20%]" }}
-                >
-                  <MdOutlinePassword />
-                </IconContext.Provider>
+              <div className="border-[1px] border-solid border-[#e6e6e6] rounded-sm flex items-center my-1">
+                <PasswordIcon 
+                  className = "text-[25px] text-[#888] w-[20%]"
+                />
                 <input
                   type="password"
                   name="password"
@@ -82,50 +87,42 @@ const ResetPassword = () => {
                   autoComplete="off"
                 />
               </div>
-              {formik.touched.email && formik.errors.email ? (
+              {formik.touched.password && formik.errors.password ? (
                 <span className="flex items-center">
-                  <IconContext.Provider
-                    value={{ className: "text-red-600  mr-1" }}
-                  >
-                    <MdError />
-                  </IconContext.Provider>
-                  <p className="text-red-600 text-sm">{formik.errors.email}</p>
+                  <ErrorIcon 
+                    className = "text-red-600  mr-1"
+                  />
+                  <p className="text-red-600 text-sm">{formik.errors.password}</p>
                 </span>
               ) : null}
               <div className="border-[1px] border-solid border-[#e6e6e6] rounded-sm flex items-center">
-                <IconContext.Provider
-                  value={{ className: "text-[25px] text-[#888] w-[20%]" }}
-                >
-                  <MdOutlinePassword />
-                </IconContext.Provider>
+              <PasswordIcon 
+                  className = "text-[25px] text-[#888] w-[20%]"
+                />
                 <input
                   type="password"
                   name="confirm_password"
                   placeholder="Confirmar contraseña"
                   className="w-full h-12 font-Poppins text-[13px] leading-[1.6] text-[#333] pr-[30px] pl-[5px] outline-0"
                   onChange={formik.handleChange}
-                  autoComplete="off"
+                    autoComplete="off"
                 />
               </div>
-              {formik.touched.email && formik.errors.email ? (
+              {formik.touched.confirm_password && formik.errors.confirm_password ? (
                 <span className="flex items-center">
-                  <IconContext.Provider
-                    value={{ className: "text-red-600  mr-1" }}
-                  >
-                    <MdError />
-                  </IconContext.Provider>
-                  <p className="text-red-600 text-sm">{formik.errors.email}</p>
+                  <ErrorIcon 
+                    className = "text-red-600  mr-1"
+                  />
+                  <p className="text-red-600 text-sm">{formik.errors.confirm_password}</p>
                 </span>
               ) : null}
               {
                 error &&
                 (
                   <span className="flex items-center mt-1">
-                    <IconContext.Provider
-                      value={{ className: "text-red-600 mr-1" }}
-                    >
-                      <MdError />
-                    </IconContext.Provider>
+                    <ErrorIcon 
+                    className = "text-red-600  mr-1"
+                  />
                     <p className="text-red-600 text-sm">{messageError}</p>
                   </span>
                 )

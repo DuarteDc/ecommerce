@@ -5,8 +5,7 @@ import { addShippingAddressSelected, removeAddressFromCart } from "../../actions
 
 import { Select, FormControl, MenuItem, InputLabel } from '@mui/material';
 
-import { AiOutlineCloseCircle } from "react-icons/ai";
-import { IconContext } from "react-icons";
+import HighlightOffIcon from '@mui/icons-material/HighlightOff';
 
 export const ShippingAddress = ({ handleOpenFormAddress }) => {
 
@@ -74,12 +73,8 @@ export const ShippingAddress = ({ handleOpenFormAddress }) => {
                         Agregar
                     </button>
                 ) : (
-                    <div onClick={handleRemoveAddress}>
-                        <IconContext.Provider
-                            value={{ className: "text-xl cursor-pointer ml-2 hover:text-red-600 " }}
-                        >
-                            <AiOutlineCloseCircle />
-                        </IconContext.Provider>
+                    <div onClick={handleRemoveAddress}>                        
+                        <HighlightOffIcon  className = "text-xl cursor-pointer ml-2 hover:text-red-600" />
                     </div>
                 )
                 }

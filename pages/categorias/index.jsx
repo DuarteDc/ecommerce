@@ -8,12 +8,11 @@ import Layout from '../../src/components/Layouts';
 import { CardProduct } from '../../src/components/ui';
 import { BannerImage } from '../../src/components/ui/bannerImage';
 import { wrapper } from '../../src/store';
-import { shoppingCartNotLoggedfromLocalStorage } from '../../src/actions/shoppingCartActions';
-import { useEffect } from 'react';
 import { startLoadFaqsCategories } from '../../src/actions/faqsActions';
 import { Breadcrumbs, Grid, Typography } from '@mui/material';
-import { GoHome } from "react-icons/go";
 import NavigateNextIcon from '@mui/icons-material/NavigateNext';
+
+import HomeIcon from '@mui/icons-material/Home';
 
 const Categories = () => {
     const history = useRouter();
@@ -54,7 +53,7 @@ const Categories = () => {
                         >
                             <Link href="/" passHref>
                                 <div className="flex items-center justify-between cursor-pointer">
-                                    <GoHome />
+                                    <HomeIcon />
                                     <span className="text-lg font-Poppins ml-3 ">Inicio</span>
                                 </div>
                             </Link>

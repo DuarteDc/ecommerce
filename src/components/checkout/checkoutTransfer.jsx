@@ -1,6 +1,4 @@
 import { useDispatch, useSelector } from "react-redux";
-import { BsPrinter } from "react-icons/bs";
-import { IconContext } from "react-icons";
 import { IconButton } from "@mui/material";
 import { useState } from "react";
 import Image from "next/image";

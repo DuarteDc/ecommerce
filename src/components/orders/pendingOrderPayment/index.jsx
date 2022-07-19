@@ -1,13 +1,10 @@
 import { useState } from "react";
-import { IconContext } from "react-icons";
-import { MdOutlineFileUpload, MdOutlineCancel } from "react-icons/md";
 import { helpers } from "../../../helpers";
 // Import Swiper React components
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Autoplay, Navigation, Pagination } from "swiper";
 import { OrderProductsList } from "./orderProductsList";
 import moment from "moment";
-import { AiFillCaretDown } from "react-icons/ai";
 import { useToggle } from "../../../hooks/useToggle";
 import { Modal } from "../../ui/modal";
 import { useDispatch, useSelector } from "react-redux";
@@ -22,7 +19,9 @@ import OrderStatus from "../OrderStatus";
 import OrderCancelStatus from "../OrderCancelStatus";
 
 import CircularProgress from '@mui/material/CircularProgress';
-
+import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
+import VerticalAlignCenterIcon from '@mui/icons-material/VerticalAlignCenter';
+import HighlightOffIcon from '@mui/icons-material/HighlightOff';
 
 export const PendingPaymentOrderIndex = ({ order, handleOpenProofOfPayment, status, loading, setLoading }) => {
 
@@ -191,7 +190,7 @@ export const PendingPaymentOrderIndex = ({ order, handleOpenProofOfPayment, stat
                 <span className="text-sm text-[#e91e63] cursor-pointer border-b-3 hover:border-solid hover:text-[#e91e63] hover:transition-all flex justify-center items-center" onClick={() => handleClickAddress()}
                 >
                   {order?.shippment_direction?.name}
-                  <AiFillCaretDown />
+                  <KeyboardArrowDownIcon />
                 </span>
               </div>
             </div>
@@ -280,9 +279,9 @@ export const PendingPaymentOrderIndex = ({ order, handleOpenProofOfPayment, stat
               <button className="bg-[#FFD814] font-Poppins text-[#333] py-[10px] px-[15px] uppercase text-sm mt-5 flex items-center justify-center w-full"
                 onClick={() => { handleOpenProofOfPayment(order._id, order.total, order.total_payments) }}
               >
-                <IconContext.Provider value={{ className: "color-[#fff] , text-[20px] , mr-[10px]" }}>
-                  <MdOutlineFileUpload />
-                </IconContext.Provider>
+                <VerticalAlignCenterIcon
+                  className = "color-[#fff] text-[20px]  mr-[10px]"
+                />
                 <span>Comprobante de pago</span>
               </button>
             }
@@ -292,9 +291,9 @@ export const PendingPaymentOrderIndex = ({ order, handleOpenProofOfPayment, stat
               <button className="bg-red-500  font-Poppins cursor-pointer text-white py-[10px] px-[15px] uppercase text-sm mt-5 flex items-center justify-center w-full"
                 onClick={() => { handleCancelOrder(order._id) }}
               >
-                <IconContext.Provider value={{ className: "color-[#fff] , text-[20px] , mr-[10px]" }}>
-                  <MdOutlineCancel />
-                </IconContext.Provider>
+                <HighlightOffIcon 
+                  className="color-[#fff] text-[20px] mr-[10px]"
+                />
                 <span>Cancelar pedido</span>
               </button>
             }

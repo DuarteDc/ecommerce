@@ -10,8 +10,7 @@ import Swal from "sweetalert2"
 import CouponDetails from "./CouponDetails"
 import { errorNotify } from "../../helpers/helpers"
 
-import { IconContext } from "react-icons";
-import { BsFillChatSquareTextFill } from 'react-icons/bs'
+import GavelIcon from '@mui/icons-material/Gavel';
 
 export const CartTotals = ({ handleOpenFormAddress, toggleBusinessRule }) => {
 
@@ -102,11 +101,10 @@ export const CartTotals = ({ handleOpenFormAddress, toggleBusinessRule }) => {
       <div 
         className="flex flex-row-reverse pr-5 mb-4" 
       >
-        <IconContext.Provider
-            value={{ className: "text-[19px] text-[#888] cursor-pointer hover:text-[#e91e63]" }}
-            >
-              <BsFillChatSquareTextFill onClick={toggleBusinessRule} />
-        </IconContext.Provider>
+        <GavelIcon 
+          className="text-[19px] text-[#888] cursor-pointer hover:text-[#e91e63]"
+          onClick={toggleBusinessRule}
+        />
       </div>
       <div className="border-b-[1px] flex justify-start flex-wrap pb-[13px]">
         <SubtotalInfo

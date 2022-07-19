@@ -1,8 +1,5 @@
-
 import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-
-import Image from 'next/image'
 
 import { startLoadAdministrableLogo } from '../../src/actions/administrableActions'
 import { startLoadFaqsCategories } from '../../src/actions/faqsActions'
@@ -10,12 +7,12 @@ import Layout from '../../src/components/Layouts'
 import { BannerImage, ProductCard } from '../../src/components/ui'
 import { wrapper } from '../../src/store'
 import { useLocalStorage } from '../../src/hooks/useLocalStorage'
-import { searcProduct, startLoadProducts } from '../../src/actions/wishListActions'
+import { searcProduct, startLoadProducts } from '../../src/actions/wishListActions';
 import LoadingScreen from '../../src/components/LoadingScreen'
-import { IconContext } from "react-icons";
-import { BsSearch } from 'react-icons/bs'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
+
+import SearchIcon from '@mui/icons-material/Search';
 
 const Wishlist = () => {
 
@@ -75,7 +72,7 @@ const Wishlist = () => {
             {loading && <LoadingScreen />}
             <section className="container mx-auto py-32 min-h-screen px-5 lg:px-0 font-Poppins">
                 {
-                    allProducts.length > 0 && (
+                    allProducts?.length > 0 && (
                         <div className="flex flex-row-reverse mb-10">
                             <div className="border-[1px] border-solid border-[#e6e6e6] rounded-sm flex items-center mb-6 w-full md:w-5/12">
                                 <input
@@ -85,11 +82,7 @@ const Wishlist = () => {
                                     className="w-full h-12 font-Poppins text-[13px] leading-[1.6] text-[#333] pr-[30px] pl-[15px] outline-0"
                                     onChange={() => handleSeachProduct(event.target.value)}
                                 />
-                                <IconContext.Provider
-                                    value={{ className: "text-[25px] text-[#888] w-[20%] " }}
-                                >
-                                    <BsSearch />
-                                </IconContext.Provider>
+                                <SearchIcon className = "text-[25px] text-[#888] w-[20%]"/>
                             </div>
                         </div>
                     )
@@ -120,10 +113,13 @@ const Wishlist = () => {
 }
 
 
-export const getServerSideProps = wrapper.getServerSideProps((store) =>
+export const getStaticProps = wrapper.getStaticProps((store) =>
     async () => {
         await store.dispatch(startLoadAdministrableLogo());
         await store.dispatch(startLoadFaqsCategories());
+        return {
+            revalidate: 3600
+        }
     })
 
 export default Wishlist

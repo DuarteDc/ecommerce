@@ -14,7 +14,7 @@ import { shoppingCartNotLoggedfromLocalStorage } from "../../src/actions/shoppin
 import { CardProduct, BannerImage } from "../../src/components/ui";
 import { Newsletter } from "../../src/components/home";
 import { Breadcrumbs, Grid, Typography } from "@mui/material";
-import { GoHome } from "react-icons/go";
+import HomeIcon from '@mui/icons-material/Home';
 import NavigateNextIcon from '@mui/icons-material/NavigateNext';
 
 const Brands = () => {
@@ -56,7 +56,7 @@ const Brands = () => {
             >
               <Link href="/" passHref>
                 <div className="flex items-center justify-between cursor-pointer">
-                  <GoHome />
+                  <HomeIcon />
                   <span className="text-lg font-Poppins ml-3 ">Inicio</span>
                 </div>
               </Link>

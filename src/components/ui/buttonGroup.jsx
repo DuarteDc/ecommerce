@@ -1,5 +1,5 @@
-import { IconContext } from "react-icons"
-import { HiMinusCircle, HiPlusCircle } from "react-icons/hi";
+import RemoveIcon from '@mui/icons-material/Remove';
+import AddIcon from '@mui/icons-material/Add';
 
 export const ButtonGroup = ({ quantity = 1, increaseDecreaseQuantityProduct, handleChangeQuantity }) => {
 
@@ -16,9 +16,7 @@ export const ButtonGroup = ({ quantity = 1, increaseDecreaseQuantityProduct, han
             <button className="left-0 absolute top-0 bg-transparent cursor-pointer text-[#d0d0d0] w-[40px] h-full leading-[48px] transition-all flex justify-center items-center"
                 onClick={() => increaseDecreaseQuantityProduct(-1)}
             >
-                <IconContext.Provider value={{ className: 'text-[25px]' }}>
-                    <HiMinusCircle />
-                </IconContext.Provider>
+                <RemoveIcon className="text-[25px]"/>
             </button>
             <input
                 type="number"
@@ -31,9 +29,7 @@ export const ButtonGroup = ({ quantity = 1, increaseDecreaseQuantityProduct, han
             <button className="right-0 absolute top-0 bg-transparent cursor-pointer text-[#d0d0d0] w-[40px] h-full leading-[48px] transition-all flex justify-center items-center"
                 onClick={() => increaseDecreaseQuantityProduct(+1)}
             >
-                <IconContext.Provider value={{ className: 'text-[25px]' }}>
-                    <HiPlusCircle />
-                </IconContext.Provider>
+                <AddIcon className="text-[25px]" />
             </button>
         </div>
     )

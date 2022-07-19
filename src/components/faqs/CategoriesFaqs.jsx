@@ -1,8 +1,7 @@
-import { BiCategoryAlt } from "react-icons/bi"
-import { IconContext } from "react-icons";
 import Collapse from '@mui/material/Collapse';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import ExpandLessIcon from '@mui/icons-material/ExpandLess';
+import CategoryIcon from '@mui/icons-material/Category';
 import { useState } from "react";
 
 const CategoriesFaqs = ({ categories, faqActive, getFaqsPerCategoryId }) => {
@@ -27,11 +26,8 @@ const CategoriesFaqs = ({ categories, faqActive, getFaqsPerCategoryId }) => {
                                 className="flex items-center cursor-pointer"
                                 onClick={() => getFaqsPerCategoryId(category._id)}
                             >
-                                <IconContext.Provider
-                                    value={{ className: `text-[25px] text-[#888] ${category._id === faqActive ? "font-semibold text-black" : "text-gray-400"}` }}
-                                >
-                                    <BiCategoryAlt />
-                                </IconContext.Provider>
+                                <CategoryIcon  className ={`text-[25px] text-[#888] ${category._id === faqActive ? "font-semibold text-black" : "text-gray-400"}`}
+                                />
                                 <a
                                     className={`text-lg my-3 lg:my-4 px-2 ${category._id === faqActive ? "font-semibold text-black" : "text-gray-400 hover:text-[#222]"}`}>
                                     {category.name}
