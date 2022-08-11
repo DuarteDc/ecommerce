@@ -15,7 +15,7 @@ import { startLoadAdministrableLogo } from "../../src/actions/administrableActio
 import { BannerImage } from "../../src/components/ui/bannerImage";
 import { ProductCard } from "../../src/components/ui";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import PaginationItem from "@mui/material/PaginationItem";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
@@ -31,14 +31,18 @@ import RangePrice from "../../src/components/prices/RangePrice";
 import { startFilterProducts, startSearchProduct } from "../../src/actions/productsAction";
 
 import SearchIcon from '@mui/icons-material/Search';
+import { useDebounce } from "../../src/hooks/useDebounce";
 
 const endpoint = "/products/filter/products-paginated";
 
 const Products = () => {
-  const dispatch = useDispatch();
+
+  const [query, setQuery] = useState('');
   const router = useRouter();
 
-  const { startSearchByQueryParams, starClearQueryParams, paramsFilters } = useQueryParams(endpoint, { router });
+  const dispatch = useDispatch();
+  const { startSearchByQueryParams, starClearQueryParams, paramsFilters, loading } = useQueryParams(endpoint, { router });
+  const search = useDebounce(query, 420);
 
   const { products, searchedProducts } = useSelector((state) => state.products);
 
@@ -47,8 +51,12 @@ const Products = () => {
   const { categories } = useSelector((state) => state?.categories);
   const { categories: CategoriesFaqs } = useSelector((state) => state?.faqs);
 
-  const [loading, setLoading] = useState(false);
-  const [query, setQuery] = useState('');
+
+  useEffect(() => {
+    if (query) {
+      dispatch(startSearchProduct(query));
+    }
+  }, [search]);
 
   const handelClickPage = async (e, value) => {
     await startSearchByQueryParams({ page: value });
@@ -60,7 +68,6 @@ const Products = () => {
 
   const handleSearch = async (querySearch) => {
     if (!querySearch) return setQuery('');
-    dispatch(startSearchProduct(querySearch));
     setQuery(querySearch);
   }
 
@@ -83,61 +90,59 @@ const Products = () => {
       {loading && <LoadingScreen />}
       <section className="container mx-auto grid grid-cols-1 md:grid-cols-3 mt-20 lg:grid-cols-4">
         <AsideBar>
-        {
-          !query && (
-            <>
-              <Filters 
-                starClearQueryParams={starClearQueryParams}
-                endpoint={endpoint} 
-              />
-              <RangePrice 
-                startSearchByQueryParams={startSearchByQueryParams} 
-                paramsFilters={paramsFilters}
-              />
-              <BrandsList
-                brands={brands}
-                setLoading={setLoading}
-                startSearchByQueryParams={startSearchByQueryParams}
-                paramsFilters={paramsFilters}
-              />
-              <CategoriesList
-                categories={categories}
-                setLoading={setLoading}
-                startSearchByQueryParams={startSearchByQueryParams}
-                paramsFilters={paramsFilters}
-              />
-            </>
+          {
+            !query && (
+              <>
+                <Filters
+                  starClearQueryParams={starClearQueryParams}
+                  endpoint={endpoint}
+                />
+                <RangePrice
+                  startSearchByQueryParams={startSearchByQueryParams}
+                  paramsFilters={paramsFilters}
+                />
+                <BrandsList
+                  brands={brands}
+                  startSearchByQueryParams={startSearchByQueryParams}
+                  paramsFilters={paramsFilters}
+                />
+                <CategoriesList
+                  categories={categories}
+                  startSearchByQueryParams={startSearchByQueryParams}
+                  paramsFilters={paramsFilters}
+                />
+              </>
             )
           }
-          </AsideBar>
+        </AsideBar>
         <div className="col-span-4 md:col-span-2 lg:col-span-3">
-        <div className="flex flex-row-reverse px-3 md:px-0">
-          <div className="border-[1px] border-solid border-[#e6e6e6] rounded-sm flex items-center mb-6 w-full md:w-6/12">
-            <input
+          <div className="flex flex-row-reverse px-3 md:px-">
+            <div className="border-[1px] border-solid border-[#e6e6e6] rounded-sm flex items-center mb-6 w-full md:w-6/12">
+              <input
                 type="text"
                 name="email"
                 placeholder="Buscar"
-                className="w-full h-12 font-Poppins text-[13px] leading-[1.6] text-[#333] pr-[30px] pl-[15px] outline-0"
-                onChange={()=>handleSearch(event.target.value)}
-            />
-            <SearchIcon className="text-[25px] text-[#888] w-[20%]"/>
+                className="w-full h-12 font-Poppins text-[13px] leading-[1.6] text-[#333] pl-[30px] outline-0"
+                onChange={() => handleSearch(event.target.value)}
+              />
+              <SearchIcon className="text-[25px] text-[#888] w-[20%]" />
+            </div>
           </div>
-        </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 mb-20 mt-10">
             {
               (searchedProducts?.length > 0 && query) ? (
-                (searchedProducts?.length > 0 && query) ? (                
+                (searchedProducts?.length > 0 && query) ? (
                   searchedProducts?.map((product) => (
                     <ProductCard key={product?._id} product={product} />
                   ))
-              ):(
-                <div className="text-center col-span-full">
-                  <h4 className="text-2xl uppercase font-semibold mt-20 mb-10">
-                    No hay resultados para tu busqueda
-                  </h4>
-                </div>
-              )):(
-                (products?.totalDocs > 0)? (
+                ) : (
+                  <div className="text-center col-span-full">
+                    <h4 className="text-2xl uppercase font-semibold mt-20 mb-10">
+                      No hay resultados para tu busqueda
+                    </h4>
+                  </div>
+                )) : (
+                (products?.totalDocs > 0) ? (
                   products?.products?.map((product) => (
                     <ProductCard key={product._id} product={product} />
                   ))

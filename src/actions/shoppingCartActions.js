@@ -276,7 +276,6 @@ export const startFinaliceSaleCheckout = (data) => {
       } catch (error) {
          if(axios.isAxiosError(error)){
             errorNotify(`${error?.response?.data?.message}. ${error?.response?.data?.product?.name} Disponibles: ${error?.response?.data?.actual_stock}`);
-            // errorNotify(error?.response?.data?.product?.name);
             return;
          }
          errorNotify("Parece que hubo un error - Intenta más tarde");

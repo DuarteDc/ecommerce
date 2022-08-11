@@ -2,38 +2,56 @@ import { types } from "../types";
 
 const initialState = {
     logo: '',
-    top_text:'',
-    facebook:'',
-    instagram:'',
-    tiktok:'',
-    aboutUs:{},
-    mission:{},
-    acceptCookiesPoliticy:false
+    top_text: '',
+    facebook: '',
+    instagram: '',
+    tiktok: '',
+    aboutUs: {},
+    mission: {},
+    countryPermissions: [],
+    country: {},
+    acceptCookiesPoliticy: false
 }
 
 
 export const administrableReducer = (state = initialState, { type, payload }) => {
     switch (type) {
+
         case types.loadAdministrableLogo:
-            return{
+            return {
                 ...state,
-                logo:payload.logo,
-                top_text:payload.top_text,
-                facebook:payload.facebook,
-                instagram:payload.instagram,
-                tiktok:payload.tiktok
+                logo: payload.logo,
+                top_text: payload.top_text,
+                facebook: payload.facebook,
+                instagram: payload.instagram,
+                tiktok: payload.tiktok
             }
+
         case types.loadAdministrableAbout:
-            return{
+            return {
                 ...state,
                 aboutUs: payload.about.aboutThat,
                 mission: payload.about.mission
             }
+
         case types.accept_cookies_politicy:
-            return{
+            return {
                 ...state,
-                acceptCookiesPoliticy:true
+                acceptCookiesPoliticy: true
             }
+
+        case types.load_country_permissions:
+            return {
+                ...state,
+                countryPermissions: payload,
+            }
+
+        case types.load_one_country_permissions:
+            return {
+                ...state,
+                country: payload,
+            }
+
         default:
             return state;
     }

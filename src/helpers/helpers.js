@@ -1,4 +1,5 @@
 import { toast } from 'react-toastify';
+import Swal from "sweetalert2"
 
 const priceFormat = (number) => {
   const price = new Intl.NumberFormat("es-MX", {
@@ -51,7 +52,7 @@ const existInShoppingCart = (_id, ShoppingCart) => {
   if (existProduct) {
     return true;
   } else {
-    return  false;
+    return false;
   }
 
 }
@@ -146,13 +147,38 @@ const getLastRoute = (destination = '') => {
   const reverse = destination.split("").reverse().join("");
   const index = reverse.search('=p');
   const newRoute = reverse.substring(0, index).split("").reverse().join("");
-  
-  if(newRoute.includes('auth')) {
+
+  if (newRoute.includes('auth')) {
     return '/'
   }
 
   return newRoute;
 
+}
+
+const getPDFName = (name = '') => {
+
+  const nameReverse = name.split("").reverse().join("");
+  const indexName = nameReverse.search('/');
+  const newName = nameReverse.substring(0, indexName).split("").reverse().join("");
+  return newName;
+
+}
+
+const textToRSSFeed = (str) => {
+  return str.split(' ').map(item =>
+    item.charAt(0).toUpperCase() + item.slice(1).toLowerCase()).join(' ');
+}
+
+const SweetAlert = (icon = 'success', title = '', html = '') => {
+  Swal.fire({
+    icon,
+    title,
+    html,
+    timer: 3000,
+    timerProgressBar: true,
+    showConfirmButton: false,
+  });
 }
 
 
@@ -169,4 +195,7 @@ export default {
   applyCoupon,
   prepareProductsToFussion,
   getLastRoute,
+  getPDFName,
+  SweetAlert,
+  textToRSSFeed,
 }

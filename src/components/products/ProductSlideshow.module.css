@@ -3,7 +3,7 @@
     justify-content: center;
     background-size: contain;
     background-position: center;
-    height: 310px;
+    height: auto;
 }
 
 .each-slide-card>div {

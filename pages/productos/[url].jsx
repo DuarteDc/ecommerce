@@ -33,6 +33,7 @@ import ProductSliderShow from "../../src/components/products/ProductSliderShow";
 import { infoNotify } from "../../src/helpers/helpers";
 
 const Show = () => {
+
   const router = useRouter();
   const dispatch = useDispatch();
   const { product, relatedProducts } = useSelector((state) => state.products);
@@ -112,15 +113,10 @@ const Show = () => {
   };
 
   const handleChangeQuantity = ({ target }) => {
-    if (target.value.length < 1) {
-      setQuantityInput(1);
-      return;
-    }
+    if (target.value.length < 1) return setQuantityInput(1);
 
-    if (target.value > product.quantity) {
-      setQuantityInput(product.quantity);
-      return;
-    }
+    if (target.value > product.quantity) return setQuantityInput(product.quantity);
+
     const quantity = target.value.replace(/^0+/, "");
     setQuantityInput(quantity);
   };
@@ -159,14 +155,11 @@ const Show = () => {
   return (
     <Layout
       title={`Wapizima - ${product?.name}`}
-      keywords={`Wapizima, ${product?.category?.name}, ${
-        product?.brand?.name
-      }. ${
-        product?.subcategory?.name
-      }, ${product?.name.toLowerCase()}, ${product?.description?.toLowerCase()}, ${
-        product?.tags.length > 0 &&
+      keywords={`Wapizima, ${product?.category?.name}, ${product?.brand?.name
+        }. ${product?.subcategory?.name
+        }, ${product?.name.toLowerCase()}, ${product?.description?.toLowerCase()}, ${product?.tags.length > 0 &&
         product?.tags.map((tags) => tags?.tag_id?.name)
-      }`}
+        }`}
       description={product?.description}
       ogTitle={`Wapizima - ${product?.name}`}
       ogType="Product"
@@ -233,11 +226,10 @@ const Show = () => {
                     </p>
                   )}
                   <p
-                    className={`mr-12 ${
-                      product?.discount > 0
-                        ? "line-through text-[#333] text-[18px] font-thin"
-                        : "text-[18px] text-[#333]"
-                    }`}
+                    className={`mr-12 ${product?.discount > 0
+                      ? "line-through text-[#333] text-[18px] font-thin"
+                      : "text-[18px] text-[#333]"
+                      }`}
                   >
                     {price}
                   </p>
@@ -250,8 +242,7 @@ const Show = () => {
                 <div className="flex items-center">
                   <h3 className="text-[#666] text-[16px]">Marca:</h3>
                   <p
-                    className="text-[#333] font-medium ml-2 
-                                    cursor-pointer hover:text-gray-700 duration-500"
+                    className="text-[#333] font-medium ml-2 cursor-pointer hover:text-gray-700 duration-500"
                   >
                     {product?.brand?.name}
                   </p>
@@ -259,8 +250,7 @@ const Show = () => {
                 <div className="flex items-center">
                   <h3 className="text-[#666] text-[16px]">Categoría:</h3>
                   <p
-                    className="text-[#333] font-medium ml-2  
-                                    cursor-pointer hover:text-gray-700 duration-500"
+                    className="text-[#333] font-medium ml-2 cursor-pointer hover:text-gray-700 duration-500"
                   >
                     {product?.category?.name}
                   </p>
@@ -268,8 +258,7 @@ const Show = () => {
                 <div className="flex items-center">
                   <h3 className="text-[#666] text-[16px]">Subcategoría:</h3>
                   <p
-                    className="text-[#333] font-medium ml-2 
-                                    cursor-pointer hover:text-gray-700 duration-500"
+                    className="text-[#333] font-medium ml-2 cursor-pointer hover:text-gray-700 duration-500"
                   >
                     {product?.subcategory?.name}
                   </p>
@@ -284,9 +273,7 @@ const Show = () => {
                           className="bg-[#333] rounded-3xl px-4 py-1 mr-2 cursor-pointer "
                         >
                           <span
-                            className="text-secondary font-medium text-xs 
-                                                        duration-500 flex items-center justify-center text-center
-                                                        "
+                            className="text-secondary font-medium text-xs duration-500 flex items-center justify-center text-center"
                           >
                             {tag?.tag_id?.name}
                           </span>
@@ -296,45 +283,25 @@ const Show = () => {
                   </div>
                 )}
               </div>
-              <div className="mt-12 lg:mt-20">
-                <div className="flex items-center">
-                  <ButtonGroup
-                    quantity={quantityInput}
-                    increaseDecreaseQuantityProduct={
-                      increaseDecreaseQuantityProduct
-                    }
-                    handleChangeQuantity={handleChangeQuantity}
-                  />
-
-                  {/* {
-                                        isEnable ?
-                                            <button
-                                                className="bg-[#dc3545] text-secondary  h-[45px] top-[-2px] relative cursor-pointer py-[11px] px-[25px] rounded-none uppercase font-normal text-xs ml-2 md:ml-5 md:text-[14px]
-                                                transition-all duration-700 ease-in-out"
-                                                onClick={() => handleClickButtonAdd()}
-                                            >
-                                                Ya agregado al carrito
-                                            </button>
-                                            :
-
-                                            <button
-                                                className="h-[45px] top-[-2px] relative cursor-pointer border-[1px] border-solid border-[#333] py-[11px] px-[25px] rounded-none uppercase font-normal
-                                            hover:bg-[#333] hover:text-secondary transition-all duration-700 ease-in-out text-xs ml-2 md:ml-5 md:text-[14px]"
-                                                onClick={() => addProductCard(product)}>
-                                                <ShoppingCartIcon />
-                                                Añadir a carrito
-                                            </button>
-
-                                    } */}
-                  <button
-                    className="h-[45px] top-[-2px] relative cursor-pointer border-[1px] border-solid border-[#333] flex items-center px-[25px] rounded-none uppercase
-                                            hover:bg-[#333] hover:text-secondary transition-all duration-700 ease-in-out text-xs ml-2 md:ml-5 md:text-[14px] md:text-xs"
-                    onClick={() => addProductCard(product)}
-                  >
-                    <ShoppingCartIcon />
-                    Añadir a carrito
-                  </button>
-                </div>
+              <div className="mt-12 lg:mt-10">
+                {
+                  product?.product_type === '1' && (
+                    <div className="flex items-center">
+                      <ButtonGroup
+                        quantity={quantityInput}
+                        increaseDecreaseQuantityProduct={increaseDecreaseQuantityProduct}
+                        handleChangeQuantity={handleChangeQuantity}
+                      />
+                      <button
+                        className="h-[45px] top-[-2px] relative cursor-pointer border-[1px] border-solid border-[#333] flex items-center px-[25px] rounded-none uppercase hover:bg-[#333] hover:text-secondary transition-all duration-700 ease-in-out text-xs ml-2 md:ml-5 md:text-[14px] md:text-xs"
+                        onClick={() => addProductCard(product)}
+                      >
+                        <ShoppingCartIcon />
+                        Añadir a carrito
+                      </button>
+                    </div>
+                  )
+                }
                 <button
                   className="bg-[#333] border-2 text-white mt-16 py-4 w-full font-bold
                             transition-all duration-700 ease-in-out

@@ -1,5 +1,5 @@
 
-const SubcategoryItem = ({ subcategory, startSearchByQueryParams, paramsFilters }) => {
+const SubcategoryItem = ({ subcategory, startSearchByQueryParams, paramsFilters, setLoading }) => {
 
 
   const handleFilterProducts = async (subcategory) =>{

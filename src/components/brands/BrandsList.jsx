@@ -1,4 +1,4 @@
-import { useLayoutEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import Collapse from '@mui/material/Collapse';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
@@ -8,11 +8,11 @@ import BrandItem from './BrandItem';
 
 import styles from '../styles.module.css'
 
-const BrandsList = ({ brands, setLoading, category, startSearchByQueryParams, paramsFilters }) => {
+const BrandsList = ({ brands, category, startSearchByQueryParams, paramsFilters }) => {
 
     const [open, setOpen] = useState(true);
 
-    useLayoutEffect(() => {
+    useEffect(() => {
         if(screen.width < 767) {
           setOpen(false);
         }
@@ -36,8 +36,7 @@ const BrandsList = ({ brands, setLoading, category, startSearchByQueryParams, pa
                         >
                             <BrandItem
                                 brand={brand} 
-                                setOpen={setOpen}
-                                setLoading={setLoading}
+                                setOpen={setOpen}                                                                
                                 category={category}
                                 startSearchByQueryParams={startSearchByQueryParams}
                                 paramsFilters={paramsFilters}

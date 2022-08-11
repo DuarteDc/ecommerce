@@ -81,7 +81,7 @@ export const UploadProofOfPayment = ({ handleOpenProofOfPayment, setLoading }) =
             confirmButtonColor: '#3085d6',
             cancelButtonColor: '#d33',
             confirmButtonText: 'Si, enviar!'
-        }).then(async(result) => {
+        }).then(async (result) => {
             if (result.isConfirmed) {
                 setLoading(true);
                 const formData = new FormData();
@@ -228,15 +228,20 @@ export const UploadProofOfPayment = ({ handleOpenProofOfPayment, setLoading }) =
                 <Grid container spacing={2}>
                     <Grid item xs={12} sm={12} md={12} lg={12} xl={12}>
                         <label className="font-Poppins text-sm text-[#888] leading-10">Agrega Monto del ticket:</label>
-                        <input
-                            name="amount"
-                            className="w-full h-12 font-Poppins text-[13px] leading-[1.6] text-[#333] pr-[30px] pl-[30px] outline-0 border-[1px] border-solid border-[#D5D9D9]"
-                            placeholder="Ej. 280"
-                            onChange={formik.handleChange}
-                        />
-                        {formik.touched.amount && formik.errors.amount ? (
-                            <span className="text-red-500">{formik.errors.amount}</span>
-                        ) : null}
+                        <div className="flex items-center outline-0 border-[1px] border-solid border-[#D5D9D9]">
+                            <span className="mx-4">
+                                $
+                            </span>
+                            <input
+                                name="amount"
+                                className="w-full h-12 font-Poppins text-[13px] leading-[1.6] text-[#333] pr-[30px] outline-0"
+                                placeholder="Ej. 280"
+                                onChange={formik.handleChange}
+                            />
+                            {formik.touched.amount && formik.errors.amount ? (
+                                <span className="text-red-500">{formik.errors.amount}</span>
+                            ) : null}
+                        </div>
                     </Grid>
                     <Grid item xs={12} sm={12} md={12} lg={12} xl={12}>
                         <label className="font-Poppins text-sm text-[#888] leading-10">Agrega Referencia del ticket:</label>

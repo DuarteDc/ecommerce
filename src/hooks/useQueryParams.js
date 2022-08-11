@@ -11,8 +11,9 @@ export const useQueryParams = (endpoint, { router }) => {
   const dispatch = useDispatch();
 
   const [queryParams, setQueryParams] = useState("");
+  const [loading, setLoading] = useState(false);
 
-  const paramsFilters = (filter) =>{
+  const paramsFilters = (filter) => {
     dispatch(addFiltersPerProducts(filter));
   }
 
@@ -33,12 +34,12 @@ export const useQueryParams = (endpoint, { router }) => {
   };
 
   const starClearQueryParams = async (endpoint) => {
-    if(router.query.hasOwnProperty('url')) {
+    if (router.query.hasOwnProperty('url')) {
       router.push({
         pathname: router.route,
         query: { url: router.query.url },
       }, undefined, { shallow: true })
-    }else{
+    } else {
       router.push(
         {
           pathname: router.path,
@@ -51,14 +52,19 @@ export const useQueryParams = (endpoint, { router }) => {
     await dispatch(clearAll());
   };
 
+  const searchData = async () => {
+    setLoading(true);
+    const queries = await getQueryParams(router.asPath);
+    await dispatch(startFilterProducts(endpoint, queries));
+    setQueryParams(queries);
+    setLoading(false)
+  }
+
   useEffect(() => {
     if (router.query) {
-      const queries = getQueryParams(router.asPath);
-      dispatch(startFilterProducts(endpoint, queries));
-      setQueryParams(queries);
-      return;
+      searchData();
     }
   }, [router.asPath]);
 
-  return { queryParams, startSearchByQueryParams, starClearQueryParams, paramsFilters };
+  return { queryParams, startSearchByQueryParams, starClearQueryParams, paramsFilters, loading };
 };

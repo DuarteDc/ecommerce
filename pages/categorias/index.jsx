@@ -74,8 +74,6 @@ const Categories = () => {
                                 hasName={true}
                                 titleButton="Ver más..."
                                 handleClickCard={handleClickCard}
-                                height={350}
-                                width={400}
                             />
                         )
                     ))}

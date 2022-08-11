@@ -1,4 +1,4 @@
-import { useState, useLayoutEffect } from 'react';
+import { useState, useEffect } from 'react';
 
 import Collapse from '@mui/material/Collapse';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
@@ -11,42 +11,42 @@ import styles from '../styles.module.css'
 
 const SubcategoriesList = ({ subcategories, startSearchByQueryParams, paramsFilters }) => {
 
-  const [open, setOpen] = useState(true);
+    const [open, setOpen] = useState(true);
 
-  useLayoutEffect(() => {
-    if(screen.width < 767) {
-      setOpen(false);
-    }
-  }, []);
-
-  return (
-    <div className="mb-5">
-    <div className="flex cursor-pointer justify-between"
-        onClick={() => setOpen(!open)}
-    >
-        <p className="text-lg font-bold uppercase">
-            Subcategorías
-        </p>
-        {open ? <ExpandLessIcon /> : <ExpandMoreIcon />}
-    </div>
-    <ul className={`relative max-h-72 overflow-y-auto ${styles.scrollbar}`}>
-        {
-            subcategories.map(subcategory => (
-                <Collapse in={open} timeout="auto" unmountOnExit
-                    key={subcategory._id}
-                >
-                    <SubcategoryItem
-                        subcategory={subcategory} 
-                        setOpen={setOpen}
-                        startSearchByQueryParams={startSearchByQueryParams}
-                        paramsFilters={paramsFilters}
-                    />
-                </Collapse>
-            ))
+    useEffect(() => {
+        if (screen.width < 767) {
+            setOpen(false);
         }
-    </ul>
-</div>
-  )
+    }, []);
+
+    return (
+        <div className="mb-5">
+            <div className="flex cursor-pointer justify-between"
+                onClick={() => setOpen(!open)}
+            >
+                <p className="text-lg font-bold uppercase">
+                    Subcategorías
+                </p>
+                {open ? <ExpandLessIcon /> : <ExpandMoreIcon />}
+            </div>
+            <ul className={`relative max-h-72 overflow-y-auto ${styles.scrollbar}`}>
+                {
+                    subcategories.map(subcategory => (
+                        <Collapse in={open} timeout="auto" unmountOnExit
+                            key={subcategory._id}
+                        >
+                            <SubcategoryItem
+                                subcategory={subcategory}
+                                setOpen={setOpen}
+                                startSearchByQueryParams={startSearchByQueryParams}
+                                paramsFilters={paramsFilters}
+                            />
+                        </Collapse>
+                    ))
+                }
+            </ul>
+        </div>
+    )
 }
 
 export default SubcategoriesList

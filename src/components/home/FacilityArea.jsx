@@ -13,19 +13,19 @@ export const FacilityArea = () => {
             <div className="px-5 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 ">
                 <FacilityBox
                   icon={<LocalAirportIcon className="text-4xl" />}
-                  title="Envíos Nacionales"
+                  title="Envíos nacionales"
                 />
                 <FacilityBox
                   icon={<AttachMoneyIcon className="text-4xl" />}
-                  title="Garantia de Devolución de Dinero"
+                  title="Descuentos en multiples productos"
                 />
                 <FacilityBox
                   icon={<PaymentIcon className="text-4xl" />}
-                  title="Muchas Formas de Pago"
+                  title="Muchas formas de pago"
                 />
                 <FacilityBox
                   icon={<QuestionMarkIcon className="text-4xl" />}
-                  title="Soporte en Linea 24/7"
+                  title="Soporte en línea 24/7"
                 />
             </div>
         </section>

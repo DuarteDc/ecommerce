@@ -3,7 +3,11 @@ const filterSearch = async ({ router, param }) => {
     const path = router.pathname;
     const query = router.query;
 
-    const queryParams = {...query, ...param};
+    if (query.hasOwnProperty('page') && Object.keys(param)[0] !== 'page') {
+        query.page = '1'
+    }
+
+    const queryParams = { ...query, ...param };
 
     await router.push({
         pathname: path,
@@ -20,21 +24,19 @@ const getQueryParams = (query) => {
     return query.slice(newQuery);
 }
 
-
-const countQueryParams = (query) => {
+const clearQueryParamsWithUrl = (query) =>{
 
     const asArray = Object.entries(query);
-    const filtered = asArray.filter(([key, value]) => key !== 'counter' && key !== 'lowPrice');
-    const params = Object.fromEntries(filtered);
+    const filtered = asArray.find(([key, value]) => key !== 'url' && key !== 'page');
 
-    const counter = Object.keys(params).length;
+    if(filtered) return true;
 
-    return counter;
+    return false;
 
 }
 
 export default {
     filterSearch,
     getQueryParams,
-    countQueryParams,
+    clearQueryParamsWithUrl,
 }

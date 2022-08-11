@@ -2,6 +2,8 @@ import client from "../config/axiosConfig";
 import { types } from "../types";
 import { helpersProducts } from "../helpers";
 
+import Cookies from 'js-cookie';
+
 export const startLoadProducts = () => {
   return async (dispatch) => {
     let url = "/products";
@@ -159,11 +161,11 @@ export const searchProduct = (products) => ({
 
 
 export const startLoadProductsRSS = async () => {
-    let url = "/products";
-    try {
-      const res = await client.get(url);
-      return  res.data.products;
-    } catch (error) {
-      console.log(error);
-    }
+  let url = "/products/without/pagination";
+  try {
+    const res = await client.get(url);
+    return res.data.products;
+  } catch (error) {
+    console.log(error);
+  }
 };

@@ -7,11 +7,11 @@ import { types } from '../types';
  * returns
  * @returns an object with a type and a payload.
  */
-export const startLoadAdministrableLogo = () =>{
-    return async (dispatch)=>{
+export const startLoadAdministrableLogo = () => {
+    return async (dispatch) => {
         try {
             let url = 'administrable/logo';
-            const {data} = await client.get(url);
+            const { data } = await client.get(url);
             dispatch(loadAdministrableLogo(data.logo));
         } catch (error) {
             console.log(error);
@@ -23,9 +23,9 @@ export const startLoadAdministrableLogo = () =>{
  * This function returns an object with a type property and a payload property.
  * @param administrable - {
  */
-export const loadAdministrableLogo = (administrable) =>({
-   type:types.loadAdministrableLogo,
-   payload:administrable
+export const loadAdministrableLogo = (administrable) => ({
+    type: types.loadAdministrableLogo,
+    payload: administrable
 });
 
 
@@ -33,15 +33,15 @@ export const loadAdministrableLogo = (administrable) =>({
  * It's an async function that returns a function that returns a promise.
  * @returns an object with a type of 'LOAD_ADMINISTRABLE_ABOUT' and a payload of 'about'
  */
-export const startLoadAdministrableAbout = () =>{
-    return async (dispatch)=>{
+export const startLoadAdministrableAbout = () => {
+    return async (dispatch) => {
         try {
             let url = 'administrable/about';
-            const {data} = await client.get(url);
+            const { data } = await client.get(url);
             dispatch(loadAdministrableAbout(data.about))
         } catch (error) {
             console.log(error);
-            
+
         }
     }
 }
@@ -50,13 +50,35 @@ export const startLoadAdministrableAbout = () =>{
  * @param about - {
  */
 
-export const loadAdministrableAbout = (about) =>({
-   type:types.loadAdministrableAbout,
-   payload:about
-   
+export const loadAdministrableAbout = (about) => ({
+    type: types.loadAdministrableAbout,
+    payload: about
+
 });
 
-export const acceptCookies = () =>({
-    type:types.accept_cookies_politicy
+export const acceptCookies = () => ({
+    type: types.accept_cookies_politicy
 });
 
+export const startLoadCountryPermissions = () => {
+    return async (dispatch) => {
+        try {
+            let url = 'country-permissions';
+            const { data } = await client.get(url);
+            dispatch(loadCountryPermissions(data.countries))
+        } catch (error) {
+            console.log(error);
+
+        }
+    }
+}
+
+const loadCountryPermissions = (countries) => ({
+    type: types.load_country_permissions,
+    payload: countries,
+});
+
+export const loadOneCountryPermissions = (permission) => ({
+    type: types.load_one_country_permissions,
+    payload: permission,
+});

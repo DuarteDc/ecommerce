@@ -5,6 +5,9 @@ import 'react-slideshow-image/dist/styles.css';
 
 import styles from './ProductSlideshow.module.css';
 
+import Zoom from 'react-medium-image-zoom';
+import 'react-medium-image-zoom/dist/styles.css';
+
 const ProductSliderShow = ({ slideImages, product }) => {
 
     const slideRef = useRef();
@@ -34,7 +37,11 @@ const ProductSliderShow = ({ slideImages, product }) => {
                             'backgroundSize': 'cover'
                         }}></div> */}
                         <div>
-                            <img src={slideImage.path} alt="" />
+                        <Zoom zoomMargin={45}>
+                            <picture>
+                                <img src={slideImage.path} alt="" />
+                            </picture>
+                        </Zoom>
                         </div>
                     </div>
                 ))}

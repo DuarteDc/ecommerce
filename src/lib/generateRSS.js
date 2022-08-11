@@ -1,11 +1,12 @@
 import { writeFileSync } from 'fs';
 import RSS from 'rss';
-
 import { helpers } from '../helpers';
 
 import { startLoadProductsRSS } from '../actions/productsAction';
 
 export default async function getRSS() {
+
+  const { textToRSSFeed } = helpers;
 
   const siteURL = 'https://wapizima.com';
 
@@ -23,15 +24,15 @@ export default async function getRSS() {
 
   products?.map((product) => {
     feed.item({
-      title: product.name,
+      title: textToRSSFeed(product.name),
       url: `${siteURL}/productos/${product.url}`,
       date: product.createdAt,
-      description: product.description,
+      description: textToRSSFeed(product.description),
       custom_elements: [
-        { 'id': product._id},
+        { 'id': product._id },
         { 'availability': product.quantity > 0 ? 'in stock' : 'out of stock' },
         { 'condition': 'used' },
-        { 'price': helpers.priceFormat(product.price) },
+        { 'price': `${product.price} MXN` },
         { 'link': `${siteURL}/productos/${product.url}` },
         { 'image_link': product.multimedia[0].path, },
         { 'brand': product.brand.name },

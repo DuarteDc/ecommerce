@@ -1,14 +1,17 @@
 import { useRouter } from "next/router";
 import { useDispatch, useSelector } from "react-redux";
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
-import { clearAll } from "../../actions/brandsActions";
 
-const BrandFilter = ({ starClearQueryParams, endpoint }) => {   
+import { helpersProducts } from "../../helpers";
+
+const BrandFilter = ({ starClearQueryParams, endpoint, setLoading }) => {
+
+    const router = useRouter();
 
     const { filters } = useSelector((state) => state.products);
 
     const handleClearFilters = async () => {
-        if(!filters.length) return;
+        if (!helpersProducts.clearQueryParamsWithUrl(router.query)) return;
         await starClearQueryParams(endpoint);
     };
 

@@ -1,4 +1,4 @@
-import { useLayoutEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
 import Collapse from "@mui/material/Collapse";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
@@ -7,12 +7,12 @@ import ExpandLessIcon from "@mui/icons-material/ExpandLess";
 import CategoryItem from "./CategoryItem";
 import styles from "../styles.module.css";
 
-const CategoriesList = ({ categories, setLoading, startSearchByQueryParams, paramsFilters}) => {
+const CategoriesList = ({ categories, startSearchByQueryParams, paramsFilters }) => {
 
   const [open, setOpen] = useState(true);
 
-  useLayoutEffect(() => {
-    if(screen.width < 767) {
+  useEffect(() => {
+    if (screen.width < 767) {
       setOpen(false);
     }
   }, []);
@@ -31,7 +31,6 @@ const CategoriesList = ({ categories, setLoading, startSearchByQueryParams, para
           <Collapse in={open} timeout="auto" unmountOnExit key={category._id}>
             <CategoryItem
               category={category}
-              setLoading={setLoading}
               paramsFilters={paramsFilters}
               startSearchByQueryParams={startSearchByQueryParams}
             />

@@ -1,11 +1,10 @@
 
 const CategoryItem = ({ category, startSearchByQueryParams, paramsFilters }) => {
 
-
-    const handleFilterProducts = async (category) =>{
-        startSearchByQueryParams({category_id: category._id});
-        await paramsFilters(category);
-    } 
+    const handleFilterProducts = async (category) => {
+        await startSearchByQueryParams({ category_id: category._id });
+        paramsFilters(category);
+    }
 
     return (
         <li

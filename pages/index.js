@@ -220,7 +220,7 @@ export default function HomePage() {
 //   );
 // };
 
-export const getStaticProps = wrapper.getStaticProps((store) => async () => {
+export const getServerSideProps = wrapper.getServerSideProps((store) => async () => {
   await store.dispatch(startLoadAdministrableLogo());
   await store.dispatch(startLoadCategoriesHome());
   await store.dispatch(startLoadDataSliders());
@@ -230,7 +230,4 @@ export const getStaticProps = wrapper.getStaticProps((store) => async () => {
   await store.dispatch(startLoadBrands());
   await store.dispatch(startLoadReviews());
   await getRSS();
-  return {
-    revalidate: 3600,
-  };
 });

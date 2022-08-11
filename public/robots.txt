@@ -2,4 +2,4 @@ User-agent: *
 Allow: /*
 
 Disallow: /api/*
-Sitemap: https://https://wapizima.com/sitemaps/sitemap_index.xml
+Sitemap: https://wapizima.com/sitemaps/sitemap-index.xml

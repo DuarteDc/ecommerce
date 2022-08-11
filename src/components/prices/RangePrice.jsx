@@ -1,4 +1,4 @@
-import { useLayoutEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
 import Collapse from "@mui/material/Collapse";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
@@ -19,7 +19,7 @@ const RangePrice = ({ startSearchByQueryParams, paramsFilters }) => {
 
   const [open, setOpen] = useState(true);
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     if(screen.width < 767) {
       setOpen(false);
     }

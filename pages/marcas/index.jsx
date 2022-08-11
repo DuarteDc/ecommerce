@@ -1,5 +1,4 @@
 import Link from "next/link";
-import { useEffect } from "react";
 import { useRouter } from "next/router";
 import { wrapper } from "../../src/store";
 import Layout from "../../src/components/Layouts"
@@ -9,7 +8,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { startLoadBrands } from "../../src/actions/brandsActions";
 import { startLoadFaqsCategories } from "../../src/actions/faqsActions";
 import { startLoadAdministrableLogo } from "../../src/actions/administrableActions";
-import { shoppingCartNotLoggedfromLocalStorage } from "../../src/actions/shoppingCartActions";
 
 import { CardProduct, BannerImage } from "../../src/components/ui";
 import { Newsletter } from "../../src/components/home";
@@ -18,7 +16,7 @@ import HomeIcon from '@mui/icons-material/Home';
 import NavigateNextIcon from '@mui/icons-material/NavigateNext';
 
 const Brands = () => {
-  const dispatch = useDispatch();
+  
   const { brands } = useSelector((state) => state.brands);
   const history = useRouter();
   const { logo } = useSelector((state) => state.administrable);
