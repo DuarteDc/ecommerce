@@ -8,9 +8,6 @@ import "swiper/css/navigation";
 import 'animate.css';
 import * as ga from '../src/libs/ga';
 
-import '@react-pdf-viewer/core/lib/styles/index.css';
-import '@react-pdf-viewer/default-layout/lib/styles/index.css';
-
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 
 import {

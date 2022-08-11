@@ -34,7 +34,7 @@ const CountryPermissions = () => {
         <Layout>
             <BannerImage
                 title="Permisos de exportación"
-                banner="bg-banner6"
+                banner="bg-banner15"
             />
             <section className="container mx-auto min-h-screen ">
                 <div className="mt-20">
