@@ -132,16 +132,16 @@ export default function HomePage() {
 
   return (
     <Layout
-    title="Wapizima"
-    keywords="nails,cosmetic nails,uñas,gel uñas, fantasy nails, bonita, uñas, material uñas, productos uñas, gel nail, decoraciones uñas, decoracion uñas,cursos uñas,lampara uñas"
-    description="Tienda en línea de distribución de productos profesionales para uñas  de calidad. Venta Menudeo y Mayoreo. Promociones, descuentos y mucho más."
-    ogTitle="Wapizima, Tienda en línea distribuidora de productos para uñas profesionales"
-    ogType="website"
-    ogUrl={origin}
-    ogImage={logo}
-    robots="index, follow"
-    canonical={origin}
-  >
+      title="Wapizima"
+      keywords="nails,cosmetic nails,uñas,gel uñas, fantasy nails, bonita, uñas, material uñas, productos uñas, gel nail, decoraciones uñas, decoracion uñas,cursos uñas,lampara uñas"
+      description="Tienda en línea de distribución de productos profesionales para uñas  de calidad. Venta Menudeo y Mayoreo. Promociones, descuentos y mucho más."
+      ogTitle="Wapizima, Tienda en línea distribuidora de productos para uñas profesionales"
+      ogType="website"
+      ogUrl={origin}
+      ogImage={logo}
+      robots="index, follow"
+      canonical={origin}
+    >
       <Slider />
       <FacilityArea />
       <ProductsArea />
@@ -220,7 +220,7 @@ export default function HomePage() {
 //   );
 // };
 
-export const getServerSideProps = wrapper.getServerSideProps((store) => async () => {
+export const getStaticProps = wrapper.getStaticProps((store) => async () => {
   await store.dispatch(startLoadAdministrableLogo());
   await store.dispatch(startLoadCategoriesHome());
   await store.dispatch(startLoadDataSliders());
@@ -230,4 +230,7 @@ export const getServerSideProps = wrapper.getServerSideProps((store) => async ()
   await store.dispatch(startLoadBrands());
   await store.dispatch(startLoadReviews());
   await getRSS();
+  return {
+    revalidate: 300
+  }
 });
