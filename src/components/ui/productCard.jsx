@@ -117,18 +117,6 @@ export const ProductCard = ({ product }) => {
   return (
     <div className="mb-[30px] relative card px-1 animate__animated animate__zoomIn">
       <div className="relative overflow-hidden">
-        {/* <Image
-          src={(product.multimedia.length > 0) ? product.multimedia[0].path : 'https://upload.wikimedia.org/wikipedia/commons/d/d1/Image_not_available.png'}
-          alt={'name'}
-          width={100}
-          height={100}
-          property
-          layout="responsive"
-          placeholder="blur"
-          blurDataURL="/assets/images/animation.gif"
-          className="flex items-center cursor-pointer"
-          onClick={() => handleShowProduct()}
-        /> */}
         <SliderProductCard
           images={product.multimedia}
           handleShowProduct={handleShowProduct}
@@ -169,7 +157,7 @@ export const ProductCard = ({ product }) => {
         )}
 
         <div className="">
-          <h3 className="text-[#333] mb-0 font-semibold text-[18px] capitalize truncate	mt-6">
+          <h3 className="text-[#333] mb-0 font-semibold text-[18px] capitalize truncate">
             {name}
           </h3>
           <div className="mt-[8px] mb-[12px]">

@@ -67,6 +67,20 @@ export const CheckoutTransfer = ({ handleOpenTransfer }) => {
                                     layout="responsive"
                                 />
                             </div>
+                            {
+                                bankAccountSelected[0]?.card_number && (
+                                    <div className="flex flex-col justify-between items-center font-Poppins text-base">
+                                        <p className="text-[#888] leading-6">
+                                            <strong>
+                                                No. Tarjeta:
+                                            </strong>
+                                        </p>
+                                        <span className="text-base leading-7">
+                                            {bankAccountSelected[0]?.card_number}
+                                        </span>
+                                    </div>
+                                )
+                            }
                             <div className="flex flex-col justify-between items-center font-Poppins text-base">
                                 <p className="text-[#888] leading-6">
                                     <strong>

@@ -7,7 +7,7 @@ import { Select, FormControl, MenuItem, InputLabel } from '@mui/material';
 
 import HighlightOffIcon from '@mui/icons-material/HighlightOff';
 
-export const ShippingAddress = ({ handleOpenFormAddress }) => {
+export const ShippingAddress = ({ toggleSelectCountry }) => {
 
     const dispatch = useDispatch();
     const { shippingAddress, addressSelected } = useSelector((state) => state.cart);
@@ -68,7 +68,7 @@ export const ShippingAddress = ({ handleOpenFormAddress }) => {
                 {!Object.keys(addressSelected).length ? (
                     <button
                         className="w-full bg-[#222] py-[5.5px] text-white ml-2 w-4/12 border-2 border-[#222]"
-                        onClick={handleOpenFormAddress}
+                        onClick={toggleSelectCountry}
                     >
                         Agregar
                     </button>

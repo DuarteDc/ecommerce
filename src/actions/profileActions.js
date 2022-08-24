@@ -52,6 +52,16 @@ export const getMinicipilitesPerState = async (id) => {
     }
 }
 
+export const getMinicipilitesPerStateToProfile = async (name) => {
+    let url = `/municipalities/state-name/${name}`;
+    try {
+        const res = await client.get(url);
+        return res.data.municipalities;
+    } catch (error) {
+        console.log(error);
+    }
+}
+
 export const startSaveNewAddress = (data) => {
 
     return async (dispatch) => {
@@ -572,7 +582,7 @@ export const startLoadTaxSystem = (token) => {
             });
 
             dispatch(loadTaxSystem(data.taxes));
-            return;            
+            return;
 
         } catch (error) {
             if (axios.isAxiosError(error)) {

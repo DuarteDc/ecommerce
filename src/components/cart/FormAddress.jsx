@@ -1,11 +1,11 @@
 import { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
-import { getMinicipilitesPerState, getStates } from '../../actions/profileActions';
+import { getMinicipilitesPerState, getMinicipilitesPerStateToProfile, getStates } from '../../actions/profileActions';
 import { startSaveNewAddress } from '../../actions/shoppingCartActions';
 import { errorNotify, successNotify } from '../../helpers/helpers';
-import { useDispatch } from 'react-redux';
 import TextField from '@mui/material/TextField';
 import Select from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
@@ -15,7 +15,10 @@ import FormControl from '@mui/material/FormControl';
 const FormAddress = ({ toggle }) => {
 
     const dispatch = useDispatch();
-    const handleKeyPress = (e) =>{
+
+    const { country: countrySelected } = useSelector(state => state.countries);
+
+    const handleKeyPress = (e) => {
         let key = window.event ? e.which : e.keyCode;
         if (key < 48 || key > 57) {
             e.preventDefault();
@@ -40,8 +43,8 @@ const FormAddress = ({ toggle }) => {
     }
 
     const handleChangeState = async (e) => {
-        const _id = e.target.value
-        const _municipalities = await getMinicipilitesPerState(_id);
+        const name = e.target.value
+        const _municipalities = await getMinicipilitesPerStateToProfile(name);
         setMunicipalities(_municipalities);
     }
 
@@ -55,7 +58,6 @@ const FormAddress = ({ toggle }) => {
         }
         successNotify(message);
         toggle();
-
     }
 
     const initialValues = {
@@ -67,10 +69,14 @@ const FormAddress = ({ toggle }) => {
         references: '',
         no_int: '',
         no_ext: '',
+        ...(countrySelected.name !== 'México') && {
+            country: '',
+        },
         state: '',
         municipality: '',
         colony: '',
         phone_number: '',
+        type_direction: countrySelected.name === 'México' ? 1 : 2,
     }
 
     const validationSchema = {
@@ -82,6 +88,9 @@ const FormAddress = ({ toggle }) => {
         references: Yup.string().min(8, 'Las referencias debe contener al menos 8 caracteres').required('Las referencias son requeridas'),
         no_ext: Yup.string().required('El número exterior es requerido'),
         no_int: Yup.string(),
+        ...(countrySelected.name !== 'México') && {
+            country: Yup.string().required('El país es requerido'),
+        },
         state: Yup.string().required('El estado es requerido'),
         municipality: Yup.string().required('El municipio es requerido'),
         colony: Yup.string().required('El municipio es requerido'),
@@ -109,7 +118,7 @@ const FormAddress = ({ toggle }) => {
             </div>
             <form onSubmit={formik.handleSubmit}>
                 <div className="grid grid-cols-1 md:grid-cols-2">
-                    <div className="md:mr-1 mt-2">
+                    <div className="md:mx-1 mt-2">
                         <FormControl fullWidth>
                             <TextField
                                 label="Nombre de la dirección"
@@ -125,25 +134,61 @@ const FormAddress = ({ toggle }) => {
                             ) : null}
                         </FormControl>
                     </div>
-                    <div className="md:ml-1 mt-2">
+                    {
+                        countrySelected.name !== 'México' && (
+                            <div className="md:mx-1 mt-2">
+                                <FormControl fullWidth>
+                                    <TextField
+                                        label="País"
+                                        variant="outlined"
+                                        required={true}
+                                        name="country"
+                                        onChange={formik.handleChange}
+                                        value={formik.values.country}
+                                        placeholder="País"
+                                    />
+                                    {formik.touched.street && formik.errors.street ? (
+                                        <span className="text-red-500 text-sm">{formik.errors.street}</span>
+                                    ) : null}
+                                </FormControl>
+                            </div>
+                        )
+                    }
+                    <div className="md:mx-1 mt-2">
                         <FormControl fullWidth required>
-                            <InputLabel id="demo-simple-select-required-label">Estado</InputLabel>
-                            <Select
-                                label="Estado *"
-                                labelId="demo-simple-select-required-label"
-                                id="demo-simple-select-required"
-                                name="state"
-                                onChange={(e) => { formik.handleChange(e); handleChangeState(e) }}
-                                placeholder="Estado"
-                                fullWidth
-                                value={formik.values.state}
-                            >
-                                {
-                                    states?.map(state => (
-                                        <MenuItem key={state._id} value={state._id}>{state.name}</MenuItem>
-                                    ))
-                                }
-                            </Select>
+                            {
+                                countrySelected.name === 'México' ? (
+                                    <>
+                                        <InputLabel id="demo-simple-select-required-label">Estado</InputLabel>
+                                        <Select
+                                            label="Estado *"
+                                            labelId="demo-simple-select-required-label"
+                                            id="demo-simple-select-required"
+                                            name="state"
+                                            onChange={(e) => { formik.handleChange(e); handleChangeState(e) }}
+                                            placeholder="Estado"
+                                            fullWidth
+                                            value={formik.values.state}
+                                        >
+                                            {
+                                                states?.map(state => (
+                                                    <MenuItem key={state._id} value={state.name}>{state.name}</MenuItem>
+                                                ))
+                                            }
+                                        </Select>
+                                    </>
+                                ) : (
+                                    <TextField
+                                        label="Estdo"
+                                        variant="outlined"
+                                        required={true}
+                                        name="state"
+                                        onChange={formik.handleChange}
+                                        value={formik.values.state}
+                                        placeholder="Estado"
+                                    />
+                                )
+                            }
                             {formik.touched.state && formik.errors.state ? (
                                 <span className="text-red-500 text-sm">{formik.errors.state}</span>
                             ) : null}
@@ -151,27 +196,43 @@ const FormAddress = ({ toggle }) => {
                     </div>
                     {
                         states && (
-                            <div className="mt-2 md:mr-1">
+                            <div className="mt-2 md:mx-1">
                                 <FormControl fullWidth required>
-                                    <InputLabel id="demo-simple-select-required-label1">Municipio</InputLabel>
-                                    <Select
-                                        label="Municipio *"
-                                        labelId="demo-simple-select-required-label1"
-                                        id="demo-simple-select-municipalities"
-                                        name="municipality"
-                                        required={true}
-                                        onChange={formik.handleChange}
-                                        placeholder="Municipio"
-                                        fullWidth
-                                        value={formik.values.municipality}
-                                    >
-                                        {
-                                            municipalities?.map(municipality => (
-                                                <MenuItem key={municipality._id} value={municipality._id}>{municipality.name}</MenuItem>
-                                            ))
-                                        }
+                                    {
+                                        countrySelected.name === 'México' ? (
+                                            <>
+                                                <InputLabel id="demo-simple-select-required-label1">Municipio</InputLabel>
+                                                <Select
+                                                    label="Municipio *"
+                                                    labelId="demo-simple-select-required-label1"
+                                                    id="demo-simple-select-municipalities"
+                                                    name="municipality"
+                                                    required={true}
+                                                    onChange={formik.handleChange}
+                                                    placeholder="Municipio"
+                                                    fullWidth
+                                                    value={formik.values.municipality}
+                                                >
+                                                    {
+                                                        municipalities?.map(municipality => (
+                                                            <MenuItem key={municipality._id} value={municipality.name}>{municipality.name}</MenuItem>
+                                                        ))
+                                                    }
 
-                                    </Select>
+                                                </Select>
+                                            </>
+                                        ) : (
+                                            <TextField
+                                                label="Municipio"
+                                                variant="outlined"
+                                                required={true}
+                                                name="municipality"
+                                                onChange={formik.handleChange}
+                                                value={formik.values.municipality}
+                                                placeholder="Municipio"
+                                            />
+                                        )
+                                    }
                                     {formik.touched.municipality && formik.errors.municipality ? (
                                         <span className="text-red-500 text-sm">{formik.errors.municipality}</span>
                                     ) : null}
@@ -179,7 +240,7 @@ const FormAddress = ({ toggle }) => {
                             </div>
                         )
                     }
-                    <div className="mt-2 md:ml-1">
+                    <div className="mt-2 md:mx-1">
                         <FormControl fullWidth>
                             <TextField
                                 label="Calle"
@@ -195,7 +256,7 @@ const FormAddress = ({ toggle }) => {
                             ) : null}
                         </FormControl>
                     </div>
-                    <div className="mt-2 md:mr-1">
+                    <div className="mt-2 md:mx-1">
                         <FormControl fullWidth>
                             <TextField
                                 name="between_street"
@@ -211,7 +272,7 @@ const FormAddress = ({ toggle }) => {
                             ) : null}
                         </FormControl>
                     </div>
-                    <div className="mt-2 md:ml-1">
+                    <div className="mt-2 md:mx-1">
                         <FormControl fullWidth>
                             <TextField
                                 name="postalcode"
@@ -227,7 +288,7 @@ const FormAddress = ({ toggle }) => {
                             ) : null}
                         </FormControl>
                     </div>
-                    <div className="mt-2 md:mr-1">
+                    <div className="mt-2 md:mx-1">
                         <FormControl fullWidth>
                             <TextField
                                 name="phone_number"
@@ -243,7 +304,7 @@ const FormAddress = ({ toggle }) => {
                             ) : null}
                         </FormControl>
                     </div>
-                    <div className="mt-2 md:ml-1">
+                    <div className="mt-2 md:mx-1">
                         <FormControl fullWidth>
                             <TextField
                                 name="colony"
@@ -258,7 +319,7 @@ const FormAddress = ({ toggle }) => {
                             ) : null}
                         </FormControl>
                     </div>
-                    <div className="mt-2 md:mr-1">
+                    <div className="mt-2 md:mx-1">
                         <FormControl fullWidth>
                             <TextField
                                 name="city"
@@ -273,7 +334,7 @@ const FormAddress = ({ toggle }) => {
                             ) : null}
                         </FormControl>
                     </div>
-                    <div className="mt-2 md:ml-1">
+                    <div className="mt-2 md:mx-1">
                         <FormControl fullWidth>
                             <TextField
                                 name="references"
@@ -288,7 +349,7 @@ const FormAddress = ({ toggle }) => {
                             ) : null}
                         </FormControl>
                     </div>
-                    <div className="mt-2 md:mr-1">
+                    <div className="mt-2 md:mx-1">
                         <FormControl fullWidth>
                             <TextField
                                 name="no_ext"
@@ -304,7 +365,7 @@ const FormAddress = ({ toggle }) => {
                             ) : null}
                         </FormControl>
                     </div>
-                    <div className="mt-2 md:ml-1">
+                    <div className="mt-2 md:mx-1">
                         <FormControl fullWidth>
                             <TextField
                                 name="no_int"

@@ -103,9 +103,12 @@ export const startUploadProofOfPayment = (data) => {
     const { order_id } = getState().orders;
     const amount = data.get('amount');
     try {
+      const token = Cookies.get("token");
       let url = `payments/${order_id}`;
       await client.post(url, data, {
-        headers: { "Content-Type": "multipart/form-data" },
+        headers: {
+          Authorization: token,
+        },
       });
       successNotify("Comprobante de pago se ha subido correctamente");
       dispatch(uploadProofOfPayment(order_id, amount));
@@ -175,7 +178,7 @@ export const startGetOrder = (_id) => {
 
 export const getOrder = (order, shipping) => ({
   type: types.loadOrderById,
-  payload: {order, shipping},
+  payload: { order, shipping },
 });
 
 export const startInvoidedOrder = (order_id, status) => {
@@ -253,3 +256,75 @@ const cancelOrderByID = (order) => ({
   type: types.cancel_order_by_id,
   payload: order,
 });
+
+
+export const loadProductDetail = (product) => ({
+  type: types.load_product_detail,
+  payload: product,
+});
+
+export const getStartedSendImagesToCanvas = (formData) => {
+  return async (dispatch, getState) => {
+    const { order_id } = getState().orders;
+    try {
+      const token = Cookies.get("token");
+      let url = `/orders/canvas/${order_id}`;
+      const { data } = await client.post(url, formData, {
+        headers: {
+          Authorization: token,
+        },
+      });
+      successNotify(data?.message);
+      dispatch(startSendImagesToCanvas(data.order))
+      return true;
+    } catch (error) {
+
+      if (axios.isAxiosError(error)) {
+        errorNotify(error.response.data.message);
+        return false;
+      }
+      errorNotify("Parece que hubo un error - Intenta más tarde")
+      return false;
+
+    }
+  }
+}
+
+const startSendImagesToCanvas = (order) => ({
+  type: types.start_send_images_to_canvas,
+  payload: order
+})
+
+export const startFinishOrderCanvas = (formData, order_id) => {
+  return async (dispatch) => {
+    try {
+      const token = Cookies.get("token");
+      let url = `/orders/finalize-canvas/${order_id}`;
+      const { data } = await client.post(url, formData, {
+        headers: {
+          Authorization: token,
+        },
+      });
+      dispatch(finishOrderCanvas(data.order));
+      successNotify(data?.message);
+      return true;
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        errorNotify(error.response.data.message);
+        return false;
+      }
+      errorNotify("Parece que hubo un error - Intenta más tarde")
+      return false;
+    }
+  }
+}
+
+const finishOrderCanvas = (order) => ({
+  type: types.finish_order_canvas,
+  payload: order
+})
+
+export const getOrderId = (order_id) => ({
+  type: types.get_order_id,
+  payload: order_id,
+})

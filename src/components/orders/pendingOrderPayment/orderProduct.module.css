@@ -1,0 +1,16 @@
+.each-slide>div {
+    display: flex;
+    justify-content: center;
+    background-size: contain;
+    background-position: center;
+    height: 10px;
+}
+
+.each-slide-card>div {
+    display: flex;
+    justify-content: center;
+    background-position: center;
+    background-repeat: no-repeat;
+    width: '100%';
+    height: 10px;
+}

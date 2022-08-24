@@ -234,7 +234,7 @@ export const UploadProofOfPayment = ({ handleOpenProofOfPayment, setLoading }) =
                             </span>
                             <input
                                 name="amount"
-                                className="w-full h-12 font-Poppins text-[13px] leading-[1.6] text-[#333] pr-[30px] outline-0"
+                                className="w-full h-12 font-Poppins text-[13px] leading-[1.6] text-[#333] pr-[30px] outline-0 pl-[30px]"
                                 placeholder="Ej. 280"
                                 onChange={formik.handleChange}
                             />

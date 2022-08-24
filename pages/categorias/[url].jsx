@@ -49,7 +49,7 @@ const Category = () => {
 
 
     const handelClickPage = async (e, value) => {
-        await startSearchByQueryParams({page: value});
+        await startSearchByQueryParams({ page: value });
         window.scrollTo({
             top: 0,
             behavior: 'smooth'
@@ -70,23 +70,23 @@ const Category = () => {
                 <AsideBar>
                     <CategoryFilters
                         starClearQueryParams={starClearQueryParams}
-                        endpoint={endpoint} 
+                        endpoint={endpoint}
                     />
-                    <RangePrice 
+                    <RangePrice
                         startSearchByQueryParams={startSearchByQueryParams}
                         paramsFilters={paramsFilters}
                     />
-                    <BrandsList 
-                        brands={brands} 
-                        setLoading={setLoading} 
+                    <BrandsList
+                        brands={brands}
+                        setLoading={setLoading}
                         paramsFilters={paramsFilters}
-                        category={category} 
-                        startSearchByQueryParams={startSearchByQueryParams} 
+                        category={category}
+                        startSearchByQueryParams={startSearchByQueryParams}
                     />
-                    <SubcategoriesList 
+                    <SubcategoriesList
                         subcategories={subcategories}
-                        paramsFilters={paramsFilters} 
-                        startSearchByQueryParams={startSearchByQueryParams} 
+                        paramsFilters={paramsFilters}
+                        startSearchByQueryParams={startSearchByQueryParams}
                     />
                 </AsideBar>
                 <div className="col-span-4 md:col-span-2 lg:col-span-3">
@@ -98,18 +98,18 @@ const Category = () => {
                         )
                     }
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 lg:col-span-3">
-                    {
+                        {
                             products?.totalDocs > 0 ? (
-                            products?.products?.map((product) => (
-                                <ProductCard 
-                                    key={product._id} 
-                                    product={product} 
-                                />
-                            ))
-                            ):(
+                                products?.products?.map((product) => (
+                                    <ProductCard
+                                        key={product._id}
+                                        product={product}
+                                    />
+                                ))
+                            ) : (
                                 <div className="text-center col-span-full">
-                                <h4 className="text-2xl uppercase font-semibold mt-20 mb-10">No hay resultados para tu busqueda</h4>
-                            </div>
+                                    <h4 className="text-2xl uppercase font-semibold mt-20 mb-10">No hay resultados para tu busqueda</h4>
+                                </div>
                             )
                         }
                     </div>
@@ -131,7 +131,7 @@ const Category = () => {
                                     />
                                 </Stack>
                             </div>
-                        )                        
+                        )
                     }
                 </div>
             </section>
@@ -142,7 +142,12 @@ const Category = () => {
 export const getServerSideProps = wrapper.getServerSideProps((store) =>
     async (ctx) => {
         const endpoint = `/products/filter-category/products-paginated/${ctx.query.url}`;
-        await store.dispatch(startFilterProducts(endpoint));
+        const isValid = await store.dispatch(startFilterProducts(endpoint));
+        if (!isValid) {
+            return {
+                notFound: true,
+            }
+        }
         await store.dispatch(startLoadBrands());
         await store.dispatch(startLoadTags())
         await store.dispatch(startLoadSubcategories())

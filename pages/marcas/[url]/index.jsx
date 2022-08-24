@@ -128,7 +128,12 @@ const Show = () => {
 export const getServerSideProps = wrapper.getServerSideProps((store) =>
     async (ctx) => {
         const endpoint = `/products/filter-brand/products-paginated/${ctx.query.url}`;
-        await store.dispatch(startFilterProducts(endpoint));
+        const isValid = await store.dispatch(startFilterProducts(endpoint));
+        if (!isValid) {
+            return {
+                notFound: true
+            }
+        }
         await store.dispatch(startLoadCategories());
         await store.dispatch(startLoadSubcategories())
         await store.dispatch(startLoadAdministrableLogo());

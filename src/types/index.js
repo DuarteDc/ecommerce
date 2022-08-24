@@ -142,4 +142,12 @@ export const types = {
     cancel_order_by_id: '[ORDERS] cancel order by id',
     invoiced_order: '[ORDER] invoiced order',
     start_load_reviews: '[REVIEWS] start load reviews',
+    load_product_detail: '[ORDERS] load product detail',
+    get_order_id: '[ORDERS] get order id',
+    finish_order_canvas: '[ORDERS] finish order canvas',
+    start_send_images_to_canvas: '[ORDERS] start send images to canvas',
+
+
+    load_countries: '[COUNTRY] load countries',
+    country_selected: '[COUNTRY] country selected',
 }

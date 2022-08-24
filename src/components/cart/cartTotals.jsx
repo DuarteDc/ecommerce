@@ -12,7 +12,7 @@ import { errorNotify } from "../../helpers/helpers"
 
 import GavelIcon from '@mui/icons-material/Gavel';
 
-export const CartTotals = ({ handleOpenFormAddress, toggleBusinessRule }) => {
+export const CartTotals = ({ toggleBusinessRule, toggleSelectCountry }) => {
 
   const dispatch = useDispatch();
   const { logged } = useSelector((state) => state.auth);
@@ -43,31 +43,31 @@ export const CartTotals = ({ handleOpenFormAddress, toggleBusinessRule }) => {
     }
 
     if (Object.keys(addressSelected).length < 1) return errorNotify("¡Upps!, Selecciona una dirección de envío antes de continuar");
-    
-      const products = cart.reduce(
-        (acc, item) => {
-          const { product_id } = item;
-          if (product_id.discount > 0  && product_id.product_type === '1') {
-            acc.productsDiscount.push({
-                    product_id: product_id._id,
-                    quantity: item.quantity,
-            });
-          } else if (product_id.discount === 0 && product_id.product_type === '1') {
-            acc.productsWithoutDiscount.push({
-                product_id: product_id._id,
-                quantity: item.quantity,
-            });
-          }else{
-            acc.productsCanvas.push({
-              product_id: product_id._id,
-              quantity: item.quantity,
-            });
-          }
-          return acc;
-        },
-        {productsDiscount: [], productsWithoutDiscount: [], productsCanvas: []},
-      );
-  
+
+    const products = cart.reduce(
+      (acc, item) => {
+        const { product_id } = item;
+        if (product_id.discount > 0 && product_id.product_type === '1') {
+          acc.productsDiscount.push({
+            product_id: product_id._id,
+            quantity: item.quantity,
+          });
+        } else if (product_id.discount === 0 && product_id.product_type === '1') {
+          acc.productsWithoutDiscount.push({
+            product_id: product_id._id,
+            quantity: item.quantity,
+          });
+        } else {
+          acc.productsCanvas.push({
+            product_id: product_id._id,
+            quantity: item.quantity,
+          });
+        }
+        return acc;
+      },
+      { productsDiscount: [], productsWithoutDiscount: [], productsCanvas: [] },
+    );
+
     const data = {
       "productsDiscount": products.productsDiscount,
       "productsWithoutDiscount": products.productsWithoutDiscount,
@@ -77,7 +77,7 @@ export const CartTotals = ({ handleOpenFormAddress, toggleBusinessRule }) => {
       "productsCanvas": products.productsCanvas,
     }
 
-    
+
     dispatch(startFinaliceSaleCheckout(data));
   }
 
@@ -98,10 +98,10 @@ export const CartTotals = ({ handleOpenFormAddress, toggleBusinessRule }) => {
   return (
     <div className="mx-[25px] border-[1px] border-solid border-[#888] py-[60px] px-[30px]">
       <h4 className="font-Poppins text-[20px] text-center leading-[1.3] uppercase pb-[2px]">Total Carrito</h4>
-      <div 
-        className="flex flex-row-reverse pr-5 mb-4" 
+      <div
+        className="flex flex-row-reverse pr-5 mb-4"
       >
-        <GavelIcon 
+        <GavelIcon
           className="text-[19px] text-[#888] cursor-pointer hover:text-[#e91e63]"
           onClick={toggleBusinessRule}
         />
@@ -114,7 +114,7 @@ export const CartTotals = ({ handleOpenFormAddress, toggleBusinessRule }) => {
       <div className="border-b-[1px] border-dashed border-[#d9d9d9] flex flex-wrap flex-start pt-[20px]">
         <InfoShippingCosts />
         <div className="w-full flex justify-center flex-wrap my-[20px]">
-          <ShippingAddress handleOpenFormAddress={handleOpenFormAddress} />
+          <ShippingAddress toggleSelectCountry={toggleSelectCountry} />
         </div>
         <div className="w-full">
           <CouponDetails

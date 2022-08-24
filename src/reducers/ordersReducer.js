@@ -11,6 +11,7 @@ const initialState = {
     orderDetail: {},
     shippingDetail: {},
     success: false,
+    productDetail: {},
 }
 
 
@@ -73,23 +74,46 @@ export const ordersReducer = (state = initialState, { type, payload }) => {
 
         case types.invoiced_order: {
 
-            const { first_order, second_order,  status } = payload;
+            const { first_order, second_order, status } = payload;
 
             return first_order ? {
                 ...state,
                 success: true,
-            }:{
+            } : {
                 ...state,
                 success: false,
             }
 
         }
-
         case types.cancel_order_by_id:
             return {
                 ...state,
                 penddingOrders: state.penddingOrders.filter(order => order._id !== payload._id),
                 canceledOrders: [payload, ...state.canceledOrders],
+            }
+
+        case types.load_product_detail:
+            return {
+                ...state,
+                productDetail: payload
+            }
+
+        case types.get_order_id:
+            return {
+                ...state,
+                order_id: payload
+            }
+
+        case types.finish_order_canvas:
+            return {
+                ...state,
+                approvedOrders: state.approvedOrders.map(order => order._id === payload._id ? { ...payload } : order)
+            }
+
+        case types.start_send_images_to_canvas:
+            return {
+                ...state,
+                approvedOrders: state.approvedOrders.map(order => order._id === payload._id ? { ...payload } : order)
             }
 
         default:

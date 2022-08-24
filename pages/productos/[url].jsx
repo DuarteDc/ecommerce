@@ -264,7 +264,7 @@ const Show = () => {
                   </p>
                 </div>
                 {product?.tags.length > 0 && (
-                  <div className="mt-5">
+                  <div className="mt-2">
                     <h3 className="text-[#666] text-[16px] leading-8">Tags:</h3>
                     <div className="flex">
                       {product?.tags.map((tag) => (
@@ -282,11 +282,33 @@ const Show = () => {
                     </div>
                   </div>
                 )}
+                {
+                  product?.product_type === '2' && (
+                    <>
+                      <div className="flex items-center mt-4">
+                        <h3 className="text-[#666] text-[16px]">Tipo de producto:</h3>
+                        <p
+                          className="text-[#333] font-medium ml-2 cursor-pointer hover:text-gray-700 duration-500"
+                        >
+                          {product?.variation?.name}
+                        </p>
+                      </div>
+                      <div className="flex items-center">
+                        <h3 className="text-[#666] text-[16px]">Imágenes:</h3>
+                        <p
+                          className="text-[#333] font-medium ml-2 cursor-pointer hover:text-gray-700 duration-500"
+                        >
+                          {product?.variation?.number_images === '1' ? `${product?.variation?.number_images} imágenen requerida` : `${product?.variation?.number_images} imágenes requeridas`}
+                        </p>
+                      </div>
+                    </>
+                  )
+                }
               </div>
               <div className="mt-12 lg:mt-10">
                 {
                   product?.product_type === '1' && (
-                    <div className="flex items-center">
+                    <div className="flex items-center mb-10">
                       <ButtonGroup
                         quantity={quantityInput}
                         increaseDecreaseQuantityProduct={increaseDecreaseQuantityProduct}
@@ -303,7 +325,7 @@ const Show = () => {
                   )
                 }
                 <button
-                  className="bg-[#333] border-2 text-white mt-16 py-4 w-full font-bold
+                  className="bg-[#333] border-2 text-white py-4 w-full font-bold
                             transition-all duration-700 ease-in-out
                             hover:bg-[#000]
                             "
@@ -341,7 +363,12 @@ const Show = () => {
 
 export const getServerSideProps = wrapper.getServerSideProps(
   (store) => async (ctx) => {
-    await store.dispatch(startLoadProduct(ctx.query.url));
+    const isValid = await store.dispatch(startLoadProduct(ctx.query.url));
+    if(!isValid) {
+      return {
+        notFound: true
+      }
+    }
     await store.dispatch(startLoadAdministrableLogo());
   }
 );

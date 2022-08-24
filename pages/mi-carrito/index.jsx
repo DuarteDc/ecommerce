@@ -17,6 +17,8 @@ import { Modal } from "../../src/components/ui/modal";
 import { useToggle } from '../../src/hooks/useToggle';
 import FormAddress from '../../src/components/cart/FormAddress';
 import BusinessRules from '../../src/components/businessRules/BusinessRules';
+import FormCountry from '../../src/components/ui/FormCountry';
+import { startLoadCountries } from '../../src/actions/countryAcctions';
 
 const ShoppingCart = () => {
 
@@ -29,6 +31,7 @@ const ShoppingCart = () => {
 
   const [open, toggle] = useToggle();
   const [openBusinessRule, toggleBusinessRule] = useToggle();
+  const [openSelectCountry, toggleSelectCountry] = useToggle();
 
   useEffect(() => {
     if (!logged && !cart.length) {
@@ -95,8 +98,8 @@ const ShoppingCart = () => {
           </div>
           <div>
             <CartTotals
-              handleOpenFormAddress={handleOpenFormAddress}
               toggleBusinessRule={toggleBusinessRule}
+              toggleSelectCountry={toggleSelectCountry}
             />
           </div>
         </div>
@@ -109,6 +112,15 @@ const ShoppingCart = () => {
         maxWidth={'sm'}
       >
         <FormAddress toggle={toggle} />
+      </Modal>
+      <Modal
+        open={openSelectCountry}
+        handleOpenCheckout={toggleSelectCountry}
+        actions={false}
+        fullWidth={true}
+        maxWidth={'xs'}
+      >
+        <FormCountry toggle={toggle} toggleSelectCountry={toggleSelectCountry} type={2} />
       </Modal>
       <Modal
         open={openBusinessRule}
@@ -129,6 +141,7 @@ export const getServerSideProps = wrapper.getServerSideProps((store) => async (c
   await store.dispatch(startLoadShoppingCart(ctx.req.cookies.token));
   await store.dispatch(startGetDirections(ctx.req.cookies.token)),
     await store.dispatch(startLoadFaqsCategories());
+  await store.dispatch(startLoadCountries());
 
 });
 

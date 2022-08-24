@@ -1,8 +1,7 @@
-import client from "../config/axiosConfig";
-import { types } from "../types";
-import { helpersProducts } from "../helpers";
+import axios from 'axios';
+import client from '../config/axiosConfig';
 
-import Cookies from 'js-cookie';
+import { types } from '../types';
 
 export const startLoadProducts = () => {
   return async (dispatch) => {
@@ -23,13 +22,16 @@ export const loadProducts = (products) => ({
 
 export const startLoadProduct = (slug) => {
   return async (dispatch) => {
-    let url = `/products/slug/${slug}`;
+    let url = `products/slug/${slug}`;
     try {
       const res = await client.get(url);
       const { product, relatedProducts } = res.data;
       dispatch(loadProduct(product, relatedProducts));
+      return true;
     } catch (error) {
-      console.log(error);
+      if (axios.isAxiosError(error)) {
+        return false;
+      }
     }
   };
 };
@@ -129,8 +131,11 @@ export const startFilterProducts = (endpoint, params = '') => {
     try {
       const { data } = await client.get(`${endpoint}${params}`);
       dispatch(filterProducts(data, params));
+      return true;
     } catch (error) {
-      console.log(error);
+      if (axios.isAxiosError(error)) {
+        return false;
+      }
     }
   };
 };

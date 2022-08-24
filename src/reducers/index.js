@@ -14,3 +14,4 @@ export { checkoutReducer } from "./checkoutReducer";
 export { faqsReducer } from './faqsReducer';
 export { ordersReducer } from './ordersReducer';
 export { reviewsReducers } from './reviewsReducer';
+export { countryReducer } from './countryReducer';

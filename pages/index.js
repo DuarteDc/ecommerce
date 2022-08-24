@@ -47,41 +47,41 @@ export default function HomePage() {
   const { logo } = useSelector((state) => state.administrable);
   const { offers } = useSelector((state) => state.offers);
 
-  useEffect(() => {
-    if (router.query.successTransfer === "true") {
-      localStorage.removeItem("cart");
-      Cookie.remove("client_secret");
-      Swal.fire({
-        icon: "success",
-        title: "Venta finalizada con exito",
-        text: "Revisa el apartado mis pedidos para subir los comprobantes de pago y una vez verificada la información enviaremos tus productos.",
-        confirmButtonText: "Cerrar",
-        cancelButtonText: "Ver mis pedidos",
-        cancelButtonColor: "#1565c0",
-        showCancelButton: true,
-        allowOutsideClick: false,
-      }).then((result) => {
-        if (result.isConfirmed) {
-          router.push(
-            {
-              pathname: router.path,
-            },
-            undefined,
-            { shallow: true }
-          );
-        }
+  // useEffect(() => {
+  //   if (router.query.successTransfer === "true") {
+  //     localStorage.removeItem("cart");
+  //     Cookie.remove("client_secret");
+  //     Swal.fire({
+  //       icon: "success",
+  //       title: "Venta finalizada con exito",
+  //       text: "Revisa el apartado mis pedidos para subir los comprobantes de pago y una vez verificada la información enviaremos tus productos.",
+  //       confirmButtonText: "Cerrar",
+  //       cancelButtonText: "Ver mis pedidos",
+  //       cancelButtonColor: "#1565c0",
+  //       showCancelButton: true,
+  //       allowOutsideClick: false,
+  //     }).then((result) => {
+  //       if (result.isConfirmed) {
+  //         router.push(
+  //           {
+  //             pathname: router.path,
+  //           },
+  //           undefined,
+  //           { shallow: true }
+  //         );
+  //       }
 
-        if (result.isDismissed) {
-          router.push({
-            pathname: "/perfil/mis-pedidos",
-          });
-        }
-      });
-    }
-  }, [router]);
+  //       if (result.isDismissed) {
+  //         router.push({
+  //           pathname: "/perfil/mis-pedidos",
+  //         });
+  //       }
+  //     });
+  //   }
+  // }, [router]);
 
   useEffect(() => {
-    if (router.query.redirect_status === "succeeded") {
+    if (router.query.redirect_status === 'succeeded' || router.query.successTransfer === 'true') {
       localStorage.removeItem("cart");
       Cookie.remove("client_secret");
       Swal.fire({
@@ -94,18 +94,14 @@ export default function HomePage() {
         showCancelButton: true,
         allowOutsideClick: false,
       }).then((result) => {
-        if (result.isConfirmed) {
-          router.push(
-            {
-              pathname: router.path,
-            },
-            undefined,
-            { shallow: true }
-          );
-        }
-        if (result.isDismissed) {
-          router.replace("/perfil/mis-pedidos");
-        }
+        if (result.isDismissed)  return router.replace("/perfil/mis-pedidos");        
+        router.push(
+          {
+            pathname: router.path,
+          },
+          undefined,
+          { shallow: true },
+        );
       });
     }
   }, [router]);
@@ -132,16 +128,16 @@ export default function HomePage() {
 
   return (
     <Layout
-    title="Wapizima"
-    keywords="nails,cosmetic nails,uñas,gel uñas, fantasy nails, bonita, uñas, material uñas, productos uñas, gel nail, decoraciones uñas, decoracion uñas,cursos uñas,lampara uñas"
-    description="Tienda en línea de distribución de productos profesionales para uñas  de calidad. Venta Menudeo y Mayoreo. Promociones, descuentos y mucho más."
-    ogTitle="Wapizima, Tienda en línea distribuidora de productos para uñas profesionales"
-    ogType="website"
-    ogUrl={origin}
-    ogImage={logo}
-    robots="index, follow"
-    canonical={origin}
-  >
+      title="Wapizima"
+      keywords="nails,cosmetic nails,uñas,gel uñas, fantasy nails, bonita, uñas, material uñas, productos uñas, gel nail, decoraciones uñas, decoracion uñas,cursos uñas,lampara uñas"
+      description="Tienda en línea de distribución de productos profesionales para uñas  de calidad. Venta Menudeo y Mayoreo. Promociones, descuentos y mucho más."
+      ogTitle="Wapizima, Tienda en línea distribuidora de productos para uñas profesionales"
+      ogType="website"
+      ogUrl={origin}
+      ogImage={logo}
+      robots="index, follow"
+      canonical={origin}
+    >
       <Slider />
       <FacilityArea />
       <ProductsArea />

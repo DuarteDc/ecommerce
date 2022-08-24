@@ -27,9 +27,6 @@ export const CartItems = ({ product }) => {
   const quantityInputadd = useDebounce(quantityInput, 1000);
   const productSelectedUpdated = useDebounce(productSelected, 2000);
 
-  const notify = (message) => toast(message);
-
-
   useEffect(() => {
     if (Object.keys(productSelectedUpdated).length > 0) {
       dispatch(startUpdatedProductQuantity(product));
@@ -129,6 +126,7 @@ export const CartItems = ({ product }) => {
           quantity={quantityInput}
           increaseDecreaseQuantityProduct={increaseDecreaseQuantityProduct}
           handleChangeQuantity={handleChangeQuantity}
+          product={product_id}
         />
       </td>
       <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm text-center">

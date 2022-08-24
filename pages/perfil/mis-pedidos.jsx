@@ -8,7 +8,7 @@ import { wrapper } from '../../src/store';
 import { startLoadFaqsCategories } from "../../src/actions/faqsActions";
 import { startLoadFiscalAddress } from "../../src/actions/profileActions";
 import { startLoadAdministrableLogo } from '../../src/actions/administrableActions';
-import { selectedOrderPendding, startLoadOrdersCanceled, startLoadPendingOrders, startLoadOrdersApproved, startLoadOrdersShipped, shippedOrders } from "../../src/actions/ordersActions";
+import { selectedOrderPendding, startLoadOrdersCanceled, startLoadPendingOrders, startLoadOrdersApproved, startLoadOrdersShipped, shippedOrders, loadProductDetail, getOrderId } from "../../src/actions/ordersActions";
 
 {/** Custom Hooks */ }
 import { useToggle } from "../../src/hooks/useToggle";
@@ -35,6 +35,8 @@ import helpersProducts from "../../src/helpers/helpersProducts";
 import { startSendReview } from "../../src/actions/reviewsActions";
 import FormCancelInvoice from "../../src/components/orders/pendingOrderPayment/FormCancelInvoice";
 import LoadingScreen from "../../src/components/LoadingScreen";
+import ProductDetail from "../../src/components/orders/ProductDetail";
+import UploadImages from "../../src/components/orders/UploadImages";
 
 
 function a11yProps(index) {
@@ -75,15 +77,15 @@ const MisPedidos = () => {
   const { penddingOrders, canceledOrders, approvedOrders, shippedOrders, success } = useSelector((state) => state.orders);
 
   const { categories } = useSelector((state) => state.faqs)
-  
-  const reloadData = async() =>{
+
+  const reloadData = async () => {
     const token = Cookies.get('token')
     await dispatch(startLoadOrdersApproved(token));
     await dispatch(startLoadOrdersShipped(token));
   }
-  
-  useEffect(()=>{
-    if(success){
+
+  useEffect(() => {
+    if (success) {
       reloadData();
     }
   }, [success]);
@@ -95,7 +97,8 @@ const MisPedidos = () => {
   const [loading, setLoading] = useState(false);
   const [openProofOfPayment, toggleProofOfPayment] = useToggle();
   const [openCancelInvoice, toggleCancelInvoice] = useToggle();
-
+  const [openProductDetail, toggleProductDetail] = useToggle();
+  const [openUploadImages, toggleUploadImages] = useToggle();
 
   const { filterSearch } = helpersProducts;
 
@@ -168,6 +171,17 @@ const MisPedidos = () => {
     }
   }, []);
 
+  const handleOpenProductDetail = (product) => {
+    toggleProductDetail();
+    dispatch(loadProductDetail(product))
+  }
+
+  const handleOpenUploadImages = (product, order_id) => {
+    toggleUploadImages();
+    dispatch(loadProductDetail(product))
+    dispatch(getOrderId(order_id))
+  }
+
   return (
     <Layout
       categories={categories}
@@ -176,7 +190,7 @@ const MisPedidos = () => {
         title="Mis Pedidos"
         banner="bg-banner14"
       />
-      {loading && <LoadingScreen /> }
+      {loading && <LoadingScreen />}
       <section className="container max-w-[1200px] my-10 mx-auto min-h-screen">
         <Grid container>
           <Grid item xs={12} sm={12} md={12} lg={12} xl={12}>
@@ -230,6 +244,8 @@ const MisPedidos = () => {
                     text_color="text-[#333]"
                     loading={loading}
                     setLoading={setLoading}
+                    handleOpenProductDetail={handleOpenProductDetail}
+                    handleOpenUploadImages={handleOpenUploadImages}
                   />
                 ))
             }
@@ -251,6 +267,8 @@ const MisPedidos = () => {
                     text_color="text-[#333]"
                     loading={loading}
                     setLoading={setLoading}
+                    handleOpenProductDetail={handleOpenProductDetail}
+                    handleOpenUploadImages={handleOpenUploadImages}
                   />
                 ))
             }
@@ -272,6 +290,8 @@ const MisPedidos = () => {
                     text_color="text-[#333]"
                     loading={loading}
                     setLoading={setLoading}
+                    handleOpenProductDetail={handleOpenProductDetail}
+                    handleOpenUploadImages={handleOpenUploadImages}
                   />
                 ))
 
@@ -293,6 +313,8 @@ const MisPedidos = () => {
                     text_color="text-[#333]"
                     loading={loading}
                     setLoading={setLoading}
+                    handleOpenProductDetail={handleOpenProductDetail}
+                    handleOpenUploadImages={handleOpenUploadImages}
                   />
                 ))
             }
@@ -327,13 +349,35 @@ const MisPedidos = () => {
         </Modal>
 
         <Modal
+          title="Detalle del producto"
+          open={openProductDetail}
+          handleOpenCheckout={toggleProductDetail}
+          actions={false}
+          fullWidth={true}
+          maxWidth={'md'}
+          showTitle={false}
+        >
+          <ProductDetail />
+        </Modal>
+
+        <Modal
+          showTitle={false}
+          open={openUploadImages}
+          handleOpenCheckout={toggleUploadImages}
+          actions={false}
+          fullWidth={true}
+          maxWidth={'md'}
+        >
+          <UploadImages handleOpenUploadImages={handleOpenUploadImages} />
+        </Modal>
+
+        <Modal
           open={testimonialModal}
           handleOpenCheckout={handleCloseTestimonialArea}
           fullWidth={true}
           maxWidth="sm"
           actions={false}
           showTitle={false}
-
         >
           <Grid container>
             <form onSubmit={formik.handleSubmit} className="w-full">
