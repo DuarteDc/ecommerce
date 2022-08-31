@@ -51,12 +51,6 @@ const FormAddress = ({ toggle }) => {
         setStates(_states);
     }
 
-    const handleChangeState = async (e) => {
-        const name = e.target.value
-        const _municipalities = await getMinicipilitesPerStateToProfile(name);
-        setMunicipalities(_municipalities);
-    }
-
     const handleSaveNewAddress = async (formData) => {
 
         const { hasError, message } = await dispatch(startSaveNewAddress(formData));
@@ -70,7 +64,7 @@ const FormAddress = ({ toggle }) => {
     }
 
     const CountrySelect = ({ value, onChange, labels, ...rest }) => (
-        <FormControl fullWidth required className="w-4/12">
+        <FormControl fullWidth required className="w-8/12">
             <InputLabel id="demo">Código</InputLabel>
             <Select
                 label="Código *"
@@ -81,7 +75,7 @@ const FormAddress = ({ toggle }) => {
                 id="demo-simple-select-required"
                 name="prefix"
                 placeholder="Código"
-                className="mr-2">
+                className="mr-1">
                 {getCountries().map((country) => (
                     <MenuItem key={country} value={country}>
                         {labels[country]} +{getCountryCallingCode(country)}
@@ -140,6 +134,13 @@ const FormAddress = ({ toggle }) => {
             handleSaveNewAddress(newData);
         }
     });
+
+    const handleChangeState = async (e) => {
+        const name = e.target.value
+        const _municipalities = await getMinicipilitesPerStateToProfile(name);
+        setMunicipalities(_municipalities);
+        formik.setFieldValue('municipality', '')
+    }
 
     return (
         <div className="overflow-hidden mx-auto py-8 px-5 bg-white mt-5 animate__animated animate__fadeIn font-Poppins">

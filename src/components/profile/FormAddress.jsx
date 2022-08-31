@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { useFormik } from 'formik';
+import { Formik, useFormik } from 'formik';
 import * as Yup from 'yup';
 import { clearDirection, getMinicipilitesPerState, getMinicipilitesPerStateToProfile, getStates, startSaveNewAddress, startUpdateAddress } from '../../actions/profileActions';
 import { errorNotify, successNotify } from '../../helpers/helpers';
@@ -56,11 +56,7 @@ const FormAddress = ({ setShowForm, direction, isEditing }) => {
         const _municipalities = await getMinicipilitesPerState(_id);
         setMunicipalities(_municipalities);
     }
-    const handleChangeState = async (e) => {
-        const name = e.target.value
-        const _municipalities = await getMinicipilitesPerStateToProfile(name);
-        setMunicipalities(_municipalities);
-    }
+
 
     const handleSaveNewAddress = async (formData) => {
 
@@ -138,7 +134,7 @@ const FormAddress = ({ setShowForm, direction, isEditing }) => {
         references: Yup.string().min(8, 'Las referencias debe contener al menos 8 caracteres').required('Las referencias son requeridas'),
         no_ext: Yup.string().required('El número exterior es requerido'),
         no_int: Yup.string(),
-        ...(countrySelected.name !== 'México') && {
+        ...(countrySelected.name !== 'México' && direction.type_direction !== 1) && {
             country: Yup.string().required('El país es requerido'),
         },
         state: Yup.string().required('El estado es requerido'),
@@ -163,6 +159,13 @@ const FormAddress = ({ setShowForm, direction, isEditing }) => {
             closeModal();
         }
     });
+
+    const handleChangeState = async (e) => {
+        const name = e.target.value
+        const _municipalities = await getMinicipilitesPerStateToProfile(name);
+        setMunicipalities(_municipalities);
+        formik.setFieldValue('municipality', '')
+    }
     return (
         <div className="overflow-hidden mx-auto py-8 px-5 bg-white mt-5 animate__animated animate__fadeIn font-Poppins">
             <div className="flex items-center justify-between">
@@ -202,7 +205,7 @@ const FormAddress = ({ setShowForm, direction, isEditing }) => {
                         </FormControl>
                     </div>
                     {
-                        countrySelected.name !== 'México' && direction.type_direction !== 2 && (
+                        countrySelected.name !== 'México' && direction.type_direction !== 1 ? (
                             <div className="md:mx-1 mt-4">
                                 <FormControl fullWidth>
                                     <TextField
@@ -219,12 +222,12 @@ const FormAddress = ({ setShowForm, direction, isEditing }) => {
                                     ) : null}
                                 </FormControl>
                             </div>
-                        )
+                        ) : (<></>)
                     }
                     <div className="mt-4 md:mx-1">
                         <FormControl fullWidth required>
                             {
-                                countrySelected.name === 'México' && direction.type_direction !== 2 ? (
+                                countrySelected.name === 'México' || direction.type_direction === 1 ? (
                                     <>
                                         <InputLabel id="demo-simple-select-required-label">Estado</InputLabel>
                                         <Select
@@ -266,7 +269,7 @@ const FormAddress = ({ setShowForm, direction, isEditing }) => {
                             <div className="mt-4 md:mx-1">
                                 <FormControl fullWidth required>
                                     {
-                                        countrySelected.name === 'México' && direction.type_direction !== 2 ? (
+                                        countrySelected.name === 'México' || direction.type_direction === 1 ? (
                                             <>
                                                 <InputLabel id="demo-simple-select-required-label1">Municipio</InputLabel>
                                                 <Select
