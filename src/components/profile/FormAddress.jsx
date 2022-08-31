@@ -127,11 +127,11 @@ const FormAddress = ({ setShowForm, direction, isEditing }) => {
 
     const validationSchema = {
         name: Yup.string().required('La nombre de la dirección es requerido'),
-        street: Yup.string().min(8, 'La calle debe contener al menos 8 caracteres').required('La calle es requerida'),
-        between_street: Yup.string().min(8, 'El campo debe contener al menos 8 caracteres').required('El campo es requerido'),
+        street: Yup.string().required('La calle es requerida'),
+        between_street: Yup.string().required('El campo es requerido'),
         postalcode: Yup.string().required('el código postal es requerido').matches(postalCodeRegex, 'El código postal no es valido'),
-        city: Yup.string().min(5, 'La ciudad debe contener al menos 8 caracteres').required('La ciudad es requerida'),
-        references: Yup.string().min(8, 'Las referencias debe contener al menos 8 caracteres').required('Las referencias son requeridas'),
+        city: Yup.string().required('La ciudad es requerida'),
+        references: Yup.string().required('Las referencias son requeridas'),
         no_ext: Yup.string().required('El número exterior es requerido'),
         no_int: Yup.string(),
         ...(countrySelected.name !== 'México' && direction.type_direction !== 1) && {
