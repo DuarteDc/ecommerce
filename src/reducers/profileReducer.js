@@ -40,7 +40,7 @@ export const profileReducer = (state = initialState, { type, payload }) => {
                 ...state,
                 directions: state.directions.map(direction => direction._id === payload
                     ? { ...direction, default: direction.default = true }
-                    : { ...direction, default: direction.default = false })
+                    : { ...direction, default: direction.default = false }),
             }
 
         case types.select_one_direction:

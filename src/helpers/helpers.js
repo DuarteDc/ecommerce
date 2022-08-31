@@ -147,7 +147,7 @@ const getLastRoute = (destination = '') => {
   const reverse = destination.split("").reverse().join("");
   const index = reverse.search('=p');
   const newRoute = reverse.substring(0, index).split("").reverse().join("");
-  
+
   if (newRoute.includes('auth') || newRoute.length < 1) return '/'
 
   return newRoute;
@@ -179,6 +179,20 @@ const SweetAlert = (icon = 'success', title = '', html = '') => {
   });
 }
 
+const convertObjectToPlainText = (text = '') => {
+  return Object.entries(text)
+    .map(([key, value]) => key + ': ' + value)
+    .join(' ');
+}
+
+const copyText = (text = '') => {
+  navigator?.clipboard?.writeText(text).then(() => {
+    successNotify('Información copiada correctamente');
+  }, (error) => {
+    errorNotify('No sé pudo copiar la información');
+  })
+}
+
 
 export default {
   priceFormat,
@@ -196,4 +210,6 @@ export default {
   getPDFName,
   SweetAlert,
   textToRSSFeed,
+  convertObjectToPlainText,
+  copyText,
 }

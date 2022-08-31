@@ -31,18 +31,6 @@ const FormSignUp = () => {
     const router = useRouter();
     const dispatch = useDispatch();
 
-    // const CountrySelect = ({ value, onChange, labels, ...rest }) => (
-    //     <select {...rest} value={value} onChange={(event) => onChange(event.target.value || undefined)}
-    //     className="py-1 bg-gray-50  focus:outline-none focus:border-black focus:ring-1 focus:ring-gray-900 w-24 mr-2">
-    //         <option value="">Tel:</option>
-    //         {getCountries().map((country) => (
-    //             <option key={country} value={country}>
-    //                 {labels[country]} +{getCountryCallingCode(country)}
-    //             </option>
-    //         ))}
-    //     </select>
-    // );
-
     const handelRegisterUser = async (formData) => {
 
         setLoading(true);

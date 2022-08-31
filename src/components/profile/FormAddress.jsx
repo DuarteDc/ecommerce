@@ -11,6 +11,11 @@ import MenuItem from '@mui/material/MenuItem';
 import InputLabel from '@mui/material/InputLabel';
 import FormControl from '@mui/material/FormControl';
 
+// import 'react-phone-number-input/style.css'
+// import PhoneInput from 'react-phone-number-input'
+import Input, { getCountries, getCountryCallingCode } from 'react-phone-number-input/input';
+import en from 'react-phone-number-input/locale/en.json';
+
 const FormAddress = ({ setShowForm, direction, isEditing }) => {
 
     const dispatch = useDispatch();
@@ -23,12 +28,17 @@ const FormAddress = ({ setShowForm, direction, isEditing }) => {
         }
     }
 
-    const phoneRegex = RegExp(
-        /^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$/
+    // const phoneRegex = RegExp(
+    //     /^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$/
+    // );
+
+    const postalCodeRegex = RegExp(
+        /^[A-Za-z0-9\s]+$/g
     );
 
     const [states, setStates] = useState(null);
-    const [municipalities, setMunicipalities] = useState(null)
+    const [municipalities, setMunicipalities] = useState(null);
+    const [country, setCountry] = useState();
 
     useEffect(() => {
         loadStates();
@@ -76,6 +86,29 @@ const FormAddress = ({ setShowForm, direction, isEditing }) => {
         setShowForm(false)
     }
 
+    const CountrySelect = ({ value, onChange, labels, ...rest }) => (
+        <FormControl fullWidth required className="w-4/12">
+            <InputLabel id="demo">Código</InputLabel>
+            <Select
+                label="Código *"
+                {...rest}
+                value={value}
+                onChange={(event) => { onChange(event.target.value); formik.handleChange(event); }}
+                labelId="demo"
+                id="demo-simple-select-required"
+                name="prefix"
+                placeholder="Código"
+                className="mr-2">
+                {getCountries().map((country) => (
+                    <MenuItem key={country} value={country}>
+                        {labels[country]} +{getCountryCallingCode(country)}
+                    </MenuItem>
+                ))}
+            </Select>
+        </FormControl>
+    );
+
+
     const initialValues = {
         name: direction.name,
         street: direction.street,
@@ -93,13 +126,14 @@ const FormAddress = ({ setShowForm, direction, isEditing }) => {
         colony: direction.colony,
         phone_number: direction.phone_number,
         type_direction: countrySelected.name === 'México' ? 1 : 2,
+        prefix: getCountries().find(country => getCountryCallingCode(country) === direction.prefix) || ''
     }
 
     const validationSchema = {
         name: Yup.string().required('La nombre de la dirección es requerido'),
         street: Yup.string().min(8, 'La calle debe contener al menos 8 caracteres').required('La calle es requerida'),
         between_street: Yup.string().min(8, 'El campo debe contener al menos 8 caracteres').required('El campo es requerido'),
-        postalcode: Yup.string().min(5, 'El código postal debe contener al menos 5 caracteres').required('el código postal es requerido').max(5, 'El código postal no debe contener mas de 5 caracteres'),
+        postalcode: Yup.string().required('el código postal es requerido').matches(postalCodeRegex, 'El código postal no es valido'),
         city: Yup.string().min(5, 'La ciudad debe contener al menos 8 caracteres').required('La ciudad es requerida'),
         references: Yup.string().min(8, 'Las referencias debe contener al menos 8 caracteres').required('Las referencias son requeridas'),
         no_ext: Yup.string().required('El número exterior es requerido'),
@@ -110,17 +144,21 @@ const FormAddress = ({ setShowForm, direction, isEditing }) => {
         state: Yup.string().required('El estado es requerido'),
         municipality: Yup.string().required('El municipio es requerido'),
         colony: Yup.string().required('El municipio es requerido'),
-        phone_number: Yup.string().matches(phoneRegex, "El número de telefono no es valido").required("El número de telefono es requerido"),
+        phone_number: Yup.string().min(9, 'El número telefónico debe ser mayor o igual a 9 dígitos')
+            .max(11, 'El número telefómnico no pueder ser mayor a 11 dígitos').required("El numero de telefono es requerido"),
+        prefix: Yup.string().required('El código de país es requerido')
     }
 
     const formik = useFormik({
         initialValues,
         validationSchema: Yup.object(validationSchema),
         onSubmit: (formData) => {
+            const { prefix, ...data } = formData;
+            const newFormDAta = { ...data, prefix: getCountryCallingCode(prefix) }
             if (isEditing) {
-                handleUpdateAddress(formData);
+                handleUpdateAddress(newFormDAta);
             } else {
-                handleSaveNewAddress(formData);
+                handleSaveNewAddress(newFormDAta);
             }
             closeModal();
         }
@@ -164,7 +202,7 @@ const FormAddress = ({ setShowForm, direction, isEditing }) => {
                         </FormControl>
                     </div>
                     {
-                        countrySelected.name !== 'México' && (
+                        countrySelected.name !== 'México' && direction.type_direction !== 2 && (
                             <div className="md:mx-1 mt-4">
                                 <FormControl fullWidth>
                                     <TextField
@@ -307,7 +345,6 @@ const FormAddress = ({ setShowForm, direction, isEditing }) => {
                                 name="postalcode"
                                 required={true}
                                 onChange={formik.handleChange}
-                                onKeyPress={handleKeyPress}
                                 value={formik.values.postalcode}
                                 placeholder="Código postal"
                                 label="Código postal"
@@ -317,7 +354,8 @@ const FormAddress = ({ setShowForm, direction, isEditing }) => {
                             ) : null}
                         </FormControl>
                     </div>
-                    <div className="mt-4 md:mx-1">
+                    <div className="mt-4 md:mx-1 flex">
+                        <CountrySelect labels={en} value={formik.values.prefix} onChange={setCountry} />
                         <FormControl fullWidth>
                             <TextField
                                 name="phone_number"

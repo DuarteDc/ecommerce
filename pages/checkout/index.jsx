@@ -52,7 +52,7 @@ const Checkout = () => {
 
   useEffect(() => {
     if (success) {
-      router.push('/?successTransfer=true');
+      router.push('/perfil/mis-pedidos');
       Cookie.remove('superTotal');
       Cookie.remove('withDiscount');
       Cookie.remove('withoutDiscount');

@@ -81,8 +81,7 @@ const ShoppingCart = () => {
       router.push(`/verificar-cuenta`);
       return;
     }
-
-    toggle();
+    toggleSelectCountry();
   }
 
   return (
@@ -99,7 +98,7 @@ const ShoppingCart = () => {
           <div>
             <CartTotals
               toggleBusinessRule={toggleBusinessRule}
-              toggleSelectCountry={toggleSelectCountry}
+              toggleSelectCountry={handleOpenFormAddress}
             />
           </div>
         </div>
@@ -114,8 +113,8 @@ const ShoppingCart = () => {
         <FormAddress toggle={toggle} />
       </Modal>
       <Modal
-        open={openSelectCountry}
-        handleOpenCheckout={toggleSelectCountry}
+        open={openSelectCountry }
+        handleOpenCheckout={handleOpenFormAddress}
         actions={false}
         fullWidth={true}
         maxWidth={'xs'}
