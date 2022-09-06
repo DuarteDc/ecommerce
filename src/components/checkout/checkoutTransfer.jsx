@@ -13,6 +13,7 @@ import { helpers } from "../../helpers";
 export const CheckoutTransfer = ({ handleOpenTransfer }) => {
 
     const dispatch = useDispatch();
+
     const { banksAccounts } = useSelector((state) => state.checkout);
     const [bankAccountSelected, setBankAccountSelected] = useState({});
 
@@ -32,7 +33,10 @@ export const CheckoutTransfer = ({ handleOpenTransfer }) => {
     const handleFinaliceTransfer = (e) => {
         e.preventDefault();
         const token = Cookies.get('token');
-        dispatch(startfinaliceTransferCheckout(bankAccountSelected?._id, token));
+        if (banksAccounts.length > 1)
+            dispatch(startfinaliceTransferCheckout(bankAccountSelected?._id, token));
+        else
+            dispatch(startfinaliceTransferCheckout(banksAccounts[0]?._id, token));
         handleOpenTransfer();
     }
 

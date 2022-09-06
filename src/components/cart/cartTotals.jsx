@@ -11,6 +11,7 @@ import CouponDetails from "./CouponDetails"
 import { errorNotify } from "../../helpers/helpers"
 
 import GavelIcon from '@mui/icons-material/Gavel';
+import LoadingScreen from "../LoadingScreen"
 
 export const CartTotals = ({ toggleBusinessRule, toggleSelectCountry }) => {
 
@@ -20,8 +21,9 @@ export const CartTotals = ({ toggleBusinessRule, toggleSelectCountry }) => {
   const router = useRouter();
 
   const [inputCoupon, setInputCoupon] = useState('')
+  const [loading, setLoading] = useState(false);
 
-  const proceedToCheckout = () => {
+  const proceedToCheckout = async () => {
 
     if (!logged) {
       router.push(`/auth/login?p=${router.asPath}`);
@@ -44,7 +46,8 @@ export const CartTotals = ({ toggleBusinessRule, toggleSelectCountry }) => {
 
     if (Object.keys(addressSelected).length < 1) return errorNotify("¡Upps!, Selecciona una dirección de envío antes de continuar");
 
-    const products = cart.reduce(
+    setLoading(true);
+    const products = await cart.reduce(
       (acc, item) => {
         const { product_id } = item;
         if (product_id.discount > 0 && product_id.product_type === '1') {
@@ -78,7 +81,8 @@ export const CartTotals = ({ toggleBusinessRule, toggleSelectCountry }) => {
     }
 
 
-    dispatch(startFinaliceSaleCheckout(data));
+    await dispatch(startFinaliceSaleCheckout(data));
+    setLoading(false);
   }
 
   const handleApplyCoupon = async (event) => {
@@ -96,46 +100,49 @@ export const CartTotals = ({ toggleBusinessRule, toggleSelectCountry }) => {
   }
 
   return (
-    <div className="mx-[25px] border-[1px] border-solid border-[#888] py-[60px] px-[30px]">
-      <h4 className="font-Poppins text-[20px] text-center leading-[1.3] uppercase pb-[2px]">Total Carrito</h4>
-      <div
-        className="flex flex-row-reverse pr-5 mb-4"
-      >
-        <GavelIcon
-          className="text-[19px] text-[#888] cursor-pointer hover:text-[#e91e63]"
-          onClick={toggleBusinessRule}
-        />
-      </div>
-      <div className="border-b-[1px] flex justify-start flex-wrap pb-[13px]">
-        <SubtotalInfo
-          subtotal={subtotal}
-        />
-      </div>
-      <div className="border-b-[1px] border-dashed border-[#d9d9d9] flex flex-wrap flex-start pt-[20px]">
-        <InfoShippingCosts />
-        <div className="w-full flex justify-center flex-wrap my-[20px]">
-          <ShippingAddress toggleSelectCountry={toggleSelectCountry} />
-        </div>
-        <div className="w-full">
-          <CouponDetails
-            handleApplyCoupon={handleApplyCoupon}
-            setInputCoupon={setInputCoupon}
-            coupon={coupon}
-            handleRemoveCoupon={handleRemoveCoupon}
-            subtotalWithCoupon={subtotalWithCoupon}
-          />
-        </div>
-        <div className=" flex flex-wrap items-start pb-[33px] pt-[27px] justify-aound w-full">
-          <TotalShoppingCart
-            total={total}
-          />
-        </div>
-        <button className="rounded-[25px] bg-[#333] w-[100%] h-[50px] font-Poppins text-[15px] leading-[1.4] uppercase text-[#fff] flex  items-center  justify-center hover:bg-[#000] hover:transition-all"
-          onClick={() => proceedToCheckout()}
+    <>
+      {loading && <LoadingScreen />}
+      <div className="mx-[25px] border-[1px] border-solid border-[#888] py-[60px] px-[30px]">
+        <h4 className="font-Poppins text-[20px] text-center leading-[1.3] uppercase pb-[2px]">Total Carrito</h4>
+        <div
+          className="flex flex-row-reverse pr-5 mb-4"
         >
-          Continuar
-        </button>
+          <GavelIcon
+            className="text-[19px] text-[#888] cursor-pointer hover:text-[#e91e63]"
+            onClick={toggleBusinessRule}
+          />
+        </div>
+        <div className="border-b-[1px] flex justify-start flex-wrap pb-[13px]">
+          <SubtotalInfo
+            subtotal={subtotal}
+          />
+        </div>
+        <div className="border-b-[1px] border-dashed border-[#d9d9d9] flex flex-wrap flex-start pt-[20px]">
+          <InfoShippingCosts />
+          <div className="w-full flex justify-center flex-wrap my-[20px]">
+            <ShippingAddress toggleSelectCountry={toggleSelectCountry} />
+          </div>
+          <div className="w-full">
+            <CouponDetails
+              handleApplyCoupon={handleApplyCoupon}
+              setInputCoupon={setInputCoupon}
+              coupon={coupon}
+              handleRemoveCoupon={handleRemoveCoupon}
+              subtotalWithCoupon={subtotalWithCoupon}
+            />
+          </div>
+          <div className=" flex flex-wrap items-start pb-[33px] pt-[27px] justify-aound w-full">
+            <TotalShoppingCart
+              total={total}
+            />
+          </div>
+          <button className="rounded-[25px] bg-[#333] w-[100%] h-[50px] font-Poppins text-[15px] leading-[1.4] uppercase text-[#fff] flex  items-center  justify-center hover:bg-[#000] hover:transition-all"
+            onClick={() => proceedToCheckout()}
+          >
+            Continuar
+          </button>
+        </div>
       </div>
-    </div>
+    </>
   )
 }
