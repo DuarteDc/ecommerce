@@ -21,6 +21,13 @@ a {
   transition: .5s;
 }
 
+.show-more {
+  color: #333;
+}
+.show-more:hover {  
+  color: #e91e63;
+}
+
 input[type=number]::-webkit-inner-spin-button, 
 input[type=number]::-webkit-outer-spin-button { 
   -webkit-appearance: none; 

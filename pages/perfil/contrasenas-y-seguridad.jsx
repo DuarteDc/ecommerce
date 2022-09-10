@@ -17,6 +17,7 @@ import { Modal } from "../../src/components/ui/modal";
 import { useToggle } from "../../src/hooks/useToggle";
 import { wrapper } from "../../src/store";
 import Cookies from 'js-cookie';
+import { startLoadCurrencies } from "../../src/actions/countryAcctions";
 
 const PasswordAndSecurity = () =>{
     const dispatch = useDispatch();
@@ -267,7 +268,8 @@ const PasswordAndSecurity = () =>{
 export const getServerSideProps = wrapper.getServerSideProps((store) =>
     async (ctx) => {
         await store.dispatch(startLoadAdministrableLogo());
-        await store.dispatch(startLoadDataUser(ctx))
+        await store.dispatch(startLoadDataUser(ctx));
+        await store.dispatch(startLoadCurrencies());
 });
 
 export default PasswordAndSecurity;

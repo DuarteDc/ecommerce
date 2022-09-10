@@ -38,6 +38,8 @@ import { Modal } from "../src/components/ui/modal";
 import { Container, Grid, Typography } from "@mui/material";
 import { OfferCard } from "../src/components/offers/offerCard";
 import { startLoadReviews } from "../src/actions/reviewsActions";
+import { startLoadCurrencies } from "../src/actions/countryAcctions";
+import { startFilterProducts } from "../src/actions/productsAction";
 
 export default function HomePage() {
   const dispatch = useDispatch();
@@ -216,17 +218,17 @@ export default function HomePage() {
 //   );
 // };
 
-export const getStaticProps = wrapper.getStaticProps((store) => async () => {
+export const getServerSideProps = wrapper.getServerSideProps((store) => async (ctx) => {
+  const endpoint = '/products/filter/products';
+  await store.dispatch(startLoadCurrencies());
   await store.dispatch(startLoadAdministrableLogo());
   await store.dispatch(startLoadCategoriesHome());
   await store.dispatch(startLoadDataSliders());
   await store.dispatch(startLoadOffers());
   await store.dispatch(startLoadBrandsHome());
+  await store.dispatch(startFilterProducts(endpoint, undefined, ctx.req.cookies.Currency))
   await store.dispatch(startLoadTags());
   await store.dispatch(startLoadBrands());
   await store.dispatch(startLoadReviews());
   await getRSS();
-  return {
-    revalidate: 300
-  }
 });

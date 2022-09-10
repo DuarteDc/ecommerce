@@ -6,6 +6,7 @@ import { Breadcrumbs, Container, Grid, Typography } from "@mui/material";
 import {FiscalAddressProfile} from "../../src/components/profile/fiscalAddress/fiscalAddressProfile";
 import { FormFiscalAddressProfile } from "../../src/components/profile/fiscalAddress/formFiscalAdressProfile";
 import Link from "next/link";
+import { startLoadCurrencies } from "../../src/actions/countryAcctions";
 
 const FiscalAddress = () =>{
     return (
@@ -47,6 +48,7 @@ export const getServerSideProps = wrapper.getServerSideProps((store) =>
         await store.dispatch(startGetStates());
         await store.dispatch(startLoadFiscalAddress(ctx.req.cookies.token));
         await store.dispatch(startLoadTaxSystem(ctx.req.cookies.token)); 
+        await store.dispatch(startLoadCurrencies());
 });
 
 export default FiscalAddress;

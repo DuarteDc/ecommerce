@@ -13,6 +13,7 @@ import Link from 'next/link'
 import { useRouter } from 'next/router'
 
 import SearchIcon from '@mui/icons-material/Search';
+import { startLoadCurrencies } from '../../src/actions/countryAcctions'
 
 const Wishlist = () => {
 
@@ -116,6 +117,7 @@ const Wishlist = () => {
 export const getStaticProps = wrapper.getStaticProps((store) =>
     async () => {
         await store.dispatch(startLoadAdministrableLogo());
+        await store.dispatch(startLoadCurrencies());
         await store.dispatch(startLoadFaqsCategories());
         return {
             revalidate: 3600

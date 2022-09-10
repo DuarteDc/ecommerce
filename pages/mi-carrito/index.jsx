@@ -18,7 +18,7 @@ import { useToggle } from '../../src/hooks/useToggle';
 import FormAddress from '../../src/components/cart/FormAddress';
 import BusinessRules from '../../src/components/businessRules/BusinessRules';
 import FormCountry from '../../src/components/ui/FormCountry';
-import { startLoadCountries } from '../../src/actions/countryAcctions';
+import { startLoadCountries, startLoadCurrencies } from '../../src/actions/countryAcctions';
 
 const ShoppingCart = () => {
 
@@ -140,6 +140,7 @@ export const getServerSideProps = wrapper.getServerSideProps((store) => async (c
   await store.dispatch(startLoadShoppingCart(ctx.req.cookies.token));
   await store.dispatch(startGetDirections(ctx.req.cookies.token)),
     await store.dispatch(startLoadFaqsCategories());
+    await store.dispatch(startLoadCurrencies());
   await store.dispatch(startLoadCountries());
 
 });

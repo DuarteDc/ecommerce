@@ -29,6 +29,7 @@ import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import Pagination from '@mui/material/Pagination';
 import Stack from '@mui/material/Stack';
+import { startLoadCurrencies } from '../../../src/actions/countryAcctions';
 
 const Show = () => {
 
@@ -128,7 +129,7 @@ const Show = () => {
 export const getServerSideProps = wrapper.getServerSideProps((store) =>
     async (ctx) => {
         const endpoint = `/products/filter-brand/products-paginated/${ctx.query.url}`;
-        const isValid = await store.dispatch(startFilterProducts(endpoint));
+        const isValid = await store.dispatch(startFilterProducts(endpoint, undefined, ctx.req.cookies.Currency));
         if (!isValid) {
             return {
                 notFound: true
@@ -137,7 +138,8 @@ export const getServerSideProps = wrapper.getServerSideProps((store) =>
         await store.dispatch(startLoadCategories());
         await store.dispatch(startLoadSubcategories())
         await store.dispatch(startLoadAdministrableLogo());
-        await store.dispatch(startLoadFaqsCategories())
+        await store.dispatch(startLoadFaqsCategories());
+        await store.dispatch(startLoadCurrencies());
     })
 
 export default Show;

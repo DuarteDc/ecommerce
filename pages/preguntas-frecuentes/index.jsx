@@ -14,6 +14,7 @@ import { useRouter } from "next/router"
 import { helpersProducts } from "../../src/helpers"
 import LoadingScreen from "../../src/components/LoadingScreen"
 import CategoriesFaqs from "../../src/components/faqs/CategoriesFaqs"
+import { startLoadCurrencies } from "../../src/actions/countryAcctions"
 
 
 const FAQS = () => {
@@ -78,6 +79,7 @@ export const getStaticProps = wrapper.getStaticProps((store) => async () => {
     await store.dispatch(startLoadFaqs());
     await store.dispatch(startLoadFaqsCategories());
     await store.dispatch(startLoadFaqsCategories());
+    await store.dispatch(startLoadCurrencies());
     return {
         revalidate: 3600
     }

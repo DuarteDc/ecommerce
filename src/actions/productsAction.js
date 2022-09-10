@@ -1,5 +1,6 @@
 import axios from 'axios';
 import client from '../config/axiosConfig';
+import Cookies from 'js-cookie';
 
 import { types } from '../types';
 
@@ -20,11 +21,15 @@ export const loadProducts = (products) => ({
   payload: products,
 });
 
-export const startLoadProduct = (slug) => {
+export const startLoadProduct = (slug, currency) => {
   return async (dispatch) => {
     let url = `products/slug/${slug}`;
     try {
-      const res = await client.get(url);
+      const res = await client.get(url, {
+        headers: {
+          'Currency': currency
+        }
+      });
       const { product, relatedProducts } = res.data;
       dispatch(loadProduct(product, relatedProducts));
       return true;
@@ -126,10 +131,14 @@ export const loadProductPerPagination = (products) => ({
 
 /********************+filtro de productos *******************************/
 
-export const startFilterProducts = (endpoint, params = '') => {
+export const startFilterProducts = (endpoint, params = '', currency = Cookies.get('Currency') || 'MXN') => {
   return async (dispatch) => {
     try {
-      const { data } = await client.get(`${endpoint}${params}`);
+      const { data } = await client.get(`${endpoint}${params}`, {
+        headers: {
+          'Currency': currency
+        }
+      });
       dispatch(filterProducts(data, params));
       return true;
     } catch (error) {
@@ -147,11 +156,15 @@ export const filterProducts = (products, params) => ({
 
 /**************************buscar producto*********************************/
 
-export const startSearchProduct = (query) => {
+export const startSearchProduct = (query, currency = Cookies.get('Currency') || 'MXN') => {
   return async (dispatch) => {
     const url = `/search/products/${query}`;
     try {
-      const res = await client.get(url);
+      const res = await client.get(url, {
+        headers: {
+          'Currency': currency
+        }
+      });
       dispatch(searchProduct(res.data.results));
     } catch (error) {
       console.log(error);

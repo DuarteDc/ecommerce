@@ -103,34 +103,34 @@ export const startCalculateTotalSale = () => {
                return prod;
             }).reduce((prev, curr) => prev + Number(curr.subtotal), 0);
 
-         subtotalCanvas =  cart.filter(prod => prod.product_id.discount === 0 && prod.product_id.product_type === '2')
-         .map(prod => {
-            prod.subtotal = prod.product_id.price * prod.quantity;
-            return prod;
-         }).reduce((prev, curr) => prev + Number(curr.subtotal), 0);
+         subtotalCanvas = cart.filter(prod => prod.product_id.discount === 0 && prod.product_id.product_type === '2')
+            .map(prod => {
+               prod.subtotal = prod.product_id.price * prod.quantity;
+               return prod;
+            }).reduce((prev, curr) => prev + Number(curr.subtotal), 0);
       } else {
          subtotalCartWithoutDiscount = cartNotLogged.filter(prod => prod.product_id.discount < 1 && prod.product_id.product_type === '1')
-         .map(prod => {
-            prod.subtotal = prod.product_id.price * prod.quantity;
-            return prod;
-         }).reduce((prev, curr) => prev + Number(curr.subtotal), 0);
+            .map(prod => {
+               prod.subtotal = prod.product_id.price * prod.quantity;
+               return prod;
+            }).reduce((prev, curr) => prev + Number(curr.subtotal), 0);
 
          subtotalCartWithDiscount = cartNotLogged.filter(prod => prod.product_id.discount > 0 && prod.product_id.product_type === '1')
-         .map(prod => {
-            const { totalWithDiscountApply } = helpers.calculatNewTotalToPay(prod.product_id.discount, prod.product_id.price);
-            prod.subtotal = totalWithDiscountApply * prod.quantity;
-            return prod;
-         }).reduce((prev, curr) => prev + Number(curr.subtotal), 0);
+            .map(prod => {
+               const { totalWithDiscountApply } = helpers.calculatNewTotalToPay(prod.product_id.discount, prod.product_id.price);
+               prod.subtotal = totalWithDiscountApply * prod.quantity;
+               return prod;
+            }).reduce((prev, curr) => prev + Number(curr.subtotal), 0);
 
          subtotalCanvas = cartNotLogged.filter(prod => prod.product_id.discount === 0 && prod.product_id.product_type === '2')
-         .map(prod => {
-            prod.subtotal = prod.product_id.price * prod.quantity;
-            return prod;
-         }).reduce((prev, curr) => prev + Number(curr.subtotal), 0);
+            .map(prod => {
+               prod.subtotal = prod.product_id.price * prod.quantity;
+               return prod;
+            }).reduce((prev, curr) => prev + Number(curr.subtotal), 0);
       }
 
-      subtotalCart = subtotalCartWithoutDiscount + subtotalCartWithDiscount  + subtotalCanvas;
-      
+      subtotalCart = subtotalCartWithoutDiscount + subtotalCartWithDiscount + subtotalCanvas;
+
       if (coupon) {
          subtotalWithCoupon = helpers.applyCoupon(subtotalCartWithoutDiscount, coupon.discount)
          shippingSelected = shippingCosts.find((shipping) => shipping.minSale <= subtotalWithCoupon && shipping.maxSale >= subtotalWithCoupon);
@@ -139,7 +139,7 @@ export const startCalculateTotalSale = () => {
          subtotalCart = subtotalCartWithoutDiscount + subtotalCartWithDiscount;
          shippingSelected = shippingCosts.find((shipping) => shipping.minSale <= subtotalCart && shipping.maxSale >= subtotalCart);
          subtotalCart = subtotalCart + subtotalCanvas;
-         if(shippingSelected){
+         if (shippingSelected) {
             total = Number(shippingSelected?.shippingCosts) + Number(subtotalCart) || 0;
          }
          total = subtotalCart || 0;
@@ -170,14 +170,14 @@ export const startRemoveProductShoppingCart = (_id) => {
       try {
          let url = `/cart/product/${_id}`;
          const token = Cookies.get('token');
-         const res = await client.delete(url,{
+         const res = await client.delete(url, {
             headers: {
                'Authorization': token
             }
          });
          dispatch(removeProductShoppingCart(res.data.cart.products));
       } catch (error) {
-         if(axios.isAxiosError(error)){
+         if (axios.isAxiosError(error)) {
             errorNotify(error?.response?.data?.message);
             return;
          }
@@ -198,7 +198,7 @@ export const startUpdatedProductQuantity = (product) => {
       try {
          let url = '/cart';
          const token = Cookies.get('token');
-         const { data } = await client.post(url, product,{
+         const { data } = await client.post(url, product, {
             headers: {
                'Authorization': token
             }
@@ -247,10 +247,12 @@ export const startFinaliceSaleCheckout = (data) => {
       const { shipping_costs } = getState().cart;
       try {
          const oldToken = Cookies.get('token');
+         const currency = Cookies.get('Currency') || 'MXN'
          let url = '/orders/calculate/discount/web';
          const res = await client.post(url, data, {
             headers: {
-               'Authorization': oldToken
+               'Authorization': oldToken,
+               'Currency': currency
             }
          });
 
@@ -274,7 +276,7 @@ export const startFinaliceSaleCheckout = (data) => {
          ));
 
       } catch (error) {
-         if(axios.isAxiosError(error)){
+         if (axios.isAxiosError(error)) {
             errorNotify(`${error?.response?.data?.message}. ${error?.response?.data?.product?.name} Disponibles: ${error?.response?.data?.actual_stock}`);
             return;
          }
@@ -340,8 +342,8 @@ export const startloadshoppingCartFussion = (products, token) => {
    return async (dispatch) => {
       try {
          let url = '/cart/fussion';
-       
-         const { data } = await client.post(url, {products}, {
+
+         const { data } = await client.post(url, { products }, {
             headers: {
                'Authorization': token
             }
@@ -466,7 +468,7 @@ export const removeCoupon = () => ({
    type: types.remove_coupon,
 });
 
-export const removeAddressFromCart = () =>({
+export const removeAddressFromCart = () => ({
    type: types.removeAddressFromCart,
 });
 

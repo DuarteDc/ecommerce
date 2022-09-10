@@ -150,4 +150,6 @@ export const types = {
 
     load_countries: '[COUNTRY] load countries',
     country_selected: '[COUNTRY] country selected',
+
+    load_currencies: '[COUNTRY] load currencys'
 }

@@ -26,3 +26,22 @@ export const selectedCountry = (country) => ({
 export const clearCountrySelected = () => ({
     type: types.clear_country_selected,
 });
+
+
+export const startLoadCurrencies = () => {
+    return async (dispatch) => {
+        try {
+            let url = 'currencies';
+            const { data } = await client.get(url);
+            dispatch(loadCurrencies(data.currencies));
+        } catch (error) {
+            console.log(error);
+        }
+    };
+};
+
+const loadCurrencies = (currencies) => ({
+    type: types.load_currencies,
+    payload: currencies,
+});
+

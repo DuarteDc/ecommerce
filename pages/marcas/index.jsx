@@ -14,6 +14,7 @@ import { Newsletter } from "../../src/components/home";
 import { Breadcrumbs, Grid, Typography } from "@mui/material";
 import HomeIcon from '@mui/icons-material/Home';
 import NavigateNextIcon from '@mui/icons-material/NavigateNext';
+import { startLoadCurrencies } from "../../src/actions/countryAcctions";
 
 const Brands = () => {
   
@@ -89,6 +90,7 @@ export const getStaticProps = wrapper.getStaticProps((store) => async () => {
   await store.dispatch(startLoadBrands());
   await store.dispatch(startLoadAdministrableLogo());
   await store.dispatch(startLoadFaqsCategories());
+  await store.dispatch(startLoadCurrencies());
   return {
     revalidate: 3600
   }

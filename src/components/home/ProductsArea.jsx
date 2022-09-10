@@ -15,7 +15,7 @@ const endpoint = '/products/filter/products';
 export const ProductsArea = () => {
 
   const router = useRouter();
-  
+
   const { brandsHome } = useSelector((state) => state.brands);
   const { filteredProducts, products } = useSelector((state) => state.products);
   const [openSearch, setOpenSearch] = useToggle(false);
@@ -60,7 +60,7 @@ export const ProductsArea = () => {
             search={true}
             filter={true}
             handleOpenSearch={setOpenSearch}
-            // getDataToFilterBrand={getDataToFilterBrand}
+          // getDataToFilterBrand={getDataToFilterBrand}
           />
           <div className="grid grid-cols-1 gap-1">
             <Search
@@ -86,13 +86,10 @@ export const ProductsArea = () => {
                flex-wrap 
                relative"
           >
-            {filteredProducts.length > 0
-              ? filteredProducts.map((product) => (
-                  <ProductCard key={product._id} product={product} />
-                ))
-              : products?.products?.map((product) => (
-                  <ProductCard key={product._id} product={product} />
-                ))}
+            {
+              products?.products?.map((product) => (
+                <ProductCard key={product._id} product={product} />
+              ))}
           </div>
           <div className="w-full my-5 flex justify-center items-center flex-wrap">
             <Link href="/productos">

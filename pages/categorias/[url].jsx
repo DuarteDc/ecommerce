@@ -29,6 +29,7 @@ import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import SubcategoriesList from "../../src/components/subcategories/SubcategoriesList";
 import RangePrice from "../../src/components/prices/RangePrice";
+import { startLoadCurrencies } from "../../src/actions/countryAcctions";
 
 const Category = () => {
 
@@ -142,7 +143,7 @@ const Category = () => {
 export const getServerSideProps = wrapper.getServerSideProps((store) =>
     async (ctx) => {
         const endpoint = `/products/filter-category/products-paginated/${ctx.query.url}`;
-        const isValid = await store.dispatch(startFilterProducts(endpoint));
+        const isValid = await store.dispatch(startFilterProducts(endpoint, undefined, ctx.req.cookies.Currency));
         if (!isValid) {
             return {
                 notFound: true,
@@ -153,6 +154,7 @@ export const getServerSideProps = wrapper.getServerSideProps((store) =>
         await store.dispatch(startLoadSubcategories())
         await store.dispatch(startLoadAdministrableLogo());
         await store.dispatch(startLoadFaqsCategories());
+        await store.dispatch(startLoadCurrencies());
     })
 
 export default Category;

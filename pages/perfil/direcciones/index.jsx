@@ -10,7 +10,7 @@ import { BannerImage } from "../../../src/components/ui/bannerImage";
 import { useToggle } from "../../../src/hooks/useToggle";
 import { Modal } from "../../../src/components/ui/modal";
 import FormCountry from "../../../src/components/ui/FormCountry";
-import { startLoadCountries } from "../../../src/actions/countryAcctions";
+import { startLoadCountries, startLoadCurrencies } from "../../../src/actions/countryAcctions";
 
 const MyDirections = () => {
 
@@ -59,6 +59,7 @@ export const getServerSideProps = wrapper.getServerSideProps((store) =>
     await store.dispatch(startGetDirections(ctx));
     await store.dispatch(startLoadFaqsCategories());
     await store.dispatch(startLoadCountries());
+    await store.dispatch(startLoadCurrencies());
   })
 
 export default MyDirections

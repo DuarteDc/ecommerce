@@ -16,6 +16,7 @@ import Breadcrumbs from '@mui/material/Breadcrumbs';
 import Link from '@mui/material/Link';
 import HomeIcon from '@mui/icons-material/Home';
 import NavigateNextIcon from '@mui/icons-material/NavigateNext';
+import { startLoadCurrencies } from '../../src/actions/countryAcctions';
 
 
 const CountryPermissions = () => {
@@ -88,6 +89,7 @@ const CountryPermissions = () => {
 export const getStaticProps = wrapper.getStaticProps((store) => async () => {
     await store.dispatch(startLoadCountryPermissions());
     await store.dispatch(startLoadAdministrableLogo());
+    await store.dispatch(startLoadCurrencies());
     return {
         revalidate: 3600
     }

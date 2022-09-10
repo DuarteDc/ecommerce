@@ -14,6 +14,7 @@ import { startLoadFaqsCategories } from "../../../src/actions/faqsActions";
 import { resetPassword } from "../../../src/actions/authActions";
 
 import PasswordIcon from '@mui/icons-material/Password';
+import { startLoadCurrencies } from "../../../src/actions/countryAcctions";
 
 const ResetPassword = () => {
 
@@ -144,6 +145,7 @@ const ResetPassword = () => {
 
 export const getServerSideProps = wrapper.getServerSideProps((store) =>
   async () => {
+    await store.dispatch(startLoadCurrencies());
     await store.dispatch(startLoadAdministrableLogo());
     await store.dispatch(startLoadFaqsCategories());
   });

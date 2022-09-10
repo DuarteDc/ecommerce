@@ -1,6 +1,7 @@
 import { useRouter } from "next/router"
 import { useSelector } from "react-redux"
 import { startLoadAdministrableLogo } from "../../src/actions/administrableActions"
+import { startLoadCurrencies } from "../../src/actions/countryAcctions"
 import { startLoadFaqsCategories } from "../../src/actions/faqsActions"
 import { startSearchProduct } from "../../src/actions/productsAction"
 import Layout from "../../src/components/Layouts"
@@ -40,6 +41,7 @@ const Search = () => {
 
 export const getServerSideProps = wrapper.getServerSideProps((store) =>
   async (ctx) => {
+    await store.dispatch(startLoadCurrencies());
     await store.dispatch(startLoadAdministrableLogo());
     await store.dispatch(startLoadFaqsCategories())
     await store.dispatch(startSearchProduct(ctx.query.product));

@@ -30,6 +30,7 @@ import LoadingScreen from "../../src/components/LoadingScreen";
 import { startLoadFaqsCategories } from '../../src/actions/faqsActions';
 import { Grid } from "@mui/material";
 import { BannerImage, OptionCardProfile } from "../../src/components/ui";
+import { startLoadCurrencies } from "../../src/actions/countryAcctions";
 
 const Profile = () => {
     const { categories } = useSelector((state) => state.faqs);
@@ -136,5 +137,6 @@ export const getServerSideProps = wrapper.getServerSideProps((store) =>
         await store.dispatch(startGetDirections(ctx));
         await store.dispatch(startLoadFaqsCategories());
         await store.dispatch(startLoadAdministrableLogo());
+        await store.dispatch(startLoadCurrencies());
     })
 export default Profile

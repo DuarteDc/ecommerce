@@ -23,6 +23,8 @@ import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import CloseIcon from '@mui/icons-material/Close';
+import { startLoadCurrencies } from "../../actions/countryAcctions";
+import SelectCurrency from "./SelectCurrency";
 
 const NavBar = () => {
   const router = useRouter();
@@ -31,12 +33,15 @@ const NavBar = () => {
   const { wishList } = useSelector((state) => state.wishList);
   const { logged } = useSelector((state) => state.auth);
   const { logo } = useSelector((state) => state.administrable);
+  const { currencies } = useSelector((state) => state.countries);
+
 
   const { prepareProductsToFussion } = helpers;
 
   const [open, toggle] = useToggle();
 
   const [scrollPosition, setScrollPosition] = useState(0);
+  const [currency, setCurrency] = useState(Cookies.get('Currency') || 'MXN');
 
   const handleScroll = () => {
     const position = window.pageYOffset;
@@ -122,11 +127,17 @@ const NavBar = () => {
     router.replace("/");
   };
 
+  const onChangeCurrency = ({ target }) => {
+    const newCurrency = target.value;
+    setCurrency(newCurrency);
+    Cookies.set('Currency', newCurrency);
+    router.reload();
+  }
+
   return (
     <div
-      className={`bg-luz py-2 shadow-sm  w-full z-[99] ${
-        scrollPosition >= 130 && "fixed top-0"
-      } space-y-1 static`}
+      className={`bg-luz py-2 shadow-sm  w-full z-[99] ${scrollPosition >= 130 && "fixed top-0"
+        } space-y-1 static`}
     >
       <div className="w-full px-10  lg:px-2 xl:px-28 2xl:px-28">
         <nav className="flex max-h-16 justify-between items-center">
@@ -134,7 +145,7 @@ const NavBar = () => {
             src={logo}
             alt="Wapizima"
             width={110}
-            height={90}            
+            height={90}
             onClick={handleClickLogo}
             className="cursor-pointer"
           />
@@ -172,8 +183,8 @@ const NavBar = () => {
                 className="space-y-2  lg:hidden xl:hidden border  border-gray-600"
                 onClick={() => handleMenuopen()}
               >
-                <CloseIcon 
-                  className = "text-gray-600 text-[30px] block"
+                <CloseIcon
+                  className="text-gray-600 text-[30px] block"
                 />
               </button>
             )}
@@ -188,7 +199,7 @@ const NavBar = () => {
                       {name}
                     </span>
                   </Link>
-                ):(
+                ) : (
                   <Link href={path} key={name} prefetch={false}>
                     <a target="_blank" className="text-[#888] border-transparent border-b-2 hover:text-[#333] mx-4 cursor-pointer  font-Poppins text-[12px] font-medium transition uppercase duration-700 ease-in-out">
                       {name}
@@ -198,9 +209,12 @@ const NavBar = () => {
               ))}
             </div>
 
-            <div className="px-6 flex items-center">
+            <div className="px-6 flex items-center ">
+              <div className="mr-10">
+                <SelectCurrency currencies={currencies} onChange={onChangeCurrency} value={currency} />
+              </div>
               {logged ? (
-                <span>
+                <span className="flex items-center">
                   <Button
                     id="basic-button"
                     aria-controls={openMenu ? "basic-menu" : undefined}
@@ -334,27 +348,26 @@ const NavBar = () => {
       </div>
 
       <div
-        className={`animate__animated lg:hidden ${
-          open
-            ? "block animate__fadeInDown  absolute z-[30] w-full"
-            : "animate__fadeOutUp hidden"
-        } `}
+        className={`animate__animated lg:hidden ${open
+          ? "block animate__fadeInDown  absolute z-[30] w-full"
+          : "animate__fadeOutUp hidden"
+          } `}
       >
         <div className="px-2 pt-2 pb-3 space-y-1 bg-[#333] ">
           {pages.map((route) => (
             route.name !== 'Escuela' ? (
               <Link href={route.path} key={route.path}>
-              <a className="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium">
-                {route.name}
-              </a>
-            </Link>
-            ):(
+                <a className="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium">
+                  {route.name}
+                </a>
+              </Link>
+            ) : (
               <Link href={route.path} key={route.path}>
                 <a target="_blank" className="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium">
-                {route.name}
-              </a>
-            </Link>
-            )            
+                  {route.name}
+                </a>
+              </Link>
+            )
           ))}
           <div className="items-center relative">
             {logged ? (
@@ -364,9 +377,9 @@ const NavBar = () => {
                     Mi Cuenta
                   </span>
                 </Link>
-                <span 
-                className="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium"
-                onClick={(e) => {
+                <span
+                  className="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium"
+                  onClick={(e) => {
                     handleClose(e);
                     logoutSession();
                   }}

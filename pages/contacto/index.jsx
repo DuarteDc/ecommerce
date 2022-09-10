@@ -18,6 +18,7 @@ import EmailIcon from '@mui/icons-material/Email';
 import LocalPhoneIcon from '@mui/icons-material/LocalPhone';
 
 import LocationOnIcon from '@mui/icons-material/LocationOn';
+import { startLoadCurrencies } from "../../src/actions/countryAcctions";
 
 const ContactUs = () => {
   const dispatch = useDispatch();
@@ -191,6 +192,7 @@ const ContactUs = () => {
 export const getStaticProps = wrapper.getStaticProps((store) => async () => {
   await store.dispatch(startLoadAdministrableLogo());
   await store.dispatch(startLoadFaqsCategories());
+  await store.dispatch(startLoadCurrencies());
 
   return {
     revalidate: 300

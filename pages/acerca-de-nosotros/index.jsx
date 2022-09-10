@@ -14,6 +14,7 @@ import {
   shoppingCartNotLoggedfromLocalStorage,
 } from "../../src/actions/shoppingCartActions";
 import { startLoadFaqsCategories } from "../../src/actions/faqsActions";
+import { startLoadCurrencies } from "../../src/actions/countryAcctions";
 
 const AboutPage = () => {
   const dispatch = useDispatch();
@@ -99,6 +100,7 @@ AboutPage.getLayout = function getLayout(page, categories) {
 
 export const getServerSideProps = wrapper.getServerSideProps(
   (store) => async () => {
+    await store.dispatch(startLoadCurrencies());
     await store.dispatch(startLoadAdministrableLogo());
     await store.dispatch(startLoadAdministrableAbout());
     await store.dispatch(startLoadFaqsCategories());

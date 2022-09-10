@@ -32,6 +32,7 @@ import { startFilterProducts, startSearchProduct } from "../../src/actions/produ
 
 import SearchIcon from '@mui/icons-material/Search';
 import { useDebounce } from "../../src/hooks/useDebounce";
+import { startLoadCurrencies } from "../../src/actions/countryAcctions";
 
 const endpoint = "/products/filter/products-paginated";
 
@@ -186,11 +187,12 @@ const Products = () => {
 export const getServerSideProps = wrapper.getServerSideProps(
   (store) => async (ctx) => {
     const endpoint = '/products/filter/products-paginated';
-    await store.dispatch(startFilterProducts(endpoint));
+    await store.dispatch(startFilterProducts(endpoint, undefined, ctx.req.cookies.Currency));
     await store.dispatch(startLoadCategories());
     await store.dispatch(startLoadBrands());
     await store.dispatch(startLoadAdministrableLogo());
     await store.dispatch(startLoadFaqsCategories());
+    await store.dispatch(startLoadCurrencies());
   }
 );
 

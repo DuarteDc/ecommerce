@@ -41,7 +41,7 @@ export const OrderProductsList = ({ product, handleOpenProductDetail, handleOpen
                             <p className="text-sm leading-6">
                                 Subtotal: {subtotalProduct}
                             </p>
-                            <div className="flex pb-5 pt-1">
+                            {/* <div className="flex pb-5 pt-1">
                                 <span
                                     className="bg-white flex items-center shadow-lg rounded-md hover:bg-gray-100 cursor-pointer overflow-hidden mr-1 md:mr-2 lg:mr-4"
                                     onClick={() => handleOpenProductDetail(product)}
@@ -60,7 +60,7 @@ export const OrderProductsList = ({ product, handleOpenProductDetail, handleOpen
                                         </span>
                                     )
                                 }
-                            </div>
+                            </div> */}
                         </div>
                     </div>
                 </Grid>

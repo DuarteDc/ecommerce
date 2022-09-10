@@ -2,24 +2,24 @@ import { useEffect, useState } from "react"
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { useDispatch, useSelector } from "react-redux";
-import { wrapper } from '../../src/store';
+import { wrapper } from '../../../src/store';
 
 // actions
-import { startLoadFaqsCategories } from "../../src/actions/faqsActions";
-import { startLoadFiscalAddress } from "../../src/actions/profileActions";
-import { startLoadAdministrableLogo } from '../../src/actions/administrableActions';
-import { selectedOrderPendding, startLoadOrdersCanceled, startLoadPendingOrders, startLoadOrdersApproved, startLoadOrdersShipped, shippedOrders, loadProductDetail, getOrderId } from "../../src/actions/ordersActions";
+import { startLoadFaqsCategories } from "../../../src/actions/faqsActions";
+import { startLoadFiscalAddress } from "../../../src/actions/profileActions";
+import { startLoadAdministrableLogo } from '../../../src/actions/administrableActions';
+import { selectedOrderPendding, startLoadOrdersCanceled, startLoadPendingOrders, startLoadOrdersApproved, startLoadOrdersShipped, shippedOrders, loadProductDetail, getOrderId } from "../../../src/actions/ordersActions";
 
 {/** Custom Hooks */ }
-import { useToggle } from "../../src/hooks/useToggle";
+import { useToggle } from "../../../src/hooks/useToggle";
 
 {/* Components import */ }
-import Layout from '../../src/components/Layouts'
-import { Modal } from "../../src/components/ui/modal";
-import { BannerImage } from '../../src/components/ui/bannerImage';
-import { UploadProofOfPayment } from "../../src/components/checkout/uploadProofOfPayment";
-import { PendingPaymentOrderIndex } from "../../src/components/orders/pendingOrderPayment"
-import { NotFoundOrders } from "../../src/components/orders/notFoundOrders";
+import Layout from '../../../src/components/Layouts'
+import { Modal } from "../../../src/components/ui/modal";
+import { BannerImage } from '../../../src/components/ui/bannerImage';
+import { UploadProofOfPayment } from "../../../src/components/checkout/uploadProofOfPayment";
+import { PendingPaymentOrderIndex } from "../../../src/components/orders/pendingOrderPayment"
+import { NotFoundOrders } from "../../../src/components/orders/notFoundOrders";
 
 import { useFormik } from "formik";
 import * as Yup from 'yup';
@@ -27,16 +27,17 @@ import * as Yup from 'yup';
 import { Breadcrumbs, Grid, Rating, TextareaAutosize, Typography, Tabs, Tab, Box } from "@mui/material";
 import Cookies from 'js-cookie';
 
-import { customIcons } from "../../src/staticData/customIcons";
-import { tabsData } from "../../src/staticData/ordersTabsData";
+import { customIcons } from "../../../src/staticData/customIcons";
+import { tabsData } from "../../../src/staticData/ordersTabsData";
 
 {/**Helpers */ }
-import helpersProducts from "../../src/helpers/helpersProducts";
-import { startSendReview } from "../../src/actions/reviewsActions";
-import FormCancelInvoice from "../../src/components/orders/pendingOrderPayment/FormCancelInvoice";
-import LoadingScreen from "../../src/components/LoadingScreen";
-import ProductDetail from "../../src/components/orders/ProductDetail";
-import UploadImages from "../../src/components/orders/UploadImages";
+import helpersProducts from "../../../src/helpers/helpersProducts";
+import { startSendReview } from "../../../src/actions/reviewsActions";
+import FormCancelInvoice from "../../../src/components/orders/pendingOrderPayment/FormCancelInvoice";
+import LoadingScreen from "../../../src/components/LoadingScreen";
+import ProductDetail from "../../../src/components/orders/ProductDetail";
+import UploadImages from "../../../src/components/orders/UploadImages";
+import { startLoadCurrencies } from "../../../src/actions/countryAcctions";
 
 
 function a11yProps(index) {
@@ -450,6 +451,7 @@ export const getServerSideProps = wrapper.getServerSideProps((store) =>
     await store.dispatch(startLoadOrdersApproved(ctx.req.cookies.token));
     await store.dispatch(startLoadOrdersShipped(ctx.req.cookies.token));
     await store.dispatch(startLoadFiscalAddress(ctx.req.cookies.token));
+    await store.dispatch(startLoadCurrencies());
   })
 
 export default MisPedidos

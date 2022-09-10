@@ -1,6 +1,7 @@
 import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { startLoadAdministrableLogo } from '../../../src/actions/administrableActions'
+import { startLoadCurrencies } from '../../../src/actions/countryAcctions'
 import { shoppingCartNotLoggedfromLocalStorage } from '../../../src/actions/shoppingCartActions'
 import FormSignUp from '../../../src/components/auth/FormSignUp'
 import Layout from '../../../src/components/Layouts'
@@ -36,6 +37,7 @@ const Register = () => {
 export const getStaticProps = wrapper.getStaticProps((store) =>
   async () => {
     await store.dispatch(startLoadAdministrableLogo());
+    await store.dispatch(startLoadCurrencies());
     return {
       revalidate: 3600
     }

@@ -4,6 +4,7 @@ import { useDispatch } from "react-redux";
 import { addFiltersPerProducts, clearAll, startFilterProducts } from "../actions/productsAction";
 import { helpersProducts } from "../helpers";
 import { params } from "../staticData/queryParams";
+import Cookies from "js-cookie";
 
 export const useQueryParams = (endpoint, { router }) => {
   const { getQueryParams, filterSearch } = helpersProducts;
@@ -53,9 +54,10 @@ export const useQueryParams = (endpoint, { router }) => {
   };
 
   const searchData = async () => {
+    const currency = Cookies.get('Currency');
     setLoading(true);
     const queries = await getQueryParams(router.asPath);
-    await dispatch(startFilterProducts(endpoint, queries));
+    await dispatch(startFilterProducts(endpoint, queries, currency));
     setQueryParams(queries);
     setLoading(false)
   }

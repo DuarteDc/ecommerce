@@ -8,7 +8,7 @@ import Cookies from "js-cookie";
 export const startLoadPendingOrders = (token) => {
   return async (dispatch) => {
     try {
-      let url = "/orders/pendient/payments";
+      let url = "/orders/pendient/payments/web";
       const { data } = await client.get(url, {
         headers: {
           Authorization: token,
@@ -38,7 +38,7 @@ export const selectedOrderPendding = (order_id, total, totalPayments) => ({
 export const startLoadOrdersCanceled = (token) => {
   return async (dispatch) => {
     try {
-      let url = "/orders/canceled/payments";
+      let url = "/orders/canceled/payments/web";
       const { data } = await client.get(url, {
         headers: {
           Authorization: token,
@@ -59,7 +59,7 @@ export const loadOrdersCanceled = (data) => ({
 export const startLoadOrdersApproved = (token) => {
   return async (dispatch) => {
     try {
-      let url = "/orders/approved/payments";
+      let url = "/orders/approved/payments/web";
       const { data } = await client.get(url, {
         headers: {
           Authorization: token,
@@ -80,7 +80,7 @@ export const loadOrdersApproved = (ordersApproved) => ({
 export const startLoadOrdersShipped = (token) => {
   return async (dispatch) => {
     try {
-      let url = "/orders/shipped/payments";
+      let url = "/orders/shipped/payments/web";
       const { data } = await client.get(url, {
         headers: {
           Authorization: token,
@@ -159,19 +159,20 @@ export const orderCancel = (order_id, order) => ({
   },
 });
 
-export const startGetOrder = (_id) => {
+export const startGetOrder = (_id, token) => {
   return async (dispatch) => {
     try {
       let url = `/orders/${_id}`;
-      const token = Cookies.get("token");
       const { data } = await client.get(url, {
         headers: {
           Authorization: token,
         },
       });
       dispatch(getOrder(data.order, data?.shipping));
+      return true;
     } catch (error) {
       console.log(error);
+      return false;
     }
   };
 };

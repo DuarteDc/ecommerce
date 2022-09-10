@@ -9,6 +9,7 @@ import { wrapper } from '../../../src/store'
 import { useSelector, useDispatch } from 'react-redux';
 
 import { shoppingCartNotLoggedfromLocalStorage } from '../../../src/actions/shoppingCartActions'
+import { startLoadCurrencies } from "../../../src/actions/countryAcctions";
 
 
 const Login = () => {
@@ -44,6 +45,7 @@ const Login = () => {
 export const getStaticProps = wrapper.getStaticProps((store) =>
   async () => {
     await store.dispatch(startLoadAdministrableLogo());
+    await store.dispatch(startLoadCurrencies());
     return{
       revalidate: 3600
     }

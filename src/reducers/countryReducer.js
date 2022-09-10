@@ -3,6 +3,7 @@ import { types } from "../types";
 const initalState = {
     countries: [],
     country: {},
+    currencies: {},
 }
 
 export const countryReducer = (state = initalState, { type, payload }) => {
@@ -24,6 +25,11 @@ export const countryReducer = (state = initalState, { type, payload }) => {
             return {
                 ...state,
                 country: ''
+            }
+        case types.load_currencies:
+            return {
+                ...state,
+                currencies: payload,
             }
 
         default:

@@ -23,9 +23,13 @@ import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import VerticalAlignCenterIcon from '@mui/icons-material/VerticalAlignCenter';
 import HighlightOffIcon from '@mui/icons-material/HighlightOff';
 
+import KeyboardDoubleArrowRightIcon from '@mui/icons-material/KeyboardDoubleArrowRight';
+
 export const PendingPaymentOrderIndex = ({ order, handleOpenProofOfPayment, status, loading, setLoading, handleOpenProductDetail, handleOpenUploadImages }) => {
+  const router = useRouter();
 
   const dispatch = useDispatch();
+
   const { fiscalAddress } = useSelector((state) => state.profile)
   const total = helpers.priceFormat(order.total);
   const totalPayments = helpers.priceFormat(order.total_payments);
@@ -68,8 +72,13 @@ export const PendingPaymentOrderIndex = ({ order, handleOpenProofOfPayment, stat
     setLoadingDetail(false);
   }
 
+  const handleClickOrder = (order_id) => {
+    router.push({
+      pathname: '/perfil/mis-pedidos/[id]',
+      query: { id: order_id }
+    });
+  }
 
-  const router = useRouter();
 
   // const sendCancelOrder = async (formData, resetForm) => {
   //   // toggleCancelOrder();
@@ -240,7 +249,7 @@ export const PendingPaymentOrderIndex = ({ order, handleOpenProofOfPayment, stat
         </div>
       </div>
 
-      <div className="mb-6 grid grid-cols-1 lg:grid-cols-3  rounded-t-[6px] border-x border-b border-solid border-[#D5D9D9] py-3 px-10 py-10">
+      <div className="mb-6 grid grid-cols-1 lg:grid-cols-3  rounded-t-[6px] border-x border-b border-solid border-[#D5D9D9] py-3 px-10 py-10 flex items-center">
         <div className="w-full flex md:col-span-2 justify-center">
           <Swiper
             pagination={{ clickable: true }}
@@ -265,6 +274,19 @@ export const PendingPaymentOrderIndex = ({ order, handleOpenProofOfPayment, stat
                 </SwiperSlide>
               ))
             }
+            <SwiperSlide>
+              <div className="flex justify-start h-full w-full font-Poppins show-more">
+                <span
+                  className="flex flex-col items-center justify-center h-[9rem] w-full md:w-5/12 cursor-pointer border-[3px] border-dashed hover:border-[#e91e63] border-gray-400 hover:text-[#e91e63] hover:opacity-9 transition-all ease-in-out duration-500"
+                  onClick={() => handleClickOrder(order._id)}
+                >
+                  <span>
+                    <KeyboardDoubleArrowRightIcon sx={{ fontSize: 80 }} />
+                  </span>
+                  <span className="-mt-3">Ver detalle</span>
+                </span>
+              </div>
+            </SwiperSlide>
           </Swiper>
         </div>
         <div className="flex flex-col justify-center  items-center w-full mx-auto">

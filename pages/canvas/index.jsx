@@ -22,6 +22,7 @@ import PaginationItem from "@mui/material/PaginationItem";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import LoadingScreen from "../../src/components/LoadingScreen";
+import { startLoadCurrencies } from '../../src/actions/countryAcctions';
 
 const endpoint = "/products/canvas";
 
@@ -134,6 +135,7 @@ const Canvas = () => {
 
 export const getStaticProps = wrapper.getStaticProps((store) => async () => {
     const endpoint = "/products/canvas";
+    await store.dispatch(startLoadCurrencies());
     await store.dispatch(startFilterProducts(endpoint));
     await store.dispatch(startLoadAdministrableLogo());
     await store.dispatch(startLoadFaqsCategories());

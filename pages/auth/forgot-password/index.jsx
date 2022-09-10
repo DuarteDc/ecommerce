@@ -15,6 +15,7 @@ import { startLoadFaqsCategories } from "../../../src/actions/faqsActions";
 import MarkEmailReadIcon from '@mui/icons-material/MarkEmailRead';
 
 import ErrorIcon from '@mui/icons-material/Error';
+import { startLoadCurrencies } from "../../../src/actions/countryAcctions";
 
 const ForgotPassword = () => {
 
@@ -128,6 +129,7 @@ const ForgotPassword = () => {
 
 
 export const getStaticProps = wrapper.getStaticProps((store) => async () => {
+  await store.dispatch(startLoadCurrencies());
   await store.dispatch(startLoadAdministrableLogo());
   await store.dispatch(startLoadFaqsCategories());
   return {

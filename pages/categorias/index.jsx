@@ -13,6 +13,7 @@ import { Breadcrumbs, Grid, Typography } from '@mui/material';
 import NavigateNextIcon from '@mui/icons-material/NavigateNext';
 
 import HomeIcon from '@mui/icons-material/Home';
+import { startLoadCurrencies } from '../../src/actions/countryAcctions';
 
 const Categories = () => {
     const history = useRouter();
@@ -88,6 +89,7 @@ export const getStaticProps = wrapper.getStaticProps((store) => async () => {
     await store.dispatch(startLoadCategories());
     await store.dispatch(startLoadAdministrableLogo());
     await store.dispatch(startLoadFaqsCategories());
+    await store.dispatch(startLoadCurrencies());
     return {
         revalidate: 300
     }

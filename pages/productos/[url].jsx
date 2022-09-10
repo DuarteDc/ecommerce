@@ -31,6 +31,7 @@ import Link from "next/link";
 import { useDebounce } from "../../src/hooks/useDebounce";
 import ProductSliderShow from "../../src/components/products/ProductSliderShow";
 import { infoNotify } from "../../src/helpers/helpers";
+import { startLoadCurrencies } from "../../src/actions/countryAcctions";
 
 const Show = () => {
 
@@ -363,13 +364,16 @@ const Show = () => {
 
 export const getServerSideProps = wrapper.getServerSideProps(
   (store) => async (ctx) => {
-    const isValid = await store.dispatch(startLoadProduct(ctx.query.url));
+    await store.dispatch(startLoadCurrencies());
+    const isValid = await store.dispatch(startLoadProduct(ctx.query.url, ctx.req.cookies.Currency));
+    console.log(isValid);
+    await store.dispatch(startLoadAdministrableLogo());
+    await store.dispatch(startLoadCurrencies());
     if(!isValid) {
       return {
         notFound: true
       }
     }
-    await store.dispatch(startLoadAdministrableLogo());
   }
 );
 

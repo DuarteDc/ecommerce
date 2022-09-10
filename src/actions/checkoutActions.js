@@ -12,7 +12,7 @@ export const startLoadClientSecret = (token) => {
         typeOrder = Number(typeOrder);
         try {
             let url = `/orders/stripe/clients/${order_id}`;
-            const { data } = await client.post(url, {typeOrder}, {
+            const { data } = await client.post(url, { typeOrder }, {
                 headers: {
                     'Authorization': token
                 },
@@ -20,7 +20,7 @@ export const startLoadClientSecret = (token) => {
             Cookies.set('client_secret', data.client_secret);
             dispatch(loadClientSecret(data.client_secret))
         } catch (error) {
-            if(axios.isAxiosError(error)){
+            if (axios.isAxiosError(error)) {
                 errorNotify(error?.response?.data?.message);
                 return;
             }
@@ -71,7 +71,8 @@ export const startfinaliceTransferCheckout = (bank_account_id, token) => {
             let url = `/orders/finalize/sale/${order_id}`;
             await client.post(url, data, {
                 headers: {
-                    'Authorization': token
+                    'Authorization': token,
+                    'Currency': currency
                 }
             });
             dispatch(finaliceTransferCheckout());

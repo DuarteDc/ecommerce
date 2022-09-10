@@ -18,6 +18,7 @@ import { ShoppingCartDetails } from "../../src/components/checkout/shoppingCartD
 import { useRouter } from "next/router";
 import LoadingScreen from "../../src/components/LoadingScreen";
 import ImportExportIcon from '@mui/icons-material/ImportExport';
+import { startLoadCurrencies } from "../../src/actions/countryAcctions";
 
 
 const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_CLIENT);
@@ -223,6 +224,7 @@ const Checkout = () => {
 export const getServerSideProps = wrapper.getServerSideProps((store) => async () => {
   await store.dispatch(startLoadAdministrableLogo());
   await store.dispatch(startLoadBanksAccounts());
+  await store.dispatch(startLoadCurrencies());
 });
 
 export default Checkout

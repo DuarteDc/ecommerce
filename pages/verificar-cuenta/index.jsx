@@ -6,6 +6,7 @@ import MarkEmailReadIcon from '@mui/icons-material/MarkEmailRead';
 import Layout from "../../src/components/Layouts";
 import { startResendEmail } from "../../src/actions/authActions";
 import { errorNotify, successNotify } from "../../src/helpers/helpers";
+import { startLoadCurrencies } from "../../src/actions/countryAcctions";
 
 const VerifyAccount = () => {
 
@@ -64,5 +65,6 @@ const VerifyAccount = () => {
 export const getServerSideProps = wrapper.getServerSideProps((store) =>
     async (ctx) => {
         await store.dispatch(startLoadAdministrableLogo());
+        await store.dispatch(startLoadCurrencies());
     })
 export default VerifyAccount;
