@@ -21,21 +21,28 @@ export const Meta = ({
   structuredData,
 }) => {
   const dispatch = useDispatch();
-
   const router = useRouter();
 
+  const verifyToken = async() => {
+    const token = await Cookies.get("token");
+    if (token) {
+      await dispatch(startVerifyToken(token));
+    }
+  }
+
+  // useEffect(() => {
+  //   verifyToken();
+  // }, [router]);
+
   useEffect(() => {
+    verifyToken();
     const localStorageWishList = localStorage.getItem("wishListProducts")
       ? JSON.parse(localStorage.getItem("wishListProducts"))
       : [];
     dispatch(loadWishListfromLocalStorage(localStorageWishList));
   }, [router]);
 
-  useEffect(() => {
-    if (Cookies.get("token")) {
-      dispatch(startVerifyToken());
-    }
-  }, [router]);
+
 
   return (
     <Head>

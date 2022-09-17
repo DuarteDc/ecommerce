@@ -11,13 +11,14 @@ const initialState = {
     withDiscount: {},
     withoutDiscount: {},
     canvas: {},
-    business_rule:{},
+    business_rule: {},
     shipping_costs: {},
     order_id: '',
     success: false,
     shippingAddress: [],
     BusinessRules: [],
-    addressSelected: {}
+    addressSelected: {},
+    shippingCosts: 0
 }
 
 export const shoppingCartReducer = (state = initialState, { type, payload }) => {
@@ -33,7 +34,7 @@ export const shoppingCartReducer = (state = initialState, { type, payload }) => 
                 subtotalWithCoupon: payload.subtotalWithCoupon,
                 subtotal: payload.subtotalCart,
                 total: payload.total,
-                shipping_costs: payload.shippingSelected
+                shipping_costs: payload.shippingCosts
             }
         case types.finaliceCheckoutCart:
             return {
@@ -59,23 +60,48 @@ export const shoppingCartReducer = (state = initialState, { type, payload }) => 
                 coupon: payload.coupon,
             }
         case types.removeProductShoppingCart:
-        case types.loadShoppingCart:
-        case types.updatedShoppingCart:
-        case types.loadShoppingCartFromLocalStorage:
-        case types.loadShoppingCartFussion:
+        case types.loadShoppingCart: {
+            return {
+                ...state,
+                cart: payload.shoppingCart,
+                shippingCosts: payload.shippingCosts
+            }
+        }
+
         case types.updatedProductQuantity:
             return {
                 ...state,
-                cart: payload,
-                cartNotLogged: []
+                shippingCosts: payload.shippingCosts
             }
-        case types.loadShoppingCartNotLoggedFromLocalStorage:
-        case types.addProductShoppingCartNoLoggued:
+
+        case types.loadShoppingCartFromLocalStorage:
             return {
                 ...state,
-                cartNotLogged: payload,
-                cart: [],
+                cart: payload
             }
+        case types.updatedShoppingCart:
+            const existInCart = state.cart.find(product => product.product_id._id === payload._id);
+            return !existInCart ? {
+                ...state,
+                cart: [...state.cart, payload],
+            } : {
+                ...state,
+            }
+        // case types.loadShoppingCartFromLocalStorage:
+        // case types.loadShoppingCartFussion:
+        // case types.updatedProductQuantity:
+        //     return {
+        //         ...state,
+        //         cart: payload,
+        //         cartNotLogged: []
+        //     }
+        // case types.loadShoppingCartNotLoggedFromLocalStorage:
+        // case types.addProductShoppingCartNoLoggued:
+        //     return {
+        //         ...state,
+        //         cartNotLogged: payload,
+        //         cart: [],
+        //     }
         case types.updatedProductQuantityCartNotLogged:
             return {
                 ...state,

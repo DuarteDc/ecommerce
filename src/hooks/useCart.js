@@ -1,50 +1,74 @@
+import { useState, useEffect } from 'react';
+import { useDispatch } from 'react-redux';
 
-export const useCart = (logged = false) => {
+import { startAddProductShoppingCart, startRemoveProductShoppingCart, startRemoveProductsShoppingCartNotLogged, startUpdatedProductQuantity, addProductToShoppingCart } from '../actions/shoppingCartActions';
 
-    const addProduct = product => {
-        const itemCart = {
-            product: {
-                price: product.price,
-                quantity: product.quantity,
-                multimedia: product.multimedia[0],
-                name: product.name,
-                discount: product.discount,
-                product_type: product.product_type,
-            },
-            quantity: quantityInput,
-            product_id: product._id,
-        };
+import { helpers } from '../helpers';
+import { notify } from '../helpers/helpers';
+import { useDebounce } from './useDebounce';
 
-        if (logged) {
-            const token = Cookies.get("token");
-            let shoppingCart = [...cart, itemCart];
-            localStorage.setItem("cart", JSON.stringify(shoppingCart));
-            dispatch(startAddProductShoppingCart(itemCart, product.name, token));
-        } else {
-            let shoppingCart;
-            let productInCart = cartNotLogged.find((cart) => cart._id === itemCart.product_id);
-            if (productInCart) {
-                shoppingCart = cartNotLogged.map((cart) => cart._id === itemCart._id
-                    ? { ...cart, quantity: itemCart.quantity }
-                    : cart
-                );
-            } else {
-                shoppingCart = [...cartNotLogged, itemCart];
+export const useCart = (logged = false, currenQuantity = 1, product = {}, cart) => {
+
+    const dispatch = useDispatch();
+    const [quantity, setQuantity] = useState(currenQuantity);
+    const [updatedQuantity, setUpdatedQuantity] = useState(false);
+    const update = useDebounce(quantity, 500);
+
+    const updateCart = (product_id, quantity) => {
+
+        if (logged) return dispatch(startUpdatedProductQuantity({ product_id, quantity }));
+
+
+
+    }
+
+    const handleChangeProductQuantity = ({ target }) => {
+        if (target.value.length < 1) return setQuantity(1);
+
+        if (target.value > product.quantity) return setQuantity(product.quantity);
+
+        const quantity = target.value.replace(/^0+/, '');
+        setQuantity(quantity);
+        setUpdatedQuantity(true);
+    }
+
+    const updateProductQuantity = (value = 1) => {
+
+        if (value === -1)
+            if (product.quantity > 0 && quantity > 0) {
+                setQuantity(prev => prev - 1);
+                setUpdatedQuantity(true);
             }
-            dispatch(addProductToCartClientsNotLogged(shoppingCart));
-            localStorage.setItem("cartNotlogged", JSON.stringify(shoppingCart));
-            Swal.fire({
-                icon: "success",
-                title: "¡¡Buen Trabajo!!",
-                html: `<p class="font-Poppins text-base">El producto ${product.name} ha sido agregado al carrito satisfactoriamente</p>`,
-                timer: 3000,
-                timerProgressBar: true,
-                showConfirmButton: false,
-            });
+            else setUpdatedQuantity(false);
+        else
+            if (product.quantity > 0 && product.quantity > quantity) {
+                setQuantity(prev => prev + 1);
+                setUpdatedQuantity(true);
+            }
+            else setUpdatedQuantity(false);
+        helpers.calculateTotalOfCart();
+    }
+
+    const removeProduct = (id = '') => {
+        if (logged) return dispatch(startRemoveProductShoppingCart(id));
+        dispatch(startRemoveProductsShoppingCartNotLogged(id));
+    }
+
+    const addProduct = (setIsEnable) => {
+        const productInCart = helpers.existInShoppingCart(product._id, cart);
+        if (productInCart) return notify('El producto ya ha sido agregado al carrito de compras');
+        if (logged) {
+            dispatch(startAddProductShoppingCart({ product_id: product._id, currenQuantity }, product));
+            setIsEnable(true);
         }
     }
 
+    useEffect(() => {
+        if (updatedQuantity && quantity) {
+            const product_id = product._id;
+            updateCart(product_id, quantity);
+        }
+    }, [update]);
 
-
-    return {}
+    return { updateProductQuantity, addProduct, removeProduct, handleChangeProductQuantity, quantity }
 }

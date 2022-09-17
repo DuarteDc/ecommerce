@@ -2,7 +2,11 @@ import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { CartItems } from './cartItems';
 
+import { useCart } from '../../../hooks/useCart';
+
 export const CartMobile = () => {
+
+
   const [shoppingCart, setShoppingCart] = useState([])
   const { cart, cartNotLogged } = useSelector((state) => state.cart);
 

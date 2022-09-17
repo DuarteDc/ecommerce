@@ -41,7 +41,7 @@ const ShowOrder = () => {
                 title="Detalle de la orden"
                 banner="bg-banner7"
             />
-            <section className="min-h-screen mx-auto container my-10 lg:my-20 font-Poppins">
+            <section className="min-h-screen mx-auto container my-10 lg:my-20 font-Poppins overflow-hidden">
                 <div className="my-10 grid grid-col-1 lg:grid-cols-2">
                     <div>
                         <div className="font-semibold mb-2">
@@ -77,7 +77,7 @@ const ShowOrder = () => {
                         </div>
                     </div>
                 </div>
-                <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+                <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400 overflow-auto">
                     <thead className="text-xs text-white uppercase bg-[#333] dark:bg-gray-700 dark:text-gray-400">
                         <tr>
                             <th scope="col" className="py-3 px-6">

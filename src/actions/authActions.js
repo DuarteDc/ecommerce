@@ -176,19 +176,18 @@ export const register = (user, token) => ({
  * It's an async function that dispatches a function that verifies a token.
  * @returns an object with a type and a payload.
  */
-export const startVerifyToken = () => {
+export const startVerifyToken = (accessToken) => {
     return async (dispatch) => {
         let url = '/auth'
         try {
-            const oldToken = Cookies.get('token');
             const res = await client.get(url, {
                 headers: {
-                    'Authorization': oldToken
+                    'Authorization': accessToken
                 }
             });
             const { user, token } = res.data;
+            dispatch(verifyToken(user, token));
             Cookies.set('token', token)
-            dispatch(verifyToken(user, token))
         } catch (error) {
             Cookies.remove('token');
         }

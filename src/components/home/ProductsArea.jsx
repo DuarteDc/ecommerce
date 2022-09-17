@@ -29,10 +29,6 @@ export const ProductsArea = () => {
     await startSearchByQueryParams({ brand_id: brand_id });
   };
 
-  const handleResetTab = () => {
-    setTabActive(null);
-  };
-
   const onRequestSearch = async (event) => {
     event.preventDefault();
     if (!query) return;

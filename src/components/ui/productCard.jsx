@@ -5,10 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 
 import { toast } from "react-toastify";
 import Swal from "sweetalert2";
-import {
-  addProductToCartClientsNotLogged,
-  startAddProductShoppingCart,
-} from "../../actions/shoppingCartActions";
+import { addProductToCartClientsNotLogged, startAddProductShoppingCart } from "../../actions/shoppingCartActions";
 import { addOneProduct, removeOneProduct } from "../../actions/wishListActions";
 import { helpers } from "../../helpers";
 import Cookies from "js-cookie";
@@ -19,18 +16,23 @@ import VisibilityIcon from '@mui/icons-material/Visibility';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 
+import { useCart } from "../../hooks/useCart";
+
 export const ProductCard = ({ product }) => {
+
+  const { cart, cartNotLogged } = useSelector((state) => state.cart);
+  const { logged } = useSelector((state) => state.auth);
+
   const { _id, name, price, url, quantity, discount } = product;
+
+  const { addProduct } = useCart(logged, 1, product, cart);
 
   const history = useRouter();
   const dispatch = useDispatch();
-  const { cart, cartNotLogged } = useSelector((state) => state.cart);
-  const { logged } = useSelector((state) => state.auth);
+
+  const [isInWhisList, setisInWhisList] = useState(helpers.existInWishList(_id));
   const [isEnable, setIsEnable] = useState(false);
 
-  const [isInWhisList, setisInWhisList] = useState(
-    helpers.existInWishList(_id)
-  );
   const notify = (message) => toast(message);
   const { totalWithDiscountApply } = helpers.calculatNewTotalToPay(
     product.discount,
@@ -56,15 +58,15 @@ export const ProductCard = ({ product }) => {
 
   const addProductCard = (product) => {
     const exists = false;
-    if(logged){
-       exists = helpers.existInShoppingCart(product._id, cart);
-       if (exists) {
+    if (logged) {
+      exists = helpers.existInShoppingCart(product._id, cart);
+      if (exists) {
         notify("El producto ya ha sido agregado al carrito de compras");
         return;
       }
-    }else{
+    } else {
       exists = helpers.existInShoppingCart(product._id, cartNotLogged);
-       if (exists) {
+      if (exists) {
         notify("El producto ya ha sido agregado al carrito de compras");
         return;
       }
@@ -103,17 +105,7 @@ export const ProductCard = ({ product }) => {
       return;
     }
   };
-
-  useEffect(() => {
-    if (logged) {
-      const exists = helpers.existInShoppingCart(product._id, cart);
-      setIsEnable(exists);
-    } else {
-      const exists = helpers.existInShoppingCart(product._id, cartNotLogged);
-      setIsEnable(exists);
-    }
-  }, [cart, cartNotLogged]);
-
+  
   return (
     <div className="mb-[30px] relative card px-1 animate__animated animate__zoomIn">
       <div className="relative overflow-hidden">
@@ -177,12 +169,11 @@ export const ProductCard = ({ product }) => {
           <div className="flex flex-wrap justify-between">
             <div className="btn-area">
               <button
-                onClick={() => addProductCard(product)}
-                className={`${
-                  isEnable
-                    ? "bg-[#333] text-[#fff]"
-                    : "bg-[#fff] border-transparent"
-                }
+                onClick={() => addProduct(setIsEnable)}
+                className={`${isEnable
+                  ? "bg-[#333] text-[#fff]"
+                  : "bg-[#fff] border-transparent"
+                  }
                                         py-[10px] 
                                         px-[20px] 
                                         cursor-pointer 
@@ -200,10 +191,10 @@ export const ProductCard = ({ product }) => {
               >
                 {!isEnable ? (
                   <span
-                    className="flex items-center font-Poppins"             
+                    className="flex items-center font-Poppins"
                   >
                     Agregar
-                      <AddShoppingCartIcon className="ml-3 text-base" />
+                    <AddShoppingCartIcon className="ml-3 text-base" />
                   </span>
                 ) : (
                   "Ya agregado al carrito"
@@ -227,7 +218,7 @@ export const ProductCard = ({ product }) => {
                                      hover:transition"
                 onClick={() => handleShowProduct()}
               >
-                <VisibilityIcon 
+                <VisibilityIcon
                   className="text-[25px] text-[#888] w-[90%] z-[2]  hover:text-[#fff] hover:transition"
                 />
               </span>
@@ -249,7 +240,7 @@ export const ProductCard = ({ product }) => {
                 {isInWhisList ? (
                   <FavoriteIcon className="text-[25px] text-red-600 w-[60%] z-[2] hover:text-red-600 hover:transition cursor-pointer" />
                 ) : (
-                  <FavoriteBorderIcon className="text-[25px] text-[#888] w-[60%] z-[2] hover:text-[#fff] hover:transition cursor-pointer"/>
+                  <FavoriteBorderIcon className="text-[25px] text-[#888] w-[60%] z-[2] hover:text-[#fff] hover:transition cursor-pointer" />
                 )}
               </span>
             </div>

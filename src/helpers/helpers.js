@@ -1,6 +1,5 @@
 import { toast } from 'react-toastify';
 import Swal from "sweetalert2"
-
 import Cookies from 'js-cookie';
 
 const priceFormat = (number) => {
@@ -50,15 +49,10 @@ const existInWishList = (_id) => {
 }
 
 const existInShoppingCart = (_id, ShoppingCart) => {
+  const existProduct = ShoppingCart.find(cart => cart?.product_id?._id === _id);
 
-  const existProduct = ShoppingCart.find(cart => cart.product_id._id === _id);
-
-  if (existProduct) {
-    return true;
-  } else {
-    return false;
-  }
-
+  if (existProduct) return true;
+  return false;
 }
 
 const prepareProductsToFussion = (cartNoAuth) => {
@@ -71,6 +65,7 @@ const prepareProductsToFussion = (cartNoAuth) => {
 
 }
 
+export const notify = (message) => toast(message);
 
 export const successNotify = (message) => {
   toast.success(message, {
@@ -197,6 +192,31 @@ const copyText = (text = '') => {
   })
 }
 
+const calculateTotalOfCart = (cart = []) => {
+
+  const costs = cart.reduce(
+    (prev, curr) => {
+      const { product_id } = curr;
+      if (product_id.discount > 0 && product_id.product_type === '1') {
+        const { totalWithDiscountApply } = calculatNewTotalToPay(product_id.discount, product_id.price)
+        const total = totalWithDiscountApply * curr.quantity;
+        prev.productsDiscount = prev.productsDiscount + total;
+      } else if (product_id.discount === 0 && product_id.product_type === '1') {
+        const total = product_id.price * curr.quantity;
+        prev.productsWithoutDiscount = prev.productsWithoutDiscount + total;
+      } else {
+        const total = product_id.price * curr.quantity;
+        prev.productsCanvas = prev.productsCanvas + total;
+      }
+      return prev;
+    },
+    { productsDiscount: 0, productsWithoutDiscount: 0, productsCanvas: 0 },
+  );
+
+  return costs;
+
+}
+
 
 export default {
   priceFormat,
@@ -216,4 +236,5 @@ export default {
   textToRSSFeed,
   convertObjectToPlainText,
   copyText,
+  calculateTotalOfCart,
 }

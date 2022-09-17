@@ -19,14 +19,17 @@ import FormAddress from '../../src/components/cart/FormAddress';
 import BusinessRules from '../../src/components/businessRules/BusinessRules';
 import FormCountry from '../../src/components/ui/FormCountry';
 import { startLoadCountries, startLoadCurrencies } from '../../src/actions/countryAcctions';
+import { helpers } from '../../src/helpers';
 
 const ShoppingCart = () => {
 
   const dispatch = useDispatch();
+
+
   const router = useRouter();
 
-  const { cart, cartNotLogged, success, coupon, subtotalWithCoupon } = useSelector((state) => state.cart);
   const { logged, user } = useSelector((state) => state.auth);
+  const { cart, cartNotLogged, success, coupon, subtotalWithCoupon, shippingCosts } = useSelector((state) => state.cart);
   const { categories } = useSelector((state) => state.faqs);
 
   const [open, toggle] = useToggle();
@@ -34,42 +37,43 @@ const ShoppingCart = () => {
   const [openSelectCountry, toggleSelectCountry] = useToggle();
 
   useEffect(() => {
-    if (!logged && !cart.length) {
-      let cartNotLogged = localStorage.getItem('cartNotlogged') ? JSON.parse(localStorage.getItem('cartNotlogged')) : [];
-      dispatch(shoppingCartNotLoggedfromLocalStorage(cartNotLogged))
-    }
-  }, [logged, router]);
+    dispatch(startCalculateTotalSale(cart, logged));
+  }, [coupon, subtotalWithCoupon, cart]);
+
+
+  // useEffect(() => {
+  //   if (!logged && !cart.length) {
+  //     let cartNotLogged = localStorage.getItem('cartNotlogged') ? JSON.parse(localStorage.getItem('cartNotlogged')) : [];
+  //     dispatch(shoppingCartNotLoggedfromLocalStorage(cartNotLogged))
+  //   }
+  // }, [logged, router]);
 
 
 
-  useEffect(() => {
-    if (cartNotLogged.length) {
-      localStorage.setItem('cartNotlogged', JSON.stringify(cartNotLogged));
-    }
-  }, [cartNotLogged]);
+  // useEffect(() => {
+  //   if (cartNotLogged.length) {
+  //     localStorage.setItem('cartNotlogged', JSON.stringify(cartNotLogged));
+  //   }
+  // }, [cartNotLogged]);
 
-  useEffect(() => {
-    if (cart.length) {
-      localStorage.setItem('cart', JSON.stringify(cart));
-    }
-  }, [cart]);
+  // useEffect(() => {
+  //   if (cart.length) {
+  //     localStorage.setItem('cart', JSON.stringify(cart));
+  //   }
+  // }, [cart]);
 
 
-  useEffect(() => {
-    dispatch(startCalculateTotalSale());
-  }, [cart, cartNotLogged, subtotalWithCoupon, coupon]);
+  // useEffect(() => {
+  //   if (success) {
+  //     router.push('/checkout');
+  //   }
+  // }, [success]);
 
-  useEffect(() => {
-    if (success) {
-      router.push('/checkout');
-    }
-  }, [success]);
-
-  useEffect(() => {
-    if (router.pathname === 'mi-carrito') {
-      router.prefetch(router.asPath);
-    }
-  }, [router])
+  // useEffect(() => {
+  //   if (router.pathname === 'mi-carrito') {
+  //     router.prefetch(router.asPath);
+  //   }
+  // }, [router])
 
   const handleOpenFormAddress = () => {
     if (!logged) {
@@ -113,7 +117,7 @@ const ShoppingCart = () => {
         <FormAddress toggle={toggle} />
       </Modal>
       <Modal
-        open={openSelectCountry }
+        open={openSelectCountry}
         handleOpenCheckout={handleOpenFormAddress}
         actions={false}
         fullWidth={true}
@@ -136,11 +140,11 @@ const ShoppingCart = () => {
 }
 
 export const getServerSideProps = wrapper.getServerSideProps((store) => async (ctx) => {
+  await store.dispatch(startLoadShoppingCart(ctx.req?.cookies?.token, ctx.req?.cookies?.Currency));
   await store.dispatch(startLoadAdministrableLogo());
-  await store.dispatch(startLoadShoppingCart(ctx.req.cookies.token));
-  await store.dispatch(startGetDirections(ctx.req.cookies.token)),
-    await store.dispatch(startLoadFaqsCategories());
-    await store.dispatch(startLoadCurrencies());
+  await store.dispatch(startGetDirections(ctx.req.cookies.token));
+  await store.dispatch(startLoadFaqsCategories());
+  await store.dispatch(startLoadCurrencies());
   await store.dispatch(startLoadCountries());
 
 });

@@ -7,18 +7,30 @@ import Swal from "sweetalert2";
 import axios from "axios";
 import { errorNotify } from "../helpers/helpers";
 
+/*****************Obtiene el carrito del localStorage************************** */
+
+export const startLoadCartFromLocalStorage = (cart) => ({
+   type: types.loadShoppingCartFromLocalStorage,
+   payload: cart,
+});
+
+const loadCartFromLocalStorage = (cart) => ({
+});
+
+
 /** Obtener carrito de compras de la base de datos */
-export const startLoadShoppingCart = (token) => {
+export const startLoadShoppingCart = (token, currency) => {
    return async (dispatch) => {
       try {
          let url = '/cart';
          const { data } = await client.get(url, {
             headers: {
-               'Authorization': token
+               'Authorization': token,
+               'Currency': currency
             }
          });
          if (data.cart.products.length > 0) {
-            dispatch(loadShoppingCart(data.cart.products));
+            dispatch(loadShoppingCart(data.cart.products, data.shippingCosts));
          }
 
       } catch (error) {
@@ -27,35 +39,36 @@ export const startLoadShoppingCart = (token) => {
    }
 }
 
-export const loadShoppingCart = (shoppingCart) => ({
+export const loadShoppingCart = (shoppingCart, shippingCosts) => ({
    type: types.loadShoppingCart,
-   payload: shoppingCart
+   payload: {
+      shoppingCart,
+      shippingCosts
+   }
 });
 
 
 
 /**Agregar productos al carrito de compras */
-export const startAddProductShoppingCart = (product, name, token) => {
+export const startAddProductShoppingCart = (data, product) => {
    return async (dispatch) => {
       try {
-         delete product.product_id;
-         product.product_id = product._id
          let url = '/cart';
-         const { data } = await client.post(url, product, {
+         const token = Cookies.get('token');
+         const res = await client.post(url, data, {
             headers: {
                'Authorization': token
             }
          });
-         const shoppingCart = data.cart.products;
          Swal.fire({
             icon: "success",
             title: "¡¡Buen Trabajo!!",
-            html: `<p class="font-Poppins text-base">El producto ${name} ha sido agregado al carrito satisfactoriamente</p>`,
+            html: `<p class="font-Poppins text-base">El producto ha sido agregado al carrito satisfactoriamente</p>`,
             timer: 2000,
             timerProgressBar: true,
             showConfirmButton: false
          });
-         dispatch(addProductToShoppingCart(shoppingCart));
+         dispatch(addProductToShoppingCart(product));
       } catch (error) {
          console.log(error);
          Swal.fire({
@@ -70,82 +83,41 @@ export const startAddProductShoppingCart = (product, name, token) => {
    }
 }
 
-export const addProductToShoppingCart = (shoppingCart) => ({
+export const addProductToShoppingCart = (product) => ({
    type: types.updatedShoppingCart,
-   payload: shoppingCart
+   payload: product
 });
 
 
 
 /**calculate totals shoppingcart */
 
-export const startCalculateTotalSale = () => {
+export const startCalculateTotalSale = (cart, logged) => {
 
    return async (dispatch, getState) => {
-      const { cart, cartNotLogged, coupon } = getState().cart;
-      const { logged } = getState().auth;
 
+      const { cartNotLogged, coupon, shippingCosts } = getState().cart;
+
+      const data = {};
       let subtotalCart = 0;
-      let subtotalCartWithDiscount = 0, subtotalCartWithoutDiscount = 0, subtotalCanvas = 0, shippingSelected = 0;
       let subtotalWithCoupon = 0;
       let total = 0;
-      if (logged) {
-         subtotalCartWithoutDiscount = cart.filter(prod => prod.product_id.discount < 1 && prod.product_id.product_type === '1')
-            .map(prod => {
-               prod.subtotal = prod.product_id.price * prod.quantity;
-               return prod;
-            }).reduce((prev, curr) => prev + Number(curr.subtotal), 0);
 
-         subtotalCartWithDiscount = cart.filter(prod => prod.product_id.discount > 0 && prod.product_id.product_type === '1')
-            .map(prod => {
-               const { totalWithDiscountApply } = helpers.calculatNewTotalToPay(prod.product_id.discount, prod.product_id.price);
-               prod.subtotal = totalWithDiscountApply * prod.quantity;
-               return prod;
-            }).reduce((prev, curr) => prev + Number(curr.subtotal), 0);
+      if (logged)
+         data = helpers.calculateTotalOfCart(cart);
+      else
+         data = helpers.calculateTotalOfCart(cart);
 
-         subtotalCanvas = cart.filter(prod => prod.product_id.discount === 0 && prod.product_id.product_type === '2')
-            .map(prod => {
-               prod.subtotal = prod.product_id.price * prod.quantity;
-               return prod;
-            }).reduce((prev, curr) => prev + Number(curr.subtotal), 0);
-      } else {
-         subtotalCartWithoutDiscount = cartNotLogged.filter(prod => prod.product_id.discount < 1 && prod.product_id.product_type === '1')
-            .map(prod => {
-               prod.subtotal = prod.product_id.price * prod.quantity;
-               return prod;
-            }).reduce((prev, curr) => prev + Number(curr.subtotal), 0);
-
-         subtotalCartWithDiscount = cartNotLogged.filter(prod => prod.product_id.discount > 0 && prod.product_id.product_type === '1')
-            .map(prod => {
-               const { totalWithDiscountApply } = helpers.calculatNewTotalToPay(prod.product_id.discount, prod.product_id.price);
-               prod.subtotal = totalWithDiscountApply * prod.quantity;
-               return prod;
-            }).reduce((prev, curr) => prev + Number(curr.subtotal), 0);
-
-         subtotalCanvas = cartNotLogged.filter(prod => prod.product_id.discount === 0 && prod.product_id.product_type === '2')
-            .map(prod => {
-               prod.subtotal = prod.product_id.price * prod.quantity;
-               return prod;
-            }).reduce((prev, curr) => prev + Number(curr.subtotal), 0);
-      }
-
-      subtotalCart = subtotalCartWithoutDiscount + subtotalCartWithDiscount + subtotalCanvas;
+      subtotalCart = data.productsDiscount + data.productsWithoutDiscount + data.productsCanvas;
 
       if (coupon) {
-         subtotalWithCoupon = helpers.applyCoupon(subtotalCartWithoutDiscount, coupon.discount)
-         shippingSelected = shippingCosts.find((shipping) => shipping.minSale <= subtotalWithCoupon && shipping.maxSale >= subtotalWithCoupon);
-         total = Number(shippingSelected?.shippingCosts) + Number(subtotalWithCoupon + subtotalCartWithDiscount + subtotalCanvas) || 0;
+         subtotalWithCoupon = helpers.applyCoupon(data.productsWithoutDiscount, coupon.discount);
+         total = shippingCosts + Number(subtotalWithCoupon + data.subtotalCartWithDiscount + data.subtotalCanvas) || 0;
       } else {
-         subtotalCart = subtotalCartWithoutDiscount + subtotalCartWithDiscount;
-         shippingSelected = shippingCosts.find((shipping) => shipping.minSale <= subtotalCart && shipping.maxSale >= subtotalCart);
-         subtotalCart = subtotalCart + subtotalCanvas;
-         if (shippingSelected) {
-            total = Number(shippingSelected?.shippingCosts) + Number(subtotalCart) || 0;
-         }
-         total = subtotalCart || 0;
+         total = subtotalCart + shippingCosts || 0;
       }
 
-      dispatch(calculateTotalSale(subtotalWithCoupon, subtotalCart, total, shippingSelected))
+      dispatch(calculateTotalSale(subtotalWithCoupon, subtotalCart, total, shippingCosts))
 
    }
 }
@@ -198,20 +170,25 @@ export const startUpdatedProductQuantity = (product) => {
       try {
          let url = '/cart';
          const token = Cookies.get('token');
+         const currency = Cookies.get('Currency');
          const { data } = await client.post(url, product, {
             headers: {
-               'Authorization': token
+               'Authorization': token,
+               'Currency': currency
             }
          });
-         dispatch(updatedProductQuantity(data.cart.products));
+         dispatch(updatedProductQuantity(data.cart.products, data.shippingCosts));
       } catch (error) {
          console.log(error);
       }
    }
 }
-export const updatedProductQuantity = (shoppingCart) => ({
+export const updatedProductQuantity = (shoppingCart, shippingCosts) => ({
    type: types.updatedProductQuantity,
-   payload: shoppingCart
+   payload: {
+      shoppingCart,
+      shippingCosts,
+   }
 });
 
 

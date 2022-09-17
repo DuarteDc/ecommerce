@@ -1,48 +1,54 @@
 import { useEffect, useState } from "react";
-import Image from "next/image"
-import { helpers } from "../../../helpers"
-import { ButtonGroup } from "../../ui";
-import { startRemoveProductShoppingCart, updatedProductQuantityCartNotLogged, startUpdatedProductQuantity, startRemoveProductsShoppingCartNotLogged } from "../../../actions/shoppingCartActions";
+
 import { useDispatch, useSelector } from "react-redux";
-import { useDebounce } from "../../../hooks/useDebounce";
-import { toast } from "react-toastify";
+
 import { IconButton } from "@mui/material";
 import DeleteIcon from '@mui/icons-material/Delete';
 import Zoom from 'react-medium-image-zoom';
 import 'react-medium-image-zoom/dist/styles.css';
 
+import { ButtonGroup } from "../../ui";
+import { helpers } from "../../../helpers"
+
+import { startRemoveProductShoppingCart, updatedProductQuantityCartNotLogged, startUpdatedProductQuantity, startRemoveProductsShoppingCartNotLogged } from "../../../actions/shoppingCartActions";
+import { useDebounce } from "../../../hooks/useDebounce";
+import { useCart } from '../../../hooks/useCart';
 
 export const CartItems = ({ product }) => {
-  const { product_id, quantity } = product;
+
   const dispatch = useDispatch();
-  const { logged } = useSelector((state) => state.auth)
-  const [quantityInput, setQuantityInput] = useState(quantity);
-  const [productSelected, setProductSelect] = useState({})
+
+  const { product_id, quantity } = product;
+  const { logged } = useSelector((state) => state.auth);
+  const [productSelected, setProductSelect] = useState({});
 
   const price_product = helpers.priceFormat(product_id.price);
   const subtotaProduct = product_id.price * quantity;
   const { totalWithDiscountApply } = helpers.calculatNewTotalToPay(product_id.discount, subtotaProduct);
   const subtotal = helpers.priceFormat(totalWithDiscountApply || 0);
 
-  const quantityInputadd = useDebounce(quantityInput, 1000);
-  const productSelectedUpdated = useDebounce(productSelected, 2000);
+  // const quantityInputadd = useDebounce(quantityInput, 1000);
+  const productSelectedUpdated = useDebounce(productSelected, 10000);
+
+  const { updateProductQuantity, handleChangeProductQuantity, removeProduct, quantity: inputQuantity } = useCart(logged, quantity, product_id);
 
   useEffect(() => {
     if (Object.keys(productSelectedUpdated).length > 0) {
-      dispatch(startUpdatedProductQuantity(product));
+      console.log(product);
+      dispatch(startUpdatedProductQuantity(product, product_id, quantity));
     }
   }, [productSelectedUpdated, dispatch]);
 
-  useEffect(() => {
+  // useEffect(() => {
 
-    product.quantity = Number(quantityInputadd);
+  //   product.quantity = Number(quantityInputadd);
 
-    if (logged) {
-      dispatch(startUpdatedProductQuantity(product));
-    } else {
-      dispatch(updatedProductQuantityCartNotLogged(product));
-    }
-  }, [quantityInputadd, logged]);
+  //   if (logged) {
+  //     dispatch(startUpdatedProductQuantity(product));
+  //   } else {
+  //     dispatch(updatedProductQuantityCartNotLogged(product));
+  //   }
+  // }, [quantityInputadd, logged]);
 
 
   const increaseDecreaseQuantityProduct = (value) => {
@@ -84,21 +90,13 @@ export const CartItems = ({ product }) => {
     setQuantityInput(quantity)
   }
 
-  const handleRemoveProduct = (_id) => {
-    if (logged) {
-      dispatch(startRemoveProductShoppingCart(_id));
-    } else {
-      dispatch(startRemoveProductsShoppingCartNotLogged(_id));
-    }
-  }
-
   return (
     <tr className="border-b border-gray-200">
       <td className="px-4 bg-white text-sm flex items-center text-center truncate max-w-sm">
         <div>
           <Zoom zoomMargin={45}>
             <picture>
-              <source media="(max-width: 10px)" srcSet={ product.product_id.multimedia[0].path } />
+              <source media="(max-width: 10px)" srcSet={product.product_id.multimedia[0].path} />
               <img
                 src={(product.product_id.multimedia.length > 0) ? product.product_id.multimedia[0].path : 'https://upload.wikimedia.org/wikipedia/commons/d/d1/Image_not_available.png'}
                 alt={product.name}
@@ -123,9 +121,9 @@ export const CartItems = ({ product }) => {
       </td>
       <td className="px-5 py-5 bg-white text-sm text-center">
         <ButtonGroup
-          quantity={quantityInput}
-          increaseDecreaseQuantityProduct={increaseDecreaseQuantityProduct}
-          handleChangeQuantity={handleChangeQuantity}
+          quantity={inputQuantity}
+          increaseDecreaseQuantityProduct={updateProductQuantity}
+          handleChangeQuantity={handleChangeProductQuantity}
           product={product_id}
         />
       </td>
@@ -135,7 +133,7 @@ export const CartItems = ({ product }) => {
         </p>
       </td>
       <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm text-center">
-        <IconButton onClick={() => handleRemoveProduct(product_id._id)}>
+        <IconButton onClick={() => removeProduct(product_id._id)}>
           <DeleteIcon />
         </IconButton>
       </td>
