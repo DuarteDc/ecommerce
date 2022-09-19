@@ -14,10 +14,6 @@ export const startLoadCartFromLocalStorage = (cart) => ({
    payload: cart,
 });
 
-const loadCartFromLocalStorage = (cart) => ({
-});
-
-
 /** Obtener carrito de compras de la base de datos */
 export const startLoadShoppingCart = (token, currency) => {
    return async (dispatch) => {
@@ -112,7 +108,7 @@ export const startCalculateTotalSale = (cart, logged) => {
 
       if (coupon) {
          subtotalWithCoupon = helpers.applyCoupon(data.productsWithoutDiscount, coupon.discount);
-         total = shippingCosts + Number(subtotalWithCoupon + data.subtotalCartWithDiscount + data.subtotalCanvas) || 0;
+         total = shippingCosts + Number(subtotalWithCoupon + data.productsDiscount + data.productsCanvas) || 0;
       } else {
          total = subtotalCart + shippingCosts || 0;
       }
@@ -122,13 +118,13 @@ export const startCalculateTotalSale = (cart, logged) => {
    }
 }
 
-export const calculateTotalSale = (subtotalWithCoupon, subtotalCart, total, shippingSelected) => ({
+export const calculateTotalSale = (subtotalWithCoupon, subtotalCart, total, shippingCosts) => ({
    type: types.calculateTotalShoppingCart,
    payload: {
       subtotalWithCoupon,
       subtotalCart,
       total,
-      shippingSelected
+      shippingCosts
    }
 });
 
@@ -183,6 +179,23 @@ export const startUpdatedProductQuantity = (product) => {
       }
    }
 }
+export const startLoadCartNoAuth = (products, currency) => {
+   return async (dispatch) => {
+      let url = `/cart/show-cart/no-auth`
+      try {
+         const { data } = await client.post(url, { products }, {
+            headers: {
+               'Currency': currency
+            }
+         });
+         dispatch(updatedProductQuantity(data.products, data.shippingCosts));
+         localStorage.setItem('cart', JSON.stringify(data.products));
+      } catch (error) {
+         console.log(error);
+      }
+   }
+}
+
 export const updatedProductQuantity = (shoppingCart, shippingCosts) => ({
    type: types.updatedProductQuantity,
    payload: {
@@ -252,6 +265,8 @@ export const startFinaliceSaleCheckout = (data) => {
             res.data.business_rule
          ));
 
+         return true;
+
       } catch (error) {
          if (axios.isAxiosError(error)) {
             errorNotify(`${error?.response?.data?.message}. ${error?.response?.data?.product?.name} Disponibles: ${error?.response?.data?.actual_stock}`);
@@ -311,7 +326,7 @@ export const startShoppingCartFussion = (products, token) => {
    return async (dispatch) => {
       try {
          let url = '/cart/fussion';
-         const { data } = await client.post(url, products, {
+         const { data } = await client.post(url, { products }, {
             headers: {
                'Authorization': token
             }
@@ -463,3 +478,8 @@ const loadBusinesRules = (businesRules) => ({
    type: types.load_business_rules,
    payload: businesRules
 })
+
+export const clearCart = () => ({
+   type: types.clear_cart
+})
+

@@ -32,6 +32,7 @@ import { useDebounce } from "../../src/hooks/useDebounce";
 import ProductSliderShow from "../../src/components/products/ProductSliderShow";
 import { infoNotify } from "../../src/helpers/helpers";
 import { startLoadCurrencies } from "../../src/actions/countryAcctions";
+import { useCart } from "../../src/hooks/useCart";
 
 const Show = () => {
 
@@ -39,11 +40,13 @@ const Show = () => {
   const dispatch = useDispatch();
   const { product, relatedProducts } = useSelector((state) => state.products);
 
-  const { cart, cartNotLogged } = useSelector((state) => state.cart);
+  const { cart } = useSelector((state) => state.cart);
   const { logged } = useSelector((state) => state.auth);
 
-  const [quantityInput, setQuantityInput] = useState(1);
-  const quantityInputadd = useDebounce(quantityInput, 1000);
+  const { addProduct, handleChangeProductQuantity, updateProductQuantity } = useCart(logged, 1, product, cart);
+
+  // const [quantityInput, setQuantityInput] = useState(1);
+  // const quantityInputadd = useDebounce(quantityInput, 1000);
 
   const { totalWithDiscountApply } = helpers.calculatNewTotalToPay(
     product?.discount,
@@ -56,83 +59,76 @@ const Show = () => {
   const origin = typeof window === "undefined" ? "" : window.location.origin;
   const url = `${origin}${router.asPath}`;
 
-  const addProductCard = (product) => {
-    const itemCart = {
-      product_id: {
-        price: product.price,
-        quantity: product.quantity,
-        multimedia: product.multimedia,
-        _id: product._id,
-        name: product.name,
-        discount: product.discount,
-        product_type: product.product_type,
-      },
-      quantity: quantityInput,
-      _id: product._id,
-    };
+  // const addProductCard = (product) => {
+  //   const itemCart = {
+  //     product_id: {
+  //       price: product.price,
+  //       quantity: product.quantity,
+  //       multimedia: product.multimedia,
+  //       _id: product._id,
+  //       name: product.name,
+  //       discount: product.discount,
+  //       product_type: product.product_type,
+  //     },
+  //     quantity: quantityInput,
+  //     _id: product._id,
+  //   };
 
-    if (logged) {
-      const token = Cookies.get("token");
-      let shoppingCart = [...cart, itemCart];
-      localStorage.setItem("cart", JSON.stringify(shoppingCart));
-      dispatch(startAddProductShoppingCart(itemCart, product.name, token));
-    } else {
-      let shoppingCart;
-      let productInCart = cartNotLogged.find(
-        (cart) => cart._id === itemCart._id
-      );
-      if (productInCart) {
-        shoppingCart = cartNotLogged.map((cart) =>
-          cart._id === itemCart._id
-            ? { ...cart, quantity: itemCart.quantity }
-            : cart
-        );
-      } else {
-        shoppingCart = [...cartNotLogged, itemCart];
-      }
-      dispatch(addProductToCartClientsNotLogged(shoppingCart));
-      localStorage.setItem("cartNotlogged", JSON.stringify(shoppingCart));
-      Swal.fire({
-        icon: "success",
-        title: "¡¡Buen Trabajo!!",
-        html: `<p class="font-Poppins text-base">El producto ${product.name} ha sido agregado al carrito satisfactoriamente</p>`,
-        timer: 3000,
-        timerProgressBar: true,
-        showConfirmButton: false,
-      });
-    }
-  };
+  //   if (logged) {
+  //     const token = Cookies.get("token");
+  //     let shoppingCart = [...cart, itemCart];
+  //     localStorage.setItem("cart", JSON.stringify(shoppingCart));
+  //     dispatch(startAddProductShoppingCart(itemCart, product.name, token));
+  //   } else {
+  //     let shoppingCart;
+  //     let productInCart = cartNotLogged.find(
+  //       (cart) => cart._id === itemCart._id
+  //     );
+  //     if (productInCart) {
+  //       shoppingCart = cartNotLogged.map((cart) =>
+  //         cart._id === itemCart._id
+  //           ? { ...cart, quantity: itemCart.quantity }
+  //           : cart
+  //       );
+  //     } else {
+  //       shoppingCart = [...cartNotLogged, itemCart];
+  //     }
+  //     dispatch(addProductToCartClientsNotLogged(shoppingCart));
+  //     localStorage.setItem("cartNotlogged", JSON.stringify(shoppingCart));
+  //     Swal.fire({
+  //       icon: "success",
+  //       title: "¡¡Buen Trabajo!!",
+  //       html: `<p class="font-Poppins text-base">El producto ${product.name} ha sido agregado al carrito satisfactoriamente</p>`,
+  //       timer: 3000,
+  //       timerProgressBar: true,
+  //       showConfirmButton: false,
+  //     });
+  //   }
+  // };
 
-  const increaseDecreaseQuantityProduct = (value) => {
-    if (value === -1) {
-      if (Number(quantityInput) === 1) return;
-      setQuantityInput((prev) => Number(prev) - 1);
-    } else {
-      if (Number(quantityInput) === Number(product?.quantity)) return;
-      setQuantityInput((prev) => Number(prev) + 1);
-    }
-  };
+  // const increaseDecreaseQuantityProduct = (value) => {
+  //   if (value === -1) {
+  //     if (Number(quantityInput) === 1) return;
+  //     setQuantityInput((prev) => Number(prev) - 1);
+  //   } else {
+  //     if (Number(quantityInput) === Number(product?.quantity)) return;
+  //     setQuantityInput((prev) => Number(prev) + 1);
+  //   }
+  // };
 
-  const handleChangeQuantity = ({ target }) => {
-    if (target.value.length < 1) return setQuantityInput(1);
+  // const handleChangeQuantity = ({ target }) => {
+  //   if (target.value.length < 1) return setQuantityInput(1);
 
-    if (target.value > product.quantity) return setQuantityInput(product.quantity);
+  //   if (target.value > product.quantity) return setQuantityInput(product.quantity);
 
-    const quantity = target.value.replace(/^0+/, "");
-    setQuantityInput(quantity);
-  };
+  //   const quantity = target.value.replace(/^0+/, "");
+  //   setQuantityInput(quantity);
+  // };
 
   const handleClickRedirectCart = () => {
     addProductCard(product);
     router.push("/mi-carrito");
   };
-  useEffect(() => {
-    if (!logged) {
-      let cartNotLogged =
-        JSON.parse(localStorage.getItem("cartNotlogged")) || [];
-      dispatch(shoppingCartNotLoggedfromLocalStorage(cartNotLogged));
-    }
-  }, [logged]);
 
   const structuredData = {
     "@context": "http://www.schema.org",

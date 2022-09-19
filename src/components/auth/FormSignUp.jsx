@@ -4,7 +4,7 @@ import { useRouter } from "next/router";
 
 import * as Yup from 'yup';
 import { useFormik } from "formik";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { startLoginGoogle } from "../../actions/authActions";
 
 import { GoogleLogin } from 'react-google-login';
@@ -19,11 +19,14 @@ import { TextField } from "@mui/material";
 
 import helpers from "../../helpers/helpers";
 import ErrorIcon from '@mui/icons-material/Error';
+import { startShoppingCartFussion } from "../../actions/shoppingCartActions";
 
 const FormSignUp = () => {
 
     const [loading, setLoading] = useState();
-    const [value, setValue] = useState()
+    const [value, setValue] = useState();
+
+    const { cart } = useSelector(state => state.cart);
 
     const [error, setError] = useState(false);
     const [messageError, setMessageError] = useState('');
@@ -45,10 +48,15 @@ const FormSignUp = () => {
             return;
         }
 
+
+        const products = await helpers.prepareProductsToFussion(cart);
+        await dispatch(startShoppingCartFussion(products, token));
+
         const destination = router.query.p?.toString() || '';
         const newRoute = helpers.getLastRoute(destination);
         router.replace(newRoute);
         setLoading(false);
+        localStorage.removeItem('cart');
     }
 
     const initialValues = {
@@ -99,11 +107,15 @@ const FormSignUp = () => {
             setLoading(false);
             return;
         }
-    
+
+        const products = await helpers.prepareProductsToFussion(cart);
+        await dispatch(startShoppingCartFussion(products, token));
+
         const destination = router.query.p?.toString() || '';
         const newRoute = helpers.getLastRoute(destination);
         router.replace(newRoute);
         setLoading(false);
+        localStorage.removeItem('cart');
     }
 
     return (
@@ -170,17 +182,17 @@ const FormSignUp = () => {
                             autoComplete={false}
                         />
                     </div>
-                        {
+                    {
                         error &&
-                            (
+                        (
                             <span className="flex items-center mt-10 justify-center">
-                                <ErrorIcon 
-                                    className = "text-red-600 mr-1"
+                                <ErrorIcon
+                                    className="text-red-600 mr-1"
                                 />
                                 <p className="text-red-600 text-sm">{messageError}</p>
                             </span>
-                            )
-                        }   
+                        )
+                    }
                     {/*
                 <div className="grid grid-cols-1 lg:grid-cols-2">
                     <div className="mr-1">

@@ -35,7 +35,7 @@ export const CartMobile = () => {
                 :
                 cart?.map(product => (
                   <CartItems
-                    key={product.product_id._id}
+                    key={product.product_id?._id}
                     product={product}
                   />
                 ))

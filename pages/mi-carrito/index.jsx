@@ -5,7 +5,7 @@ import { wrapper } from '../../src/store';
 import { startLoadAdministrableLogo } from '../../src/actions/administrableActions';
 import { BannerImage } from '../../src/components/ui';
 import { CartMobile, CartTotals } from '../../src/components/cart';
-import { shoppingCartNotLoggedfromLocalStorage, startCalculateTotalSale, startGetDirections, startLoadShoppingCart } from '../../src/actions/shoppingCartActions';
+import { shoppingCartNotLoggedfromLocalStorage, startCalculateTotalSale, startGetDirections, startLoadCartNoAuth, startLoadShoppingCart } from '../../src/actions/shoppingCartActions';
 import { useRouter } from 'next/router';
 
 import { startLoadFaqsCategories } from '../../src/actions/faqsActions';
@@ -26,6 +26,9 @@ const ShoppingCart = () => {
   const router = useRouter();
   const dispatch = useDispatch();
 
+  const currency = Cookies.get('Currency') || '';
+  const token = Cookies.get('token');
+
   const { logged, user } = useSelector((state) => state.auth);
   const { cart, coupon, subtotalWithCoupon } = useSelector((state) => state.cart);
 
@@ -34,6 +37,10 @@ const ShoppingCart = () => {
   const [open, toggle] = useToggle();
   const [openBusinessRule, toggleBusinessRule] = useToggle();
   const [openSelectCountry, toggleSelectCountry] = useToggle();
+
+  useEffect(() => {
+    dispatch(startGetDirections(token));
+  }, []);
 
   useEffect(() => {
     dispatch(startCalculateTotalSale(cart, logged));
@@ -102,7 +109,6 @@ const ShoppingCart = () => {
 export const getStaticProps = wrapper.getStaticProps((store) =>
   async () => {
     await store.dispatch(startLoadAdministrableLogo());
-    // await store.dispatch(startGetDirections(ctx.req.cookies.token));
     await store.dispatch(startLoadFaqsCategories());
     await store.dispatch(startLoadCurrencies());
     await store.dispatch(startLoadCountries());

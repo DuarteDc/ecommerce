@@ -2,9 +2,9 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
-  startLoadCartFromLocalStorage,
+  clearCart,
+  startLoadCartNoAuth,
   startLoadShoppingCart,
-  startShoppingCartFussion,
 } from "../../actions/shoppingCartActions";
 import Badge from "@mui/material/Badge";
 import { useRouter } from "next/router";
@@ -16,14 +16,12 @@ import { logout } from "../../actions/authActions";
 import Button from "@mui/material/Button";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
-import { acceptCookies } from "../../actions/administrableActions";
 import { helpers } from "../../helpers";
 
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import CloseIcon from '@mui/icons-material/Close';
-import { startLoadCurrencies } from "../../actions/countryAcctions";
 import SelectCurrency from "./SelectCurrency";
 
 const NavBar = () => {
@@ -35,19 +33,20 @@ const NavBar = () => {
   const { wishList } = useSelector((state) => state.wishList);
   const { logo } = useSelector((state) => state.administrable);
   const { currencies } = useSelector((state) => state.countries);
-  
+
   const token = Cookies.get('token') || '';
   const [scrollPosition, setScrollPosition] = useState(0);
   const [currency, setCurrency] = useState(Cookies.get('Currency') || 'MXN');
-  
+
   const { prepareProductsToFussion } = helpers;
-  
+
   const [open, toggle] = useToggle();
-  
+
   useEffect(() => {
     if (!logged && !token) {
       const cart = JSON.parse(localStorage.getItem('cart')) || [];
-      return dispatch(startLoadCartFromLocalStorage(cart))
+      const products = prepareProductsToFussion(cart);
+      return dispatch(startLoadCartNoAuth(products, currency))
     }
     dispatch(startLoadShoppingCart(token, currency));
   }, []);
@@ -70,6 +69,7 @@ const NavBar = () => {
   }, []);
 
   const logoutSession = () => {
+    dispatch(clearCart());
     dispatch(logout());
     Cookies.remove("token");
     router.replace("/");
@@ -92,7 +92,7 @@ const NavBar = () => {
   };
 
   const handleClickLogo = () => {
-    router.replace("/");
+    router.reload("/");
   };
 
   const onChangeCurrency = ({ target }) => {
@@ -178,9 +178,9 @@ const NavBar = () => {
             </div>
 
             <div className="px-6 flex items-center ">
-              {/* <div className="mr-10">
+              <div className="mr-10">
                 <SelectCurrency currencies={currencies} onChange={onChangeCurrency} value={currency} />
-              </div> */}
+              </div>
               {logged ? (
                 <span className="flex items-center">
                   <Button

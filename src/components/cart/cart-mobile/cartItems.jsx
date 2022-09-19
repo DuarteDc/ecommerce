@@ -9,9 +9,6 @@ import 'react-medium-image-zoom/dist/styles.css';
 
 import { ButtonGroup } from "../../ui";
 import { helpers } from "../../../helpers"
-
-import { startRemoveProductShoppingCart, updatedProductQuantityCartNotLogged, startUpdatedProductQuantity, startRemoveProductsShoppingCartNotLogged } from "../../../actions/shoppingCartActions";
-import { useDebounce } from "../../../hooks/useDebounce";
 import { useCart } from '../../../hooks/useCart';
 
 export const CartItems = ({ product }) => {
@@ -19,9 +16,9 @@ export const CartItems = ({ product }) => {
   const { product_id, quantity } = product;
   const { logged } = useSelector((state) => state.auth);
 
-  const price_product = helpers.priceFormat(product_id.price);
-  const subtotaProduct = product_id.price * quantity;
-  const { totalWithDiscountApply } = helpers.calculatNewTotalToPay(product_id.discount, subtotaProduct);
+  const price_product = helpers.priceFormat(product_id?.price);
+  const subtotaProduct = product_id?.price * quantity;
+  const { totalWithDiscountApply } = helpers.calculatNewTotalToPay(product_id?.discount, subtotaProduct);
   const subtotal = helpers.priceFormat(totalWithDiscountApply || 0);
 
   const { updateProductQuantity, handleChangeProductQuantity, removeProduct, quantity: inputQuantity } = useCart(logged, quantity, product_id, undefined);
@@ -32,10 +29,10 @@ export const CartItems = ({ product }) => {
         <div>
           <Zoom zoomMargin={45}>
             <picture>
-              <source media="(max-width: 10px)" srcSet={product.product_id.multimedia[0].path} />
+              <source media="(max-width: 10px)" srcSet={product?.product_id?.multimedia[0].path} />
               <img
-                src={(product.product_id.multimedia.length > 0) ? product.product_id.multimedia[0].path : 'https://upload.wikimedia.org/wikipedia/commons/d/d1/Image_not_available.png'}
-                alt={product.name}
+                src={(product?.product_id?.multimedia?.length > 0) ? product?.product_id?.multimedia[0].path : 'https://upload.wikimedia.org/wikipedia/commons/d/d1/Image_not_available.png'}
+                alt={product?.name}
                 className="min-w-[6rem] min-h-[6rem] h-[6rem] w-[6rem]"
               />
             </picture>
@@ -43,7 +40,7 @@ export const CartItems = ({ product }) => {
         </div>
         <div className="flex flex-col">
           <span className="text-gray-900 font-normal px-4 whitespace-no-wrap truncate">
-            {product_id.name}
+            {product_id?.name}
           </span>
           <span className="text-gray-900 px-4 whitespace-no-wrap text-lg flex">
             {price_product}
@@ -52,7 +49,7 @@ export const CartItems = ({ product }) => {
       </td>
       <td className="px-5 py-5 bg-white text-sm text-center">
         <p className="text-gray-900 whitespace-no-wrap ">
-          {product_id.quantity}
+          {product_id?.quantity}
         </p>
       </td>
       <td className="px-5 py-5 bg-white text-sm text-center">

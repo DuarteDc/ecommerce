@@ -67,9 +67,15 @@ export const shoppingCartReducer = (state = initialState, { type, payload }) => 
             }
         }
 
+        case types.clear_cart:
+            return {
+                initialState
+            }
+
         case types.updatedProductQuantity:
             return {
                 ...state,
+                cart: payload.shoppingCart,
                 shippingCosts: payload.shippingCosts
             }
 

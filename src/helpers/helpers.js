@@ -201,15 +201,15 @@ const calculateTotalOfCart = (cart = []) => {
   const costs = cart.reduce(
     (prev, curr) => {
       const { product_id } = curr;
-      if (product_id.discount > 0 && product_id.product_type === '1') {
-        const { totalWithDiscountApply } = calculatNewTotalToPay(product_id.discount, product_id.price)
+      if (product_id?.discount > 0 && product_id?.product_type === '1') {
+        const { totalWithDiscountApply } = calculatNewTotalToPay(product_id?.discount, product_id?.price)
         const total = totalWithDiscountApply * curr.quantity;
         prev.productsDiscount = prev.productsDiscount + total;
-      } else if (product_id.discount === 0 && product_id.product_type === '1') {
-        const total = product_id.price * curr.quantity;
+      } else if (product_id?.discount === 0 && product_id?.product_type === '1') {
+        const total = product_id?.price * curr?.quantity;
         prev.productsWithoutDiscount = prev.productsWithoutDiscount + total;
       } else {
-        const total = product_id.price * curr.quantity;
+        const total = product_id?.price * curr?.quantity;
         prev.productsCanvas = prev.productsCanvas + total;
       }
       return prev;

@@ -48,6 +48,7 @@ export const FormSignIn = () => {
         const newRoute = helpers.getLastRoute(destination);
         router.replace(newRoute);
         setLoading(false);
+        localStorage.removeItem('cart');
     }
 
     const initialValues = {
@@ -81,12 +82,13 @@ export const FormSignIn = () => {
         }
 
         const products = helpers.prepareProductsToFussion(cart);
-        await dispatch(startShoppingCartFussion(products, token))
+        await dispatch(startShoppingCartFussion(products, token));
 
         const destination = router.query.p?.toString() || '';
         const newRoute = helpers.getLastRoute(destination);
         router.replace(newRoute);
         setLoading(false);
+        localStorage.removeItem('cart');
     }
 
     return (

@@ -81,7 +81,9 @@ export const CartTotals = ({ toggleBusinessRule, toggleSelectCountry }) => {
     }
 
 
-    await dispatch(startFinaliceSaleCheckout(data));
+    const isValid = await dispatch(startFinaliceSaleCheckout(data));
+    if(!isValid) return;
+    router.push('/checkout')
     setLoading(false);
   }
 
