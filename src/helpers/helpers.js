@@ -49,7 +49,7 @@ const existInWishList = (_id) => {
 }
 
 const existInShoppingCart = (_id, ShoppingCart) => {
-  const existProduct = ShoppingCart.find(cart => cart?.product_id?._id === _id);
+  const existProduct = ShoppingCart?.find(cart => cart?.product_id?._id === _id);
 
   if (existProduct) return true;
   return false;
@@ -57,10 +57,14 @@ const existInShoppingCart = (_id, ShoppingCart) => {
 
 const prepareProductsToFussion = (cartNoAuth) => {
 
-  const products = cartNoAuth.map(cart => ({
-    product_id: cart._id,
-    quantity: cart.quantity,
+  if (cartNoAuth.length === 0) return;
+
+  let products = cartNoAuth?.map(cart => ({
+    product_id: cart?.product_id?._id,
+    quantity: cart?.quantity,
   }));
+
+
   return products;
 
 }
@@ -217,6 +221,15 @@ const calculateTotalOfCart = (cart = []) => {
 
 }
 
+const prepareCartDataForLocalStorage = (product) => {
+  const { _id, name, description, price, discount, multimedia, product_type } = product
+
+  const product_id = {
+    _id, name, description, price, discount, multimedia, product_type
+  }
+  return product_id;
+}
+
 
 export default {
   priceFormat,
@@ -237,4 +250,5 @@ export default {
   convertObjectToPlainText,
   copyText,
   calculateTotalOfCart,
+  prepareCartDataForLocalStorage,
 }

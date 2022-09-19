@@ -19,10 +19,11 @@ export const startLoginEmailPassword = (data) => {
             let url = '/auth/login';
             const res = await client.post(url, data);
             const { token, user } = res.data;
-            Cookies.set('token', token);
+            await Cookies.set('token', token);
             dispatch(login(token, user));
             return {
                 hasError: false,
+                token
             };
 
         } catch (error) {
@@ -73,6 +74,7 @@ export const startLoginGoogle = (idToken) => {
             dispatch(loginGoogle(token, user));
             return {
                 hasError: false,
+                token
             }
 
         } catch (error) {

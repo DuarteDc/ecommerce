@@ -1,22 +1,10 @@
-import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { CartItems } from './cartItems';
 
-import { useCart } from '../../../hooks/useCart';
-
 export const CartMobile = () => {
 
+  const { cart } = useSelector((state) => state.cart);
 
-  const [shoppingCart, setShoppingCart] = useState([])
-  const { cart, cartNotLogged } = useSelector((state) => state.cart);
-
-  useEffect(() => {
-    if (cart.length > 0) {
-      setShoppingCart(cart)
-    } else {
-      setShoppingCart(cartNotLogged)
-    }
-  }, [cart, cartNotLogged]);
   return (
     <div className="overflow-x-auto mb-2">
       <div>
@@ -36,7 +24,7 @@ export const CartMobile = () => {
           </thead>
           <tbody>
             {
-              !shoppingCart.length ?
+              !cart?.length ?
                 <tr>
                   <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm text-center" colSpan={6}>
                     <p className="text-gray-900 whitespace-no-wrap">
@@ -45,7 +33,7 @@ export const CartMobile = () => {
                   </td>
                 </tr>
                 :
-                shoppingCart.map(product => (
+                cart?.map(product => (
                   <CartItems
                     key={product.product_id._id}
                     product={product}

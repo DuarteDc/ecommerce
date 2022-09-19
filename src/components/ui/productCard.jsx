@@ -20,20 +20,19 @@ import { useCart } from "../../hooks/useCart";
 
 export const ProductCard = ({ product }) => {
 
-  const { cart, cartNotLogged } = useSelector((state) => state.cart);
   const { logged } = useSelector((state) => state.auth);
+  const { cart } = useSelector((state) => state.cart);
 
   const { _id, name, price, url, quantity, discount } = product;
 
-  const { addProduct } = useCart(logged, 1, product, cart);
+  const { addProduct, productInCart } = useCart(logged, 1, product, cart);
 
   const history = useRouter();
   const dispatch = useDispatch();
 
   const [isInWhisList, setisInWhisList] = useState(helpers.existInWishList(_id));
-  const [isEnable, setIsEnable] = useState(false);
+  // const [isEnable, setIsEnable] = useState(helpers.existInShoppingCart(_id, cart));
 
-  const notify = (message) => toast(message);
   const { totalWithDiscountApply } = helpers.calculatNewTotalToPay(
     product.discount,
     product.price
@@ -105,7 +104,7 @@ export const ProductCard = ({ product }) => {
       return;
     }
   };
-  
+
   return (
     <div className="mb-[30px] relative card px-1 animate__animated animate__zoomIn">
       <div className="relative overflow-hidden">
@@ -169,8 +168,8 @@ export const ProductCard = ({ product }) => {
           <div className="flex flex-wrap justify-between">
             <div className="btn-area">
               <button
-                onClick={() => addProduct(setIsEnable)}
-                className={`${isEnable
+                onClick={addProduct}
+                className={`${productInCart
                   ? "bg-[#333] text-[#fff]"
                   : "bg-[#fff] border-transparent"
                   }
@@ -189,7 +188,7 @@ export const ProductCard = ({ product }) => {
                                         text-xs
                                         md:text-sm`}
               >
-                {!isEnable ? (
+                {!productInCart ? (
                   <span
                     className="flex items-center font-Poppins"
                   >

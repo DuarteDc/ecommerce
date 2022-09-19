@@ -365,11 +365,12 @@ const Show = () => {
 export const getServerSideProps = wrapper.getServerSideProps(
   (store) => async (ctx) => {
     await store.dispatch(startLoadCurrencies());
-    const isValid = await store.dispatch(startLoadProduct(ctx.query.url, ctx.req.cookies.Currency));
-    console.log(isValid);
+    const url = ctx.query.url;
+    const currency = ctx.req.cookies.Currency || 'MXN';
+    const isValid = await store.dispatch(startLoadProduct(url, currency));
     await store.dispatch(startLoadAdministrableLogo());
     await store.dispatch(startLoadCurrencies());
-    if(!isValid) {
+    if (!isValid) {
       return {
         notFound: true
       }

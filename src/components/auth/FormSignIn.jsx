@@ -2,8 +2,10 @@ import { useState } from "react";
 
 import Link from "next/link";
 
+import Cookies from "js-cookie";
+
 import { useRouter } from "next/router";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useFormik } from "formik";
 import * as Yup from 'yup';
 
@@ -13,9 +15,10 @@ import LoadingScreen from "../LoadingScreen";
 
 import { GoogleLogin } from 'react-google-login';
 import { TextField } from "@mui/material";
-import helpers from "../../helpers/helpers";
 import ErrorIcon from '@mui/icons-material/Error';
 
+import { helpers } from '../../helpers';
+import { startShoppingCartFussion } from "../../actions/shoppingCartActions";
 
 export const FormSignIn = () => {
 
@@ -23,10 +26,13 @@ export const FormSignIn = () => {
     const dispatch = useDispatch();
     const [error, setError] = useState();
     const [loading, setLoading] = useState();
+
+    const { cart } = useSelector(state => state.cart);
+
     const handleLoginUser = async (formData) => {
 
         setLoading(true)
-        const { hasError, message } = await dispatch(startLoginEmailPassword(formData));
+        const { hasError, token } = await dispatch(startLoginEmailPassword(formData));
 
         if (hasError) {
             setError(true);
@@ -35,6 +41,9 @@ export const FormSignIn = () => {
             return;
         }
 
+        const products = await helpers.prepareProductsToFussion(cart);
+        await dispatch(startShoppingCartFussion(products, token))
+    
         const destination = router.query.p?.toString() || '';
         const newRoute = helpers.getLastRoute(destination);
         router.replace(newRoute);
@@ -62,7 +71,7 @@ export const FormSignIn = () => {
     const responseGoogle = async ({ tokenId }) => {
 
         setLoading(true);
-        const { hasError, message } = await dispatch(startLoginGoogle(tokenId));
+        const { hasError, token } = await dispatch(startLoginGoogle(tokenId));
 
         if (hasError) {
             setError(true);
@@ -70,6 +79,9 @@ export const FormSignIn = () => {
             setLoading(false);
             return;
         }
+
+        const products = helpers.prepareProductsToFussion(cart);
+        await dispatch(startShoppingCartFussion(products, token))
 
         const destination = router.query.p?.toString() || '';
         const newRoute = helpers.getLastRoute(destination);
@@ -84,40 +96,40 @@ export const FormSignIn = () => {
                 <div className="pb-3">
                     <label className="uppercase my-5 block">Correo electronico</label>
                     <TextField
-                      type="email"
-                      name="email"
-                      required={true}
-                      label="Correo electrónico"
-                      onChange={formik.handleChange}
-                      placeholder="Correo electronico"
-                      fullWidth
-                      error={formik.touched.email && formik.errors.email? true : false}
-                      helperText={formik.touched.email && formik.errors.email && formik.errors.email}
-    
+                        type="email"
+                        name="email"
+                        required={true}
+                        label="Correo electrónico"
+                        onChange={formik.handleChange}
+                        placeholder="Correo electronico"
+                        fullWidth
+                        error={formik.touched.email && formik.errors.email ? true : false}
+                        helperText={formik.touched.email && formik.errors.email && formik.errors.email}
+
                     />
 
                 </div>
                 <div className="pb-3">
                     <label className="uppercase my-5 w-full block">Contraseña</label>
                     <TextField
-                      type="password"
-                      name="password"
-                      required={true}
-                      label="Contraseña"
-                      onChange={formik.handleChange}
-                      placeholder="Contraseña"
-                      fullWidth
-                      error={formik.touched.password && formik.errors.password? true : false}
-                      helperText={formik.touched.password && formik.errors.password && formik.errors.password}
-    
+                        type="password"
+                        name="password"
+                        required={true}
+                        label="Contraseña"
+                        onChange={formik.handleChange}
+                        placeholder="Contraseña"
+                        fullWidth
+                        error={formik.touched.password && formik.errors.password ? true : false}
+                        helperText={formik.touched.password && formik.errors.password && formik.errors.password}
+
                     />
                 </div>
                 {
                     error &&
                     (
                         <span className="flex items-center mt-1">
-                            <ErrorIcon 
-                                className = "text-red-600 mr-1"
+                            <ErrorIcon
+                                className="text-red-600 mr-1"
                             />
                             <p className="text-red-600 text-sm">Correo electrónico o contraseña incorrectos, intenta de nuevo.</p>
                         </span>

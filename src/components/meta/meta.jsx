@@ -36,11 +36,9 @@ export const Meta = ({
 
   useEffect(() => {
     verifyToken();
-    const localStorageWishList = localStorage.getItem("wishListProducts")
-      ? JSON.parse(localStorage.getItem("wishListProducts"))
-      : [];
+    const localStorageWishList = JSON.parse(localStorage.getItem("wishListProducts")) || [];
     dispatch(loadWishListfromLocalStorage(localStorageWishList));
-  }, [router]);
+  }, []);
 
 
 

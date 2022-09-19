@@ -31,14 +31,23 @@ const reducer = (state, action) => {
       ...action.payload
     }
 
+    if (state.auth) nextState.auth = state.auth;
+    if (state.cart) nextState.cart = state.cart;
     return nextState;
   } else {
     return reducers(state, action);
   }
 }
 
+const bindMiddleware = (middleware) => {
+  if (process.env.NODE_ENV !== 'production') {
+    return composeWithDevTools(applyMiddleware(...middleware))
+  }
+  return applyMiddleware(...middleware)
+}
+
 const middleware = [thunk]
-const makeStore = () => createStore(reducer, composeWithDevTools(applyMiddleware(...middleware)));
+const makeStore = () => createStore(reducer, bindMiddleware(middleware));
 
 export const wrapper = createWrapper(makeStore);
 

@@ -59,7 +59,6 @@ export const shoppingCartReducer = (state = initialState, { type, payload }) => 
                 business_rule: payload.business_rule,
                 coupon: payload.coupon,
             }
-        case types.removeProductShoppingCart:
         case types.loadShoppingCart: {
             return {
                 ...state,
@@ -74,34 +73,22 @@ export const shoppingCartReducer = (state = initialState, { type, payload }) => 
                 shippingCosts: payload.shippingCosts
             }
 
+        case types.removeProductShoppingCart:
+            return {
+                ...state,
+                cart: state.cart.filter(product => product.product_id._id !== payload)
+            }
+
         case types.loadShoppingCartFromLocalStorage:
             return {
                 ...state,
                 cart: payload
             }
         case types.updatedShoppingCart:
-            const existInCart = state.cart.find(product => product.product_id._id === payload._id);
-            return !existInCart ? {
+            return {
                 ...state,
-                cart: [...state.cart, payload],
-            } : {
-                ...state,
+                cart: [...state.cart, payload]
             }
-        // case types.loadShoppingCartFromLocalStorage:
-        // case types.loadShoppingCartFussion:
-        // case types.updatedProductQuantity:
-        //     return {
-        //         ...state,
-        //         cart: payload,
-        //         cartNotLogged: []
-        //     }
-        // case types.loadShoppingCartNotLoggedFromLocalStorage:
-        // case types.addProductShoppingCartNoLoggued:
-        //     return {
-        //         ...state,
-        //         cartNotLogged: payload,
-        //         cart: [],
-        //     }
         case types.updatedProductQuantityCartNotLogged:
             return {
                 ...state,

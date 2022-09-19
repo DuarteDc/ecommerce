@@ -63,12 +63,12 @@ export const startAddProductShoppingCart = (data, product) => {
          Swal.fire({
             icon: "success",
             title: "¡¡Buen Trabajo!!",
-            html: `<p class="font-Poppins text-base">El producto ha sido agregado al carrito satisfactoriamente</p>`,
+            html: `<p>El producto ha sido agregado al carrito satisfactoriamente</p>`,
             timer: 2000,
             timerProgressBar: true,
             showConfirmButton: false
          });
-         dispatch(addProductToShoppingCart(product));
+         dispatch(addProductToShoppingCart({ product_id: product }));
       } catch (error) {
          console.log(error);
          Swal.fire({
@@ -96,7 +96,7 @@ export const startCalculateTotalSale = (cart, logged) => {
 
    return async (dispatch, getState) => {
 
-      const { cartNotLogged, coupon, shippingCosts } = getState().cart;
+      const { coupon, shippingCosts } = getState().cart;
 
       const data = {};
       let subtotalCart = 0;
@@ -147,7 +147,7 @@ export const startRemoveProductShoppingCart = (_id) => {
                'Authorization': token
             }
          });
-         dispatch(removeProductShoppingCart(res.data.cart.products));
+         dispatch(removeProductShoppingCart(_id));
       } catch (error) {
          if (axios.isAxiosError(error)) {
             errorNotify(error?.response?.data?.message);
@@ -158,9 +158,9 @@ export const startRemoveProductShoppingCart = (_id) => {
    }
 }
 
-export const removeProductShoppingCart = (shoppingCart) => ({
+export const removeProductShoppingCart = (product_id) => ({
    type: types.removeProductShoppingCart,
-   payload: shoppingCart
+   payload: product_id
 });
 
 
@@ -297,42 +297,34 @@ export const updatedProductQuantityCartNotLogged = (product) => ({
 
 export const startRemoveProductsShoppingCartNotLogged = (_id) => {
    return (dispatch) => {
-      let cartNoAuth = JSON.parse(localStorage.getItem('cartNotlogged') || '');
-      const newCart = cartNoAuth.filter((cart) => cart.product_id._id !== _id);
-      localStorage.setItem('cartNotlogged', JSON.stringify(newCart));
-      dispatch(removeProductsShoppingCartNotLogged(_id))
+      let cart = JSON.parse(localStorage.getItem('cart') || '');
+      const newCart = cart.filter((cart) => cart.product_id._id !== _id);
+      localStorage.setItem('cart', JSON.stringify(newCart));
+      dispatch(removeProductShoppingCart(_id))
    }
 
 }
 
-export const removeProductsShoppingCartNotLogged = (_id) => ({
-   type: types.deleteProductShoppingCartNotLogged,
-   payload: _id
-});
-
-
-
-
 /**shoppingCart Fussion */
 
-export const startloadshoppingCartFussion = (products, token) => {
+export const startShoppingCartFussion = (products, token) => {
    return async (dispatch) => {
       try {
          let url = '/cart/fussion';
-
-         const { data } = await client.post(url, { products }, {
+         const { data } = await client.post(url, products, {
             headers: {
                'Authorization': token
             }
          });
-         dispatch(loadShoppingCartFussion(data.cart.products));
+         dispatch(shoppingCartFussion(data.cart.products));
+         localStorage.removeItem('cart');
       } catch (error) {
          console.log(error);
       }
    }
 }
 
-export const loadShoppingCartFussion = (fussionShoppingCart) => ({
+const shoppingCartFussion = (fussionShoppingCart) => ({
    type: types.loadShoppingCartFussion,
    payload: fussionShoppingCart
 });

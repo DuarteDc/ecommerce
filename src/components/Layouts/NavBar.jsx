@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   startLoadCartFromLocalStorage,
   startLoadShoppingCart,
-  startloadshoppingCartFussion,
+  startShoppingCartFussion,
 } from "../../actions/shoppingCartActions";
 import Badge from "@mui/material/Badge";
 import { useRouter } from "next/router";
@@ -30,27 +30,27 @@ const NavBar = () => {
 
   const dispatch = useDispatch();
   const router = useRouter();
+  const { logged } = useSelector((state) => state.auth);
   const { cart } = useSelector((state) => state.cart);
   const { wishList } = useSelector((state) => state.wishList);
-  const { logged } = useSelector((state) => state.auth);
   const { logo } = useSelector((state) => state.administrable);
   const { currencies } = useSelector((state) => state.countries);
-
+  
   const token = Cookies.get('token') || '';
   const [scrollPosition, setScrollPosition] = useState(0);
   const [currency, setCurrency] = useState(Cookies.get('Currency') || 'MXN');
-
+  
   const { prepareProductsToFussion } = helpers;
-
+  
   const [open, toggle] = useToggle();
-
+  
   useEffect(() => {
-    if (!logged) {
+    if (!logged && !token) {
       const cart = JSON.parse(localStorage.getItem('cart')) || [];
       return dispatch(startLoadCartFromLocalStorage(cart))
     }
     dispatch(startLoadShoppingCart(token, currency));
-  }, [logged]);
+  }, []);
 
 
   const handleScroll = () => {
@@ -74,33 +74,6 @@ const NavBar = () => {
     Cookies.remove("token");
     router.replace("/");
   };
-
-  useEffect(() => {
-    if (logged) {
-      const shoppingCartNotLogged = localStorage.getItem("cartNotlogged")
-        ? JSON.parse(localStorage.getItem("cartNotlogged"))
-        : [];
-
-      const token = Cookies.get("token") || "";
-
-      const products = prepareProductsToFussion(shoppingCartNotLogged);
-
-      if (!shoppingCartNotLogged.length) {
-        dispatch(startLoadShoppingCart(token));
-        return;
-      }
-
-      dispatch(startloadshoppingCartFussion(products, token));
-
-      localStorage.removeItem("cartNotlogged");
-    }
-  }, [logged, router, dispatch]);
-
-  // useEffect(() => {
-  //   if (cart.length > 0) {
-  //     localStorage.setItem("cart", JSON.stringify(cart));
-  //   }
-  // }, [cart]);
 
   const handleMenuopen = () => {
     toggle();
@@ -155,7 +128,7 @@ const NavBar = () => {
                 <FavoriteBorderIcon />
               </Badge>
               <Badge
-                badgeContent={cart.length}
+                badgeContent={cart?.length}
                 color="secondary"
                 onClick={() => handleRedirectClick("/mi-carrito")}
                 className="mr-5"
@@ -205,9 +178,9 @@ const NavBar = () => {
             </div>
 
             <div className="px-6 flex items-center ">
-              <div className="mr-10">
+              {/* <div className="mr-10">
                 <SelectCurrency currencies={currencies} onChange={onChangeCurrency} value={currency} />
-              </div>
+              </div> */}
               {logged ? (
                 <span className="flex items-center">
                   <Button
