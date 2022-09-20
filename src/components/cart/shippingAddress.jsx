@@ -12,7 +12,7 @@ export const ShippingAddress = ({ toggleSelectCountry }) => {
     const dispatch = useDispatch();
     const { shippingAddress, addressSelected } = useSelector((state) => state.cart);
 
-    const address = shippingAddress.map(address => {
+    const address = shippingAddress?.map(address => {
         let add = {
             label: `${address.street} #${address.no_ext}, ${address.postalcode}, ${address?.state?.name || address?.state}`,
             value: address._id
@@ -44,7 +44,7 @@ export const ShippingAddress = ({ toggleSelectCountry }) => {
             </div>
             <div className="w-full mt-1 flex items-center">
                 {
-                    Object.keys(addressSelected).length > 0 ? (
+                    Object?.keys(addressSelected)?.length > 0 ? (
                         <p className="w-full font-semibold">{addressSelected.street} #{addressSelected.no_ext}, {addressSelected.postalcode}, {addressSelected?.state?.name}</p>
                     ) : (
                         <FormControl size="small" fullWidth>

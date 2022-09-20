@@ -57,7 +57,7 @@ const existInShoppingCart = (_id, ShoppingCart) => {
 
 const prepareProductsToFussion = (cartNoAuth) => {
 
-  if (cartNoAuth.length === 0) return;
+  if (cartNoAuth?.length === 0) return;
 
   let products = cartNoAuth?.map(cart => ({
     product_id: cart?.product_id?._id,
@@ -222,10 +222,10 @@ const calculateTotalOfCart = (cart = []) => {
 }
 
 const prepareCartDataForLocalStorage = (product) => {
-  const { _id, name, description, price, discount, multimedia, product_type } = product
+  const { _id, name, description, price, discount, multimedia, product_type, quantity } = product
 
   const product_id = {
-    _id, name, description, price, discount, multimedia, product_type
+    _id, name, description, price, discount, multimedia, product_type, quantity
   }
   return product_id;
 }

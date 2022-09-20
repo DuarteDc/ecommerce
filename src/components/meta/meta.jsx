@@ -30,10 +30,6 @@ export const Meta = ({
     }
   }
 
-  // useEffect(() => {
-  //   verifyToken();
-  // }, [router]);
-
   useEffect(() => {
     verifyToken();
     const localStorageWishList = JSON.parse(localStorage.getItem("wishListProducts")) || [];

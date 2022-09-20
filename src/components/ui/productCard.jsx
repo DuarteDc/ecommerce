@@ -3,7 +3,6 @@ import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-import { toast } from "react-toastify";
 import Swal from "sweetalert2";
 import { addProductToCartClientsNotLogged, startAddProductShoppingCart } from "../../actions/shoppingCartActions";
 import { addOneProduct, removeOneProduct } from "../../actions/wishListActions";
@@ -15,6 +14,8 @@ import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
+
+import { notify } from "../../helpers/helpers";
 
 import { useCart } from "../../hooks/useCart";
 
@@ -31,8 +32,7 @@ export const ProductCard = ({ product }) => {
   const dispatch = useDispatch();
 
   const [isInWhisList, setisInWhisList] = useState(helpers.existInWishList(_id));
-  // const [isEnable, setIsEnable] = useState(helpers.existInShoppingCart(_id, cart));
-
+  
   const { totalWithDiscountApply } = helpers.calculatNewTotalToPay(
     product.discount,
     product.price
@@ -52,56 +52,6 @@ export const ProductCard = ({ product }) => {
       dispatch(removeOneProduct(_id));
     } else {
       dispatch(addOneProduct(_id));
-    }
-  };
-
-  const addProductCard = (product) => {
-    const exists = false;
-    if (logged) {
-      exists = helpers.existInShoppingCart(product._id, cart);
-      if (exists) {
-        notify("El producto ya ha sido agregado al carrito de compras");
-        return;
-      }
-    } else {
-      exists = helpers.existInShoppingCart(product._id, cartNotLogged);
-      if (exists) {
-        notify("El producto ya ha sido agregado al carrito de compras");
-        return;
-      }
-    }
-
-    const itemCart = {
-      product_id: {
-        price: product.price,
-        quantity: product.quantity,
-        multimedia: product.multimedia,
-        _id: product._id,
-        name: product.name,
-        discount: product.discount,
-        product_type: product.product_type,
-      },
-      quantity: 1,
-      _id: product._id,
-    };
-
-    if (logged) {
-      const token = Cookies.get("token") || "";
-      dispatch(startAddProductShoppingCart(itemCart, product.name, token));
-      return;
-    } else {
-      let shoppingCart = [...cartNotLogged, itemCart];
-      dispatch(addProductToCartClientsNotLogged(shoppingCart));
-      localStorage.setItem("cartNotlogged", JSON.stringify(shoppingCart));
-      Swal.fire({
-        icon: "success",
-        title: "¡¡Buen Trabajo!!",
-        html: `<p class="font-Poppins text-base">El producto ${product.name} ha sido agregado al carrito satisfactoriamente</p>`,
-        timer: 2000,
-        timerProgressBar: true,
-        showConfirmButton: false,
-      });
-      return;
     }
   };
 

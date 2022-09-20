@@ -1,5 +1,3 @@
-import { useEffect, useState } from "react";
-
 import { useDispatch, useSelector } from "react-redux";
 import { wrapper } from "../../src/store";
 
@@ -9,28 +7,17 @@ import Layout from "../../src/components/Layouts";
 
 import { startLoadProduct } from "../../src/actions/productsAction";
 
-//import { newProduct } from "../../src/actions/shoppingCartActions";
 import { startLoadAdministrableLogo } from "../../src/actions/administrableActions";
 import { helpers } from "../../src/helpers";
-import {
-  addProductToCartClientsNotLogged,
-  addShoppingCartFromLocalStorage,
-  shoppingCartNotLoggedfromLocalStorage,
-  startAddProductShoppingCart,
-} from "../../src/actions/shoppingCartActions";
-import Swal from "sweetalert2";
 import { useRouter } from "next/router";
 import { ButtonGroup, ProductCard } from "../../src/components/ui";
 import Image from "next/image";
-import Cookies from "js-cookie";
 import { Breadcrumbs, Container, Typography } from "@mui/material";
 import HomeIcon from '@mui/icons-material/Home';
 
 import NavigateNextIcon from "@mui/icons-material/NavigateNext";
 import Link from "next/link";
-import { useDebounce } from "../../src/hooks/useDebounce";
 import ProductSliderShow from "../../src/components/products/ProductSliderShow";
-import { infoNotify } from "../../src/helpers/helpers";
 import { startLoadCurrencies } from "../../src/actions/countryAcctions";
 import { useCart } from "../../src/hooks/useCart";
 
@@ -43,10 +30,7 @@ const Show = () => {
   const { cart } = useSelector((state) => state.cart);
   const { logged } = useSelector((state) => state.auth);
 
-  const { addProduct, handleChangeProductQuantity, updateProductQuantity } = useCart(logged, 1, product, cart);
-
-  // const [quantityInput, setQuantityInput] = useState(1);
-  // const quantityInputadd = useDebounce(quantityInput, 1000);
+  const { addProduct, updateProductQuantity, handleChangeProductQuantity, quantity: inputQuantity } = useCart(logged, 1, product, cart, 2);
 
   const { totalWithDiscountApply } = helpers.calculatNewTotalToPay(
     product?.discount,
@@ -126,7 +110,7 @@ const Show = () => {
   // };
 
   const handleClickRedirectCart = () => {
-    addProductCard(product);
+    addProduct();
     router.push("/mi-carrito");
   };
 
@@ -307,13 +291,14 @@ const Show = () => {
                   product?.product_type === '1' && (
                     <div className="flex items-center mb-10">
                       <ButtonGroup
-                        quantity={quantityInput}
-                        increaseDecreaseQuantityProduct={increaseDecreaseQuantityProduct}
-                        handleChangeQuantity={handleChangeQuantity}
+                        quantity={inputQuantity}
+                        increaseDecreaseQuantityProduct={updateProductQuantity}
+                        handleChangeQuantity={handleChangeProductQuantity}
+                        product={product}
                       />
                       <button
                         className="h-[45px] top-[-2px] relative cursor-pointer border-[1px] border-solid border-[#333] flex items-center px-[25px] rounded-none uppercase hover:bg-[#333] hover:text-secondary transition-all duration-700 ease-in-out text-xs ml-2 md:ml-5 md:text-[14px] md:text-xs"
-                        onClick={() => addProductCard(product)}
+                        onClick={addProduct}
                       >
                         <ShoppingCartIcon />
                         Añadir a carrito
