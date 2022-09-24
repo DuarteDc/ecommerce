@@ -94,7 +94,7 @@ export const shoppingCartReducer = (state = initialState, { type, payload }) => 
             const existInCart = state.cart.find(cart => cart.product_id._id === payload.product_id._id);
             return existInCart ? {
                 ...state,
-                cart: state.cart.map(cart => cart.product_id._id === payload.product_id._id ? { ...cart, quantity: cart.quantity = payload.quantity } : cart),
+                cart: state.cart.map(cart => cart.product_id._id === payload.product_id._id ? { ...payload } : cart),
             } : {
                 ...state,
                 cart: [...state.cart, payload]

@@ -21,13 +21,10 @@ export const ShippingAddress = ({ toggleSelectCountry }) => {
     });
 
     const handleChangeAddress = (value) => {
- 
+
         const shippingAddressSelected = shippingAddress.find(address => address._id === value);
 
-        if (shippingAddressSelected) {
-            
-            dispatch(addShippingAddressSelected(shippingAddressSelected));
-        }
+        if (shippingAddressSelected) dispatch(addShippingAddressSelected(shippingAddressSelected));
 
     }
 
@@ -44,7 +41,7 @@ export const ShippingAddress = ({ toggleSelectCountry }) => {
             </div>
             <div className="w-full mt-1 flex items-center">
                 {
-                    Object?.keys(addressSelected)?.length > 0 ? (
+                    Object.keys(addressSelected)?.length > 0 ? (
                         <p className="w-full font-semibold">{addressSelected.street} #{addressSelected.no_ext}, {addressSelected.postalcode}, {addressSelected?.state?.name}</p>
                     ) : (
                         <FormControl size="small" fullWidth>
@@ -73,8 +70,8 @@ export const ShippingAddress = ({ toggleSelectCountry }) => {
                         Agregar
                     </button>
                 ) : (
-                    <div onClick={handleRemoveAddress}>                        
-                        <HighlightOffIcon  className = "text-xl cursor-pointer ml-2 hover:text-red-600" />
+                    <div onClick={handleRemoveAddress}>
+                        <HighlightOffIcon className="text-xl cursor-pointer ml-2 hover:text-red-600" />
                     </div>
                 )
                 }

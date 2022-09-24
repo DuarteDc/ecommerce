@@ -64,7 +64,6 @@ const prepareProductsToFussion = (cartNoAuth) => {
     quantity: cart?.quantity,
   }));
 
-
   return products;
 
 }

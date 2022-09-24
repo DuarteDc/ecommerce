@@ -10,7 +10,7 @@ export const ButtonGroup = ({ quantity = 1, increaseDecreaseQuantityProduct, han
         }
     }
     return (
-        <div className="max-w-[130px] min-w-[130px] text-center inline-block relative border-[1px] border-solid border-[#eee] pt-[11px] pb-[10px] top-[-1px]">
+        <div className="max-w-[130px] min-w-[100px] w-[100px] md:w-[130px] text-center inline-block relative border-[1px] border-solid border-[#eee] pt-[11px] pb-[10px] top-[-1px]">
             {
                 product?.product_type === '2' ? (
                     <span className="w-[50px] h-full outline-none top-0">

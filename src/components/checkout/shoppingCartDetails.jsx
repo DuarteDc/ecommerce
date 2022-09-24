@@ -10,7 +10,7 @@ export const ShoppingCartDetails = () =>{
                      Resumen de la orden
             </h3>
             {
-            !cart.length ?
+            !cart?.length ?
               <div className="flex justify-center py-[30px] px-[60px] items-center">
                   <RemoveShoppingCartIcon className = "text-6xl" />
                   No hay productos en el resumen de orden

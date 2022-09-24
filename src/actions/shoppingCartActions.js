@@ -174,6 +174,7 @@ export const startUpdatedProductQuantity = (product) => {
             }
          });
          dispatch(updatedProductQuantity(data.cart.products, data.shippingCosts));
+         localStorage.setItem('cart', JSON.stringify(data.cart.products));
       } catch (error) {
          console.log(error);
       }
@@ -189,7 +190,7 @@ export const startLoadCartNoAuth = (products, currency) => {
             }
          });
          dispatch(updatedProductQuantity(data.products, data.shippingCosts));
-         localStorage.setItem('cart', JSON.stringify(data.products));
+         localStorage.setItem('cart', JSON.stringify(data.products))
       } catch (error) {
          console.log(error);
       }
@@ -355,7 +356,7 @@ export const startGetDirections = (token) => {
                'Authorization': token
             }
          })
-         dispatch(getDirections(res.data.directions));
+         dispatch(getDirections(res?.data?.directions));
       } catch (error) {
          console.log(error);
       }

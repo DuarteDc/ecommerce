@@ -44,9 +44,11 @@ const NavBar = () => {
 
   useEffect(() => {
     if (!logged && !token) {
-      const cart = JSON.parse(localStorage.getItem('cart')) || [];
-      const products = prepareProductsToFussion(cart);
-      return dispatch(startLoadCartNoAuth(products, currency))
+      let cart = localStorage.getItem('cart');
+      if (!cart || cart === 'undefined' || cart === '') localStorage.setItem('cart', '[]');
+
+      const products = prepareProductsToFussion(JSON.parse(cart));
+      return dispatch(startLoadCartNoAuth(products, currency));
     }
     dispatch(startLoadShoppingCart(token, currency));
   }, []);
@@ -92,7 +94,7 @@ const NavBar = () => {
   };
 
   const handleClickLogo = () => {
-    router.reload("/");
+    router.push("/");
   };
 
   const onChangeCurrency = ({ target }) => {
@@ -179,7 +181,12 @@ const NavBar = () => {
 
             <div className="px-6 flex items-center ">
               <div className="mr-10">
-                <SelectCurrency currencies={currencies} onChange={onChangeCurrency} value={currency} />
+                {
+                  (!router.pathname.includes('/perfil') && !router.pathname.includes('/checkout')) &&
+                  (
+                    <SelectCurrency currencies={currencies} onChange={onChangeCurrency} value={currency} />
+                  )
+                }
               </div>
               {logged ? (
                 <span className="flex items-center">

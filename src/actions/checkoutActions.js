@@ -59,7 +59,7 @@ export const loadBanksAccounts = (banksAccounts) => ({
     payload: banksAccounts
 });
 
-export const startfinaliceTransferCheckout = (bank_account_id, token) => {
+export const startfinaliceTransferCheckout = (bank_account_id, token, currency) => {
     return async (dispatch, getState) => {
         const { order_id } = getState().cart;
         const typeOrder = Cookies.get('typeOrder');

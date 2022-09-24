@@ -4,8 +4,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { wrapper } from '../../src/store';
 import { startLoadAdministrableLogo } from '../../src/actions/administrableActions';
 import { BannerImage } from '../../src/components/ui';
-import { CartMobile, CartTotals } from '../../src/components/cart';
-import { shoppingCartNotLoggedfromLocalStorage, startCalculateTotalSale, startGetDirections, startLoadCartNoAuth, startLoadShoppingCart } from '../../src/actions/shoppingCartActions';
+import { Cart, CartTotals } from '../../src/components/cart';
+import { startCalculateTotalSale, startGetDirections } from '../../src/actions/shoppingCartActions';
 import { useRouter } from 'next/router';
 
 import { startLoadFaqsCategories } from '../../src/actions/faqsActions';
@@ -63,8 +63,8 @@ const ShoppingCart = () => {
       />
       <section className="max-w-[1480px] mx-auto my-20 w-full min-h-screen">
         <div className="container grid grid-cols-1 lg:grid-cols-3 mx-auto">
-          <div className="lg:col-span-2  mx-[25px] overflow-x-hidden">
-            <CartMobile />
+          <div className="lg:col-span-2  mx-[25px] overflow-x-hidden mb-5">
+            <Cart />
           </div>
           <div>
             <CartTotals
@@ -112,7 +112,9 @@ export const getStaticProps = wrapper.getStaticProps((store) =>
     await store.dispatch(startLoadFaqsCategories());
     await store.dispatch(startLoadCurrencies());
     await store.dispatch(startLoadCountries());
-
+    return {
+      revalidate: 3600
+    }
   });
 
 
