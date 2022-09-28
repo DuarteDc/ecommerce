@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 
-import { addProductToShoppingCart, startAddProductShoppingCart, startLoadCartNoAuth, startRemoveProductShoppingCart, startRemoveProductsShoppingCartNotLogged, startUpdatedProductQuantity } from '../actions/shoppingCartActions';
+import { addProductToShoppingCart, startAddProductShoppingCart, startRemoveProductShoppingCart, startRemoveProductsShoppingCartNotLogged, startUpdateCartNoAuth, startUpdatedProductQuantity } from '../actions/shoppingCartActions';
 
 import { helpers } from '../helpers';
 import { notify } from '../helpers/helpers';
@@ -30,7 +30,8 @@ export const useCart = (logged = false, currenQuantity = 1, product = {}, cart, 
         cart = cart.map(cart => cart?.product_id?._id === product_id ? { ...cart, quantity: cart.quantity = quantity } : cart);
 
         const newCart = prepareProductsToFussion(cart);
-        dispatch(startLoadCartNoAuth(newCart, currency));
+        localStorage.setItem('cart', JSON.stringify(cart));
+        dispatch(startUpdateCartNoAuth(newCart, currency, { product_id, quantity }));
     }
 
     const handleChangeProductQuantity = ({ target }) => {

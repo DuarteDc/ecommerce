@@ -16,9 +16,9 @@ const ShowOrder = () => {
 
     const { products_list } = orderDetail;
 
-    const subtotal = helpers.priceFormat(orderDetail.subtotal);
-    const total = helpers.priceFormat(orderDetail.total);
-    const shippment = helpers.priceFormat(orderDetail.shippment)
+    const subtotal = helpers.priceFormat(orderDetail.subtotalCurrency);
+    const total = helpers.priceFormat(orderDetail.totalCurrency);
+    const shippment = helpers.priceFormat(orderDetail.shippmentInCurrency)
 
     const OrderStatus = ({ status }) => {
         return (
@@ -50,19 +50,7 @@ const ShowOrder = () => {
                             {orderDetail.folio}
                         </div>
                         <hr />
-                        <div className="font-semibold mt-2">
-                            Estatus de pago: {orderDetail.total_payments === orderDetail.total ? (
-                                <span className="bg-green-500 px-10 text-white text-sm rounded-lg">
-                                    Pagado
-                                </span>
-                            ) : (
-                                <span className="bg-amber-500 px-10 text-white text-sm rounded-lg">
-                                    Pendiente de pago
-                                </span>
-                            )
-                            }
-                        </div>
-                        <div className="flex font-semibold">
+                        <div className="flex font-semibold mt-2">
                             <span>Estatus de envío: </span>
                             <OrderStatus status={orderDetail.orderStatus} />
                         </div>
@@ -74,7 +62,7 @@ const ShowOrder = () => {
                             <span className="">{orderDetail.shippment_direction.name}</span>
                         </div>
                         <div>
-                            <p className="text-gray-600">Lorem ipsum dolor sit amet consectetur adipisicing elit. Ea, in!</p>
+                            <p className="text-gray-600">{`${orderDetail.shippment_direction.street} #${orderDetail.shippment_direction.no_ext}, ${orderDetail.shippment_direction.municipality.name}, ${orderDetail.shippment_direction.state.name}`}</p>
                         </div>
                     </div>
                 </div>
@@ -103,9 +91,9 @@ const ShowOrder = () => {
                     </thead>
                     <tbody>
                         {
-                            products_list?.map(({ _id, product_id, quantity, discount, total, subtotal }) => (
-                                <tr className="cursor-pointer bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600" key={_id}>
-                                    <td scope="row" className="flex items-center py-4 px-6 text-gray-900 whitespace-nowrap dark:text-white">
+                            products_list?.map(({ _id, product_id, quantity, discount, total, subtotal, priceCurrency, subtotalInCurrency, totalInCurrency }) => (
+                                <tr className="cursor-pointer bg-white border-b hover:bg-gray-50" key={_id}>
+                                    <td scope="row" className="flex items-center py-4 px-6 text-gray-900 whitespace-nowrap">
                                         <img src={product_id.multimedia[0].path} alt="" className="w-10 h-10 rounded-full" />
                                         <div className="pl-3">
                                             <div className="text-base font-semibold">{product_id?.name}</div>
@@ -116,7 +104,7 @@ const ShowOrder = () => {
                                         {quantity > 1 ? `${quantity} pzas` : `${quantity} pza`}
                                     </td>
                                     <td className="py-4 px-6">
-                                        {helpers.priceFormat(product_id.price)}
+                                        {helpers.priceFormat(priceCurrency)}
                                     </td>
                                     <td className="py-4 px-6">
                                         <div className="flex items-center">
@@ -126,10 +114,10 @@ const ShowOrder = () => {
                                         </div>
                                     </td>
                                     <td className="py-4 px-6">
-                                        <span className="font-semibold text-gray-600 hover:underline">{helpers.priceFormat(subtotal)}</span>
+                                        <span className="font-semibold text-gray-600 hover:underline">{helpers.priceFormat(subtotalInCurrency)}</span>
                                     </td>
                                     <td className="py-4 px-6">
-                                        <span className="font-semibold text-gray-600 hover:underline">{helpers.priceFormat(total)}</span>
+                                        <span className="font-semibold text-gray-600 hover:underline">{helpers.priceFormat(totalInCurrency)}</span>
                                     </td>
                                 </tr>
                             ))

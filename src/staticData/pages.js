@@ -27,8 +27,4 @@ export const pages = [
     path: '/contacto',
     name: 'Contácto'
   },
-  {
-    path: '/acerca-de-nosotros',
-    name: 'Acerca'
-  }
 ]

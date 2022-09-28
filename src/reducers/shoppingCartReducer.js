@@ -69,7 +69,7 @@ export const shoppingCartReducer = (state = initialState, { type, payload }) => 
 
         case types.clear_cart:
             return {
-                initialState
+               ...initialState
             }
 
         case types.updatedProductQuantity:
@@ -102,7 +102,7 @@ export const shoppingCartReducer = (state = initialState, { type, payload }) => 
         case types.updatedProductQuantityCartNotLogged:
             return {
                 ...state,
-                cartNotLogged: state.cartNotLogged.map(product => product.product_id._id === payload.product_id._id ? payload : product)
+                cart: state.cart.map(product => product.product_id._id === payload.product.product_id ? { ...product, quantity: product.quantity = payload.product.quantity } : product)
             }
         case types.deleteProductShoppingCartNotLogged:
             return {

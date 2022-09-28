@@ -61,7 +61,7 @@ const prepareProductsToFussion = (cartNoAuth) => {
 
   let products = cartNoAuth?.map(cart => ({
     product_id: cart?.product_id?._id,
-    quantity: cart?.quantity,
+    quantity: Number(cart?.quantity),
   }));
 
   return products;

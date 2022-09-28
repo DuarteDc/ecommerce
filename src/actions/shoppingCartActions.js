@@ -197,6 +197,7 @@ export const startLoadCartNoAuth = (products, currency) => {
    }
 }
 
+
 export const updatedProductQuantity = (shoppingCart, shippingCosts) => ({
    type: types.updatedProductQuantity,
    payload: {
@@ -306,9 +307,26 @@ export const shoppingCartNotLoggedfromLocalStorage = (cartNotLogged) => ({
    payload: cartNotLogged
 });
 
-export const updatedProductQuantityCartNotLogged = (product) => ({
+export const startUpdateCartNoAuth = (products, currency, product) => {
+   return async (dispatch) => {
+      let url = `/cart/show-cart/no-auth`
+      try {
+         const { data } = await client.post(url, { products }, {
+            headers: {
+               'Currency': currency
+            }
+         });
+         dispatch(updatedProductQuantityCartNotLogged(product, data.shippingCosts));
+         // localStorage.setItem('cart', JSON.stringify(data.products))
+      } catch (error) {
+         console.log(error);
+      }
+   }
+}
+
+const updatedProductQuantityCartNotLogged = (product, shippingCosts) => ({
    type: types.updatedProductQuantityCartNotLogged,
-   payload: product
+   payload: { product, shippingCosts }
 });
 
 export const startRemoveProductsShoppingCartNotLogged = (_id) => {

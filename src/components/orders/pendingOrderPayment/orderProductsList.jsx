@@ -10,7 +10,7 @@ import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
 
 import VerticalAlignTopIcon from '@mui/icons-material/VerticalAlignTop';
 
-export const OrderProductsList = ({ product, handleOpenProductDetail, handleOpenUploadImages, status, order_id }) => {
+export const OrderProductsList = ({ product, handleOpenProductDetail, handleOpenUploadImages, status, order_id, canvasStatus }) => {
 
     const { product_id: productList, quantity, subtotal } = product;
     const subtotalProduct = helpers.priceFormat(subtotal);
@@ -41,16 +41,9 @@ export const OrderProductsList = ({ product, handleOpenProductDetail, handleOpen
                             <p className="text-sm leading-6">
                                 Subtotal: {subtotalProduct}
                             </p>
-                            {/* <div className="flex pb-5 pt-1">
-                                <span
-                                    className="bg-white flex items-center shadow-lg rounded-md hover:bg-gray-100 cursor-pointer overflow-hidden mr-1 md:mr-2 lg:mr-4"
-                                    onClick={() => handleOpenProductDetail(product)}
-                                >
-                                    <button className="bg-[#e91e63] py-1 px-2 text-white rounded-l-md mr-1 text-xs h-full">Ver detalle</button>
-                                    <KeyboardArrowRightIcon className="text-xs text-[#e91e63]" />
-                                </span>
+                            <div className="flex pb-5 pt-1">
                                 {
-                                    !product.canvasStatus && status === 2 && (
+                                    !canvasStatus && status === 2 && productList.product_type === '2' && (
                                         <span
                                             className="bg-white flex items-center shadow-lg rounded-md hover:bg-gray-100 cursor-pointer"
                                             onClick={() => handleOpenUploadImages(product, order_id)}
@@ -60,7 +53,7 @@ export const OrderProductsList = ({ product, handleOpenProductDetail, handleOpen
                                         </span>
                                     )
                                 }
-                            </div> */}
+                            </div>
                         </div>
                     </div>
                 </Grid>
