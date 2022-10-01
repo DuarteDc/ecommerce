@@ -3,7 +3,7 @@ import { createStore, applyMiddleware, combineReducers } from "redux";
 import { composeWithDevTools } from "redux-devtools-extension";
 import thunk from "redux-thunk";
 
-import { authReducer, productsReducer, categoryReducer, shoppingCartReducer, offersReducer, tagsReducer, brandsReducer, newsletterReducer, sliderReducer, administrableReducer, profileReducer, wishListReducer, checkoutReducer, faqsReducer, ordersReducer, reviewsReducers, countryReducer } from "../reducers";
+import { authReducer, productsReducer, categoryReducer, shoppingCartReducer, offersReducer, tagsReducer, brandsReducer, newsletterReducer, sliderReducer, administrableReducer, profileReducer, wishListReducer, checkoutReducer, faqsReducer, ordersReducer, reviewsReducers, countryReducer, uiReducer } from "../reducers";
 const reducers = combineReducers({
   auth: authReducer,
   products: productsReducer,
@@ -22,6 +22,7 @@ const reducers = combineReducers({
   orders: ordersReducer,
   reviews: reviewsReducers,
   countries: countryReducer,
+  ui: uiReducer,
 });
 
 const reducer = (state, action) => {
@@ -30,7 +31,7 @@ const reducer = (state, action) => {
       ...state,
       ...action.payload
     }
-
+    if (state.wishList) nextState.wishList = state.wishList;
     if (state.auth) nextState.auth = state.auth;
     if (state.cart) nextState.cart = state.cart;
     return nextState;

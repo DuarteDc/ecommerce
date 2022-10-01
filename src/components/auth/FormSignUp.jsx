@@ -12,9 +12,6 @@ import { GoogleLogin } from 'react-google-login';
 import { startRegister } from "../../actions/authActions";
 import LoadingScreen from "../LoadingScreen";
 
-// import Input, { getCountries, getCountryCallingCode } from 'react-phone-number-input/input';
-// import en from 'react-phone-number-input/locale/en.json';
-
 import { TextField } from "@mui/material";
 
 import helpers from "../../helpers/helpers";
@@ -24,7 +21,6 @@ import { startShoppingCartFussion } from "../../actions/shoppingCartActions";
 const FormSignUp = () => {
 
     const [loading, setLoading] = useState();
-    const [value, setValue] = useState();
 
     const { cart } = useSelector(state => state.cart);
 
@@ -38,7 +34,7 @@ const FormSignUp = () => {
 
         setLoading(true);
 
-        const { hasError, message } = await dispatch(startRegister(formData));
+        const { hasError, message, token } = await dispatch(startRegister(formData));
 
         if (hasError) {
             setError(true);
@@ -64,12 +60,7 @@ const FormSignUp = () => {
         email: '',
         password: '',
         passwordConfirmation: '',
-        // phone: ''
     }
-
-    // const phoneRegex = RegExp(
-    //     /^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$/
-    // );
 
     const validationSchema = {
         fullname: Yup.string().min(8, "El nombre debe contener al menos 8 caracteres").required("El nombre es requerido"),
@@ -98,9 +89,9 @@ const FormSignUp = () => {
     const responseGoogle = async ({ tokenId }) => {
 
         setLoading(true)
-        const isValid = await dispatch(startLoginGoogle(tokenId));
+        const { hasError, token } = await dispatch(startLoginGoogle(tokenId));
 
-        if (!isValid) {
+        if (hasError) {
             setError(true);
             setMessageError(message);
             setTimeout(() => setError(false), 4000);

@@ -53,7 +53,7 @@ export const shoppingCartReducer = (state = initialState, { type, payload }) => 
                 superTotal: payload.superTotal,
                 withDiscount: payload.withDiscount,
                 withoutDiscount: payload.withoutDiscount,
-                shipping_costs: payload.shippingCosts,
+                shippingCosts: payload.shippingCosts,
                 order_id: payload.order_id,
                 canvas: payload.canvasTotals,
                 business_rule: payload.business_rule,
@@ -69,7 +69,7 @@ export const shoppingCartReducer = (state = initialState, { type, payload }) => 
 
         case types.clear_cart:
             return {
-                initialState
+               ...initialState
             }
 
         case types.updatedProductQuantity:
@@ -94,7 +94,7 @@ export const shoppingCartReducer = (state = initialState, { type, payload }) => 
             const existInCart = state.cart.find(cart => cart.product_id._id === payload.product_id._id);
             return existInCart ? {
                 ...state,
-                cart: state.cart.map(cart => cart.product_id._id === payload.product_id._id ? { ...cart, quantity: cart.quantity = payload.quantity } : cart),
+                cart: state.cart.map(cart => cart.product_id._id === payload.product_id._id ? { ...payload } : cart),
             } : {
                 ...state,
                 cart: [...state.cart, payload]
@@ -102,7 +102,7 @@ export const shoppingCartReducer = (state = initialState, { type, payload }) => 
         case types.updatedProductQuantityCartNotLogged:
             return {
                 ...state,
-                cartNotLogged: state.cartNotLogged.map(product => product.product_id._id === payload.product_id._id ? payload : product)
+                cart: state.cart.map(product => product.product_id._id === payload.product.product_id ? { ...product, quantity: product.quantity = payload.product.quantity } : product)
             }
         case types.deleteProductShoppingCartNotLogged:
             return {

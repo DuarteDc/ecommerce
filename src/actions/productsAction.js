@@ -158,7 +158,8 @@ export const filterProducts = (products, params) => ({
 
 export const startSearchProduct = (query, currency = Cookies.get('Currency') || 'MXN') => {
   return async (dispatch) => {
-    const url = `/search/products/${query}`;
+    console.log(query);
+    const url = `/search/products?search=${query}`;
     try {
       const res = await client.get(url, {
         headers: {
@@ -166,6 +167,7 @@ export const startSearchProduct = (query, currency = Cookies.get('Currency') || 
         }
       });
       dispatch(searchProduct(res.data.results));
+      console.log(res.data.results)
     } catch (error) {
       console.log(error);
     }

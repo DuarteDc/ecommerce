@@ -31,9 +31,9 @@ export const PendingPaymentOrderIndex = ({ order, handleOpenProofOfPayment, stat
   const dispatch = useDispatch();
 
   const { fiscalAddress } = useSelector((state) => state.profile)
-  const total = helpers.priceFormat(order.total);
+  const total = helpers.priceFormat(order.totalCurrency || order.total);
   const totalPayments = helpers.priceFormat(order.total_payments);
-  const date = moment(order.createdAt).format('L');
+  const date = moment(order.createdAt).format('DD/MM/YYYY');
   const [open, toggle] = useToggle();
   const [openOrderDetail, toggleOrderDetail] = useToggle();
   const [openBankAccountDetail, toggleBankAccountDetail] = useToggle();
@@ -228,7 +228,7 @@ export const PendingPaymentOrderIndex = ({ order, handleOpenProofOfPayment, stat
                     } */}
                   <button
                     className="pr-1 text-sm cursor-pointer text-[#e91e63] hover:border-3 hover:border-solid hover:text-[#880e4f] hover:transition-all"
-                    onClick={handleClickOrderDetail}
+                    onClick={() => handleClickOrder(order._id)}
                   >
                     Detalles del pedido
                   </button>
@@ -270,12 +270,13 @@ export const PendingPaymentOrderIndex = ({ order, handleOpenProofOfPayment, stat
                     handleOpenUploadImages={handleOpenUploadImages}
                     status={status}
                     order_id={order._id}
+                    canvasStatus={product.canvasStatus}
                   />
                 </SwiperSlide>
               ))
             }
             <SwiperSlide>
-              <div className="flex justify-start h-full w-full font-Poppins show-more">
+              <div className="flex justify-start h-full w-full font-Poppins show-more items-center">
                 <span
                   className="flex flex-col items-center justify-center h-[9rem] w-full md:w-5/12 cursor-pointer border-[3px] border-dashed hover:border-[#e91e63] border-gray-400 hover:text-[#e91e63] hover:opacity-9 transition-all ease-in-out duration-500"
                   onClick={() => handleClickOrder(order._id)}
@@ -307,7 +308,7 @@ export const PendingPaymentOrderIndex = ({ order, handleOpenProofOfPayment, stat
             )
           }
           {
-            status === 0 && order.total_payments < order.total && !order.cancelation &&
+            status === 0 && order.total_payments < order.totalCurrency && !order.cancelation &&
             <button className="bg-[#FFD814] font-Poppins text-[#333] py-[10px] px-[15px] uppercase text-sm mt-5 flex items-center justify-center w-full"
               onClick={() => { handleOpenProofOfPayment(order._id, order.total, order.total_payments) }}
             >
@@ -342,27 +343,29 @@ export const PendingPaymentOrderIndex = ({ order, handleOpenProofOfPayment, stat
         fullWidth={true}
         maxWidth={'sm'}
       >
-        <div className="flex justify-between mb-2 ">
-          <p className="font-Poppins font-medium text-base capitalize text-[#333] leading-6">Calle</p>
-          <span className="text-base text-[#888] capitalize">{order?.shippment_direction?.street}</span>
-        </div>
-        <div className="flex justify-between mb-2 ">
-          <p className="font-Poppins font-medium text-base capitalize text-[#333] leading-6">Entre Calle y Calle</p>
-          <span className="text-base text-[#888] capitalize">{order?.shippment_direction?.between_street}</span>
-        </div>
-        <div className="flex justify-between mb-2 ">
-          <p className="font-Poppins font-medium text-base capitalize text-[#333] leading-6">
-            Código
-          </p>
-          <span className="text-base text-[#888] capitalize">{order?.shippment_direction?.postalcode}</span>
-        </div>
-        <div className="flex justify-between mb-2 ">
-          <p className="font-Poppins font-medium text-base capitalize text-[#333] leading-6">Ciudad</p>
-          <span className="text-base text-[#888] capitalize">{order?.shippment_direction?.city}</span>
-        </div>
-        <div className="flex justify-between mb-2 ">
-          <p className="font-Poppins font-medium text-base capitalize text-[#333] leading-6">Referencia</p>
-          <span className="text-base text-[#888] capitalize">{order?.shippment_direction?.references}</span>
+        <div className="text-xs md:text-sm lg:text-base">
+          <div className="flex justify-between mb-2 ">
+            <p className="font-Poppins font-medium capitalize text-[#333] leading-6">Calle</p>
+            <span className="text-[#888] capitalize">{order?.shippment_direction?.street}</span>
+          </div>
+          <div className="flex justify-between mb-2 ">
+            <p className="font-Poppins font-medium capitalize text-[#333] leading-6">Entre Calle y Calle</p>
+            <span className="text-[#888] capitalize">{order?.shippment_direction?.between_street}</span>
+          </div>
+          <div className="flex justify-between mb-2 ">
+            <p className="font-Poppins font-medium capitalize text-[#333] leading-6">
+              Código
+            </p>
+            <span className="text-[#888] capitalize">{order?.shippment_direction?.postalcode}</span>
+          </div>
+          <div className="flex justify-between mb-2 ">
+            <p className="font-Poppins font-medium capitalize text-[#333] leading-6">Ciudad</p>
+            <span className="text-[#888] capitalize">{order?.shippment_direction?.city}</span>
+          </div>
+          <div className="flex justify-between mb-2 ">
+            <p className="font-Poppins font-medium capitalize text-[#333] leading-6">Referencia</p>
+            <span className="text-[#888] capitalize">{order?.shippment_direction?.references}</span>
+          </div>
         </div>
       </Modal>
       <Modal

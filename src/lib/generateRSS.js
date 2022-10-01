@@ -33,9 +33,9 @@ export default async function getRSS() {
         { 'availability': product.quantity > 0 ? 'in stock' : 'out of stock' },
         { 'condition': 'used' },
         { 'price': `${product.price} MXN` },
-        { 'link': `${siteURL}/productos/${product.url}` },
-        { 'image_link': product.multimedia[0].path, },
-        { 'brand': product.brand.name },
+        { 'link': `${siteURL}/productos/${product?.url}` },
+        { 'image_link': product?.multimedia[0]?.path, },
+        { 'brand': product?.brand?.name },
       ]
     });
   });

@@ -9,6 +9,7 @@ import { Select, FormControl, MenuItem, InputLabel } from '@mui/material';
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 
 import { helpers } from "../../helpers";
+import { clearCart } from "../../actions/shoppingCartActions";
 
 export const CheckoutTransfer = ({ handleOpenTransfer }) => {
 
@@ -33,11 +34,15 @@ export const CheckoutTransfer = ({ handleOpenTransfer }) => {
     const handleFinaliceTransfer = (e) => {
         e.preventDefault();
         const token = Cookies.get('token');
+        const currency = Cookies.get('Currency') || 'MXN';
         if (banksAccounts.length > 1)
-            dispatch(startfinaliceTransferCheckout(bankAccountSelected?._id, token));
+            dispatch(startfinaliceTransferCheckout(bankAccountSelected?._id, token, currency));
+        // console.log(bankAccountSelected._id)
         else
-            dispatch(startfinaliceTransferCheckout(banksAccounts[0]?._id, token));
+            dispatch(startfinaliceTransferCheckout(banksAccounts[0]?._id, token, currency));
+        // console.log(banksAccounts[0]._id);
         handleOpenTransfer();
+        dispatch(clearCart());
     }
 
     const copyInformation = (bankAccount) => {

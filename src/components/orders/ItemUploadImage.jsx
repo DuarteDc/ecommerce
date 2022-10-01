@@ -13,7 +13,6 @@ const ItemUploadImage = ({ image, product, index }) => {
     const [file, setFile] = useState('');
     const [loading, setLoading] = useState(false);
 
-
     const { getRootProps, getInputProps } = useDropzone({
         accept: {
             'image/*': []
@@ -29,7 +28,6 @@ const ItemUploadImage = ({ image, product, index }) => {
     });
 
     const onChangeImage = (url) => {
-        console.log(url)
         boxImage.current.src = url;
     }
 

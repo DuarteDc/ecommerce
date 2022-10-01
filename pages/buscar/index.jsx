@@ -1,16 +1,33 @@
+import Cookies from "js-cookie"
 import { useRouter } from "next/router"
-import { useSelector } from "react-redux"
+import { useEffect, useState } from "react"
+import { useDispatch, useSelector } from "react-redux"
 import { startLoadAdministrableLogo } from "../../src/actions/administrableActions"
 import { startLoadCurrencies } from "../../src/actions/countryAcctions"
 import { startLoadFaqsCategories } from "../../src/actions/faqsActions"
 import { startSearchProduct } from "../../src/actions/productsAction"
 import Layout from "../../src/components/Layouts"
+import LoadingScreen from "../../src/components/LoadingScreen"
 import { ProductCard } from "../../src/components/ui"
 import { wrapper } from "../../src/store"
 
 const Search = () => {
 
+  const currency = Cookies.get('Currency') || 'MXN';
+
   const router = useRouter();
+  const dispatch = useDispatch();
+
+  const [loading, setLoading] = useState(false);
+
+  const loadQuery = async () => {
+    setLoading(true);
+    await dispatch(startSearchProduct(router.query.search, currency))
+    setLoading(false);
+  }
+  useEffect(() => {
+    loadQuery();
+  }, [router.query]);
 
   const { categories } = useSelector(state => state.faqs);
   const { searchedProducts } = useSelector(state => state.products)
@@ -18,8 +35,9 @@ const Search = () => {
   return (
     <Layout categories={categories}>
       <section className="min-h-screen font-Poppins container mx-auto">
+        {loading && <LoadingScreen />}
         <div className="px-3 md:px-0">
-          <h2 className="text-4xl mt-28 mb-10">Mostrando resultados para {router.query.product}</h2>
+          <h2 className="text-4xl mt-28 mb-10">Mostrando resultados para {router.query.search}</h2>
           <div className="flex flex-row-reverse text-gray-500">
             <p>{searchedProducts.length} {searchedProducts.length > 1 ? 'resultados' : 'resultado'} para tu busqueda</p>
           </div>
@@ -39,11 +57,15 @@ const Search = () => {
   )
 }
 
-export const getServerSideProps = wrapper.getServerSideProps((store) =>
-  async (ctx) => {
+export const getStaticProps = wrapper.getStaticProps((store) =>
+  async () => {
     await store.dispatch(startLoadCurrencies());
     await store.dispatch(startLoadAdministrableLogo());
-    await store.dispatch(startLoadFaqsCategories())
-    await store.dispatch(startSearchProduct(ctx.query.product));
+    await store.dispatch(startLoadFaqsCategories());
+
+    return {
+      revalidate: 3600
+    }
+
   })
 export default Search

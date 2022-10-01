@@ -15,3 +15,4 @@ export { faqsReducer } from './faqsReducer';
 export { ordersReducer } from './ordersReducer';
 export { reviewsReducers } from './reviewsReducer';
 export { countryReducer } from './countryReducer';
+export { uiReducer } from './uiReducer';

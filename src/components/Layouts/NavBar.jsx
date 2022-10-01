@@ -19,10 +19,13 @@ import MenuItem from "@mui/material/MenuItem";
 import { helpers } from "../../helpers";
 
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
-import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import CloseIcon from '@mui/icons-material/Close';
 import SelectCurrency from "./SelectCurrency";
+
+import ShoppingCartCheckoutIcon from '@mui/icons-material/ShoppingCartCheckout';
+import SearchIcon from '@mui/icons-material/Search';
+
 
 const NavBar = () => {
 
@@ -36,21 +39,26 @@ const NavBar = () => {
 
   const token = Cookies.get('token') || '';
   const [scrollPosition, setScrollPosition] = useState(0);
-  const [currency, setCurrency] = useState(Cookies.get('Currency') || 'MXN');
-
+  const currenCurrency = Cookies.get('Currency') || 'MXN';
+  const [currency, setCurrency] = useState('');
+  const [search, setSearh] = useState('');
+  setTimeout(() => {
+    setCurrency(currencies.find(c => c.currency === currenCurrency))
+  }, 200);
   const { prepareProductsToFussion } = helpers;
 
   const [open, toggle] = useToggle();
 
   useEffect(() => {
     if (!logged && !token) {
-      const cart = JSON.parse(localStorage.getItem('cart')) || [];
-      const products = prepareProductsToFussion(cart);
-      return dispatch(startLoadCartNoAuth(products, currency))
-    }
-    dispatch(startLoadShoppingCart(token, currency));
-  }, []);
+      let cart = localStorage.getItem('cart') || '[]';
+      if (!cart || cart === 'undefined' || cart === '') localStorage.setItem('cart', '[]');
 
+      const products = prepareProductsToFussion(JSON.parse(cart));
+      return dispatch(startLoadCartNoAuth(products, currenCurrency));
+    }
+    dispatch(startLoadShoppingCart(token, currenCurrency));
+  }, [currency]);
 
   const handleScroll = () => {
     const position = window.pageYOffset;
@@ -92,48 +100,58 @@ const NavBar = () => {
   };
 
   const handleClickLogo = () => {
-    router.reload("/");
+    router.push("/");
   };
 
-  const onChangeCurrency = ({ target }) => {
-    const newCurrency = target.value;
-    setCurrency(newCurrency);
-    Cookies.set('Currency', newCurrency);
+  const onChangeCurrency = (textCurrency) => {
+    setCurrency(textCurrency);
+    Cookies.set('Currency', textCurrency);
     router.reload();
+  }
+
+  const startSearchProduct = (event) => {
+    event.preventDefault();
+    router.push(`/buscar?search=${search}`);
   }
 
   return (
     <div
-      className={`bg-luz py-2 shadow-sm  w-full z-[99] ${scrollPosition >= 130 && "fixed top-0"
+      className={`bg-luz pb-2 shadow-md  w-full z-[99] pt-1 ${scrollPosition >= 130 && "fixed top-0"
         } space-y-1 static`}
     >
-      <div className="w-full px-10  lg:px-2 xl:px-28 2xl:px-28">
-        <nav className="flex max-h-16 justify-between items-center">
+      <div className="w-full px-10 lg:px-2 xl:px-28 2xl:px-28 text-xs">
+        <nav className="flex max-h-16 justify-between items-center z-40">
           <img
             src={logo}
             alt="Wapizima"
-            width={110}
+            width={100}
             height={90}
             onClick={handleClickLogo}
             className="cursor-pointer"
           />
-          <div className="flex justify-between items-center ">
-            <span className="flex items-center border-transparent border-b-2 mx-1 cursor-pointer text-lg text-[#888] font-['Poppins'] font-normal transition duration-700 ease-in-out  lg:hidden xl:hidden">
+          <div className="flex items-center justify-center">
+            <span className="items-center border-transparent border-b-2 cursor-pointer flex text-[#888] font-['Poppins'] transition duration-700 ease-in-out lg:hidden">
+              {
+                (!router.pathname.includes('/perfil') && !router.pathname.includes('/checkout')) &&
+                (
+                  <SelectCurrency currencies={currencies} onChange={onChangeCurrency} value={currency} />
+                )
+              }
               <Badge
                 badgeContent={wishList?.length}
-                color="secondary"
+                color="primary"
                 onClick={() => handleRedirectClick("/mi-lista-de-deseos")}
-                className="mr-5"
+                className="mx-2"
               >
                 <FavoriteBorderIcon />
               </Badge>
               <Badge
                 badgeContent={cart?.length}
-                color="secondary"
+                color="primary"
                 onClick={() => handleRedirectClick("/mi-carrito")}
                 className="mr-5"
               >
-                <ShoppingCartIcon />
+                <ShoppingCartCheckoutIcon />
               </Badge>
             </span>
 
@@ -158,28 +176,35 @@ const NavBar = () => {
             )}
           </div>
 
-          <div className="hidden lg:flex justify-between items-center w-full">
-            <div className="px-12 w-full flex justify-center">
-              {pages.map(({ path, name }) => (
-                name !== 'Escuela' ? (
-                  <Link href={path} passHref key={name} prefetch={false}>
-                    <span className="text-[#888] border-transparent border-b-2 hover:text-[#333] mx-4 cursor-pointer  font-Poppins text-[12px] font-medium transition uppercase duration-700 ease-in-out">
-                      {name}
-                    </span>
-                  </Link>
-                ) : (
-                  <Link href={path} key={name} prefetch={false}>
-                    <a target="_blank" className="text-[#888] border-transparent border-b-2 hover:text-[#333] mx-4 cursor-pointer  font-Poppins text-[12px] font-medium transition uppercase duration-700 ease-in-out">
-                      {name}
-                    </a>
-                  </Link>
-                )
-              ))}
+          <div className="hidden lg:flex justify-between items-center w-full p-0 mx-0">
+            <div className="px-12 w-full flex flex-col justify-center items-center">
+              <div className="w-full flex justify-center text-[10px] xl:text-[12px] items-center">
+                {pages.map(({ path, name }) => (
+                  name !== 'Escuela' ? (
+                    <Link href={path} passHref key={name} prefetch={false}>
+                      <span className="text-[#888] border-transparent border-b-2 hover:text-[#333] mx-4 cursor-pointer  font-Poppins font-medium transition uppercase duration-700 ease-in-out">
+                        {name}
+                      </span>
+                    </Link>
+                  ) : (
+                    <Link href={path} key={name} prefetch={false}>
+                      <a target="_blank" className="text-[#888] border-transparent border-b-2 hover:text-[#333] mx-4 cursor-pointer  font-Poppins font-medium transition uppercase duration-700 ease-in-out">
+                        {name}
+                      </a>
+                    </Link>
+                  )
+                ))}
+              </div>
             </div>
 
-            <div className="px-6 flex items-center ">
-              <div className="mr-10">
-                <SelectCurrency currencies={currencies} onChange={onChangeCurrency} value={currency} />
+            <div className="flex items-center mr-10">
+              <div>
+                {
+                  (!router.pathname.includes('/perfil') && !router.pathname.includes('/checkout')) &&
+                  (
+                    <SelectCurrency currencies={currencies} onChange={onChangeCurrency} value={currency} />
+                  )
+                }
               </div>
               {logged ? (
                 <span className="flex items-center">
@@ -271,12 +296,13 @@ const NavBar = () => {
                   </Menu>
                 </span>
               ) : (
-                <div className="flex items-center">
+                <div className="flex items-center text-[10px] xl:text-[12px]">
                   <span
                     onClick={() =>
                       router.push(`/auth/login?p=${router.asPath}`)
                     }
-                    className="text-[#888] border-transparent border-b-2 hover:text-[#333] cursor-pointer  font-Poppins text-[12px] font-medium transition uppercase duration-700 ease-in-out min-w-[6rem] flex"
+                    className="text-[#888] border-transparent border-b-2 hover:text-[#333] cursor-pointer  font-Poppins
+                    transition uppercase duration-700 ease-in-out min-w-[6rem] flex"
                   >
                     Iniciar Sesión
                   </span>
@@ -284,30 +310,29 @@ const NavBar = () => {
                     onClick={() =>
                       router.push(`/auth/register?p=${router.asPath}`)
                     }
-                    className="text-[#888] border-transparent border-b-2 hover:text-[#333] cursor-pointer  font-Poppins text-[12px] font-medium transition uppercase duration-700 ease-in-out"
+                    className="text-[#888] border-transparent border-b-2 hover:text-[#333] cursor-pointer  font-Poppins transition uppercase duration-700 ease-in-out"
                   >
                     Registrate
                   </span>
                 </div>
               )}
-              <span className="block h-6 w-[1px] bg-[#e5e5e5] mx-4 mt-2"></span>
-              <span className="flex items-center border-transparent border-b-2 ml-4 cursor-pointer text-lg  text-[#888] font-['Poppins'] font-normal transition duration-700 ease-in-out">
+              <span className="block h-6 w-[1px] bg-[#e5e5e5] md:mx-2 xl:mx-4 mt-2"></span>
+              <span className="flex items-center border-transparent border-b-2 cursor-pointer text-[#888] font-['Poppins'] font-normal xl:mx-2 transition duration-700 ease-in-out mr-5">
                 <Badge
                   badgeContent={wishList?.length}
-                  color="secondary"
+                  color="primary"
                   onClick={() => handleRedirectClick("/mi-lista-de-deseos")}
-                  className="mr-4"
                 >
                   <FavoriteBorderIcon />
                 </Badge>
               </span>
-              <span className="flex items-center border-transparent border-b-2 cursor-pointer text-lg  text-[#888] font-['Poppins'] font-normal transition duration-700 ease-in-out">
+              <span className="flex items-center border-transparent border-b-2 cursor-pointer text-[#888] font-['Poppins'] font-normal transition duration-700 ease-in-out">
                 <Badge
                   badgeContent={cart?.length}
-                  color="secondary"
+                  color="primary"
                   onClick={() => handleRedirectClick("/mi-carrito")}
                 >
-                  <ShoppingCartIcon />
+                  <ShoppingCartCheckoutIcon />
                 </Badge>
               </span>
             </div>
@@ -317,7 +342,7 @@ const NavBar = () => {
 
       <div
         className={`animate__animated lg:hidden ${open
-          ? "block animate__fadeInDown  absolute z-[30] w-full"
+          ? "block animate__fadeIn animate__faster  absolute z-[30] w-full"
           : "animate__fadeOutUp hidden"
           } `}
       >
@@ -374,6 +399,22 @@ const NavBar = () => {
               </div>
             )}
           </div>
+        </div>
+      </div>
+      <div className="flex items-center justify-center">
+        <div className="pb-2 lg:w-8/12 w-full lg:px-20 px-8 flex items-center">
+          <form onSubmit={startSearchProduct} className="w-full flex">
+            <input
+              className="bg-gray-50 w-full appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700  leading-tight focus:outline-none focus:bg-white focus:border-[#e91e63] text-[13px]"
+              placeholder="Busca tu producto aquí"
+              type="text"
+              value={search}
+              onChange={(event) => setSearh(event.target.value)}
+            />
+            <button className="px-6 py-[6.5px] bg-[#e91e63] ml-2 rounded-sm cursor-pointer hover:bg-[#ed4b82]">
+              <SearchIcon className="text-white" />
+            </button>
+          </form>
         </div>
       </div>
     </div>

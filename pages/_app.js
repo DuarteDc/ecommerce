@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
 import { useRouter } from 'next/router';
+import { useDispatch } from 'react-redux';
 import { wrapper } from '../src/store';
 import '../src/assets/styles/globals.css';
 import "swiper/css";
@@ -15,13 +16,21 @@ import {
   GoogleReCaptcha
 } from 'react-google-recaptcha-v3';
 
-
+import { loadDimensionsOfBrowser } from '../src/actions/uiActions';
 
 
 const MyApp = ({ Component, pageProps }) => {
-  const router = useRouter()
 
-    const theme = createTheme({
+  const router = useRouter();
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (screen.width < 767) {
+      dispatch(loadDimensionsOfBrowser('sm'))
+    }
+  }, []);
+
+  const theme = createTheme({
     palette: {
       primary: {
         light: '#a31545',

@@ -7,4 +7,5 @@ export const params = [
     'maxPrice',
     'page',
     'subcategory_id',    
+    'search'
 ]

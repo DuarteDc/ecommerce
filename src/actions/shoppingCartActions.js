@@ -174,6 +174,7 @@ export const startUpdatedProductQuantity = (product) => {
             }
          });
          dispatch(updatedProductQuantity(data.cart.products, data.shippingCosts));
+         localStorage.setItem('cart', JSON.stringify(data.cart.products));
       } catch (error) {
          console.log(error);
       }
@@ -189,12 +190,13 @@ export const startLoadCartNoAuth = (products, currency) => {
             }
          });
          dispatch(updatedProductQuantity(data.products, data.shippingCosts));
-         localStorage.setItem('cart', JSON.stringify(data.products));
+         localStorage.setItem('cart', JSON.stringify(data.products))
       } catch (error) {
          console.log(error);
       }
    }
 }
+
 
 export const updatedProductQuantity = (shoppingCart, shippingCosts) => ({
    type: types.updatedProductQuantity,
@@ -249,7 +251,7 @@ export const startFinaliceSaleCheckout = (data) => {
          Cookies.set('superTotal', JSON.stringify(res.data.superTotal));
          Cookies.set('withDiscount', JSON.stringify(res.data.withDiscount));
          Cookies.set('withoutDiscount', JSON.stringify(res.data.withoutDiscount));
-         Cookies.set('shippingCosts', JSON.stringify(shipping_costs || {}));
+         Cookies.set('shippingCosts', JSON.stringify(res.data.shipping));
          Cookies.set('order_id', JSON.stringify(res.data.order_id));
          Cookies.set('canvasTotals', JSON.stringify(res.data.canvasTotals));
          Cookies.set('typeOrder', JSON.stringify(res.data.typeOrder));
@@ -262,7 +264,9 @@ export const startFinaliceSaleCheckout = (data) => {
             res.data.withoutDiscount,
             res.data.order_id,
             res.data.canvasTotals,
-            res.data.business_rule
+            res.data.business_rule,
+            res.data.coupon,
+            res.data.shipping
          ));
 
          return true;
@@ -278,7 +282,7 @@ export const startFinaliceSaleCheckout = (data) => {
    }
 }
 
-export const finaliceSaleCheckout = (superTotal, withDiscount, withoutDiscount, order_id, canvasTotals, business_rule, coupon) => ({
+export const finaliceSaleCheckout = (superTotal, withDiscount, withoutDiscount, order_id, canvasTotals, business_rule, coupon, shippingCosts) => ({
    type: types.finaliceCheckoutCart,
    payload: {
       superTotal,
@@ -288,6 +292,7 @@ export const finaliceSaleCheckout = (superTotal, withDiscount, withoutDiscount, 
       canvasTotals,
       business_rule,
       coupon,
+      shippingCosts,
    }
 });
 
@@ -305,9 +310,26 @@ export const shoppingCartNotLoggedfromLocalStorage = (cartNotLogged) => ({
    payload: cartNotLogged
 });
 
-export const updatedProductQuantityCartNotLogged = (product) => ({
+export const startUpdateCartNoAuth = (products, currency, product) => {
+   return async (dispatch) => {
+      let url = `/cart/show-cart/no-auth`
+      try {
+         const { data } = await client.post(url, { products }, {
+            headers: {
+               'Currency': currency
+            }
+         });
+         dispatch(updatedProductQuantityCartNotLogged(product, data.shippingCosts));
+         // localStorage.setItem('cart', JSON.stringify(data.products))
+      } catch (error) {
+         console.log(error);
+      }
+   }
+}
+
+const updatedProductQuantityCartNotLogged = (product, shippingCosts) => ({
    type: types.updatedProductQuantityCartNotLogged,
-   payload: product
+   payload: { product, shippingCosts }
 });
 
 export const startRemoveProductsShoppingCartNotLogged = (_id) => {
@@ -355,7 +377,7 @@ export const startGetDirections = (token) => {
                'Authorization': token
             }
          })
-         dispatch(getDirections(res.data.directions));
+         dispatch(getDirections(res?.data?.directions));
       } catch (error) {
          console.log(error);
       }

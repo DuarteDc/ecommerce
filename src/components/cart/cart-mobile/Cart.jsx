@@ -1,12 +1,15 @@
 import { useSelector } from "react-redux";
 import { CartItems } from './cartItems';
 
-export const CartMobile = () => {
+import CartMobile from "../cartMobile/CartMobile";
+
+export const Cart = () => {
 
   const { cart } = useSelector((state) => state.cart);
+  const { dimensions } = useSelector((state) => state.ui);
 
   return (
-    <div className="overflow-x-auto mb-2">
+    <div className="overflow-x-auto mb-2 max-h-[800px]">
       <div>
         <table className="min-w-full leading-normal font-Poppins borfe border-collapse">
           <thead>
@@ -20,8 +23,8 @@ export const CartMobile = () => {
               <th className="px-5 py-4 text-lg bg-[#333] text-xs font-semibold text-[#fff] uppercase tracking-wider text-center">
                 Opciones
               </th>
-            </tr>
-          </thead>
+            </tr >
+          </thead >
           <tbody>
             {
               !cart?.length ?
@@ -41,8 +44,8 @@ export const CartMobile = () => {
                 ))
             }
           </tbody>
-        </table>
-      </div>
+        </table >
+      </div >
     </div>
   )
 }

@@ -17,7 +17,7 @@ export const ProductsArea = () => {
   const router = useRouter();
 
   const { brandsHome } = useSelector((state) => state.brands);
-  const { filteredProducts, products } = useSelector((state) => state.products);
+  const { products } = useSelector((state) => state.products);
   const [openSearch, setOpenSearch] = useToggle(false);
   const [tabActive, setTabActive] = useState(null);
 
@@ -56,16 +56,8 @@ export const ProductsArea = () => {
             search={true}
             filter={true}
             handleOpenSearch={setOpenSearch}
-          // getDataToFilterBrand={getDataToFilterBrand}
           />
-          <div className="grid grid-cols-1 gap-1">
-            <Search
-              openSearch={openSearch}
-              placeholder="Buscar..."
-              onRequestSearch={onRequestSearch}
-              setQuery={setQuery}
-            />
-          </div>
+
           <div
             className="
                grid 
