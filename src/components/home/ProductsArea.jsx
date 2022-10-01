@@ -57,14 +57,7 @@ export const ProductsArea = () => {
             filter={true}
             handleOpenSearch={setOpenSearch}
           />
-          <div className="grid grid-cols-1 gap-1">
-            <Search
-              openSearch={openSearch}
-              placeholder="Buscar..."
-              onRequestSearch={onRequestSearch}
-              setQuery={setQuery}
-            />
-          </div>
+
           <div
             className="
                grid 

@@ -118,7 +118,7 @@ const Products = () => {
         </AsideBar>
         <div className="col-span-4 md:col-span-2 lg:col-span-3">
           <div className="flex flex-row-reverse px-3 md:px-">
-            <div className="border-[1px] border-solid border-[#e6e6e6] rounded-sm flex items-center mb-6 w-full md:w-6/12">
+            {/* <div className="border-[1px] border-solid border-[#e6e6e6] rounded-sm flex items-center mb-6 w-full md:w-6/12">
               <input
                 type="text"
                 name="email"
@@ -127,7 +127,7 @@ const Products = () => {
                 onChange={() => handleSearch(event.target.value)}
               />
               <SearchIcon className="text-[25px] text-[#888] w-[20%]" />
-            </div>
+            </div> */}
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 mb-20 mt-10">
             {

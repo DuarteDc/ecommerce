@@ -3,7 +3,9 @@ import { helpers } from "../../helpers";
 
 export const OrderInfo = () => {
   
-  const { superTotal, withDiscount, withoutDiscount, shipping_costs, canvas, business_rule, coupon } = useSelector((state) => state.cart);
+  const { superTotal, withDiscount, withoutDiscount, shippingCosts, canvas, business_rule, coupon } = useSelector((state) => state.cart);
+
+  console.log(shippingCosts)
 
   const super_total = helpers.priceFormat(superTotal?.total || 0);
   const with_discount = helpers.priceFormat(withDiscount?.total || 0);
@@ -12,8 +14,8 @@ export const OrderInfo = () => {
   const subtotal = helpers.priceFormat(
     withDiscount?.total + withoutDiscount?.total + canvas?.total || 0
   );
-  const shippingCosts = helpers.priceFormat(
-    shipping_costs?.shippingCosts || 0
+  const shipping = helpers.priceFormat(
+    shippingCosts || 0
   );
 
   return (
@@ -63,7 +65,7 @@ export const OrderInfo = () => {
               </td>
               <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm ">
                 <p className="text-[#333]  text-left font-Poppins">
-                  -{business_rule?.discount} %
+                  -{business_rule?.discount || 0} %
                 </p>
               </td>
             </tr>
@@ -105,7 +107,7 @@ export const OrderInfo = () => {
           </td>
           <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm ">
             <p className="text-[#333]  text-left font-Poppins">
-              {shippingCosts}
+              {shipping}
             </p>
           </td>
         </tr>

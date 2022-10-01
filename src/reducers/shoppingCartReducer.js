@@ -53,7 +53,7 @@ export const shoppingCartReducer = (state = initialState, { type, payload }) => 
                 superTotal: payload.superTotal,
                 withDiscount: payload.withDiscount,
                 withoutDiscount: payload.withoutDiscount,
-                shipping_costs: payload.shippingCosts,
+                shippingCosts: payload.shippingCosts,
                 order_id: payload.order_id,
                 canvas: payload.canvasTotals,
                 business_rule: payload.business_rule,

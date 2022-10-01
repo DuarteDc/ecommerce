@@ -132,7 +132,8 @@ export const startRegister = (data) => {
             Cookies.set('token', token);
             dispatch(register(user, token));
             return {
-                hasError: false
+                hasError: false,
+                token
             }
 
         } catch (error) {
