@@ -1,15 +1,19 @@
-import Cookies from "js-cookie"
-import { useRouter } from "next/router"
-import { useEffect, useState } from "react"
-import { useDispatch, useSelector } from "react-redux"
-import { startLoadAdministrableLogo } from "../../src/actions/administrableActions"
-import { startLoadCurrencies } from "../../src/actions/countryAcctions"
-import { startLoadFaqsCategories } from "../../src/actions/faqsActions"
-import { startSearchProduct } from "../../src/actions/productsAction"
-import Layout from "../../src/components/Layouts"
-import LoadingScreen from "../../src/components/LoadingScreen"
-import { ProductCard } from "../../src/components/ui"
-import { wrapper } from "../../src/store"
+import { useEffect, useState } from 'react';
+import { useRouter } from 'next/router';
+
+import { useDispatch, useSelector } from 'react-redux';
+import Cookies from 'js-cookie';
+
+import { startLoadAdministrableLogo } from '../../src/actions/administrableActions';
+import { startLoadCurrencies } from '../../src/actions/countryAcctions';
+import { startLoadFaqsCategories } from '../../src/actions/faqsActions';
+import { startSearchProduct } from '../../src/actions/productsAction';
+import { wrapper } from '../../src/store';
+
+import Layout from '../../src/components/Layouts';
+import { ProductCard } from '../../src/components/ui';
+import ProductCardMobile from '../../src/components/ui/Mobile/ProductCard';
+import LoadingScreen from '../../src/components/LoadingScreen';
 
 const Search = () => {
 
@@ -31,6 +35,7 @@ const Search = () => {
 
   const { categories } = useSelector(state => state.faqs);
   const { searchedProducts } = useSelector(state => state.products)
+  const { dimensions } = useSelector(state => state.ui);
 
   return (
     <Layout categories={categories}>
@@ -42,13 +47,20 @@ const Search = () => {
             <p>{searchedProducts.length} {searchedProducts.length > 1 ? 'resultados' : 'resultado'} para tu busqueda</p>
           </div>
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 my-20">
+        <div className="grid grid-cols-2 lg:grid-cols-4 my-20">
           {
             searchedProducts.map(product => (
-              <ProductCard
-                key={product._id}
-                product={product}
-              />
+              dimensions === 'sm' ? (
+                <ProductCardMobile
+                  key={product._id}
+                  product={product}
+                />
+              ) : (
+                <ProductCard
+                  key={product._id}
+                  product={product}
+                />
+              )
             ))
           }
         </div>

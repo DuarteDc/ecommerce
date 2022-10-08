@@ -26,6 +26,12 @@ export const brandsReducer = (state = initialState, { type, payload }) => {
         brands: payload,
       };
 
+    case types.load_brands_per_category:
+      return {
+        ...state,
+        brands: payload,
+      }
+
     case types.filters_to_products_from_brand: {
       const { filter, products } = payload;
 
@@ -35,17 +41,17 @@ export const brandsReducer = (state = initialState, { type, payload }) => {
 
       return filterInFilters
         ? {
-            ...state,
-          }
+          ...state,
+        }
         : {
-            ...state,
-            filteredProducts:
-              products.length > 0
-                ? [...products, ...state.filteredProducts]
-                : [...state.filteredProducts],
-            BrandFilters: [filter, ...state.BrandFilters],
-            results: { quantity: products.length, name: filter.name },
-          };
+          ...state,
+          filteredProducts:
+            products.length > 0
+              ? [...products, ...state.filteredProducts]
+              : [...state.filteredProducts],
+          BrandFilters: [filter, ...state.BrandFilters],
+          results: { quantity: products.length, name: filter.name },
+        };
     }
 
     case types.load_products_from_brand:

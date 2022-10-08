@@ -1,10 +1,11 @@
 
-const SubcategoryItem = ({ subcategory, startSearchByQueryParams, paramsFilters, setLoading }) => {
+const SubcategoryItem = ({ subcategory, startSearchByQueryParams, paramsFilters, dimensions, setOpen }) => {
 
 
   const handleFilterProducts = async (subcategory) =>{
     await startSearchByQueryParams({subcategory_id: subcategory._id});
     await paramsFilters(subcategory);
+    if (dimensions === 'sm') setOpen(false);
   } 
 
   return (

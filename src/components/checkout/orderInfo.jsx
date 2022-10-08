@@ -5,8 +5,6 @@ export const OrderInfo = () => {
   
   const { superTotal, withDiscount, withoutDiscount, shippingCosts, canvas, business_rule, coupon } = useSelector((state) => state.cart);
 
-  console.log(shippingCosts)
-
   const super_total = helpers.priceFormat(superTotal?.total || 0);
   const with_discount = helpers.priceFormat(withDiscount?.total || 0);
   const canvasTotal = helpers.priceFormat(canvas?.total || 0);

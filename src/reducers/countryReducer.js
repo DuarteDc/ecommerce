@@ -4,6 +4,7 @@ const initalState = {
     countries: [],
     country: {},
     currencies: {},
+    currencyPrices:[],
 }
 
 export const countryReducer = (state = initalState, { type, payload }) => {
@@ -19,6 +20,12 @@ export const countryReducer = (state = initalState, { type, payload }) => {
             return {
                 ...state,
                 country: state.countries.find(country => country._id === payload),
+            }
+
+        case types.load_currencies_prices:
+            return {
+                ...state,
+                currencyPrices: payload,
             }
 
         case types.clear_country_selected:

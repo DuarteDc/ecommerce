@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
 
 import Collapse from '@mui/material/Collapse';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
@@ -12,18 +13,19 @@ const BrandsList = ({ brands, category, startSearchByQueryParams, paramsFilters 
 
     const [open, setOpen] = useState(true);
 
+    const { dimensions } = useSelector(state => state.ui);
+
     useEffect(() => {
-        if(screen.width < 767) {
-          setOpen(false);
-        }
-      }, []);
+      if (dimensions === 'sm') return setOpen(false);
+      setOpen(true);
+    }, [dimensions]);
 
     return (
         <div className="mb-5">
             <div className="flex cursor-pointer justify-between"
                 onClick={() => setOpen(!open)}
             >
-                <p className="text-lg font-bold uppercase">
+                <p className="text-lg font-bold uppercase text-xs md:text-sm">
                     Marcas
                 </p>
                 {open ? <ExpandLessIcon /> : <ExpandMoreIcon />}
@@ -40,6 +42,7 @@ const BrandsList = ({ brands, category, startSearchByQueryParams, paramsFilters 
                                 category={category}
                                 startSearchByQueryParams={startSearchByQueryParams}
                                 paramsFilters={paramsFilters}
+                                dimensions={dimensions}
                             />
                         </Collapse>
                     ))

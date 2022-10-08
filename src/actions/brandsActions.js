@@ -186,21 +186,39 @@ export const existBrand = async () => {
     }
 }
 
-export const startLoadSubcategories = () =>{
-   
-    return async (dispatch) =>{
+export const startLoadSubcategories = () => {
+
+    return async (dispatch) => {
         const url = '/subcategories';
         try {
-            const { data } = await client.get(url);            
+            const { data } = await client.get(url);
             dispatch(loadSubcategories(data.subcategories));
         } catch (error) {
             console.log(error);
         }
     }
-    
+
 }
 
 const loadSubcategories = (subcategories) => ({
     type: types.load_subcategories,
     payload: subcategories,
 })
+
+
+export const startLoadBrandsPerCategory = (category) => {
+    return async (dispatch) => {
+        const url = `/brands/brands-per-category/${category}`;
+        try {
+            const { data } = await client.get(url);
+            dispatch(loadBrandPerCategory(data.brands));
+        } catch (error) {
+            console.log(error);
+        }
+    }
+}
+
+const loadBrandPerCategory = (brands) => ({
+    type: types.load_brands_per_category,
+    payload: brands,
+}); 

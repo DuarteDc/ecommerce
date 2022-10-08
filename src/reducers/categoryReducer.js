@@ -6,7 +6,8 @@ const initalState = {
     categoriesHome: [],
     categoryFilters: [],
     filteredProducts: [],
-    results: {}
+    results: {},
+    subcategories: [],
 }
 
 export const categoryReducer = (state = initalState, { type, payload }) => {
@@ -50,6 +51,18 @@ export const categoryReducer = (state = initalState, { type, payload }) => {
                 filteredProducts: initalState.filteredProducts,
                 results: initalState.results,
             }
+
+        case types.load_subcategories_per_category_or_per_brand:
+            return {
+                ...state,
+                subcategories: payload
+            }
+
+            case types.load_categories_per_brand:
+                return {
+                    ...state,
+                    categories: payload
+                }
 
         default:
             return state

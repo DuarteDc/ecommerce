@@ -21,7 +21,7 @@ export const CartItems = ({ product }) => {
   const { totalWithDiscountApply } = helpers.calculatNewTotalToPay(product_id?.discount, subtotaProduct);
   const subtotal = helpers.priceFormat(totalWithDiscountApply || 0);
 
-  const { updateProductQuantity, handleChangeProductQuantity, removeProduct, quantity: inputQuantity } = useCart(logged, quantity, product_id, undefined);
+  const { updateProductQuantity, handleChangeProductQuantity, removeProduct, quantity: inputQuantity } = useCart(logged, quantity, product_id, undefined, undefined, true);
 
   return (
     <tr className="border-b border-gray-200">

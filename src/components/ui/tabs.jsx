@@ -22,7 +22,7 @@ export const Tabs = ({
           </span>
         ))}
       </div>
-      <div className="flex justify-center items-center my-3">
+      {/* <div className="flex justify-center items-center my-3">
         {search && (
           <div
             className="flex 
@@ -49,7 +49,7 @@ export const Tabs = ({
             <span>Buscar</span>
           </div>
         )}
-      </div>
+      </div> */}
     </div>
   );
 };

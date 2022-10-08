@@ -7,12 +7,11 @@ import CategoriesList from '../../../src/components/categories/CategoriesList';
 
 import { wrapper } from '../../../src/store';
 import { startLoadSubcategories } from '../../../src/actions/brandsActions';
-import { startLoadCategories } from '../../../src/actions/categoryActions';
+import { startLoadCategories, startLoadCategoriesPerBrand, startLoadSubcategoriesPerBrand } from '../../../src/actions/categoryActions';
 
 import { startLoadAdministrableLogo } from '../../../src/actions/administrableActions';
 import { BannerImage, ProductCard } from '../../../src/components/ui';
-
-import { startLoadTags } from '../../../src/actions/tagsActions';
+import ProductCardMobile from '../../../src/components/ui/Mobile/ProductCard';
 
 import AsideBar from '../../../src/components/categories/AsideBar';
 
@@ -29,16 +28,18 @@ import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import Pagination from '@mui/material/Pagination';
 import Stack from '@mui/material/Stack';
-import { startLoadCurrencies } from '../../../src/actions/countryAcctions';
+import { startLoadCurrencies, startLoadPricesCurrencies } from '../../../src/actions/countryAcctions';
 
 const Show = () => {
 
     const router = useRouter();
 
-    const { brand, subcategories } = useSelector((state) => state.brands);
+    const { brand } = useSelector((state) => state.brands);
     const { products } = useSelector((state) => state.products);
-    const { categories } = useSelector((state) => state.categories);
+    const { dimensions } = useSelector((state) => state.ui);
+    const { categories, subcategories } = useSelector((state) => state.categories);
     const { categories: CategoriesFaqs } = useSelector((state) => state.faqs);
+    const { currencyPrices } = useSelector(state => state.countries);
 
     const endpoint = `/products/filter-brand/products-paginated/${router.query.url}`;
     const { startSearchByQueryParams, starClearQueryParams, paramsFilters, loading } = useQueryParams(endpoint, { router });
@@ -70,6 +71,7 @@ const Show = () => {
                     <RangePrice
                         startSearchByQueryParams={startSearchByQueryParams}
                         paramsFilters={paramsFilters}
+                        currencyPrices={currencyPrices}
                     />
                     <CategoriesList
                         categories={categories}
@@ -84,14 +86,21 @@ const Show = () => {
                     />
                 </AsideBar>
                 <div className="col-span-4 md:col-span-2 lg:col-span-3">
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 lg:col-span-3">
+                    <div className="grid grid-cols-2 lg:grid-cols-3 lg:col-span-3">
                         {
                             products?.totalDocs > 0 ? (
                                 products?.products?.map((product) => (
-                                    <ProductCard
-                                        key={product._id}
-                                        product={product}
-                                    />
+                                    dimensions === 'sm' ? (
+                                        <ProductCardMobile
+                                            key={product._id}
+                                            product={product}
+                                        />
+                                    ) : (
+                                        <ProductCard
+                                            key={product._id}
+                                            product={product}
+                                        />
+                                    )
                                 ))
                             ) : (
                                 <div className="text-center col-span-full">
@@ -135,8 +144,9 @@ export const getServerSideProps = wrapper.getServerSideProps((store) =>
                 notFound: true
             }
         }
-        await store.dispatch(startLoadCategories());
-        await store.dispatch(startLoadSubcategories())
+        await store.dispatch(startLoadSubcategoriesPerBrand(ctx.query.url));
+        await store.dispatch(startLoadCategoriesPerBrand(ctx.query.url));
+        await store.dispatch(startLoadPricesCurrencies(ctx.req.cookies?.Currency || 'MXN'));
         await store.dispatch(startLoadAdministrableLogo());
         await store.dispatch(startLoadFaqsCategories());
         await store.dispatch(startLoadCurrencies());

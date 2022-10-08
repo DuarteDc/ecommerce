@@ -7,6 +7,7 @@ import { startLoadTags } from "../../src/actions/tagsActions";
 import Layout from "../../src/components/Layouts";
 
 import { BannerImage, ProductCard } from "../../src/components/ui";
+import ProductCardMobile  from "../../src/components/ui/Mobile/ProductCard";
 
 
 import AsideBar from '../../src/components/categories/AsideBar';
@@ -29,25 +30,24 @@ import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import SubcategoriesList from "../../src/components/subcategories/SubcategoriesList";
 import RangePrice from "../../src/components/prices/RangePrice";
-import { startLoadCurrencies } from "../../src/actions/countryAcctions";
+import { startLoadCurrencies, startLoadPricesCurrencies } from "../../src/actions/countryAcctions";
+import { startLoadBrandsPerCategory } from "../../src/actions/brandsActions";
+import { startLoadSubcategoriesPerCategory } from "../../src/actions/categoryActions";
 
 const Category = () => {
 
-    const { category, filteredProducts, results, categoryFilters } = useSelector((state) => state.categories);
-    const { brands, subcategories } = useSelector((state) => state.brands);
-    const { tags } = useSelector((state) => state.tags);
+    const { category, subcategories } = useSelector((state) => state.categories);
+    const { brands } = useSelector((state) => state.brands);
     const { categories } = useSelector((state) => state.faqs);
-
+    const { dimensions } = useSelector(state => state.ui);
+    const { currencyPrices } = useSelector(state => state.countries);
     const { products } = useSelector((state) => state.products);
 
-    const [loading, setLoading] = useState(false);
-
     const router = useRouter();
-    const dispatch = useDispatch();
 
     const endpoint = `/products/filter-category/products-paginated/${router.query.url}`;
-    const { startSearchByQueryParams, starClearQueryParams, paramsFilters } = useQueryParams(endpoint, { router });
 
+    const { startSearchByQueryParams, starClearQueryParams, paramsFilters, loading } = useQueryParams(endpoint, { router });
 
     const handelClickPage = async (e, value) => {
         await startSearchByQueryParams({ page: value });
@@ -76,10 +76,10 @@ const Category = () => {
                     <RangePrice
                         startSearchByQueryParams={startSearchByQueryParams}
                         paramsFilters={paramsFilters}
+                        currencyPrices={currencyPrices}
                     />
                     <BrandsList
                         brands={brands}
-                        setLoading={setLoading}
                         paramsFilters={paramsFilters}
                         category={category}
                         startSearchByQueryParams={startSearchByQueryParams}
@@ -91,21 +91,21 @@ const Category = () => {
                     />
                 </AsideBar>
                 <div className="col-span-4 md:col-span-2 lg:col-span-3">
-                    {
-                        Object.keys(categoryFilters).length !== 0 && (
-                            <p className="text-gray-900 px-2 text-lg">
-                                {results.quantity} {results.quantity > 1 ? 'resultados' : 'resultado'}  sobre {results.name}
-                            </p>
-                        )
-                    }
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 lg:col-span-3">
+                    <div className="grid grid-cols-2 lg:grid-cols-3 lg:col-span-3">
                         {
                             products?.totalDocs > 0 ? (
                                 products?.products?.map((product) => (
-                                    <ProductCard
-                                        key={product._id}
-                                        product={product}
-                                    />
+                                    dimensions === 'sm' ? (
+                                        <ProductCardMobile
+                                            key={product._id}
+                                            product={product}
+                                        />
+                                    ) : (
+                                        <ProductCard
+                                            key={product._id}
+                                            product={product}
+                                        />
+                                    )
                                 ))
                             ) : (
                                 <div className="text-center col-span-full">
@@ -149,10 +149,10 @@ export const getServerSideProps = wrapper.getServerSideProps((store) =>
                 notFound: true,
             }
         }
-        await store.dispatch(startLoadBrands());
-        await store.dispatch(startLoadTags())
-        await store.dispatch(startLoadSubcategories())
+        await store.dispatch(startLoadBrandsPerCategory(ctx.query.url));
+        await store.dispatch(startLoadSubcategoriesPerCategory(ctx.query.url));
         await store.dispatch(startLoadAdministrableLogo());
+        await store.dispatch(startLoadPricesCurrencies(ctx.req?.cookies?.Currency || 'MXN'));
         await store.dispatch(startLoadFaqsCategories());
         await store.dispatch(startLoadCurrencies());
     })

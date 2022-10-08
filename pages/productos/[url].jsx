@@ -11,6 +11,7 @@ import { startLoadAdministrableLogo } from "../../src/actions/administrableActio
 import { helpers } from "../../src/helpers";
 import { useRouter } from "next/router";
 import { ButtonGroup, ProductCard } from "../../src/components/ui";
+import ProductCardMobile from "../../src/components/ui/Mobile/ProductCard";
 import Image from "next/image";
 import { Breadcrumbs, Container, Typography } from "@mui/material";
 import HomeIcon from '@mui/icons-material/Home';
@@ -29,8 +30,9 @@ const Show = () => {
 
   const { cart } = useSelector((state) => state.cart);
   const { logged } = useSelector((state) => state.auth);
+  const { dimensions } = useSelector((state) => state.ui);
 
-  const { addProduct, updateProductQuantity, handleChangeProductQuantity, quantity: inputQuantity } = useCart(logged, 1, product, cart, 2);
+  const { addProduct, updateProductQuantity, handleChangeProductQuantity, quantity: inputQuantity } = useCart(logged, 1, product, cart, 2, false);
 
   const { totalWithDiscountApply } = helpers.calculatNewTotalToPay(
     product?.discount,
@@ -43,7 +45,6 @@ const Show = () => {
   const origin = typeof window === "undefined" ? "" : window.location.origin;
   const url = `${origin}${router.asPath}`;
 
-  // const addProductCard = (product) => {
   //   const itemCart = {
   //     product_id: {
   //       price: product.price,
@@ -332,9 +333,13 @@ const Show = () => {
               Productos Relacionados
             </h3>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 my-24">
+          <div className={`grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 my-24`}>
             {relatedProducts.map((product) => (
-              <ProductCard product={product} key={product._id} />
+              (dimensions === 'sm') ? (
+                <ProductCardMobile key={product._id} product={product} />
+              ) : (
+                <ProductCard key={product._id} product={product} />
+              )
             ))}
           </div>
         </Container>

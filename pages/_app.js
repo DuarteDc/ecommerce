@@ -11,10 +11,7 @@ import * as ga from '../src/libs/ga';
 
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 
-import {
-  GoogleReCaptchaProvider,
-  GoogleReCaptcha
-} from 'react-google-recaptcha-v3';
+import { GoogleReCaptchaProvider } from 'react-google-recaptcha-v3';
 
 import { loadDimensionsOfBrowser } from '../src/actions/uiActions';
 
@@ -24,10 +21,15 @@ const MyApp = ({ Component, pageProps }) => {
   const router = useRouter();
   const dispatch = useDispatch();
 
+  const getWindowSizes = () => {
+    if (window.innerWidth < 767) return dispatch(loadDimensionsOfBrowser('sm'));
+    dispatch(loadDimensionsOfBrowser('lg'));
+  }
+
   useEffect(() => {
-    if (screen.width < 767) {
-      dispatch(loadDimensionsOfBrowser('sm'))
-    }
+    getWindowSizes();
+    window.addEventListener('resize', getWindowSizes);
+    return () => window.removeEventListener('resize', getWindowSizes);
   }, []);
 
   const theme = createTheme({

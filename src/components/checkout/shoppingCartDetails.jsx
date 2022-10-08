@@ -5,7 +5,7 @@ import RemoveShoppingCartIcon from '@mui/icons-material/RemoveShoppingCart';
 export const ShoppingCartDetails = () =>{
     const { cart } = useSelector((state)=>state.cart);
     return(
-        <div className="w-full">
+        <div className="w-full max-h-[900px]">
             <h3 className="font-Poppins text-[20px] font-semibold leading-[1.4] text-[#333] mb-10 text-center">
                      Resumen de la orden
             </h3>

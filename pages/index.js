@@ -140,8 +140,8 @@ export default function HomePage() {
       robots="index, follow"
       canonical={origin}
     >
-      <Slider />
-      <FacilityArea />
+      {/* <Slider />
+      <FacilityArea /> */}
       <ProductsArea />
       <CategoryArea />
       <ProductsOfferArea />

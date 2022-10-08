@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 
 import Collapse from "@mui/material/Collapse";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
@@ -7,23 +8,16 @@ import RangePriceItem from "./RangePriceItem";
 
 import styles from "../styles.module.css";
 
-const prices = [
-  { _id: "1", min: 0, max: 50 },
-  { _id: "2", min: 50, max: 100 },
-  { _id: "3", min: 100, max: 500 },
-  { _id: "4", min: 500, max: 1000 },
-  { _id: "5", min: 1000, max: 10000 },
-];
-
-const RangePrice = ({ startSearchByQueryParams, paramsFilters }) => {
+const RangePrice = ({ startSearchByQueryParams, paramsFilters, currencyPrices }) => {
 
   const [open, setOpen] = useState(true);
+  const { dimensions } = useSelector(state => state.ui);
 
   useEffect(() => {
-    if(screen.width < 767) {
-      setOpen(false);
-    }
-  }, []);
+    if (dimensions === 'sm') return setOpen(false);
+    setOpen(true);
+  }, [dimensions]);
+
 
   return (
     <div className="mb-5">
@@ -31,17 +25,19 @@ const RangePrice = ({ startSearchByQueryParams, paramsFilters }) => {
         className="flex cursor-pointer justify-between"
         onClick={() => setOpen(!open)}
       >
-        <p className="text-lg font-bold uppercase">Precios</p>
+        <p className="text-lg font-bold uppercase text-xs md:text-sm">Precios</p>
         {open ? <ExpandLessIcon /> : <ExpandMoreIcon />}
       </div>
       <ul className={`relative max-h-60 overflow-y-auto ${styles.scrollbar}`}>
-        {prices.map((price) => (
+        {currencyPrices.prices.map((price) => (
           <Collapse in={open} timeout="auto" unmountOnExit key={price._id}>
-            <RangePriceItem 
-              price={price} 
+            <RangePriceItem
+              price={price}
               startSearchByQueryParams={startSearchByQueryParams}
               paramsFilters={paramsFilters}
-              />
+              setOpen={setOpen}
+              dimensions={dimensions}
+            />
           </Collapse>
         ))}
       </ul>

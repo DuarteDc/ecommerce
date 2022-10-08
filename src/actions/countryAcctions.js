@@ -45,3 +45,26 @@ const loadCurrencies = (currencies) => ({
     payload: currencies,
 });
 
+
+
+export const startLoadPricesCurrencies = (currency) => {
+    return async (dispatch) => {
+        try {
+            let url = 'currencies/prices';
+            const { data } = await client.get(url,{
+                headers:{
+                    'Currency': currency
+                }
+            });
+            dispatch(loadPricesCurrencies(data.currencies));
+        } catch (error) {
+            console.log(error);
+        }
+    };
+};
+
+const loadPricesCurrencies = (currencies) => ({
+    type: types.load_currencies_prices,
+    payload: currencies,
+});
+

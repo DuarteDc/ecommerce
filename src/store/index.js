@@ -31,6 +31,7 @@ const reducer = (state, action) => {
       ...state,
       ...action.payload
     }
+    if (state.ui) nextState.ui = state.ui;
     if (state.wishList) nextState.wishList = state.wishList;
     if (state.auth) nextState.auth = state.auth;
     if (state.cart) nextState.cart = state.cart;
