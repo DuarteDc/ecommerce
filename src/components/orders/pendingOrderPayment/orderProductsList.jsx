@@ -12,8 +12,8 @@ import VerticalAlignTopIcon from '@mui/icons-material/VerticalAlignTop';
 
 export const OrderProductsList = ({ product, handleOpenProductDetail, handleOpenUploadImages, status, order_id, canvasStatus }) => {
 
-    const { product_id: productList, quantity, subtotal } = product;
-    const subtotalProduct = helpers.priceFormat(subtotal);
+    const { product_id: productList, quantity, subtotalInCurrency } = product;
+    const subtotalProduct = helpers.priceFormat(subtotalInCurrency);
 
     return (
         <div className="flex items-center justify-center flex-wrap">

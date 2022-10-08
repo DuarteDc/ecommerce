@@ -251,7 +251,7 @@ export const startFinaliceSaleCheckout = (data) => {
          Cookies.set('superTotal', JSON.stringify(res.data.superTotal));
          Cookies.set('withDiscount', JSON.stringify(res.data.withDiscount));
          Cookies.set('withoutDiscount', JSON.stringify(res.data.withoutDiscount));
-         Cookies.set('shippingCosts', JSON.stringify(shipping_costs || {}));
+         Cookies.set('shippingCosts', JSON.stringify(res.data.shipping));
          Cookies.set('order_id', JSON.stringify(res.data.order_id));
          Cookies.set('canvasTotals', JSON.stringify(res.data.canvasTotals));
          Cookies.set('typeOrder', JSON.stringify(res.data.typeOrder));
@@ -264,7 +264,9 @@ export const startFinaliceSaleCheckout = (data) => {
             res.data.withoutDiscount,
             res.data.order_id,
             res.data.canvasTotals,
-            res.data.business_rule
+            res.data.business_rule,
+            res.data.coupon,
+            res.data.shipping
          ));
 
          return true;
@@ -280,7 +282,7 @@ export const startFinaliceSaleCheckout = (data) => {
    }
 }
 
-export const finaliceSaleCheckout = (superTotal, withDiscount, withoutDiscount, order_id, canvasTotals, business_rule, coupon) => ({
+export const finaliceSaleCheckout = (superTotal, withDiscount, withoutDiscount, order_id, canvasTotals, business_rule, coupon, shippingCosts) => ({
    type: types.finaliceCheckoutCart,
    payload: {
       superTotal,
@@ -290,6 +292,7 @@ export const finaliceSaleCheckout = (superTotal, withDiscount, withoutDiscount, 
       canvasTotals,
       business_rule,
       coupon,
+      shippingCosts,
    }
 });
 

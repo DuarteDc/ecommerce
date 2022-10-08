@@ -25,6 +25,7 @@ module.exports = {
         'shop-cart': "url('/assets/images/shop-cart.png')",
         'about-us':"url('/assets/images/bg-01.jpg')",
         'testimonial':"url('/assets/images/testimonial.jpg')",
+        'influerncer':"url('/assets/images/influencer1.png')",
         'login':"url('/assets/images/login.jpg')",
         'entrega-de-pedidos':"url('/assets/icons/entrega-de-pedidos.png')",
         'address-billing':"url('/assets/images/addressBilling.png')",

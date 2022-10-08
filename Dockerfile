@@ -24,7 +24,7 @@ RUN adduser -S nextjs -u 1001
 
 # You only need to copy next.config.js if you are NOT using the default configuration
 # COPY --from=builder /app/next.config.js ./
-COPY --from=builder /app/public ./public
+COPY --from=builder --chown=nextjs:nodejs /app/public ./public
 COPY --from=builder /app/package.json ./package.json
 
 # Automatically leverage output traces to reduce image size 
@@ -43,4 +43,5 @@ ENV PORT 3000
 # Uncomment the following line in case you want to disable telemetry.
 # ENV NEXT_TELEMETRY_DISABLED 1
 
+# RUN chmod -R 755 /app/*
 CMD ["node", "server.js"]

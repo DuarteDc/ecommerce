@@ -10,6 +10,7 @@ const CartMobile = ({ cart }) => {
             {
                 cart?.map(({ product_id, quantity }) => (
                     <CartItems
+                        key={product_id}
                         product={product_id}
                         quantity={quantity}
                         logged={logged}
