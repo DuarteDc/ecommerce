@@ -48,6 +48,7 @@ export const loadBrandsHome = (brands) => ({
     payload: brands
 })
 
+
 /**
  * This function returns an object with a type property and a payload property.
  * @param brands - [{id: 1, name: 'brand1'}, {id: 2, name: 'brand2'}]
@@ -56,6 +57,29 @@ export const loadBrands = (brands) => ({
     type: types.loadBrands,
     payload: brands
 });
+
+
+
+
+export const startLoadBrandsWithProducts = () => {
+    return async (dispatch) => {
+        let url = 'brands/products/brand';
+
+        try {
+            const res = await client.get(url);
+            dispatch(loadBrandsWithProducts(res.data.brands));
+        } catch (error) {
+            console.log(error);
+        }
+    }
+}
+
+
+
+export const  loadBrandsWithProducts = (brands) => ({
+    type: types.loadBrandsWithProducts,
+    payload: brands
+})
 
 /**
  * It's an async function that takes a dispatch function as an argument, and returns a promise that

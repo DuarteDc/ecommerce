@@ -4,12 +4,12 @@ import { CartItems } from './cartItems';
 import CartMobile from "../cartMobile/CartMobile";
 
 export const Cart = () => {
-
+ 
   const { cart } = useSelector((state) => state.cart);
   const { dimensions } = useSelector((state) => state.ui);
 
   return (
-    <div className="overflow-x-auto mb-2 max-h-[800px]">
+    <div className="overflow-x-scroll mb-2  max-h-[800px]">
       <div>
         <table className="min-w-full leading-normal font-Poppins borfe border-collapse">
           <thead>

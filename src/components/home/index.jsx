@@ -6,3 +6,4 @@ export {ProductsArea} from './ProductsArea';
 export {ProductsOfferArea} from './ProductsOfferArea';
 export {Slider} from './Slider';
 export {TestimonialArea} from './testimonialArea';
+export {ProductSlider} from './ProductSlider';

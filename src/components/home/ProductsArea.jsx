@@ -2,7 +2,8 @@ import { useState } from 'react';
 import Link from 'next/link';
 import { useSelector } from 'react-redux';
 
-import { Tabs, Search, ProductCard } from '../ui';
+import { Tabs, Search, ProductCart, ProductCard } from '../ui';
+import { ProductSlider } from './';
 
 import { useToggle } from '../../hooks/useToggle';
 
@@ -16,7 +17,7 @@ export const ProductsArea = () => {
 
   const router = useRouter();
 
-  const { brandsHome } = useSelector((state) => state.brands);
+  const { brandsHome, brandsWithProducts } = useSelector((state) => state.brands);
   const { products } = useSelector((state) => state.products);
   const [openSearch, setOpenSearch] = useToggle(false);
   const [tabActive, setTabActive] = useState(null);
@@ -38,34 +39,42 @@ export const ProductsArea = () => {
     });
   };
 
+
+
   return (
     <>
       <section className="bg-luz pb-8 px-8  md:px-16 lg:px-24 pt-12 max-w-[1920px] m-auto">
-        <div className="w-full mx-auto">
-          <div className="mb-[40px] text-center bg-[#f6f6f6] w-full p-[15px]">
+        <div className="w-full mx-auto ">
+          {/* <div className="mb-[40px] text-center bg-[#f6f6f6] w-full p-[15px]">
             <h2 className="font-Poppins text-[25px] uppercase font-lg  text-[#222] text-center font-semibold">
               Te recomendamos
             </h2>
-          </div>
+          </div> */}
 
-          <Tabs
+          {/* <Tabs
             tabActive={tabActive}
             queryParams={queryParams}
-            tabsData={brandsHome}
+            tabsData={brandsWithProducts}
             handleSelectTab={handleSelectTab}
             search={true}
             filter={true}
             handleOpenSearch={setOpenSearch}
-          />
-          <div className="grid grid-cols-1 gap-1">
+          /> */}
+          {/* <div className="grid grid-cols-1 gap-1">
             <Search
               openSearch={openSearch}
               placeholder="Buscar..."
               onRequestSearch={onRequestSearch}
               setQuery={setQuery}
             />
-          </div>
-          <div
+          </div> */}
+            <ProductSlider
+          products={products?.products}
+          name='wapizima'/>
+            <ProductSlider
+          products={products?.products}
+          name='Rebel'/>
+          {/* <div
             className="
                grid 
                grid-cols-1 
@@ -85,8 +94,8 @@ export const ProductsArea = () => {
               products?.products?.map((product) => (
                 <ProductCard key={product._id} product={product} />
               ))}
-          </div>
-          <div className="w-full my-5 flex justify-center items-center flex-wrap">
+          </div> */}
+          <div className="w-50 my-5 flex justify-center items-center flex-wrap">
             <Link href="/productos">
               <span
                 className="text-luz mt-4 mx-16 border-solid inline-block py-3 pl-12 pr-12 leading-normal rounded-sm uppercase font-normal text-sm border-2 bg-[#D80D82] border-[#D80D82] hover:bg-[#fff] hover:text-[#000] hover:border-[#D80D82] transition duration-700 ease-in-out font-Poppins cursor-pointer

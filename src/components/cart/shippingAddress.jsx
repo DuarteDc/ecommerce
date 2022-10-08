@@ -35,8 +35,8 @@ export const ShippingAddress = ({ toggleSelectCountry }) => {
     return (
         <>
             <div className="w-full">
-                <span className="font-Poppins text-[15px] leading-[1.4] text-[#333]">
-                    Dirección de Envío:
+                <span className="font-Poppins text-[15px] leading-[1.4] text-[#333] mr-7">
+                    Selecciona una dirección ó agrega una nueva:
                 </span>
             </div>
             <div className="w-full mt-1 flex items-center">
@@ -44,8 +44,9 @@ export const ShippingAddress = ({ toggleSelectCountry }) => {
                     Object.keys(addressSelected)?.length > 0 ? (
                         <p className="w-full font-semibold">{addressSelected.street} #{addressSelected.no_ext}, {addressSelected.postalcode}, {addressSelected?.state?.name}</p>
                     ) : (
-                        <FormControl size="small" fullWidth>
-                            <InputLabel id="demo-simple-select-label">Dirección de envío</InputLabel>
+                        <FormControl size="full" fullWidth>
+                            <InputLabel 
+                            id="demo-simple-select-label">Dirección de envío</InputLabel>
                             <Select
                                 placeholder="Dirección de envío"
                                 label="Dirección de envío"
@@ -67,7 +68,7 @@ export const ShippingAddress = ({ toggleSelectCountry }) => {
                         className="w-full bg-[#222] py-[5.5px] text-white ml-2 w-4/12 border-2 border-[#222]"
                         onClick={toggleSelectCountry}
                     >
-                        Agregar
+                        Agregar dirección
                     </button>
                 ) : (
                     <div onClick={handleRemoveAddress}>

@@ -121,7 +121,7 @@ export const ProductCard = ({ product }) => {
                 onClick={addProduct}
                 className={`${productInCart
                   ? "bg-[#333] text-[#fff]"
-                  : "bg-[#fff] border-transparent"
+                  : "bg-[#fff] "
                   }
                                         py-[10px] 
                                         px-[20px] 
@@ -130,9 +130,9 @@ export const ProductCard = ({ product }) => {
                                         border-[#333] 
                                         border-[1px] 
                                         border-solid 
-                                        border-transparent 
+                                         
                                         leading-normal 
-                                        rounded-none 
+                                        rounded-lg 
                                         font-normal 
                                         uppercase 
                                         text-xs
@@ -146,7 +146,7 @@ export const ProductCard = ({ product }) => {
                     <AddShoppingCartIcon className="ml-3 text-base" />
                   </span>
                 ) : (
-                  "Ya agregado al carrito"
+                    "Agregado"
                 )}
               </button>
             </div>

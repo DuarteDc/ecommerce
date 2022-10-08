@@ -2,6 +2,7 @@ import { types } from "../types";
 
 const initialState = {
   brandsHome: [],
+  brandsWithProducts: [],
   brands: [],
   products: [],
   brand: [],
@@ -25,6 +26,12 @@ export const brandsReducer = (state = initialState, { type, payload }) => {
         ...state,
         brands: payload,
       };
+
+    case types.loadBrandsWithProducts:
+      return {
+        ...state,
+        brandsWithProducts: payload,
+    };
 
     case types.filters_to_products_from_brand: {
       const { filter, products } = payload;

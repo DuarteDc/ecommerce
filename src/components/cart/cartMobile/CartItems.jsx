@@ -22,10 +22,9 @@ const CartItems = ({ product, quantity, logged, cart }) => {
                 width="100"
                 height="100"
             />
+            
             <div className="flex flex-col justify-center truncate items-center">
-                <span className="font-bold truncate">
-                    {product.name}
-                </span>
+
                 <div>
                     <ButtonGroup
                         quantity={inputQuantity}
