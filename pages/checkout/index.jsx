@@ -79,8 +79,6 @@ const Checkout = () => {
       const business_rule = Cookie.get('business_rule') ? JSON.parse(Cookie.get('business_rule')) : ''
       const coupon = Cookie.get('coupon') ? JSON.parse(Cookie.get('coupon')) : ''
 
-      console.log(business_rule);
-
       dispatch(loadTotalsFromCookies(superTotal,
         withDiscount,
         withoutDiscount,
