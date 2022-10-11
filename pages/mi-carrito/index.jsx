@@ -26,13 +26,13 @@ const ShoppingCart = () => {
   const router = useRouter();
   const dispatch = useDispatch();
 
-  const currency = Cookies.get('Currency') || '';
   const token = Cookies.get('token');
 
   const { logged, user } = useSelector((state) => state.auth);
   const { cart, coupon, subtotalWithCoupon } = useSelector((state) => state.cart);
 
   const { categories } = useSelector((state) => state.faqs);
+  const { dimensions } = useSelector((state) => state.ui);
 
   const [open, toggle] = useToggle();
   const [openBusinessRule, toggleBusinessRule] = useToggle();
@@ -61,9 +61,9 @@ const ShoppingCart = () => {
         title="Mi Carrito"
         banner="bg-banner2"
       />
-      <section className="max-w-[1480px] mx-auto my-20 w-full min-h-screen">
+      <section className="max-w-[1480px] mx-auto mt-5 md:my-20 w-full min-h-screen">
         <div className="container grid grid-cols-1 lg:grid-cols-3 mx-auto">
-          <div className="lg:col-span-2  mx-[25px] overflow-x-hidden mb-5">
+          <div className="lg:col-span-2 mx-2 md:mx-[25px] overflow-x-hidden mb-5">
             <Cart />
           </div>
           <div>

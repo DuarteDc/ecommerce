@@ -1,5 +1,7 @@
+import Cookies from 'js-cookie';
 import client from '../config/axiosConfig';
 import { types } from "../types"
+import { loadCategories } from './categoryActions';
 
 /**
  * It's an async function that dispatches a function that returns a promise that returns a function
@@ -59,15 +61,18 @@ export const loadBrands = (brands) => ({
 });
 
 
-
-
-export const startLoadBrandsWithProducts = () => {
+export const startLoadBrandsWithCategories = () => {
     return async (dispatch) => {
-        let url = 'brands/products/brand';
+        const currency = Cookies.get("Currency") || 'MXN'
+        let url = '/brands/with/categories';
 
         try {
-            const res = await client.get(url);
-            dispatch(loadBrandsWithProducts(res.data.brands));
+            const res = await client.get(url, {
+                headers: {
+                    'Currency': currency
+                }
+            });
+            dispatch(loadBrandsWithCategories(res.data.brands));
         } catch (error) {
             console.log(error);
         }
@@ -76,10 +81,40 @@ export const startLoadBrandsWithProducts = () => {
 
 
 
-export const  loadBrandsWithProducts = (brands) => ({
-    type: types.loadBrandsWithProducts,
+export const  loadBrandsWithCategories = (brands) => ({
+    type: types.loadBrandsWithCategories,
     payload: brands
+});
+
+
+export const startLoadCategoriesWithProducts = (category_id, brand_id) => {
+    return async(dispatch) => {
+        const currency = Cookies.get("Currency") || 'MXN'
+        let url = `/products/category-brand-pagination/${category_id}/${brand_id}` ;
+
+        try {
+            const res = await client.get(url,{
+                headers: {
+                    'Currency': currency
+                }
+            });
+            dispatch(loadCategoriesWithProducts(res.data.products, brand_id));
+        } catch (error) {
+            console.log(error)
+        }
+    }
+}
+
+
+export const loadCategoriesWithProducts = (products, brand_id) => ({
+    type: types.loadCategoriesWithProducts,
+    payload: {
+        products,
+        brand_id
+    }  
 })
+
+
 
 /**
  * It's an async function that takes a dispatch function as an argument, and returns a promise that
@@ -210,21 +245,39 @@ export const existBrand = async () => {
     }
 }
 
-export const startLoadSubcategories = () =>{
-   
-    return async (dispatch) =>{
+export const startLoadSubcategories = () => {
+
+    return async (dispatch) => {
         const url = '/subcategories';
         try {
-            const { data } = await client.get(url);            
+            const { data } = await client.get(url);
             dispatch(loadSubcategories(data.subcategories));
         } catch (error) {
             console.log(error);
         }
     }
-    
+
 }
 
 const loadSubcategories = (subcategories) => ({
     type: types.load_subcategories,
     payload: subcategories,
 })
+
+
+export const startLoadBrandsPerCategory = (category) => {
+    return async (dispatch) => {
+        const url = `/brands/brands-per-category/${category}`;
+        try {
+            const { data } = await client.get(url);
+            dispatch(loadBrandPerCategory(data.brands));
+        } catch (error) {
+            console.log(error);
+        }
+    }
+}
+
+const loadBrandPerCategory = (brands) => ({
+    type: types.load_brands_per_category,
+    payload: brands,
+}); 

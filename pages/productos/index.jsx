@@ -15,6 +15,8 @@ import { startLoadAdministrableLogo } from "../../src/actions/administrableActio
 import { BannerImage } from "../../src/components/ui/bannerImage";
 import { ProductCard } from "../../src/components/ui";
 
+import ProductCardMobile from "../../src/components/ui/Mobile/ProductCard";
+
 import { useEffect, useState } from "react";
 import PaginationItem from "@mui/material/PaginationItem";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
@@ -30,34 +32,24 @@ import { useQueryParams } from "../../src/hooks/useQueryParams";
 import RangePrice from "../../src/components/prices/RangePrice";
 import { startFilterProducts, startSearchProduct } from "../../src/actions/productsAction";
 
-import SearchIcon from '@mui/icons-material/Search';
 import { useDebounce } from "../../src/hooks/useDebounce";
-import { startLoadCurrencies } from "../../src/actions/countryAcctions";
+import { startLoadCurrencies, startLoadPricesCurrencies } from "../../src/actions/countryAcctions";
 
 const endpoint = "/products/filter/products-paginated";
 
 const Products = () => {
 
-  const [query, setQuery] = useState('');
   const router = useRouter();
 
-  const dispatch = useDispatch();
   const { startSearchByQueryParams, starClearQueryParams, paramsFilters, loading } = useQueryParams(endpoint, { router });
-  const search = useDebounce(query, 420);
 
   const { products, searchedProducts } = useSelector((state) => state.products);
 
   const { logo } = useSelector((state) => state?.administrable);
   const { brands } = useSelector((state) => state?.brands);
+  const { dimensions } = useSelector((state) => state?.ui);
   const { categories } = useSelector((state) => state?.categories);
-  const { categories: CategoriesFaqs } = useSelector((state) => state?.faqs);
-
-
-  useEffect(() => {
-    if (query) {
-      dispatch(startSearchProduct(query));
-    }
-  }, [search]);
+  const { currencyPrices } = useSelector(state => state.countries);
 
   const handelClickPage = async (e, value) => {
     await startSearchByQueryParams({ page: value });
@@ -67,11 +59,6 @@ const Products = () => {
     });
   };
 
-  const handleSearch = async (querySearch) => {
-    if (!querySearch) return setQuery('');
-    setQuery(querySearch);
-  }
-
   const origin = typeof window === "undefined" ? "" : window.location.href;
 
   return (
@@ -79,7 +66,6 @@ const Products = () => {
       title="Wapizima - Productos"
       robots="index, follow"
       keywords={`Wapizima, Productos, ${brands?.map(brand => brand?.name)}, ${categories?.map(category => category?.name)}`}
-      categories={CategoriesFaqs}
       ogTitle="Wapizima - Productos"
       ogType="website"
       description="Tienda en línea de distribución de productos profesionales para uñas  de calidad. Venta Menudeo y Mayoreo. Promociones, descuentos y mucho más."
@@ -91,96 +77,73 @@ const Products = () => {
       {loading && <LoadingScreen />}
       <section className="container mx-auto grid grid-cols-1 md:grid-cols-3 mt-20 lg:grid-cols-4">
         <AsideBar>
-          {
-            !query && (
-              <>
-                <Filters
-                  starClearQueryParams={starClearQueryParams}
-                  endpoint={endpoint}
-                />
-                <RangePrice
-                  startSearchByQueryParams={startSearchByQueryParams}
-                  paramsFilters={paramsFilters}
-                />
-                <BrandsList
-                  brands={brands}
-                  startSearchByQueryParams={startSearchByQueryParams}
-                  paramsFilters={paramsFilters}
-                />
-                <CategoriesList
-                  categories={categories}
-                  startSearchByQueryParams={startSearchByQueryParams}
-                  paramsFilters={paramsFilters}
-                />
-              </>
-            )
-          }
+          <Filters
+            starClearQueryParams={starClearQueryParams}
+            endpoint={endpoint}
+          />
+          <RangePrice
+            startSearchByQueryParams={startSearchByQueryParams}
+            paramsFilters={paramsFilters}
+            currencyPrices={currencyPrices}
+          />
+          <BrandsList
+            brands={brands}
+            startSearchByQueryParams={startSearchByQueryParams}
+            paramsFilters={paramsFilters}
+          />
+          <CategoriesList
+            categories={categories}
+            startSearchByQueryParams={startSearchByQueryParams}
+            paramsFilters={paramsFilters}
+          />
         </AsideBar>
         <div className="col-span-4 md:col-span-2 lg:col-span-3">
-          <div className="flex flex-row-reverse px-3 md:px-">
-            {/* <div className="border-[1px] border-solid border-[#e6e6e6] rounded-sm flex items-center mb-6 w-full md:w-6/12">
-              <input
-                type="text"
-                name="email"
-                placeholder="Buscar"
-                className="w-full h-12 font-Poppins text-[13px] leading-[1.6] text-[#333] pl-[30px] outline-0"
-                onChange={() => handleSearch(event.target.value)}
-              />
-              <SearchIcon className="text-[25px] text-[#888] w-[20%]" />
-            </div> */}
-          </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 mb-20 mt-10">
+          <div className={`grid grid-cols-2 lg:grid-cols-3 mb-20 mt-10`}>
             {
-              (searchedProducts?.length > 0 && query) ? (
-                (searchedProducts?.length > 0 && query) ? (
-                  searchedProducts?.map((product) => (
-                    <ProductCard key={product?._id} product={product} />
-                  ))
-                ) : (
-                  <div className="text-center col-span-full">
-                    <h4 className="text-2xl uppercase font-semibold mt-20 mb-10">
-                      No hay resultados para tu busqueda
-                    </h4>
-                  </div>
-                )) : (
-                (products?.totalDocs > 0) ? (
-                  products?.products?.map((product) => (
-                    <ProductCard key={product._id} product={product} />
-                  ))
-                ) : (
-                  <div className="text-center col-span-full">
-                    <h4 className="text-2xl uppercase font-semibold mt-20 mb-10">
-                      No hay resultados para tu busqueda
-                    </h4>
-                  </div>
-                )
+              products?.totalDocs > 0 ? (
+                products?.products?.map((product) => (
+                  dimensions === 'sm' ? (
+                    <ProductCardMobile
+                      key={product._id}
+                      product={product}
+                    />
+                  ) : (
+                    <ProductCard
+                      key={product._id}
+                      product={product}
+                    />
+                  )
+                ))
+              ) : (
+                <div className="text-center col-span-full">
+                  <h4 className="text-2xl uppercase font-semibold mt-20 mb-10">No hay resultados para tu busqueda</h4>
+                </div>
               )
             }
           </div>
-          {((products?.hasNextPage || products?.hasPrevPage) && !query) && (
-            <div className="flex justify-center my-10">
-              <Stack spacing={2}>
-                <Pagination
-                  count={products?.totalPages}
-                  page={products?.page}
-                  renderItem={(item) => (
-                    <PaginationItem
-                      components={{
-                        previous: ArrowBackIcon,
-                        next: ArrowForwardIcon,
-                      }}
-                      {...item}
-                    />
-                  )}
-                  onChange={handelClickPage}
-                  size="large"
-                />
-              </Stack>
-            </div>
-          )}
+          {
+            (products.hasNextPage || products.hasPrevPage) && (
+              <div className="flex justify-center my-10">
+                <Stack spacing={2}>
+                  <Pagination
+                    count={products.totalPages}
+                    page={products.page}
+                    renderItem={(item) => (
+                      <PaginationItem
+                        components={{ previous: ArrowBackIcon, next: ArrowForwardIcon }}
+                        {...item}
+                      />
+                    )}
+                    onChange={handelClickPage}
+                    size="large"
+                  />
+                </Stack>
+              </div>
+            )
+          }
         </div>
       </section>
-    </Layout>
+    </Layout >
   );
 };
 
@@ -193,6 +156,7 @@ export const getServerSideProps = wrapper.getServerSideProps(
     await store.dispatch(startLoadAdministrableLogo());
     await store.dispatch(startLoadFaqsCategories());
     await store.dispatch(startLoadCurrencies());
+    await store.dispatch(startLoadPricesCurrencies(ctx.req?.cookies?.Currency || 'MXN'));
   }
 );
 

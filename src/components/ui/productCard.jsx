@@ -1,13 +1,11 @@
 
 import { useRouter } from "next/router";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-import Swal from "sweetalert2";
-import { addProductToCartClientsNotLogged, startAddProductShoppingCart } from "../../actions/shoppingCartActions";
+
 import { addOneProduct, removeOneProduct } from "../../actions/wishListActions";
 import { helpers } from "../../helpers";
-import Cookies from "js-cookie";
 import SliderProductCard from "../products/SliderProductCard";
 
 import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';

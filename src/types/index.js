@@ -19,13 +19,16 @@ export const types = {
     load_products_per_pagination: '[PRODUCTS] load products per pagination',
     filters_to_products: '[PRODUCTS] filters to products',
     search_products: '[PRODUCTS] seach products',
-    loadBrandsWithProducts: '[PRODUCTS] load brands with products',
+    loadBrandsWithCategories: '[PRODUCTS] load brands with categories',
+    loadCategoriesWithProducts: '[PRODUSCTS] load categories with products',
 
     loadCategories: '[CATEGORIES] start load categories',
     loadCategoriesHome: '[CATEGORIES HOME] start load categories',
     load_products_from_category: '[CATEGORIES] load porducts_form_category',
     filters_to_products_from_categories_with_brands: '[CATEGORIES] filters to products from categories',
     clear_filters_form_categories: '[CATEGORIES] clear filters from categories',
+    load_subcategories_per_category_or_per_brand: '[CATEGORIES] load subcategories per category or per brand',
+    load_categories_per_brand: '[CATEGORIES] load categories per brand',
 
     load_cart_state: '[CART] load cart state',
     add_to_cart: '[CART] add to cart',
@@ -46,6 +49,7 @@ export const types = {
     filter_products_per_category_from_brands: '[BRANDS] filter products per category from brands',
     filters_to_products_from_brand: '[BRANDS]filters to products from brand',
     clear_all_filter_from_brands: '[BRANDS] clear all filter from brands',
+    load_brands_per_category: '[BRAND] load brands per category',
 
     loadBrandsHome: '[HOME] load brands with products home',
     addNewsletterSuscription: '[Home] add and show newsletter suscription menssage',
@@ -153,6 +157,7 @@ export const types = {
     country_selected: '[COUNTRY] country selected',
 
     load_currencies: '[COUNTRY] load currencys',
+    load_currencies_prices: '[COUNTRY] load currencies_prices',
 
     load_dimensions_of_browser: '[UI] load dimensions of browser',
 

@@ -171,3 +171,57 @@ export const loadProductsPerTags = (tag, products) => ({
 export const clearAll = () => ({
     type: types.clear_filters_form_categories
 })
+
+
+
+export const startLoadCategoriesPerBrand = (brand) => {
+    return async (dispatch) => {
+        const url = `/categories/brand-slug/${brand}`;
+        try {
+            const { data } = await client.get(url);
+            dispatch(loadCategoriesPerBrand(data.categories));
+        } catch (error) {
+            console.log(error);
+        }
+    }
+}
+
+const loadCategoriesPerBrand = (categories) => ({
+    type: types.load_categories_per_brand,
+    payload: categories,
+}); 
+
+
+export const startLoadSubcategoriesPerCategory = (category) => {
+    return async (dispatch) => {
+        const url = `/subcategories/category-slug/${category}`;
+        try {
+            const { data } = await client.get(url);
+            dispatch(loadSubcategoriesPerCategory(data.subcategories));
+        } catch (error) {
+            console.log(error);
+        }
+    }
+}
+
+const loadSubcategoriesPerCategory = (subcategories) => ({
+    type: types.load_subcategories_per_category_or_per_brand,
+    payload: subcategories,
+}); 
+
+export const startLoadSubcategoriesPerBrand = (brand) => {
+    return async (dispatch) => {
+        const url = `/subcategories/brand-slug/${brand}`;
+        try {
+            const { data } = await client.get(url);
+            dispatch(loadSubcategoriesPerBrand(data.subcategories));
+        } catch (error) {
+            console.log(error);
+        }
+    }
+}
+
+const loadSubcategoriesPerBrand = (subcategories) => ({
+    type: types.load_subcategories_per_category_or_per_brand,
+    payload: subcategories,
+}); 

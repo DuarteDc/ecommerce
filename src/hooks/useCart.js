@@ -9,7 +9,7 @@ import { useDebounce } from './useDebounce';
 
 import Cookies from 'js-cookie';
 
-export const useCart = (logged = false, currenQuantity = 1, product = {}, cart, type = 1) => {
+export const useCart = (logged = false, currenQuantity = 1, product = {}, cart, type = 1, isAdd = false) => {
 
     const dispatch = useDispatch();
     const { SweetAlert, calculateTotalOfCart, existInShoppingCart, prepareCartDataForLocalStorage, prepareProductsToFussion } = helpers;
@@ -93,7 +93,7 @@ export const useCart = (logged = false, currenQuantity = 1, product = {}, cart, 
     }, [logged, cart]);
 
     useEffect(() => {
-        if (updatedQuantity && quantity) {
+        if (updatedQuantity && quantity && isAdd) {
             const product_id = product._id;
             updateCart(product_id, quantity);
         }

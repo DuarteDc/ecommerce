@@ -8,7 +8,8 @@ import { startLoadOffers } from "../src/actions/offersActions";
 import {
   startLoadBrandsHome,
   startLoadBrands,
-  startLoadBrandsWithProducts,
+  startLoadBrandsWithCategories,
+  startLoadCategoriesWithProducts,
 } from "../src/actions/brandsActions";
 import { startLoadDataSliders } from "../src/actions/slidersActions";
 import { startLoadCategoriesHome } from "../src/actions/categoryActions";
@@ -143,7 +144,7 @@ export default function HomePage() {
     >
       {/* <Slider />
       <FacilityArea /> */}
-      <ProductsArea />
+      <ProductsArea /> 
       <CategoryArea />
       <ProductsOfferArea />
       <PartnerArea />
@@ -231,6 +232,7 @@ export const getServerSideProps = wrapper.getServerSideProps((store) => async (c
   await store.dispatch(startLoadTags());
   await store.dispatch(startLoadBrands());
   await store.dispatch(startLoadReviews());
-  await store.dispatch(startLoadBrandsWithProducts());
+  await store.dispatch(startLoadBrandsWithCategories());
   await getRSS();
+  await store.dispatch(startLoadCategoriesWithProducts());
 });

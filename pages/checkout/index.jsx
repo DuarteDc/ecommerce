@@ -20,6 +20,8 @@ import LoadingScreen from "../../src/components/LoadingScreen";
 import ImportExportIcon from '@mui/icons-material/ImportExport';
 import { startLoadCurrencies } from "../../src/actions/countryAcctions";
 
+import styles from '../../src/components/styles.module.css'
+
 
 const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_CLIENT);
 
@@ -28,6 +30,7 @@ const Checkout = () => {
   const dispatch = useDispatch();
   const router = useRouter();
   const { superTotal } = useSelector((state) => state.cart);
+  const { dimensions } = useSelector((state) => state.ui);
   const { client_secret, bankAccountSelected, success } = useSelector((state) => state.checkout);
   const [isTransfer, setIsTransfer] = useState(false);
   const [open, toggle] = useToggle();
@@ -75,6 +78,8 @@ const Checkout = () => {
       const canvasTotals = Cookie.get('canvasTotals') ? JSON.parse(Cookie.get('canvasTotals')) : ''
       const business_rule = Cookie.get('business_rule') ? JSON.parse(Cookie.get('business_rule')) : ''
       const coupon = Cookie.get('coupon') ? JSON.parse(Cookie.get('coupon')) : ''
+
+      console.log(business_rule);
 
       dispatch(loadTotalsFromCookies(superTotal,
         withDiscount,
@@ -155,8 +160,8 @@ const Checkout = () => {
         banner="bg-banner4"
       />
       <section className="max-w-[1480px] mx-auto my-20 px-[15px] w-full">
-        <div className="grid grid-cols-1 lg:grid-cols-12  md:my-10 gap-6">
-          <div className="col-span-7">
+        <div className="grid grid-cols-1 lg:grid-cols-12  md:my-10">
+          <div className={`col-span-12 md:col-span-7 overflow-y-auto ${ dimensions === 'sm' && styles.scrollbar}`}>
             <ShoppingCartDetails />
           </div>
           <div className=" col-span-12 lg:col-span-5 xl:col-span-5">

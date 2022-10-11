@@ -17,7 +17,7 @@ const Filters = ({ starClearQueryParams, endpoint }) => {
 
   return (
     <div className="mb-5">
-      <p className="uppercase font-bold text-lg">Seleccion actual</p>
+      <p className="text-lg font-bold uppercase text-xs md:text-sm">Seleccion actual</p>
       <div className="flex flex-row-reverse text-sm mt-4">
         <span
           className="inline-flex text-gray-500 hover:text-gray-800 cursor-pointer items-center"

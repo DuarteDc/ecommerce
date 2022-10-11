@@ -1,4 +1,3 @@
-import Image from "next/image"
 import helpers from "../../helpers/helpers"
 
 export const ShoppingCartDetail = ({ shopping }) => {
@@ -8,7 +7,7 @@ export const ShoppingCartDetail = ({ shopping }) => {
   const discount = helpers.priceFormat(Number(shopping.product_id.price))
 
   return (
-    <div className="flex py-[30px] font-Poppins" key={shopping._id}>
+    <div className="flex py-[30px] font-Poppins text-xs md:text-sm lg:text-base pr-10" key={shopping._id}>
       <div className="mr-[20px]">
         <img
           src={shopping?.product_id?.multimedia[0]?.path}
@@ -18,11 +17,11 @@ export const ShoppingCartDetail = ({ shopping }) => {
       </div>
       <div className="flex justify-between w-full">
         <div className="">
-          <h4 className="font-Poppins font-normal leading-10 text-base text-[#333] capitalize">{shopping?.product_id?.name}</h4>
-          <span className="font-Poppins leading-10 text-sm font-normal text-[#333]">
+          <h4 className="font-Poppins font-normal leading-10 text-[#333] capitalize">{shopping?.product_id?.name}</h4>
+          <span className="font-Poppins leading-10 text-xs md:text-sm font-normal text-[#333]">
             Descuento: {shopping?.product_id?.discount}%
           </span>
-          <p className="font-Poppins font-normal leading-10 text-sm text-[#333]">Cantidad: {shopping.quantity} piezas</p>
+          <p className="font-Poppins font-normal leading-10 text-xs md:text-sm text-[#333]">Cantidad: {shopping.quantity} piezas</p>
         </div>
 
         <div className="h-full block">

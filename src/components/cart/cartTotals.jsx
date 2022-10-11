@@ -26,20 +26,21 @@ export const CartTotals = ({ toggleBusinessRule, toggleSelectCountry }) => {
   const proceedToCheckout = async () => {
 
     if (!logged) {
-      router.push(`/auth/login?p=${router.asPath}`);
+      return router.push(`/auth/login?p=${router.asPath}`);
     }
 
     if (cart.length < 1) return errorNotify('Debes agregar almenos un producto al carrito de compras');
 
     if (shippingAddress.length < 1) {
-      Swal.fire({
-        icon: 'error',
-        title: 'Ups , hubo un problema',
-        text: 'Al parecer no tienes direcciones de envío registradas , agrega una dirección y vuelve a intentarlo',
-        timer: 3000,
-        timerProgressBar: true,
-        showConfirmButton: false
-      });
+      // Swal.fire({
+      //   icon: 'error',
+      //   title: 'Ups , hubo un problema',
+      //   text: 'Al parecer no tienes direcciones de envío registradas , agrega una dirección y vuelve a intentarlo',
+      //   timer: 3000,
+      //   timerProgressBar: true,
+      //   showConfirmButton: false
+      // });
+      errorNotify('Al parecer no tienes direcciones de envío registradas , agrega una dirección y vuelve a intentarlo');
       router.push('/perfil/direcciones');
       return;
     }

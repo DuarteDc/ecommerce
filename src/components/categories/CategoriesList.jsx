@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 
 import Collapse from "@mui/material/Collapse";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
@@ -11,11 +12,12 @@ const CategoriesList = ({ categories, startSearchByQueryParams, paramsFilters })
 
   const [open, setOpen] = useState(true);
 
+  const { dimensions } = useSelector(state => state.ui);
+
   useEffect(() => {
-    if (screen.width < 767) {
-      setOpen(false);
-    }
-  }, []);
+    if (dimensions === 'sm') return setOpen(false);
+    setOpen(true);
+  }, [dimensions]);
 
   return (
     <div className={`mb-5`}>
@@ -23,7 +25,7 @@ const CategoriesList = ({ categories, startSearchByQueryParams, paramsFilters })
         className={`flex cursor-pointer justify-between`}
         onClick={() => setOpen(!open)}
       >
-        <p className="text-lg font-bold uppercase">Categorías</p>
+        <p className="text-lg font-bold uppercase text-xs md:text-sm">Categorías</p>
         {open ? <ExpandLessIcon /> : <ExpandMoreIcon />}
       </div>
       <ul className={`relative max-h-60 overflow-y-auto ${styles.scrollbar}`}>
@@ -33,6 +35,8 @@ const CategoriesList = ({ categories, startSearchByQueryParams, paramsFilters })
               category={category}
               paramsFilters={paramsFilters}
               startSearchByQueryParams={startSearchByQueryParams}
+              setOpen={setOpen}
+              dimensions={dimensions}
             />
           </Collapse>
         ))}
