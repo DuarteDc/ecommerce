@@ -31,7 +31,7 @@ export const PendingPaymentOrderIndex = ({ order, handleOpenProofOfPayment, stat
   const dispatch = useDispatch();
 
   const { fiscalAddress } = useSelector((state) => state.profile)
-  const total = helpers.priceFormat(order.totalCurrency || order.total);
+  const total = helpers.priceFormat(order?.totalCurrency || order.total, order.currency.currency || 'MXN');
   const totalPayments = helpers.priceFormat(order.total_payments);
   const date = moment(order.createdAt).format('DD/MM/YYYY');
   const [open, toggle] = useToggle();

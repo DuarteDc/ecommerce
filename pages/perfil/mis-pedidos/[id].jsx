@@ -16,9 +16,9 @@ const ShowOrder = () => {
 
     const { products_list } = orderDetail;
 
-    const subtotal = helpers.priceFormat(orderDetail.subtotalCurrency);
-    const total = helpers.priceFormat(orderDetail.totalCurrency);
-    const shippment = helpers.priceFormat(orderDetail.shippmentInCurrency)
+    const subtotal = helpers.priceFormat(orderDetail?.subtotalCurrency || orderDetail?.subtotal,  orderDetail.currency.currency || 'MXN');
+    const total = helpers.priceFormat(orderDetail?.totalCurrency || orderDetail?.total,  orderDetail.currency.currency || 'MXN');
+    const shippment = helpers.priceFormat(orderDetail?.shippmentInCurrency || orderDetail.shippment,  orderDetail.currency.currency || 'MXN')
 
     const OrderStatus = ({ status }) => {
         return (

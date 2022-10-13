@@ -2,8 +2,10 @@ import { toast } from 'react-toastify';
 import Swal from "sweetalert2"
 import Cookies from 'js-cookie';
 
-const priceFormat = (number) => {
-  const currency = Cookies.get('Currency') || 'MXN'
+const priceFormat = (number, currentCurrency) => {
+  let currency = '';
+  if(currentCurrency) currency = currentCurrency
+  else currency = Cookies.get('Currency') || 'MXN';
   const price = new Intl.NumberFormat(['es-MX', 'en-US', 'de-DE', 'en-IN', 'ja-JP', 'es-PE'], {
     style: "currency",
     currency: currency,
