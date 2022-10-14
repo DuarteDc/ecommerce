@@ -16,9 +16,9 @@ const ShowOrder = () => {
 
     const { products_list } = orderDetail;
 
-    const subtotal = helpers.priceFormat(orderDetail?.subtotalCurrency || orderDetail?.subtotal,  orderDetail.currency.currency || 'MXN');
-    const total = helpers.priceFormat(orderDetail?.totalCurrency || orderDetail?.total,  orderDetail.currency.currency || 'MXN');
-    const shippment = helpers.priceFormat(orderDetail?.shippmentInCurrency || orderDetail.shippment,  orderDetail.currency.currency || 'MXN')
+    const subtotal = helpers.priceFormat(orderDetail?.subtotalCurrency || orderDetail?.subtotal,  orderDetail?.currency?.currency || 'MXN');
+    const total = helpers.priceFormat(orderDetail?.totalCurrency || orderDetail?.total,  orderDetail?.currency?.currency || 'MXN');
+    const shippment = helpers.priceFormat(orderDetail?.shippmentInCurrency || orderDetail?.shippment,  orderDetail?.currency?.currency || 'MXN')
 
     const OrderStatus = ({ status }) => {
         return (
@@ -60,10 +60,10 @@ const ShowOrder = () => {
                         <h2 className="font-semibold lg:mb-3">Dirección de envío:</h2>
                         <hr className='hidden lg:block' />
                         <div className="lg:mt-2">
-                            <span className="">{orderDetail.shippment_direction.name}</span>
+                            <span className="">{orderDetail?.shippment_direction?.name}</span>
                         </div>
                         <div>
-                            <p className="text-gray-600">{`${orderDetail.shippment_direction.street} #${orderDetail.shippment_direction.no_ext}, ${orderDetail.shippment_direction.municipality.name}, ${orderDetail.shippment_direction.state.name}`}</p>
+                            <p className="text-gray-600">{`${orderDetail?.shippment_direction?.street} #${orderDetail?.shippment_direction?.no_ext}, ${orderDetail?.shippment_direction?.municipality?.name}, ${orderDetail?.shippment_direction?.state?.name}`}</p>
                         </div>
                     </div>
                 </div>
