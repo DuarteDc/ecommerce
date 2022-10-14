@@ -2,7 +2,7 @@ import { useSelector } from "react-redux";
 import { helpers } from "../../helpers";
 
 export const OrderInfo = () => {
-  
+
   const { superTotal, withDiscount, withoutDiscount, shipping_costs, canvas, business_rule, coupon } = useSelector((state) => state.cart);
 
   const super_total = helpers.priceFormat(superTotal?.total || 0);
@@ -28,32 +28,40 @@ export const OrderInfo = () => {
         </tr>
       </thead>
       <tbody>
-        <tr>
-          <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm ">
-            <p className="text-[#333] text-left font-Poppins capitalize">
-              Subtotal productos con descuento
-            </p>
-          </td>
-          <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-            <p className="text-[#333] text-left font-Poppins">
-              {with_discount}
-            </p>
-          </td>
-        </tr>
-        <tr>
-          <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm ">
-            <p className="text-[#333]  text-left font-Poppins capitalize">
-              Subtotal productos
-            </p>
-          </td>
-          <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm ">
-            <p className="text-[#333]  text-left font-Poppins">
-              {without_discount}
-            </p>
-          </td>
-        </tr>
         {
-          business_rule && (
+          withDiscount.total > 0 && (
+            <tr>
+              <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm ">
+                <p className="text-[#333] text-left font-Poppins capitalize">
+                  Subtotal productos con descuento
+                </p>
+              </td>
+              <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                <p className="text-[#333] text-left font-Poppins">
+                  {with_discount}
+                </p>
+              </td>
+            </tr>
+          )
+        }
+        {
+          withoutDiscount.subtotal > 0 && (
+            <tr>
+              <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm ">
+                <p className="text-[#333]  text-left font-Poppins capitalize">
+                  Subtotal productos
+                </p>
+              </td>
+              <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm ">
+                <p className="text-[#333]  text-left font-Poppins">
+                  {without_discount}
+                </p>
+              </td>
+            </tr>
+          )
+        }
+        {
+          business_rule && business_rule.discount > 0 && (
             <tr>
               <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm ">
                 <p className="text-[#333]  text-left font-Poppins capitalize">
@@ -84,18 +92,22 @@ export const OrderInfo = () => {
             </tr>
           )
         }
-        <tr>
-          <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm ">
-            <p className="text-[#333]  text-left font-Poppins capitalize">
-              Productos canvas
-            </p>
-          </td>
-          <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm ">
-            <p className="text-[#333]  text-left font-Poppins">
-              {canvasTotal}
-            </p>
-          </td>
-        </tr>
+        {
+          canvas.subtotal > 0 && (
+            <tr>
+              <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm ">
+                <p className="text-[#333]  text-left font-Poppins capitalize">
+                  Productos canvas
+                </p>
+              </td>
+              <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm ">
+                <p className="text-[#333]  text-left font-Poppins">
+                  {canvasTotal}
+                </p>
+              </td>
+            </tr>
+          )
+        }
         <tr>
           <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm ">
             <p className="text-[#333]  text-left font-Poppins capitalize">

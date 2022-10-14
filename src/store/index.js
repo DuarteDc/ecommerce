@@ -34,7 +34,7 @@ const reducer = (state, action) => {
     if (state.ui) nextState.ui = state.ui;
     if (state.wishList) nextState.wishList = state.wishList;
     if (state.auth) nextState.auth = state.auth;
-    if (state.cart) nextState.cart = state.cart;
+    if (state.cart) nextState.cart.cart = state.cart.cart;
     return nextState;
   } else {
     return reducers(state, action);

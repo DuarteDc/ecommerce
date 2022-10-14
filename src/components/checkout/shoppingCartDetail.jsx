@@ -7,8 +7,8 @@ export const ShoppingCartDetail = ({ shopping }) => {
   const discount = helpers.priceFormat(Number(shopping.product_id.price))
 
   return (
-    <div className="flex py-[30px] font-Poppins text-xs md:text-sm lg:text-base pr-10" key={shopping._id}>
-      <div className="mr-[20px]">
+    <div className="flex py-2 font-Poppins text-xs md:text-sm lg:text-base pr-10" key={shopping._id}>
+      <div className="md:mr-[20px]">
         <img
           src={shopping?.product_id?.multimedia[0]?.path}
           alt={shopping?.product_id.name}

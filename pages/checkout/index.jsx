@@ -157,9 +157,9 @@ const Checkout = () => {
         title="Realizar Pago"
         banner="bg-banner4"
       />
-      <section className="max-w-[1480px] mx-auto my-20 px-[15px] w-full">
+      <section className="max-w-[1480px] mx-auto my-20 px-2 md:px-[15px] w-full">
         <div className="grid grid-cols-1 lg:grid-cols-12  md:my-10">
-          <div className={`col-span-12 md:col-span-7 overflow-y-auto ${ dimensions === 'sm' && styles.scrollbar}`}>
+          <div className={`col-span-12 md:col-span-7 md:mx-4 overflow-y-auto ${ dimensions === 'sm' && styles.scrollbar}`}>
             <ShoppingCartDetails />
           </div>
           <div className=" col-span-12 lg:col-span-5 xl:col-span-5">
