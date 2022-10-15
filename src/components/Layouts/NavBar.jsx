@@ -111,6 +111,7 @@ const NavBar = () => {
 
   const startSearchProduct = (event) => {
     event.preventDefault();
+    if(!search) return
     router.push(`/buscar?search=${search}`);
   }
 
@@ -408,6 +409,7 @@ const NavBar = () => {
               className="bg-gray-50 w-full appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700  leading-tight focus:outline-none focus:bg-white focus:border-[#e91e63] text-[13px]"
               placeholder="Busca tu producto aquí"
               type="text"
+              required
               value={search}
               onChange={(event) => setSearh(event.target.value)}
             />

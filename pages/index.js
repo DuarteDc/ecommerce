@@ -46,7 +46,6 @@ import { startFilterProducts } from "../src/actions/productsAction";
 export default function HomePage() {
   const dispatch = useDispatch();
   const router = useRouter();
-  const [open, setOpen] = useState(true);
 
   const { logo } = useSelector((state) => state.administrable);
   const { offers } = useSelector((state) => state.offers);
@@ -221,17 +220,10 @@ export default function HomePage() {
 // };
 
 export const getServerSideProps = wrapper.getServerSideProps((store) => async (ctx) => {
-  const endpoint = '/products/filter/products';
   await store.dispatch(startLoadCurrencies());
   await store.dispatch(startLoadAdministrableLogo());
   await store.dispatch(startLoadCategoriesHome());
-  await store.dispatch(startLoadDataSliders());
-  await store.dispatch(startLoadOffers());
-  await store.dispatch(startLoadBrandsHome());
-  await store.dispatch(startFilterProducts(endpoint, undefined, ctx.req.cookies.Currency))
-  await store.dispatch(startLoadTags());
-  await store.dispatch(startLoadBrands());
   await store.dispatch(startLoadReviews());
-  await store.dispatch(startLoadBrandsWithCategories());
+  await store.dispatch(startLoadBrandsWithCategories(ctx.req?.cookies?.Currency || 'MXN'))
   await getRSS();
 });

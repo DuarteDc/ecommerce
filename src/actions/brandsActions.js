@@ -61,9 +61,8 @@ export const loadBrands = (brands) => ({
 });
 
 
-export const startLoadBrandsWithCategories = () => {
+export const startLoadBrandsWithCategories = (currency) => {
     return async (dispatch) => {
-        const currency = Cookies.get("Currency") || 'MXN'
         let url = '/brands/with/categories';
 
         try {
