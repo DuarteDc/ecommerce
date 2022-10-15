@@ -98,7 +98,7 @@ export default function HomePage() {
         showCancelButton: true,
         allowOutsideClick: false,
       }).then((result) => {
-        if (result.isDismissed)  return router.replace("/perfil/mis-pedidos");        
+        if (result.isDismissed) return router.replace("/perfil/mis-pedidos");
         router.push(
           {
             pathname: router.path,
@@ -110,22 +110,22 @@ export default function HomePage() {
     }
   }, [router]);
 
-  useEffect(() => {
-    const modalOfferOpen = Cookie.get("modalOfferOpen");
+  // useEffect(() => {
+  //   const modalOfferOpen = Cookie.get("modalOfferOpen");
 
-    if (modalOfferOpen === "false") {
-      setOpen(false);
-    }
-  }, []);
+  //   if (modalOfferOpen === "false") {
+  //     setOpen(false);
+  //   }
+  // }, []);
 
-  const handleButtonCloseModalOffers = () => {
-    Cookie.set("modalOfferOpen", false);
-    setOpen(false);
-  };
+  // const handleButtonCloseModalOffers = () => {
+  //   Cookie.set("modalOfferOpen", false);
+  //   setOpen(false);
+  // };
 
-  const handleOpenModalOffers = () => {
-    setOpen(!open);
-  };
+  // const handleOpenModalOffers = () => {
+  //   setOpen(!open);
+  // };
 
   const origin = typeof window === "undefined" ? "" : window.location.origin;
 
@@ -144,13 +144,13 @@ export default function HomePage() {
     >
       {/* <Slider />
       <FacilityArea /> */}
-      <ProductsArea /> 
+      <ProductsArea />
       <CategoryArea />
       <ProductsOfferArea />
       <PartnerArea />
       <Newsletter />
       <TestimonialArea />
-      {offers.length && (
+      {/* {offers.length && (
         <Modal
           showTitle={false}
           open={open}
@@ -196,7 +196,7 @@ export default function HomePage() {
             </Grid>
           </Container>
         </Modal>
-      )}
+      )} */}
     </Layout>
   );
 }
@@ -234,5 +234,4 @@ export const getServerSideProps = wrapper.getServerSideProps((store) => async (c
   await store.dispatch(startLoadReviews());
   await store.dispatch(startLoadBrandsWithCategories());
   await getRSS();
-  await store.dispatch(startLoadCategoriesWithProducts());
 });
