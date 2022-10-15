@@ -17,18 +17,6 @@ const endpoint = '/products/filter/products';
 
 export const ProductsArea = () => {
 
-  const dispatch = useDispatch();
-
-  const getData = async () => {
-    const currency = Cookies.get('Currency') || 'MXN';
-    await dispatch(startLoadBrandsWithCategories(currency));
-  }
-
-  useEffect(() => {
-    getData();
-  }, [])
-
-
   const [ref, { width }] = useMeasure();
 
   const [{ run, stepIndex, steps }, setState] = useSetState({

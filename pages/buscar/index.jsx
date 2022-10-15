@@ -31,7 +31,8 @@ const Search = () => {
   }
   useEffect(() => {
     loadQuery();
-  }, []);
+    console.log("Me ejecute")
+  }, [router.query]);
 
   const { categories } = useSelector(state => state.faqs);
   const { searchedProducts } = useSelector(state => state.products)

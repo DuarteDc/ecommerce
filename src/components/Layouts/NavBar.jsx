@@ -111,6 +111,7 @@ const NavBar = () => {
 
   const startSearchProduct = (event) => {
     event.preventDefault();
+    if(search === router.query?.search) return;
     if(!search) return
     router.push(`/buscar?search=${search}`);
   }
