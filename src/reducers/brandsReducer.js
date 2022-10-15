@@ -2,6 +2,7 @@ import { types } from "../types";
 
 const initialState = {
   brandsHome: [],
+  brandsWithCategories: [],
   brands: [],
   products: [],
   brand: [],
@@ -25,6 +26,22 @@ export const brandsReducer = (state = initialState, { type, payload }) => {
         ...state,
         brands: payload,
       };
+
+    case types.loadBrandsWithCategories:
+      return {
+        ...state,
+        brandsWithCategories: payload,
+    };
+
+    case types.loadCategoriesWithProducts:
+      return {
+        ...state,
+        brandsWithCategories: state.brandsWithCategories.map(brand => brand._id === payload.brand_id
+          ? {...brand, products: brand.products = payload.products } 
+          : {...brand} )
+      }
+
+
 
     case types.load_brands_per_category:
       return {

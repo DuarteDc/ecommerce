@@ -19,6 +19,8 @@ export const types = {
     load_products_per_pagination: '[PRODUCTS] load products per pagination',
     filters_to_products: '[PRODUCTS] filters to products',
     search_products: '[PRODUCTS] seach products',
+    loadBrandsWithCategories: '[PRODUCTS] load brands with categories',
+    loadCategoriesWithProducts: '[PRODUSCTS] load categories with products',
 
     loadCategories: '[CATEGORIES] start load categories',
     loadCategoriesHome: '[CATEGORIES HOME] start load categories',

@@ -6,7 +6,7 @@ import CartMobile from "../cartMobile/CartMobile";
 import styles from '../../../components/styles.module.css';
 
 export const Cart = () => {
-
+ 
   const { cart } = useSelector((state) => state.cart);
   const { dimensions } = useSelector((state) => state.ui);
 

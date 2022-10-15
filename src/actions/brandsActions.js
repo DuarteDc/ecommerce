@@ -1,5 +1,7 @@
+import Cookies from 'js-cookie';
 import client from '../config/axiosConfig';
 import { types } from "../types"
+import { loadCategories } from './categoryActions';
 
 /**
  * It's an async function that dispatches a function that returns a promise that returns a function
@@ -48,6 +50,7 @@ export const loadBrandsHome = (brands) => ({
     payload: brands
 })
 
+
 /**
  * This function returns an object with a type property and a payload property.
  * @param brands - [{id: 1, name: 'brand1'}, {id: 2, name: 'brand2'}]
@@ -56,6 +59,62 @@ export const loadBrands = (brands) => ({
     type: types.loadBrands,
     payload: brands
 });
+
+
+export const startLoadBrandsWithCategories = () => {
+    return async (dispatch) => {
+        const currency = Cookies.get("Currency") || 'MXN'
+        let url = '/brands/with/categories';
+
+        try {
+            const res = await client.get(url, {
+                headers: {
+                    'Currency': currency
+                }
+            });
+            dispatch(loadBrandsWithCategories(res.data.brands));
+        } catch (error) {
+            console.log(error);
+        }
+    }
+}
+
+
+
+export const  loadBrandsWithCategories = (brands) => ({
+    type: types.loadBrandsWithCategories,
+    payload: brands
+});
+
+
+export const startLoadCategoriesWithProducts = (category_id, brand_id) => {
+    return async(dispatch) => {
+        const currency = Cookies.get("Currency") || 'MXN'
+        let url = `/products/category-brand-pagination/${category_id}/${brand_id}` ;
+
+        try {
+            const res = await client.get(url,{
+                headers: {
+                    'Currency': currency
+                }
+            });
+            dispatch(loadCategoriesWithProducts(res.data.products, brand_id));
+        } catch (error) {
+            console.log(error)
+        }
+    }
+}
+
+
+export const loadCategoriesWithProducts = (products, brand_id) => ({
+    type: types.loadCategoriesWithProducts,
+    payload: {
+        products,
+        brand_id
+    }  
+})
+
+
 
 /**
  * It's an async function that takes a dispatch function as an argument, and returns a promise that

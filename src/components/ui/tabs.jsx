@@ -8,20 +8,25 @@ export const Tabs = ({
   queryParams,
 }) => {
   return (
-    <div className="flex justify-between flex-wrap pb-12">
-      <div className="flex flex-wrap justify-start items-center text-[#888]">
+    <div className="flex justify-between flex-wrap pb-10">
+      <div className="flex flex-wrap justify-start items-center text-lg text-[#888]">
         {tabsData.map(({ _id, name }) => (
-          <span
-            className={`cursor-pointer border-solid font-Poppins text-medium leading-[1.9] hover:text-[#333] hover:border-[#797979] ${
-              queryParams.includes(_id) && "text-[#333] border-[#797979]"
-            } border-b-[1px] border-transparent mx-1 mr-8  duration-[0.4s] transition-all`}
-            key={_id}
-            onClick={() => handleSelectTab(_id)}
-          >
+          <span key={_id} className='font-sans text-xl text-pink-500 font-normal hover:font-semibold'>
             {name}
           </span>
+          // <span
+          //   className={`cursor-pointer border-solid font-Poppins text-medium leading-[1.9] hover:text-[#D80D82] hover:border-[#D80D82] ${
+          //     queryParams.includes(_id) && "text-[#D80D82] border-[#D80D82]"
+          //   } border-b-[1px] border-transparent mx-1 mr-8  duration-[0.1s] transition-all`}
+          //   key={_id}
+          //   onClick={() => handleSelectTab(_id)}
+          // >
+          //   {name}
+          // </span>
         ))}
       </div>
+
+    
       {/* <div className="flex justify-center items-center my-3">
         {search && (
           <div
