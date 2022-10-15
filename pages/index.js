@@ -19,7 +19,7 @@ import { startLoadTags } from "../src/actions/tagsActions";
 /************************     RSS FEED  ********************** */
 import getRSS from "../src/lib/generateRSS";
 
-import Cookie from "js-cookie";
+import Cookies from "js-cookie";
 
 /**Components */
 import {
@@ -44,7 +44,6 @@ import { startLoadCurrencies } from "../src/actions/countryAcctions";
 import { startFilterProducts } from "../src/actions/productsAction";
 
 export default function HomePage() {
-  const dispatch = useDispatch();
   const router = useRouter();
 
   const { logo } = useSelector((state) => state.administrable);
@@ -108,7 +107,6 @@ export default function HomePage() {
       });
     }
   }, [router]);
-
   // useEffect(() => {
   //   const modalOfferOpen = Cookie.get("modalOfferOpen");
 
@@ -219,11 +217,13 @@ export default function HomePage() {
 //   );
 // };
 
-export const getServerSideProps = wrapper.getServerSideProps((store) => async (ctx) => {
+export const getStaticProps = wrapper.getStaticProps((store) => async () => {
   await store.dispatch(startLoadCurrencies());
   await store.dispatch(startLoadAdministrableLogo());
   await store.dispatch(startLoadCategoriesHome());
   await store.dispatch(startLoadReviews());
-  await store.dispatch(startLoadBrandsWithCategories(ctx.req?.cookies?.Currency || 'MXN'))
   await getRSS();
+  return {
+    revalidate: 604800
+  }
 });

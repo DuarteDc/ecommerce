@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import Link from 'next/link';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import Joyride, { ACTIONS, CallBackProps, EVENTS, STATUS, Step } from 'react-joyride';
 import { useMeasure, useMount, useSetState } from "react-use";
 import { ProductSlider } from './';
@@ -10,11 +10,23 @@ import { useQueryParams } from '../../hooks/useQueryParams';
 import styles from '../../components/styles.module.css';
 import Cookies from 'js-cookie';
 import { useEffect } from 'react';
+import { startLoadBrandsWithCategories } from '../../actions/brandsActions';
 
 
 const endpoint = '/products/filter/products';
 
 export const ProductsArea = () => {
+
+  const dispatch = useDispatch();
+
+  const getData = async () => {
+    const currency = Cookies.get('Currency') || 'MXN';
+    await dispatch(startLoadBrandsWithCategories(currency));
+  }
+
+  useEffect(() => {
+    getData();
+  }, [])
 
 
   const [ref, { width }] = useMeasure();
@@ -30,15 +42,15 @@ export const ProductsArea = () => {
           >
             Desliza hacía la izquierda para ver los productos que tenemos para tí.
           </span>
-          <span>  
+          <span>
             <center>
-              <img src="/assets/images/scroll.png" alt="scroll" width="100" height="100" id='horizontal-scroll' className={` ${styles.img}`}/>
+              <img src="/assets/images/scroll.png" alt="scroll" width="100" height="100" id='horizontal-scroll' className={` ${styles.img}`} />
             </center>
           </span>
         </>
       ),
       disableBeacon: true,
-      continuous:false,
+      continuous: false,
       target: '.app__carousel',
     },
     ],
@@ -46,7 +58,7 @@ export const ProductsArea = () => {
 
   useEffect(() => {
     const tourUI = Cookies.get('tourUI') || Cookies.set('tourUI', 'true');
-    if(tourUI == 'true') setState({ run: true });
+    if (tourUI == 'true') setState({ run: true });
   }, []);
 
 
@@ -88,7 +100,7 @@ export const ProductsArea = () => {
       pathname: "/buscar/[product]",
       query: { product: query },
     });
-  }; 
+  };
 
 
   return (
