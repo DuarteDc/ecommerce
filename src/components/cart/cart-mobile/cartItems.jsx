@@ -39,7 +39,12 @@ export const CartItems = ({ product }) => {
           </Zoom>
         </div>
         <div className="flex flex-col">
-         
+          <span className="text-gray-900 font-normal px-4 whitespace-no-wrap truncate">
+            {product_id?.name}
+          </span>
+          <span className="text-gray-900 px-4 whitespace-no-wrap text-lg flex">
+            {price_product}
+          </span>
         </div>
       </td>
       <td className="px-5 py-5 bg-white text-sm text-center">

@@ -44,7 +44,7 @@ export const ShippingAddress = ({ toggleSelectCountry }) => {
                     Object.keys(addressSelected)?.length > 0 ? (
                         <p className="w-full font-semibold">{addressSelected.street} #{addressSelected.no_ext}, {addressSelected.postalcode}, {addressSelected?.state?.name}</p>
                     ) : (
-                        <FormControl size="full" fullWidth>
+                        <FormControl size="sm" fullWidth>
                             <InputLabel 
                             id="demo-simple-select-label">Dirección de envío</InputLabel>
                             <Select
@@ -68,7 +68,7 @@ export const ShippingAddress = ({ toggleSelectCountry }) => {
                         className="w-full bg-[#222] py-[5.5px] text-white ml-2 w-4/12 border-2 border-[#222]"
                         onClick={toggleSelectCountry}
                     >
-                        Agregar dirección
+                        Agregar
                     </button>
                 ) : (
                     <div onClick={handleRemoveAddress}>

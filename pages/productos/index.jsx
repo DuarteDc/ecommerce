@@ -102,17 +102,17 @@ const Products = () => {
             {
               products?.totalDocs > 0 ? (
                 products?.products?.map((product) => (
-                  dimensions === 'sm' ? (
-                    <ProductCardMobile
-                      key={product._id}
-                      product={product}
-                    />
-                  ) : (
+                  // dimensions === 'sm' ? (
+                  //   <ProductCardMobile
+                  //     key={product._id}
+                  //     product={product}
+                  //   />
+                  // ) : (
                     <ProductCard
                       key={product._id}
                       product={product}
                     />
-                  )
+                  // )
                 ))
               ) : (
                 <div className="text-center col-span-full">
@@ -150,7 +150,10 @@ const Products = () => {
 export const getServerSideProps = wrapper.getServerSideProps(
   (store) => async (ctx) => {
     const endpoint = '/products/filter/products-paginated';
-    await store.dispatch(startFilterProducts(endpoint, undefined, ctx.req.cookies.Currency));
+    if (!Object.keys(ctx.query).length) {
+      await store.dispatch(startFilterProducts(endpoint, undefined, ctx.req.cookies.Currency));
+      console.log('Me ejecute en backend')
+    }
     await store.dispatch(startLoadCategories());
     await store.dispatch(startLoadBrands());
     await store.dispatch(startLoadAdministrableLogo());

@@ -63,10 +63,8 @@ export const useQueryParams = (endpoint, { router }) => {
   }
 
   useEffect(() => {
-    if (router.query) {
-      searchData();
-    }
-  }, [router.asPath]);
+    if (Object.keys(router.query).length > 0) searchData();
+  }, [router.query]);
 
   return { queryParams, startSearchByQueryParams, starClearQueryParams, paramsFilters, loading };
 };

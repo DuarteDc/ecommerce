@@ -166,7 +166,7 @@ export const startUpdatedProductQuantity = (product) => {
       try {
          let url = '/cart';
          const token = Cookies.get('token');
-         const currency = Cookies.get('Currency');
+         const currency = Cookies.get('Currency') || 'MXN';
          const { data } = await client.post(url, product, {
             headers: {
                'Authorization': token,

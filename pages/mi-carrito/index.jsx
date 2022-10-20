@@ -38,14 +38,15 @@ const ShoppingCart = () => {
   const [openBusinessRule, toggleBusinessRule] = useToggle();
   const [openSelectCountry, toggleSelectCountry] = useToggle();
 
-  useEffect(() => {
-    dispatch(startGetDirections(token));
-  }, []);
-
+  
   useEffect(() => {
     dispatch(startCalculateTotalSale(cart, logged));
   }, [coupon, subtotalWithCoupon, cart]);
-
+  
+  useEffect(() => {
+    dispatch(startGetDirections(token));
+  }, [logged, cart]);
+  
   const handleOpenFormAddress = () => {
 
     if (!logged) return router.push(`/auth/login?p=${router.asPath}`);
