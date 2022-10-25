@@ -1,31 +1,20 @@
-import { useEffect, useState } from "react";
+import { useEffect} from "react";
 import { wrapper } from "../src/store";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import Layout from "../src/components/Layouts";
 
 /**Actions */
-import { startLoadOffers } from "../src/actions/offersActions";
-import {
-  startLoadBrandsHome,
-  startLoadBrands,
-  startLoadBrandsWithCategories,
-  startLoadCategoriesWithProducts,
-} from "../src/actions/brandsActions";
-import { startLoadDataSliders } from "../src/actions/slidersActions";
+import { startLoadBrandsWithCategories,} from "../src/actions/brandsActions";
 import { startLoadCategoriesHome } from "../src/actions/categoryActions";
 import { startLoadAdministrableLogo } from "../src/actions/administrableActions";
-import { startLoadTags } from "../src/actions/tagsActions";
 
 /************************     RSS FEED  ********************** */
 // import getRSS from "../src/lib/generateRSS";
 
 /**Components */
 import {
-  Slider,
   Newsletter,
   PartnerArea,
-  CategoryArea,
-  FacilityArea,
   ProductsArea,
   ProductsOfferArea,
   TestimonialArea,
@@ -34,16 +23,13 @@ import {
 /**Actions */
 import { useRouter } from "next/router";
 import Swal from "sweetalert2";
-import { Modal } from "../src/components/ui/modal";
-import { Container, Grid, Typography } from "@mui/material";
-import { OfferCard } from "../src/components/offers/offerCard";
 import { startLoadReviews } from "../src/actions/reviewsActions";
 import { startLoadCurrencies } from "../src/actions/countryAcctions";
-import { startFilterProducts } from "../src/actions/productsAction";
+import getRSSForGoogle from "../src/lib/generateRSSForGoogle";
 
 export default function HomePage() {
+
   const router = useRouter();
-  const dispatch = useDispatch();
 
   const { logo } = useSelector((state) => state.administrable);
   const { offers } = useSelector((state) => state.offers);
@@ -141,7 +127,7 @@ export default function HomePage() {
       {/* <Slider />
       <FacilityArea /> */}
       <ProductsArea />
-      <CategoryArea />
+      {/* <CategoryArea /> */}
       <ProductsOfferArea />
       <PartnerArea />
       <Newsletter />
@@ -222,4 +208,5 @@ export const getServerSideProps = wrapper.getServerSideProps((store) => async (c
   await store.dispatch(startLoadCategoriesHome());
   await store.dispatch(startLoadReviews());
   await store.dispatch(startLoadBrandsWithCategories(ctx.req?.cookies?.Currency || 'MXN'))
+  await getRSSForGoogle();
 });

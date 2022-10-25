@@ -13,7 +13,7 @@ import { errorNotify } from "../../helpers/helpers"
 import GavelIcon from '@mui/icons-material/Gavel';
 import LoadingScreen from "../LoadingScreen"
 
-export const CartTotals = ({ toggleBusinessRule, toggleSelectCountry }) => {
+export const CartTotals = ({ toggleBusinessRule, toggleSelectCountry, handleSelectAddress }) => {
 
   const dispatch = useDispatch();
   const { logged } = useSelector((state) => state.auth);
@@ -83,7 +83,7 @@ export const CartTotals = ({ toggleBusinessRule, toggleSelectCountry }) => {
 
 
     const isValid = await dispatch(startFinaliceSaleCheckout(data));
-    if(!isValid) return;
+    if(!isValid) return setLoading(false);;
     router.push('/checkout')
     setLoading(false);
   }
@@ -122,9 +122,10 @@ export const CartTotals = ({ toggleBusinessRule, toggleSelectCountry }) => {
         </div>
         <div className="border-b-[1px] border-dashed border-[#d9d9d9] flex flex-wrap flex-start pt-[20px]">
           <InfoShippingCosts />
-          <div className="w-full flex justify-center flex-wrap my-[20px]">
+          {/* <div className="w-full flex justify-center flex-wrap my-[20px]">
             <ShippingAddress toggleSelectCountry={toggleSelectCountry} />
-          </div>
+          </div> */}
+          
           <div className="w-full">
             <CouponDetails
               handleApplyCoupon={handleApplyCoupon}
@@ -140,7 +141,8 @@ export const CartTotals = ({ toggleBusinessRule, toggleSelectCountry }) => {
             />
           </div>
           <button className="rounded-[25px] bg-[#333] w-[100%] h-[50px] font-Poppins text-[15px] leading-[1.4] uppercase text-[#fff] flex  items-center  justify-center hover:bg-[#000] hover:transition-all"
-            onClick={() => proceedToCheckout()}
+            // onClick={() => proceedToCheckout()}
+            onClick={handleSelectAddress}
           >
             Continuar
           </button>

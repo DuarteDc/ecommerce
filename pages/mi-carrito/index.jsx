@@ -19,34 +19,29 @@ import FormAddress from '../../src/components/cart/FormAddress';
 import BusinessRules from '../../src/components/businessRules/BusinessRules';
 import FormCountry from '../../src/components/ui/FormCountry';
 import { startLoadCountries, startLoadCurrencies } from '../../src/actions/countryAcctions';
-import { helpers } from '../../src/helpers';
+import ListOfAddress from '../../src/components/cart/ListOfAddress';
+import { errorNotify } from '../../src/helpers/helpers';
 
 const ShoppingCart = () => {
 
   const router = useRouter();
   const dispatch = useDispatch();
 
-  const token = Cookies.get('token');
-
   const { logged, user } = useSelector((state) => state.auth);
   const { cart, coupon, subtotalWithCoupon } = useSelector((state) => state.cart);
 
   const { categories } = useSelector((state) => state.faqs);
-  const { dimensions } = useSelector((state) => state.ui);
 
   const [open, toggle] = useToggle();
   const [openBusinessRule, toggleBusinessRule] = useToggle();
   const [openSelectCountry, toggleSelectCountry] = useToggle();
+  const [openAddress, toggleAddress] = useToggle();
 
-  
+
   useEffect(() => {
     dispatch(startCalculateTotalSale(cart, logged));
   }, [coupon, subtotalWithCoupon, cart]);
-  
-  useEffect(() => {
-    dispatch(startGetDirections(token));
-  }, [logged, cart]);
-  
+
   const handleOpenFormAddress = () => {
 
     if (!logged) return router.push(`/auth/login?p=${router.asPath}`);
@@ -54,6 +49,17 @@ const ShoppingCart = () => {
     if (!user.email_verified) return router.push(`/verificar-cuenta`);
 
     toggleSelectCountry();
+  }
+
+
+  const handleOpenAddress = () => {
+    if (!logged) return router.push(`/auth/login?p=${router.asPath}`);
+
+    if (user.directions.length < 1) {
+      errorNotify('Por favor agrega una dirección de envío');
+      return router.push('/perfil/direcciones');
+    }
+    toggleAddress();
   }
 
   return (
@@ -71,10 +77,22 @@ const ShoppingCart = () => {
             <CartTotals
               toggleBusinessRule={toggleBusinessRule}
               toggleSelectCountry={handleOpenFormAddress}
+              handleSelectAddress={handleOpenAddress}
             />
           </div>
         </div>
       </section>
+
+      <Modal
+        open={openAddress}
+        handleOpenCheckout={toggleAddress}
+        actions={false}
+        fullWidth={true}
+        maxWidth={'sm'}
+      >
+        <ListOfAddress />
+      </Modal>
+
       <Modal
         open={open}
         handleOpenCheckout={toggle}

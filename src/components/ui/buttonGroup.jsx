@@ -1,7 +1,7 @@
 import RemoveIcon from '@mui/icons-material/Remove';
 import AddIcon from '@mui/icons-material/Add';
 
-export const ButtonGroup = ({ quantity = 1, increaseDecreaseQuantityProduct, handleChangeQuantity, product }) => {
+export const ButtonGroup = ({ quantity = 0, increaseDecreaseQuantityProduct, handleChangeQuantity, product }) => {
 
     const handleKeyPress = (e) => {
         let key = window.event ? e.which : e.keyCode;
@@ -26,8 +26,9 @@ export const ButtonGroup = ({ quantity = 1, increaseDecreaseQuantityProduct, han
                         <input
                             type="number"
                             className="absolute w-[50px] h-full outline-none top-0"
-                            value={quantity}
                             onChange={handleChangeQuantity}
+                            value={quantity}
+                            placeholder={quantity}
                             onKeyPress={handleKeyPress}
                         />
                         {quantity}

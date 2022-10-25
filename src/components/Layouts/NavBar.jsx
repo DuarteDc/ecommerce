@@ -26,6 +26,8 @@ import SelectCurrency from "./SelectCurrency";
 import ShoppingCartCheckoutIcon from '@mui/icons-material/ShoppingCartCheckout';
 import SearchIcon from '@mui/icons-material/Search';
 
+import LocationOnIcon from '@mui/icons-material/LocationOn';
+import { Modal } from "../ui/modal";
 
 const NavBar = () => {
 
@@ -111,8 +113,8 @@ const NavBar = () => {
 
   const startSearchProduct = (event) => {
     event.preventDefault();
-    if(search === router.query?.search) return;
-    if(!search) return
+    if (search === router.query?.search) return;
+    if (!search) return
     router.push(`/buscar?search=${search}`);
   }
 
@@ -404,7 +406,7 @@ const NavBar = () => {
         </div>
       </div>
       <div className="flex items-center justify-center">
-        <div className="pb-2 lg:w-8/12 w-full lg:px-20 px-8 flex items-center">
+        <div className="pb-2 lg:w-8/12 w-full lg:pr-20 lg:pl-5 pr-8 flex items-center">
           <form onSubmit={startSearchProduct} className="w-full flex">
             <input
               className="bg-gray-50 w-full appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700  leading-tight focus:outline-none focus:bg-white focus:border-[#e91e63] text-[13px]"

@@ -12,7 +12,7 @@ import Cookies from 'js-cookie';
 export const useCart = (logged = false, currenQuantity = 1, product = {}, cart, type = 1, isAdd = false) => {
 
     const dispatch = useDispatch();
-    const { SweetAlert, calculateTotalOfCart, existInShoppingCart, prepareCartDataForLocalStorage, prepareProductsToFussion } = helpers;
+    const { SweetAlert,existInShoppingCart, prepareCartDataForLocalStorage, prepareProductsToFussion } = helpers;
 
     const [quantity, setQuantity] = useState(currenQuantity);
     const [updatedQuantity, setUpdatedQuantity] = useState(false);
@@ -21,22 +21,20 @@ export const useCart = (logged = false, currenQuantity = 1, product = {}, cart, 
 
     const currency = Cookies.get('Currency') || 'MXN';
 
-    const updateCart = (product_id, quantity) => {
+    const updateCart = (product_id, quantity = 1) => {
 
-        if (logged) return dispatch(startUpdatedProductQuantity({ product_id, quantity }));
+        if (logged) return dispatch(startUpdatedProductQuantity({ product_id, quantity : quantity || 1 }));
 
         let cart = JSON.parse(localStorage.getItem('cart')) || [];
 
-        cart = cart.map(cart => cart?.product_id?._id === product_id ? { ...cart, quantity: cart.quantity = quantity } : cart);
+        cart = cart.map(cart => cart?.product_id?._id === product_id ? { ...cart, quantity: cart.quantity = quantity || 1 } : cart);
 
         const newCart = prepareProductsToFussion(cart);
         localStorage.setItem('cart', JSON.stringify(cart));
-        dispatch(startUpdateCartNoAuth(newCart, currency, { product_id, quantity }));
+        dispatch(startUpdateCartNoAuth(newCart, currency, { product_id, quantity: quantity || 1 }));
     }
 
     const handleChangeProductQuantity = ({ target }) => {
-        if (target.value.length < 1) return setQuantity(1);
-
         if (target.value > product.quantity) return setQuantity(product.quantity);
 
         const quantity = target.value.replace(/^0+/, '');
@@ -69,16 +67,16 @@ export const useCart = (logged = false, currenQuantity = 1, product = {}, cart, 
         if (productInCart && type === 1) return notify('El producto ya ha sido agregado al carrito de compras');
 
         if (logged)
-            return dispatch(startAddProductShoppingCart({ product_id: product._id, quantity }, product));
+            return dispatch(startAddProductShoppingCart({ product_id: product._id, quantity: quantity || 1 }, product));
 
         const newCart = [];
         const product_id = prepareCartDataForLocalStorage(product);
 
-        dispatch(addProductToShoppingCart({ product_id, quantity }));
+        dispatch(addProductToShoppingCart({ product_id, quantity: quantity || 1 }));
         if (!productInCart)
-            newCart = [...cart, { product_id, quantity }];
+            newCart = [...cart, { product_id, quantity: quantity || 1 }];
         else
-            newCart = cart.map(cart => cart.product_id._id === product._id ? { ...cart, quantity: cart.quantity = quantity } : cart);
+            newCart = cart.map(cart => cart.product_id._id === product._id ? { ...cart, quantity: cart.quantity = quantity || 1 } : cart);
 
         localStorage.setItem('cart', JSON.stringify(newCart));
         SweetAlert(

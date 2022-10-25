@@ -25,14 +25,13 @@ import { useCart } from "../../src/hooks/useCart";
 const Show = () => {
 
   const router = useRouter();
-  const dispatch = useDispatch();
   const { product, relatedProducts } = useSelector((state) => state.products);
 
   const { cart } = useSelector((state) => state.cart);
   const { logged } = useSelector((state) => state.auth);
   const { dimensions } = useSelector((state) => state.ui);
 
-  const { addProduct, updateProductQuantity, handleChangeProductQuantity, quantity: inputQuantity } = useCart(logged, 1, product, cart, 2, false);
+  const { addProduct, updateProductQuantity, handleChangeProductQuantity, quantity: inputQuantity } = useCart(logged, "", product, cart, 2, false);
 
   const { totalWithDiscountApply } = helpers.calculatNewTotalToPay(
     product?.discount,

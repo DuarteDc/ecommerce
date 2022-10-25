@@ -1,3 +1,5 @@
+import { CardMedia } from '@mui/material';
+
 export const CardProduct = ({
   image,
   name,
@@ -11,17 +13,24 @@ export const CardProduct = ({
       <div className="relative left-0 top-0 pb-[35px] animate__animated animate__zoomIn">
         <div className="block">
           <div className={`block-pick overflow-hidden relative  max-h-full `}>
-            <img
+            {/* <img
               src={image}
               alt={name}
               className="flex items-center min-w-full min-h-full"
               width={300}
               height={300}
+            /> */}
+            <CardMedia
+              component="img"
+              height="300"
+              className="flex items-center min-w-full min-h-[15rem]"
+              width="300"
+              image={image}
+              alt={name}
             />
             <div
-              className={`absolute w-full h-full top-0 left-0 ${
-                hasName ? "bg-[rgba(0,0,0,0.5)]" : "bg-[rgba(0,0,0,0.2)]"
-              } opacity-0 hover:opacity-[1] transition-all	duration-[0.4s] ease-linear delay-0`}
+              className={`absolute w-full h-full top-0 left-0 ${hasName ? "bg-[rgba(0,0,0,0.5)]" : "bg-[rgba(0,0,0,0.2)]"
+                } opacity-0 hover:opacity-[1] transition-all	duration-[0.4s] ease-linear delay-0`}
             >
               <div className="absolute left-2/4 translate-x-[-50%]  bottom-[-50px] w-[161px] transition-all	duration-[0.4s] ease-linear delay-0">
                 {hasName && (

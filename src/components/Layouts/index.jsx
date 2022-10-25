@@ -8,15 +8,6 @@ import 'react-toastify/dist/ReactToastify.css';
 
 const Layout = ({ children, canonical, title, keywords, description, ogTitle, ogType, ogUrl, ogImage, robots, categories, price, curren, structuredData }) => {
 
-  const [acceptCookies, setacceptCookies] = useState(false);
-
-  useEffect(() => {
-    const cookies = localStorage.getItem('acceptCookies') || '';
-    if (cookies) {
-      setacceptCookies(true);
-    }
-  }, [])
-
   return (
     <>
       <Meta

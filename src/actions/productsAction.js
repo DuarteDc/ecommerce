@@ -187,3 +187,24 @@ export const startLoadProductsRSS = async () => {
     console.log(error);
   }
 };
+
+
+export const loadBrands = async () => {
+  let url = "/brands";
+  try {
+    const res = await client.get(url);
+    return res.data.brands;
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+export const startLoadProductsPerBrand = async (brand_id) => {
+  let url = `/products/brand/${brand_id}`;
+  try {
+    const res = await client.get(url);
+    return res.data.products;
+  } catch (error) {
+    console.log(error);
+  }
+}
