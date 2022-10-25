@@ -19,6 +19,9 @@ export default async function getRSSForGoogle() {
         language: "es",
         pubDate: new Date(),
         copyright: `All rights reserved ${new Date().getFullYear()}, Digiatl Pineapple`,
+        custom_namespaces: {
+            'g': 'http://base.google.com/ns/1.0'
+          },
     });
 
 
@@ -26,10 +29,10 @@ export default async function getRSSForGoogle() {
         const { totalWithDiscountApply } = calculatNewTotalToPay(product.discount, product.price);
         feed.item({
             custom_elements: [
-                { 'g:id': product._id },
-                { 'd:title': textToRSSFeed(product.name) },
-                { 'd:description': product.description },
-                { 'link': `${siteURL}/productos/${product?.url}` },
+                { 'g:id': product.sku },
+                { 'g:title': textToRSSFeed(product.name) },
+                { 'g:description': product.description },
+                { 'g:link': `${siteURL}/productos/${product?.url}` },
                 { 'g:mobile_link': `${siteURL}/productos/${product?.url}` },
                 { 'g:additional_image_link': product?.multimedia[0]?.path },
                 { 'g:availability': product.quantity > 0 ? 'in_stock' : 'out_of_stock' },
@@ -42,6 +45,6 @@ export default async function getRSSForGoogle() {
             ]
         });
     });
-    writeFileSync(`./public/google-feed.xml`, feed.xml({ indent: true }));
+    writeFileSync(`./public/googleFeed.xml`, feed.xml({ indent: true }));
 
 }

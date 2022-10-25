@@ -30,7 +30,7 @@ export default async function getRSS() {
         date: product.createdAt,
         description: textToRSSFeed(product.description),
         custom_elements: [
-          { ' id': product._id },
+          { 'id': product._id },
           { 'availability': product.quantity > 0 ? 'in stock' : 'out of stock' },
           { 'condition': 'used' },
           { 'price': `${product.price} MXN` },
