@@ -30,7 +30,7 @@ export const ProductCard = ({ product }) => {
   const dispatch = useDispatch();
 
   const [isInWhisList, setisInWhisList] = useState(helpers.existInWishList(_id));
-  
+
   const { totalWithDiscountApply } = helpers.calculatNewTotalToPay(
     product.discount,
     product.price
@@ -54,12 +54,30 @@ export const ProductCard = ({ product }) => {
   };
 
   return (
-    <div className="mb-[30px] relative card px-1 animate__animated animate__zoomIn">
-      <div className="relative overflow-hidden">
-        <SliderProductCard
-          images={product.multimedia}
-          handleShowProduct={handleShowProduct}
-        />
+    <div className="mb-[30px] relative p-2 card animate__animated animate__zoomIn md:mx-2 shadow-md md:shadow-none">
+      <div className="relative overflow-hidden ">
+        <div className="w-full h-full relative">
+          <SliderProductCard
+            images={product.multimedia}
+            className= "w-[20rem]"
+            handleShowProduct={handleShowProduct}
+          />
+           <div className="absolute bottom-0 right-0 z-[999]">
+            <span
+              className="text-[#858585] 
+                                     text-[15px] 
+                                     line-through 
+                                     inline-block 
+                                     mr-1
+                                     "
+            >
+              {product.discount > 0 && sale_price}
+            </span>
+            <span className=" bg-gray-200 text-pink-500 text-left rounded-lg text-sm md:text-lg px-2 md:font-semibold ">
+              {sale_price_discount}
+            </span>
+          </div>
+        </div>
         {quantity === 0 && (
           <div
             className="text-center 
@@ -95,24 +113,10 @@ export const ProductCard = ({ product }) => {
           </div>
         )}
 
-        <div className="">
-          <h3 className="text-[#333] mb-0 font-semibold text-[18px] capitalize truncate">
+        <div>
+          <h3 className="text-[#333] mb-2 text-xs md:text-[18px] md:font-semibold capitalize md:mb-6 md:mt-6 mt-2 truncate">
             {name}
           </h3>
-          <div className="mt-[8px] mb-[12px]">
-            <span
-              className="text-[#858585] 
-                                     text-[15px] 
-                                     line-through 
-                                     inline-block 
-                                     mr-1"
-            >
-              {product.discount > 0 && sale_price}
-            </span>
-            <span className="text-[17px] inline-block">
-              {sale_price_discount}
-            </span>
-          </div>
           <div className="flex flex-wrap justify-between">
             <div className="btn-area">
               <button
@@ -121,43 +125,45 @@ export const ProductCard = ({ product }) => {
                   ? "bg-[#333] text-[#fff]"
                   : "bg-[#fff] "
                   }
-                                        py-[10px] 
-                                        px-[20px] 
+                                        py-[8px] 
+                                        md:py-[10px]
+                                        px-[10px]
+                                        md:px-[20px] 
                                         cursor-pointer 
                                         text-[#333] 
                                         border-[#333] 
                                         border-[1px] 
                                         border-solid 
-                                         
                                         leading-normal 
                                         rounded-lg 
                                         font-normal 
                                         uppercase 
-                                        text-xs
-                                        md:text-sm`}
+                                        text-[10px]
+                                        md:text-[11px]
+                                        lg:text-sm`}
               >
                 {!productInCart ? (
                   <span
                     className="flex items-center font-Poppins"
                   >
                     Agregar
-                    <AddShoppingCartIcon className="ml-3 text-base" />
+                    <AddShoppingCartIcon className="ml-2 text-sm" />
                   </span>
                 ) : (
-                    "Agregado"
+                  "Agregado"
                 )}
               </button>
             </div>
-            <div className="flex justify-between">
+            <div className="flex ">
               <span
-                className="w-[35px] 
+                className="w-[35px] hidden
+                md:block
                                      h-[35px] 
                                      leading-[38px] 
                                      text-center  
                                      text-[#333] 
                                      rounded-[50%] 
                                      shadow-md 
-                                     flex 
                                      justify-center 
                                      items-center mr-4 
                                      hover:bg-[#333] 
@@ -185,7 +191,7 @@ export const ProductCard = ({ product }) => {
                 onClick={() => handleToogleWishList(_id)}
               >
                 {isInWhisList ? (
-                  <FavoriteIcon className="text-[25px] text-red-600 w-[60%] z-[2] hover:text-red-600 hover:transition cursor-pointer" />
+                  <FavoriteIcon className="text-[25px] left-40  space-x-16 text-red-600 w-[60%] z-[2] hover:text-red-600 hover:transition cursor-pointer" />
                 ) : (
                   <FavoriteBorderIcon className="text-[25px] text-[#888] w-[60%] z-[2] hover:text-[#fff] hover:transition cursor-pointer" />
                 )}

@@ -55,12 +55,12 @@ const ProductCard = ({ product }) => {
                     onClick={handleShowProduct}
                 />
                 <span
-                    className="absolute bottom-0 right-2 bg-gray-100 rounded-full px-1 py-[1px] z-20 flex items-center"
+                    className="absolute bg-gray-100 rounded-full px-1 py-[1px] z-20 flex items-center"
                 >
                     {
                         discount > 0 && <p className="line-through  text-[10px]">{sale_price}</p>
                     }
-                    <p className="text-sm px-1 text-[#e91e63] font-bold">{sale_price_discount}</p>
+                    <p className="text-sm md:text-base px-1 text-[#e91e63] font-bold">{sale_price_discount}</p>
 
                 </span>
             </div>

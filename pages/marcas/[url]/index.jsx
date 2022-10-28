@@ -90,17 +90,10 @@ const Show = () => {
                         {
                             products?.totalDocs > 0 ? (
                                 products?.products?.map((product) => (
-                                    dimensions === 'sm' ? (
-                                        <ProductCardMobile
-                                            key={product._id}
-                                            product={product}
-                                        />
-                                    ) : (
-                                        <ProductCard
-                                            key={product._id}
-                                            product={product}
-                                        />
-                                    )
+                                    <ProductCard
+                                        key={product._id}
+                                        product={product}
+                                    />
                                 ))
                             ) : (
                                 <div className="text-center col-span-full">
@@ -108,6 +101,9 @@ const Show = () => {
                                 </div>
                             )
                         }
+                        <div className="text-center col-span-full">
+                            <h4 className="text-2xl uppercase font-semibold mt-20 mb-10">No hay resultados para tu busqueda</h4>
+                        </div>
                     </div>
                     {
                         (products.hasNextPage || products.hasPrevPage) && (

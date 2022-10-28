@@ -95,17 +95,11 @@ const Category = () => {
                         {
                             products?.totalDocs > 0 ? (
                                 products?.products?.map((product) => (
-                                    dimensions === 'sm' ? (
-                                        <ProductCardMobile
-                                            key={product._id}
-                                            product={product}
-                                        />
-                                    ) : (
                                         <ProductCard
                                             key={product._id}
                                             product={product}
                                         />
-                                    )
+                                    
                                 ))
                             ) : (
                                 <div className="text-center col-span-full">

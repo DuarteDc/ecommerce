@@ -51,17 +51,11 @@ const Search = () => {
         <div className="grid grid-cols-2 lg:grid-cols-4 my-20">
           {
             searchedProducts.map(product => (
-              dimensions === 'sm' ? (
-                <ProductCardMobile
-                  key={product._id}
-                  product={product}
-                />
-              ) : (
                 <ProductCard
                   key={product._id}
                   product={product}
                 />
-              )
+              
             ))
           }
         </div>

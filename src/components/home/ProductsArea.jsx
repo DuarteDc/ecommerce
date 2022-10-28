@@ -18,7 +18,7 @@ export const ProductsArea = () => {
 
   return (
     <>
-      <section className="bg-luz pb-8 px-8  md:px-16 lg:px-24 pt-12 max-w-[1920px] m-auto">
+      <section className="bg-luz pb-4  px-4 md:px-16 lg:px-24 pt-12 max-w-[1920px] m-auto">
         <div className="w-full mx-auto">
           <div ref={ref} className="app__carousel">
             {

@@ -25,7 +25,7 @@ const SubcategoriesList = ({ subcategories, startSearchByQueryParams, paramsFilt
             <div className="flex cursor-pointer justify-between"
                 onClick={() => setOpen(!open)}
             >
-                <p className="text-lg font-bold uppercase text-xs md:text-sm">
+                <p className="font-bold uppercase text-xs md:text-sm">
                     Subcategorías
                 </p>
                 {open ? <ExpandLessIcon /> : <ExpandMoreIcon />}

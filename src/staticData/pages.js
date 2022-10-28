@@ -1,11 +1,16 @@
+import { ClassNames } from '@emotion/react';
+import { Home, Store, Sell, ShoppingBag, School, ContactPage } from '@mui/icons-material';
+
 export const pages = [
   {
     path: '/',
-    name: 'Inicio'
+    name: 'Inicio',
+    icon: <Home className='mr-4'/>,
   },
   {
     path: '/productos',
-    name: 'Productos'
+    name: 'Productos',
+    icon: <Store className='mr-4'/>,
   },
   // {
   //   path: '/canvas',
@@ -13,18 +18,25 @@ export const pages = [
   // },
   {
     path: '/categorias',
-    name: 'Categorías'
+    name: 'Categorías',
+    icon: <ShoppingBag className='mr-4'/>,
   },
   {
     path: '/marcas',
-    name: 'Marcas'
+    name: 'Marcas',
+    icon: <Sell className='mr-4'/>,
   },
   {
     path: 'https://wapizima.com.mx',
-    name: 'Escuela'
+    name: 'Escuela',
+    icon:  <School className='mr-4'/>,
+
+
   },
   {
     path: '/contacto',
-    name: 'Contácto'
+    name: 'Contácto',
+    icon: <ContactPage className='mr-4' />,
+
   },
 ]
