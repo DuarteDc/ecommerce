@@ -62,18 +62,23 @@ export const ProductCard = ({ product }) => {
             className= "w-[20rem]"
             handleShowProduct={handleShowProduct}
           />
-           <div className="absolute bottom-0 right-0 z-[999]">
+           <div className="absolute bottom-0 right-0 z-[999] md:hidden">
             <span
-              className="text-[#858585] 
+              className="inline-block relative  text-[#858585] 
                                      text-[15px] 
                                      line-through 
-                                     inline-block 
                                      mr-1
+                                     rounded-lg
+                                     bg-gray-200
+                                     text-xs
+                                     top-5
+                                     -left-16
+                                     px-2
                                      "
             >
               {product.discount > 0 && sale_price}
             </span>
-            <span className=" bg-gray-200 text-pink-500 text-left rounded-lg text-sm md:text-lg px-2 md:font-semibold ">
+            <span className=" relative bg-gray-200 text-pink-500 text-left rounded-lg text-sm px-2 block">
               {sale_price_discount}
             </span>
           </div>
@@ -98,16 +103,19 @@ export const ProductCard = ({ product }) => {
         {discount > 0 && (
           <div
             className="text-center 
-                               absolute 
-                               top-[10px] 
-                               left-[10px] 
-                               bg-[#f57c00] 
-                               text-[#fff] 
-                               w-[15%] 
-                               h-[10%] 
-                               leading-[50px] 
-                               rounded-[50%] 
-                               z-[3]"
+                              absolute 
+                              text-md
+                              md:text-xl
+                              top-[12px]
+                              md:top-[10px] 
+                              md: left-[10px] 
+                              bg-[#f57c00] 
+                              text-[#fff] 
+                              md: w-[20%] 
+                              md:h-[10%] 
+                              md:leading-[50px] 
+                              rounded-[50%] 
+                              z-[990]"
           >
             -{discount}%
           </div>
@@ -117,6 +125,21 @@ export const ProductCard = ({ product }) => {
           <h3 className="text-[#333] mb-2 text-xs md:text-[18px] md:font-semibold capitalize md:mb-6 md:mt-6 mt-2 truncate">
             {name}
           </h3>
+          <div className="hidden md:block md:mt-[8px] md:mb-[12px]">
+            <span
+              className="text-[#858585] 
+                                     text-[15px] 
+                                     line-through 
+                                     inline-block 
+                                     mr-1"
+            >
+              {product.discount > 0 && sale_price}
+            </span>
+            <span className="text-[17px] inline-block">
+              {sale_price_discount}
+            </span>
+          </div>
+    
           <div className="flex flex-wrap justify-between">
             <div className="btn-area">
               <button

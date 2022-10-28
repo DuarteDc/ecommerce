@@ -52,11 +52,11 @@ export const ProductSlider = ({ products, name, categories, brand_id }) => {
                         spaceBetween: 2,
                     },
                     380: {
-                        slidesPerView: 2.5,
+                        slidesPerView: 3.2,
                         spaceBetween: 5,
                     },
                     640: {
-                        slidesPerView: 2.5,
+                        slidesPerView: 3.5,
                         spaceBetween: 5,
                     },
                     768: {
