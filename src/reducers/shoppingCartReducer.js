@@ -12,13 +12,14 @@ const initialState = {
     withoutDiscount: {},
     canvas: {},
     business_rule: {},
-    shipping_costs: {},
+    shipping_costs: 0,
     order_id: '',
     success: false,
     shippingAddress: [],
     BusinessRules: [],
     addressSelected: {},
-    shippingCosts: 0
+    shippingCosts: 0,
+    finalShippingCosts: 0,
 }
 
 export const shoppingCartReducer = (state = initialState, { type, payload }) => {
@@ -53,7 +54,7 @@ export const shoppingCartReducer = (state = initialState, { type, payload }) => 
                 superTotal: payload.superTotal,
                 withDiscount: payload.withDiscount,
                 withoutDiscount: payload.withoutDiscount,
-                shipping_costs: payload.shippingCosts,
+                finalShippingCosts: payload.shippingCosts,
                 order_id: payload.order_id,
                 canvas: payload.canvasTotals,
                 business_rule: payload.business_rule,
@@ -63,13 +64,14 @@ export const shoppingCartReducer = (state = initialState, { type, payload }) => 
             return {
                 ...state,
                 cart: payload.shoppingCart,
-                shippingCosts: payload.shippingCosts
+                shippingCosts: payload.shippingCosts,
+                shipping_costs: payload.shippingCosts,
             }
         }
 
         case types.clear_cart:
             return {
-               ...initialState
+                ...initialState
             }
 
         case types.updatedProductQuantity:
@@ -149,6 +151,12 @@ export const shoppingCartReducer = (state = initialState, { type, payload }) => 
             return {
                 ...state,
                 BusinessRules: payload,
+            }
+
+        case types.load_shipping_cost:
+            return {
+                ...state,
+                shipping_costs: payload
             }
 
         default:

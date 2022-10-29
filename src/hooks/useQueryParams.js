@@ -54,7 +54,7 @@ export const useQueryParams = (endpoint, { router }) => {
   };
 
   const searchData = async () => {
-    const currency = Cookies.get('Currency');
+    const currency = Cookies.get('Currency') || 'MXN';
     setLoading(true);
     const queries = await getQueryParams(router.asPath);
     await dispatch(startFilterProducts(endpoint, queries, currency));
@@ -64,7 +64,7 @@ export const useQueryParams = (endpoint, { router }) => {
 
   useEffect(() => {
     if (Object.keys(router.query).length > 0) searchData();
-  }, [router.query]);
+  }, [router.asPath]);
 
   return { queryParams, startSearchByQueryParams, starClearQueryParams, paramsFilters, loading };
 };

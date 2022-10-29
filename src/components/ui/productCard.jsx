@@ -1,6 +1,6 @@
 
 import { useRouter } from "next/router";
-import { useState } from "react";
+
 import { useDispatch, useSelector } from "react-redux";
 
 
@@ -16,6 +16,8 @@ import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import { notify } from "../../helpers/helpers";
 
 import { useCart } from "../../hooks/useCart";
+import { ButtonGroup } from "./buttonGroup";
+import { useEffect, useState, useLayoutEffect } from "react";
 
 export const ProductCard = ({ product }) => {
 
@@ -24,13 +26,23 @@ export const ProductCard = ({ product }) => {
 
   const { _id, name, price, url, quantity, discount } = product;
 
-  const { addProduct, productInCart } = useCart(logged, 1, product, cart);
+  // const currentQuantity = cart.find(product => product.product_id._id === _id);
+  // const [aaa, setAaa] = useState(currentQuantity?.quantity);
+
+  // useEffect(() => {
+
+  //   const currentQuantity = cart.find(product => product.product_id._id === _id);
+  //   setAaa(currentQuantity?.quantity)
+  // }, [])
+
+
+  const { addProduct, productInCart, updateProductQuantity, handleChangeProductQuantity, quantity: inputQuantity } = useCart(logged, 1, product, cart, undefined, true);
 
   const history = useRouter();
   const dispatch = useDispatch();
 
   const [isInWhisList, setisInWhisList] = useState(helpers.existInWishList(_id));
-  
+
   const { totalWithDiscountApply } = helpers.calculatNewTotalToPay(
     product.discount,
     product.price
@@ -115,12 +127,23 @@ export const ProductCard = ({ product }) => {
           </div>
           <div className="flex flex-wrap justify-between">
             <div className="btn-area">
-              <button
-                onClick={addProduct}
-                className={`${productInCart
-                  ? "bg-[#333] text-[#fff]"
-                  : "bg-[#fff] "
-                  }
+              {/* {
+                productInCart ? (
+                  // <ButtonGroup
+                  //   quantity={inputQuantity}
+                  //   increaseDecreaseQuantityProduct={updateProductQuantity}
+                  //   handleChangeQuantity={handleChangeProductQuantity}
+                  //   product={product}
+                  // />
+                  <span className=" bg-[#fff]">
+                    Agregado
+                  </span>
+                ) : (
+                  <button
+                    onClick={addProduct}
+                    className="
+                
+                   bg-[#fff]
                                         py-[10px] 
                                         px-[20px] 
                                         cursor-pointer 
@@ -134,19 +157,53 @@ export const ProductCard = ({ product }) => {
                                         font-normal 
                                         uppercase 
                                         text-xs
-                                        md:text-sm`}
-              >
-                {!productInCart ? (
-                  <span
-                    className="flex items-center font-Poppins"
+                                        md:text-sm"
                   >
-                    Agregar
-                    <AddShoppingCartIcon className="ml-3 text-base" />
-                  </span>
-                ) : (
-                    "Agregado"
-                )}
-              </button>
+                    <span
+                      className="flex items-center font-Poppins"
+                    >
+                      Agregar
+                      <AddShoppingCartIcon className="ml-3 text-base" />
+                    </span>
+                  </button>
+                )
+              } */}
+              {
+                product.quantity > 0 && (
+                  <button
+                    onClick={addProduct}
+                    className={`${productInCart
+                      ? "bg-[#333] text-[#fff]"
+                      : "bg-[#fff] "
+                      }
+                                          py-[10px] 
+                                          px-[20px] 
+                                          cursor-pointer 
+                                          text-[#333] 
+                                          border-[#333] 
+                                          border-[1px] 
+                                          border-solid 
+                                           
+                                          leading-normal 
+                                          rounded-lg 
+                                          font-normal 
+                                          uppercase 
+                                          text-xs
+                                          md:text-sm`}
+                  >
+                    {!productInCart ? (
+                      <span
+                        className="flex items-center font-Poppins"
+                      >
+                        Agregar
+                        <AddShoppingCartIcon className="ml-3 text-base" />
+                      </span>
+                    ) : (
+                      "Agregado"
+                    )}
+                  </button>
+                )
+              }
             </div>
             <div className="flex justify-between">
               <span
@@ -194,6 +251,6 @@ export const ProductCard = ({ product }) => {
           </div>
         </div>
       </div>
-    </div>
+    </div >
   );
 };

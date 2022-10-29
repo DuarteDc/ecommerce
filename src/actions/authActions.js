@@ -74,7 +74,7 @@ export const startLoginGoogle = (idToken) => {
             dispatch(loginGoogle(token, user));
             return {
                 hasError: false,
-                token
+                token,
             }
 
         } catch (error) {

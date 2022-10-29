@@ -28,16 +28,18 @@ export default async function getRSSForGoogle() {
     products?.map((product) => {
         const { totalWithDiscountApply } = calculatNewTotalToPay(product.discount, product.price);
         feed.item({
+            title: textToRSSFeed(product.name),
             custom_elements: [
                 { 'g:id': product.sku },
                 { 'g:title': textToRSSFeed(product.name) },
                 { 'g:description': product.description },
                 { 'g:link': `${siteURL}/productos/${product?.url}` },
+                { 'g:image_link': product?.multimedia[0]?.path },
                 { 'g:mobile_link': `${siteURL}/productos/${product?.url}` },
                 { 'g:additional_image_link': product?.multimedia[0]?.path },
                 { 'g:availability': product.quantity > 0 ? 'in_stock' : 'out_of_stock' },
                 { 'g:availability_date': product.updatedAt },
-                { 'g:price': `${priceFormat(product.price)} MXN` },
+                { 'g:price': `MXN ${priceFormat(product.price)}` },
                 (product.discount > 0) && { 'g:sale_price': `${priceFormat(totalWithDiscountApply)} MXN` },
                 { 'g:brand': product?.brand?.name },
                 { 'g:gtin': product?.barcode },

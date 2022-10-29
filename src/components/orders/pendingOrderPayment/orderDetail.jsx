@@ -4,12 +4,10 @@ import { helpers } from "../../../helpers";
 import OrderCancelStatus from "../OrderCancelStatus";
 import OrderStatus from "../OrderStatus";
 
-export const OrderDetails = ({ status }) => {
-  const { orderDetail, shippingDetail } = useSelector((state) => state.orders);
+export const OrderDetails = ({ status, shipping }) => {
+  
+  console.log(shipping)
 
-  const subtotal = helpers.priceFormat(orderDetail.subtotal);
-  const shippment = helpers.priceFormat(orderDetail.shippment);
-  const total = helpers.priceFormat(orderDetail.subtotal + orderDetail.shippment)
   return (
     <Grid container spacing={3} className="font-Poppins">
       {
@@ -19,7 +17,7 @@ export const OrderDetails = ({ status }) => {
             <div className="flex justify-between items-center">
               <p>Paquetería:</p>
               <p className="max-w-[300px] text-[#888] text-sm font-light">
-                {shippingDetail?.shipment_id?.name}
+                {shipping?.shipment_id?.name}
               </p>
             </div>
           </Grid>
@@ -27,14 +25,14 @@ export const OrderDetails = ({ status }) => {
             <div className="flex justify-between items-center">
               <p>Número de guía:</p>
               <p className="max-w-[300px] text-[#888] text-sm font-light">
-                {shippingDetail?.no_guide}
+                {shipping?.no_guide}
               </p>
             </div>
           </Grid>
           </>
         )
       }
-      <Grid item xs={12} sm={12} md={12} lg={12} xl={12}>
+      {/* <Grid item xs={12} sm={12} md={12} lg={12} xl={12}>
         <div className="flex justify-between items-center">
           <p>Dirección de envÍo:</p>
           <p className="max-w-[300px] text-[#888] text-sm font-light">{orderDetail?.shippment_direction?.street},{' '}
@@ -77,7 +75,7 @@ export const OrderDetails = ({ status }) => {
             </TableBody>
           </Table>
         </div>
-      </Grid>
+      </Grid> */}
     </Grid>
   )
 }

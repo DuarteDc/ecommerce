@@ -1,10 +1,11 @@
-import { useEffect} from "react";
+import { useEffect } from "react";
 import { wrapper } from "../src/store";
+import { useRouter } from "next/router";
 import { useSelector } from "react-redux";
 import Layout from "../src/components/Layouts";
 
 /**Actions */
-import { startLoadBrandsWithCategories,} from "../src/actions/brandsActions";
+import { startLoadBrandsWithCategories, } from "../src/actions/brandsActions";
 import { startLoadCategoriesHome } from "../src/actions/categoryActions";
 import { startLoadAdministrableLogo } from "../src/actions/administrableActions";
 
@@ -21,20 +22,25 @@ import {
 } from "../src/components/home";
 
 /**Actions */
-import { useRouter } from "next/router";
 import Swal from "sweetalert2";
 import { startLoadReviews } from "../src/actions/reviewsActions";
 import { startLoadCurrencies } from "../src/actions/countryAcctions";
 import getRSSForGoogle from "../src/lib/generateRSSForGoogle";
+import { startFilterProducts, startLoadProductsMostSold } from "../src/actions/productsAction";
+import { ProductsMostSold } from "../src/components/ui";
+
+import Cookies from "js-cookie";
+
+
+
+const endpoint = '/brands/with/categories';
 
 export default function HomePage() {
 
   const router = useRouter();
 
   const { logo } = useSelector((state) => state.administrable);
-  const { offers } = useSelector((state) => state.offers);
-
-  // useEffect(() => {
+    // useEffect(() => {
   //   if (router.query.successTransfer === "true") {
   //     localStorage.removeItem("cart");
   //     Cookie.remove("client_secret");
@@ -69,8 +75,7 @@ export default function HomePage() {
 
   useEffect(() => {
     if (router.query.redirect_status === 'succeeded' || router.query.successTransfer === 'true') {
-      localStorage.removeItem("cart");
-      Cookie.remove("client_secret");
+      Cookies.remove("client_secret");
       Swal.fire({
         icon: "success",
         title: "Venta finalizada con éxito",
@@ -126,6 +131,7 @@ export default function HomePage() {
     >
       {/* <Slider />
       <FacilityArea /> */}
+      <ProductsMostSold />
       <ProductsArea />
       {/* <CategoryArea /> */}
       <ProductsOfferArea />
@@ -207,6 +213,7 @@ export const getServerSideProps = wrapper.getServerSideProps((store) => async (c
   await store.dispatch(startLoadAdministrableLogo());
   await store.dispatch(startLoadCategoriesHome());
   await store.dispatch(startLoadReviews());
-  await store.dispatch(startLoadBrandsWithCategories(ctx.req?.cookies?.Currency || 'MXN'))
+  await store.dispatch(startFilterProducts(endpoint, undefined, ctx.req?.cookies?.Currency || 'MXN'));
+  await store.dispatch(startLoadProductsMostSold(ctx.req?.cookies?.Currency || 'MXN'));
   await getRSSForGoogle();
 });

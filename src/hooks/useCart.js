@@ -4,7 +4,7 @@ import { useDispatch } from 'react-redux';
 import { addProductToShoppingCart, startAddProductShoppingCart, startRemoveProductShoppingCart, startRemoveProductsShoppingCartNotLogged, startUpdateCartNoAuth, startUpdatedProductQuantity } from '../actions/shoppingCartActions';
 
 import { helpers } from '../helpers';
-import { notify } from '../helpers/helpers';
+import { warningNotify, notify } from '../helpers/helpers';
 import { useDebounce } from './useDebounce';
 
 import Cookies from 'js-cookie';
@@ -12,18 +12,19 @@ import Cookies from 'js-cookie';
 export const useCart = (logged = false, currenQuantity = 1, product = {}, cart, type = 1, isAdd = false) => {
 
     const dispatch = useDispatch();
-    const { SweetAlert,existInShoppingCart, prepareCartDataForLocalStorage, prepareProductsToFussion } = helpers;
+    const { SweetAlert, existInShoppingCart, prepareCartDataForLocalStorage, prepareProductsToFussion } = helpers;
 
     const [quantity, setQuantity] = useState(currenQuantity);
     const [updatedQuantity, setUpdatedQuantity] = useState(false);
     const [productInCart, setProductInCart] = useState(false);
     const update = useDebounce(quantity, 300);
 
+
     const currency = Cookies.get('Currency') || 'MXN';
 
     const updateCart = (product_id, quantity = 1) => {
 
-        if (logged) return dispatch(startUpdatedProductQuantity({ product_id, quantity : quantity || 1 }));
+        if (logged) return dispatch(startUpdatedProductQuantity({ product_id, quantity: quantity || 1 }));
 
         let cart = JSON.parse(localStorage.getItem('cart')) || [];
 
@@ -35,7 +36,10 @@ export const useCart = (logged = false, currenQuantity = 1, product = {}, cart, 
     }
 
     const handleChangeProductQuantity = ({ target }) => {
-        if (target.value > product.quantity) return setQuantity(product.quantity);
+        if (target.value > product.quantity) {
+            warningNotify(`Cantidad disponible: ${product.quantity}`);
+            return setQuantity(product.quantity);
+        }
 
         const quantity = target.value.replace(/^0+/, '');
         setQuantity(quantity);
@@ -54,7 +58,10 @@ export const useCart = (logged = false, currenQuantity = 1, product = {}, cart, 
                 setQuantity(prev => +prev + 1);
                 setUpdatedQuantity(true);
             }
-            else setUpdatedQuantity(false);
+            else {
+                warningNotify(`Cantidad disponible: ${product.quantity}`);
+                setUpdatedQuantity(false)
+            }
     }
 
     const removeProduct = () => {

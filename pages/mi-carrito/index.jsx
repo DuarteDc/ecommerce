@@ -21,14 +21,17 @@ import FormCountry from '../../src/components/ui/FormCountry';
 import { startLoadCountries, startLoadCurrencies } from '../../src/actions/countryAcctions';
 import ListOfAddress from '../../src/components/cart/ListOfAddress';
 import { errorNotify } from '../../src/helpers/helpers';
+import { helpers } from '../../src/helpers';
 
 const ShoppingCart = () => {
 
   const router = useRouter();
   const dispatch = useDispatch();
 
+  const token = Cookies.get('token');
+
   const { logged, user } = useSelector((state) => state.auth);
-  const { cart, coupon, subtotalWithCoupon } = useSelector((state) => state.cart);
+  const { cart, coupon, subtotalWithCoupon, shipping_costs } = useSelector((state) => state.cart);
 
   const { categories } = useSelector((state) => state.faqs);
 
@@ -40,7 +43,11 @@ const ShoppingCart = () => {
 
   useEffect(() => {
     dispatch(startCalculateTotalSale(cart, logged));
-  }, [coupon, subtotalWithCoupon, cart]);
+  }, [shipping_costs, coupon, subtotalWithCoupon, cart]);
+
+  useEffect(() => {
+    dispatch(startGetDirections(token));
+  }, [logged, cart]);
 
   const handleOpenFormAddress = () => {
 
@@ -50,7 +57,6 @@ const ShoppingCart = () => {
 
     toggleSelectCountry();
   }
-
 
   const handleOpenAddress = () => {
     if (!logged) return router.push(`/auth/login?p=${router.asPath}`);
@@ -83,7 +89,7 @@ const ShoppingCart = () => {
         </div>
       </section>
 
-      <Modal
+      {/* <Modal
         open={openAddress}
         handleOpenCheckout={toggleAddress}
         actions={false}
@@ -91,7 +97,7 @@ const ShoppingCart = () => {
         maxWidth={'sm'}
       >
         <ListOfAddress />
-      </Modal>
+      </Modal> */}
 
       <Modal
         open={open}

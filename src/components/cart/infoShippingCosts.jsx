@@ -2,8 +2,8 @@ import { useSelector } from "react-redux";
 import { helpers } from "../../helpers";
 
 export const InfoShippingCosts = () => {
-    const { shippingCosts } = useSelector((state) => state.cart);
-    const shippingTotal = helpers.priceFormat(shippingCosts);
+    const { shipping_costs } = useSelector((state) => state.cart);
+    const shippingTotal = helpers.priceFormat(shipping_costs);
     return (
         <>
             <div className="w-[35%]">

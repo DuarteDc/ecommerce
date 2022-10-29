@@ -208,3 +208,24 @@ export const startLoadProductsPerBrand = async (brand_id) => {
     console.log(error);
   }
 }
+
+export const startLoadProductsMostSold = (currency = 'MXN') => {
+  return async (dispatch) => {
+    const url = '/products/most/sold-products';
+    try {
+      const res = await client.get(url, {
+        headers: {
+          'Currency': currency
+        }
+      });
+      dispatch(loadProductsMostSold(res.data.products));
+    } catch (error) {
+      console.log(error);
+    }
+  }
+}  
+
+const loadProductsMostSold = (products) => ({
+  type: types.load_products_most_sold,
+  payload: products,
+});

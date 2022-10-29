@@ -92,7 +92,7 @@ export const startCalculateTotalSale = (cart, logged) => {
 
    return async (dispatch, getState) => {
 
-      const { coupon, shippingCosts } = getState().cart;
+      const { coupon, shipping_costs } = getState().cart;
 
       const data = {};
       let subtotalCart = 0;
@@ -108,12 +108,12 @@ export const startCalculateTotalSale = (cart, logged) => {
 
       if (coupon) {
          subtotalWithCoupon = helpers.applyCoupon(data.productsWithoutDiscount, coupon.discount);
-         total = shippingCosts + Number(subtotalWithCoupon + data.productsDiscount + data.productsCanvas) || 0;
+         total = shipping_costs + Number(subtotalWithCoupon + data.productsDiscount + data.productsCanvas) || 0;
       } else {
-         total = subtotalCart + shippingCosts || 0;
+         total = subtotalCart + shipping_costs || 0;
       }
 
-      dispatch(calculateTotalSale(subtotalWithCoupon, subtotalCart, total, shippingCosts))
+      dispatch(calculateTotalSale(subtotalWithCoupon, subtotalCart, total, shipping_costs))
 
    }
 }
@@ -505,3 +505,19 @@ export const clearCart = () => ({
    type: types.clear_cart
 })
 
+export const startLoadShippingCost = () => {
+   return async (dispatch) => {
+      let url = `/administrable/shipping-costs`
+      try {
+         const { data } = await client.get(url);
+         dispatch(loadShippingCost(data.shippingCosts));
+      } catch (error) {
+         console.log(error);
+      }
+   }
+}
+
+export const loadShippingCost = (shippingCosts) => ({
+   type: types.load_shipping_cost,
+   payload: shippingCosts,
+})

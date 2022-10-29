@@ -3,7 +3,7 @@ import { helpers } from "../../helpers";
 
 export const OrderInfo = () => {
 
-  const { superTotal, withDiscount, withoutDiscount, shipping_costs, canvas, business_rule, coupon } = useSelector((state) => state.cart);
+  const { superTotal, withDiscount, withoutDiscount, finalShippingCosts, canvas, business_rule, coupon } = useSelector((state) => state.cart);
 
   const super_total = helpers.priceFormat(superTotal?.total || 0);
   const with_discount = helpers.priceFormat(withDiscount?.total || 0);
@@ -13,7 +13,7 @@ export const OrderInfo = () => {
     withDiscount?.total + withoutDiscount?.total + canvas?.total || 0
   );
 
-  const shipping = helpers.priceFormat(shipping_costs);
+  const shipping = helpers.priceFormat(finalShippingCosts);
 
   return (
     <table className="min-w-full leading-normal">

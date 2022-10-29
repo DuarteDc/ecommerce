@@ -438,7 +438,7 @@ const MisPedidos = () => {
           </Grid>
         </Modal>
       </section>
-    </Layout >
+    </Layout>
   )
 }
 

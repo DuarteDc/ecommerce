@@ -242,6 +242,16 @@ export const PendingPaymentOrderIndex = ({ order, handleOpenProofOfPayment, stat
                       </button>
                     )
                   }
+                  {
+                    status === 3 && order.shipping?.no_guide && (
+                      <button
+                        className="pl-1 text-sm cursor-pointer text-[#e91e63] hover:border-3 hover:border-solid hover:text-[#880e4f] hover:transition-all"
+                        onClick={toggleOrderDetail}
+                      >
+                        Información de envío
+                      </button>
+                    )
+                  }
                 </div>
               </div>
             </div>
@@ -382,7 +392,7 @@ export const PendingPaymentOrderIndex = ({ order, handleOpenProofOfPayment, stat
               <CircularProgress />
             </div>
             :
-            <OrderDetails status={status} />
+            <OrderDetails status={status} shipping={order.shipping} />
         }
       </Modal>
       <Modal

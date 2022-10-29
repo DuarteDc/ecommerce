@@ -10,7 +10,38 @@ export const ButtonGroup = ({ quantity = 0, increaseDecreaseQuantityProduct, han
         }
     }
     return (
-        <div className="max-w-[130px] min-w-[100px] w-[100px] md:w-[130px] text-center inline-block relative border-[1px] border-solid border-[#eee] pt-[11px] pb-[10px] top-[-1px] h-[3rem]">
+        // <div className="max-w-[130px] min-w-[100px] w-[100px] md:w-[130px] text-center inline-block relative border-[1px] border-solid border-[#eee] pt-[11px] pb-[10px] top-[-1px] h-[3rem]">
+        //     {
+        //         product?.product_type === '2' ? (
+        //             <span className="w-[50px] h-full outline-none">
+        //                 {quantity}
+        //             </span>
+        //         ) : (
+        //             <>
+        //                 <button className="left-0 absolute top-0 bg-transparent cursor-pointer text-[#d0d0d0] w-[40px] h-full leading-[48px] transition-all flex justify-center items-center"
+        //                     onClick={() => increaseDecreaseQuantityProduct(-1)}
+        //                 >
+        //                     <RemoveIcon className="text-[25px]" />
+        //                 </button>
+        //                 <input
+        //                     type="number"
+        //                     className="absolute w-[50px] h-full outline-none top-0"
+        //                     onChange={handleChangeQuantity}
+        //                     value={quantity}
+        //                     placeholder={quantity}
+        //                     onKeyPress={handleKeyPress}
+        //                 />
+
+        //                 <button className="right-0 absolute top-0 bg-transparent cursor-pointer text-[#d0d0d0] w-[40px] h-full leading-[48px] transition-all flex justify-center items-center"
+        //                     onClick={() => increaseDecreaseQuantityProduct(+1)}
+        //                 >
+        //                     <AddIcon className="text-[25px]" />
+        //                 </button>
+        //             </>
+        //         )
+        //     }
+        // </div>
+        <div className="flex border-[1px] border-solid border-[#eee] items-center justify-center max-w-[130px] min-w-[100px] w-[100px] md:w-[130px] overflow-hidden">
             {
                 product?.product_type === '2' ? (
                     <span className="w-[50px] h-full outline-none">
@@ -18,24 +49,25 @@ export const ButtonGroup = ({ quantity = 0, increaseDecreaseQuantityProduct, han
                     </span>
                 ) : (
                     <>
-                        <button className="left-0 absolute top-0 bg-transparent cursor-pointer text-[#d0d0d0] w-[40px] h-full leading-[48px] transition-all flex justify-center items-center"
+                        <button
+                            className="cursor-pointer hover:bg-gray-50 flex mx-auto w-full flex items-center justify-center py-3"
                             onClick={() => increaseDecreaseQuantityProduct(-1)}
                         >
-                            <RemoveIcon className="text-[25px]" />
+                            <RemoveIcon className="text-base" />
                         </button>
                         <input
                             type="number"
-                            className="absolute w-[50px] h-full outline-none top-0"
+                            className="flex w-full outline-none text-center py-3"
                             onChange={handleChangeQuantity}
                             value={quantity}
                             placeholder={quantity}
                             onKeyPress={handleKeyPress}
                         />
-                        {quantity}
-                        <button className="right-0 absolute top-0 bg-transparent cursor-pointer text-[#d0d0d0] w-[40px] h-full leading-[48px] transition-all flex justify-center items-center"
+                        <button
+                            className="cursor-pointer hover:bg-gray-50 flex mx-auto w-full flex items-center justify-center py-3"
                             onClick={() => increaseDecreaseQuantityProduct(+1)}
                         >
-                            <AddIcon className="text-[25px]" />
+                            <AddIcon className="text-base" />
                         </button>
                     </>
                 )

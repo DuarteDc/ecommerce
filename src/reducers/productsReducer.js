@@ -11,6 +11,7 @@ const initalState = {
     categoriesSelected: [],
     results: {},
     searchedProducts: [],
+    productsMostSold: [],
 }
 
 export const productsReducer = (state = initalState, { type, payload }) => {
@@ -40,7 +41,12 @@ export const productsReducer = (state = initalState, { type, payload }) => {
                 ...state,
                 products: payload,
             }
-n
+
+        case types.load_products_most_sold:
+            return {
+                ...state,
+                productsMostSold: payload
+            }
 
         case types.filters_to_products: {
 
@@ -58,12 +64,12 @@ n
         case types.clear_all_filter:
             return {
                 ...state,
-                filters: initalState.filters                
+                filters: initalState.filters
             }
 
         case types.search_products:
-            return{
-                ...state, 
+            return {
+                ...state,
                 searchedProducts: payload
             }
 

@@ -21,6 +21,7 @@ export const types = {
     search_products: '[PRODUCTS] seach products',
     loadBrandsWithCategories: '[PRODUCTS] load brands with categories',
     loadCategoriesWithProducts: '[PRODUSCTS] load categories with products',
+    load_products_most_sold: '[PRODUCTS] load products most sold',
 
     loadCategories: '[CATEGORIES] start load categories',
     loadCategoriesHome: '[CATEGORIES HOME] start load categories',
@@ -95,6 +96,7 @@ export const types = {
     removeProductShoppingCart: '[ShoppingCart] remove product shoppingcart',
     removeAddressFromCart: '[SoppingCart] remove address from cart',
     load_business_rules: '[ShoppingCart] load_business_rules',
+    load_shipping_cost: '[ShoppingCart] load shipping cost',
 
     addProductShoppingCartNoLoggued: '[ShoppingCart] add product to cart clients not logged',
     loadShoppingCartNotLoggedFromLocalStorage: '[ShoppingCart] load shoppingcart clients no logged from localStorage',

@@ -1,34 +1,45 @@
-import { useState } from 'react';
+
+import { useRouter } from 'next/router';
 import Link from 'next/link';
 import { useSelector } from 'react-redux';
 import { ProductSlider } from './';
-import { useRouter } from 'next/router';
-import { useRef } from 'react';
+import { useQueryParams } from '../../hooks/useQueryParams';
+import LoadingScreen from '../LoadingScreen';
 
 
-const endpoint = '/products/filter/products';
+const endpoint = '/brands/with/categories';
+
 
 export const ProductsArea = () => {
 
-  const ref = useRef('');
-
-
   const router = useRouter();
-  const { brandsWithCategories } = useSelector((state) => state.brands);
+
+  const { startSearchByQueryParams, loading } = useQueryParams(endpoint, { router });
+
+  const { products } = useSelector((state) => state.products);
+
+
+  const searchByCategory = async (brand_id, category_id) => {
+    await startSearchByQueryParams({ brand_id, category_id });
+  }
+
 
   return (
     <>
+      {loading && (<LoadingScreen />)}
       <section className="bg-luz pb-8 px-8  md:px-16 lg:px-24 pt-12 max-w-[1920px] m-auto">
         <div className="w-full mx-auto">
-          <div ref={ref} className="app__carousel">
+          <div>
             {
-              brandsWithCategories.map(({ _id, name, categories, products }) => (
+              products?.brands?.map(({ _id, name, categories, products, url }) => (
                 <ProductSlider
                   key={_id}
                   brand_id={_id}
                   name={name}
                   categories={categories}
                   products={products}
+                  search={searchByCategory}
+                  brand_url={url}
                 />
               ))
             }

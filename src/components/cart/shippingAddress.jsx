@@ -1,7 +1,7 @@
 
 import { useDispatch, useSelector } from "react-redux"
 
-import { addShippingAddressSelected, removeAddressFromCart } from "../../actions/shoppingCartActions";
+import { addShippingAddressSelected, removeAddressFromCart, startLoadShippingCost, loadShippingCost } from "../../actions/shoppingCartActions";
 
 import { Select, FormControl, MenuItem, InputLabel } from '@mui/material';
 
@@ -10,7 +10,11 @@ import HighlightOffIcon from '@mui/icons-material/HighlightOff';
 export const ShippingAddress = ({ toggleSelectCountry }) => {
 
     const dispatch = useDispatch();
-    const { shippingAddress, addressSelected } = useSelector((state) => state.cart);
+    const { shippingAddress, addressSelected, shippingCosts } = useSelector((state) => state.cart);
+
+    const loadShippingCostToCart = async () => {
+        await dispatch(startLoadShippingCost());
+    }
 
     const address = shippingAddress?.map(address => {
         let add = {
@@ -26,10 +30,13 @@ export const ShippingAddress = ({ toggleSelectCountry }) => {
 
         if (shippingAddressSelected) dispatch(addShippingAddressSelected(shippingAddressSelected));
 
+        if (shippingAddressSelected.type_direction === 2) loadShippingCostToCart();
+
     }
 
     const handleRemoveAddress = () => {
         dispatch(removeAddressFromCart());
+        dispatch(loadShippingCost(shippingCosts))
     }
 
     return (
@@ -44,9 +51,9 @@ export const ShippingAddress = ({ toggleSelectCountry }) => {
                     Object.keys(addressSelected)?.length > 0 ? (
                         <p className="w-full font-semibold">{addressSelected.street} #{addressSelected.no_ext}, {addressSelected.postalcode}, {addressSelected?.state?.name}</p>
                     ) : (
-                        <FormControl size="sm" fullWidth>
-                            <InputLabel 
-                            id="demo-simple-select-label">Dirección de envío</InputLabel>
+                        <FormControl size="small" fullWidth>
+                            <InputLabel
+                                id="demo-simple-select-label">Dirección de envío</InputLabel>
                             <Select
                                 placeholder="Dirección de envío"
                                 label="Dirección de envío"

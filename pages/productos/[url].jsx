@@ -288,7 +288,7 @@ const Show = () => {
               </div>
               <div className="mt-12 lg:mt-10">
                 {
-                  product?.product_type === '1' && (
+                  product?.product_type === '1' && product.quantity > 0 && (
                     <div className="flex items-center mb-10">
                       <ButtonGroup
                         quantity={inputQuantity}
@@ -306,15 +306,19 @@ const Show = () => {
                     </div>
                   )
                 }
-                <button
-                  className="bg-[#333] border-2 text-white py-4 w-full font-bold
+                {
+                  product.quantity > 0 && (
+                    <button
+                      className="bg-[#333] border-2 text-white py-4 w-full font-bold
                             transition-all duration-700 ease-in-out
                             hover:bg-[#000]
                             "
-                  onClick={() => handleClickRedirectCart()}
-                >
-                  COMPRAR AHORA!
-                </button>
+                      onClick={() => handleClickRedirectCart()}
+                    >
+                      COMPRAR AHORA!
+                    </button>
+                  )
+                }
               </div>
             </div>
           </div>
