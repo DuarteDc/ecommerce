@@ -71,10 +71,10 @@ export const ProductCard = ({ product }) => {
         <div className="w-full h-full relative">
           <SliderProductCard
             images={product.multimedia}
-            className= "w-[20rem]"
+            className="w-[20rem]"
             handleShowProduct={handleShowProduct}
           />
-           <div className="absolute bottom-0 right-0 z-[999] md:hidden">
+          <div className="absolute bottom-0 right-0 z-[999] md:hidden">
             <span
               className="inline-block relative  text-[#858585] 
                                      text-[15px] 
@@ -151,43 +151,48 @@ export const ProductCard = ({ product }) => {
               {sale_price_discount}
             </span>
           </div>
-    
+
           <div className="flex flex-wrap justify-between">
             <div className="btn-area">
-              <button
-                onClick={addProduct}
-                className={`${productInCart
-                  ? "bg-[#333] text-[#fff]"
-                  : "bg-[#fff] "
-                  }
-                                        py-[8px] 
-                                        md:py-[10px]
-                                        px-[10px]
-                                        md:px-[20px] 
-                                        cursor-pointer 
-                                        text-[#333] 
-                                        border-[#333] 
-                                        border-[1px] 
-                                        border-solid 
-                                        leading-normal 
-                                        rounded-lg 
-                                        font-normal 
-                                        uppercase 
-                                        text-[10px]
-                                        md:text-[11px]
-                                        lg:text-sm`}
-              >
-                {!productInCart ? (
-                  <span
-                    className="flex items-center font-Poppins"
+              {
+                product.quantity > 0 && (
+                  <button
+                    onClick={addProduct}
+                    className={`${productInCart
+                      ? "bg-[#333] text-[#fff]"
+                      : "bg-[#fff] "
+                      }
+                                          py-[8px] 
+                                          md:py-[10px]
+                                          px-[10px]
+                                          md:px-[20px] 
+                                          cursor-pointer 
+                                          text-[#333] 
+                                          border-[#333] 
+                                          border-[1px] 
+                                          border-solid 
+                                          leading-normal 
+                                          rounded-lg 
+                                          font-normal 
+                                          uppercase 
+                                          text-[10px]
+                                          md:text-[11px]
+                                          lg:text-sm`}
                   >
-                    Agregar
-                    <AddShoppingCartIcon className="ml-2 text-sm" />
-                  </span>
-                ) : (
-                  "Agregado"
-                )}
-              </button>
+                    {!productInCart ? (
+                      <span
+                        className="flex items-center font-Poppins"
+                      >
+                        Agregar
+                        <AddShoppingCartIcon className="ml-2 text-sm" />
+                      </span>
+                    ) : (
+                      "Agregado"
+                    )}
+                  </button>
+                )
+              }
+
             </div>
             <div className="flex ">
               <span
