@@ -405,7 +405,6 @@ const NavBar = () => {
           anchor="left"
           open={open}
           onClose={toggleDrawer}
-          className
         >
           {/* {drawerOptions()} */}
           <DrawerOptions />
