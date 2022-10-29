@@ -215,5 +215,5 @@ export const getServerSideProps = wrapper.getServerSideProps((store) => async (c
   await store.dispatch(startLoadReviews());
   await store.dispatch(startFilterProducts(endpoint, undefined, ctx.req?.cookies?.Currency || 'MXN'));
   await store.dispatch(startLoadProductsMostSold(ctx.req?.cookies?.Currency || 'MXN'));
-  await getRSSForGoogle();
+
 });
