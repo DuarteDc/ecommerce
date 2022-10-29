@@ -14,27 +14,28 @@ const properties = {
   slidesToShow: 1,
   slidesToScroll: 1,
   prevArrow: (
-    <div style={{ width: "30px", marginRight: "-30px" }}>
-      <ArrowBackIosIcon className="text-[#333] text-4xl cursor-pointer hover:text-slate-500" />
+    <div className="absolute z-20 left-0">
+        <ArrowBackIosIcon className="text-[#333] text-4xl cursor-pointer hover:text-slate-500 hidden md:block" />
     </div>
   ),
   nextArrow: (
-    <div style={{ width: "30px", marginLeft: "-30px" }}>
-      <ArrowForwardIosIcon className="text-[#333] text-4xl cursor-pointer hover:text-slate-500" />
+    <div className="absolute z-20 -right-2">
+        <ArrowForwardIosIcon className="text-[#333] text-4xl cursor-pointer hover:text-slate-500 hidden md:block" />
     </div>
+
   ),
 };
 
 const SliderProductCard = ({ images, handleShowProduct }) => {
   return (
-    <Slide {...properties}>
+    <Slide {...properties} className="relative">
       {images?.map(({ path, _id }) => (
         <div
-          className={`${styles["each-slide-card"]}  cursor-pointer max-h-[30rem] h-[22rem] overflow-hidden`}
           key={_id}
+          className="flex items-center justify-center mx-0"
         >
-          <div onClick={handleShowProduct}>
-            <img src={path} alt="product"  width = "90%" height = "320" />
+          <div onClick={handleShowProduct} className="w-full">
+            <img src={path} alt="product"  width = "320" height = "320" className="h-[9.5rem] md:h-[17rem] w-full md:w-[24rem] ml-0 "/>
           </div>
         </div>
       ))}

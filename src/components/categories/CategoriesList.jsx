@@ -25,7 +25,7 @@ const CategoriesList = ({ categories, startSearchByQueryParams, paramsFilters })
         className={`flex cursor-pointer justify-between`}
         onClick={() => setOpen(!open)}
       >
-        <p className="text-lg font-bold uppercase text-xs md:text-sm">Categorías</p>
+        <p className="font-bold uppercase text-xs md:text-sm">Categorías</p>
         {open ? <ExpandLessIcon /> : <ExpandMoreIcon />}
       </div>
       <ul className={`relative max-h-60 overflow-y-auto ${styles.scrollbar}`}>

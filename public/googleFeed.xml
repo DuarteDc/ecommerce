@@ -4,9 +4,9 @@
         <description><![CDATA[Tienda en línea de distribución de productos profesionales para uñas  de calidad. Venta Menudeo y Mayoreo. Promociones, descuentos y mucho más.]]></description>
         <link>https://wapizima.com</link>
         <generator>RSS for Node</generator>
-        <lastBuildDate>Sat, 29 Oct 2022 19:31:30 GMT</lastBuildDate>
+        <lastBuildDate>Sat, 29 Oct 2022 20:29:23 GMT</lastBuildDate>
         <atom:link href="https://wapizima.com/google-feed.xml" rel="self" type="application/rss+xml"/>
-        <pubDate>Sat, 29 Oct 2022 19:31:30 GMT</pubDate>
+        <pubDate>Sat, 29 Oct 2022 20:29:22 GMT</pubDate>
         <copyright><![CDATA[All rights reserved 2022, Digiatl Pineapple]]></copyright>
         <language><![CDATA[es]]></language>
         <item>
@@ -54,7 +54,7 @@
             <g:mobile_link>https://wapizima.com/productos/primavera-qulv92pj8l</g:mobile_link>
             <g:additional_image_link>https://cdn.wapizima.com/test/products/62a23cec93d95b85282b054b/WhatsApp Image 2022-08-19 at 2.07.08 PM.jpeg</g:additional_image_link>
             <g:availability>in_stock</g:availability>
-            <g:availability_date>2022-10-29T16:58:08.550Z</g:availability_date>
+            <g:availability_date>2022-10-29T19:51:17.661Z</g:availability_date>
             <g:price>MXN $90.00</g:price>
             <g:brand>Wapizima</g:brand>
             <g:gtin>703158214755</g:gtin>
@@ -88,7 +88,7 @@
             <g:mobile_link>https://wapizima.com/productos/fruits-dyreifznu7</g:mobile_link>
             <g:additional_image_link>https://cdn.wapizima.com/test/products/62a23cec93d95b85282b0545/88335992_3168554763369801_3643326027398119424_n_1024x1024@2x.jpg</g:additional_image_link>
             <g:availability>in_stock</g:availability>
-            <g:availability_date>2022-10-28T22:17:48.212Z</g:availability_date>
+            <g:availability_date>2022-10-29T19:51:17.662Z</g:availability_date>
             <g:price>MXN $190.00</g:price>
             <g:brand>Wapizima</g:brand>
             <g:gtin>WAPDEC52736</g:gtin>
@@ -105,7 +105,7 @@
             <g:mobile_link>https://wapizima.com/productos/jelly-ayddprcnwe</g:mobile_link>
             <g:additional_image_link>https://cdn.wapizima.com/test/products/62a23cec93d95b85282b054c/84289682_3283608201864456_1477556446388785141_n_1024x1024@2x.jpg</g:additional_image_link>
             <g:availability>in_stock</g:availability>
-            <g:availability_date>2022-10-29T00:17:30.024Z</g:availability_date>
+            <g:availability_date>2022-10-29T19:38:21.315Z</g:availability_date>
             <g:price>MXN $90.00</g:price>
             <g:brand>Wapizima</g:brand>
             <g:gtin>737787926703</g:gtin>
@@ -122,7 +122,7 @@
             <g:mobile_link>https://wapizima.com/productos/sexy-glow-h98e2pwuw4</g:mobile_link>
             <g:additional_image_link>https://cdn.wapizima.com/test/products/62a23cec93d95b85282b0551/87219730_807271006408947_3580400762192134144_n_1024x1024@2x.jpg</g:additional_image_link>
             <g:availability>in_stock</g:availability>
-            <g:availability_date>2022-10-28T22:17:47.442Z</g:availability_date>
+            <g:availability_date>2022-10-29T19:51:17.664Z</g:availability_date>
             <g:price>MXN $109.00</g:price>
             <g:brand>Wapizima</g:brand>
             <g:gtin>664697113919</g:gtin>
@@ -139,7 +139,7 @@
             <g:mobile_link>https://wapizima.com/productos/unicornio-p2beuzrgcz</g:mobile_link>
             <g:additional_image_link>https://cdn.wapizima.com/test/products/62a23cec93d95b85282b0553/104767889_3289783347913608_2625116599805404162_o_1024x1024@2x.jpg</g:additional_image_link>
             <g:availability>in_stock</g:availability>
-            <g:availability_date>2022-10-28T22:17:47.615Z</g:availability_date>
+            <g:availability_date>2022-10-29T19:51:17.661Z</g:availability_date>
             <g:price>MXN $90.00</g:price>
             <g:brand>Wapizima</g:brand>
             <g:gtin>726798325131</g:gtin>
@@ -156,7 +156,7 @@
             <g:mobile_link>https://wapizima.com/productos/rose-gold-1ijszqdkr5</g:mobile_link>
             <g:additional_image_link>https://cdn.wapizima.com/test/products/62a23cec93d95b85282b0552/120322667_3401623493396259_7778498463148874105_n_1024x1024@2x.jpg</g:additional_image_link>
             <g:availability>in_stock</g:availability>
-            <g:availability_date>2022-10-29T17:06:29.951Z</g:availability_date>
+            <g:availability_date>2022-10-29T19:51:17.659Z</g:availability_date>
             <g:price>MXN $90.00</g:price>
             <g:brand>Wapizima</g:brand>
             <g:gtin>726798325155</g:gtin>
@@ -214,23 +214,6 @@
             <g:gender>unisex</g:gender>
         </item>
         <item>
-            <title><![CDATA[W.coleccion Nudes 4 Pzas]]></title>
-            <guid isPermaLink="false">W.coleccion Nudes 4 Pzas</guid>
-            <g:id>9525</g:id>
-            <g:title>W.coleccion Nudes 4 Pzas</g:title>
-            <g:description>Colección wapizima de 4 piezas Nudes</g:description>
-            <g:link>https://wapizima.com/productos/nudes-tnqtdojtudi</g:link>
-            <g:image_link>https://cdn.wapizima.com/test/products/62a23cec93d95b85282b0559/86278324_807271293075585_881025541916852224_n_1024x1024@2x.jpg</g:image_link>
-            <g:mobile_link>https://wapizima.com/productos/nudes-tnqtdojtudi</g:mobile_link>
-            <g:additional_image_link>https://cdn.wapizima.com/test/products/62a23cec93d95b85282b0559/86278324_807271293075585_881025541916852224_n_1024x1024@2x.jpg</g:additional_image_link>
-            <g:availability>in_stock</g:availability>
-            <g:availability_date>2022-10-28T22:17:48.062Z</g:availability_date>
-            <g:price>MXN $90.00</g:price>
-            <g:brand>Wapizima</g:brand>
-            <g:gtin>703980809525</g:gtin>
-            <g:gender>unisex</g:gender>
-        </item>
-        <item>
             <title><![CDATA[W.colección Negro 4 Pzas]]></title>
             <guid isPermaLink="false">W.colección Negro 4 Pzas</guid>
             <g:id>25168</g:id>
@@ -241,7 +224,7 @@
             <g:mobile_link>https://wapizima.com/productos/negro-xcxt7-xkvur</g:mobile_link>
             <g:additional_image_link>https://cdn.wapizima.com/test/products/62a23cec93d95b85282b0555/negro.jpg</g:additional_image_link>
             <g:availability>in_stock</g:availability>
-            <g:availability_date>2022-10-28T22:17:47.984Z</g:availability_date>
+            <g:availability_date>2022-10-29T19:51:17.663Z</g:availability_date>
             <g:price>MXN $90.00</g:price>
             <g:brand>Wapizima</g:brand>
             <g:gtin>726798325186</g:gtin>
@@ -1533,7 +1516,7 @@
             <g:mobile_link>https://wapizima.com/productos/gel-individual-mystik-bkcw0k1d2r</g:mobile_link>
             <g:additional_image_link>https://cdn.wapizima.com/test/products/62b22dd15911da2ebfdd0511/289463881_3971874166371186_5647543688437312848_n.jpg</g:additional_image_link>
             <g:availability>in_stock</g:availability>
-            <g:availability_date>2022-10-28T22:17:51.355Z</g:availability_date>
+            <g:availability_date>2022-10-29T19:45:00.570Z</g:availability_date>
             <g:price>MXN $30.00</g:price>
             <g:brand>Wapizima</g:brand>
             <g:gtin>MYSTIK</g:gtin>
@@ -7704,7 +7687,7 @@ Bolsa edición limitada Wapizima
             <g:mobile_link>https://wapizima.com/productos/teddy-teddy-queen-12-oz-m5p4f0wll</g:mobile_link>
             <g:additional_image_link>https://cdn.wapizima.com/test/products/633275709e34550c129601bc/TEDDYQUEENTEDDY.jpg</g:additional_image_link>
             <g:availability>in_stock</g:availability>
-            <g:availability_date>2022-10-28T22:18:00.169Z</g:availability_date>
+            <g:availability_date>2022-10-29T19:45:00.573Z</g:availability_date>
             <g:price>MXN $50.00</g:price>
             <g:brand>Wapizima</g:brand>
             <g:gtin>TEDDY</g:gtin>
@@ -8044,7 +8027,7 @@ Bolsa edición limitada Wapizima
             <g:mobile_link>https://wapizima.com/productos/matte-wapizima-nw-c76msaheu</g:mobile_link>
             <g:additional_image_link>https://cdn.wapizima.com/test/products/6335dca0254f275e730b353c/WhatsApp Image 2022-09-29 at 12.30.26 PM.jpeg</g:additional_image_link>
             <g:availability>in_stock</g:availability>
-            <g:availability_date>2022-10-28T22:18:00.132Z</g:availability_date>
+            <g:availability_date>2022-10-29T19:45:00.574Z</g:availability_date>
             <g:price>MXN $45.00</g:price>
             <g:brand>Wapizima</g:brand>
             <g:gtin>wp2022-223BMT</g:gtin>
@@ -8061,7 +8044,7 @@ Bolsa edición limitada Wapizima
             <g:mobile_link>https://wapizima.com/productos/top-coat-wapizima-nw-psjbjgmuu</g:mobile_link>
             <g:additional_image_link>https://cdn.wapizima.com/test/products/6335dfe2254f275e730b76ac/WhatsApp Image 2022-09-29 at 12.30.27 PM.jpeg</g:additional_image_link>
             <g:availability>in_stock</g:availability>
-            <g:availability_date>2022-10-29T19:25:58.580Z</g:availability_date>
+            <g:availability_date>2022-10-29T19:45:00.565Z</g:availability_date>
             <g:price>MXN $45.00</g:price>
             <g:brand>Wapizima</g:brand>
             <g:gtin>wp2022-223T</g:gtin>

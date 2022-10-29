@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+  import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 
 import Collapse from "@mui/material/Collapse";
@@ -25,7 +25,7 @@ const RangePrice = ({ startSearchByQueryParams, paramsFilters, currencyPrices })
         className="flex cursor-pointer justify-between"
         onClick={() => setOpen(!open)}
       >
-        <p className="text-lg font-bold uppercase text-xs md:text-sm">Precios</p>
+        <p className="font-bold uppercase text-xs md:text-sm">Precios</p>
         {open ? <ExpandLessIcon /> : <ExpandMoreIcon />}
       </div>
       <ul className={`relative max-h-60 overflow-y-auto ${styles.scrollbar}`}>

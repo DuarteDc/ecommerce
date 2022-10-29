@@ -66,12 +66,35 @@ export const ProductCard = ({ product }) => {
   };
 
   return (
-    <div className="mb-[30px] relative card px-1 animate__animated animate__zoomIn">
-      <div className="relative overflow-hidden">
-        <SliderProductCard
-          images={product.multimedia}
-          handleShowProduct={handleShowProduct}
-        />
+    <div className="mb-[30px] relative p-2 card animate__animated animate__zoomIn md:mx-2 shadow-md md:shadow-none">
+      <div className="relative overflow-hidden ">
+        <div className="w-full h-full relative">
+          <SliderProductCard
+            images={product.multimedia}
+            className= "w-[20rem]"
+            handleShowProduct={handleShowProduct}
+          />
+           <div className="absolute bottom-0 right-0 z-[999] md:hidden">
+            <span
+              className="inline-block relative  text-[#858585] 
+                                     text-[15px] 
+                                     line-through 
+                                     mr-1
+                                     rounded-lg
+                                     bg-gray-200
+                                     text-xs
+                                     top-5
+                                     -left-16
+                                     px-2
+                                     "
+            >
+              {product.discount > 0 && sale_price}
+            </span>
+            <span className=" relative bg-gray-200 text-pink-500 text-left rounded-lg text-sm px-2 block">
+              {sale_price_discount}
+            </span>
+          </div>
+        </div>
         {quantity === 0 && (
           <div
             className="text-center 
@@ -92,26 +115,29 @@ export const ProductCard = ({ product }) => {
         {discount > 0 && (
           <div
             className="text-center 
-                               absolute 
-                               top-[10px] 
-                               left-[10px] 
-                               bg-[#f57c00] 
-                               text-[#fff] 
-                               w-[15%] 
-                               h-[10%] 
-                               leading-[50px] 
-                               rounded-[50%] 
-                               z-[3]"
+                              absolute 
+                              text-md
+                              md:text-xl
+                              top-[12px]
+                              md:top-[10px] 
+                              md: left-[10px] 
+                              bg-[#f57c00] 
+                              text-[#fff] 
+                              md: w-[20%] 
+                              md:h-[10%] 
+                              md:leading-[50px] 
+                              rounded-[50%] 
+                              z-[990]"
           >
             -{discount}%
           </div>
         )}
 
-        <div className="">
-          <h3 className="text-[#333] mb-0 font-semibold text-[18px] capitalize truncate">
+        <div>
+          <h3 className="text-[#333] mb-2 text-xs md:text-[18px] md:font-semibold capitalize md:mb-6 md:mt-6 mt-2 truncate">
             {name}
           </h3>
-          <div className="mt-[8px] mb-[12px]">
+          <div className="hidden md:block md:mt-[8px] md:mb-[12px]">
             <span
               className="text-[#858585] 
                                      text-[15px] 
@@ -125,96 +151,54 @@ export const ProductCard = ({ product }) => {
               {sale_price_discount}
             </span>
           </div>
+    
           <div className="flex flex-wrap justify-between">
             <div className="btn-area">
-              {/* {
-                productInCart ? (
-                  // <ButtonGroup
-                  //   quantity={inputQuantity}
-                  //   increaseDecreaseQuantityProduct={updateProductQuantity}
-                  //   handleChangeQuantity={handleChangeProductQuantity}
-                  //   product={product}
-                  // />
-                  <span className=" bg-[#fff]">
-                    Agregado
-                  </span>
-                ) : (
-                  <button
-                    onClick={addProduct}
-                    className="
-                
-                   bg-[#fff]
-                                        py-[10px] 
-                                        px-[20px] 
+              <button
+                onClick={addProduct}
+                className={`${productInCart
+                  ? "bg-[#333] text-[#fff]"
+                  : "bg-[#fff] "
+                  }
+                                        py-[8px] 
+                                        md:py-[10px]
+                                        px-[10px]
+                                        md:px-[20px] 
                                         cursor-pointer 
                                         text-[#333] 
                                         border-[#333] 
                                         border-[1px] 
                                         border-solid 
-                                         
                                         leading-normal 
                                         rounded-lg 
                                         font-normal 
                                         uppercase 
-                                        text-xs
-                                        md:text-sm"
+                                        text-[10px]
+                                        md:text-[11px]
+                                        lg:text-sm`}
+              >
+                {!productInCart ? (
+                  <span
+                    className="flex items-center font-Poppins"
                   >
-                    <span
-                      className="flex items-center font-Poppins"
-                    >
-                      Agregar
-                      <AddShoppingCartIcon className="ml-3 text-base" />
-                    </span>
-                  </button>
-                )
-              } */}
-              {
-                product.quantity > 0 && (
-                  <button
-                    onClick={addProduct}
-                    className={`${productInCart
-                      ? "bg-[#333] text-[#fff]"
-                      : "bg-[#fff] "
-                      }
-                                          py-[10px] 
-                                          px-[20px] 
-                                          cursor-pointer 
-                                          text-[#333] 
-                                          border-[#333] 
-                                          border-[1px] 
-                                          border-solid 
-                                           
-                                          leading-normal 
-                                          rounded-lg 
-                                          font-normal 
-                                          uppercase 
-                                          text-xs
-                                          md:text-sm`}
-                  >
-                    {!productInCart ? (
-                      <span
-                        className="flex items-center font-Poppins"
-                      >
-                        Agregar
-                        <AddShoppingCartIcon className="ml-3 text-base" />
-                      </span>
-                    ) : (
-                      "Agregado"
-                    )}
-                  </button>
-                )
-              }
+                    Agregar
+                    <AddShoppingCartIcon className="ml-2 text-sm" />
+                  </span>
+                ) : (
+                  "Agregado"
+                )}
+              </button>
             </div>
-            <div className="flex justify-between">
+            <div className="flex ">
               <span
-                className="w-[35px] 
+                className="w-[35px] hidden
+                md:block
                                      h-[35px] 
                                      leading-[38px] 
                                      text-center  
                                      text-[#333] 
                                      rounded-[50%] 
                                      shadow-md 
-                                     flex 
                                      justify-center 
                                      items-center mr-4 
                                      hover:bg-[#333] 
@@ -242,7 +226,7 @@ export const ProductCard = ({ product }) => {
                 onClick={() => handleToogleWishList(_id)}
               >
                 {isInWhisList ? (
-                  <FavoriteIcon className="text-[25px] text-red-600 w-[60%] z-[2] hover:text-red-600 hover:transition cursor-pointer" />
+                  <FavoriteIcon className="text-[25px] left-40  space-x-16 text-red-600 w-[60%] z-[2] hover:text-red-600 hover:transition cursor-pointer" />
                 ) : (
                   <FavoriteBorderIcon className="text-[25px] text-[#888] w-[60%] z-[2] hover:text-[#fff] hover:transition cursor-pointer" />
                 )}

@@ -337,13 +337,15 @@ const Show = () => {
             </h3>
           </div>
           <div className={`grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 my-24`}>
-            {relatedProducts.map((product) => (
+          <ProductCard key={product._id} product={product} />
+
+            {/* {relatedProducts.map((product) => (
               (dimensions === 'sm') ? (
                 <ProductCardMobile key={product._id} product={product} />
               ) : (
                 <ProductCard key={product._id} product={product} />
               )
-            ))}
+            ))} */}
           </div>
         </Container>
       </section>

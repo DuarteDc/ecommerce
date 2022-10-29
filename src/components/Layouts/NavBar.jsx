@@ -13,18 +13,18 @@ import { pages } from "../../staticData/pages";
 import Cookies from "js-cookie";
 import { logout } from "../../actions/authActions";
 
-import Button from "@mui/material/Button";
-import Menu from "@mui/material/Menu";
-import MenuItem from "@mui/material/MenuItem";
+import {Button, Menu, MenuItem} from "@mui/material";
 import { helpers } from "../../helpers";
 
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import CloseIcon from '@mui/icons-material/Close';
+
 import SelectCurrency from "./SelectCurrency";
 
 import ShoppingCartCheckoutIcon from '@mui/icons-material/ShoppingCartCheckout';
 import SearchIcon from '@mui/icons-material/Search';
+import { Drawer, ListItem } from "@mui/material";
 
 import LocationOnIcon from '@mui/icons-material/LocationOn';
 import { Modal } from "../ui/modal";
@@ -118,6 +118,64 @@ const NavBar = () => {
     router.push(`/buscar?search=${search}`);
   }
 
+  const toggleDrawer = (event) => {
+    if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
+      return;
+    }
+    toggle();8
+  };
+
+  const DrawerOptions = () => {
+    return (
+      <div  >
+        {pages.map((route) => (
+          route.name !== 'Escuela' ? (
+            <div className="block list-none px-16 py-[22px] cursor-pointer text-gray-500 hover:bg-gray-200 hover:text-stone-900">
+              <Link href={route.path} passHref key={route.path}
+              prefetch={false}>
+              <span>{route.icon}{route.name}</span>
+            </Link>
+            </div>
+          ) : (
+            <div className="block list-none px-16 py-[22px] cursor-pointer text-gray-500  hover:bg-gray-200  hover:text-stone-900">
+              <Link  href={route.path} key={route.path} prefetch={false}>
+              <a target="_blank">{route.icon}{route.name}</a>
+              </Link>
+            </div>
+          )
+        ))}
+        <div>
+          {logged ? (
+            <div>
+              <Link href="/perfil" passHref>
+              <span className="block list-none px-16 py-[22px] cursor-pointer hover:bg-gray-200  text-gray-500  hover:text-stone-900"><AccountCircleIcon className="mr-4"/>Mi cuenta</span>
+              </Link>
+              <hr/>
+                <span className="block list-none px-16 py-[22px] cursor-pointer hover:bg-gray-200 text-gray-500  hover:text-stone-900" onClick={(e) => {
+                  handleClose(e);
+                  logoutSession();
+                }} >
+                  Cerrar Sesión
+                </span>
+            </div>
+          ) : (
+            <div>
+              <hr/>
+              <span className="block list-none px-16 py-[22px] cursor-pointer hover:bg-gray-200 text-gray-500  hover:text-stone-900"
+              onClick={() => router.push(`/auth/login?p=${router.asPath}`)}>
+                Iniciar Sesión
+              </span>
+              <span className="block list-none px-16 py-[22px] cursor-pointer hover:bg-gray-200 text-gray-500  hover:text-stone-900" onClick={() => router.push(`/auth/register/?p=${router.asPath}`)}>
+                
+                Registrate
+              </span>
+            </div>
+          )}
+        </div>
+      </div>
+    )
+  }
+
   return (
     <div
       className={`bg-luz pb-2 shadow-md  w-full z-[99] pt-1 ${scrollPosition >= 130 && "fixed top-0"
@@ -162,7 +220,7 @@ const NavBar = () => {
             {!open ? (
               <button
                 className="space-y-2  lg:hidden xl:hidden"
-                onClick={() => handleMenuopen()}
+                onClick={toggleDrawer}
               >
                 <span className="block w-8 h-0.5 bg-gray-600"></span>
                 <span className="block w-8 h-0.5 bg-gray-600"></span>
@@ -171,7 +229,7 @@ const NavBar = () => {
             ) : (
               <button
                 className="space-y-2  lg:hidden xl:hidden border  border-gray-600"
-                onClick={() => handleMenuopen()}
+                onClick={toggleDrawer}
               >
                 <CloseIcon
                   className="text-gray-600 text-[30px] block"
@@ -187,13 +245,13 @@ const NavBar = () => {
                   name !== 'Escuela' ? (
                     <Link href={path} passHref key={name} prefetch={false}>
                       <span className="text-[#888] border-transparent border-b-2 hover:text-[#333] mx-4 cursor-pointer  font-Poppins font-medium transition uppercase duration-700 ease-in-out">
-                        {name}
+                       {name}
                       </span>
                     </Link>
                   ) : (
                     <Link href={path} key={name} prefetch={false}>
                       <a target="_blank" className="text-[#888] border-transparent border-b-2 hover:text-[#333] mx-4 cursor-pointer  font-Poppins font-medium transition uppercase duration-700 ease-in-out">
-                        {name}
+                       {name}
                       </a>
                     </Link>
                   )
@@ -344,7 +402,17 @@ const NavBar = () => {
         </nav>
       </div>
 
-      <div
+      <div>
+        <Drawer
+          anchor="left"
+          open={open}
+          onClose={toggleDrawer}
+        >
+          {/* {drawerOptions()} */}
+          <DrawerOptions />
+        </Drawer>
+      </div>
+      {/* <div
         className={`animate__animated lg:hidden ${open
           ? "block animate__fadeIn animate__faster  absolute z-[30] w-full"
           : "animate__fadeOutUp hidden"
@@ -404,12 +472,12 @@ const NavBar = () => {
             )}
           </div>
         </div>
-      </div>
+      </div> */}
       <div className="flex items-center justify-center">
-        <div className="pb-2 lg:w-8/12 w-full lg:pr-20 lg:pl-5 pr-8 flex items-center">
+      <div className="pb-2 lg:w-8/12 w-full lg:px-20 px-8 flex items-center">
           <form onSubmit={startSearchProduct} className="w-full flex">
             <input
-              className="bg-gray-50 w-full appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700  leading-tight focus:outline-none focus:bg-white focus:border-[#e91e63] text-[13px]"
+              className="bg-gray-50 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700  leading-tight focus:outline-none focus:bg-white focus:border-[#e91e63] text-[13px]"
               placeholder="Busca tu producto aquí"
               type="text"
               required
