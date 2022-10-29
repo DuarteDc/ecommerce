@@ -25,7 +25,6 @@ import {
 import Swal from "sweetalert2";
 import { startLoadReviews } from "../src/actions/reviewsActions";
 import { startLoadCurrencies } from "../src/actions/countryAcctions";
-import getRSSForGoogle from "../src/lib/generateRSSForGoogle";
 import { startFilterProducts, startLoadProductsMostSold } from "../src/actions/productsAction";
 import { ProductsMostSold } from "../src/components/ui";
 
