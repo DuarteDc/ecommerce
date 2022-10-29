@@ -89,7 +89,7 @@ const FormSignUp = () => {
     const responseGoogle = async ({ tokenId }) => {
 
         setLoading(true)
-        const { hasError, token } = await dispatch(startLoginGoogle(tokenId));
+        const { hasError, message, token } = await dispatch(startLoginGoogle(tokenId));
 
         if (hasError) {
             setError(true);
