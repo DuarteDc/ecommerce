@@ -5,7 +5,7 @@ import { helpers } from "../helpers";
 import Cookies from "js-cookie";
 import Swal from "sweetalert2";
 import axios from "axios";
-import { errorNotify } from "../helpers/helpers";
+import { errorNotify, successNotify } from "../helpers/helpers";
 
 /*****************Obtiene el carrito del localStorage************************** */
 
@@ -55,26 +55,12 @@ export const startAddProductShoppingCart = (data, product) => {
             headers: {
                'Authorization': token
             }
-         });
-         Swal.fire({
-            icon: "success",
-            title: "¡¡Buen Trabajo!!",
-            html: `<p>El producto ha sido agregado al carrito satisfactoriamente</p>`,
-            timer: 2000,
-            timerProgressBar: true,
-            showConfirmButton: false
-         });
-         dispatch(addProductToShoppingCart({ product_id: product }));
+         });   
+         dispatch(addProductToShoppingCart({ product_id: product, quantity: 1 }));
+         successNotify('El producto ha sido agregado al carrito satisfactoriamente');
       } catch (error) {
          console.log(error);
-         Swal.fire({
-            icon: "error",
-            title: "¡¡Ups , al parecer hubo un problema!!",
-            text: "Vuelve a intentarlo en un rato más :( ",
-            timer: 3000,
-            timerProgressBar: true,
-            showConfirmButton: false
-         })
+         errorNotify('Hubo un problema al agregar el producto - Intente más tarder');
       }
    }
 }
@@ -174,9 +160,10 @@ export const startUpdatedProductQuantity = (product) => {
             }
          });
          dispatch(updatedProductQuantity(data.cart.products, data.shippingCosts));
-         localStorage.setItem('cart', JSON.stringify(data.cart.products));
+         successNotify('El producto ha sido agregado al carrito satisfactoriamente');
       } catch (error) {
          console.log(error);
+         errorNotify('Hubo un problema al agregar el producto - Intente más tarder');
       }
    }
 }
@@ -320,9 +307,10 @@ export const startUpdateCartNoAuth = (products, currency, product) => {
             }
          });
          dispatch(updatedProductQuantityCartNotLogged(product, data.shippingCosts));
-         // localStorage.setItem('cart', JSON.stringify(data.products))
+         successNotify('El producto ha sido agregado al carrito satisfactoriamente');
       } catch (error) {
          console.log(error);
+         errorNotify('Hubo un problema al agregar el producto - Intente más tarder');
       }
    }
 }

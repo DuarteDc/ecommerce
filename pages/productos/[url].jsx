@@ -29,7 +29,6 @@ const Show = () => {
 
   const { cart } = useSelector((state) => state.cart);
   const { logged } = useSelector((state) => state.auth);
-  const { dimensions } = useSelector((state) => state.ui);
 
   const { addProduct, updateProductQuantity, handleChangeProductQuantity, quantity: inputQuantity } = useCart(logged, "", product, cart, 2, false);
 
@@ -42,72 +41,8 @@ const Show = () => {
   const price = helpers.priceFormat(product?.price);
 
   const origin = typeof window === "undefined" ? "" : window.location.origin;
+
   const url = `${origin}${router.asPath}`;
-
-  //   const itemCart = {
-  //     product_id: {
-  //       price: product.price,
-  //       quantity: product.quantity,
-  //       multimedia: product.multimedia,
-  //       _id: product._id,
-  //       name: product.name,
-  //       discount: product.discount,
-  //       product_type: product.product_type,
-  //     },
-  //     quantity: quantityInput,
-  //     _id: product._id,
-  //   };
-
-  //   if (logged) {
-  //     const token = Cookies.get("token");
-  //     let shoppingCart = [...cart, itemCart];
-  //     localStorage.setItem("cart", JSON.stringify(shoppingCart));
-  //     dispatch(startAddProductShoppingCart(itemCart, product.name, token));
-  //   } else {
-  //     let shoppingCart;
-  //     let productInCart = cartNotLogged.find(
-  //       (cart) => cart._id === itemCart._id
-  //     );
-  //     if (productInCart) {
-  //       shoppingCart = cartNotLogged.map((cart) =>
-  //         cart._id === itemCart._id
-  //           ? { ...cart, quantity: itemCart.quantity }
-  //           : cart
-  //       );
-  //     } else {
-  //       shoppingCart = [...cartNotLogged, itemCart];
-  //     }
-  //     dispatch(addProductToCartClientsNotLogged(shoppingCart));
-  //     localStorage.setItem("cartNotlogged", JSON.stringify(shoppingCart));
-  //     Swal.fire({
-  //       icon: "success",
-  //       title: "¡¡Buen Trabajo!!",
-  //       html: `<p class="font-Poppins text-base">El producto ${product.name} ha sido agregado al carrito satisfactoriamente</p>`,
-  //       timer: 3000,
-  //       timerProgressBar: true,
-  //       showConfirmButton: false,
-  //     });
-  //   }
-  // };
-
-  // const increaseDecreaseQuantityProduct = (value) => {
-  //   if (value === -1) {
-  //     if (Number(quantityInput) === 1) return;
-  //     setQuantityInput((prev) => Number(prev) - 1);
-  //   } else {
-  //     if (Number(quantityInput) === Number(product?.quantity)) return;
-  //     setQuantityInput((prev) => Number(prev) + 1);
-  //   }
-  // };
-
-  // const handleChangeQuantity = ({ target }) => {
-  //   if (target.value.length < 1) return setQuantityInput(1);
-
-  //   if (target.value > product.quantity) return setQuantityInput(product.quantity);
-
-  //   const quantity = target.value.replace(/^0+/, "");
-  //   setQuantityInput(quantity);
-  // };
 
   const handleClickRedirectCart = () => {
     addProduct();
@@ -337,7 +272,7 @@ const Show = () => {
             </h3>
           </div>
           <div className={`grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 my-24`}>
-          <ProductCard key={product._id} product={product} />
+            <ProductCard key={product._id} product={product} />
 
             {/* {relatedProducts.map((product) => (
               (dimensions === 'sm') ? (

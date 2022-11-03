@@ -41,10 +41,10 @@ export const ButtonGroup = ({ quantity = 0, increaseDecreaseQuantityProduct, han
         //         )
         //     }
         // </div>
-        <div className="flex border-[1px] border-solid border-[#eee] items-center justify-center max-w-[130px] min-w-[100px] w-[100px] md:w-[130px] overflow-hidden">
+        <div className="flex border-[1px] border-solid border-[#eee] items-center justify-center max-w-[130px] min-w-[100px] w-[95px] md:w-[130px]">
             {
                 product?.product_type === '2' ? (
-                    <span className="w-[50px] h-full outline-none">
+                    <span className="w-[50px] h-full outline-none md:py-2 py-1">
                         {quantity}
                     </span>
                 ) : (
@@ -57,7 +57,7 @@ export const ButtonGroup = ({ quantity = 0, increaseDecreaseQuantityProduct, han
                         </button>
                         <input
                             type="number"
-                            className="flex w-full outline-none text-center py-3"
+                            className="flex w-full outline-none text-center py-1 md:py-2"
                             onChange={handleChangeQuantity}
                             value={quantity}
                             placeholder={quantity}

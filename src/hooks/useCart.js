@@ -4,20 +4,20 @@ import { useDispatch } from 'react-redux';
 import { addProductToShoppingCart, startAddProductShoppingCart, startRemoveProductShoppingCart, startRemoveProductsShoppingCartNotLogged, startUpdateCartNoAuth, startUpdatedProductQuantity } from '../actions/shoppingCartActions';
 
 import { helpers } from '../helpers';
-import { warningNotify, notify } from '../helpers/helpers';
+import { warningNotify, notify, successNotify } from '../helpers/helpers';
 import { useDebounce } from './useDebounce';
 
 import Cookies from 'js-cookie';
 
-export const useCart = (logged = false, currenQuantity = 1, product = {}, cart, type = 1, isAdd = false) => {
+export const useCart = (logged = false, currentQuantity = 1, product = {}, cart, type = 1, isAdd = false, timeToUpdate = 300) => {
 
     const dispatch = useDispatch();
-    const { SweetAlert, existInShoppingCart, prepareCartDataForLocalStorage, prepareProductsToFussion } = helpers;
+    const { existInShoppingCart, prepareCartDataForLocalStorage, prepareProductsToFussion } = helpers;
 
-    const [quantity, setQuantity] = useState(currenQuantity);
+    const [quantity, setQuantity] = useState(currentQuantity);
     const [updatedQuantity, setUpdatedQuantity] = useState(false);
     const [productInCart, setProductInCart] = useState(false);
-    const update = useDebounce(quantity, 300);
+    const update = useDebounce(quantity, timeToUpdate);
 
 
     const currency = Cookies.get('Currency') || 'MXN';
@@ -71,8 +71,7 @@ export const useCart = (logged = false, currenQuantity = 1, product = {}, cart, 
 
     const addProduct = () => {
         const productInCart = existInShoppingCart(product._id, cart);
-        if (productInCart && type === 1) return notify('El producto ya ha sido agregado al carrito de compras');
-
+        
         if (logged)
             return dispatch(startAddProductShoppingCart({ product_id: product._id, quantity: quantity || 1 }, product));
 
@@ -86,16 +85,15 @@ export const useCart = (logged = false, currenQuantity = 1, product = {}, cart, 
             newCart = cart.map(cart => cart.product_id._id === product._id ? { ...cart, quantity: cart.quantity = quantity || 1 } : cart);
 
         localStorage.setItem('cart', JSON.stringify(newCart));
-        SweetAlert(
-            undefined,
-            '¡¡Buen Trabajo!!',
-            `<p>El producto ha sido agregado al carrito satisfactoriamente</p>`
-        )
     }
 
     useEffect(() => {
-        setProductInCart(existInShoppingCart(product?._id, cart))
-    }, [logged, cart]);
+        const productInShoppingCart = existInShoppingCart(product?._id, cart);
+        setProductInCart(productInShoppingCart);
+        if (!productInShoppingCart) return;
+        const { quantity } = cart.find(p => p.product_id._id === product?._id);
+        setQuantity(quantity)
+    }, [cart, logged]);
 
     useEffect(() => {
         if (updatedQuantity && quantity && isAdd) {

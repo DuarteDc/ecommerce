@@ -26,27 +26,15 @@ export const ProductCard = ({ product }) => {
 
   const { _id, name, price, url, quantity, discount } = product;
 
-  // const currentQuantity = cart.find(product => product.product_id._id === _id);
-  // const [aaa, setAaa] = useState(currentQuantity?.quantity);
-
-  // useEffect(() => {
-
-  //   const currentQuantity = cart.find(product => product.product_id._id === _id);
-  //   setAaa(currentQuantity?.quantity)
-  // }, [])
-
-
-  const { addProduct, productInCart, updateProductQuantity, handleChangeProductQuantity, quantity: inputQuantity } = useCart(logged, 1, product, cart, undefined, true);
+  const { addProduct, productInCart, updateProductQuantity, handleChangeProductQuantity, quantity: inputQuantity } = useCart(logged, 1, product, cart, undefined, true, 450);
 
   const history = useRouter();
   const dispatch = useDispatch();
 
   const [isInWhisList, setisInWhisList] = useState(helpers.existInWishList(_id));
 
-  const { totalWithDiscountApply } = helpers.calculatNewTotalToPay(
-    product.discount,
-    product.price
-  );
+  const { totalWithDiscountApply } = helpers.calculatNewTotalToPay(product.discount, product.price);
+
   const sale_price = helpers.priceFormat(price);
   const sale_price_discount = helpers.priceFormat(totalWithDiscountApply);
 
@@ -156,40 +144,48 @@ export const ProductCard = ({ product }) => {
             <div className="btn-area">
               {
                 product.quantity > 0 && (
-                  <button
-                    onClick={addProduct}
-                    className={`${productInCart
-                      ? "bg-[#333] text-[#fff]"
-                      : "bg-[#fff] "
-                      }
-                                          py-[8px] 
-                                          md:py-[10px]
-                                          px-[10px]
-                                          md:px-[20px] 
-                                          cursor-pointer 
-                                          text-[#333] 
-                                          border-[#333] 
-                                          border-[1px] 
-                                          border-solid 
-                                          leading-normal 
-                                          rounded-lg 
-                                          font-normal 
-                                          uppercase 
-                                          text-[10px]
-                                          md:text-[11px]
-                                          lg:text-sm`}
-                  >
+                  <>
                     {!productInCart ? (
-                      <span
-                        className="flex items-center font-Poppins"
+                      <button
+                        onClick={addProduct}
+                        className="bg-[#fff]
+                                        py-[8px] 
+                                        md:py-[10px]
+                                        px-[10px]
+                                        btn-add
+                                        md:px-[20px] 
+                                        cursor-pointer 
+                                        text-[#333] 
+                                        border-[#333] 
+                                        border-[1px] 
+                                        border-solid 
+                                        leading-normal 
+                                        rounded-lg 
+                                        font-normal 
+                                        uppercase 
+                                        text-[10px]
+                                        md:text-[11px]
+                                        lg:text-sm"
                       >
-                        Agregar
-                        <AddShoppingCartIcon className="ml-2 text-sm" />
-                      </span>
+                        <span
+                          className="flex items-center font-Poppins"
+                        >
+                          Agregar
+                          <AddShoppingCartIcon className="ml-2 text-sm" />
+                        </span>
+                      </button>
                     ) : (
-                      "Agregado"
-                    )}
-                  </button>
+                      <div>
+                        <ButtonGroup
+                          quantity={inputQuantity}
+                          increaseDecreaseQuantityProduct={updateProductQuantity}
+                          handleChangeQuantity={handleChangeProductQuantity}
+                          product={product}
+                        />
+                      </div>
+                    )
+                    }
+                  </>
                 )
               }
 
