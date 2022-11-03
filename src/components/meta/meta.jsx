@@ -40,6 +40,7 @@ export const Meta = ({
 
   return (
     <Head>
+      <meta name="google-site-verification" content="Sw0KtOEvyIlgr_oz14gquDOm24PmV4I90wm-yEVkFPQ" />
       <meta name="robots" content={robots} />
       <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       <meta name="description" content={description} />
@@ -57,7 +58,7 @@ export const Meta = ({
       <link rel="canonical" href={canonical} />
 
       <title>{title}</title>
-
+    
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}

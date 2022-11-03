@@ -6,7 +6,7 @@ import { loadBrands, startLoadProductsPerBrand, startLoadProductsRSS } from '../
 
 export default async function getRSSForGoogle() {
 
-    const { textToRSSFeed, priceFormat, calculatNewTotalToPay } = helpers;
+    const { textToRSSFeed, priceFormatForGoogleFeed, calculatNewTotalToPay } = helpers;
 
     const siteURL = 'https://wapizima.com';
 
@@ -30,7 +30,7 @@ export default async function getRSSForGoogle() {
         feed.item({
             title: textToRSSFeed(product.name),
             custom_elements: [
-                { 'g:id': product.sku },
+                { 'g:id': product._id },
                 { 'g:title': textToRSSFeed(product.name) },
                 { 'g:description': product.description },
                 { 'g:link': `${siteURL}/productos/${product?.url}` },
@@ -39,8 +39,8 @@ export default async function getRSSForGoogle() {
                 { 'g:additional_image_link': product?.multimedia[0]?.path },
                 { 'g:availability': product.quantity > 0 ? 'in_stock' : 'out_of_stock' },
                 { 'g:availability_date': product.updatedAt },
-                { 'g:price': `MXN ${priceFormat(product.price)}` },
-                (product.discount > 0) && { 'g:sale_price': `${priceFormat(totalWithDiscountApply)} MXN` },
+                { 'g:price': `MXN ${priceFormatForGoogleFeed(product.price)}` },
+                (product.discount > 0) && { 'g:sale_price': `MXN ${priceFormatForGoogleFeed(totalWithDiscountApply)}` },
                 { 'g:brand': product?.brand?.name },
                 { 'g:gtin': product?.barcode },
                 { 'g:gender': 'unisex'}

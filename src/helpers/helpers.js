@@ -4,11 +4,20 @@ import Cookies from 'js-cookie';
 
 const priceFormat = (number, currentCurrency) => {
   let currency = '';
-  if(currentCurrency) currency = currentCurrency
+  if (currentCurrency) currency = currentCurrency
   else currency = Cookies.get('Currency') || 'MXN';
   const price = new Intl.NumberFormat(['es-MX', 'en-US', 'de-DE', 'en-IN', 'ja-JP', 'es-PE'], {
     style: "currency",
     currency: currency,
+    minimumFractionDigits: 2,
+  }).format(number);
+
+  return price;
+}
+
+const priceFormatForGoogleFeed = (number) => {
+  const price = new Intl.NumberFormat('es-MX', {
+    currency: 'MXN',
     minimumFractionDigits: 2,
   }).format(number);
 
@@ -234,6 +243,7 @@ const prepareCartDataForLocalStorage = (product) => {
 
 export default {
   priceFormat,
+  priceFormatForGoogleFeed,
   toggleWishListProducts,
   existInWishList,
   existInShoppingCart,
