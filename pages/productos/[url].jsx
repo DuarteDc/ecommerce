@@ -73,8 +73,8 @@ const Show = () => {
       title={`Wapizima - ${product?.name}`}
       keywords={`Wapizima, ${product?.category?.name}, ${product?.brand?.name
         }. ${product?.subcategory?.name
-        }, ${product?.name.toLowerCase()}, ${product?.description?.toLowerCase()}, ${product?.tags.length > 0 &&
-        product?.tags.map((tags) => tags?.tag_id?.name)
+        }, ${product?.name.toLowerCase()}, ${product?.description?.toLowerCase()},${product?.tags.length > 0 &&
+        product?.tags.map((tags) => ` ${tags?.tag_id?.name}`)
         }`}
       description={product?.description}
       ogTitle={`Wapizima - ${product?.name}`}

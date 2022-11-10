@@ -194,7 +194,7 @@ const NavBar = () => {
           <div className="flex items-center justify-center">
             <span className="items-center border-transparent border-b-2 cursor-pointer flex text-[#888] font-['Poppins'] transition duration-700 ease-in-out lg:hidden">
               {
-                (!router.pathname.includes('/perfil') && !router.pathname.includes('/checkout')) &&
+                (!router.pathname.includes('/perfil') && !router.pathname.includes('/checkout')) && !router.pathname.includes('/distribuidor') &&
                 (
                   <SelectCurrency currencies={currencies} onChange={onChangeCurrency} value={currency} />
                 )

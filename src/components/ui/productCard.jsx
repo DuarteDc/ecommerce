@@ -57,11 +57,12 @@ export const ProductCard = ({ product }) => {
     <div className="mb-[30px] relative p-2 card animate__animated animate__zoomIn md:mx-2 shadow-md md:shadow-none">
       <div className="relative overflow-hidden ">
         <div className="w-full h-full relative">
-          <SliderProductCard
+          <img src={product.multimedia[0].path} alt="product" width="320" height="320" className="object-cover h-[10rem] md:h-[20rem] w-full md:w-full ml-0 " />
+          {/* <SliderProductCard
             images={product.multimedia}
             className="w-[20rem]"
             handleShowProduct={handleShowProduct}
-          />
+          /> */}
           <div className="absolute bottom-0 right-0 z-[999] md:hidden">
             <span
               className="inline-block relative  text-[#858585] 
