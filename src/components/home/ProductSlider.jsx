@@ -13,7 +13,7 @@ import KeyboardDoubleArrowRightIcon from '@mui/icons-material/KeyboardDoubleArro
 export const ProductSlider = ({ products, name, categories, brand_id, search, brand_url }) => {
 
     const router = useRouter();
-    const { dimensions } = useSelector(state => state.ui);
+    // const { dimensions } = useSelector(state => state.ui);
 
     const showMore = () => {
 
@@ -30,7 +30,7 @@ export const ProductSlider = ({ products, name, categories, brand_id, search, br
     return (
         <div className="w-full inline-block">
             <div className="bg-gray-100 py-3 text-center">
-                <span className="w-full text-base md:text-lg lg:text-[26pxgit ] text-[#000]  text-center font-Poppins uppercase">{name} </span>
+                <h2 className="w-full text-base md:text-lg lg:text-[26pxgit ] text-[#000]  text-center font-Poppins uppercase">{name} </h2>
             </div>
             <div className="text-xs w-full md:text-base lg:text-lg pb-4 pt-4 ">
                 {
@@ -43,7 +43,26 @@ export const ProductSlider = ({ products, name, categories, brand_id, search, br
                     ))
                 }
             </div>
-            <Swiper
+            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+                {products?.map((product) => (
+                    <ProductCard
+                        key={product._id}
+                        product={product}
+                    />
+                ))}
+            </div>
+            <div>
+                {
+                    products.length > 0 && (
+                        <div className="flex items-start mb-14 justify-center" onClick={showMore}>
+                            <div className="text-pink-600 border-2 border-[#e91e63] px-6 md:px-14 py-2 cursor-pointer hover:bg-[#e91e63] hover:text-white rounded-full flex flex-col items-center transition-all duration-700 ease-in-out text-xs md:text-xl">
+                                <span className="font-semibold">Ver más</span>
+                            </div>
+                        </div>
+                    )
+                }
+            </div>
+            {/* <Swiper
                 watchSlidesProgress={true}
                 slidesPerView={4.4}
                 breakpoints={{
@@ -77,16 +96,9 @@ export const ProductSlider = ({ products, name, categories, brand_id, search, br
 
                 {products?.map((product) => (
                     <SwiperSlide key={product._id}>
-                        <div>
-                            {/* {dimensions === 'sm' ? (
-                                <ProductCardMobile
-                                    product={product} />
-                            ) : ( */}
                             <ProductCard
                                 product={product}
                             />
-                            {/* )} */}
-                        </div>
                     </SwiperSlide>
                 ))}
                 {
@@ -99,7 +111,7 @@ export const ProductSlider = ({ products, name, categories, brand_id, search, br
                         </SwiperSlide>
                     )
                 }
-            </Swiper>
+            </Swiper> */}
         </div>
     )
 }

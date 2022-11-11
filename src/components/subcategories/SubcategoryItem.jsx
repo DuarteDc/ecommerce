@@ -10,7 +10,7 @@ const SubcategoryItem = ({ subcategory, startSearchByQueryParams, paramsFilters,
 
   return (
     <li
-      className="hover:text-[#222] cursor-pointer mr-2 mt-2 transition-all duration-500 ease-out text-base text-gray-400 ml-6"
+    className="hover:text-[#222] text-xs md:text-sm cursor-pointer mr-2 py-2 transition-all duration-500 ease-out text-gray-400 ml-6"
       onClick={() => handleFilterProducts(subcategory)}
     >
       {subcategory.name}

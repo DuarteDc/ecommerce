@@ -44,7 +44,7 @@ export const ProductsArea = () => {
               ))
             }
           </div>
-          <div className="w-50 my-5 flex justify-center items-center flex-wrap">
+          {/* <div className="w-50 my-5 flex justify-center items-center flex-wrap">
             <Link href="/productos">
               <span
                 className="cursor-pointer text-luz mt-4 mx-16 border-solid inline-block py-3 pl-12 pr-12 leading-normal rounded-sm uppercase font-normal text-sm border-2 bg-[#e91e63] border-[#e91e63] hover:bg-[#fff] hover:text-[#000] hover:border-[#D80D82] transition duration-700 ease-in-out font-Poppins 
@@ -53,7 +53,7 @@ export const ProductsArea = () => {
                 Ver más
               </span>
             </Link>
-          </div>
+          </div> */}
         </div>
       </section>
     </>

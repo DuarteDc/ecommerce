@@ -1,12 +1,11 @@
-
+import { memo, useState } from 'react';
 import { useRouter } from "next/router";
 
 import { useDispatch, useSelector } from "react-redux";
 
-
 import { addOneProduct, removeOneProduct } from "../../actions/wishListActions";
 import { helpers } from "../../helpers";
-import SliderProductCard from "../products/SliderProductCard";
+// import SliderProductCard from "../products/SliderProductCard";
 
 import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
 import VisibilityIcon from '@mui/icons-material/Visibility';
@@ -17,9 +16,8 @@ import { notify } from "../../helpers/helpers";
 
 import { useCart } from "../../hooks/useCart";
 import { ButtonGroup } from "./buttonGroup";
-import { useEffect, useState, useLayoutEffect } from "react";
 
-export const ProductCard = ({ product }) => {
+export const ProductCard = memo(({ product }) => {
 
   const { logged } = useSelector((state) => state.auth);
   const { cart } = useSelector((state) => state.cart);
@@ -57,7 +55,15 @@ export const ProductCard = ({ product }) => {
     <div className="mb-[30px] relative p-2 card animate__animated animate__zoomIn md:mx-2 shadow-md md:shadow-none">
       <div className="relative overflow-hidden ">
         <div className="w-full h-full relative">
-          <img src={product.multimedia[0].path} alt="product" width="320" height="320" className="object-cover h-[10rem] md:h-[20rem] w-full md:w-full ml-0 " />
+          <img
+            src={product.multimedia[0].path}
+            alt="product"
+            width="320"
+            layout="responsive"
+            height="320"
+            className="object-cover h-[10rem] md:h-[20rem] w-full md:w-full ml-0"
+            onClick={handleShowProduct}
+          />
           {/* <SliderProductCard
             images={product.multimedia}
             className="w-[20rem]"
@@ -84,22 +90,12 @@ export const ProductCard = ({ product }) => {
             </span>
           </div>
         </div>
-        {quantity === 0 && (
-          <div
-            className="text-center 
-                               absolute 
-                               top-[10px] 
-                               left-[10px] 
-                               bg-[#333] 
-                               text-[#fff] 
-                               w-[21%] 
-                               h-[10%] 
-                               leading-[50px] 
-                               rounded-[50%] 
-                               z-[3]"
+        {quantity <= 0 && (
+          <span
+            className="text-xs absolute bg-[#333] text-white md:px-6 px-4 py-1 rounded-r-lg top-0 font-bold"
           >
             Agotado
-          </div>
+          </span>
         )}
         {discount > 0 && (
           <div
@@ -123,7 +119,7 @@ export const ProductCard = ({ product }) => {
         )}
 
         <div>
-          <h3 className="text-[#333] mb-2 text-xs md:text-[18px] md:font-semibold capitalize md:mb-6 md:mt-6 mt-2 truncate">
+          <h3 className="text-[#333] mb-2 text-xs md:text-[18px] md:font-semibold capitalize md:py-1 md:mt-1 mt-2 truncate">
             {name}
           </h3>
           <div className="hidden md:block md:mt-[8px] md:mb-[12px]">
@@ -239,4 +235,7 @@ export const ProductCard = ({ product }) => {
       </div>
     </div >
   );
-};
+});
+
+
+ProductCard.displayName = 'ProductCard';

@@ -150,10 +150,7 @@ const Products = () => {
 export const getServerSideProps = wrapper.getServerSideProps(
   (store) => async (ctx) => {
     const endpoint = '/products/filter/products-paginated';
-    if (!Object.keys(ctx.query).length) {
-      await store.dispatch(startFilterProducts(endpoint, undefined, ctx.req.cookies.Currency));
-      console.log('Me ejecute en backend')
-    }
+    if (!Object.keys(ctx.query).length) await store.dispatch(startFilterProducts(endpoint, undefined, ctx.req.cookies.Currency));
     await store.dispatch(startLoadCategories());
     await store.dispatch(startLoadBrands());
     await store.dispatch(startLoadAdministrableLogo());

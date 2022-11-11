@@ -1,5 +1,4 @@
-import { ClassNames } from '@emotion/react';
-import { Home, Store, Sell, ShoppingBag, School, ContactPage } from '@mui/icons-material';
+import { Home, Store, Sell, ShoppingBag, School, ContactPage, SettingsApplications } from '@mui/icons-material';
 
 export const pages = [
   {
@@ -12,10 +11,11 @@ export const pages = [
     name: 'Productos',
     icon: <Store className='mr-4'/>,
   },
-  // {
-  //   path: '/canvas',
-  //   name: 'Canvas',
-  // },
+  {
+    path: '/distribuidor',
+    name: 'Distribuidor',
+    icon: <SettingsApplications className='mr-4' />
+  },
   {
     path: '/categorias',
     name: 'Categorías',

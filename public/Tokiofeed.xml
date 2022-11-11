@@ -4,9 +4,9 @@
         <description><![CDATA[Tienda en línea de distribución de productos profesionales para uñas  de calidad. Venta Menudeo y Mayoreo. Promociones, descuentos y mucho más.]]></description>
         <link>https://wapizima.com</link>
         <generator>RSS for Node</generator>
-        <lastBuildDate>Thu, 03 Nov 2022 16:46:11 GMT</lastBuildDate>
+        <lastBuildDate>Fri, 11 Nov 2022 23:19:46 GMT</lastBuildDate>
         <atom:link href="https://wapizima.com/feed.xml" rel="self" type="application/rss+xml"/>
-        <pubDate>Thu, 03 Nov 2022 16:46:11 GMT</pubDate>
+        <pubDate>Fri, 11 Nov 2022 23:19:46 GMT</pubDate>
         <copyright><![CDATA[All rights reserved 2022, Digiatl Pineapple]]></copyright>
         <language><![CDATA[es]]></language>
         <item>
@@ -20,7 +20,7 @@
             <condition>used</condition>
             <price>90</price>
             <link>https://wapizima.com/productos/coleccion-happy-gzdjep3b3</link>
-            <image_link>https://cdn.wapizima.com/test/products/62b32e0b226485dfd66d6fea/WP-HAPPY.jpg</image_link>
+            <image_link>https://cdn.wapizima.com/production/products/62b32e0b226485dfd66d6fea/WP-HAPPY.jpg</image_link>
             <brand></brand>
         </item>
         <item>
@@ -34,7 +34,7 @@
             <condition>used</condition>
             <price>90</price>
             <link>https://wapizima.com/productos/coleccion-alegria-_srje-czm</link>
-            <image_link>https://cdn.wapizima.com/test/products/62b359ad5911da2ebfdd6d62/61htVsjRExL._SX679_.jpg</image_link>
+            <image_link>https://cdn.wapizima.com/production/products/62b359ad5911da2ebfdd6d62/61htVsjRExL._SX679_.jpg</image_link>
             <brand></brand>
         </item>
         <item>
@@ -48,7 +48,7 @@
             <condition>used</condition>
             <price>90</price>
             <link>https://wapizima.com/productos/coleccion-agogo-aops6285mq</link>
-            <image_link>https://cdn.wapizima.com/test/products/62b359ad5911da2ebfdd6d63/D_NQ_NP_941849-MLM41470781237_042020-O.jpg</image_link>
+            <image_link>https://cdn.wapizima.com/production/products/62b359ad5911da2ebfdd6d63/D_NQ_NP_941849-MLM41470781237_042020-O.jpg</image_link>
             <brand></brand>
         </item>
         <item>
@@ -62,7 +62,7 @@
             <condition>used</condition>
             <price>60</price>
             <link>https://wapizima.com/productos/coleccion-dulzura-9wjl-vn1l_</link>
-            <image_link>https://cdn.wapizima.com/test/products/62b359ad5911da2ebfdd6d64/WP44.jpg</image_link>
+            <image_link>https://cdn.wapizima.com/production/products/62b359ad5911da2ebfdd6d64/WP44.jpg</image_link>
             <brand></brand>
         </item>
         <item>
@@ -76,7 +76,7 @@
             <condition>used</condition>
             <price>60</price>
             <link>https://wapizima.com/productos/coleccion-escencial-qulmvjg8gg</link>
-            <image_link>https://cdn.wapizima.com/test/products/62b359ad5911da2ebfdd6d65/242638290_873500923540648_1062159726602164734_n.jpg</image_link>
+            <image_link>https://cdn.wapizima.com/production/products/62b359ad5911da2ebfdd6d65/242638290_873500923540648_1062159726602164734_n.jpg</image_link>
             <brand></brand>
         </item>
         <item>
@@ -90,7 +90,7 @@
             <condition>used</condition>
             <price>60</price>
             <link>https://wapizima.com/productos/coleccion-fancy-cfao950_i0</link>
-            <image_link>https://cdn.wapizima.com/test/products/62b359ad5911da2ebfdd6d66/WP46.jpg</image_link>
+            <image_link>https://cdn.wapizima.com/production/products/62b359ad5911da2ebfdd6d66/WP46.jpg</image_link>
             <brand></brand>
         </item>
         <item>
@@ -104,7 +104,7 @@
             <condition>used</condition>
             <price>60</price>
             <link>https://wapizima.com/productos/coleccion-fosfo-one-xzafwp9mg6</link>
-            <image_link>https://cdn.wapizima.com/test/products/62b359ad5911da2ebfdd6d67/WP47.jpg</image_link>
+            <image_link>https://cdn.wapizima.com/production/products/62b359ad5911da2ebfdd6d67/WP47.jpg</image_link>
             <brand></brand>
         </item>
         <item>
@@ -118,7 +118,21 @@
             <condition>used</condition>
             <price>60</price>
             <link>https://wapizima.com/productos/coleccion-magic-h9gnxlx2jd</link>
-            <image_link>https://cdn.wapizima.com/test/products/62b359ad5911da2ebfdd6d6b/WP51.jpg</image_link>
+            <image_link>https://cdn.wapizima.com/production/products/62b359ad5911da2ebfdd6d6b/WP51.jpg</image_link>
+            <brand></brand>
+        </item>
+        <item>
+            <title><![CDATA[T.coleccion Lovely 4 Pzas]]></title>
+            <description><![CDATA[Colección Lovely 4piezas Tokio]]></description>
+            <link>https://wapizima.com/productos/coleccion-lovely-jnp1ixgxjc</link>
+            <guid isPermaLink="true">https://wapizima.com/productos/coleccion-lovely-jnp1ixgxjc</guid>
+            <pubDate>Wed, 22 Jun 2022 18:04:29 GMT</pubDate>
+            <id>62b359ad5911da2ebfdd6d69</id>
+            <availability>in stock</availability>
+            <condition>used</condition>
+            <price>60</price>
+            <link>https://wapizima.com/productos/coleccion-lovely-jnp1ixgxjc</link>
+            <image_link>https://cdn.wapizima.com/production/products/62b359ad5911da2ebfdd6d69/lovelytokyo.jpg</image_link>
             <brand></brand>
         </item>
         <item>
@@ -132,7 +146,7 @@
             <condition>used</condition>
             <price>60</price>
             <link>https://wapizima.com/productos/coleccion-fosfo-two-mh4juf4jeg</link>
-            <image_link>https://cdn.wapizima.com/test/products/62b359ad5911da2ebfdd6d68/WP48.jpg</image_link>
+            <image_link>https://cdn.wapizima.com/production/products/62b359ad5911da2ebfdd6d68/WP48.jpg</image_link>
             <brand></brand>
         </item>
         <item>
@@ -146,11 +160,11 @@
             <condition>used</condition>
             <price>90</price>
             <link>https://wapizima.com/productos/coleccion-pasteles-jighhimjrj</link>
-            <image_link>https://cdn.wapizima.com/test/products/62b359ad5911da2ebfdd6d6d/acrilico-colecciones-4-pz-tokio-nails.jpg</image_link>
+            <image_link>https://cdn.wapizima.com/production/products/62b359ad5911da2ebfdd6d6d/acrilico-colecciones-4-pz-tokio-nails.jpg</image_link>
             <brand></brand>
         </item>
         <item>
-            <title><![CDATA[T.coleccion Magia 4 Pzas]]></title>
+            <title><![CDATA[T.coleccion Magia 4 Pzas ]]></title>
             <description><![CDATA[Colección Magia 4piezas Tokio]]></description>
             <link>https://wapizima.com/productos/coleccion-magia-_n1vxgeoev</link>
             <guid isPermaLink="true">https://wapizima.com/productos/coleccion-magia-_n1vxgeoev</guid>
@@ -160,7 +174,7 @@
             <condition>used</condition>
             <price>60</price>
             <link>https://wapizima.com/productos/coleccion-magia-_n1vxgeoev</link>
-            <image_link>https://cdn.wapizima.com/test/products/62b359ad5911da2ebfdd6d6a/WP50.jpg</image_link>
+            <image_link>https://cdn.wapizima.com/production/products/62b359ad5911da2ebfdd6d6a/WP50.jpg</image_link>
             <brand></brand>
         </item>
         <item>
@@ -174,7 +188,7 @@
             <condition>used</condition>
             <price>60</price>
             <link>https://wapizima.com/productos/coleccion-ocaso-xh-runa3na</link>
-            <image_link>https://cdn.wapizima.com/test/products/62b359ad5911da2ebfdd6d6c/WP52.jpg</image_link>
+            <image_link>https://cdn.wapizima.com/production/products/62b359ad5911da2ebfdd6d6c/WP52.jpg</image_link>
             <brand></brand>
         </item>
         <item>
@@ -188,7 +202,7 @@
             <condition>used</condition>
             <price>60</price>
             <link>https://wapizima.com/productos/coleccion-serenidad-jfjcxn1oqq</link>
-            <image_link>https://cdn.wapizima.com/test/products/62b359ad5911da2ebfdd6d70/WP53.jpg</image_link>
+            <image_link>https://cdn.wapizima.com/production/products/62b359ad5911da2ebfdd6d70/WP53.jpg</image_link>
             <brand></brand>
         </item>
         <item>
@@ -202,7 +216,7 @@
             <condition>used</condition>
             <price>60</price>
             <link>https://wapizima.com/productos/coleccion-sugar-r0qvbnt13-</link>
-            <image_link>https://cdn.wapizima.com/test/products/62b359ad5911da2ebfdd6d6e/wp55.jpg</image_link>
+            <image_link>https://cdn.wapizima.com/production/products/62b359ad5911da2ebfdd6d6e/wp55.jpg</image_link>
             <brand></brand>
         </item>
         <item>
@@ -216,11 +230,109 @@
             <condition>used</condition>
             <price>60</price>
             <link>https://wapizima.com/productos/coleccion-splash-rfgrhejt5o</link>
-            <image_link>https://cdn.wapizima.com/test/products/62b359ad5911da2ebfdd6d6f/WP54.jpg</image_link>
+            <image_link>https://cdn.wapizima.com/production/products/62b359ad5911da2ebfdd6d6f/WP54.jpg</image_link>
             <brand></brand>
         </item>
         <item>
-            <title><![CDATA[T.gel Polish Guadalajara Jalisco 6 Pzas]]></title>
+            <title><![CDATA[T.painting Esperanza 6 Pzas]]></title>
+            <description><![CDATA[Painting Tokyo Esperanza]]></description>
+            <link>https://wapizima.com/productos/painting-tokyo-esperanza-_xaqmgt1ij</link>
+            <guid isPermaLink="true">https://wapizima.com/productos/painting-tokyo-esperanza-_xaqmgt1ij</guid>
+            <pubDate>Wed, 22 Jun 2022 22:33:51 GMT</pubDate>
+            <id>62b398cf77395116b81748f9</id>
+            <availability>in stock</availability>
+            <condition>used</condition>
+            <price>210</price>
+            <link>https://wapizima.com/productos/painting-tokyo-esperanza-_xaqmgt1ij</link>
+            <image_link>https://cdn.wapizima.com/production/products/62b398cf77395116b81748f9/esperanzatokyo.jpg</image_link>
+            <brand></brand>
+        </item>
+        <item>
+            <title><![CDATA[T.painting Perlas 6 Pzas]]></title>
+            <description><![CDATA[Painting Tokyo Perlas]]></description>
+            <link>https://wapizima.com/productos/painting-tokyo-perlas-gbiz2zopbq</link>
+            <guid isPermaLink="true">https://wapizima.com/productos/painting-tokyo-perlas-gbiz2zopbq</guid>
+            <pubDate>Wed, 22 Jun 2022 22:33:51 GMT</pubDate>
+            <id>62b398cf77395116b81748fa</id>
+            <availability>in stock</availability>
+            <condition>used</condition>
+            <price>210</price>
+            <link>https://wapizima.com/productos/painting-tokyo-perlas-gbiz2zopbq</link>
+            <image_link>https://cdn.wapizima.com/production/products/62b398cf77395116b81748fa/paintingperlastokyo.jpg</image_link>
+            <brand></brand>
+        </item>
+        <item>
+            <title><![CDATA[T.painting Malteada 6 Pzas]]></title>
+            <description><![CDATA[Painting Tokyo Malteada]]></description>
+            <link>https://wapizima.com/productos/painting-tokyo-malteada-jqdks4hkf0</link>
+            <guid isPermaLink="true">https://wapizima.com/productos/painting-tokyo-malteada-jqdks4hkf0</guid>
+            <pubDate>Wed, 22 Jun 2022 22:33:51 GMT</pubDate>
+            <id>62b398cf77395116b81748fc</id>
+            <availability>in stock</availability>
+            <condition>used</condition>
+            <price>210</price>
+            <link>https://wapizima.com/productos/painting-tokyo-malteada-jqdks4hkf0</link>
+            <image_link>https://cdn.wapizima.com/production/products/62b398cf77395116b81748fc/paintingmalteada.jpg</image_link>
+            <brand></brand>
+        </item>
+        <item>
+            <title><![CDATA[T.la Fussion Gama D Gel 6 Pzas]]></title>
+            <description><![CDATA[Primera Generacion Tokyo Gama D]]></description>
+            <link>https://wapizima.com/productos/primera-generacion-tokyo-gama-d-z1snpnaffdv</link>
+            <guid isPermaLink="true">https://wapizima.com/productos/primera-generacion-tokyo-gama-d-z1snpnaffdv</guid>
+            <pubDate>Thu, 23 Jun 2022 22:09:06 GMT</pubDate>
+            <id>62b4e482dbafa60b50cc1ede</id>
+            <availability>in stock</availability>
+            <condition>used</condition>
+            <price>245</price>
+            <link>https://wapizima.com/productos/primera-generacion-tokyo-gama-d-z1snpnaffdv</link>
+            <image_link>https://cdn.wapizima.com/production/products/62b4e482dbafa60b50cc1ede/gamadlafussion.jpg</image_link>
+            <brand></brand>
+        </item>
+        <item>
+            <title><![CDATA[T.la Fussion Gama B Gel 6 Pzas]]></title>
+            <description><![CDATA[Primera Generacion Tokyo Gama B]]></description>
+            <link>https://wapizima.com/productos/primera-generacion-tokyo-gama-b-6cece56l30e</link>
+            <guid isPermaLink="true">https://wapizima.com/productos/primera-generacion-tokyo-gama-b-6cece56l30e</guid>
+            <pubDate>Thu, 23 Jun 2022 22:09:06 GMT</pubDate>
+            <id>62b4e482dbafa60b50cc1edd</id>
+            <availability>in stock</availability>
+            <condition>used</condition>
+            <price>245</price>
+            <link>https://wapizima.com/productos/primera-generacion-tokyo-gama-b-6cece56l30e</link>
+            <image_link>https://cdn.wapizima.com/production/products/62b4e482dbafa60b50cc1edd/gamablafussion.jpg</image_link>
+            <brand></brand>
+        </item>
+        <item>
+            <title><![CDATA[T.la Fussion Gama C Gel 6 Pzas]]></title>
+            <description><![CDATA[Primera Generacion Tokyo Gama C]]></description>
+            <link>https://wapizima.com/productos/primera-generacion-tokyo-gama-c-odhnnxeylur</link>
+            <guid isPermaLink="true">https://wapizima.com/productos/primera-generacion-tokyo-gama-c-odhnnxeylur</guid>
+            <pubDate>Thu, 23 Jun 2022 22:09:06 GMT</pubDate>
+            <id>62b4e482dbafa60b50cc1edf</id>
+            <availability>in stock</availability>
+            <condition>used</condition>
+            <price>245</price>
+            <link>https://wapizima.com/productos/primera-generacion-tokyo-gama-c-odhnnxeylur</link>
+            <image_link>https://cdn.wapizima.com/production/products/62b4e482dbafa60b50cc1edf/gamaclafussion.jpg</image_link>
+            <brand></brand>
+        </item>
+        <item>
+            <title><![CDATA[T.la Fussion Gama A Gel 6 Pzas]]></title>
+            <description><![CDATA[Primera Generacion Tokyo Gama A]]></description>
+            <link>https://wapizima.com/productos/primera-generacion-tokyo-gama-a-5_-55mrtm_u</link>
+            <guid isPermaLink="true">https://wapizima.com/productos/primera-generacion-tokyo-gama-a-5_-55mrtm_u</guid>
+            <pubDate>Thu, 23 Jun 2022 22:09:06 GMT</pubDate>
+            <id>62b4e482dbafa60b50cc1edc</id>
+            <availability>in stock</availability>
+            <condition>used</condition>
+            <price>245</price>
+            <link>https://wapizima.com/productos/primera-generacion-tokyo-gama-a-5_-55mrtm_u</link>
+            <image_link>https://cdn.wapizima.com/production/products/62b4e482dbafa60b50cc1edc/gamaalafussion.jpg</image_link>
+            <brand></brand>
+        </item>
+        <item>
+            <title><![CDATA[T.gel Polish Guadalajara Jalisco 6 Pzas ]]></title>
             <description><![CDATA[Gel Guadalajara, Jalisco Tokyo]]></description>
             <link>https://wapizima.com/productos/gel-guadalajara-jalisco-tokyo-rkg9lhyvoec</link>
             <guid isPermaLink="true">https://wapizima.com/productos/gel-guadalajara-jalisco-tokyo-rkg9lhyvoec</guid>
@@ -230,7 +342,7 @@
             <condition>used</condition>
             <price>190</price>
             <link>https://wapizima.com/productos/gel-guadalajara-jalisco-tokyo-rkg9lhyvoec</link>
-            <image_link>https://cdn.wapizima.com/test/products/62b9f8de00b5039360145c41/311018687_583963886807455_6200688234814504262_n.jpg</image_link>
+            <image_link>https://cdn.wapizima.com/production/products/62b9f8de00b5039360145c41/311018687_583963886807455_6200688234814504262_n.jpg</image_link>
             <brand></brand>
         </item>
         <item>
@@ -244,7 +356,7 @@
             <condition>used</condition>
             <price>190</price>
             <link>https://wapizima.com/productos/gel-veracruz-tokyo-kppi4zekwl3</link>
-            <image_link>https://cdn.wapizima.com/test/products/62b9f8de00b5039360145c43/1283.jpg</image_link>
+            <image_link>https://cdn.wapizima.com/production/products/62b9f8de00b5039360145c43/1283.jpg</image_link>
             <brand></brand>
         </item>
         <item>
@@ -258,7 +370,91 @@
             <condition>used</condition>
             <price>285</price>
             <link>https://wapizima.com/productos/lima-tokyo-100100-paquete-25-pzas-ntomuvorxzt</link>
-            <image_link>https://cdn.wapizima.com/test/products/62b9f8de00b5039360145c4a/100-100.png</image_link>
+            <image_link>https://cdn.wapizima.com/production/products/62b9f8de00b5039360145c4a/100-100.png</image_link>
+            <brand></brand>
+        </item>
+        <item>
+            <title><![CDATA[T.coleccion In Love 4 Pzas]]></title>
+            <description><![CDATA[C. Tokyo 4 Pzas In Love]]></description>
+            <link>https://wapizima.com/productos/c-tokyo-4-pzas-in-love-8c0a6_b1by</link>
+            <guid isPermaLink="true">https://wapizima.com/productos/c-tokyo-4-pzas-in-love-8c0a6_b1by</guid>
+            <pubDate>Mon, 27 Jun 2022 18:37:19 GMT</pubDate>
+            <id>62b9f8de00b5039360145c2a</id>
+            <availability>in stock</availability>
+            <condition>used</condition>
+            <price>90</price>
+            <link>https://wapizima.com/productos/c-tokyo-4-pzas-in-love-8c0a6_b1by</link>
+            <image_link>https://cdn.wapizima.com/production/products/62b9f8de00b5039360145c2a/inlovetokyo.jpg</image_link>
+            <brand></brand>
+        </item>
+        <item>
+            <title><![CDATA[T.coleccion Gama I ]]></title>
+            <description><![CDATA[Primera Generacion Tokyo Gama I]]></description>
+            <link>https://wapizima.com/productos/primera-generacion-tokyo-gama-i-ms_xdkgybyu</link>
+            <guid isPermaLink="true">https://wapizima.com/productos/primera-generacion-tokyo-gama-i-ms_xdkgybyu</guid>
+            <pubDate>Mon, 27 Jun 2022 18:37:19 GMT</pubDate>
+            <id>62b9f8de00b5039360145c9a</id>
+            <availability>in stock</availability>
+            <condition>used</condition>
+            <price>180</price>
+            <link>https://wapizima.com/productos/primera-generacion-tokyo-gama-i-ms_xdkgybyu</link>
+            <image_link>https://cdn.wapizima.com/production/products/62b9f8de00b5039360145c9a/gmaitokyo.jpg</image_link>
+            <brand></brand>
+        </item>
+        <item>
+            <title><![CDATA[T.la Fussion Gama F Gel 6 Pzas]]></title>
+            <description><![CDATA[Primera Generacion Tokyo Gama F]]></description>
+            <link>https://wapizima.com/productos/primera-generacion-tokyo-gama-f-urve20ee7dl</link>
+            <guid isPermaLink="true">https://wapizima.com/productos/primera-generacion-tokyo-gama-f-urve20ee7dl</guid>
+            <pubDate>Mon, 27 Jun 2022 18:37:19 GMT</pubDate>
+            <id>62b9f8de00b5039360145c98</id>
+            <availability>in stock</availability>
+            <condition>used</condition>
+            <price>245</price>
+            <link>https://wapizima.com/productos/primera-generacion-tokyo-gama-f-urve20ee7dl</link>
+            <image_link>https://cdn.wapizima.com/production/products/62b9f8de00b5039360145c98/gamaftokyo.jpg</image_link>
+            <brand></brand>
+        </item>
+        <item>
+            <title><![CDATA[T.la Fussion Gama H Gel 6 Pzas]]></title>
+            <description><![CDATA[Primera Generacion Tokyo Gama H]]></description>
+            <link>https://wapizima.com/productos/primera-generacion-tokyo-gama-h-sw1tdtge7cd</link>
+            <guid isPermaLink="true">https://wapizima.com/productos/primera-generacion-tokyo-gama-h-sw1tdtge7cd</guid>
+            <pubDate>Mon, 27 Jun 2022 18:37:19 GMT</pubDate>
+            <id>62b9f8de00b5039360145c99</id>
+            <availability>in stock</availability>
+            <condition>used</condition>
+            <price>245</price>
+            <link>https://wapizima.com/productos/primera-generacion-tokyo-gama-h-sw1tdtge7cd</link>
+            <image_link>https://cdn.wapizima.com/production/products/62b9f8de00b5039360145c99/gamahlafussion.jpg</image_link>
+            <brand></brand>
+        </item>
+        <item>
+            <title><![CDATA[T.la Fussion Gama E Gel 6 Pzas]]></title>
+            <description><![CDATA[Primera Generacion Tokyo Gama E]]></description>
+            <link>https://wapizima.com/productos/primera-generacion-tokyo-gama-e-3hci6liv3zx</link>
+            <guid isPermaLink="true">https://wapizima.com/productos/primera-generacion-tokyo-gama-e-3hci6liv3zx</guid>
+            <pubDate>Mon, 27 Jun 2022 18:37:19 GMT</pubDate>
+            <id>62b9f8de00b5039360145c97</id>
+            <availability>in stock</availability>
+            <condition>used</condition>
+            <price>245</price>
+            <link>https://wapizima.com/productos/primera-generacion-tokyo-gama-e-3hci6liv3zx</link>
+            <image_link>https://cdn.wapizima.com/production/products/62b9f8de00b5039360145c97/gamaelafussion.jpg</image_link>
+            <brand></brand>
+        </item>
+        <item>
+            <title><![CDATA[T.la Fussion Gama G Gel 6 Pzas]]></title>
+            <description><![CDATA[Primera Generacion Tokyo Gama G]]></description>
+            <link>https://wapizima.com/productos/primera-generacion-tokyo-gama-g-ldmxkljcred</link>
+            <guid isPermaLink="true">https://wapizima.com/productos/primera-generacion-tokyo-gama-g-ldmxkljcred</guid>
+            <pubDate>Mon, 27 Jun 2022 18:37:19 GMT</pubDate>
+            <id>62b9f8de00b5039360145c9b</id>
+            <availability>in stock</availability>
+            <condition>used</condition>
+            <price>245</price>
+            <link>https://wapizima.com/productos/primera-generacion-tokyo-gama-g-ldmxkljcred</link>
+            <image_link>https://cdn.wapizima.com/production/products/62b9f8de00b5039360145c9b/lafussiongamag.jpg</image_link>
             <brand></brand>
         </item>
         <item>
@@ -272,7 +468,7 @@
             <condition>used</condition>
             <price>190</price>
             <link>https://wapizima.com/productos/tokyo-rubi-g3rr2vqoz</link>
-            <image_link>https://cdn.wapizima.com/test/products/62e46d8a74abc5bec5f6fab7/IMG_0010.png</image_link>
+            <image_link>https://cdn.wapizima.com/production/products/62e46d8a74abc5bec5f6fab7/IMG_0010.png</image_link>
             <brand></brand>
         </item>
         <item>
@@ -286,7 +482,7 @@
             <condition>used</condition>
             <price>190</price>
             <link>https://wapizima.com/productos/tokyo-amatista-_vegjy7-tj</link>
-            <image_link>https://cdn.wapizima.com/test/products/62eac39374abc5bec508eda2/IMG_0011.png</image_link>
+            <image_link>https://cdn.wapizima.com/production/products/62eac39374abc5bec508eda2/IMG_0011.png</image_link>
             <brand></brand>
         </item>
         <item>
@@ -300,11 +496,11 @@
             <condition>used</condition>
             <price>190</price>
             <link>https://wapizima.com/productos/tokyo-labradorita-gm3qbbefk</link>
-            <image_link>https://cdn.wapizima.com/test/products/62eac39374abc5bec508eda1/IMG_0009-2.png</image_link>
+            <image_link>https://cdn.wapizima.com/production/products/62eac39374abc5bec508eda1/IMG_0009-2.png</image_link>
             <brand></brand>
         </item>
         <item>
-            <title><![CDATA[T.acetato Mariposa Metalica]]></title>
+            <title><![CDATA[T.acetato Mariposa Metalica ]]></title>
             <description><![CDATA[Decoración Tokyo Acetato De Mariposa Metalica -25]]></description>
             <link>https://wapizima.com/productos/acetato-de-mariposa-metalica-25-ezyvn2slsa</link>
             <guid isPermaLink="true">https://wapizima.com/productos/acetato-de-mariposa-metalica-25-ezyvn2slsa</guid>
@@ -314,11 +510,11 @@
             <condition>used</condition>
             <price>40</price>
             <link>https://wapizima.com/productos/acetato-de-mariposa-metalica-25-ezyvn2slsa</link>
-            <image_link>https://cdn.wapizima.com/test/products/62ed9f58e74f8ea6454f67d0/IMG_0165.jpg</image_link>
+            <image_link>https://cdn.wapizima.com/production/products/62ed9f58e74f8ea6454f67d0/IMG_0165.jpg</image_link>
             <brand></brand>
         </item>
         <item>
-            <title><![CDATA[T.acetato Corazon]]></title>
+            <title><![CDATA[T.acetato Corazon ]]></title>
             <description><![CDATA[Decoración Tokyo Acetato De Corazón -19]]></description>
             <link>https://wapizima.com/productos/acetato-de-corazon-19-7y8iyramz</link>
             <guid isPermaLink="true">https://wapizima.com/productos/acetato-de-corazon-19-7y8iyramz</guid>
@@ -328,7 +524,7 @@
             <condition>used</condition>
             <price>40</price>
             <link>https://wapizima.com/productos/acetato-de-corazon-19-7y8iyramz</link>
-            <image_link>https://cdn.wapizima.com/test/products/62ed9f58e74f8ea6454f67cf/IMG_0159.jpg</image_link>
+            <image_link>https://cdn.wapizima.com/production/products/62ed9f58e74f8ea6454f67cf/IMG_0159.jpg</image_link>
             <brand></brand>
         </item>
         <item>
@@ -342,11 +538,11 @@
             <condition>used</condition>
             <price>129</price>
             <link>https://wapizima.com/productos/formas-de-salon-easy-biygru2tj</link>
-            <image_link>https://cdn.wapizima.com/test/products/62fc1a5c73faccd4afbb3f63/WhatsApp Image 2022-08-16 at 3.04.33 PM.jpeg</image_link>
+            <image_link>https://cdn.wapizima.com/production/products/62fc1a5c73faccd4afbb3f63/WhatsApp Image 2022-08-16 at 3.04.33 PM.jpeg</image_link>
             <brand></brand>
         </item>
         <item>
-            <title><![CDATA[C. Tokyo 4 Pzas Maquillaje]]></title>
+            <title><![CDATA[T.coleccion Maquillaje 4 Pzas]]></title>
             <description><![CDATA[C. Tokyo 4 Pzas Maquillaje]]></description>
             <link>https://wapizima.com/productos/c-tokyo-4-pzas-maquillaje-yybkff35q</link>
             <guid isPermaLink="true">https://wapizima.com/productos/c-tokyo-4-pzas-maquillaje-yybkff35q</guid>
@@ -356,11 +552,11 @@
             <condition>used</condition>
             <price>90</price>
             <link>https://wapizima.com/productos/c-tokyo-4-pzas-maquillaje-yybkff35q</link>
-            <image_link>https://cdn.wapizima.com/test/products/630f8ce129be266672e69f38/6c236fa0-83fc-41aa-983f-904472a2f61b.jpg</image_link>
+            <image_link>https://cdn.wapizima.com/production/products/630f8ce129be266672e69f38/6c236fa0-83fc-41aa-983f-904472a2f61b.jpg</image_link>
             <brand></brand>
         </item>
         <item>
-            <title><![CDATA[C. Tokio Ocean|]]></title>
+            <title><![CDATA[T.coleccion Ocean Gel 6 Pzas]]></title>
             <description><![CDATA[Gama Ocean De La Marcatokio  Contiene 6 Piezas]]></description>
             <link>https://wapizima.com/productos/c-tokio-ocean-nzqbjdscb</link>
             <guid isPermaLink="true">https://wapizima.com/productos/c-tokio-ocean-nzqbjdscb</guid>
@@ -370,7 +566,49 @@
             <condition>used</condition>
             <price>190</price>
             <link>https://wapizima.com/productos/c-tokio-ocean-nzqbjdscb</link>
-            <image_link>https://cdn.wapizima.com/test/products/630fa0220f0c2f56b859af64/ocean3 (1).png</image_link>
+            <image_link>https://cdn.wapizima.com/production/products/630fa0220f0c2f56b859af64/ocean3 (1).png</image_link>
+            <brand></brand>
+        </item>
+        <item>
+            <title><![CDATA[T.coleccion Shine Gel 6 Pzas]]></title>
+            <description><![CDATA[Gama De Geles Marca Tokio Nails Incluye 6 Pz]]></description>
+            <link>https://wapizima.com/productos/c-tokio-shine-l_0zmtskm</link>
+            <guid isPermaLink="true">https://wapizima.com/productos/c-tokio-shine-l_0zmtskm</guid>
+            <pubDate>Wed, 31 Aug 2022 17:57:05 GMT</pubDate>
+            <id>630fa0f129be266672e83a02</id>
+            <availability>in stock</availability>
+            <condition>used</condition>
+            <price>190</price>
+            <link>https://wapizima.com/productos/c-tokio-shine-l_0zmtskm</link>
+            <image_link>https://cdn.wapizima.com/production/products/630fa0f129be266672e83a02/tokio shine.jpg</image_link>
+            <brand></brand>
+        </item>
+        <item>
+            <title><![CDATA[T.coleccion Candy Gel 6 Pzas]]></title>
+            <description><![CDATA[Gama Tokio Candy Incluye 6 Colores]]></description>
+            <link>https://wapizima.com/productos/ctokio-candy-5_jk_xl6u</link>
+            <guid isPermaLink="true">https://wapizima.com/productos/ctokio-candy-5_jk_xl6u</guid>
+            <pubDate>Wed, 31 Aug 2022 18:05:21 GMT</pubDate>
+            <id>630fa2e129be266672e854f4</id>
+            <availability>in stock</availability>
+            <condition>used</condition>
+            <price>190</price>
+            <link>https://wapizima.com/productos/ctokio-candy-5_jk_xl6u</link>
+            <image_link>https://cdn.wapizima.com/production/products/630fa2e129be266672e854f4/toky candy (1).jpg</image_link>
+            <brand></brand>
+        </item>
+        <item>
+            <title><![CDATA[T.coleccion Happy Day Gel 6 Pzas]]></title>
+            <description><![CDATA[Gama Happy Day Incluye 6 Colores Diferentes]]></description>
+            <link>https://wapizima.com/productos/happy-day-ejd1ka6lm</link>
+            <guid isPermaLink="true">https://wapizima.com/productos/happy-day-ejd1ka6lm</guid>
+            <pubDate>Wed, 31 Aug 2022 18:07:17 GMT</pubDate>
+            <id>630fa3550f0c2f56b859c1eb</id>
+            <availability>in stock</availability>
+            <condition>used</condition>
+            <price>190</price>
+            <link>https://wapizima.com/productos/happy-day-ejd1ka6lm</link>
+            <image_link>https://cdn.wapizima.com/production/products/630fa3550f0c2f56b859c1eb/tokio happy day.jpg</image_link>
             <brand></brand>
         </item>
         <item>
@@ -384,11 +622,11 @@
             <condition>used</condition>
             <price>190</price>
             <link>https://wapizima.com/productos/gtokio-love-ek3dtck8q</link>
-            <image_link>https://cdn.wapizima.com/test/products/630fa45529be266672e874a8/tokionails gama roja.jpg</image_link>
+            <image_link>https://cdn.wapizima.com/production/products/630fa45529be266672e874a8/tokionails gama roja.jpg</image_link>
             <brand></brand>
         </item>
         <item>
-            <title><![CDATA[G.kissme Tokyo 6 Pzas]]></title>
+            <title><![CDATA[T.coleccion Kissme Gel 6 Pzas]]></title>
             <description><![CDATA[Gam De Geles Kiss Me  De 6 Colores Diferentes]]></description>
             <link>https://wapizima.com/productos/kiss-me-d1wrcyn-7</link>
             <guid isPermaLink="true">https://wapizima.com/productos/kiss-me-d1wrcyn-7</guid>
@@ -398,7 +636,7 @@
             <condition>used</condition>
             <price>190</price>
             <link>https://wapizima.com/productos/kiss-me-d1wrcyn-7</link>
-            <image_link>https://cdn.wapizima.com/test/products/630fa5160f0c2f56b859e9ad/Kissme.jpg</image_link>
+            <image_link>https://cdn.wapizima.com/production/products/630fa5160f0c2f56b859e9ad/Kissme.jpg</image_link>
             <brand></brand>
         </item>
         <item>
@@ -412,7 +650,7 @@
             <condition>used</condition>
             <price>200</price>
             <link>https://wapizima.com/productos/ilusion-tokyo-5-pzas-tzklv3lgt</link>
-            <image_link>https://cdn.wapizima.com/test/products/631a2ad37172960ad9c5c61d/IMG_9535.png</image_link>
+            <image_link>https://cdn.wapizima.com/production/products/631a2ad37172960ad9c5c61d/IMG_9535.png</image_link>
             <brand></brand>
         </item>
         <item>
@@ -426,7 +664,7 @@
             <condition>used</condition>
             <price>200</price>
             <link>https://wapizima.com/productos/amor-tokyo-5-pzas-flff4yn7n</link>
-            <image_link>https://cdn.wapizima.com/test/products/631a304d96ac7e8f392e0f98/Amortress2222.png</image_link>
+            <image_link>https://cdn.wapizima.com/production/products/631a304d96ac7e8f392e0f98/Amortress2222.png</image_link>
             <brand></brand>
         </item>
         <item>
@@ -440,7 +678,7 @@
             <condition>used</condition>
             <price>200</price>
             <link>https://wapizima.com/productos/dicha-tokyo-5-pzas-mdnf8vffa</link>
-            <image_link>https://cdn.wapizima.com/test/products/631a312e96ac7e8f392e2ee9/dicha3.png</image_link>
+            <image_link>https://cdn.wapizima.com/production/products/631a312e96ac7e8f392e2ee9/dicha3.png</image_link>
             <brand></brand>
         </item>
         <item>
@@ -454,7 +692,7 @@
             <condition>used</condition>
             <price>200</price>
             <link>https://wapizima.com/productos/dulzura-tokyo-5-pzas-1qf0kt5xz</link>
-            <image_link>https://cdn.wapizima.com/test/products/631a31d67172960ad9c66808/Dulzurados.png</image_link>
+            <image_link>https://cdn.wapizima.com/production/products/631a31d67172960ad9c66808/Dulzurados.png</image_link>
             <brand></brand>
         </item>
         <item>
@@ -468,7 +706,7 @@
             <condition>used</condition>
             <price>200</price>
             <link>https://wapizima.com/productos/carino-tokyo-5-pzas-urlwbqfxq</link>
-            <image_link>https://cdn.wapizima.com/test/products/631a329f96ac7e8f392e3945/cariño3v.png</image_link>
+            <image_link>https://cdn.wapizima.com/production/products/631a329f96ac7e8f392e3945/cariño3v.png</image_link>
             <brand></brand>
         </item>
         <item>
@@ -482,7 +720,7 @@
             <condition>used</condition>
             <price>200</price>
             <link>https://wapizima.com/productos/alegria-tokyo-5-pzas-pw-sawhrs</link>
-            <image_link>https://cdn.wapizima.com/test/products/631a339c96ac7e8f392e42b0/Alegria.png</image_link>
+            <image_link>https://cdn.wapizima.com/production/products/631a339c96ac7e8f392e42b0/alegriatokyo.jpg</image_link>
             <brand></brand>
         </item>
         <item>
@@ -496,7 +734,7 @@
             <condition>used</condition>
             <price>200</price>
             <link>https://wapizima.com/productos/encanto-tokyo-5-pzas-scjuvnz7d</link>
-            <image_link>https://cdn.wapizima.com/test/products/631a34d07172960ad9c67a68/encanto2.png</image_link>
+            <image_link>https://cdn.wapizima.com/production/products/631a34d07172960ad9c67a68/encanto2.png</image_link>
             <brand></brand>
         </item>
         <item>
@@ -510,7 +748,7 @@
             <condition>used</condition>
             <price>200</price>
             <link>https://wapizima.com/productos/serenidad-tokyo-5-pzas-dhgtydw7v</link>
-            <image_link>https://cdn.wapizima.com/test/products/631a3db096ac7e8f392f02de/serenidad2.png</image_link>
+            <image_link>https://cdn.wapizima.com/production/products/631a3db096ac7e8f392f02de/serenidad2.png</image_link>
             <brand></brand>
         </item>
         <item>
@@ -524,7 +762,7 @@
             <condition>used</condition>
             <price>200</price>
             <link>https://wapizima.com/productos/ternura-tokyo-5-pzas-_o49iquzd</link>
-            <image_link>https://cdn.wapizima.com/test/products/631a3e6696ac7e8f392f049a/kissme3 (1).png</image_link>
+            <image_link>https://cdn.wapizima.com/production/products/631a3e6696ac7e8f392f049a/kissme3 (1).png</image_link>
             <brand></brand>
         </item>
         <item>
@@ -538,11 +776,11 @@
             <condition>used</condition>
             <price>200</price>
             <link>https://wapizima.com/productos/diversion-tokyo-5-pzas-ckdlact9e</link>
-            <image_link>https://cdn.wapizima.com/test/products/631a3f2a7172960ad9c71e93/diversiontres.png</image_link>
+            <image_link>https://cdn.wapizima.com/production/products/631a3f2a7172960ad9c71e93/diversiontres.png</image_link>
             <brand></brand>
         </item>
         <item>
-            <title><![CDATA[G.sunrise Tokyo 6 Pzas]]></title>
+            <title><![CDATA[T.coleccion Sunrise Gel 6 Pzas]]></title>
             <description><![CDATA[Colección Sunrise De 6 Pzas Tokyo.]]></description>
             <link>https://wapizima.com/productos/sunrise-ssprduoh2</link>
             <guid isPermaLink="true">https://wapizima.com/productos/sunrise-ssprduoh2</guid>
@@ -552,11 +790,25 @@
             <condition>used</condition>
             <price>190</price>
             <link>https://wapizima.com/productos/sunrise-ssprduoh2</link>
-            <image_link>https://cdn.wapizima.com/test/products/631a42f496ac7e8f392f519c/WhatsApp Image 2022-09-08 at 3.44.56 AM.jpeg</image_link>
+            <image_link>https://cdn.wapizima.com/production/products/631a42f496ac7e8f392f519c/WhatsApp Image 2022-09-08 at 3.44.56 AM.jpeg</image_link>
             <brand></brand>
         </item>
         <item>
-            <title><![CDATA[G.neutral Tokyo 6 Pzas]]></title>
+            <title><![CDATA[T.coleccion Live Gel 6 Pzas]]></title>
+            <description><![CDATA[Colección Live De 6 Pzas Tokyo.]]></description>
+            <link>https://wapizima.com/productos/live-ttxx5gkj0</link>
+            <guid isPermaLink="true">https://wapizima.com/productos/live-ttxx5gkj0</guid>
+            <pubDate>Thu, 08 Sep 2022 19:48:08 GMT</pubDate>
+            <id>631a46f896ac7e8f392fafa8</id>
+            <availability>in stock</availability>
+            <condition>used</condition>
+            <price>190</price>
+            <link>https://wapizima.com/productos/live-ttxx5gkj0</link>
+            <image_link>https://cdn.wapizima.com/production/products/631a46f896ac7e8f392fafa8/WhatsApp Image 2022-09-08 at 3.44.56 AM (1).jpeg</image_link>
+            <brand></brand>
+        </item>
+        <item>
+            <title><![CDATA[T.coleccion Neutral Gel 6 Pzas]]></title>
             <description><![CDATA[Colección Neutral 6 Pzas Tokyo.]]></description>
             <link>https://wapizima.com/productos/neutral-yp_r6qyqk</link>
             <guid isPermaLink="true">https://wapizima.com/productos/neutral-yp_r6qyqk</guid>
@@ -566,11 +818,11 @@
             <condition>used</condition>
             <price>190</price>
             <link>https://wapizima.com/productos/neutral-yp_r6qyqk</link>
-            <image_link>https://cdn.wapizima.com/test/products/631a478a7172960ad9c7a4be/neutraltres.png</image_link>
+            <image_link>https://cdn.wapizima.com/production/products/631a478a7172960ad9c7a4be/neutraltres.png</image_link>
             <brand></brand>
         </item>
         <item>
-            <title><![CDATA[T.galaxy 9d 6 Pzas]]></title>
+            <title><![CDATA[T.galaxy 9d Gel 6 Pzas]]></title>
             <description><![CDATA[Colección Galaxy 9d De 6 Pzas Tokyo.]]></description>
             <link>https://wapizima.com/productos/galaxy-9-d-adeajdhyx</link>
             <guid isPermaLink="true">https://wapizima.com/productos/galaxy-9-d-adeajdhyx</guid>
@@ -580,7 +832,7 @@
             <condition>used</condition>
             <price>220</price>
             <link>https://wapizima.com/productos/galaxy-9-d-adeajdhyx</link>
-            <image_link>https://cdn.wapizima.com/test/products/631a5b1a96ac7e8f39316312/298731331_1105797830019941_7009162796058642225_n.jpg</image_link>
+            <image_link>https://cdn.wapizima.com/production/products/631a5b1a96ac7e8f39316312/298731331_1105797830019941_7009162796058642225_n.jpg</image_link>
             <brand></brand>
         </item>
         <item>
@@ -594,11 +846,11 @@
             <condition>used</condition>
             <price>90</price>
             <link>https://wapizima.com/productos/tokio-c-pateles-22nci0dt6</link>
-            <image_link>https://cdn.wapizima.com/test/products/633352fd254f275e73f22da8/IMG_9216.jpg</image_link>
+            <image_link>https://cdn.wapizima.com/production/products/633352fd254f275e73f22da8/IMG_9216.jpg</image_link>
             <brand></brand>
         </item>
         <item>
-            <title><![CDATA[G.tokio Good Nails Soho Gama]]></title>
+            <title><![CDATA[T.good Nails Soho Gel 6 Pzas]]></title>
             <description><![CDATA[Soho Good Nails Gama 6 Colores Y 3 Gliters]]></description>
             <link>https://wapizima.com/productos/good-nails-gama-6-colores-y-3-gliters-4iey8ootd</link>
             <guid isPermaLink="true">https://wapizima.com/productos/good-nails-gama-6-colores-y-3-gliters-4iey8ootd</guid>
@@ -608,11 +860,11 @@
             <condition>used</condition>
             <price>250</price>
             <link>https://wapizima.com/productos/good-nails-gama-6-colores-y-3-gliters-4iey8ootd</link>
-            <image_link>https://cdn.wapizima.com/test/products/634449f89e34550c126c9733/WhatsAppImage2022-04-06at11.10.03AM_1_900x.PNG</image_link>
+            <image_link>https://cdn.wapizima.com/production/products/634449f89e34550c126c9733/WhatsAppImage2022-04-06at11.10.03AM_1_900x.PNG</image_link>
             <brand></brand>
         </item>
         <item>
-            <title><![CDATA[G.tokio Good Nails Queens Gama]]></title>
+            <title><![CDATA[T.good Nails Queen Gel 6 Pzas]]></title>
             <description><![CDATA[Queen Good Nails Gama 6 Colores Y 3 Gliters]]></description>
             <link>https://wapizima.com/productos/good-nails-gama-6-colores-y-3-gliters-hxaao8hof</link>
             <guid isPermaLink="true">https://wapizima.com/productos/good-nails-gama-6-colores-y-3-gliters-hxaao8hof</guid>
@@ -622,11 +874,11 @@
             <condition>used</condition>
             <price>250</price>
             <link>https://wapizima.com/productos/good-nails-gama-6-colores-y-3-gliters-hxaao8hof</link>
-            <image_link>https://cdn.wapizima.com/test/products/63444f7c9e34550c126cf1b1/WhatsAppImage2022-04-06at11.10.02AM_1.PNG</image_link>
+            <image_link>https://cdn.wapizima.com/production/products/63444f7c9e34550c126cf1b1/WhatsAppImage2022-04-06at11.10.02AM_1.PNG</image_link>
             <brand></brand>
         </item>
         <item>
-            <title><![CDATA[G.tokio Good Nails Gama Broadway]]></title>
+            <title><![CDATA[T.good Nails Broadway Gel 6 Pzas]]></title>
             <description><![CDATA[Broadway Good Nails Gama]]></description>
             <link>https://wapizima.com/productos/good-nails-gama-6-colores-y-3-gliters-kmk4b2hny</link>
             <guid isPermaLink="true">https://wapizima.com/productos/good-nails-gama-6-colores-y-3-gliters-kmk4b2hny</guid>
@@ -636,11 +888,11 @@
             <condition>used</condition>
             <price>250</price>
             <link>https://wapizima.com/productos/good-nails-gama-6-colores-y-3-gliters-kmk4b2hny</link>
-            <image_link>https://cdn.wapizima.com/test/products/634450d4254f275e73c058c0/WhatsAppImage2022-04-06at11.10.04AM_900x.PNG</image_link>
+            <image_link>https://cdn.wapizima.com/production/products/634450d4254f275e73c058c0/WhatsAppImage2022-04-06at11.10.04AM_900x.PNG</image_link>
             <brand></brand>
         </item>
         <item>
-            <title><![CDATA[G.tokio Good Nails Gama Central Park]]></title>
+            <title><![CDATA[T.good Nails Central Park Gel 6 Pzas]]></title>
             <description><![CDATA[Central Park Good Nails Gama]]></description>
             <link>https://wapizima.com/productos/good-nails-gama-6-colores-y-3-gliters-v_r8udbgi</link>
             <guid isPermaLink="true">https://wapizima.com/productos/good-nails-gama-6-colores-y-3-gliters-v_r8udbgi</guid>
@@ -650,11 +902,11 @@
             <condition>used</condition>
             <price>250</price>
             <link>https://wapizima.com/productos/good-nails-gama-6-colores-y-3-gliters-v_r8udbgi</link>
-            <image_link>https://cdn.wapizima.com/test/products/634450d49e34550c126cfbfa/WhatsAppImage2022-04-06at11.10.03AM_3_900x.PNG</image_link>
+            <image_link>https://cdn.wapizima.com/production/products/634450d49e34550c126cfbfa/WhatsAppImage2022-04-06at11.10.03AM_3_900x.PNG</image_link>
             <brand></brand>
         </item>
         <item>
-            <title><![CDATA[G.tokio Good Nails Gama Times Square]]></title>
+            <title><![CDATA[T.good Nails Times Square Gel 6 Pzas]]></title>
             <description><![CDATA[Good Nails Gama Times Square]]></description>
             <link>https://wapizima.com/productos/good-nails-gama-6-colores-y-3-g-times-square-hqgixlkj3</link>
             <guid isPermaLink="true">https://wapizima.com/productos/good-nails-gama-6-colores-y-3-g-times-square-hqgixlkj3</guid>
@@ -664,11 +916,11 @@
             <condition>used</condition>
             <price>250</price>
             <link>https://wapizima.com/productos/good-nails-gama-6-colores-y-3-g-times-square-hqgixlkj3</link>
-            <image_link>https://cdn.wapizima.com/test/products/634452219e34550c126d20d3/WhatsAppImage2022-04-06at11.10.02AM_900x.PNG</image_link>
+            <image_link>https://cdn.wapizima.com/production/products/634452219e34550c126d20d3/WhatsAppImage2022-04-06at11.10.02AM_900x.PNG</image_link>
             <brand></brand>
         </item>
         <item>
-            <title><![CDATA[G.tokio Good Nails Gama Wall Street]]></title>
+            <title><![CDATA[T.good Nails Wall Street Gel 6 Pzas]]></title>
             <description><![CDATA[Good Nails Gama Wall Street]]></description>
             <link>https://wapizima.com/productos/good-nails-gama-6-colores-y-3-g-wall-street-nntyw6jbj</link>
             <guid isPermaLink="true">https://wapizima.com/productos/good-nails-gama-6-colores-y-3-g-wall-street-nntyw6jbj</guid>
@@ -678,11 +930,11 @@
             <condition>used</condition>
             <price>250</price>
             <link>https://wapizima.com/productos/good-nails-gama-6-colores-y-3-g-wall-street-nntyw6jbj</link>
-            <image_link>https://cdn.wapizima.com/test/products/634455ef254f275e73c0b1c8/WhatsAppImage2022-04-06at11.10.00AM_900x.PNG</image_link>
+            <image_link>https://cdn.wapizima.com/production/products/634455ef254f275e73c0b1c8/WhatsAppImage2022-04-06at11.10.00AM_900x.PNG</image_link>
             <brand></brand>
         </item>
         <item>
-            <title><![CDATA[G.tokio Good Nails Gama Fifth Avenue]]></title>
+            <title><![CDATA[T.good Nails Fifth Avenue Gel 6 Pzas]]></title>
             <description><![CDATA[Good Nails Gama Fifth Avenue]]></description>
             <link>https://wapizima.com/productos/good-nails-gama-6-colores-y-3-gliters-fifth-avenue-rpejwyepq</link>
             <guid isPermaLink="true">https://wapizima.com/productos/good-nails-gama-6-colores-y-3-gliters-fifth-avenue-rpejwyepq</guid>
@@ -692,11 +944,11 @@
             <condition>used</condition>
             <price>250</price>
             <link>https://wapizima.com/productos/good-nails-gama-6-colores-y-3-gliters-fifth-avenue-rpejwyepq</link>
-            <image_link>https://cdn.wapizima.com/test/products/634456ac9e34550c126d8bad/fifthavenue_goodnails.png</image_link>
+            <image_link>https://cdn.wapizima.com/production/products/634456ac9e34550c126d8bad/fifthavenue_goodnails.png</image_link>
             <brand></brand>
         </item>
         <item>
-            <title><![CDATA[G.tokio Good Nails Top Of The Rock Gama]]></title>
+            <title><![CDATA[T.good Nails Top Of The Rock Gel 6 Pzas]]></title>
             <description><![CDATA[Good Nails Gama Top Of The Rock]]></description>
             <link>https://wapizima.com/productos/good-nails-gama-6-colores-y-3-gliters-top-of-the-rock-7v2pxk3l6</link>
             <guid isPermaLink="true">https://wapizima.com/productos/good-nails-gama-6-colores-y-3-gliters-top-of-the-rock-7v2pxk3l6</guid>
@@ -706,11 +958,11 @@
             <condition>used</condition>
             <price>250</price>
             <link>https://wapizima.com/productos/good-nails-gama-6-colores-y-3-gliters-top-of-the-rock-7v2pxk3l6</link>
-            <image_link>https://cdn.wapizima.com/test/products/6344574a254f275e73c0bc56/WhatsAppImage2022-04-06at11.10.02AM_2_900x.jpg</image_link>
+            <image_link>https://cdn.wapizima.com/production/products/6344574a254f275e73c0bc56/WhatsAppImage2022-04-06at11.10.02AM_2_900x.jpg</image_link>
             <brand></brand>
         </item>
         <item>
-            <title><![CDATA[G.tokio Good Nails Gama Brooklyn]]></title>
+            <title><![CDATA[T.good Nails Brooklyn Gel 6 Pzas]]></title>
             <description><![CDATA[Good Nails Gama Brooklyn]]></description>
             <link>https://wapizima.com/productos/good-nails-gama-6-colores-y-3-gliters-brooklyn-9sdb1dktb</link>
             <guid isPermaLink="true">https://wapizima.com/productos/good-nails-gama-6-colores-y-3-gliters-brooklyn-9sdb1dktb</guid>
@@ -720,7 +972,7 @@
             <condition>used</condition>
             <price>250</price>
             <link>https://wapizima.com/productos/good-nails-gama-6-colores-y-3-gliters-brooklyn-9sdb1dktb</link>
-            <image_link>https://cdn.wapizima.com/test/products/634457ce9e34550c126d91db/brooklyn_goodnails.png</image_link>
+            <image_link>https://cdn.wapizima.com/production/products/634457ce9e34550c126d91db/brooklyn_goodnails.png</image_link>
             <brand></brand>
         </item>
         <item>
@@ -734,7 +986,7 @@
             <condition>used</condition>
             <price>190</price>
             <link>https://wapizima.com/productos/gama-gelly-francia-6-colores-htdskyva1</link>
-            <image_link>https://cdn.wapizima.com/test/products/63473063254f275e73f2692f/FRANCIA2_900x.png</image_link>
+            <image_link>https://cdn.wapizima.com/production/products/63473063254f275e73f2692f/FRANCIA2_900x.png</image_link>
             <brand></brand>
         </item>
         <item>
@@ -748,11 +1000,11 @@
             <condition>used</condition>
             <price>190</price>
             <link>https://wapizima.com/productos/gama-gelly-canada-6-colores-pe5saiatt</link>
-            <image_link>https://cdn.wapizima.com/test/products/6347311e254f275e73f26b30/1512.png</image_link>
+            <image_link>https://cdn.wapizima.com/production/products/6347311e254f275e73f26b30/1512.png</image_link>
             <brand></brand>
         </item>
         <item>
-            <title><![CDATA[G.gemstone Party One Tokyo 6 Pzas]]></title>
+            <title><![CDATA[T.gemstone Party One Gel 6 Pzas]]></title>
             <description><![CDATA[Gama Gemstone Party One 5 Pzas Tokyo]]></description>
             <link>https://wapizima.com/productos/ggemstone-party-one-tokyo-5-pzas-ugaiwu_5_</link>
             <guid isPermaLink="true">https://wapizima.com/productos/ggemstone-party-one-tokyo-5-pzas-ugaiwu_5_</guid>
@@ -762,12 +1014,12 @@
             <condition>used</condition>
             <price>220</price>
             <link>https://wapizima.com/productos/ggemstone-party-one-tokyo-5-pzas-ugaiwu_5_</link>
-            <image_link>https://cdn.wapizima.com/test/products/634876679e34550c12ba24ba/rflekta (2).png</image_link>
+            <image_link>https://cdn.wapizima.com/production/products/634876679e34550c12ba24ba/rflekta (2).png</image_link>
             <brand></brand>
         </item>
         <item>
-            <title><![CDATA[G.soft Tokyo 6 Pzas]]></title>
-            <description><![CDATA[Coleccion Soft Geles Tokyo 5 Pzas]]></description>
+            <title><![CDATA[T.coleccion Soft Gel 6 Pzas]]></title>
+            <description><![CDATA[Coleccion Soft Geles Tokyo 6 Pzas]]></description>
             <link>https://wapizima.com/productos/gsoft-tokyo-5-pzas-y-jdebmrt</link>
             <guid isPermaLink="true">https://wapizima.com/productos/gsoft-tokyo-5-pzas-y-jdebmrt</guid>
             <pubDate>Thu, 13 Oct 2022 22:35:15 GMT</pubDate>
@@ -776,7 +1028,7 @@
             <condition>used</condition>
             <price>190</price>
             <link>https://wapizima.com/productos/gsoft-tokyo-5-pzas-y-jdebmrt</link>
-            <image_link>https://cdn.wapizima.com/test/products/634892a39e34550c12bbe5bb/SOFIADOS.png</image_link>
+            <image_link>https://cdn.wapizima.com/production/products/634892a39e34550c12bbe5bb/SOFIADOS.png</image_link>
             <brand></brand>
         </item>
         <item>
@@ -790,7 +1042,7 @@
             <condition>used</condition>
             <price>60</price>
             <link>https://wapizima.com/productos/tdecoracion-sugar-6-pzas-wdqgyc-5k</link>
-            <image_link>https://cdn.wapizima.com/test/products/6352aca09083aaed9a72bf4c/243752094_376146094007989_7940159046983659399_n.jpg</image_link>
+            <image_link>https://cdn.wapizima.com/production/products/6352aca09083aaed9a72bf4c/243752094_376146094007989_7940159046983659399_n.jpg</image_link>
             <brand></brand>
         </item>
         <item>
@@ -804,7 +1056,7 @@
             <condition>used</condition>
             <price>60</price>
             <link>https://wapizima.com/productos/tdecoracion-lovely-6-pzas-fxpxipevl</link>
-            <image_link>https://cdn.wapizima.com/test/products/6352adf6339b8d556a49d2ac/1261.jpg</image_link>
+            <image_link>https://cdn.wapizima.com/production/products/6352adf6339b8d556a49d2ac/1261.jpg</image_link>
             <brand></brand>
         </item>
         <item>
@@ -818,7 +1070,7 @@
             <condition>used</condition>
             <price>60</price>
             <link>https://wapizima.com/productos/tdecoracion-splash-6-pzas--qqqwcnfg</link>
-            <image_link>https://cdn.wapizima.com/test/products/6352aed69083aaed9a773a3c/1263.jpg</image_link>
+            <image_link>https://cdn.wapizima.com/production/products/6352aed69083aaed9a773a3c/1263.jpg</image_link>
             <brand></brand>
         </item>
         <item>
@@ -832,7 +1084,7 @@
             <condition>used</condition>
             <price>60</price>
             <link>https://wapizima.com/productos/tdecoracion-serenidad-6-pzas-4r_068jv4</link>
-            <image_link>https://cdn.wapizima.com/test/products/6352af3c339b8d556a4bfada/1264.jpg</image_link>
+            <image_link>https://cdn.wapizima.com/production/products/6352af3c339b8d556a4bfada/1264.jpg</image_link>
             <brand></brand>
         </item>
         <item>
@@ -846,12 +1098,12 @@
             <condition>used</condition>
             <price>60</price>
             <link>https://wapizima.com/productos/tdecoracion-magia-6-pzas-slnurxqqz</link>
-            <image_link>https://cdn.wapizima.com/test/products/6352afa59083aaed9a78c417/278406290_1017776339117531_6873497546667225087_n.jpg</image_link>
+            <image_link>https://cdn.wapizima.com/production/products/6352afa59083aaed9a78c417/278406290_1017776339117531_6873497546667225087_n.jpg</image_link>
             <brand></brand>
         </item>
         <item>
             <title><![CDATA[T.decoracion Fosfo One 6 Pzas]]></title>
-            <description><![CDATA[Decoracion Tokyo Fosfo One 6 Pzas]]></description>
+            <description><![CDATA[Decoracion Tokyo Fosfo One 6 Pzas ]]></description>
             <link>https://wapizima.com/productos/tdecoracion-fosfo-one-6-pzas-7uqspqyhv</link>
             <guid isPermaLink="true">https://wapizima.com/productos/tdecoracion-fosfo-one-6-pzas-7uqspqyhv</guid>
             <pubDate>Fri, 21 Oct 2022 14:43:49 GMT</pubDate>
@@ -860,12 +1112,12 @@
             <condition>used</condition>
             <price>60</price>
             <link>https://wapizima.com/productos/tdecoracion-fosfo-one-6-pzas-7uqspqyhv</link>
-            <image_link>https://cdn.wapizima.com/test/products/6352b0249083aaed9a79b50f/1268.jpg</image_link>
+            <image_link>https://cdn.wapizima.com/production/products/6352b0249083aaed9a79b50f/1268.jpg</image_link>
             <brand></brand>
         </item>
         <item>
-            <title><![CDATA[T.decoracion Fosfo Two 6 Pzas]]></title>
-            <description><![CDATA[Decoracion Tokyo Fosfo Two 6 Pzas]]></description>
+            <title><![CDATA[T.decoracion Fosfo Two 6 Pzas ]]></title>
+            <description><![CDATA[Decoracion Tokyo Fosfo Two 6 Pzas ]]></description>
             <link>https://wapizima.com/productos/tdecoracion-fosfo-two-6-pzas-14epi-cml</link>
             <guid isPermaLink="true">https://wapizima.com/productos/tdecoracion-fosfo-two-6-pzas-14epi-cml</guid>
             <pubDate>Fri, 21 Oct 2022 14:49:34 GMT</pubDate>
@@ -874,7 +1126,7 @@
             <condition>used</condition>
             <price>60</price>
             <link>https://wapizima.com/productos/tdecoracion-fosfo-two-6-pzas-14epi-cml</link>
-            <image_link>https://cdn.wapizima.com/test/products/6352b17e339b8d556a4fa347/1269 (1).jpg</image_link>
+            <image_link>https://cdn.wapizima.com/production/products/6352b17e339b8d556a4fa347/1269 (1).jpg</image_link>
             <brand></brand>
         </item>
         <item>
@@ -888,12 +1140,12 @@
             <condition>used</condition>
             <price>210</price>
             <link>https://wapizima.com/productos/tpainting-capuchino-6-pzas-uyl80popb</link>
-            <image_link>https://cdn.wapizima.com/test/products/6352b2629083aaed9a7d5597/1270.png</image_link>
+            <image_link>https://cdn.wapizima.com/production/products/6352b2629083aaed9a7d5597/1270.png</image_link>
             <brand></brand>
         </item>
         <item>
             <title><![CDATA[T.painting Gel Rubi 6 Pzas]]></title>
-            <description><![CDATA[Coleccion Painting Gel Rubi 6 Pzas]]></description>
+            <description><![CDATA[Coleccion Painting Gel Rubi 6 Pzas ]]></description>
             <link>https://wapizima.com/productos/tpainting-gel-rubi-6-pzas-vswhp8eom</link>
             <guid isPermaLink="true">https://wapizima.com/productos/tpainting-gel-rubi-6-pzas-vswhp8eom</guid>
             <pubDate>Fri, 21 Oct 2022 14:58:48 GMT</pubDate>
@@ -902,12 +1154,12 @@
             <condition>used</condition>
             <price>210</price>
             <link>https://wapizima.com/productos/tpainting-gel-rubi-6-pzas-vswhp8eom</link>
-            <image_link>https://cdn.wapizima.com/test/products/6352b3a79083aaed9a7f3351/1271.png</image_link>
+            <image_link>https://cdn.wapizima.com/production/products/6352b3a79083aaed9a7f3351/1271.png</image_link>
             <brand></brand>
         </item>
         <item>
-            <title><![CDATA[T.painting Gel Neutro 6 Pzas]]></title>
-            <description><![CDATA[Coleccion Painting Gel Neutro 6 Pzas]]></description>
+            <title><![CDATA[T.painting Gel Neutro 6 Pzas ]]></title>
+            <description><![CDATA[Coleccion Painting Gel Neutro 6 Pzas ]]></description>
             <link>https://wapizima.com/productos/tpainting-gel-neutro-6-pzas-nnqj6jeiu</link>
             <guid isPermaLink="true">https://wapizima.com/productos/tpainting-gel-neutro-6-pzas-nnqj6jeiu</guid>
             <pubDate>Fri, 21 Oct 2022 15:00:24 GMT</pubDate>
@@ -916,12 +1168,12 @@
             <condition>used</condition>
             <price>210</price>
             <link>https://wapizima.com/productos/tpainting-gel-neutro-6-pzas-nnqj6jeiu</link>
-            <image_link>https://cdn.wapizima.com/test/products/6352b407339b8d556a541d63/1272.png</image_link>
+            <image_link>https://cdn.wapizima.com/production/products/6352b407339b8d556a541d63/1272.png</image_link>
             <brand></brand>
         </item>
         <item>
-            <title><![CDATA[T.painting Gel Kalua 6 Pzas]]></title>
-            <description><![CDATA[Coleccion Painting Gel Kalua 6 Pzas]]></description>
+            <title><![CDATA[T.painting Gel Kalua 6 Pzas ]]></title>
+            <description><![CDATA[Coleccion Painting Gel Kalua 6 Pzas ]]></description>
             <link>https://wapizima.com/productos/tpainting-gel-kalua-6-pzas-gr-jkficn</link>
             <guid isPermaLink="true">https://wapizima.com/productos/tpainting-gel-kalua-6-pzas-gr-jkficn</guid>
             <pubDate>Fri, 21 Oct 2022 15:02:09 GMT</pubDate>
@@ -930,12 +1182,12 @@
             <condition>used</condition>
             <price>210</price>
             <link>https://wapizima.com/productos/tpainting-gel-kalua-6-pzas-gr-jkficn</link>
-            <image_link>https://cdn.wapizima.com/test/products/6352b471339b8d556a554e24/1273.png</image_link>
+            <image_link>https://cdn.wapizima.com/production/products/6352b471339b8d556a554e24/1273.png</image_link>
             <brand></brand>
         </item>
         <item>
-            <title><![CDATA[T.painting Gel Neon 6 Pzas]]></title>
-            <description><![CDATA[Coleccion Painting Gel Neon 6 Pzas]]></description>
+            <title><![CDATA[T.painting Gel Neon 6 Pzas ]]></title>
+            <description><![CDATA[Coleccion Painting Gel Neon 6 Pzas ]]></description>
             <link>https://wapizima.com/productos/tpainting-gel-neon-6-pzas-groqdeur8</link>
             <guid isPermaLink="true">https://wapizima.com/productos/tpainting-gel-neon-6-pzas-groqdeur8</guid>
             <pubDate>Fri, 21 Oct 2022 15:37:04 GMT</pubDate>
@@ -944,12 +1196,12 @@
             <condition>used</condition>
             <price>210</price>
             <link>https://wapizima.com/productos/tpainting-gel-neon-6-pzas-groqdeur8</link>
-            <image_link>https://cdn.wapizima.com/test/products/6352bc9f9083aaed9a8f4753/painting-gel-tokio-nails.jpg</image_link>
+            <image_link>https://cdn.wapizima.com/production/products/6352bc9f9083aaed9a8f4753/painting-gel-tokio-nails.jpg</image_link>
             <brand></brand>
         </item>
         <item>
-            <title><![CDATA[T.painting Gel Cosmo 6 Pzas]]></title>
-            <description><![CDATA[Coleccion Painting Gel Cosmos Tokyo 6 Pzas]]></description>
+            <title><![CDATA[T.painting Gel Cosmo 6 Pzas ]]></title>
+            <description><![CDATA[Coleccion Painting Gel Cosmos Tokyo 6 Pzas ]]></description>
             <link>https://wapizima.com/productos/tpainting-gel-cosmo-6-pzas-ibh8iixxu</link>
             <guid isPermaLink="true">https://wapizima.com/productos/tpainting-gel-cosmo-6-pzas-ibh8iixxu</guid>
             <pubDate>Fri, 21 Oct 2022 15:39:57 GMT</pubDate>
@@ -958,12 +1210,12 @@
             <condition>used</condition>
             <price>210</price>
             <link>https://wapizima.com/productos/tpainting-gel-cosmo-6-pzas-ibh8iixxu</link>
-            <image_link>https://cdn.wapizima.com/test/products/6352bd4c339b8d556a64342a/painting-gel-tokio-nails (1).jpg</image_link>
+            <image_link>https://cdn.wapizima.com/production/products/6352bd4c339b8d556a64342a/painting-gel-tokio-nails (1).jpg</image_link>
             <brand></brand>
         </item>
         <item>
-            <title><![CDATA[T.painting Gel Encanto  6 Pzas]]></title>
-            <description><![CDATA[Coleccion Painting Geles Encanto 6 Pzas]]></description>
+            <title><![CDATA[T.painting Gel Encanto  6 Pzas ]]></title>
+            <description><![CDATA[Coleccion Painting Geles Encanto 6 Pzas ]]></description>
             <link>https://wapizima.com/productos/tpainting-gel-encanto-6-pzas-rlveyl2xv</link>
             <guid isPermaLink="true">https://wapizima.com/productos/tpainting-gel-encanto-6-pzas-rlveyl2xv</guid>
             <pubDate>Fri, 21 Oct 2022 15:41:46 GMT</pubDate>
@@ -972,12 +1224,12 @@
             <condition>used</condition>
             <price>210</price>
             <link>https://wapizima.com/productos/tpainting-gel-encanto-6-pzas-rlveyl2xv</link>
-            <image_link>https://cdn.wapizima.com/test/products/6352bdba339b8d556a64ce22/painting-gel-tokio-nails (2).jpg</image_link>
+            <image_link>https://cdn.wapizima.com/production/products/6352bdba339b8d556a64ce22/painting-gel-tokio-nails (2).jpg</image_link>
             <brand></brand>
         </item>
         <item>
             <title><![CDATA[T.painting Gel Romance 6 Pzas]]></title>
-            <description><![CDATA[Coleccion Painting Gel Ronce 6 Pzas]]></description>
+            <description><![CDATA[Coleccion Painting Gel Ronce 6 Pzas ]]></description>
             <link>https://wapizima.com/productos/tpainting-gel-romance-6-pzas-kblcgtsix</link>
             <guid isPermaLink="true">https://wapizima.com/productos/tpainting-gel-romance-6-pzas-kblcgtsix</guid>
             <pubDate>Fri, 21 Oct 2022 15:45:12 GMT</pubDate>
@@ -986,7 +1238,357 @@
             <condition>used</condition>
             <price>210</price>
             <link>https://wapizima.com/productos/tpainting-gel-romance-6-pzas-kblcgtsix</link>
-            <image_link>https://cdn.wapizima.com/test/products/6352be869083aaed9a9366b9/painting-gel-tokio-nails (3).jpg</image_link>
+            <image_link>https://cdn.wapizima.com/production/products/6352be869083aaed9a9366b9/painting-gel-tokio-nails (3).jpg</image_link>
+            <brand></brand>
+        </item>
+        <item>
+            <title><![CDATA[T.lima Good Nails 100/180 Paquete 25 Pzas]]></title>
+            <description><![CDATA[Lima Good Nails 100/180 Paquete 25 Pzs]]></description>
+            <link>https://wapizima.com/productos/lima-good-nails-240240-paquete-25-pzs-kgqn53aj7</link>
+            <guid isPermaLink="true">https://wapizima.com/productos/lima-good-nails-240240-paquete-25-pzs-kgqn53aj7</guid>
+            <pubDate>Mon, 31 Oct 2022 15:46:01 GMT</pubDate>
+            <id>635fedb8926d1effb7ca32e9</id>
+            <availability>in stock</availability>
+            <condition>used</condition>
+            <price>285</price>
+            <link>https://wapizima.com/productos/lima-good-nails-240240-paquete-25-pzs-kgqn53aj7</link>
+            <image_link>https://cdn.wapizima.com/production/products/635fedb8926d1effb7ca32e9/Diseño sin título (12).png</image_link>
+            <brand></brand>
+        </item>
+        <item>
+            <title><![CDATA[T.lima De Uñas 240/240 Paquete 25 Pzas]]></title>
+            <description><![CDATA[Limas Tokyo Nails 240/240 Paquete 25 Pzas]]></description>
+            <link>https://wapizima.com/productos/lima-good-nails-240240-paquete-25-pzs-omrzjocyy</link>
+            <guid isPermaLink="true">https://wapizima.com/productos/lima-good-nails-240240-paquete-25-pzs-omrzjocyy</guid>
+            <pubDate>Mon, 31 Oct 2022 15:52:09 GMT</pubDate>
+            <id>635fef28926d1effb7cafb29</id>
+            <availability>in stock</availability>
+            <condition>used</condition>
+            <price>284</price>
+            <link>https://wapizima.com/productos/lima-good-nails-240240-paquete-25-pzs-omrzjocyy</link>
+            <image_link>https://cdn.wapizima.com/production/products/635fef28926d1effb7cafb29/Diseño sin título (13).png</image_link>
+            <brand></brand>
+        </item>
+        <item>
+            <title><![CDATA[T.gel Los Angeles 1]]></title>
+            <description><![CDATA[Gel 6 Pzas Tokyo Los Ángeles 1]]></description>
+            <link>https://wapizima.com/productos/tgel-los-angeles-1-t7lrx6-cc</link>
+            <guid isPermaLink="true">https://wapizima.com/productos/tgel-los-angeles-1-t7lrx6-cc</guid>
+            <pubDate>Mon, 07 Nov 2022 22:55:28 GMT</pubDate>
+            <id>63698cdfda33a3bc9398c3ce</id>
+            <availability>in stock</availability>
+            <condition>used</condition>
+            <price>190</price>
+            <link>https://wapizima.com/productos/tgel-los-angeles-1-t7lrx6-cc</link>
+            <image_link>https://cdn.wapizima.com/production/products/63698cdfda33a3bc9398c3ce/IMG_0739.png</image_link>
+            <brand></brand>
+        </item>
+        <item>
+            <title><![CDATA[T.gel Los Angeles 2]]></title>
+            <description><![CDATA[Gel 6 Pzas Tokyo Los Angeles 2]]></description>
+            <link>https://wapizima.com/productos/tgel-los-angeles-2-be1_uctmj</link>
+            <guid isPermaLink="true">https://wapizima.com/productos/tgel-los-angeles-2-be1_uctmj</guid>
+            <pubDate>Mon, 07 Nov 2022 22:58:35 GMT</pubDate>
+            <id>63698d9a0106e7ff92841e06</id>
+            <availability>in stock</availability>
+            <condition>used</condition>
+            <price>190</price>
+            <link>https://wapizima.com/productos/tgel-los-angeles-2-be1_uctmj</link>
+            <image_link>https://cdn.wapizima.com/production/products/63698d9a0106e7ff92841e06/IMG_0723.png</image_link>
+            <brand></brand>
+        </item>
+        <item>
+            <title><![CDATA[T.coleccion Esencial 4 Pzas]]></title>
+            <description><![CDATA[Coleccion Esencial Tokyo 4 Pzas]]></description>
+            <link>https://wapizima.com/productos/tcoleccion-esencial-4-pzas-653av5act</link>
+            <guid isPermaLink="true">https://wapizima.com/productos/tcoleccion-esencial-4-pzas-653av5act</guid>
+            <pubDate>Thu, 10 Nov 2022 03:48:58 GMT</pubDate>
+            <id>636c74a93c1e858ecb25530c</id>
+            <availability>in stock</availability>
+            <condition>used</condition>
+            <price>60</price>
+            <link>https://wapizima.com/productos/tcoleccion-esencial-4-pzas-653av5act</link>
+            <image_link>https://cdn.wapizima.com/production/products/636c74a93c1e858ecb25530c/esencialtokio.jpg</image_link>
+            <brand></brand>
+        </item>
+        <item>
+            <title><![CDATA[T.coleccion Cupido 4 Pzas]]></title>
+            <description><![CDATA[Coleccion Cupido Tokyo 4 Pzas]]></description>
+            <link>https://wapizima.com/productos/tcoleccion-cupido-4-pzas-_cz89dcwy</link>
+            <guid isPermaLink="true">https://wapizima.com/productos/tcoleccion-cupido-4-pzas-_cz89dcwy</guid>
+            <pubDate>Thu, 10 Nov 2022 03:54:06 GMT</pubDate>
+            <id>636c75de8851a9413816f83e</id>
+            <availability>in stock</availability>
+            <condition>used</condition>
+            <price>60</price>
+            <link>https://wapizima.com/productos/tcoleccion-cupido-4-pzas-_cz89dcwy</link>
+            <image_link>https://cdn.wapizima.com/production/products/636c75de8851a9413816f83e/cupidotokio.jpg</image_link>
+            <brand></brand>
+        </item>
+        <item>
+            <title><![CDATA[T.coleccion Royal Purple Gel 6 Pzas]]></title>
+            <description><![CDATA[T.coleccion Royal Purple Gel 6 Pzas]]></description>
+            <link>https://wapizima.com/productos/tcoleccion-royal-purple-gel-6-pzas-9dg8mikiy</link>
+            <guid isPermaLink="true">https://wapizima.com/productos/tcoleccion-royal-purple-gel-6-pzas-9dg8mikiy</guid>
+            <pubDate>Fri, 11 Nov 2022 18:27:26 GMT</pubDate>
+            <id>636e940d8935d646e8ba9d2c</id>
+            <availability>in stock</availability>
+            <condition>used</condition>
+            <price>190</price>
+            <link>https://wapizima.com/productos/tcoleccion-royal-purple-gel-6-pzas-9dg8mikiy</link>
+            <image_link>https://cdn.wapizima.com/production/products/636e940d8935d646e8ba9d2c/royalpurpletokyo.jpg</image_link>
+            <brand></brand>
+        </item>
+        <item>
+            <title><![CDATA[T.gemstone Party Two Disco Gel 6 Pzas]]></title>
+            <description><![CDATA[T.gemstone Party Two Disco Gel 6 Pzas]]></description>
+            <link>https://wapizima.com/productos/tgemstone-party-two-disco-gel-6-pzas-r-4k8tkzl</link>
+            <guid isPermaLink="true">https://wapizima.com/productos/tgemstone-party-two-disco-gel-6-pzas-r-4k8tkzl</guid>
+            <pubDate>Fri, 11 Nov 2022 18:54:10 GMT</pubDate>
+            <id>636e9a508935d646e8c56583</id>
+            <availability>in stock</availability>
+            <condition>used</condition>
+            <price>220</price>
+            <link>https://wapizima.com/productos/tgemstone-party-two-disco-gel-6-pzas-r-4k8tkzl</link>
+            <image_link>https://cdn.wapizima.com/production/products/636e9a508935d646e8c56583/twowapizima.jpg</image_link>
+            <brand></brand>
+        </item>
+        <item>
+            <title><![CDATA[T.gemstone Party Gel 6 Pzas]]></title>
+            <description><![CDATA[T.gemstone Party Gel 6 Pzas]]></description>
+            <link>https://wapizima.com/productos/tgemstone-party-gel-6-pzas-6lm1qoyf3</link>
+            <guid isPermaLink="true">https://wapizima.com/productos/tgemstone-party-gel-6-pzas-6lm1qoyf3</guid>
+            <pubDate>Fri, 11 Nov 2022 19:08:18 GMT</pubDate>
+            <id>636e9da18851a941380c87b1</id>
+            <availability>in stock</availability>
+            <condition>used</condition>
+            <price>220</price>
+            <link>https://wapizima.com/productos/tgemstone-party-gel-6-pzas-6lm1qoyf3</link>
+            <image_link>https://cdn.wapizima.com/production/products/636e9da18851a941380c87b1/gemtonecajamoradawapizima.jpg</image_link>
+            <brand></brand>
+        </item>
+        <item>
+            <title><![CDATA[T.stardust Party Gel 6 Pzas]]></title>
+            <description><![CDATA[T.stardust Party Gel 6 Pzas]]></description>
+            <link>https://wapizima.com/productos/tstardust-party-gel-6-pzas-cpcxukqcd</link>
+            <guid isPermaLink="true">https://wapizima.com/productos/tstardust-party-gel-6-pzas-cpcxukqcd</guid>
+            <pubDate>Fri, 11 Nov 2022 19:13:09 GMT</pubDate>
+            <id>636e9ec5da33a3bc93f169a6</id>
+            <availability>in stock</availability>
+            <condition>used</condition>
+            <price>190</price>
+            <link>https://wapizima.com/productos/tstardust-party-gel-6-pzas-cpcxukqcd</link>
+            <image_link>https://cdn.wapizima.com/production/products/636e9ec5da33a3bc93f169a6/stardustpartytokyo.jpg</image_link>
+            <brand></brand>
+        </item>
+        <item>
+            <title><![CDATA[T.fairydust Party Gel 6 Pzas]]></title>
+            <description><![CDATA[T.fairydust Party Gel 6 Pzas]]></description>
+            <link>https://wapizima.com/productos/tfairydust-party-gel-6-pzas-yh1c-meh7</link>
+            <guid isPermaLink="true">https://wapizima.com/productos/tfairydust-party-gel-6-pzas-yh1c-meh7</guid>
+            <pubDate>Fri, 11 Nov 2022 19:17:18 GMT</pubDate>
+            <id>636e9fbc0106e7ff92d904ab</id>
+            <availability>in stock</availability>
+            <condition>used</condition>
+            <price>190</price>
+            <link>https://wapizima.com/productos/tfairydust-party-gel-6-pzas-yh1c-meh7</link>
+            <image_link>https://cdn.wapizima.com/production/products/636e9fbc0106e7ff92d904ab/fairydustpartytokyonails.jpg</image_link>
+            <brand></brand>
+        </item>
+        <item>
+            <title><![CDATA[T.gemstone Party Gel 6 Pzas]]></title>
+            <description><![CDATA[T.gemstone Party Gel 6 Pzas]]></description>
+            <link>https://wapizima.com/productos/tgemstone-party-gel-6-pzas--ujrvydtx</link>
+            <guid isPermaLink="true">https://wapizima.com/productos/tgemstone-party-gel-6-pzas--ujrvydtx</guid>
+            <pubDate>Fri, 11 Nov 2022 19:21:45 GMT</pubDate>
+            <id>636ea0c88935d646e8cfb08c</id>
+            <availability>in stock</availability>
+            <condition>used</condition>
+            <price>220</price>
+            <link>https://wapizima.com/productos/tgemstone-party-gel-6-pzas--ujrvydtx</link>
+            <image_link>https://cdn.wapizima.com/production/products/636ea0c88935d646e8cfb08c/gemstonpartycajaazul.jpg</image_link>
+            <brand></brand>
+        </item>
+        <item>
+            <title><![CDATA[T.mermaid Gel 6 Pzas]]></title>
+            <description><![CDATA[T.mermaid Gel 6 Pzas]]></description>
+            <link>https://wapizima.com/productos/tmermaid-gel-6-pzas-xcqwvrmvt</link>
+            <guid isPermaLink="true">https://wapizima.com/productos/tmermaid-gel-6-pzas-xcqwvrmvt</guid>
+            <pubDate>Fri, 11 Nov 2022 19:24:32 GMT</pubDate>
+            <id>636ea16fda33a3bc93f5c3fd</id>
+            <availability>in stock</availability>
+            <condition>used</condition>
+            <price>190</price>
+            <link>https://wapizima.com/productos/tmermaid-gel-6-pzas-xcqwvrmvt</link>
+            <image_link>https://cdn.wapizima.com/production/products/636ea16fda33a3bc93f5c3fd/MERMAISTOKYONAILS.jpg</image_link>
+            <brand></brand>
+        </item>
+        <item>
+            <title><![CDATA[T.shiny Diamond Party Gel 6 Pzas]]></title>
+            <description><![CDATA[T.shiny Diamond Party Gel 6 Pzas]]></description>
+            <link>https://wapizima.com/productos/tshiny-diamond-party-gel-6-pzas-lflfj2cbg</link>
+            <guid isPermaLink="true">https://wapizima.com/productos/tshiny-diamond-party-gel-6-pzas-lflfj2cbg</guid>
+            <pubDate>Fri, 11 Nov 2022 19:30:41 GMT</pubDate>
+            <id>636ea2e08851a9413813e653</id>
+            <availability>in stock</availability>
+            <condition>used</condition>
+            <price>190</price>
+            <link>https://wapizima.com/productos/tshiny-diamond-party-gel-6-pzas-lflfj2cbg</link>
+            <image_link>https://cdn.wapizima.com/production/products/636ea2e08851a9413813e653/shinediamondpartytokyo.jpg</image_link>
+            <brand></brand>
+        </item>
+        <item>
+            <title><![CDATA[T.cotton Candy Gel 6 Pzas]]></title>
+            <description><![CDATA[T.cotton Candy Gel 6 Pzas]]></description>
+            <link>https://wapizima.com/productos/tcotton-candy-gel-6-pzas-ictwznlak</link>
+            <guid isPermaLink="true">https://wapizima.com/productos/tcotton-candy-gel-6-pzas-ictwznlak</guid>
+            <pubDate>Fri, 11 Nov 2022 19:35:30 GMT</pubDate>
+            <id>636ea4010106e7ff92df01a9</id>
+            <availability>in stock</availability>
+            <condition>used</condition>
+            <price>190</price>
+            <link>https://wapizima.com/productos/tcotton-candy-gel-6-pzas-ictwznlak</link>
+            <image_link>https://cdn.wapizima.com/production/products/636ea4010106e7ff92df01a9/cottoncandytokyonails.jpg</image_link>
+            <brand></brand>
+        </item>
+        <item>
+            <title><![CDATA[T.la Fussion Gama I Gel 6 Pzas]]></title>
+            <description><![CDATA[T.la Fussion Gama I Gel 6 Pzas]]></description>
+            <link>https://wapizima.com/productos/tla-fussion-gama-i-gel-6-pzas-07mfr0-je</link>
+            <guid isPermaLink="true">https://wapizima.com/productos/tla-fussion-gama-i-gel-6-pzas-07mfr0-je</guid>
+            <pubDate>Fri, 11 Nov 2022 20:03:08 GMT</pubDate>
+            <id>636eaa7b8935d646e8dd4004</id>
+            <availability>in stock</availability>
+            <condition>used</condition>
+            <price>245</price>
+            <link>https://wapizima.com/productos/tla-fussion-gama-i-gel-6-pzas-07mfr0-je</link>
+            <image_link>https://cdn.wapizima.com/production/products/636eaa7b8935d646e8dd4004/gamailafussion.jpg</image_link>
+            <brand></brand>
+        </item>
+        <item>
+            <title><![CDATA[T.musas Meira Gel Premium]]></title>
+            <description><![CDATA[T.musas Meira Gel Premium]]></description>
+            <link>https://wapizima.com/productos/tmusas-meira-gel-premium-jemsbfqmj</link>
+            <guid isPermaLink="true">https://wapizima.com/productos/tmusas-meira-gel-premium-jemsbfqmj</guid>
+            <pubDate>Fri, 11 Nov 2022 22:24:12 GMT</pubDate>
+            <id>636ecb8b0106e7ff921e603f</id>
+            <availability>in stock</availability>
+            <condition>used</condition>
+            <price>190</price>
+            <link>https://wapizima.com/productos/tmusas-meira-gel-premium-jemsbfqmj</link>
+            <image_link>https://cdn.wapizima.com/production/products/636ecb8b0106e7ff921e603f/meira1.jpg</image_link>
+            <brand></brand>
+        </item>
+        <item>
+            <title><![CDATA[T.musas Soryn Gel Premium]]></title>
+            <description><![CDATA[T.musas Soryn Gel Premium]]></description>
+            <link>https://wapizima.com/productos/tmusas-soryn-gel-premium-dlgj-toq-</link>
+            <guid isPermaLink="true">https://wapizima.com/productos/tmusas-soryn-gel-premium-dlgj-toq-</guid>
+            <pubDate>Fri, 11 Nov 2022 22:27:32 GMT</pubDate>
+            <id>636ecc53da33a3bc9336dc24</id>
+            <availability>in stock</availability>
+            <condition>used</condition>
+            <price>190</price>
+            <link>https://wapizima.com/productos/tmusas-soryn-gel-premium-dlgj-toq-</link>
+            <image_link>https://cdn.wapizima.com/production/products/636ecc53da33a3bc9336dc24/soryn1.jpg</image_link>
+            <brand></brand>
+        </item>
+        <item>
+            <title><![CDATA[T.musas Naida Gel Premium 6 Pzas]]></title>
+            <description><![CDATA[T.musas Naida Gel Premium 6 Pzas]]></description>
+            <link>https://wapizima.com/productos/tmusas-naida-gel-premium-6-pzas-8dvpbgxkt</link>
+            <guid isPermaLink="true">https://wapizima.com/productos/tmusas-naida-gel-premium-6-pzas-8dvpbgxkt</guid>
+            <pubDate>Fri, 11 Nov 2022 22:30:09 GMT</pubDate>
+            <id>636eccef0106e7ff9220252b</id>
+            <availability>in stock</availability>
+            <condition>used</condition>
+            <price>190</price>
+            <link>https://wapizima.com/productos/tmusas-naida-gel-premium-6-pzas-8dvpbgxkt</link>
+            <image_link>https://cdn.wapizima.com/production/products/636eccef0106e7ff9220252b/naida1.jpg</image_link>
+            <brand></brand>
+        </item>
+        <item>
+            <title><![CDATA[T.musas Meraki Gel Premium 6 Pzas]]></title>
+            <description><![CDATA[T.musas Meraki Gel Premium 6 Pzas]]></description>
+            <link>https://wapizima.com/productos/tmusas-meraki-gel-premium-6-pzas-e5g8yqyxc</link>
+            <guid isPermaLink="true">https://wapizima.com/productos/tmusas-meraki-gel-premium-6-pzas-e5g8yqyxc</guid>
+            <pubDate>Fri, 11 Nov 2022 22:32:20 GMT</pubDate>
+            <id>636ecd740106e7ff92216d3a</id>
+            <availability>in stock</availability>
+            <condition>used</condition>
+            <price>190</price>
+            <link>https://wapizima.com/productos/tmusas-meraki-gel-premium-6-pzas-e5g8yqyxc</link>
+            <image_link>https://cdn.wapizima.com/production/products/636ecd740106e7ff92216d3a/meraki1.jpg</image_link>
+            <brand></brand>
+        </item>
+        <item>
+            <title><![CDATA[T.musas Kaira Gel Premium 6 Pzas]]></title>
+            <description><![CDATA[T.musas Kaira Gel Premium 6 Pzas]]></description>
+            <link>https://wapizima.com/productos/tmusas-kaira-gel-premium-6-pzas-un187-xx1</link>
+            <guid isPermaLink="true">https://wapizima.com/productos/tmusas-kaira-gel-premium-6-pzas-un187-xx1</guid>
+            <pubDate>Fri, 11 Nov 2022 22:34:28 GMT</pubDate>
+            <id>636ecdf38935d646e810b4ba</id>
+            <availability>in stock</availability>
+            <condition>used</condition>
+            <price>190</price>
+            <link>https://wapizima.com/productos/tmusas-kaira-gel-premium-6-pzas-un187-xx1</link>
+            <image_link>https://cdn.wapizima.com/production/products/636ecdf38935d646e810b4ba/kaira1.jpg</image_link>
+            <brand></brand>
+        </item>
+        <item>
+            <title><![CDATA[T.musas Azura Gel Premium 6 Pzas]]></title>
+            <description><![CDATA[T.musas Azura Gel Premium 6 Pzas]]></description>
+            <link>https://wapizima.com/productos/tmusas-azura-gel-premium-6-pzas-mrkz2j2oa</link>
+            <guid isPermaLink="true">https://wapizima.com/productos/tmusas-azura-gel-premium-6-pzas-mrkz2j2oa</guid>
+            <pubDate>Fri, 11 Nov 2022 22:37:14 GMT</pubDate>
+            <id>636ece9a0106e7ff922299e5</id>
+            <availability>in stock</availability>
+            <condition>used</condition>
+            <price>190</price>
+            <link>https://wapizima.com/productos/tmusas-azura-gel-premium-6-pzas-mrkz2j2oa</link>
+            <image_link>https://cdn.wapizima.com/production/products/636ece9a0106e7ff922299e5/azura1.jpg</image_link>
+            <brand></brand>
+        </item>
+        <item>
+            <title><![CDATA[T.musas Asteria Gel Premium ]]></title>
+            <description><![CDATA[T.musas Asteria Gel Premium ]]></description>
+            <link>https://wapizima.com/productos/tmusas-asteria-gel-premium-kj3ljopyi</link>
+            <guid isPermaLink="true">https://wapizima.com/productos/tmusas-asteria-gel-premium-kj3ljopyi</guid>
+            <pubDate>Fri, 11 Nov 2022 22:40:35 GMT</pubDate>
+            <id>636ecf62947dd932e99b4552</id>
+            <availability>in stock</availability>
+            <condition>used</condition>
+            <price>190</price>
+            <link>https://wapizima.com/productos/tmusas-asteria-gel-premium-kj3ljopyi</link>
+            <image_link>https://cdn.wapizima.com/production/products/636ecf62947dd932e99b4552/asteria1.jpg</image_link>
+            <brand></brand>
+        </item>
+        <item>
+            <title><![CDATA[T.musas Adara Gel Premium ]]></title>
+            <description><![CDATA[T.musas Adara Gel Premium]]></description>
+            <link>https://wapizima.com/productos/tmusas-adara-gel-premium-irt4yioy7</link>
+            <guid isPermaLink="true">https://wapizima.com/productos/tmusas-adara-gel-premium-irt4yioy7</guid>
+            <pubDate>Fri, 11 Nov 2022 22:56:48 GMT</pubDate>
+            <id>636ed32f947dd932e9a19419</id>
+            <availability>in stock</availability>
+            <condition>used</condition>
+            <price>190</price>
+            <link>https://wapizima.com/productos/tmusas-adara-gel-premium-irt4yioy7</link>
+            <image_link>https://cdn.wapizima.com/production/products/636ed32f947dd932e9a19419/adara1.jpg</image_link>
+            <brand></brand>
+        </item>
+        <item>
+            <title><![CDATA[T.musas Amity Gel Premium ]]></title>
+            <description><![CDATA[T.musas Amity Gel Premium]]></description>
+            <link>https://wapizima.com/productos/tmusas-amity-gel-premium-esof8urpu</link>
+            <guid isPermaLink="true">https://wapizima.com/productos/tmusas-amity-gel-premium-esof8urpu</guid>
+            <pubDate>Fri, 11 Nov 2022 22:59:16 GMT</pubDate>
+            <id>636ed3c3da33a3bc9341ed50</id>
+            <availability>in stock</availability>
+            <condition>used</condition>
+            <price>190</price>
+            <link>https://wapizima.com/productos/tmusas-amity-gel-premium-esof8urpu</link>
+            <image_link>https://cdn.wapizima.com/production/products/636ed3c3da33a3bc9341ed50/amity1.jpg</image_link>
             <brand></brand>
         </item>
     </channel>

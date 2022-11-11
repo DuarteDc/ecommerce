@@ -13,7 +13,7 @@ import { pages } from "../../staticData/pages";
 import Cookies from "js-cookie";
 import { logout } from "../../actions/authActions";
 
-import {Button, Menu, MenuItem} from "@mui/material";
+import { Button, Menu, MenuItem } from "@mui/material";
 import { helpers } from "../../helpers";
 
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
@@ -24,10 +24,8 @@ import SelectCurrency from "./SelectCurrency";
 
 import ShoppingCartCheckoutIcon from '@mui/icons-material/ShoppingCartCheckout';
 import SearchIcon from '@mui/icons-material/Search';
-import { Drawer, ListItem } from "@mui/material";
-
-import LocationOnIcon from '@mui/icons-material/LocationOn';
-import { Modal } from "../ui/modal";
+import MenuIcon from '@mui/icons-material/Menu';
+import { Drawer } from "@mui/material";
 
 const NavBar = () => {
 
@@ -85,10 +83,6 @@ const NavBar = () => {
     router.replace("/");
   };
 
-  const handleMenuopen = () => {
-    toggle();
-  };
-
   const [anchorEl, setAnchorEl] = useState(null);
 
   const openMenu = Boolean(anchorEl);
@@ -122,24 +116,34 @@ const NavBar = () => {
     if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
       return;
     }
-    toggle();8
+    toggle();
   };
 
   const DrawerOptions = () => {
     return (
-      <div  >
+      <div className="font-Poppins">
+        <figure className="flex justify-center">
+          <img
+            src={logo}
+            alt="Wapizima"
+            width={90}
+            height={90}
+            onClick={handleClickLogo}
+            className="cursor-pointer"
+          />
+        </figure>
         {pages.map((route) => (
           route.name !== 'Escuela' ? (
-            <div className="block list-none px-16 py-[22px] cursor-pointer text-gray-500 hover:bg-gray-200 hover:text-stone-900">
+            <div className="pl-4 mb-5 cursor-pointer text-gray-900 hover:text-stone-900 hover:bg-gray-100 py-2 uppercase text-sm">
               <Link href={route.path} passHref key={route.path}
-              prefetch={false}>
-              <span>{route.icon}{route.name}</span>
-            </Link>
+                prefetch={false}>
+                <span>{route.icon}{route.name}</span>
+              </Link>
             </div>
           ) : (
-            <div className="block list-none px-16 py-[22px] cursor-pointer text-gray-500  hover:bg-gray-200  hover:text-stone-900">
-              <Link  href={route.path} key={route.path} prefetch={false}>
-              <a target="_blank">{route.icon}{route.name}</a>
+            <div className="pl-4 mb-5 cursor-pointer text-gray-900 hover:text-stone-900 hover:bg-gray-100 py-2 uppercase text-sm">
+              <Link href={route.path} key={route.path} prefetch={false}>
+                <a target="_blank">{route.icon}{route.name}</a>
               </Link>
             </div>
           )
@@ -147,26 +151,26 @@ const NavBar = () => {
         <div>
           {logged ? (
             <div>
+              <hr />
               <Link href="/perfil" passHref>
-              <span className="block list-none px-16 py-[22px] cursor-pointer hover:bg-gray-200  text-gray-500  hover:text-stone-900"><AccountCircleIcon className="mr-4"/>Mi cuenta</span>
+                <span className="block pl-4 mb-5 cursor-pointer text-gray-900 hover:text-stone-900 hover:bg-gray-100 py-2 uppercase text-sm pr-28"><AccountCircleIcon className="mr-4" />Mi cuenta</span>
               </Link>
-              <hr/>
-                <span className="block list-none px-16 py-[22px] cursor-pointer hover:bg-gray-200 text-gray-500  hover:text-stone-900" onClick={(e) => {
-                  handleClose(e);
-                  logoutSession();
-                }} >
-                  Cerrar Sesión
-                </span>
+              <span className="block pl-4 mb-5 cursor-pointer text-gray-900 hover:text-stone-900 hover:bg-gray-100 py-2 uppercase text-sm pr-28" onClick={(e) => {
+                handleClose(e);
+                logoutSession();
+              }} >
+                Cerrar Sesión
+              </span>
             </div>
           ) : (
             <div>
-              <hr/>
-              <span className="block list-none px-16 py-[22px] cursor-pointer hover:bg-gray-200 text-gray-500  hover:text-stone-900"
-              onClick={() => router.push(`/auth/login?p=${router.asPath}`)}>
+              <hr />
+              <span className="block pl-4 mb-5 cursor-pointer text-gray-900 hover:text-stone-900 hover:bg-gray-100 py-2 uppercase text-sm pr-28"
+                onClick={() => router.push(`/auth/login?p=${router.asPath}`)}>
                 Iniciar Sesión
               </span>
-              <span className="block list-none px-16 py-[22px] cursor-pointer hover:bg-gray-200 text-gray-500  hover:text-stone-900" onClick={() => router.push(`/auth/register/?p=${router.asPath}`)}>
-                
+              <span className="block pl-4 mb-5 cursor-pointer text-gray-900 hover:text-stone-900 hover:bg-gray-100 py-2 uppercase text-sm pr-28" onClick={() => router.push(`/auth/register/?p=${router.asPath}`)}>
+
                 Registrate
               </span>
             </div>
@@ -219,20 +223,20 @@ const NavBar = () => {
 
             {!open ? (
               <button
-                className="space-y-2  lg:hidden xl:hidden"
+                className="lg:hidden"
                 onClick={toggleDrawer}
               >
-                <span className="block w-8 h-0.5 bg-gray-600"></span>
-                <span className="block w-8 h-0.5 bg-gray-600"></span>
-                <span className="block w-8 h-0.5 bg-gray-600"></span>
+                <MenuIcon
+                  className="text-gray-600 text-[30px]"
+                />
               </button>
             ) : (
               <button
-                className="space-y-2  lg:hidden xl:hidden border  border-gray-600"
+                className="lg:hidden"
                 onClick={toggleDrawer}
               >
                 <CloseIcon
-                  className="text-gray-600 text-[30px] block"
+                  className="text-gray-600 text-[30px]"
                 />
               </button>
             )}
@@ -245,13 +249,13 @@ const NavBar = () => {
                   name !== 'Escuela' ? (
                     <Link href={path} passHref key={name} prefetch={false}>
                       <span className="text-[#888] border-transparent border-b-2 hover:text-[#333] mx-4 cursor-pointer  font-Poppins font-medium transition uppercase duration-700 ease-in-out">
-                       {name}
+                        {name}
                       </span>
                     </Link>
                   ) : (
                     <Link href={path} key={name} prefetch={false}>
                       <a target="_blank" className="text-[#888] border-transparent border-b-2 hover:text-[#333] mx-4 cursor-pointer  font-Poppins font-medium transition uppercase duration-700 ease-in-out">
-                       {name}
+                        {name}
                       </a>
                     </Link>
                   )
@@ -474,7 +478,7 @@ const NavBar = () => {
         </div>
       </div> */}
       <div className="flex items-center justify-center">
-      <div className="pb-2 lg:w-8/12 w-full lg:px-20 px-8 flex items-center">
+        <div className="pb-2 lg:w-8/12 w-full lg:px-20 px-8 flex items-center">
           <form onSubmit={startSearchProduct} className="w-full flex">
             <input
               className="bg-gray-50 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700  leading-tight focus:outline-none focus:bg-white focus:border-[#e91e63] text-[13px]"
