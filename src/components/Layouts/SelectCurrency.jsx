@@ -25,6 +25,7 @@ const SelectCurrency = ({ currencies, onChange, value }) => {
                 aria-haspopup="true"
                 aria-expanded={open ? 'true' : undefined}
                 onClick={handleClick}
+                title="Pais"
                 className="p-0"
             >
                 <img src={value.image} alt="" width="20" height="20" />

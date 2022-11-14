@@ -52,10 +52,12 @@ export const TestimonialArea = () => {
               <SwiperSlide key={review._id}>
                 <div className="text-center my-0 mx-auto max-w-[745px] px-6">
                   <div className="mb-[30px] flex justify-center">
-                    <img
+                    <Image
                       src={review?.client?.profileImage}
                       width={65}
                       height={65}
+                      layout="responsive"
+                      alt={review.client.fullname}
                       className="rounded-[50%]"
                     />
                   </div>

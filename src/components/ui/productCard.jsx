@@ -16,6 +16,7 @@ import { notify } from "../../helpers/helpers";
 
 import { useCart } from "../../hooks/useCart";
 import { ButtonGroup } from "./buttonGroup";
+import Image from 'next/image';
 
 export const ProductCard = memo(({ product }) => {
 
@@ -55,9 +56,9 @@ export const ProductCard = memo(({ product }) => {
     <div className="mb-[30px] relative p-2 card animate__animated animate__zoomIn md:mx-2 shadow-md md:shadow-none">
       <div className="relative overflow-hidden ">
         <div className="w-full h-full relative">
-          <img
+          <Image
             src={product.multimedia[0].path}
-            alt="product"
+            alt={product.name}
             width="320"
             layout="responsive"
             height="320"
@@ -168,7 +169,6 @@ export const ProductCard = memo(({ product }) => {
                           className="flex items-center font-Poppins"
                         >
                           Agregar
-                          <AddShoppingCartIcon className="ml-2 text-sm" />
                         </span>
                       </button>
                     ) : (
