@@ -9,8 +9,9 @@ import { startLoadBrands } from "../../src/actions/brandsActions";
 import { startLoadFaqsCategories } from "../../src/actions/faqsActions";
 import { startLoadAdministrableLogo } from "../../src/actions/administrableActions";
 
-import { CardProduct, BannerImage } from "../../src/components/ui";
-import { Newsletter } from "../../src/components/home";
+import { BannerImage } from "../../src/components/ui";
+import CardProduct from "../../src/components/ui/cardProduct";
+import Newsletter from "../../src/components/home/Newsletter";
 import { Breadcrumbs, Grid, Typography } from "@mui/material";
 import HomeIcon from '@mui/icons-material/Home';
 import NavigateNextIcon from '@mui/icons-material/NavigateNext';
@@ -69,7 +70,7 @@ const Brands = () => {
             brands.map(brand => (
               <Grid item xs={12} sm={12} md={3} lg={3} xl={3} key={brand._id}>
                 <CardProduct
-                  image={brand.image}
+                  images={brand.images}
                   name={brand.name}
                   hasName={false}
                   url={brand.url}

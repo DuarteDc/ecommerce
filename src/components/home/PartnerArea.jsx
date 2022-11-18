@@ -6,7 +6,7 @@ import { useSelector } from "react-redux";
 import { useRouter } from "next/router";
 /**tags */
 
-export const PartnerArea = () => {
+const PartnerArea = () => {
   const { brands } = useSelector((state) => state.brands);
   const router = useRouter();
 
@@ -27,3 +27,4 @@ export const PartnerArea = () => {
     </section>
   );
 };
+export default PartnerArea;

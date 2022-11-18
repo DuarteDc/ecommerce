@@ -1,5 +1,6 @@
 import client from '../config/axiosConfig';
 import { types } from '../types';
+import { clearSubcategory } from './productsAction';
 
 /**
  * It's an async function that returns a function that dispatches a function that returns a promise
@@ -189,15 +190,16 @@ export const startLoadCategoriesPerBrand = (brand) => {
 const loadCategoriesPerBrand = (categories) => ({
     type: types.load_categories_per_brand,
     payload: categories,
-}); 
-
+});
 
 export const startLoadSubcategoriesPerCategory = (category) => {
     return async (dispatch) => {
-        const url = `/subcategories/category-slug/${category}`;
+        const url = `/subcategories/category/${category}`;
         try {
             const { data } = await client.get(url);
+            dispatch(clearSubcategory(4));
             dispatch(loadSubcategoriesPerCategory(data.subcategories));
+            dispatch(showSubcategory(true))
         } catch (error) {
             console.log(error);
         }
@@ -207,7 +209,7 @@ export const startLoadSubcategoriesPerCategory = (category) => {
 const loadSubcategoriesPerCategory = (subcategories) => ({
     type: types.load_subcategories_per_category_or_per_brand,
     payload: subcategories,
-}); 
+});
 
 export const startLoadSubcategoriesPerBrand = (brand) => {
     return async (dispatch) => {
@@ -224,4 +226,13 @@ export const startLoadSubcategoriesPerBrand = (brand) => {
 const loadSubcategoriesPerBrand = (subcategories) => ({
     type: types.load_subcategories_per_category_or_per_brand,
     payload: subcategories,
-}); 
+});
+
+const showSubcategory = (isOpen) => ({
+    type: types.show_subcategories,
+    payload: isOpen
+});
+
+export const clearSubcategories = () =>({
+    type: types.clear_subcategories,
+});

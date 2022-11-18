@@ -1,9 +1,14 @@
+import { useDispatch } from "react-redux";
+import { startLoadSubcategoriesPerCategory } from "../../actions/categoryActions";
 
 const CategoryItem = ({ category, startSearchByQueryParams, paramsFilters, dimensions, setOpen }) => {
 
+    const dispatch = useDispatch();
+
     const handleFilterProducts = async (category) => {
-        await startSearchByQueryParams({ category_id: category._id });
-        paramsFilters(category);
+        await startSearchByQueryParams({ category_id: category._id }, 1);
+        paramsFilters({ ...category, type: 3 });
+        dispatch(startLoadSubcategoriesPerCategory(category._id));
         if (dimensions === 'sm') setOpen(false);
     }
 

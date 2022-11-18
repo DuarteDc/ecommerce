@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import { useDispatch } from 'react-redux';
 
 import { addProductToShoppingCart, startAddProductShoppingCart, startRemoveProductShoppingCart, startRemoveProductsShoppingCartNotLogged, startUpdateCartNoAuth, startUpdatedProductQuantity } from '../actions/shoppingCartActions';
@@ -8,6 +8,10 @@ import { warningNotify, notify, successNotify } from '../helpers/helpers';
 import { useDebounce } from './useDebounce';
 
 import Cookies from 'js-cookie';
+
+const INCREASE = 1;
+const DECREASE = 2;
+const CHANGE = 3;
 
 export const useCart = (logged = false, currentQuantity = 1, product = {}, cart, type = 1, isAdd = false, timeToUpdate = 300) => {
 
@@ -19,10 +23,10 @@ export const useCart = (logged = false, currentQuantity = 1, product = {}, cart,
     const [productInCart, setProductInCart] = useState(false);
     const update = useDebounce(quantity, timeToUpdate);
 
-
     const currency = Cookies.get('Currency') || 'MXN';
 
     const updateCart = (product_id, quantity = 1) => {
+
 
         if (logged) return dispatch(startUpdatedProductQuantity({ product_id, quantity: quantity || 1 }));
 
@@ -38,12 +42,13 @@ export const useCart = (logged = false, currentQuantity = 1, product = {}, cart,
     const handleChangeProductQuantity = ({ target }) => {
         if (target.value > product.quantity) {
             warningNotify(`Cantidad disponible: ${product.quantity}`);
+            setUpdatedQuantity(false);
             return setQuantity(product.quantity);
         }
 
-        const quantity = target.value.replace(/^0+/, '');
-        setQuantity(quantity);
+        setQuantity(target.value.replace(/^0+/, ''));
         setUpdatedQuantity(true);
+
     }
 
     const updateProductQuantity = (value = 1) => {
@@ -71,7 +76,7 @@ export const useCart = (logged = false, currentQuantity = 1, product = {}, cart,
 
     const addProduct = () => {
         const productInCart = existInShoppingCart(product._id, cart);
-        
+
         if (logged)
             return dispatch(startAddProductShoppingCart({ product_id: product._id, quantity: quantity || 1 }, product));
 
@@ -93,12 +98,13 @@ export const useCart = (logged = false, currentQuantity = 1, product = {}, cart,
         if (!productInShoppingCart) return;
         const { quantity } = cart.find(p => p.product_id._id === product?._id);
         setQuantity(quantity)
-    }, [cart, logged]);
+    }, [cart]);
 
     useEffect(() => {
-        if (updatedQuantity && quantity && isAdd) {
+        if (updatedQuantity && quantity !== '' && isAdd) {
             const product_id = product._id;
             updateCart(product_id, quantity);
+            setUpdatedQuantity(false);
         }
     }, [update]);
 

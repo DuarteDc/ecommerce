@@ -12,8 +12,6 @@ import VerticalAlignTopIcon from '@mui/icons-material/VerticalAlignTop';
 
 export const OrderProductsList = ({ product, handleOpenProductDetail, handleOpenUploadImages, status, order_id, canvasStatus }) => {
 
-    console.log(product  )
-
     const { product_id: productList, quantity, subtotalInCurrency, subtotal } = product;
     const subtotalProduct = helpers.priceFormat(subtotalInCurrency || subtotal);
 

@@ -1,10 +1,11 @@
 import { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 
-import { addFiltersPerProducts, clearAll, startFilterProducts } from "../actions/productsAction";
+import { addFiltersPerProducts, clearAll, removeItemFromFilters, startFilterProducts } from "../actions/productsAction";
 import { helpersProducts } from "../helpers";
 import { params } from "../staticData/queryParams";
 import Cookies from "js-cookie";
+import { clearSubcategories } from "../actions/categoryActions";
 
 export const useQueryParams = (endpoint, { router }) => {
   const { getQueryParams, filterSearch } = helpersProducts;
@@ -18,7 +19,7 @@ export const useQueryParams = (endpoint, { router }) => {
     dispatch(addFiltersPerProducts(filter));
   }
 
-  const startSearchByQueryParams = (param) => {
+  const startSearchByQueryParams = (param, type = 2) => {
     const paramIsValid = params.find((p) => p === Object?.keys(param)[0]);
 
     if (!paramIsValid) {
@@ -30,9 +31,36 @@ export const useQueryParams = (endpoint, { router }) => {
         { shallow: true }
       );
     }
-
-    filterSearch({ router, param });
+    filterSearch({ router, param, type });
   };
+
+  const removeQueryParam = async (param = {}, endpoint = '') => {
+
+    const arrFiltered = [];
+    let currenQueries = Object.entries(router.query);
+
+    if (param.type === 3 && router.query.hasOwnProperty('subcategory_id')) {
+      const { subcategory_id, category_id, ...rest } = router.query;
+      arrFiltered = Object.entries(rest);
+      dispatch(clearSubcategories())
+    } else {
+      arrFiltered = currenQueries.filter(([key, value]) => value !== param?._id && value != param?.min && value != param?.max);
+    }
+
+    const newQueries = Object.fromEntries(arrFiltered);
+    router.push(
+      {
+        pathname: router.path,
+        query: newQueries
+      },
+      undefined,
+      { shallow: true }
+    );
+
+    if (Object.keys(newQueries).length < 1) await dispatch(startFilterProducts(endpoint));
+
+    dispatch(removeItemFromFilters(param));
+  }
 
   const starClearQueryParams = async (endpoint) => {
     if (router.query.hasOwnProperty('url')) {
@@ -66,5 +94,5 @@ export const useQueryParams = (endpoint, { router }) => {
     if (Object.keys(router.query).length > 0) searchData();
   }, [router.asPath]);
 
-  return { queryParams, startSearchByQueryParams, starClearQueryParams, paramsFilters, loading };
+  return { queryParams, startSearchByQueryParams, starClearQueryParams, paramsFilters, removeQueryParam, loading };
 };

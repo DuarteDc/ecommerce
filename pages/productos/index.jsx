@@ -1,4 +1,5 @@
-import { useSelector, useDispatch } from "react-redux";
+import { useState } from "react";
+import { useSelector } from "react-redux";
 import { wrapper } from "../../src/store";
 
 import Pagination from "@mui/material/Pagination";
@@ -15,9 +16,6 @@ import { startLoadAdministrableLogo } from "../../src/actions/administrableActio
 import { BannerImage } from "../../src/components/ui/bannerImage";
 import { ProductCard } from "../../src/components/ui";
 
-import ProductCardMobile from "../../src/components/ui/Mobile/ProductCard";
-
-import { useEffect, useState } from "react";
 import PaginationItem from "@mui/material/PaginationItem";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
@@ -30,10 +28,10 @@ import { startLoadFaqsCategories } from "../../src/actions/faqsActions";
 
 import { useQueryParams } from "../../src/hooks/useQueryParams";
 import RangePrice from "../../src/components/prices/RangePrice";
-import { startFilterProducts, startSearchProduct } from "../../src/actions/productsAction";
+import { startFilterProducts } from "../../src/actions/productsAction";
 
-import { useDebounce } from "../../src/hooks/useDebounce";
 import { startLoadCurrencies, startLoadPricesCurrencies } from "../../src/actions/countryAcctions";
+import SubcategoriesList from "../../src/components/subcategories/SubcategoriesList";
 
 const endpoint = "/products/filter/products-paginated";
 
@@ -41,14 +39,13 @@ const Products = () => {
 
   const router = useRouter();
 
-  const { startSearchByQueryParams, starClearQueryParams, paramsFilters, loading } = useQueryParams(endpoint, { router });
+  const { startSearchByQueryParams, starClearQueryParams, paramsFilters, loading, removeQueryParam } = useQueryParams(endpoint, { router });
 
-  const { products, searchedProducts } = useSelector((state) => state.products);
+  const { products, filters } = useSelector((state) => state.products);
 
   const { logo } = useSelector((state) => state?.administrable);
   const { brands } = useSelector((state) => state?.brands);
-  const { dimensions } = useSelector((state) => state?.ui);
-  const { categories } = useSelector((state) => state?.categories);
+  const { categories, subcategories, showSubcategory } = useSelector((state) => state.categories);
   const { currencyPrices } = useSelector(state => state.countries);
 
   const handelClickPage = async (e, value) => {
@@ -80,6 +77,8 @@ const Products = () => {
           <Filters
             starClearQueryParams={starClearQueryParams}
             endpoint={endpoint}
+            removeQueryParam={removeQueryParam}
+            filters={filters}
           />
           <RangePrice
             startSearchByQueryParams={startSearchByQueryParams}
@@ -96,23 +95,25 @@ const Products = () => {
             startSearchByQueryParams={startSearchByQueryParams}
             paramsFilters={paramsFilters}
           />
+          {
+            showSubcategory && (
+              <SubcategoriesList
+                subcategories={subcategories}
+                startSearchByQueryParams={startSearchByQueryParams}
+                paramsFilters={paramsFilters}
+              />
+            )
+          }
         </AsideBar>
         <div className="col-span-4 md:col-span-2 lg:col-span-3">
           <div className={`grid grid-cols-2 lg:grid-cols-3 mb-20 mt-10`}>
             {
               products?.totalDocs > 0 ? (
                 products?.products?.map((product) => (
-                  // dimensions === 'sm' ? (
-                  //   <ProductCardMobile
-                  //     key={product._id}
-                  //     product={product}
-                  //   />
-                  // ) : (
-                    <ProductCard
-                      key={product._id}
-                      product={product}
-                    />
-                  // )
+                  <ProductCard
+                    key={product._id}
+                    product={product}
+                  />
                 ))
               ) : (
                 <div className="text-center col-span-full">

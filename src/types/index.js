@@ -83,7 +83,9 @@ export const types = {
     laod_tax_system: '[PROFILE] load tax system',
 
     load_subcategories: '[SUBCATEGORIES] load subcategories',
-
+    show_subcategories: '[SUBCATEGORIES] show subcategories',
+    clear_subcategories: '[SUBCATEGORIES] clear subcategories',
+    clear_subcategory: '[PRODUCTS] clear subcategory',
 
     addProductShoppingCart: '[ShoppingCart] add product to shopping cart',
     loadShoppingCartFromLocalStorage: '[ShoppingCart] load shopping cart from loadShoppingCartFromLocalStorage',
@@ -97,6 +99,7 @@ export const types = {
     removeAddressFromCart: '[SoppingCart] remove address from cart',
     load_business_rules: '[ShoppingCart] load_business_rules',
     load_shipping_cost: '[ShoppingCart] load shipping cost',
+    get_shipping_cost: '[ShoppingCart] get shipping cost',
 
     addProductShoppingCartNoLoggued: '[ShoppingCart] add product to cart clients not logged',
     loadShoppingCartNotLoggedFromLocalStorage: '[ShoppingCart] load shoppingcart clients no logged from localStorage',

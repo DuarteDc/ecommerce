@@ -1,6 +1,6 @@
 import Link from 'next/link'
 
-export const ProductsOfferArea = () => {
+const ProductsOfferArea = () => {
     return (
         <section className="bg-cover bg-center z-10 bg-img bg-influerncer py-[12rem] bg-no-repeat">
             <div className="w-full  mx-auto px-6  lg:pl-36 lg:pr-1">
@@ -15,3 +15,4 @@ export const ProductsOfferArea = () => {
         </section>
     );
 };
+ export default ProductsOfferArea;

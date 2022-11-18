@@ -29,20 +29,20 @@ import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import Pagination from '@mui/material/Pagination';
 import Stack from '@mui/material/Stack';
 import { startLoadCurrencies, startLoadPricesCurrencies } from '../../../src/actions/countryAcctions';
+import Filters from '../../../src/components/products/Filters';
 
 const Show = () => {
 
     const router = useRouter();
 
     const { brand } = useSelector((state) => state.brands);
-    const { products } = useSelector((state) => state.products);
-    const { dimensions } = useSelector((state) => state.ui);
-    const { categories, subcategories } = useSelector((state) => state.categories);
+    const { products, filters } = useSelector((state) => state.products);
+    const { categories, subcategories, showSubcategory } = useSelector((state) => state.categories);
     const { categories: CategoriesFaqs } = useSelector((state) => state.faqs);
     const { currencyPrices } = useSelector(state => state.countries);
 
     const endpoint = `/products/filter-brand/products-paginated/${router.query.url}`;
-    const { startSearchByQueryParams, starClearQueryParams, paramsFilters, loading } = useQueryParams(endpoint, { router });
+    const { startSearchByQueryParams, starClearQueryParams, paramsFilters, loading, removeQueryParam } = useQueryParams(endpoint, { router });
 
     const handelClickPage = async (e, value) => {
         await startSearchByQueryParams({ page: value });
@@ -64,9 +64,11 @@ const Show = () => {
             {loading && <LoadingScreen />}
             <section className="container mx-auto grid grid-cols-1 md:grid-cols-3 mt-20 lg:grid-cols-4">
                 <AsideBar>
-                    <BrandFilter
+                    <Filters
                         starClearQueryParams={starClearQueryParams}
+                        removeQueryParam={removeQueryParam}
                         endpoint={endpoint}
+                        filters={filters}
                     />
                     <RangePrice
                         startSearchByQueryParams={startSearchByQueryParams}
@@ -79,11 +81,15 @@ const Show = () => {
                         brand={brand}
                         startSearchByQueryParams={startSearchByQueryParams}
                     />
-                    <SubcategoriesList
-                        subcategories={subcategories}
-                        startSearchByQueryParams={startSearchByQueryParams}
-                        paramsFilters={paramsFilters}
-                    />
+                    {
+                        showSubcategory && (
+                            <SubcategoriesList
+                                subcategories={subcategories}
+                                startSearchByQueryParams={startSearchByQueryParams}
+                                paramsFilters={paramsFilters}
+                            />
+                        )
+                    }
                 </AsideBar>
                 <div className="col-span-4 md:col-span-2 lg:col-span-3">
                     <div className="grid grid-cols-2 lg:grid-cols-3 lg:col-span-3">
@@ -137,7 +143,7 @@ export const getServerSideProps = wrapper.getServerSideProps((store) =>
                 notFound: true
             }
         }
-        await store.dispatch(startLoadSubcategoriesPerBrand(ctx.query.url));
+        // await store.dispatch(startLoadSubcategoriesPerBrand(ctx.query.url));
         await store.dispatch(startLoadCategoriesPerBrand(ctx.query.url));
         await store.dispatch(startLoadPricesCurrencies(ctx.req.cookies?.Currency || 'MXN'));
         await store.dispatch(startLoadAdministrableLogo());

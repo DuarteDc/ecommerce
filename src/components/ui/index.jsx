@@ -5,6 +5,4 @@ export { ProductCard } from "./productCard";
 export { FiltersArea } from "./filters";
 export { BannerImage } from "./bannerImage";
 export { ContactInfo } from "./contactInfo";
-export { ButtonGroup } from "./buttonGroup";
 export { OptionCardProfile } from "./optionCardProfile";
-export { ProductsMostSold } from './ProductsMostSold';

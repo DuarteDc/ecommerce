@@ -1,9 +1,7 @@
-import { useSelector } from "react-redux"
+import { memo } from "react";
 import { ProductCard } from "./productCard";
 
-export const ProductsMostSold = () => {
-
-    const { productsMostSold } = useSelector(state => state.products);
+const ProductsMostSold = memo(({ productsMostSold }) => {
 
     return (
         <section className="px-30 pt-20 container mx-auto">
@@ -20,4 +18,8 @@ export const ProductsMostSold = () => {
             </div>
         </section>
     )
-}
+});
+
+export default ProductsMostSold;
+
+ProductsMostSold.displayName = 'ProductsMostSold';

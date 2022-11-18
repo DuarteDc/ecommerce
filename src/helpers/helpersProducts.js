@@ -1,4 +1,4 @@
-const filterSearch = async ({ router, param }) => {
+const filterSearch = async ({ router, param, type = 2 }) => {
 
     const path = router.pathname;
     const query = router.query;
@@ -7,6 +7,7 @@ const filterSearch = async ({ router, param }) => {
         query.page = '1'
     }
 
+    if (router.query.hasOwnProperty('subcategory_id') && type === 1) delete router.query.subcategory_id;
     const queryParams = { ...query, ...param };
 
     await router.push({
@@ -24,12 +25,12 @@ const getQueryParams = (query) => {
     return query.slice(newQuery);
 }
 
-const clearQueryParamsWithUrl = (query) =>{
+const clearQueryParamsWithUrl = (query) => {
 
     const asArray = Object.entries(query);
     const filtered = asArray.find(([key, value]) => key !== 'url' && key !== 'page');
 
-    if(filtered) return true;
+    if (filtered) return true;
 
     return false;
 

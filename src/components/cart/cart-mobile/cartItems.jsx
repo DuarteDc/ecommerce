@@ -7,7 +7,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import Zoom from 'react-medium-image-zoom';
 import 'react-medium-image-zoom/dist/styles.css';
 
-import { ButtonGroup } from "../../ui";
+import ButtonGroup from "../../ui/buttonGroup";
 import { helpers } from "../../../helpers"
 import { useCart } from '../../../hooks/useCart';
 

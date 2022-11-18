@@ -3,7 +3,7 @@ const BrandItem = ({ brand, startSearchByQueryParams, paramsFilters, dimensions,
 
   const handleFilterProducts = async (brand) => {
     await startSearchByQueryParams({ brand_id: brand._id });
-    await paramsFilters(brand);
+    await paramsFilters({ ...brand, type: 2 });
     if (dimensions === 'sm') setOpen(false);
   }
 

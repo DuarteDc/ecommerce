@@ -5,9 +5,6 @@ import { useDispatch, useSelector } from "react-redux";
 
 import { addOneProduct, removeOneProduct } from "../../actions/wishListActions";
 import { helpers } from "../../helpers";
-// import SliderProductCard from "../products/SliderProductCard";
-
-import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
@@ -15,7 +12,7 @@ import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import { notify } from "../../helpers/helpers";
 
 import { useCart } from "../../hooks/useCart";
-import { ButtonGroup } from "./buttonGroup";
+import ButtonGroup from "./buttonGroup";
 import Image from 'next/image';
 
 export const ProductCard = memo(({ product }) => {
@@ -25,7 +22,7 @@ export const ProductCard = memo(({ product }) => {
 
   const { _id, name, price, url, quantity, discount } = product;
 
-  const { addProduct, productInCart, updateProductQuantity, handleChangeProductQuantity, quantity: inputQuantity } = useCart(logged, 1, product, cart, undefined, true, 450);
+  const { addProduct, productInCart, updateProductQuantity, handleChangeProductQuantity, quantity: inputQuantity } = useCart(logged, 1, product, cart, undefined, true, 500);
 
   const history = useRouter();
   const dispatch = useDispatch();
@@ -56,15 +53,27 @@ export const ProductCard = memo(({ product }) => {
     <div className="mb-[30px] relative p-2 card animate__animated animate__zoomIn md:mx-2 shadow-md md:shadow-none">
       <div className="relative overflow-hidden ">
         <div className="w-full h-full relative">
-          <Image
-            src={product.multimedia[0].path}
-            alt={product.name}
-            width="320"
-            layout="responsive"
-            height="320"
-            className="object-cover h-[10rem] md:h-[20rem] w-full md:w-full ml-0"
-            onClick={handleShowProduct}
-          />
+          {
+            product.multimedia.length > 0 ? (
+              <Image
+                src={product.multimedia[0].path}
+                alt={product.name}
+                width="320"
+                layout="responsive"
+                height="320"
+                className="object-cover h-[10rem] md:h-[20rem] w-full md:w-full ml-0"
+                onClick={handleShowProduct}
+              />
+            ) : (
+              <Image
+                src="https://upload.wikimedia.org/wikipedia/commons/d/d1/Image_not_available.png"
+                alt={product?.name}
+                width={100}
+                height={100}
+                layout="responsive"
+              />
+            )
+          }
           {/* <SliderProductCard
             images={product.multimedia}
             className="w-[20rem]"

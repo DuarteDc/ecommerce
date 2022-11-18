@@ -57,10 +57,10 @@ export const startAddProductShoppingCart = (data, product) => {
             }
          });   
          dispatch(addProductToShoppingCart({ product_id: product, quantity: 1 }));
-         successNotify('El producto ha sido agregado al carrito satisfactoriamente');
+         // successNotify('El producto ha sido agregado al carrito satisfactoriamente');
       } catch (error) {
          console.log(error);
-         errorNotify('Hubo un problema al agregar el producto - Intente más tarder');
+         errorNotify('Hubo un problema al agregar el producto - Intente más tarde');
       }
    }
 }
@@ -150,6 +150,7 @@ export const removeProductShoppingCart = (product_id) => ({
 export const startUpdatedProductQuantity = (product) => {
    return async (dispatch) => {
       try {
+         dispatch(updatedProductQuantity(product));
          let url = '/cart';
          const token = Cookies.get('token');
          const currency = Cookies.get('Currency') || 'MXN';
@@ -159,7 +160,7 @@ export const startUpdatedProductQuantity = (product) => {
                'Currency': currency
             }
          });
-         dispatch(updatedProductQuantity(data.cart.products, data.shippingCosts));
+         dispatch(getShippingCost(data.shippingCosts))
          successNotify('El producto ha sido agregado al carrito satisfactoriamente');
       } catch (error) {
          console.log(error);
@@ -176,7 +177,8 @@ export const startLoadCartNoAuth = (products, currency) => {
                'Currency': currency
             }
          });
-         dispatch(updatedProductQuantity(data.products, data.shippingCosts));
+         dispatch(updatedProductQuantity(data.products));
+         dispatch(getShippingCost(data.shippingCosts))
          localStorage.setItem('cart', JSON.stringify(data.products))
       } catch (error) {
          console.log(error);
@@ -185,11 +187,10 @@ export const startLoadCartNoAuth = (products, currency) => {
 }
 
 
-export const updatedProductQuantity = (shoppingCart, shippingCosts) => ({
+export const updatedProductQuantity = (product) => ({
    type: types.updatedProductQuantity,
    payload: {
-      shoppingCart,
-      shippingCosts,
+      product,
    }
 });
 
@@ -299,6 +300,7 @@ export const shoppingCartNotLoggedfromLocalStorage = (cartNotLogged) => ({
 
 export const startUpdateCartNoAuth = (products, currency, product) => {
    return async (dispatch) => {
+      dispatch(updatedProductQuantityCartNotLogged(product));
       let url = `/cart/show-cart/no-auth`
       try {
          const { data } = await client.post(url, { products }, {
@@ -306,7 +308,7 @@ export const startUpdateCartNoAuth = (products, currency, product) => {
                'Currency': currency
             }
          });
-         dispatch(updatedProductQuantityCartNotLogged(product, data.shippingCosts));
+         dispatch(getShippingCost(data.shippingCosts))
          successNotify('El producto ha sido agregado al carrito satisfactoriamente');
       } catch (error) {
          console.log(error);
@@ -314,6 +316,11 @@ export const startUpdateCartNoAuth = (products, currency, product) => {
       }
    }
 }
+
+const getShippingCost = (shippingCosts) =>({
+   type: types.get_shipping_cost,
+   payload: shippingCosts
+});
 
 const updatedProductQuantityCartNotLogged = (product, shippingCosts) => ({
    type: types.updatedProductQuantityCartNotLogged,

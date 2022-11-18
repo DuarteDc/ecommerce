@@ -50,10 +50,11 @@ export const productsReducer = (state = initalState, { type, payload }) => {
 
         case types.filters_to_products: {
 
-            let filterInFilters = state.filters.find(filterSelected => filterSelected._id === payload._id);
+            let filterInFilters = state.filters.find(filterSelected => filterSelected.type === payload.type);
 
             return filterInFilters ? {
-                ...state
+                ...state,
+                filters: state.filters.map(filterSelected => filterSelected.type === payload.type ? { ...payload } : filterSelected),
             } : {
                 ...state,
                 filters: [payload, ...state.filters]
@@ -86,11 +87,23 @@ export const productsReducer = (state = initalState, { type, payload }) => {
             }
 
         case types.remove_filter: {
-            return {
+
+            const hasCategoryAndSubcategory = state.filters.filter(filter => filter.type === 3 || filter.type === 4 && payload.type !== 4);
+
+            return hasCategoryAndSubcategory.length === 2 ? {
+                ...state,
+                filters: state.filters.filter(filter => filter.type !== 3 && filter.type !== 4)
+            } : {
                 ...state,
                 filters: state.filters.filter(filter => filter._id !== payload._id),
             }
         }
+        case types.clear_subcategory:
+            return {
+                ...state,
+                filters: state.filters.filter(p => p.type !== payload)
+            }
+        
 
         default:
             return state;

@@ -4,7 +4,7 @@ import 'react-medium-image-zoom/dist/styles.css';
 
 import ClearIcon from '@mui/icons-material/Clear';
 
-import { ButtonGroup } from '../../ui';
+import ButtonGroup from '../../ui/buttonGroup';
 import { useCart } from '../../../hooks/useCart';
 
 import { helpers } from '../../../helpers';

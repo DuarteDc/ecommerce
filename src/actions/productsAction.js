@@ -105,9 +105,9 @@ export const loadProductsPerTags = (tag, products) => ({
   },
 });
 
-export const removeItemFromFilters = (item) => ({
+export const removeItemFromFilters = (param) => ({
   type: types.remove_filter,
-  payload: item,
+  payload: param,
 });
 
 /*                  Paginación                   */
@@ -223,9 +223,14 @@ export const startLoadProductsMostSold = (currency = 'MXN') => {
       console.log(error);
     }
   }
-}  
+}
 
 const loadProductsMostSold = (products) => ({
   type: types.load_products_most_sold,
   payload: products,
 });
+
+export const clearSubcategory = (typeToFilter) => ({
+  type: types.clear_subcategory,
+  payload: typeToFilter
+})

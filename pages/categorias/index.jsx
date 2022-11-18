@@ -3,9 +3,9 @@ import { useRouter } from 'next/router';
 import { useDispatch, useSelector } from 'react-redux';
 import { startLoadAdministrableLogo } from '../../src/actions/administrableActions';
 import { startLoadCategories } from '../../src/actions/categoryActions';
-import { Newsletter } from '../../src/components/home';
 import Layout from '../../src/components/Layouts';
-import { CardProduct } from '../../src/components/ui';
+import CardProduct from '../../src/components/ui/cardProduct';
+import Newsletter from '../../src/components/home/Newsletter';
 import { BannerImage } from '../../src/components/ui/bannerImage';
 import { wrapper } from '../../src/store';
 import { startLoadFaqsCategories } from '../../src/actions/faqsActions';
@@ -69,7 +69,7 @@ const Categories = () => {
                         category.totalProducts > 0 && (
                             <CardProduct
                                 key={category._id}
-                                image={category.imageWeb}
+                                images={category.imagesWeb}
                                 name={category?.name}
                                 url={category?.url}
                                 hasName={true}

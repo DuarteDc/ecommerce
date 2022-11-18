@@ -77,8 +77,7 @@ export const shoppingCartReducer = (state = initialState, { type, payload }) => 
         case types.updatedProductQuantity:
             return {
                 ...state,
-                cart: payload.shoppingCart,
-                shippingCosts: payload.shippingCosts
+                cart: state.cart.map(product => product.product_id._id === payload.product.product_id ? { ...product, quantity: product.quantity = payload.product.quantity } : product),
             }
 
         case types.removeProductShoppingCart:
@@ -91,6 +90,12 @@ export const shoppingCartReducer = (state = initialState, { type, payload }) => 
             return {
                 ...state,
                 cart: payload
+            }
+
+        case types.get_shipping_cost:
+            return {
+                ...state,
+                shippingCosts: payload
             }
         case types.updatedShoppingCart:
             const existInCart = state.cart.find(cart => cart.product_id._id === payload.product_id._id);

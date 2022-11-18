@@ -1,13 +1,15 @@
 import { CardMedia } from '@mui/material';
+import Image from 'next/image';
 
-export const CardProduct = ({
-  image,
+const CardProduct = ({
+  images,
   name,
   titleButton,
   url,
   handleClickCard,
   hasName,
 }) => {
+
   return (
     <>
       <div className="relative left-0 top-0 pb-[35px] animate__animated animate__zoomIn">
@@ -20,14 +22,17 @@ export const CardProduct = ({
               width={300}
               height={300}
             /> */}
-            <CardMedia
-              component="img"
-              height="300"
-              className="flex items-center min-w-full min-h-[15rem]"
-              width="300"
-              image={image}
-              alt={name}
-            />
+            <picture>
+              <img
+                height="300"
+                className="flex items-center min-w-full min-h-[15rem]"
+                width="300"
+                loading="lazy"
+                src={images['1000x1000']}
+                srcSet={`${images['120x120']} 120w, ${images['750x750']} 750w, ${images['1000x1000']} 1000w, ${images['1400x1400']} 1400w`}
+                alt={name}
+              />
+            </picture>
             <div
               className={`absolute w-full h-full top-0 left-0 ${hasName ? "bg-[rgba(0,0,0,0.5)]" : "bg-[rgba(0,0,0,0.2)]"
                 } opacity-0 hover:opacity-[1] transition-all	duration-[0.4s] ease-linear delay-0`}
@@ -65,3 +70,5 @@ export const CardProduct = ({
     </>
   );
 };
+
+export default CardProduct;

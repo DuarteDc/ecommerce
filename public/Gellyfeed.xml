@@ -4,9 +4,9 @@
         <description><![CDATA[Tienda en línea de distribución de productos profesionales para uñas  de calidad. Venta Menudeo y Mayoreo. Promociones, descuentos y mucho más.]]></description>
         <link>https://wapizima.com</link>
         <generator>RSS for Node</generator>
-        <lastBuildDate>Fri, 11 Nov 2022 23:19:45 GMT</lastBuildDate>
+        <lastBuildDate>Fri, 18 Nov 2022 20:25:12 GMT</lastBuildDate>
         <atom:link href="https://wapizima.com/feed.xml" rel="self" type="application/rss+xml"/>
-        <pubDate>Fri, 11 Nov 2022 23:19:45 GMT</pubDate>
+        <pubDate>Fri, 18 Nov 2022 20:25:12 GMT</pubDate>
         <copyright><![CDATA[All rights reserved 2022, Digiatl Pineapple]]></copyright>
         <language><![CDATA[es]]></language>
         <item>
@@ -20,7 +20,7 @@
             <condition>used</condition>
             <price>190</price>
             <link>https://wapizima.com/productos/gelly-fashion-uq4vrbraoqv</link>
-            <image_link>https://cdn.wapizima.com/production/products/62b4e51a03eb4122593c0935/3a7c40fc-3f3b-419b-8476-8d88156e6aa4_1024x1024@2x.png</image_link>
+            <image_link>https://cdn.wapizima.com/test/products/62b4e51a03eb4122593c0935/3a7c40fc-3f3b-419b-8476-8d88156e6aa4_1024x1024@2x.png</image_link>
             <brand></brand>
         </item>
         <item>
@@ -34,7 +34,7 @@
             <condition>used</condition>
             <price>190</price>
             <link>https://wapizima.com/productos/gelly-suculentas-njt7kljzb0q</link>
-            <image_link>https://cdn.wapizima.com/production/products/62b4e51a03eb4122593c0934/275143160_492887548907821_8070986168687598666_n_900x.jpg</image_link>
+            <image_link>https://cdn.wapizima.com/test/products/62b4e51a03eb4122593c0934/275143160_492887548907821_8070986168687598666_n_900x.jpg</image_link>
             <brand></brand>
         </item>
         <item>
@@ -48,7 +48,7 @@
             <condition>used</condition>
             <price>190</price>
             <link>https://wapizima.com/productos/gelly-romance-p3k7vfwutv5</link>
-            <image_link>https://cdn.wapizima.com/production/products/62b4e51a03eb4122593c093a/3766b537-10ce-45b8-b3cb-ab552416260a_1024x1024@2x.png</image_link>
+            <image_link>https://cdn.wapizima.com/test/products/62b4e51a03eb4122593c093a/3766b537-10ce-45b8-b3cb-ab552416260a_1024x1024@2x.png</image_link>
             <brand></brand>
         </item>
         <item>
@@ -62,7 +62,7 @@
             <condition>used</condition>
             <price>190</price>
             <link>https://wapizima.com/productos/gelly-unicornio-nqxk9pmq4jp</link>
-            <image_link>https://cdn.wapizima.com/production/products/62b4e51a03eb4122593c0939/cd879da3-3882-49a4-8b83-8ef84133716f_1024x1024@2x.jpg</image_link>
+            <image_link>https://cdn.wapizima.com/test/products/62b4e51a03eb4122593c0939/cd879da3-3882-49a4-8b83-8ef84133716f_1024x1024@2x.jpg</image_link>
             <brand></brand>
         </item>
         <item>
@@ -76,7 +76,7 @@
             <condition>used</condition>
             <price>190</price>
             <link>https://wapizima.com/productos/gelly-rose-gold-jhwzlqxi6ye</link>
-            <image_link>https://cdn.wapizima.com/production/products/62b4e51a03eb4122593c0938/ROSEGOLD_900x.jpg</image_link>
+            <image_link>https://cdn.wapizima.com/test/products/62b4e51a03eb4122593c0938/ROSEGOLD_900x.jpg</image_link>
             <brand></brand>
         </item>
         <item>
@@ -90,7 +90,7 @@
             <condition>used</condition>
             <price>190</price>
             <link>https://wapizima.com/productos/gelly-cover-hhutgobxr</link>
-            <image_link>https://cdn.wapizima.com/production/products/634740529e34550c12a15399/COVER_b880f61a-868f-4ec5-98d5-02616991dfe9_900x.jpg</image_link>
+            <image_link>https://cdn.wapizima.com/test/products/634740529e34550c12a15399/COVER_b880f61a-868f-4ec5-98d5-02616991dfe9_900x.jpg</image_link>
             <brand></brand>
         </item>
         <item>
@@ -104,7 +104,7 @@
             <condition>used</condition>
             <price>190</price>
             <link>https://wapizima.com/productos/wgelly-vintage-uqxplreqe</link>
-            <image_link>https://cdn.wapizima.com/production/products/63474130254f275e73f60af1/VINTAGE_900x.jpg</image_link>
+            <image_link>https://cdn.wapizima.com/test/products/63474130254f275e73f60af1/VINTAGE_900x.jpg</image_link>
             <brand></brand>
         </item>
     </channel>

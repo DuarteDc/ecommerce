@@ -8,6 +8,7 @@ const initalState = {
     filteredProducts: [],
     results: {},
     subcategories: [],
+    showSubcategory: false,
 }
 
 export const categoryReducer = (state = initalState, { type, payload }) => {
@@ -58,11 +59,24 @@ export const categoryReducer = (state = initalState, { type, payload }) => {
                 subcategories: payload
             }
 
-            case types.load_categories_per_brand:
-                return {
-                    ...state,
-                    categories: payload
-                }
+        case types.load_categories_per_brand:
+            return {
+                ...state,
+                categories: payload
+            }
+
+        case types.show_subcategories:
+            return {
+                ...state,
+                showSubcategory: payload
+            }
+
+        case types.clear_subcategories:
+            return {
+                ...state,
+                showSubcategory: false,
+                subcategories: [],
+            }
 
         default:
             return state

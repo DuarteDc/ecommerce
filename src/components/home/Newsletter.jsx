@@ -4,7 +4,7 @@ import { startStoreNewsletterSuscription } from '../../actions/newsletterActions
 import { useDispatch, useSelector } from 'react-redux';
 
 
-export const Newsletter = () => {
+const Newsletter = () => {
   const dispatch = useDispatch();
   const { message } = useSelector((state) => state.newsletter)
   const initialValues = {
@@ -44,3 +44,4 @@ export const Newsletter = () => {
     </section>
   );
 };
+export default Newsletter;

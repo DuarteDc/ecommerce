@@ -1,20 +1,15 @@
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 
 import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
 import CloseIcon from "@mui/icons-material/Close";
 
-import { clearAll, removeItemFromFilters } from "../../actions/productsAction";
-import { useRouter } from "next/router";
-
-const Filters = ({ starClearQueryParams, endpoint }) => {
-
-  const { filters } = useSelector((state) => state.products);
+const Filters = ({ starClearQueryParams, endpoint, removeQueryParam, filters }) => {
 
   const handleClearFilters = async () => {
-    if(!filters.length) return;
+    if (!filters.length) return;
     await starClearQueryParams(endpoint);
   };
-
+  
   return (
     <div className="mb-5">
       <p className="text-lg font-bold uppercase text-xs md:text-sm">Seleccion actual</p>
@@ -30,11 +25,20 @@ const Filters = ({ starClearQueryParams, endpoint }) => {
       <div>
         {filters?.map((filter) => (
           <span
-            className="hover:border-[#333] hover:text-[#333] cursor-pointer 
-                            mr-2 mt-2 py-2 border-2 border-gray-200 px-2
+            className="hover:border-red-500 hover:text-[#333] cursor-pointer 
+                            mr-2 mt-2 py-3 border-2 border-gray-200 px-4 relative
                             text-center inline-block transition-all duration-700 ease-out text-xs text-gray-500"
             key={filter?._id}
+            onClick={() => removeQueryParam(filter, endpoint)}
           >
+            <span className="absolute top-0 right-0">
+              <CloseIcon style={{
+                fontSize: 15,
+                fontWeight: 600
+              }}
+                className="hover:text-red-600"
+              />
+            </span>
             {filter?.name || `$${filter?.min} - $${filter?.max}`}
           </span>
         ))}

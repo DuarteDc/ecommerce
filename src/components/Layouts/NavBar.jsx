@@ -55,6 +55,7 @@ const NavBar = () => {
       if (!cart || cart === 'undefined' || cart === '') localStorage.setItem('cart', '[]');
 
       const products = prepareProductsToFussion(JSON.parse(cart));
+      console.log(products)
       return dispatch(startLoadCartNoAuth(products, currenCurrency));
     }
     dispatch(startLoadShoppingCart(token, currenCurrency));

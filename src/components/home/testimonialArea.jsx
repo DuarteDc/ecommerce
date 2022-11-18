@@ -6,7 +6,7 @@ import Rating from '@mui/material/Rating';
 import { useSelector } from "react-redux";
 
 
-export const TestimonialArea = () => {
+const TestimonialArea = () => {
 
   const { reviews } = useSelector(state => state.reviews);
 
@@ -79,3 +79,5 @@ export const TestimonialArea = () => {
     </section>
   );
 };
+
+export default TestimonialArea;

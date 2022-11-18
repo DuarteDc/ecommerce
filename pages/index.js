@@ -5,72 +5,38 @@ import { useSelector } from "react-redux";
 import Layout from "../src/components/Layouts";
 
 /**Actions */
-import { startLoadBrandsWithCategories, } from "../src/actions/brandsActions";
 import { startLoadCategoriesHome } from "../src/actions/categoryActions";
 import { startLoadAdministrableLogo } from "../src/actions/administrableActions";
-
-/************************     RSS FEED  ********************** */
-// import getRSS from "../src/lib/generateRSS";
-
-/**Components */
-import {
-  Newsletter,
-  PartnerArea,
-  ProductsArea,
-  ProductsOfferArea,
-  TestimonialArea,
-} from "../src/components/home";
 
 /**Actions */
 import Swal from "sweetalert2";
 import { startLoadReviews } from "../src/actions/reviewsActions";
 import { startLoadCurrencies } from "../src/actions/countryAcctions";
 import { startFilterProducts, startLoadProductsMostSold } from "../src/actions/productsAction";
-import { ProductsMostSold } from "../src/components/ui";
 
 import Cookies from "js-cookie";
 
-
-
 const endpoint = '/brands/with/categories';
+
+
+/***************************************Components*************************************** */
+
+import loadable from '@loadable/component';
+
+const ProductsMostSoldComponent = loadable(() => import('../src/components/ui/ProductsMostSold'));
+const ProductsAreaComponent = loadable(() => import('../src/components/home/ProductsArea'));
+const ProductsOfferAreaComponent = loadable(() => import('../src/components/home/ProductsOfferArea'));
+const PartnerAreaComponent = loadable(() => import('../src/components/home/PartnerArea'));
+const NewsletterComponent = loadable(() => import('../src/components/home/Newsletter'));
+const TestimonialAreaComponenet = loadable(() => import('../src/components/home/testimonialArea'));
+
 
 export default function HomePage() {
 
   const router = useRouter();
 
   const { logo } = useSelector((state) => state.administrable);
-    // useEffect(() => {
-  //   if (router.query.successTransfer === "true") {
-  //     localStorage.removeItem("cart");
-  //     Cookie.remove("client_secret");
-  //     Swal.fire({
-  //       icon: "success",
-  //       title: "Venta finalizada con exito",
-  //       text: "Revisa el apartado mis pedidos para subir los comprobantes de pago y una vez verificada la información enviaremos tus productos.",
-  //       confirmButtonText: "Cerrar",
-  //       cancelButtonText: "Ver mis pedidos",
-  //       cancelButtonColor: "#1565c0",
-  //       showCancelButton: true,
-  //       allowOutsideClick: false,
-  //     }).then((result) => {
-  //       if (result.isConfirmed) {
-  //         router.push(
-  //           {
-  //             pathname: router.path,
-  //           },
-  //           undefined,
-  //           { shallow: true }
-  //         );
-  //       }
-
-  //       if (result.isDismissed) {
-  //         router.push({
-  //           pathname: "/perfil/mis-pedidos",
-  //         });
-  //       }
-  //     });
-  //   }
-  // }, [router]);
+  const { productsMostSold, products } = useSelector(state => state.products);
 
   useEffect(() => {
     if (router.query.redirect_status === 'succeeded' || router.query.successTransfer === 'true') {
@@ -96,25 +62,8 @@ export default function HomePage() {
       });
     }
   }, [router]);
-  // useEffect(() => {
-  //   const modalOfferOpen = Cookie.get("modalOfferOpen");
-
-  //   if (modalOfferOpen === "false") {
-  //     setOpen(false);
-  //   }
-  // }, []);
-
-  // const handleButtonCloseModalOffers = () => {
-  //   Cookie.set("modalOfferOpen", false);
-  //   setOpen(false);
-  // };
-
-  // const handleOpenModalOffers = () => {
-  //   setOpen(!open);
-  // };
 
   const origin = typeof window === "undefined" ? "" : window.location.origin;
-
 
   return (
     <Layout
@@ -130,82 +79,15 @@ export default function HomePage() {
     >
       {/* <Slider />
       <FacilityArea /> */}
-      <ProductsMostSold />
-      <ProductsArea />
-      {/* <CategoryArea /> */}
-      <ProductsOfferArea />
-      <PartnerArea />
-      <Newsletter />
-      <TestimonialArea />
-      {/* {offers.length && (
-        <Modal
-          showTitle={false}
-          open={open}
-          fullWidth={true}
-          maxWidth="sm"
-          actions={false}
-          handleOpenCheckout={handleOpenModalOffers}
-          background="bg-offers opacity-[0.9]"
-        >
-          <Container>
-            <Grid container>
-              <Grid item xs={12} sm={12} md={12} lg={12} xl={12}>
-                <Typography
-                  variant="h3"
-                  className="font-Poppins font-normal text-[30px] text-primary text-center uppercase mb-6"
-                >
-                  Ofertas del dia
-                </Typography>
-              </Grid>
-              {offers.map((offer) => (
-                <Grid
-                  item
-                  xs={12}
-                  sm={12}
-                  md={12}
-                  lg={12}
-                  xl={12}
-                  key={offer._id}
-                >
-                  <OfferCard offer={offer} />
-                </Grid>
-              ))}
-            </Grid>
-            <Grid item xs={12} sm={12} md={12} lg={12} xl={12}>
-              <div className="w-full flex justify-center">
-                <button
-                  className="bg-[#333] text-secondary py-4 px-10 rounded-none w-full hover:bg-[#000]"
-                  onClick={handleButtonCloseModalOffers}
-                >
-                  Cerrar
-                </button>
-              </div>
-            </Grid>
-          </Container>
-        </Modal>
-      )} */}
+      <ProductsMostSoldComponent productsMostSold={productsMostSold} />
+      <ProductsAreaComponent products={products} />
+      <ProductsOfferAreaComponent />
+      <PartnerAreaComponent />
+      <NewsletterComponent />
+      <TestimonialAreaComponenet />
     </Layout>
   );
 }
-
-// HomePage.getLayout = function getLayout(page) {
-
-//   return (
-//     <Layout
-//       title="Wapizima"
-//       keywords="nails,cosmetic nails,uñas,gel uñas, fantasy nails, bonita, uñas, material uñas, productos uñas, gel nail, decoraciones uñas, decoracion uñas,cursos uñas,lampara uñas"
-//       description="Tienda en línea de distribución de productos profesionales para uñas  de calidad. Venta Menudeo y Mayoreo. Promociones, descuentos y mucho más."
-//       ogTitle="Wapizima, Tienda en línea distribuidora de productos para uñas profesionales"
-//       ogType="website"
-//       ogUrl={origin}
-//       ogImage={logo}
-//       robots="index, follow"
-//       canonical={origin}
-//     >
-//       {page}
-//     </Layout>
-//   );
-// };
 
 export const getServerSideProps = wrapper.getServerSideProps((store) => async (ctx) => {
   await store.dispatch(startLoadCurrencies());
