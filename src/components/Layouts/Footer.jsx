@@ -154,22 +154,28 @@ const Footer = ({ categories }) => {
             <div className="w-full lg:text-left text-center">
               <span className="leading-10">Aceptamos</span>
               <div className=" w-full lg:w-[50%] flex justify-center lg:justify-between items-center mb-5">
-                <img
+                <Image
                   src="/assets/images/creditCards/card1.png"
                   width="50"
                   height="30"
+                  layout="responsive"
+                  priority={true}
                   alt="card"
                 />
-                <img
+                <Image
                   src="/assets/images/creditCards/card3.png"
                   width="50"
                   height="30"
+                  layout="responsive"
+                  priority={true}
                   alt="card"
                 />
-                <img
+                <Image
                   src="/assets/images/creditCards/card4.png"
                   width="50"
                   height="30"
+                  layout="responsive"
+                  priority={true}
                   alt="card"
                 />
               </div>

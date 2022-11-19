@@ -22,17 +22,14 @@ const CardProduct = ({
               width={300}
               height={300}
             /> */}
-            <picture>
-              <img
+              <Image
                 height="300"
-                className="flex items-center min-w-full min-h-[15rem]"
                 width="300"
-                loading="lazy"
+                layout="responsive"
+                priority={true}
                 src={images['1000x1000']}
-                srcSet={`${images['120x120']} 120w, ${images['750x750']} 750w, ${images['1000x1000']} 1000w, ${images['1400x1400']} 1400w`}
                 alt={name}
               />
-            </picture>
             <div
               className={`absolute w-full h-full top-0 left-0 ${hasName ? "bg-[rgba(0,0,0,0.5)]" : "bg-[rgba(0,0,0,0.2)]"
                 } opacity-0 hover:opacity-[1] transition-all	duration-[0.4s] ease-linear delay-0`}

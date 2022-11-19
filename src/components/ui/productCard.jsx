@@ -59,9 +59,12 @@ export const ProductCard = memo(({ product }) => {
                 src={product.multimedia[0].path}
                 alt={product.name}
                 width="320"
-                layout="responsive"
+                fill={true}
+                sizes="(max-width: 768px) 100vw,
+                        (max-width: 1200px) 50vw,
+                        33vw"
                 height="320"
-                className="object-cover h-[10rem] md:h-[20rem] w-full md:w-full ml-0"
+
                 onClick={handleShowProduct}
               />
             ) : (

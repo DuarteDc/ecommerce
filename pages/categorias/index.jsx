@@ -41,10 +41,10 @@ const Categories = () => {
             ogUrl={origin}
             canonical={origin}
         >
-            <BannerImage
+            {/* <BannerImage
                 title="Categorías"
                 banner="bg-banner3"
-            />
+            /> */}
             <div className="container mx-auto my-20 px-5 lg:px-24">
                 <Grid container spacing={5}>
                     <Grid item xs={12} sm={12} md={12} lg={12} xl={12}>

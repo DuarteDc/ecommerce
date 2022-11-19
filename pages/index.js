@@ -21,9 +21,11 @@ const endpoint = '/brands/with/categories';
 
 /***************************************Components*************************************** */
 
+import ProductsMostSold from '../src/components/ui/ProductsMostSold';
+
 import loadable from '@loadable/component';
 
-const ProductsMostSoldComponent = loadable(() => import('../src/components/ui/ProductsMostSold'));
+// const ProductsMostSoldComponent = loadable(() => import('../src/components/ui/ProductsMostSold'));
 const ProductsAreaComponent = loadable(() => import('../src/components/home/ProductsArea'));
 const ProductsOfferAreaComponent = loadable(() => import('../src/components/home/ProductsOfferArea'));
 const PartnerAreaComponent = loadable(() => import('../src/components/home/PartnerArea'));
@@ -79,7 +81,7 @@ export default function HomePage() {
     >
       {/* <Slider />
       <FacilityArea /> */}
-      <ProductsMostSoldComponent productsMostSold={productsMostSold} />
+      <ProductsMostSold productsMostSold={productsMostSold} />
       <ProductsAreaComponent products={products} />
       <ProductsOfferAreaComponent />
       <PartnerAreaComponent />
