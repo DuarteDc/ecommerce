@@ -95,7 +95,7 @@ export const shoppingCartReducer = (state = initialState, { type, payload }) => 
         case types.get_shipping_cost:
             return {
                 ...state,
-                shippingCosts: payload
+                shipping_costs: payload
             }
         case types.updatedShoppingCart:
             const existInCart = state.cart.find(cart => cart.product_id._id === payload.product_id._id);

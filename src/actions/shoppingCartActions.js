@@ -177,9 +177,8 @@ export const startLoadCartNoAuth = (products, currency) => {
                'Currency': currency
             }
          });
-         dispatch(updatedProductQuantity(data.products));
+         dispatch(addShoppingCartFromLocalStorage(data.products));
          dispatch(getShippingCost(data.shippingCosts))
-         localStorage.setItem('cart', JSON.stringify(data.products))
       } catch (error) {
          console.log(error);
       }

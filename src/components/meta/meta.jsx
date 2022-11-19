@@ -40,6 +40,8 @@ export const Meta = ({
 
   return (
     <Head>
+      <title>{title}</title>
+      
       <meta name="google-site-verification" content="Sw0KtOEvyIlgr_oz14gquDOm24PmV4I90wm-yEVkFPQ" />
       <meta name="robots" content={robots} />
       <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -57,7 +59,6 @@ export const Meta = ({
       {curren && <meta property="product:price:currency" content={curren} />}
       <link rel="canonical" href={canonical} />
 
-      <title>{title}</title>
     
       <script
         type="application/ld+json"

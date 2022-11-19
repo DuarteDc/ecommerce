@@ -26,6 +26,7 @@ import ShoppingCartCheckoutIcon from '@mui/icons-material/ShoppingCartCheckout';
 import SearchIcon from '@mui/icons-material/Search';
 import MenuIcon from '@mui/icons-material/Menu';
 import { Drawer } from "@mui/material";
+import Image from "next/image";
 
 const NavBar = () => {
 
@@ -55,7 +56,6 @@ const NavBar = () => {
       if (!cart || cart === 'undefined' || cart === '') localStorage.setItem('cart', '[]');
 
       const products = prepareProductsToFussion(JSON.parse(cart));
-      console.log(products)
       return dispatch(startLoadCartNoAuth(products, currenCurrency));
     }
     dispatch(startLoadShoppingCart(token, currenCurrency));
@@ -123,16 +123,15 @@ const NavBar = () => {
   const DrawerOptions = () => {
     return (
       <div className="font-Poppins">
-        <figure className="flex justify-center">
-          <img
+        <Image
             src={logo}
+            fill={true}
             alt="Wapizima"
             width={90}
             height={90}
             onClick={handleClickLogo}
             className="cursor-pointer"
           />
-        </figure>
         {pages.map((route) => (
           route.name !== 'Escuela' ? (
             <div className="pl-4 mb-5 cursor-pointer text-gray-900 hover:text-stone-900 hover:bg-gray-100 py-2 uppercase text-sm">
@@ -188,8 +187,10 @@ const NavBar = () => {
     >
       <div className="w-full px-10 lg:px-2 xl:px-28 2xl:px-28 text-xs">
         <nav className="flex max-h-16 justify-between items-center z-40">
-          <img
+          <Image
             src={logo}
+            priority={true}
+            fill={true}
             alt="Wapizima"
             width={100}
             height={90}

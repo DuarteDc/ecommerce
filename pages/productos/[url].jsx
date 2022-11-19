@@ -1,4 +1,4 @@
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { wrapper } from "../../src/store";
 
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
@@ -10,8 +10,8 @@ import { startLoadProduct } from "../../src/actions/productsAction";
 import { startLoadAdministrableLogo } from "../../src/actions/administrableActions";
 import { helpers } from "../../src/helpers";
 import { useRouter } from "next/router";
-import { ButtonGroup, ProductCard } from "../../src/components/ui";
-import ProductCardMobile from "../../src/components/ui/Mobile/ProductCard";
+import { ProductCard } from "../../src/components/ui";
+import ButtonGroup from "../../src/components/ui/buttonGroup";
 import Image from "next/image";
 import { Breadcrumbs, Container, Typography } from "@mui/material";
 import HomeIcon from '@mui/icons-material/Home';
@@ -272,7 +272,11 @@ const Show = () => {
             </h3>
           </div>
           <div className={`grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 my-24`}>
-            <ProductCard key={product._id} product={product} />
+            {
+              relatedProducts.map((product) => (
+                <ProductCard key={product._id} product={product} />
+              ))
+            }
 
             {/* {relatedProducts.map((product) => (
               (dimensions === 'sm') ? (

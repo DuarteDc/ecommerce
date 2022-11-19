@@ -41,8 +41,8 @@ export const useCart = (logged = false, currentQuantity = 1, product = {}, cart,
 
     const handleChangeProductQuantity = ({ target }) => {
         if (target.value > product.quantity) {
+            setUpdatedQuantity(true);
             warningNotify(`Cantidad disponible: ${product.quantity}`);
-            setUpdatedQuantity(false);
             return setQuantity(product.quantity);
         }
 
