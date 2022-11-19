@@ -22,14 +22,18 @@ const CardProduct = ({
               width={300}
               height={300}
             /> */}
-              <Image
-                height="300"
-                width="300"
-                layout="responsive"
-                priority={true}
-                src={images['1000x1000']}
-                alt={name}
-              />
+            <Image
+              height="300"
+              width="300"
+              layout="responsive"
+              priority={true}
+              src={images['1000x1000']}
+              alt={name}
+              fill={true}
+              sizes="(max-width: 768px) 100vw,
+              (max-width: 1200px) 50vw,
+              33vw"
+            />
             <div
               className={`absolute w-full h-full top-0 left-0 ${hasName ? "bg-[rgba(0,0,0,0.5)]" : "bg-[rgba(0,0,0,0.2)]"
                 } opacity-0 hover:opacity-[1] transition-all	duration-[0.4s] ease-linear delay-0`}
