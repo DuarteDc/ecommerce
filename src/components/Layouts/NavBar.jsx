@@ -123,7 +123,8 @@ const NavBar = () => {
   const DrawerOptions = () => {
     return (
       <div className="font-Poppins">
-        <Image
+        <figure className="flex justify-center">
+          <Image
             src={logo}
             fill={true}
             alt="Wapizima"
@@ -132,6 +133,7 @@ const NavBar = () => {
             onClick={handleClickLogo}
             className="cursor-pointer"
           />
+        </figure>
         {pages.map((route) => (
           route.name !== 'Escuela' ? (
             <div className="pl-4 mb-5 cursor-pointer text-gray-900 hover:text-stone-900 hover:bg-gray-100 py-2 uppercase text-sm">

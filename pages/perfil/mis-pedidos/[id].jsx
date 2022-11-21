@@ -81,9 +81,9 @@ const ShowOrder = () => {
                                     <th scope="col" className="py-3 px-6">
                                         Precio
                                     </th>
-                                    <th scope="col" className="py-3 px-6">
+                                    {/* <th scope="col" className="py-3 px-6">
                                         Descuento
-                                    </th>
+                                    </th> */}
                                     <th scope="col" className="py-3 px-6">
                                         Subtotal
                                     </th>
@@ -100,7 +100,7 @@ const ShowOrder = () => {
                                                 <img src={product_id.multimedia[0].path} alt="" className="w-10 h-10 rounded-full" />
                                                 <div className="pl-3">
                                                     <div className="text-base font-semibold">{product_id?.name}</div>
-                                                    <div className="font-normal text-gray-500">{product_id.description}</div>
+                                                    <div className="font-normal text-gray-500 truncate max-w-[200px]">{product_id.description}</div>
                                                 </div>
                                             </td>
                                             <td className="py-4 px-6">
@@ -109,13 +109,13 @@ const ShowOrder = () => {
                                             <td className="py-4 px-6">
                                                 {helpers.priceFormat(priceCurrency)}
                                             </td>
-                                            <td className="py-4 px-6">
+                                            {/* <td className="py-4 px-6">
                                                 <div className="flex items-center">
                                                     {
                                                         discount > 0 ? ` -${discount}%` : `0%`
                                                     }
                                                 </div>
-                                            </td>
+                                            </td> */}
                                             <td className="py-4 px-6">
                                                 <span className="font-semibold text-gray-600 hover:underline">{helpers.priceFormat(subtotalInCurrency)}</span>
                                             </td>

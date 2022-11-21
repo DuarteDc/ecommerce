@@ -134,7 +134,7 @@ const Distributor = () => {
               </h3>
               <div className="mt-8 text-gray-500">
                 <p className="md:text-lg">
-                  Observa los descuentos que tenemos para tí, en la tabla que se encuentra e la parte superior.
+                  Observa los descuentos que tenemos para tí, en la tabla que se encuentra en la parte superior.
                 </p>
               </div>
             </div>
@@ -156,7 +156,7 @@ const Distributor = () => {
               </h3>
               <div className="mt-8 text-gray-500">
                 <p className="md:text-lg">
-                  Dirigete a nuestro aparatdo de <Link href="/productos" passHref><b className="text-[#e91e63] cursor-pointer">PRODUCTOS</b></Link>, ahí podrás observar todo nuestro catalogo que tenemos para tí.
+                  Dirigete a nuestro apartado de <Link href="/productos" passHref><b className="text-[#e91e63] cursor-pointer">PRODUCTOS</b></Link>, ahí podrás observar todo nuestro catalogo que tenemos para tí.
                 </p>
               </div>
             </div>

@@ -8,7 +8,8 @@ module.exports = {
       'lh3.googleusercontent.com',
       'upload.wikimedia.org',
       'cdn.pngsumo.com',
-      'cdn.wapizima.com'
+      'cdn.wapizima.com',
+      'encrypted-tbn0.gstatic.com',
     ],
     deviceSizes: [400, 750, 828, 1000, 1400],
     imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
