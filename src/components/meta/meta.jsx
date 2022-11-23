@@ -23,7 +23,7 @@ export const Meta = ({
   const dispatch = useDispatch();
   const router = useRouter();
 
-  const verifyToken = async() => {
+  const verifyToken = async () => {
     const token = await Cookies.get("token");
     if (token) {
       await dispatch(startVerifyToken(token));
@@ -41,7 +41,7 @@ export const Meta = ({
   return (
     <Head>
       <title>{title}</title>
-      
+
       <meta name="google-site-verification" content="Sw0KtOEvyIlgr_oz14gquDOm24PmV4I90wm-yEVkFPQ" />
       <meta name="robots" content={robots} />
       <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -59,12 +59,12 @@ export const Meta = ({
       {curren && <meta property="product:price:currency" content={curren} />}
       <link rel="canonical" href={canonical} />
 
-    
+
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
       />
-      {/* <noscript
+      <noscript
         dangerouslySetInnerHTML={{
           __html: `<iframe src="https://www.googletagmanager.com/ns.html?id=GTM-W679KG2"
           height="0" width="0" style={{display: 'none', visibility:'hidden'}}></iframe>`,
@@ -93,7 +93,7 @@ export const Meta = ({
           t.src=v;s=b.getElementsByTagName(e)[0];
           s.parentNode.insertBefore(t,s)}(window, document,'script',
           'https://connect.facebook.net/en_US/fbevents.js');
-          fbq('init', '623666845851164');
+          fbq('init', '5743654175710936');
           fbq('track', 'PageView');
           `,
         }}
@@ -101,15 +101,12 @@ export const Meta = ({
       <noscript
         dangerouslySetInnerHTML={{
           __html: `
-        <img
-          height="1"
-          width="1"
-          style="display:none"
-          src="https://www.facebook.com/tr?id=623666845851164&ev=PageView&noscript=1"
-        />
+          <img height="1" width="1" style="display:none"
+          src="https://www.facebook.com/tr?id=5743654175710936&ev=PageView&noscript=1"
+          />
         `,
         }}
-      ></noscript> */}
+      ></noscript>
     </Head>
   );
 };

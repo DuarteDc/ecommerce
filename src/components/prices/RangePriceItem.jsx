@@ -1,6 +1,7 @@
+import { memo } from 'react';
 import { helpers } from '../../helpers';
 
-const RangePriceItem = ({ price, startSearchByQueryParams, paramsFilters, setOpen, dimensions }) => {
+const RangePriceItem = memo(({ price, startSearchByQueryParams, paramsFilters, setOpen, dimensions }) => {
 
   const handleFilterProducts = async (price) => {
     await startSearchByQueryParams({ lowPrice: price.min, maxPrice: price.max });
@@ -19,6 +20,8 @@ const RangePriceItem = ({ price, startSearchByQueryParams, paramsFilters, setOpe
       {`${minPrice} - ${maxPrice}`}
     </li>
   );
-};
+});
 
 export default RangePriceItem;
+
+RangePriceItem.displayName = 'RangePriceItem';

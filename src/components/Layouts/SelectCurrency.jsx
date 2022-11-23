@@ -1,12 +1,12 @@
-import { useState } from 'react';
-
+import { useState, memo } from 'react';
+import Image from 'next/image';
 import Button from '@mui/material/Button';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 
-const SelectCurrency = ({ currencies, onChange, value }) => {
+const SelectCurrency = memo(({ currencies, onChange, value }) => {
 
     const [anchorEl, setAnchorEl] = useState(null);
     const open = Boolean(anchorEl);
@@ -28,7 +28,7 @@ const SelectCurrency = ({ currencies, onChange, value }) => {
                 title="Pais"
                 className="p-0"
             >
-                <img src={value.image} alt="" width="20" height="20" />
+                <img src={value.image} width="20" height="10" className="mr-2" />
                 <KeyboardArrowDownIcon sx={{
                     color: '#333',
                     fontSize: 20
@@ -49,13 +49,14 @@ const SelectCurrency = ({ currencies, onChange, value }) => {
                             onClick={(e) => { handleClose(e); onChange(currency, image) }}
                             key={currency}
                         >
-                            <img src={image} width="20" /> {currency}
+                            <Image src={image} width="20" height="10" className="mr-2" /> {currency}
                         </MenuItem>
                     ))
                 }
             </Menu>
         </div>
     )
-}
+});
 
 export default SelectCurrency
+SelectCurrency.displayName = 'SelectCurrency';

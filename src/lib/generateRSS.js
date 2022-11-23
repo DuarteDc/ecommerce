@@ -11,7 +11,7 @@ export default async function getRSS() {
   const siteURL = 'https://wapizima.com';
 
   const brands = await loadBrands();
-  brands.map(async ({ name, _id }) => {
+  brands.map(async ({ name, _id, url }) => {
     const products = await startLoadProductsPerBrand(_id);
     const feed = new RSS({
       title: "Wapizima",
@@ -41,7 +41,7 @@ export default async function getRSS() {
       });
     });
 
-    writeFileSync(`./public/${name}feed.xml`, feed.xml({ indent: true }));
+    writeFileSync(`./public/${url}feed.xml`, feed.xml({ indent: true }));
   })
 
 

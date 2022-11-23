@@ -229,6 +229,7 @@ const NavBar = () => {
               <button
                 className="lg:hidden"
                 onClick={toggleDrawer}
+                title="Menú"
               >
                 <MenuIcon
                   className="text-gray-600 text-[30px]"
@@ -238,6 +239,7 @@ const NavBar = () => {
               <button
                 className="lg:hidden"
                 onClick={toggleDrawer}
+                title="Cerrar"
               >
                 <CloseIcon
                   className="text-gray-600 text-[30px]"
@@ -252,7 +254,7 @@ const NavBar = () => {
                 {pages.map(({ path, name }) => (
                   name !== 'Escuela' ? (
                     <Link href={path} passHref key={name} prefetch={false}>
-                      <span className="text-[#888] border-transparent border-b-2 hover:text-[#333] mx-4 cursor-pointer  font-Poppins font-medium transition uppercase duration-700 ease-in-out">
+                      <span className="text-[#888] border-transparent border-b-2 hover: text-[#333] mx-4 cursor-pointer  font-Poppins font-medium transition uppercase duration-700 ease-in-out">
                         {name}
                       </span>
                     </Link>
@@ -494,7 +496,7 @@ const NavBar = () => {
               value={search}
               onChange={(event) => setSearh(event.target.value)}
             />
-            <button className="px-6 py-[6.5px] bg-[#e91e63] ml-2 rounded-sm cursor-pointer hover:bg-[#ed4b82]">
+            <button className="px-6 py-[6.5px] bg-[#e91e63] ml-2 rounded-sm cursor-pointer hover:bg-[#ed4b82]" title="Buscar">
               <SearchIcon className="text-white" />
             </button>
           </form>

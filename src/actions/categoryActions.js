@@ -206,6 +206,18 @@ export const startLoadSubcategoriesPerCategory = (category) => {
     }
 }
 
+export const startLoadSubcategoriesPerCategoryBySlug = (category) => {
+    return async (dispatch) => {
+        const url = `/subcategories/category-slug/${category}`;
+        try {
+            const { data } = await client.get(url);
+            dispatch(loadSubcategoriesPerCategory(data.subcategories));
+        } catch (error) {
+            console.log(error);
+        }
+    }
+}
+
 const loadSubcategoriesPerCategory = (subcategories) => ({
     type: types.load_subcategories_per_category_or_per_brand,
     payload: subcategories,

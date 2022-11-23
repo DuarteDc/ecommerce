@@ -1,23 +1,16 @@
-
-import { useState, useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import {  useSelector } from "react-redux";
 import { startLoadAdministrableLogo } from "../../src/actions/administrableActions";
-import { startLoadBrands, startLoadSubcategories } from "../../src/actions/brandsActions";
-import { startLoadTags } from "../../src/actions/tagsActions";
 import Layout from "../../src/components/Layouts";
 
 import { BannerImage, ProductCard } from "../../src/components/ui";
-import ProductCardMobile  from "../../src/components/ui/Mobile/ProductCard";
 
 
 import AsideBar from '../../src/components/categories/AsideBar';
 import BrandsList from '../../src/components/brands/BrandsList';
-import TagsList from '../../src/components/tags/TagsList';
 import LoadingScreen from "../../src/components/LoadingScreen";
 
 import { wrapper } from "../../src/store";
 import { useRouter } from "next/router";
-import { helpersProducts } from "../../src/helpers";
 import CategoryFilters from "../../src/components/categories/CategoryFilters";
 import { startLoadFaqsCategories } from "../../src/actions/faqsActions";
 import { useQueryParams } from "../../src/hooks/useQueryParams";
@@ -32,7 +25,7 @@ import SubcategoriesList from "../../src/components/subcategories/SubcategoriesL
 import RangePrice from "../../src/components/prices/RangePrice";
 import { startLoadCurrencies, startLoadPricesCurrencies } from "../../src/actions/countryAcctions";
 import { startLoadBrandsPerCategory } from "../../src/actions/brandsActions";
-import { startLoadSubcategoriesPerCategory } from "../../src/actions/categoryActions";
+import { startLoadSubcategoriesPerCategoryBySlug } from "../../src/actions/categoryActions";
 
 const Category = () => {
 
@@ -144,7 +137,7 @@ export const getServerSideProps = wrapper.getServerSideProps((store) =>
             }
         }
         await store.dispatch(startLoadBrandsPerCategory(ctx.query.url));
-        await store.dispatch(startLoadSubcategoriesPerCategory(ctx.query.url));
+        await store.dispatch(startLoadSubcategoriesPerCategoryBySlug(ctx.query.url));
         await store.dispatch(startLoadAdministrableLogo());
         await store.dispatch(startLoadPricesCurrencies(ctx.req?.cookies?.Currency || 'MXN'));
         await store.dispatch(startLoadFaqsCategories());
