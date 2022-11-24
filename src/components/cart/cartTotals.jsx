@@ -121,7 +121,7 @@ export const CartTotals = ({ toggleBusinessRule, toggleSelectCountry, handleSele
           />
         </div>
         <div className="border-b-[1px] border-dashed border-[#d9d9d9] flex flex-wrap flex-start pt-[20px]">
-          <InfoShippingCosts />
+          {/* <InfoShippingCosts /> */}
           <div className="w-full flex justify-center flex-wrap my-[20px]">
             <ShippingAddress toggleSelectCountry={toggleSelectCountry} />
           </div>
