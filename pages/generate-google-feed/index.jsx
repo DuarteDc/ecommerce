@@ -2,6 +2,7 @@ import React from 'react'
 import { wrapper } from '../../src/store'
 
 import getRSSForGoogle from '../../src/lib/generateRSSForGoogle';
+import getRSSForFacebook from '../../src/lib/generateRSSForFacebook'
 
 const FeedGoogle = () => {
     return (
@@ -15,7 +16,8 @@ const FeedGoogle = () => {
 
 export const getServerSideProps = wrapper.getServerSideProps(() =>
     async () => {
-        await getRSSForGoogle()
+        await getRSSForGoogle();
+        await getRSSForFacebook();
     }
 );
 

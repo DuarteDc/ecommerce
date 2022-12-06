@@ -2,7 +2,7 @@ import { writeFileSync } from 'fs';
 import RSS from 'rss';
 import { helpers } from '../helpers';
 
-import { loadBrands, startLoadProductsPerBrand, startLoadProductsRSS } from '../actions/productsAction';
+import { loadBrands, startLoadProductsPerBrand } from '../actions/productsAction';
 
 export default async function getRSS() {
 
