@@ -1,7 +1,14 @@
 import { NextResponse } from "next/server";
+import { startLoadMaintainment } from "./src/actions/administrableActions";
 import { cartNotEmpty, emailVerified } from "./src/actions/authActions";
 
 export async function middleware(req) {
+
+  const maintainment = await startLoadMaintainment();
+  const baseUrl = req.nextUrl.origin;
+  if (maintainment) return NextResponse.redirect(`${baseUrl}/mantenimiento`);
+  else NextResponse.redirect(baseUrl)
+
   if (req.nextUrl.pathname.startsWith("/buscar/[product]")) {
     const product = req.nextUrl.pathname.replace("/buscar/", "");
 
@@ -97,4 +104,9 @@ export async function middleware(req) {
 
     return NextResponse.redirect(`${baseUrl}/auth/login?p=${requestedPage}`);
   }
+}
+
+
+export const config = {
+  matcher: ['/', '/acerca-de-nosotros', '/auth/:path*', '/buscar/:producto*', '/canvas', '/categorias/:url*', '/checkout', '/conatco', '/distribuidor', '/generate-google-feed', '/marcas/:url*', '/mi-carrito', '/mi-lista-de-deseos', '/perfil/:path*', '/permisos-de-exportacion', '/preguntas-frecuentes', '/productos/:url*', '/verificar-cuenta', '/mantenimiento'],
 }

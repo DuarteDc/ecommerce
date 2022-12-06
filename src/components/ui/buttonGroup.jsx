@@ -2,7 +2,7 @@ import { memo } from 'react';
 import RemoveIcon from '@mui/icons-material/Remove';
 import AddIcon from '@mui/icons-material/Add';
 
-const ButtonGroup = memo(({ quantity = 0, increaseDecreaseQuantityProduct, handleChangeQuantity, product }) => {
+const ButtonGroup = ({ quantity = 0, increaseDecreaseQuantityProduct, handleChangeQuantity, product }) => {
 
     const handleKeyPress = (e) => {
         let key = window.event ? e.which : e.keyCode;
@@ -26,7 +26,7 @@ const ButtonGroup = memo(({ quantity = 0, increaseDecreaseQuantityProduct, handl
                             <RemoveIcon className="text-base" />
                         </button>
                         <input
-                            type="number"
+                            type="text"
                             className="flex w-full outline-none text-center py-1 md:py-2"
                             onChange={handleChangeQuantity}
                             value={quantity}
@@ -44,7 +44,7 @@ const ButtonGroup = memo(({ quantity = 0, increaseDecreaseQuantityProduct, handl
             }
         </div>
     )
-});
+};
 
 export default ButtonGroup;
 

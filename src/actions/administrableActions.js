@@ -82,3 +82,17 @@ export const loadOneCountryPermissions = (permission) => ({
     type: types.load_one_country_permissions,
     payload: permission,
 });
+
+
+export const startLoadMaintainment = async () => {
+    let url = `${process.env.REACT_APP_BACKEND_URL}/administrable/maintainment`;
+    try {
+        const response = await fetch(url, {
+            method: 'GET',
+        });
+        const data = await response.json();
+        return data.maintainment;
+    } catch (error) {
+        console.log(error);
+    }
+}

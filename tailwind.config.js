@@ -49,6 +49,7 @@ module.exports = {
         'banner16':"url('/assets/banners/17.png')",
         'banner17':"url('/assets/banners/18.png')",
         'banner18':"url('/assets/banners/distribuidor.jpg')",
+        'maintainment':"url('/assets/images/maintainment.webp')",
       },
       screens: {
         'peque': { 'max': '639px' },

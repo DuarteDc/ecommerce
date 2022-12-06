@@ -50,13 +50,13 @@ export const ProductCard = memo(({ product }) => {
   };
 
   return (
-    <div className="mb-[30px] relative p-2 card animate__animated animate__zoomIn md:mx-2 shadow-md md:shadow-none">
+    <div className="mb-[30px] relative p-2 md:card animate__animated animate__zoomIn md:mx-2 shadow-md md:shadow-none">
       <div className="relative overflow-hidden ">
-        <div className="w-full h-full relative">
+        <div className="w-full h-full relative cursor-pointer">
           {
             product.multimedia.length > 0 ? (
               <Image
-                src={product.multimedia[0].path}
+                src={product.multimedia[0].images.original}
                 alt={product.name}
                 width="320"
                 fill={true}
@@ -132,7 +132,7 @@ export const ProductCard = memo(({ product }) => {
         )}
 
         <div>
-          <h3 className="text-[#333] mb-2 text-xs md:text-[18px] md:font-semibold capitalize md:py-1 md:mt-1 mt-2 truncate">
+          <h3 className="text-[#333] mb-2 text-xs md:text-[18px] md:font-semibold capitalize md:py-1 md:mt-1 mt-2 truncate cursor-pointer">
             {name}
           </h3>
           <div className="hidden md:block md:mt-[8px] md:mb-[12px]">
@@ -175,7 +175,11 @@ export const ProductCard = memo(({ product }) => {
                                         uppercase 
                                         text-[10px]
                                         md:text-[11px]
-                                        lg:text-sm"
+                                        lg:text-sm
+                                        hover:bg-[#333]
+                                        hover:text-white
+                                        transition-all duration-700 ease-in-out
+                                        "
                       >
                         <span
                           className="flex items-center font-Poppins"
@@ -200,26 +204,28 @@ export const ProductCard = memo(({ product }) => {
 
             </div>
             <div className="flex ">
-              <span
-                className="w-[35px] hidden
+              {/* <span
+                className="w-[35px] 
+                h-[35px] 
+                leading-[38px] 
+                text-center  
+                text-[#333] 
+                rounded-[50%] 
+                shadow-md 
+                flex justify-center 
+                items-center  
+                hover:bg-[#333] 
+                hover:transition
+                hidden
                 md:block
-                                     h-[35px] 
-                                     leading-[38px] 
-                                     text-center  
-                                     text-[#333] 
-                                     rounded-[50%] 
-                                     shadow-md 
-                                     justify-center 
-                                     items-center mr-4 
-                                     hover:bg-[#333] 
-                                     cursor-pointer 
-                                     hover:transition"
+                cursor-pointer
+                mr-4"
                 onClick={() => handleShowProduct()}
               >
                 <VisibilityIcon
                   className="text-[25px] text-[#888] w-[90%] z-[2]  hover:text-[#fff] hover:transition"
                 />
-              </span>
+              </span> */}
 
               <span
                 className="w-[35px] 

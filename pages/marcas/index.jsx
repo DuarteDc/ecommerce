@@ -76,6 +76,7 @@ const Brands = () => {
                   url={brand.url}
                   titleButton="Ver más.."
                   handleClickCard={handleClickCard}
+                  opacity={false}
                 />
               </Grid>
             ))

@@ -260,7 +260,7 @@ const NavBar = () => {
                     </Link>
                   ) : (
                     <Link href={path} key={name} prefetch={false}>
-                      <a target="_blank" className="text-[#888] border-transparent border-b-2 hover:text-[#333] mx-4 cursor-pointer  font-Poppins font-medium transition uppercase duration-700 ease-in-out">
+                      <a target="_blank" className="text-[#888] border-transparent border-b-2 hover: text-[#333] mx-4 cursor-pointer  font-Poppins font-medium transition uppercase duration-700 ease-in-out">
                         {name}
                       </a>
                     </Link>

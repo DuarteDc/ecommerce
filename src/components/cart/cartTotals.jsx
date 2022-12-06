@@ -83,7 +83,7 @@ export const CartTotals = ({ toggleBusinessRule, toggleSelectCountry, handleSele
 
 
     const isValid = await dispatch(startFinaliceSaleCheckout(data));
-    if(!isValid) return setLoading(false);
+    if (!isValid) return setLoading(false);
     router.push('/checkout')
     setLoading(false);
   }
@@ -106,6 +106,9 @@ export const CartTotals = ({ toggleBusinessRule, toggleSelectCountry, handleSele
     <>
       {loading && <LoadingScreen />}
       <div className="mx-[25px] border-[1px] border-solid border-[#888] py-[60px] px-[30px]">
+        <div className="relative w-full">
+          <p className="absolute right-0 -top-10 text-[#333] text-sm font-semibold">Cantidad: {cart?.length === 1 ? `${cart?.length} producto` : `${cart?.length} productos`}</p>
+        </div>
         <h4 className="font-Poppins text-[20px] text-center leading-[1.3] uppercase pb-[2px]">Total Carrito</h4>
         <div
           className="flex flex-row-reverse pr-5 mb-4"
@@ -115,17 +118,18 @@ export const CartTotals = ({ toggleBusinessRule, toggleSelectCountry, handleSele
             onClick={toggleBusinessRule}
           />
         </div>
-        <div className="border-b-[1px] flex justify-start flex-wrap pb-[13px]">
+        {/* <div className="border-b-[1px] flex justify-start flex-wrap pb-[13px]">
           <SubtotalInfo
             subtotal={subtotal}
           />
-        </div>
+        </div> */}
+        <hr />
         <div className="border-b-[1px] border-dashed border-[#d9d9d9] flex flex-wrap flex-start pt-[20px]">
           {/* <InfoShippingCosts /> */}
           <div className="w-full flex justify-center flex-wrap my-[20px]">
             <ShippingAddress toggleSelectCountry={toggleSelectCountry} />
           </div>
-          
+
           <div className="w-full">
             <CouponDetails
               handleApplyCoupon={handleApplyCoupon}
@@ -142,7 +146,7 @@ export const CartTotals = ({ toggleBusinessRule, toggleSelectCountry, handleSele
           </div>
           <button className="rounded-[25px] bg-[#333] w-[100%] h-[50px] font-Poppins text-[15px] leading-[1.4] uppercase text-[#fff] flex  items-center  justify-center hover:bg-[#000] hover:transition-all"
             onClick={() => proceedToCheckout()}
-            // onClick={handleSelectAddress}
+          // onClick={handleSelectAddress}
           >
             Continuar
           </button>

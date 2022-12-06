@@ -24,20 +24,18 @@ export const CartItems = ({ product }) => {
   const { updateProductQuantity, handleChangeProductQuantity, removeProduct, quantity: inputQuantity } = useCart(logged, quantity, product_id, undefined, undefined, true);
 
   return (
-    <tr className="border-b border-gray-200">
+    <tr className={`border-b border-gray-200`}>
       <td className="px-4 bg-white text-sm flex items-center text-center truncate max-w-sm">
-        <div>
-          <Zoom zoomMargin={45}>
-            <picture>
-              <source media="(max-width: 10px)" srcSet={product?.product_id?.multimedia[0].path} />
-              <img
-                src={(product?.product_id?.multimedia?.length > 0) ? product?.product_id?.multimedia[0].path : 'https://upload.wikimedia.org/wikipedia/commons/d/d1/Image_not_available.png'}
-                alt={product?.name}
-                className="min-w-[6rem] min-h-[6rem] h-[6rem] w-[6rem]"
-              />
-            </picture>
-          </Zoom>
-        </div>
+        <Zoom zoomMargin={45}>
+          <picture>
+            <source media="(max-width: 10px)" srcSet={product?.product_id?.multimedia[0].path} />
+            <img
+              src={(product?.product_id?.multimedia?.length > 0) ? product?.product_id?.multimedia[0].path : 'https://upload.wikimedia.org/wikipedia/commons/d/d1/Image_not_available.png'}
+              alt={product?.name}
+              className="min-w-[6rem] min-h-[6rem] h-[6rem] w-[6rem]"
+            />
+          </picture>
+        </Zoom>
         <div className="flex flex-col">
           <span className="text-gray-900 font-normal px-4 whitespace-no-wrap truncate">
             {product_id?.name}

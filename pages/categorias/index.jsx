@@ -75,6 +75,7 @@ const Categories = () => {
                                 hasName={true}
                                 titleButton="Ver más..."
                                 handleClickCard={handleClickCard}
+                                opacity={true}
                             />
                         )
                     ))}

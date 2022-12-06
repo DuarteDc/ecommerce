@@ -35,6 +35,7 @@ const reducer = (state, action) => {
     if (state.wishList) nextState.wishList = state.wishList;
     if (state.auth) nextState.auth = state.auth;
     if (state.cart) nextState.cart.cart = state.cart.cart;
+    if (state.countries) nextState.countries.countries = state.countries.countries;
     return nextState;
   } else {
     return reducers(state, action);

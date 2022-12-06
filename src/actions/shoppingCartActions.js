@@ -94,9 +94,9 @@ export const startCalculateTotalSale = (cart, logged) => {
 
       if (coupon) {
          subtotalWithCoupon = helpers.applyCoupon(data.productsWithoutDiscount, coupon.discount);
-         total = shipping_costs + Number(subtotalWithCoupon + data.productsDiscount + data.productsCanvas) || 0;
+         total = Number(subtotalWithCoupon + data.productsDiscount + data.productsCanvas) || 0;
       } else {
-         total = subtotalCart + shipping_costs || 0;
+         total = subtotalCart || 0;
       }
 
       dispatch(calculateTotalSale(subtotalWithCoupon, subtotalCart, total, shipping_costs))

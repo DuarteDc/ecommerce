@@ -1,5 +1,8 @@
 import { useRef, useState } from 'react';
 
+import Image from 'next/image';
+
+
 import { Slide } from 'react-slideshow-image';
 import 'react-slideshow-image/dist/styles.css';
 
@@ -35,7 +38,7 @@ const ProductSliderShow = ({ slideImages, product }) => {
                         <div>
                             <Zoom zoomMargin={45}>
                                 <picture>
-                                    <img src={slideImage.path} alt="" />
+                                    <img src={slideImage.path} alt={product.name}  width="auto" height="auto" loading="lazy" />
                                 </picture>
                             </Zoom>
                         </div>
@@ -47,14 +50,15 @@ const ProductSliderShow = ({ slideImages, product }) => {
                     product?.multimedia.map((multimedia, index) => (
                         <div key={index}
                             className="overflow-hidden border-2 border-gray-300 w-24 h-24 mr-2 cursor-pointer"
-                        >
+                        >  
                             <img
-                                src={multimedia?.path}
+                                src={multimedia?.images?.original}
                                 alt={product.name}
                                 onClick={e => handleChangeImage(index)}
                                 className="w-full h-full object-fill"
                                 width={200}
                                 height={200}
+                                loading="lazy"
                             />
                         </div>
                     ))

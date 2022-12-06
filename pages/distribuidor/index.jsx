@@ -58,7 +58,7 @@ const Distributor = () => {
           </div>
           <div className="col-span-2 mt-26 lg:mt-0">
             <div className="overflow-auto px-5 lg:overflow-visible border-2 border-gray-200 rounded-lg py-16 md:px-10 shadow-md flex flex-col items-center hover:bg-gray-50">
-              <h2 className="text-4xl font-semibold text-center mb-10">Aprovecha los descuentos del Buen Fin</h2>
+              <h2 className="text-4xl font-semibold text-center mb-10">Aprovecha los descuentos de distribuidor</h2>
               <table className="w-full text-sm text-left text-gray-500">
                 <thead className="text-xs text-white uppercase bg-[#333]">
                   <tr>
@@ -96,6 +96,7 @@ const Distributor = () => {
         </div>
       </section>
       <section className="container mx-auto">
+        <div className="grid grid-cols-2">
         <div className="my-20 w-full">
           <div className="flex items-center">
             <div className="border-[#e91e63] rounded-full p-3 mx-4 shadow-2xl shadow-[#e91e63] flex justify-center items-center">
@@ -106,7 +107,7 @@ const Distributor = () => {
                 height={150}
               />
             </div>
-            <div className="md:w-5/12 lg:w-4/12">
+            <div className="lg:w-8/12">
               <h3 className="md:text-3xl font-bold uppercase text-lg">
                 Registrate
               </h3>
@@ -128,7 +129,7 @@ const Distributor = () => {
                 height={150}
               />
             </div>
-            <div className="md:w-5/12 lg:w-4/12 text-right">
+            <div className="md:w-5/12 lg:w-9/12 text-right">
               <h3 className="md:text-3xl font-bold uppercase text-lg">
                 Accede a ser distribuidor
               </h3>
@@ -150,7 +151,7 @@ const Distributor = () => {
                 height={150}
               />
             </div>
-            <div className="md:w-5/12 lg:w-4/12">
+            <div className="lg:w-8/12">
               <h3 className="md:text-3xl font-bold uppercase text-lg">
                 Revisa nuestro catalogo
               </h3>
@@ -172,7 +173,7 @@ const Distributor = () => {
                 height={150}
               />
             </div>
-            <div className="md:w-5/12 lg:w-4/12 text-right">
+            <div className="md:w-5/12 lg:w-9/12 text-right">
               <h3 className="md:text-3xl font-bold uppercase text-lg">
                 Comienza a comprar
               </h3>
@@ -194,7 +195,7 @@ const Distributor = () => {
                 height={150}
               />
             </div>
-            <div className="md:w-5/12 lg:w-4/12">
+            <div className="lg:w-8/12">
               <h3 className="md:text-3xl font-bold uppercase text-lg">
                 Verifica tus pedidos
               </h3>
@@ -216,7 +217,7 @@ const Distributor = () => {
                 height={150}
               />
             </div>
-            <div className="md:w-5/12 lg:w-4/12 text-right">
+            <div className="md:w-5/12 lg:w-9/12 text-right">
               <h3 className="md:text-3xl font-bold uppercase text-lg">
                 Proceder a pagar
               </h3>
@@ -227,6 +228,7 @@ const Distributor = () => {
               </div>
             </div>
           </div>
+        </div>
         </div>
       </section>
       <section className="container mx-auto mb-20">
