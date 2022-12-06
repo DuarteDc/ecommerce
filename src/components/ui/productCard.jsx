@@ -59,6 +59,7 @@ export const ProductCard = memo(({ product }) => {
                 src={product.multimedia[0].images.original}
                 alt={product.name}
                 width="320"
+                priority={true}
                 fill={true}
                 sizes="(max-width: 768px) 100vw,
                         (max-width: 1200px) 50vw,
