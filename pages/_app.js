@@ -8,6 +8,7 @@ import "swiper/css/pagination";
 import "swiper/css/navigation";
 import 'animate.css';
 import * as ga from '../src/libs/ga';
+import { datadogRum } from '@datadog/browser-rum'
 
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 
@@ -17,8 +18,24 @@ import { loadDimensionsOfBrowser } from '../src/actions/uiActions';
 
 
 const MyApp = ({ Component, pageProps }) => {
-
+  
   const router = useRouter();
+  datadogRum.init({
+    applicationId: '667e147b-7ddd-4c86-adfc-61290b72f9d1',
+    clientToken: process.env.NEXT_PUBLIC_DATADOG_CLIENT,
+    site: 'datadoghq.com',
+    service: 'wec',
+    env: process.env.NEXT_PUBLIC_DATADOG_ENV,
+    sampleRate: 100,
+    sessionReplaySampleRate: 20,
+    trackInteractions: true,
+    trackResources: true,
+    trackLongTasks: true,
+    defaultPrivacyLevel: 'mask-user-input'
+  });
+
+  datadogRum.startSessionReplayRecording();
+
   const dispatch = useDispatch();
 
   const getWindowSizes = () => {
@@ -63,7 +80,7 @@ const MyApp = ({ Component, pageProps }) => {
   return getLayout(
     <ThemeProvider theme={theme}>
       {/* <GoogleReCaptchaProvider reCaptchaKey={process.env.NEXT_PUBLIC_RECAPTCHA}> */}
-        <Component {...pageProps} />
+      <Component {...pageProps} />
       {/* </GoogleReCaptchaProvider> */}
     </ThemeProvider>
   )
