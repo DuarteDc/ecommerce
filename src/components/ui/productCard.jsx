@@ -56,16 +56,15 @@ export const ProductCard = memo(({ product }) => {
           {
             product.multimedia.length > 0 ? (
               <Image
-                src={product.multimedia[0].images.original}
+                src={product?.multimedia[0]?.images?.original}
                 alt={product.name}
                 width="320"
+                height="320"
                 priority={true}
                 fill={true}
                 sizes="(max-width: 768px) 100vw,
                         (max-width: 1200px) 50vw,
                         33vw"
-                height="320"
-
                 onClick={handleShowProduct}
               />
             ) : (

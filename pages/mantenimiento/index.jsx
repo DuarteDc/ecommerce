@@ -1,5 +1,4 @@
-import { startLoadAdministrableLogo } from "../../src/actions/administrableActions";
-import { wrapper } from "../../src/store";
+import { startLoadMaintainment } from "../../src/actions/administrableActions"
 
 const Maintainment = () => {
 
@@ -20,6 +19,22 @@ const Maintainment = () => {
             </section>
         </main>
     )
+}
+
+export async function getServerSideProps() {
+    const maintainment = await startLoadMaintainment();
+
+    if (!maintainment) {
+        return {
+            redirect: {
+                destination: '/',
+                permanent: false,
+            },
+        }
+    }
+    return {
+        props: {},
+    }
 }
 
 export default Maintainment;
