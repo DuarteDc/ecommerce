@@ -13,6 +13,7 @@ import { useSelector } from 'react-redux'
 import { helpers } from '../../src/helpers'
 import { startLoadProductsMostSold } from '../../src/actions/productsAction';
 import { startLoadBrands } from '../../src/actions/brandsActions';
+import InfoItem from '../../src/components/distribuidor/InfoItem';
 
 const Distributor = () => {
 
@@ -96,139 +97,49 @@ const Distributor = () => {
         </div>
       </section>
       <section className="container mx-auto">
-        <div className="grid grid-cols-2">
-        <div className="my-20 w-full">
-          <div className="flex items-center">
-            <div className="border-[#e91e63] rounded-full p-3 mx-4 shadow-2xl shadow-[#e91e63] flex justify-center items-center">
-              <Image
-                src="/assets/icons/user.png"
-                alt="User"
-                width={150}
-                height={150}
-              />
-            </div>
-            <div className="lg:w-8/12">
-              <h3 className="md:text-3xl font-bold uppercase text-lg">
-                Registrate
-              </h3>
-              <div className="mt-8 text-gray-500">
-                <p className="md:text-lg">
-                  Dirigite al apartado <Link href="/auth/register" passHref><b className="text-[#e91e63] cursor-pointer">REGISTRATE</b></Link>, Ingresa tus datos para poder crear tu perfil.
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div className="my-20 w-full">
-          <div className="flex items-center flex-row-reverse">
-            <div className="border-[#e91e63] rounded-full p-3 mx-4 shadow-2xl shadow-[#e91e63] flex justify-center items-center">
-              <Image
-                src="/assets/icons/delivery-truck-icon.svg"
-                alt="User"
-                width={150}
-                height={150}
-              />
-            </div>
-            <div className="md:w-5/12 lg:w-9/12 text-right">
-              <h3 className="md:text-3xl font-bold uppercase text-lg">
-                Accede a ser distribuidor
-              </h3>
-              <div className="mt-8 text-gray-500">
-                <p className="md:text-lg">
-                  Observa los descuentos que tenemos para tí, en la tabla que se encuentra en la parte superior.
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div className="my-20 w-full">
-          <div className="flex items-center">
-            <div className="border-[#e91e63] rounded-full p-3 mx-4 shadow-2xl shadow-[#e91e63] flex justify-center items-center">
-              <Image
-                src="/assets/icons/catalog.png"
-                alt="User"
-                width={150}
-                height={150}
-              />
-            </div>
-            <div className="lg:w-8/12">
-              <h3 className="md:text-3xl font-bold uppercase text-lg">
-                Revisa nuestro catalogo
-              </h3>
-              <div className="mt-8 text-gray-500">
-                <p className="md:text-lg">
-                  Dirigete a nuestro apartado de <Link href="/productos" passHref><b className="text-[#e91e63] cursor-pointer">PRODUCTOS</b></Link>, ahí podrás observar todo nuestro catalogo que tenemos para tí.
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div className="my-20 w-full">
-          <div className="flex items-center flex-row-reverse">
-            <div className="border-[#e91e63] rounded-full p-3 mx-4 shadow-2xl shadow-[#e91e63] flex justify-center items-center">
-              <Image
-                src="/assets/icons/add-cart.png"
-                alt="User"
-                width={150}
-                height={150}
-              />
-            </div>
-            <div className="md:w-5/12 lg:w-9/12 text-right">
-              <h3 className="md:text-3xl font-bold uppercase text-lg">
-                Comienza a comprar
-              </h3>
-              <div className="mt-8 text-gray-500">
-                <p className="md:text-lg">
-                  Una vez revisado nuestro catalogo, agrega los productos de tu preferencia a tu carrito.
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div className="my-20 w-full">
-          <div className="flex items-center">
-            <div className="border-[#e91e63] rounded-full p-3 mx-4 shadow-2xl shadow-[#e91e63] flex justify-center items-center">
-              <Image
-                src="/assets/icons/trolley.png"
-                alt="User"
-                width={150}
-                height={150}
-              />
-            </div>
-            <div className="lg:w-8/12">
-              <h3 className="md:text-3xl font-bold uppercase text-lg">
-                Verifica tus pedidos
-              </h3>
-              <div className="mt-8 text-gray-500">
-                <p className="md:text-lg">
-                  Dentro de tu carrito verifica tus productos y sus cantidades. Si todo está bien deberas continuar.
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div className="my-20 w-full">
-          <div className="flex items-center flex-row-reverse">
-            <div className="border-[#e91e63] rounded-full p-3 mx-4 shadow-2xl shadow-[#e91e63] flex justify-center items-center">
-              <Image
-                src="/assets/icons/wallet.png"
-                alt="User"
-                width={150}
-                height={150}
-              />
-            </div>
-            <div className="md:w-5/12 lg:w-9/12 text-right">
-              <h3 className="md:text-3xl font-bold uppercase text-lg">
-                Proceder a pagar
-              </h3>
-              <div className="mt-8 text-gray-500">
-                <p className="md:text-lg">
-                  Para pagar tendras 2 métodos de pago <b className="text-[#000]">(transferencia o pago con tarjeta)</b> y en el detalle de orden podras ver tus productos.
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
+        <div className="grid grid-cols-1 md:grid-cols-2">
+          <InfoItem
+            title="REGISTRATE"
+            text={<p className="md:text-lg">
+              Dirigite al apartado <Link href="/auth/register" passHref><b className="text-[#e91e63] cursor-pointer">REGISTRATE</b></Link>, Ingresa tus datos para poder crear tu perfil.
+            </p>}
+            image="/assets/icons/user.png"
+          />
+          <InfoItem
+            title="Accede a ser distribuidor"
+            text={<p className="md:text-lg">
+              Observa los descuentos que tenemos para tí, en la tabla que se encuentra en la parte superior.
+            </p>}
+            image="/assets/icons/delivery-truck-icon.svg"
+          />
+          <InfoItem
+            title="Revisa nuestro catalogo"
+            text={<p className="md:text-lg">
+              Dirigete a nuestro apartado de <Link href="/productos" passHref><b className="text-[#e91e63] cursor-pointer">PRODUCTOS</b></Link>, ahí podrás observar todo nuestro catalogo que tenemos para tí.
+            </p>}
+            image="/assets/icons/catalog.png"
+          />
+          <InfoItem
+            title="Comienza a comprar"
+            text={<p className="md:text-lg">
+              Una vez revisado nuestro catalogo, agrega los productos de tu preferencia a tu carrito.
+            </p>}
+            image="/assets/icons/add-cart.png"
+          />
+          <InfoItem
+            title="Verifica tus pedidos"
+            text={<p className="md:text-lg">
+              Dentro de tu carrito verifica tus productos y sus cantidades. Si todo está bien deberas continuar.
+            </p>}
+            image="/assets/icons/trolley.png"
+          />
+          <InfoItem
+            title="Proceder a pagar"
+            text={<p className="md:text-lg">
+              Para pagar tendras 2 métodos de pago <b className="text-[#000]">(transferencia o pago con tarjeta)</b> y en el detalle de orden podras ver tus productos.
+            </p>}
+            image="/assets/icons/wallet.png"
+          />
         </div>
       </section>
       <section className="container mx-auto mb-20">

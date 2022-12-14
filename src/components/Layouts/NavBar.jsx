@@ -254,13 +254,13 @@ const NavBar = () => {
                 {pages.map(({ path, name }) => (
                   name !== 'Escuela' ? (
                     <Link href={path} passHref key={name} prefetch={false}>
-                      <span className="text-[#888] border-transparent border-b-2 hover: text-[#333] mx-4 cursor-pointer  font-Poppins font-medium transition uppercase duration-700 ease-in-out">
+                      <span className="text-[#333] border-transparent border-b-2 hover:text-[#888] mx-4 cursor-pointer  font-Poppins font-medium transition uppercase duration-700 ease-in-out">
                         {name}
                       </span>
                     </Link>
                   ) : (
                     <Link href={path} key={name} prefetch={false}>
-                      <a target="_blank" className="text-[#888] border-transparent border-b-2 hover: text-[#333] mx-4 cursor-pointer  font-Poppins font-medium transition uppercase duration-700 ease-in-out">
+                      <a target="_blank" className="text-[#333] border-transparent border-b-2 hover:text-[#888] mx-4 cursor-pointer  font-Poppins font-medium transition uppercase duration-700 ease-in-out">
                         {name}
                       </a>
                     </Link>
@@ -286,7 +286,7 @@ const NavBar = () => {
                     aria-haspopup="true"
                     aria-expanded={openMenu ? "true" : undefined}
                     onClick={handleClick}
-                    sx={{ color: "#999" }}
+                    sx={{ color: "#333" }}
                     className="border-transparent border-b-2 mx-4 cursor-pointer text-lg font-['Poppins'] font-normal transition duration-700 ease-in-out"
                   >
                     <AccountCircleIcon className="text-3xl" />
@@ -332,7 +332,7 @@ const NavBar = () => {
                       <MenuItem
                         onClick={handleClose}
                         sx={{ paddingRight: 15, fontSize: "14px" }}
-                        className="hover:text-black"
+                        className="hover:text-[#a31545]"
                       >
                         Mi Cuenta
                       </MenuItem>
@@ -341,7 +341,7 @@ const NavBar = () => {
                       <MenuItem
                         onClick={handleClose}
                         sx={{ paddingRight: 15, fontSize: "14px" }}
-                        className="hover:text-black"
+                        className="hover:text-[#a31545]"
                       >
                         Mis Pedidos
                       </MenuItem>
@@ -350,7 +350,7 @@ const NavBar = () => {
                       <MenuItem
                         onClick={handleClose}
                         sx={{ paddingRight: 15, fontSize: "14px" }}
-                        className="hover:text-black"
+                        className="hover:text-[#a31545]"
                       >
                         Mis Direcciones
                       </MenuItem>
@@ -361,7 +361,7 @@ const NavBar = () => {
                         logoutSession();
                       }}
                       sx={{ paddingRight: 15, fontSize: "14px" }}
-                      className="hover:text-black"
+                      className="hover:text-[#a31545]"
                     >
                       Cerrar Sesión
                     </MenuItem>
@@ -373,8 +373,8 @@ const NavBar = () => {
                     onClick={() =>
                       router.push(`/auth/login?p=${router.asPath}`)
                     }
-                    className="text-[#888] border-transparent border-b-2 hover:text-[#333] cursor-pointer  font-Poppins
-                    transition uppercase duration-700 ease-in-out min-w-[6rem] flex"
+                    className="text-[#333] border-transparent border-b-2 hover:text-[#333] cursor-pointer  font-Poppins
+                    transition uppercase duration-700 ease-in-out min-w-[6rem] flex hover:text-[#888]"
                   >
                     Iniciar Sesión
                   </span>
@@ -382,14 +382,14 @@ const NavBar = () => {
                     onClick={() =>
                       router.push(`/auth/register?p=${router.asPath}`)
                     }
-                    className="text-[#888] border-transparent border-b-2 hover:text-[#333] cursor-pointer  font-Poppins transition uppercase duration-700 ease-in-out"
+                    className="text-[#333] hover:text-[#888] border-transparent border-b-2 hover:text-[#333] cursor-pointer  font-Poppins transition uppercase duration-700 ease-in-out"
                   >
                     Registrate
                   </span>
                 </div>
               )}
               <span className="block h-6 w-[1px] bg-[#e5e5e5] md:mx-2 xl:mx-4 mt-2"></span>
-              <span className="flex items-center border-transparent border-b-2 cursor-pointer text-[#888] font-['Poppins'] font-normal xl:mx-2 transition duration-700 ease-in-out mr-5">
+              <span className="flex items-center border-transparent border-b-2 cursor-pointer text-[#333] hover:text-[#888] font-['Poppins'] font-normal xl:mx-2 transition duration-700 ease-in-out mr-5">
                 <Badge
                   badgeContent={wishList?.length}
                   color="primary"
@@ -398,7 +398,7 @@ const NavBar = () => {
                   <FavoriteBorderIcon />
                 </Badge>
               </span>
-              <span className="flex items-center border-transparent border-b-2 cursor-pointer text-[#888] font-['Poppins'] font-normal transition duration-700 ease-in-out">
+              <span className="flex items-center border-transparent border-b-2 cursor-pointer text-[#333] hover:text-[#888] font-['Poppins'] font-normal transition duration-700 ease-in-out">
                 <Badge
                   badgeContent={cart?.length}
                   color="primary"

@@ -43,7 +43,7 @@ export const useCart = (logged = false, currentQuantity = 1, product = {}, cart,
         if (target.value > product.quantity) {
             setUpdatedQuantity(true);
             warningNotify(`Cantidad disponible: ${product.quantity}`);
-            return setQuantity(product.quantity);
+            return setQuantity(+product.quantity);
         }
 
         setQuantity(target.value.replace(/^0+/, ''));
