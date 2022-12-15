@@ -4,7 +4,7 @@ import { types } from '../types';
 export const startLoadCountries = () => {
     return async (dispatch) => {
         try {
-            let url = 'countries';
+            let url = '/countries';
             const { data } = await client.get(url);
             dispatch(loadCountries(data.countries));
         } catch (error) {
