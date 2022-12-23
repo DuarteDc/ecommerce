@@ -36,6 +36,7 @@ export default async function getRSSForFacebook() {
         { 'link': `${siteURL}/productos/${product?.url}` },
         { 'image_link': product?.multimedia[0]?.path, },
         { 'brand': product?.brand?.name },
+        { 'google_product_category': 2975}
       ]
     });
   });
