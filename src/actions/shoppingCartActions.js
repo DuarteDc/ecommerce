@@ -46,7 +46,7 @@ export const loadShoppingCart = (shoppingCart, shippingCosts) => ({
 
 
 /**Agregar productos al carrito de compras */
-export const startAddProductShoppingCart = (data, product) => {
+export const startAddProductShoppingCart = (data, product, isAdd) => {
    return async (dispatch) => {
       try {
          let url = '/cart';
@@ -55,9 +55,9 @@ export const startAddProductShoppingCart = (data, product) => {
             headers: {
                'Authorization': token
             }
-         });   
-         dispatch(addProductToShoppingCart({ product_id: product, quantity: 1 }));
-         // successNotify('El producto ha sido agregado al carrito satisfactoriamente');
+         });
+         dispatch(addProductToShoppingCart({ product_id: product, quantity: data.quantity }));
+         if (!isAdd) successNotify('El producto ha sido agregado al carrito satisfactoriamente');
       } catch (error) {
          console.log(error);
          errorNotify('Hubo un problema al agregar el producto - Intente más tarde');
@@ -164,7 +164,7 @@ export const startUpdatedProductQuantity = (product) => {
          successNotify('El producto ha sido agregado al carrito satisfactoriamente');
       } catch (error) {
          console.log(error);
-         errorNotify('Hubo un problema al agregar el producto - Intente más tarder');
+         errorNotify('Hubo un problema al agregar el producto - Intente más tarde');
       }
    }
 }
@@ -316,7 +316,7 @@ export const startUpdateCartNoAuth = (products, currency, product) => {
    }
 }
 
-const getShippingCost = (shippingCosts) =>({
+const getShippingCost = (shippingCosts) => ({
    type: types.get_shipping_cost,
    payload: shippingCosts
 });

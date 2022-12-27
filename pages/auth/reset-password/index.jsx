@@ -37,7 +37,7 @@ const ResetPassword = () => {
       setTimeout(() => setError(false), 4000);
       return;
     }
-    successNotify(message);
+    successNotify('Se ha enviado un enlace para restablecer tu contraseña');
     router.replace('/auth/login');
   }
 

@@ -38,7 +38,9 @@ const ForgotPassword = () => {
       return;
     }
     successNotify(message);
-    router.replace('/auth/login');
+    setTimeout(() => {
+      router.replace('/auth/login');
+    }, 1000)
   }
 
   const initialValues = {
@@ -76,7 +78,7 @@ const ForgotPassword = () => {
                 <p className="text-lg my-1 font-light">Ingresa la dirección de correo electrónico que utilizaste para crear tu cuenta y nosotros te enviaremos un enlace para que restablezcas tu contraseña.</p>
               </div>
               <div className="border-[1px] border-solid border-[#e6e6e6] rounded-sm flex items-center">
-                <MarkEmailReadIcon 
+                <MarkEmailReadIcon
                   className="text-[25px] text-[#888] w-[20%]"
                 />
                 <input
@@ -90,8 +92,8 @@ const ForgotPassword = () => {
               </div>
               {formik.touched.email && formik.errors.email ? (
                 <span className="flex items-center">
-                  <ErrorIcon 
-                    className = "text-red-600  mr-1"
+                  <ErrorIcon
+                    className="text-red-600  mr-1"
                   />
                   <p className="text-red-600 text-sm">{formik.errors.email}</p>
                 </span>
@@ -100,9 +102,9 @@ const ForgotPassword = () => {
                 error &&
                 (
                   <span className="flex items-center mt-1">
-                  <ErrorIcon 
-                    className = "text-red-600  mr-1"
-                  />
+                    <ErrorIcon
+                      className="text-red-600  mr-1"
+                    />
                     <p className="text-red-600 text-sm">{messageError}</p>
                   </span>
                 )

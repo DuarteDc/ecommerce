@@ -75,10 +75,9 @@ export const useCart = (logged = false, currentQuantity = 1, product = {}, cart,
     }
 
     const addProduct = () => {
-        const productInCart = existInShoppingCart(product._id, cart);
 
         if (logged)
-            return dispatch(startAddProductShoppingCart({ product_id: product._id, quantity: quantity || 1 }, product));
+            return dispatch(startAddProductShoppingCart({ product_id: product._id, quantity: quantity || 1 }, product, isAdd));
 
         const newCart = [];
         const product_id = prepareCartDataForLocalStorage(product);
@@ -90,6 +89,7 @@ export const useCart = (logged = false, currentQuantity = 1, product = {}, cart,
             newCart = cart.map(cart => cart.product_id._id === product._id ? { ...cart, quantity: cart.quantity = quantity || 1 } : cart);
 
         localStorage.setItem('cart', JSON.stringify(newCart));
+        if (!isAdd) successNotify('El producto ha sido agregado al carrito satisfactoriamente');
     }
 
     useEffect(() => {
@@ -104,7 +104,7 @@ export const useCart = (logged = false, currentQuantity = 1, product = {}, cart,
         if (updatedQuantity && quantity !== '' && isAdd) {
             const product_id = product._id;
             updateCart(product_id, quantity);
-            setUpdatedQuantity(false);
+            // setUpdatedQuantity(false);
         }
     }, [update]);
 
