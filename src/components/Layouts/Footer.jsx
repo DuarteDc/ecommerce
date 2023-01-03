@@ -1,3 +1,4 @@
+import { useRouter } from "next/router";
 import * as Yup from "yup";
 import Link from "next/link";
 import Image from "next/image";
@@ -11,6 +12,8 @@ import FacebookIcon from '@mui/icons-material/Facebook';
 import InstagramIcon from '@mui/icons-material/Instagram';
 
 const Footer = ({ categories }) => {
+  const router = useRouter();
+
   const { facebook, instagram, tiktok } = useSelector(
     (state) => state.administrable
   );
@@ -31,6 +34,13 @@ const Footer = ({ categories }) => {
       resetForm({ values: initialValues });
     },
   });
+
+  const handleRedirectClick = (path) => {
+    if (router.pathname === path) return router.push(path, undefined, { shallow: true });
+    router.push(path)
+  };
+
+
   return (
     <footer className="left-0 right-0 bottom-0 min-h-[250px] pt-[60px] pb-[20px] bg-[#333] text-luz mx-auto px-auto font-Poppins text-base font-thin">
       <div className="max-w-[1200px] mx-auto px-3">
@@ -40,32 +50,19 @@ const Footer = ({ categories }) => {
               <div>
                 <h6>Sobre nosotros</h6>
                 <ul>
-                  <Link href="/acerca-de-nosotros" passHref>
-                    <li className="text-[12px] cursor-pointer">Acerca de nostros</li>
-                  </Link>
-                  <Link href="/permisos-de-exportacion" passHref>
-                    <li className="text-[12px] cursor-pointer">Permisos de exportación</li>
-                  </Link>
+                  <li className="text-[12px] cursor-pointer" onClick={() => handleRedirectClick("/acerca-de-nosotros")}>Acerca de nostros</li>
+                  <li className="text-[12px] cursor-pointer" onClick={() => handleRedirectClick("/permisos-de-exportacion")}>Permisos de exportación</li>
                 </ul>
               </div>
               <div>
                 <h6>Ayuda y apoyo</h6>
                 <ul>
-                  <li className="text-[12px]">
-                    <Link href="/preguntas-frecuentes">
-                      Preguntas frecuentes
-                    </Link>
+                  <li className="text-[12px] cursor-pointer" onClick={() => handleRedirectClick("/preguntas-frecuentes")}>
+                    Preguntas frecuentes
                   </li>
                   {categories?.map((category) => (
-                    <li className="text-[12px]" key={category._id}>
-                      <Link
-                        href={{
-                          pathname: "/preguntas-frecuentes",
-                          query: { category_id: category._id },
-                        }}
-                      >
-                        {category.name}
-                      </Link>
+                    <li className="text-[12px] cursor-pointer" key={category._id} onClick={() => handleRedirectClick(`/preguntas-frecuentes?category_id=${category._id}`)}>
+                      {category.name}
                     </li>
                   ))}
                 </ul>
@@ -73,23 +70,23 @@ const Footer = ({ categories }) => {
               <div>
                 <h6>Enlaces</h6>
                 <ul>
-                  <li className="text-[12px]">
-                    <Link href="/">Inicio</Link>
+                  <li className="text-[12px] cursor-pointer" onClick={() => handleRedirectClick("/")}>
+                    Inicio
                   </li>
-                  <li className="text-[12px]">
-                    <Link href="/marcas">Marcas</Link>
+                  <li className="text-[12px] cursor-pointer" onClick={() => handleRedirectClick("/marcas")}>
+                    Marcas
                   </li>
-                  <li className="text-[12px]">
-                    <Link href="/categorias">Categorias</Link>
+                  <li className="text-[12px] cursor-pointer" onClick={() => handleRedirectClick("/categorias")}>
+                    Categorias
                   </li>
-                  <li className="text-[12px]">
-                    <Link href="/productos">Productos</Link>
+                  <li className="text-[12px] cursor-pointer" onClick={() => handleRedirectClick("/productos")}>
+                    Productos
                   </li>
-                  <li className="text-[12px]">
-                    <Link href="/contacto">Contacto</Link>
+                  <li className="text-[12px] cursor-pointer" onClick={() => handleRedirectClick("/contacto")}>
+                    Contacto
                   </li>
-                  <li className="text-[12px]">
-                    <Link href="/acerca-de-nosotros">Acerca de</Link>
+                  <li className="text-[12px] cursor-pointer" onClick={() => handleRedirectClick("/acerca-de-nosotros")}>
+                    Acerca de
                   </li>
                 </ul>
               </div>
@@ -150,38 +147,8 @@ const Footer = ({ categories }) => {
           </Grid>
         </Grid>
         <Grid container>
-          <Grid item xs={12} sm={12} md={12} lg={6} xl={6}>
-            <div className="w-full lg:text-left text-center">
-              <div className=" w-full lg:w-[50%] flex justify-center lg:justify-between items-center mb-5">
-                <Image
-                  src="/assets/images/creditCards/card1.png"
-                  width="50"
-                  height="30"
-                  layout="responsive"
-                  priority={true}
-                  alt="card"
-                />
-                <Image
-                  src="/assets/images/creditCards/card3.png"
-                  width="50"
-                  height="30"
-                  layout="responsive"
-                  priority={true}
-                  alt="card"
-                />
-                <Image
-                  src="/assets/images/creditCards/card4.png"
-                  width="50"
-                  height="30"
-                  layout="responsive"
-                  priority={true}
-                  alt="card"
-                />
-              </div>
-            </div>
-          </Grid>
           <div className="w-full h-full flex items-center justify-center my-5">
-            <span className="text-[12px]">
+            <span className="text-[12px] cursor-pointer">
               <a href="https://digital-pineapple.com.mx/" target="_blank" rel="noopener noreferrer">
                 ©Copyright 2022 By Digital Pinneapple
               </a>
@@ -189,7 +156,7 @@ const Footer = ({ categories }) => {
           </div>
         </Grid>
       </div>
-    </footer>
+    </footer >
   );
 };
 

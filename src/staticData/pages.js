@@ -30,13 +30,10 @@ export const pages = [
     path: 'https://wapizima.com.mx',
     name: 'Escuela',
     icon:  <School className='mr-4'/>,
-
-
   },
   {
     path: '/contacto',
     name: 'Contácto',
     icon: <ContactPage className='mr-4' />,
-
   },
 ]

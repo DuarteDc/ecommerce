@@ -13,6 +13,7 @@ export const getServerSideProps = ({ res }) => {
     {'id': 2, 'url': 'https://wapizima.com/sitemaps/products.xml'},
     {'id': 3, 'url': 'https://wapizima.com/sitemaps/brands.xml'},
     {'id': 4, 'url': 'https://wapizima.com/sitemaps/categories.xml'},
+    {'id': 5, 'url': 'https://wapizima.com/sitemaps/images.xml'},
   ]
 
   const sitemap = `<?xml version="1.0" encoding="UTF-8"?>

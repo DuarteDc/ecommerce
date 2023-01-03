@@ -79,9 +79,7 @@ const MyApp = ({ Component, pageProps }) => {
 
   return getLayout(
     <ThemeProvider theme={theme}>
-      {/* <GoogleReCaptchaProvider reCaptchaKey={process.env.NEXT_PUBLIC_RECAPTCHA}> */}
       <Component {...pageProps} />
-      {/* </GoogleReCaptchaProvider> */}
     </ThemeProvider>
   )
 

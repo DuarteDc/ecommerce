@@ -156,15 +156,8 @@ const applyCoupon = (subtotal, cuponDiscount) => {
 }
 
 const getLastRoute = (destination = '') => {
-
-  const reverse = destination.split("").reverse().join("");
-  const index = reverse.search('=p');
-  const newRoute = reverse.substring(0, index).split("").reverse().join("");
-
-  if (newRoute.includes('auth') || newRoute.length < 1) return '/'
-
-  return newRoute;
-
+  if (destination.includes('auth') || destination.length < 1) return '/'
+  return destination;
 }
 
 const getPDFName = (name = '') => {

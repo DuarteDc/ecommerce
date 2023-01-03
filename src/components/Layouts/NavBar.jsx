@@ -53,13 +53,14 @@ const NavBar = () => {
   useEffect(() => {
     if (!logged && !token) {
       let cart = localStorage.getItem('cart') || '[]';
-      if (!cart || cart === 'undefined' || cart === '') localStorage.setItem('cart', '[]');
-
-      const products = prepareProductsToFussion(JSON.parse(cart));
+      if (!cart || cart === 'undefined' || cart === '') return localStorage.setItem('cart', '[]');
+      cart = JSON.parse(cart);
+      if (!cart.length) return;
+      const products = prepareProductsToFussion(cart);
       return dispatch(startLoadCartNoAuth(products, currenCurrency));
     }
     dispatch(startLoadShoppingCart(token, currenCurrency));
-  }, [currency]);
+  }, []);
 
   const handleScroll = () => {
     const position = window.pageYOffset;
@@ -67,7 +68,16 @@ const NavBar = () => {
   };
 
   const handleRedirectClick = (path) => {
-    router.push(path);
+    if (router.pathname === path) return router.push(path, undefined, { shallow: true });
+    router.push(path)
+  };
+
+
+  const handleRedirectWithParams = (path) => {
+    let newRoute = path.split('?');
+    newRoute = `${newRoute[0]}?${newRoute[1]}`;
+    if (router.asPath === newRoute) return router.push(newRoute, undefined, { shallow: true });
+    router.push(newRoute)
   };
 
   useEffect(() => {
@@ -96,10 +106,6 @@ const NavBar = () => {
     setAnchorEl(null);
   };
 
-  const handleClickLogo = () => {
-    router.push("/");
-  };
-
   const onChangeCurrency = (textCurrency) => {
     setCurrency(textCurrency);
     Cookies.set('Currency', textCurrency);
@@ -120,6 +126,7 @@ const NavBar = () => {
     toggle();
   };
 
+
   const DrawerOptions = () => {
     return (
       <div className="font-Poppins">
@@ -130,33 +137,30 @@ const NavBar = () => {
             alt="Wapizima"
             width={90}
             height={90}
-            onClick={handleClickLogo}
+            onClick={() => handleRedirectClick('/')}
             className="cursor-pointer"
           />
         </figure>
-        {pages.map((route) => (
-          route.name !== 'Escuela' ? (
-            <div className="pl-4 mb-5 cursor-pointer text-gray-900 hover:text-stone-900 hover:bg-gray-100 py-2 uppercase text-sm">
-              <Link href={route.path} passHref key={route.path}
-                prefetch={false}>
-                <span>{route.icon}{route.name}</span>
-              </Link>
-            </div>
-          ) : (
-            <div className="pl-4 mb-5 cursor-pointer text-gray-900 hover:text-stone-900 hover:bg-gray-100 py-2 uppercase text-sm">
-              <Link href={route.path} key={route.path} prefetch={false}>
-                <a target="_blank">{route.icon}{route.name}</a>
-              </Link>
-            </div>
-          )
+        {pages.map(({ name, path }) => (
+          <div
+            key={path}
+            className="pl-4 mb-5 cursor-pointer text-gray-900 hover:text-stone-900 hover:bg-gray-100 py-2 uppercase text-sm"
+            onClick={() => handleRedirectClick(path)}
+          >
+            <a
+              target={`${name === 'Escuela' ? '_blank' : '_self'}`}>
+              {name}
+            </a>
+          </div>
         ))}
         <div>
           {logged ? (
             <div>
               <hr />
-              <Link href="/perfil" passHref>
-                <span className="block pl-4 mb-5 cursor-pointer text-gray-900 hover:text-stone-900 hover:bg-gray-100 py-2 uppercase text-sm pr-28"><AccountCircleIcon className="mr-4" />Mi cuenta</span>
-              </Link>
+                <span
+                  className="block pl-4 mb-5 cursor-pointer text-gray-900 hover:text-stone-900 hover:bg-gray-100 py-2 uppercase text-sm pr-28"
+                  onClick={()=>handleRedirectClick('/perfil')}
+                ><AccountCircleIcon className="mr-4" />Mi cuenta</span>
               <span className="block pl-4 mb-5 cursor-pointer text-gray-900 hover:text-stone-900 hover:bg-gray-100 py-2 uppercase text-sm pr-28" onClick={(e) => {
                 handleClose(e);
                 logoutSession();
@@ -168,11 +172,11 @@ const NavBar = () => {
             <div>
               <hr />
               <span className="block pl-4 mb-5 cursor-pointer text-gray-900 hover:text-stone-900 hover:bg-gray-100 py-2 uppercase text-sm pr-28"
-                onClick={() => router.push(`/auth/login?p=${router.asPath}`)}>
+                onClick={() => handleRedirectWithParams(`/auth/login?p=${router.asPath}`)}>
                 Iniciar Sesión
               </span>
-              <span className="block pl-4 mb-5 cursor-pointer text-gray-900 hover:text-stone-900 hover:bg-gray-100 py-2 uppercase text-sm pr-28" onClick={() => router.push(`/auth/register/?p=${router.asPath}`)}>
-
+              <span className="block pl-4 mb-5 cursor-pointer text-gray-900 hover:text-stone-900 hover:bg-gray-100 py-2 uppercase text-sm pr-28"
+                onClick={() => handleRedirectWithParams(`/auth/register/?p=${router.asPath}`)}>
                 Registrate
               </span>
             </div>
@@ -196,7 +200,7 @@ const NavBar = () => {
             alt="Wapizima"
             width={100}
             height={90}
-            onClick={handleClickLogo}
+            onClick={() => handleRedirectClick('/')}
             className="cursor-pointer"
           />
           <div className="flex items-center justify-center">
@@ -252,19 +256,13 @@ const NavBar = () => {
             <div className="px-12 w-full flex flex-col justify-center items-center">
               <div className="w-full flex justify-center text-[10px] xl:text-[12px] items-center">
                 {pages.map(({ path, name }) => (
-                  name !== 'Escuela' ? (
-                    <Link href={path} passHref key={name} prefetch={false}>
-                      <span className="text-[#333] border-transparent border-b-2 hover:text-[#888] mx-4 cursor-pointer  font-Poppins font-medium transition uppercase duration-700 ease-in-out">
-                        {name}
-                      </span>
-                    </Link>
-                  ) : (
-                    <Link href={path} key={name} prefetch={false}>
-                      <a target="_blank" className="text-[#333] border-transparent border-b-2 hover:text-[#888] mx-4 cursor-pointer  font-Poppins font-medium transition uppercase duration-700 ease-in-out">
-                        {name}
-                      </a>
-                    </Link>
-                  )
+                  <a
+                    key={path}
+                    onClick={() => handleRedirectClick(path)}
+                    target={`${name === 'Escuela' ? '_blank' : '_self'}`}
+                    className="text-[#333] border-transparent border-b-2 hover:text-[#888] mx-4 cursor-pointer  font-Poppins font-medium transition uppercase duration-700 ease-in-out">
+                    {name}
+                  </a>
                 ))}
               </div>
             </div>
@@ -328,33 +326,27 @@ const NavBar = () => {
                     transformOrigin={{ horizontal: "right", vertical: "top" }}
                     anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
                   >
-                    <Link href="/perfil" passHref>
-                      <MenuItem
-                        onClick={handleClose}
-                        sx={{ paddingRight: 15, fontSize: "14px" }}
-                        className="hover:text-[#a31545]"
-                      >
-                        Mi Cuenta
-                      </MenuItem>
-                    </Link>
-                    <Link href="/perfil/mis-pedidos" passHref>
-                      <MenuItem
-                        onClick={handleClose}
-                        sx={{ paddingRight: 15, fontSize: "14px" }}
-                        className="hover:text-[#a31545]"
-                      >
-                        Mis Pedidos
-                      </MenuItem>
-                    </Link>
-                    <Link href="/perfil/direcciones" passHref>
-                      <MenuItem
-                        onClick={handleClose}
-                        sx={{ paddingRight: 15, fontSize: "14px" }}
-                        className="hover:text-[#a31545]"
-                      >
-                        Mis Direcciones
-                      </MenuItem>
-                    </Link>
+                    <MenuItem
+                      onClick={(e) => { handleClose(e); handleRedirectClick('/perfil') }}
+                      sx={{ paddingRight: 15, fontSize: "14px" }}
+                      className="hover:text-[#a31545]"
+                    >
+                      Mi Cuenta
+                    </MenuItem>
+                    <MenuItem
+                      onClick={(e) => { handleClose(e); handleRedirectClick('/perfil/mis-pedidos') }}
+                      sx={{ paddingRight: 15, fontSize: "14px" }}
+                      className="hover:text-[#a31545]"
+                    >
+                      Mis Pedidos
+                    </MenuItem>
+                    <MenuItem
+                      onClick={(e) => { handleClose(e); handleRedirectClick('/perfil/direcciones') }}
+                      sx={{ paddingRight: 15, fontSize: "14px" }}
+                      className="hover:text-[#a31545]"
+                    >
+                      Mis Direcciones
+                    </MenuItem>
                     <MenuItem
                       onClick={(e) => {
                         handleClose(e);
@@ -371,7 +363,7 @@ const NavBar = () => {
                 <div className="flex items-center text-[10px] xl:text-[12px]">
                   <span
                     onClick={() =>
-                      router.push(`/auth/login?p=${router.asPath}`)
+                      handleRedirectWithParams(`/auth/login?p=${router.asPath}`)
                     }
                     className="text-[#333] border-transparent border-b-2 hover:text-[#333] cursor-pointer  font-Poppins
                     transition uppercase duration-700 ease-in-out min-w-[6rem] flex hover:text-[#888]"
@@ -380,7 +372,7 @@ const NavBar = () => {
                   </span>
                   <span
                     onClick={() =>
-                      router.push(`/auth/register?p=${router.asPath}`)
+                      handleRedirectWithParams(`/auth/register?p=${router.asPath}`)
                     }
                     className="text-[#333] hover:text-[#888] border-transparent border-b-2 hover:text-[#333] cursor-pointer  font-Poppins transition uppercase duration-700 ease-in-out"
                   >
@@ -410,7 +402,7 @@ const NavBar = () => {
             </div>
           </div>
         </nav>
-      </div>
+      </div >
 
       <div>
         <Drawer
@@ -418,71 +410,9 @@ const NavBar = () => {
           open={open}
           onClose={toggleDrawer}
         >
-          {/* {drawerOptions()} */}
           <DrawerOptions />
         </Drawer>
       </div>
-      {/* <div
-        className={`animate__animated lg:hidden ${open
-          ? "block animate__fadeIn animate__faster  absolute z-[30] w-full"
-          : "animate__fadeOutUp hidden"
-          } `}
-      >
-        <div className="px-2 pt-2 pb-3 space-y-1 bg-[#333] ">
-          {pages.map((route) => (
-            route.name !== 'Escuela' ? (
-              <Link href={route.path} key={route.path}>
-                <a className="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium">
-                  {route.name}
-                </a>
-              </Link>
-            ) : (
-              <Link href={route.path} key={route.path}>
-                <a target="_blank" className="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium">
-                  {route.name}
-                </a>
-              </Link>
-            )
-          ))}
-          <div className="items-center relative">
-            {logged ? (
-              <>
-                <Link href="/perfil" passHref>
-                  <span className="text-gray-300 hover:bg-gray-700 hover:text-white block px-2 py-2 rounded-md text-base font-medium">
-                    Mi Cuenta
-                  </span>
-                </Link>
-                <span
-                  className="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium"
-                  onClick={(e) => {
-                    handleClose(e);
-                    logoutSession();
-                  }}
-                >
-                  Cerrar Sesión
-                </span>
-              </>
-            ) : (
-              <div>
-                <span
-                  onClick={() => router.push(`/auth/login?p=${router.asPath}`)}
-                  className="text-gray-300 hover:bg-gray-700 hover:text-white block px-2 py-2 rounded-md text-base font-medium"
-                >
-                  Iniciar Sesión
-                </span>
-                <span
-                  onClick={() =>
-                    router.push(`/auth/register?p=${router.asPath}`)
-                  }
-                  className="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium"
-                >
-                  Registrate
-                </span>
-              </div>
-            )}
-          </div>
-        </div>
-      </div> */}
       <div className="flex items-center justify-center">
         <div className="pb-2 lg:w-8/12 w-full lg:px-20 px-8 flex items-center">
           <form onSubmit={startSearchProduct} className="w-full flex">
@@ -502,7 +432,7 @@ const NavBar = () => {
           </form>
         </div>
       </div>
-    </div>
+    </div >
   );
 };
 

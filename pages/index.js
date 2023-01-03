@@ -25,7 +25,6 @@ import ProductsMostSold from '../src/components/ui/ProductsMostSold';
 
 import loadable from '@loadable/component';
 
-// const ProductsMostSoldComponent = loadable(() => import('../src/components/ui/ProductsMostSold'));
 const ProductsAreaComponent = loadable(() => import('../src/components/home/ProductsArea'));
 const ProductsOfferAreaComponent = loadable(() => import('../src/components/home/ProductsOfferArea'));
 const PartnerAreaComponent = loadable(() => import('../src/components/home/PartnerArea'));

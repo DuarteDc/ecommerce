@@ -1,46 +1,29 @@
-import fs from "fs";
+export const pages = ['/', '/productos', '/distribuidor', '/categorias', '/marcas', '/contacto', '/acerca-de-nosotros', '/auth/login', '/auth/register', '/mi-carrito', '/mi-lista-de-deseos'];
 
-const PagesSitemap = () => {};
+const PagesSitemap = () => { };
 
 export const getServerSideProps = ({ res }) => {
+
   const baseUrl = {
     development: "http://localhost:3000",
     production: "https://wapizima.com",
   }[process.env.NODE_ENV];
-
-  const staticPages = fs
-    .readdirSync("pages")
-    .filter((staticPage) => {
-      return ![
-        "_app.js",
-        "_document.js",
-        "_error.js",
-        "pages.xml.js",
-        "api",
-        "checkout",
-        "profile",
-        "cart",
-        "auth"
-      ].includes(staticPage);
-    })
-    .map((staticPagePath) => {
-      return `${baseUrl}/${staticPagePath}`;
-    });
+  ;
 
   const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
     <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-      ${staticPages
-        .map((url) => {
-          return `
+      ${pages
+      .map((page) => {
+        return `
             <url>
-              <loc>${url}</loc>
+              <loc>${baseUrl + page}</loc>
               <lastmod>${new Date().toISOString()}</lastmod>
               <changefreq>monthly</changefreq>
               <priority>1.0</priority>
             </url>
           `;
-        })
-        .join("")}
+      })
+      .join("")}
     </urlset>
   `;
 
