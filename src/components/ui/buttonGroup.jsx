@@ -14,7 +14,7 @@ const ButtonGroup = ({ quantity = 0, increaseDecreaseQuantityProduct, handleChan
         <div className="flex border-[1px] border-solid border-[#eee] items-center justify-center max-w-[130px] min-w-[100px] w-[95px] md:w-[130px]">
             {
                 product?.product_type === '2' ? (
-                    <span className="w-[50px] h-full outline-none md:py-2 py-1">
+                    <span className="w-[50px] h-full outline-none md:py-2 py-1 flex justify-center">
                         {quantity}
                     </span>
                 ) : (

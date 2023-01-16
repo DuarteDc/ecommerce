@@ -2,18 +2,15 @@ import { useState, useEffect } from "react"
 import { useRouter } from "next/router"
 import { useDispatch, useSelector } from "react-redux"
 import { getCoupon, removeCoupon, startFinaliceSaleCheckout } from "../../actions/shoppingCartActions"
-import { InfoShippingCosts } from "./infoShippingCosts"
-import { SubtotalInfo } from "./subtotalInfo"
 import { ShippingAddress } from "./shippingAddress"
 import { TotalShoppingCart } from "./totalShoppingCart"
-import Swal from "sweetalert2"
 import CouponDetails from "./CouponDetails"
 import { errorNotify } from "../../helpers/helpers"
 
 import GavelIcon from '@mui/icons-material/Gavel';
 import LoadingScreen from "../LoadingScreen"
 
-export const CartTotals = ({ toggleBusinessRule, toggleSelectCountry, handleSelectAddress }) => {
+export const CartTotals = ({ toggleBusinessRule, toggleSelectCountry }) => {
 
   const dispatch = useDispatch();
   const { logged } = useSelector((state) => state.auth);
@@ -105,7 +102,7 @@ export const CartTotals = ({ toggleBusinessRule, toggleSelectCountry, handleSele
   return (
     <>
       {loading && <LoadingScreen />}
-      <div className="mx-[25px] border-[1px] border-solid border-[#888] py-[60px] px-[30px]">
+      <div className="py-20 px-10 shadow-md">
         <div className="relative w-full">
           <p className="absolute right-0 -top-10 text-[#333] text-sm font-semibold">Cantidad: {cart?.length === 1 ? `${cart?.length} producto` : `${cart?.length} productos`}</p>
         </div>

@@ -1,8 +1,5 @@
 import { useRef, useState } from 'react';
 
-import Image from 'next/image';
-
-
 import { Slide } from 'react-slideshow-image';
 import 'react-slideshow-image/dist/styles.css';
 

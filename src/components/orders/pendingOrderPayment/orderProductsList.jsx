@@ -10,9 +10,9 @@ import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
 
 import VerticalAlignTopIcon from '@mui/icons-material/VerticalAlignTop';
 
-export const OrderProductsList = ({ product, handleOpenProductDetail, handleOpenUploadImages, status, order_id, canvasStatus }) => {
+export const OrderProductsList = ({ product, handleOpenUploadImages, status, order_id, canvasStatus }) => {
 
-    const { product_id: productList, quantity, subtotalInCurrency, subtotal } = product;
+    const { product_id: productList, quantity, subtotalInCurrency, subtotal, product: dataProduct } = product;
     const subtotalProduct = helpers.priceFormat(subtotalInCurrency || subtotal);
 
     return (
@@ -30,10 +30,10 @@ export const OrderProductsList = ({ product, handleOpenProductDetail, handleOpen
                         </Zoom>
                         <div className="mt-6 lg:ml-5 font-Poppins overflow-hidden">
                             <h3 className="text-base text-[#333] leading-6 capitalice">
-                                {productList?.name}
+                                {dataProduct?.name}
                             </h3>
                             <p className="text-sm text-[#888] leading-7 truncate max-w-[400px]">
-                                {productList?.description}
+                                {dataProduct?.description}
                             </p>
                             <p className="text-sm leading-6">
                                 Cantidad: {quantity} pzs
@@ -43,7 +43,7 @@ export const OrderProductsList = ({ product, handleOpenProductDetail, handleOpen
                             </p>
                             <div className="flex pb-5 pt-1">
                                 {
-                                    !canvasStatus && status === 2 && productList.product_type === '2' && (
+                                    !canvasStatus && status === 2 && dataProduct.product_type === '2' && (
                                         <span
                                             className="bg-white flex items-center shadow-lg rounded-md hover:bg-gray-100 cursor-pointer"
                                             onClick={() => handleOpenUploadImages(product, order_id)}

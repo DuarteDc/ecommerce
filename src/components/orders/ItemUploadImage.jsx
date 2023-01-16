@@ -1,7 +1,7 @@
 import { useState, useRef } from 'react';
 import { useDispatch } from 'react-redux';
 import { useDropzone } from 'react-dropzone'
-import CloudUploadIcon from '@mui/icons-material/CloudUpload';
+import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
 import CircularProgress from '@mui/material/CircularProgress';
 
 import { getStartedSendImagesToCanvas } from '../../actions/ordersActions';
@@ -36,7 +36,7 @@ const ItemUploadImage = ({ image, product, index }) => {
         const data = new FormData();
         data.append('image', image);
         data.append('product_id', product._id)
-        data.append('index', index);
+        data.append('index', index); 0
         const isValid = await dispatch(getStartedSendImagesToCanvas(data));
         if (!isValid) return setLoading(false);
         onChangeImage(image.preview);
@@ -45,12 +45,14 @@ const ItemUploadImage = ({ image, product, index }) => {
 
     return (
         <div className={`flex items-center justify-center mb-5 md:mb-0 block ${loading && 'pointer-events-none'}`}>
-            <div {...getRootProps()} className="flex flex-col items-center">
-                <input {...getInputProps()} />
-                <div className="border-2 border-red-600 relative md:w-[10rem] md:h-[10rem]  relative overflow-hidden" >
+            <div {...getRootProps()} className="flex flex-col items-center w-full">
+                <input {...getInputProps()} accept="image/*" />
+                <div className="border-2 w-full w-[8rem] h-[8rem] border-red-600 relative md:w-[10rem] md:h-[10rem]  relative overflow-hidden" >
                     <div className={`absolute z-40 w-full h-full hover:bg-[#e91e63] cursor-pointer transition-all duration-500 ease-in hover:opacity-75 hover:text-white hover:font-bold ${file ? 'opacity-0' : 'opacity-75'}`}>
                         <span className={`w-full h-full flex flex-col items-center justify-center`}>
-                            <CloudUploadIcon className="text-2xl md:text-6xl" />
+                            <div className="border-2 rounded-full mb-2 ">
+                                <ArrowUpwardIcon className="text-2xl md:text-6xl" />
+                            </div>
                             <p className="text-xs text-center">Selecciona una imágen</p>
                         </span>
                     </div>
@@ -64,7 +66,7 @@ const ItemUploadImage = ({ image, product, index }) => {
                     }
                     <img
                         src={image.path}
-                        className={`w-full h-full object-fill ${loading && "hidden"}`}
+                        className={`w-full h-full object-cover object-center ${loading && "hidden"}`}
                         ref={boxImage}
                     />
                 </div>

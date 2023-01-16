@@ -242,7 +242,7 @@ const Show = () => {
                   )
                 }
                 {
-                  product.quantity > 0 && (
+                  product?.quantity > 0 && (
                     <button
                       className="bg-[#333] border-2 text-white py-4 w-full font-bold
                             transition-all duration-700 ease-in-out

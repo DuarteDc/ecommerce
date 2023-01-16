@@ -273,7 +273,7 @@ export const PendingPaymentOrderIndex = ({ order, handleOpenProofOfPayment, stat
           >
             {
               order.products_list.map((product, index) => (
-                <SwiperSlide key={product.product_id._id}>
+                <SwiperSlide key={product._id}>
                   <OrderProductsList
                     product={product}
                     handleOpenProductDetail={handleOpenProductDetail}

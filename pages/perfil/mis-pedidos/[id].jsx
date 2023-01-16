@@ -1,8 +1,8 @@
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 import { startLoadAdministrableLogo } from '../../../src/actions/administrableActions';
 import { startLoadCurrencies } from '../../../src/actions/countryAcctions';
-import { startGetOrder } from '../../../src/actions/ordersActions';
+import { getOrderId, loadProductDetail, startGetOrder } from '../../../src/actions/ordersActions';
 import { wrapper } from '../../../src/store';
 
 import { helpers } from '../../../src/helpers';
@@ -10,9 +10,25 @@ import { helpers } from '../../../src/helpers';
 import Layout from '../../../src/components/Layouts';
 import { BannerImage } from '../../../src/components/ui/bannerImage';
 
+import VerticalAlignTopIcon from '@mui/icons-material/VerticalAlignTop';
+
+import { Modal } from "../../../src/components/ui/modal";
+import UploadImages from "../../../src/components/orders/UploadImages";
+import { useToggle } from "../../../src/hooks/useToggle";
+
 const ShowOrder = () => {
 
+    const dispatch = useDispatch();
+
+    const [openUploadImages, toggleUploadImages] = useToggle();
+
     const { orderDetail, shippingDetail } = useSelector(state => state.orders);
+
+    const handleOpenUploadImages = (product, order_id) => {
+        toggleUploadImages();
+        dispatch(loadProductDetail(product))
+        dispatch(getOrderId(order_id))
+    }
 
     const { products_list } = orderDetail;
 
@@ -24,7 +40,9 @@ const ShowOrder = () => {
         return (
             <div className="ml-2 md:text-sm text-[10px] flex items-center">
                 {
-                    status === 1 ? (
+                    status === 0 ? (
+                        <span className="bg-reed-500 md:px-10 px-3 text-white rounded-lg">Pedido cancelado</span>
+                    ) : status === 1 ? (
                         <span className="bg-amber-500 md:px-10 px-3 text-white rounded-lg">Pendiente de aprobación</span>
                     ) : status === 2 ? (
                         <span className="bg-blue-500 md:px-10 px-3 text-white rounded-lg">Aprobada - Prendiente de envío</span>
@@ -42,8 +60,8 @@ const ShowOrder = () => {
                 title="Detalle de la orden"
                 banner="bg-banner7"
             />
-            <section className="min-h-screen mx-auto container my-10 lg:my-20 font-Poppins">
-                <div className="my-10 grid grid-col-1 lg:grid-cols-2">
+            <section className="min-h-screen mx-auto container my-10 lg:my-20 font-Poppins px-4 md:px-0">
+                <div className="mt-10 grid grid-col-1 lg:grid-cols-2 text-sm md:text-base">
                     <div>
                         <div className="font-semibold mb-2">
                             <span>Pedido N.º </span>
@@ -56,8 +74,8 @@ const ShowOrder = () => {
                         </div>
                     </div>
                     <hr className='lg:hidden' />
-                    <div className="text-sm">
-                        <h2 className="font-semibold lg:mb-3">Dirección de envío:</h2>
+                    <div>
+                        <h2 className="font-semibold lg:mb-2">Dirección de envío:</h2>
                         <hr className='hidden lg:block' />
                         <div className="lg:mt-2">
                             <span className="">{orderDetail?.shippment_direction?.name}</span>
@@ -67,6 +85,22 @@ const ShowOrder = () => {
                         </div>
                     </div>
                 </div>
+                {
+                    shippingDetail?.no_guide && (
+                        <div>
+                            <div className="text-sm md:text-base mb-10 mt-3 flex items-center">
+                                <div className="w-6/12">
+                                    <p className="font-semibold">Paquetería:</p>
+                                    <p className="text-gray-600">{shippingDetail?.shipment_id?.name || 'No disponible'}</p>
+                                </div>
+                                <div className="w-6/12">
+                                    <p className="font-bold">No. Guía:</p>
+                                    <p className="text-gray-600">{shippingDetail?.no_guide || 'No disponible'}</p>
+                                </div>
+                            </div>
+                        </div>
+                    )
+                }
                 <div className="overflow-x-hidden">
                     <div className=" overflow-x-auto">
                         <table className="w-full text-sm text-left text-gray-500">
@@ -90,24 +124,27 @@ const ShowOrder = () => {
                                     <th scope="col" className="py-3 px-6">
                                         Total
                                     </th>
+                                    <th scope="col" className="py-3 px-6">
+
+                                    </th>
                                 </tr>
                             </thead>
                             <tbody>
                                 {
-                                    products_list?.map(({ _id, product_id, quantity, discount, total, subtotal, priceCurrency, subtotalInCurrency, totalInCurrency }) => (
-                                        <tr className="cursor-pointer bg-white border-b hover:bg-gray-50" key={_id}>
+                                    products_list?.map((product) => (
+                                        <tr className="cursor-pointer bg-white border-b hover:bg-gray-50" key={product._id}>
                                             <td scope="row" className="flex items-center py-4 px-6 text-gray-900 whitespace-nowrap">
-                                                <img src={product_id.multimedia[0].path} alt="" className="w-10 h-10 rounded-full" />
+                                                <img src={product.product?.multimedia[0]?.path} alt="" className="w-10 h-10 rounded-full" />
                                                 <div className="pl-3">
-                                                    <div className="text-base font-semibold">{product_id?.name}</div>
-                                                    <div className="font-normal text-gray-500 truncate max-w-[200px]">{product_id.description}</div>
+                                                    <div className="text-base font-semibold">{product.product?.name}</div>
+                                                    <div className="font-normal text-gray-500 truncate max-w-[200px]">{product.product.description}</div>
                                                 </div>
                                             </td>
                                             <td className="py-4 px-6">
-                                                {quantity > 1 ? `${quantity} pzas` : `${quantity} pza`}
+                                                {product.quantity > 1 ? `${product.quantity} pzas` : `${product.quantity} pza`}
                                             </td>
                                             <td className="py-4 px-6">
-                                                {helpers.priceFormat(priceCurrency)}
+                                                {helpers.priceFormat(product.product.priceCurrency)}
                                             </td>
                                             {/* <td className="py-4 px-6">
                                                 <div className="flex items-center">
@@ -117,11 +154,25 @@ const ShowOrder = () => {
                                                 </div>
                                             </td> */}
                                             <td className="py-4 px-6">
-                                                <span className="font-semibold text-gray-600 hover:underline">{helpers.priceFormat(subtotalInCurrency)}</span>
+                                                <span className="font-semibold text-gray-600">{helpers.priceFormat(product.subtotalInCurrency)}</span>
                                             </td>
                                             <td className="py-4 px-6">
-                                                <span className="font-semibold text-gray-600 hover:underline">{helpers.priceFormat(totalInCurrency)}</span>
+                                                <span className="font-semibold text-gray-600">{helpers.priceFormat(product.totalInCurrency)}</span>
                                             </td>
+
+                                            {
+                                                !orderDetail.canvasStatus && product.product_type === '2' && (
+                                                    <td>
+                                                        <span
+                                                            className="bg-white w-6/12 flex items-center shadow-lg rounded-md hover:bg-gray-100 cursor-pointer"
+                                                            onClick={() => handleOpenUploadImages(product, orderDetail._id)}
+                                                        >
+                                                            <button className="bg-green-500 py-1 px-2 text-white rounded-l-md mr-1 text-xs h-full">Subir imagenes</button>
+                                                            <VerticalAlignTopIcon className="text-xs text-green-500" />
+                                                        </span>
+                                                    </td>
+                                                )
+                                            }
                                         </tr>
                                     ))
                                 }
@@ -158,22 +209,19 @@ const ShowOrder = () => {
                                 <p>{total}</p>
                             </span>
                         </div>
-                        <div>
-                            <div className="md:w-10/12 px-6 w-full  shadow-md py-4">
-                                <span className="flex justify-between py-2">
-                                    <p className="font-bold">Paquetería:</p>
-                                    <p>{shippingDetail?.shipment_id?.name || 'No disponible'}</p>
-                                </span>
-                                <span className="flex justify-between pt-2">
-                                    <p className="font-bold">No. Guía:</p>
-                                    <p>{shippingDetail?.no_guide || 'No disponible'}</p>
-                                </span>
-                            </div>
-                        </div>
-
                     </div>
                 </div>
             </section>
+            <Modal
+                showTitle={false}
+                open={openUploadImages}
+                handleOpenCheckout={toggleUploadImages}
+                actions={false}
+                fullWidth={true}
+                maxWidth={'md'}
+            >
+                <UploadImages handleOpenUploadImages={handleOpenUploadImages} />
+            </Modal>
         </Layout>
     )
 }

@@ -19,9 +19,7 @@ import FormAddress from '../../src/components/cart/FormAddress';
 import BusinessRules from '../../src/components/businessRules/BusinessRules';
 import FormCountry from '../../src/components/ui/FormCountry';
 import { startLoadCountries, startLoadCurrencies } from '../../src/actions/countryAcctions';
-import ListOfAddress from '../../src/components/cart/ListOfAddress';
 import { errorNotify } from '../../src/helpers/helpers';
-import { helpers } from '../../src/helpers';
 
 const ShoppingCart = () => {
 
@@ -47,7 +45,7 @@ const ShoppingCart = () => {
 
   useEffect(() => {
     dispatch(startGetDirections(token));
-  }, [logged, cart]);
+  }, []);
 
   const handleOpenFormAddress = () => {
 
@@ -131,16 +129,13 @@ const ShoppingCart = () => {
   )
 }
 
-export const getStaticProps = wrapper.getStaticProps((store) =>
-  async () => {
-    await store.dispatch(startLoadAdministrableLogo());
-    await store.dispatch(startLoadFaqsCategories());
-    await store.dispatch(startLoadCurrencies());
-    await store.dispatch(startLoadCountries());
-    return {
-      revalidate: 3600
-    }
-  });
+export const getServerSideProps = wrapper.getServerSideProps((store) => async (ctx) => {
+  await store.dispatch(startLoadAdministrableLogo());
+  await store.dispatch(startLoadFaqsCategories());
+  await store.dispatch(startLoadCurrencies());
+  await store.dispatch(startLoadCountries());
+  await store.dispatch(startGetDirections(ctx.req.cookies?.token));
+});
 
 
 export default ShoppingCart;

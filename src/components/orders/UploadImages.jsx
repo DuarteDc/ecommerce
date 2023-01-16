@@ -47,7 +47,7 @@ const UploadImages = ({ handleOpenUploadImages }) => {
                 <div className="text-center m-auto p-5">
                     <h2 className="text-gray-500">Diseño seleccionado</h2>
                     <img
-                        src={productDetail?.product_id?.multimedia[0]?.path} alt={productDetail?.product_id?.name}
+                        src={productDetail?.product?.multimedia[0]?.path} alt={productDetail?.product?.name}
                         width="200"
                         height="200"
                         className="w-[15rem] h-[15rem]"

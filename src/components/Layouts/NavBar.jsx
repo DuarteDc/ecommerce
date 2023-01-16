@@ -141,26 +141,29 @@ const NavBar = () => {
             className="cursor-pointer"
           />
         </figure>
-        {pages.map(({ name, path }) => (
-          <div
-            key={path}
-            className="pl-4 mb-5 cursor-pointer text-gray-900 hover:text-stone-900 hover:bg-gray-100 py-2 uppercase text-sm"
-            onClick={() => handleRedirectClick(path)}
-          >
-            <a
-              target={`${name === 'Escuela' ? '_blank' : '_self'}`}>
-              {name}
-            </a>
-          </div>
+        {pages.map((route) => (
+          route.name !== 'Escuela' ? (
+            <div className="pl-4 mb-5 cursor-pointer text-gray-900 hover:text-stone-900 hover:bg-gray-100 py-2 uppercase text-sm"
+              onClick={() => handleClick(path)}
+            >
+              <span>{route.icon}{route.name}</span>
+            </div>
+          ) : (
+            <div className="pl-4 mb-5 cursor-pointer text-gray-900 hover:text-stone-900 hover:bg-gray-100 py-2 uppercase text-sm">
+              <Link href={route.path} key={route.path} prefetch={false}>
+                <a target="_blank">{route.icon}{route.name}</a>
+              </Link>
+            </div>
+          )
         ))}
         <div>
           {logged ? (
             <div>
               <hr />
-                <span
-                  className="block pl-4 mb-5 cursor-pointer text-gray-900 hover:text-stone-900 hover:bg-gray-100 py-2 uppercase text-sm pr-28"
-                  onClick={()=>handleRedirectClick('/perfil')}
-                ><AccountCircleIcon className="mr-4" />Mi cuenta</span>
+              <span
+                className="block pl-4 mb-5 cursor-pointer text-gray-900 hover:text-stone-900 hover:bg-gray-100 py-2 uppercase text-sm pr-28"
+                onClick={() => handleRedirectClick('/perfil')}
+              ><AccountCircleIcon className="mr-4" />Mi cuenta</span>
               <span className="block pl-4 mb-5 cursor-pointer text-gray-900 hover:text-stone-900 hover:bg-gray-100 py-2 uppercase text-sm pr-28" onClick={(e) => {
                 handleClose(e);
                 logoutSession();
@@ -182,7 +185,7 @@ const NavBar = () => {
             </div>
           )}
         </div>
-      </div>
+      </div >
     )
   }
 
@@ -256,13 +259,19 @@ const NavBar = () => {
             <div className="px-12 w-full flex flex-col justify-center items-center">
               <div className="w-full flex justify-center text-[10px] xl:text-[12px] items-center">
                 {pages.map(({ path, name }) => (
-                  <a
-                    key={path}
-                    onClick={() => handleRedirectClick(path)}
-                    target={`${name === 'Escuela' ? '_blank' : '_self'}`}
-                    className="text-[#333] border-transparent border-b-2 hover:text-[#888] mx-4 cursor-pointer  font-Poppins font-medium transition uppercase duration-700 ease-in-out">
-                    {name}
-                  </a>
+                  name !== 'Escuela' ? (
+                    <span
+                      onClick={() => handleRedirectClick(path)}
+                      className="text-[#333] border-transparent border-b-2 hover:text-[#888] mx-4 cursor-pointer  font-Poppins font-medium transition uppercase duration-700 ease-in-out">
+                      {name}
+                    </span>
+                  ) : (
+                    <Link href={path} key={name} prefetch={false}>
+                      <a target="_blank" className="text-[#333] border-transparent border-b-2 hover:text-[#888] mx-4 cursor-pointer  font-Poppins font-medium transition uppercase duration-700 ease-in-out">
+                        {name}
+                      </a>
+                    </Link>
+                  )
                 ))}
               </div>
             </div>

@@ -3,7 +3,7 @@ import { CartItems } from './cartItems';
 
 import CartMobile from "../cartMobile/CartMobile";
 
-import styles from '../../../components/styles.module.css';
+import style from '../cart.module.css'
 
 export const Cart = () => {
  
@@ -16,9 +16,9 @@ export const Cart = () => {
         dimensions === 'sm' ? (
           <CartMobile cart={cart} />
         ) : (
-          <div className={`overflow-x-auto mb-2 max-h-[800px]`}>
+          <div className={`overflow-auto mb-2 max-h-[800px] ${style.scrollbar}`}>
             <div>
-              <table className="min-w-full leading-normal font-Poppins borfe border-collapse">
+              <table className="min-w-full leading-normal font-Poppins border-collapse">
                 <thead>
                   <tr>
                     <th className="px-5 py-4 text-lg bg-[#333] text-xs font-semibold text-[#fff] uppercase tracking-wider text-center">
