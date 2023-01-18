@@ -23,7 +23,7 @@ const ProductsArea = memo(({ products }) => {
   return (
     <>
       {loading && (<LoadingScreen />)}
-      <section className="bg-luz pb-8 px-2  md:px-16 lg:px-24 pt-12 max-w-[1920px] m-auto">
+      <section className="pb-8 px-2  md:px-16 lg:px-24 pt-12 max-w-[1920px] m-auto">
         <div className="w-full mx-auto">
           {
             products?.brands?.map(({ _id, name, categories, products, url }) => (

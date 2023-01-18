@@ -28,10 +28,13 @@ import MenuIcon from '@mui/icons-material/Menu';
 import { Drawer } from "@mui/material";
 import Image from "next/image";
 
+import DrawerOptions from '../ui/Drawer';
+
 const NavBar = () => {
 
   const dispatch = useDispatch();
   const router = useRouter();
+
   const { logged } = useSelector((state) => state.auth);
   const { cart } = useSelector((state) => state.cart);
   const { wishList } = useSelector((state) => state.wishList);
@@ -46,6 +49,7 @@ const NavBar = () => {
   setTimeout(() => {
     setCurrency(currencies.find(c => c.currency === currenCurrency))
   }, 200);
+
   const { prepareProductsToFussion } = helpers;
 
   const [open, toggle] = useToggle();
@@ -126,73 +130,10 @@ const NavBar = () => {
     toggle();
   };
 
-
-  const DrawerOptions = () => {
-    return (
-      <div className="font-Poppins">
-        <figure className="flex justify-center">
-          <Image
-            src={logo}
-            fill={true}
-            alt="Wapizima"
-            width={90}
-            height={90}
-            onClick={() => handleRedirectClick('/')}
-            className="cursor-pointer"
-          />
-        </figure>
-        {pages.map((route) => (
-          route.name !== 'Escuela' ? (
-            <div className="pl-4 mb-5 cursor-pointer text-gray-900 hover:text-stone-900 hover:bg-gray-100 py-2 uppercase text-sm"
-              onClick={() => handleClick(path)}
-            >
-              <span>{route.icon}{route.name}</span>
-            </div>
-          ) : (
-            <div className="pl-4 mb-5 cursor-pointer text-gray-900 hover:text-stone-900 hover:bg-gray-100 py-2 uppercase text-sm">
-              <Link href={route.path} key={route.path} prefetch={false}>
-                <a target="_blank">{route.icon}{route.name}</a>
-              </Link>
-            </div>
-          )
-        ))}
-        <div>
-          {logged ? (
-            <div>
-              <hr />
-              <span
-                className="block pl-4 mb-5 cursor-pointer text-gray-900 hover:text-stone-900 hover:bg-gray-100 py-2 uppercase text-sm pr-28"
-                onClick={() => handleRedirectClick('/perfil')}
-              ><AccountCircleIcon className="mr-4" />Mi cuenta</span>
-              <span className="block pl-4 mb-5 cursor-pointer text-gray-900 hover:text-stone-900 hover:bg-gray-100 py-2 uppercase text-sm pr-28" onClick={(e) => {
-                handleClose(e);
-                logoutSession();
-              }} >
-                Cerrar Sesión
-              </span>
-            </div>
-          ) : (
-            <div>
-              <hr />
-              <span className="block pl-4 mb-5 cursor-pointer text-gray-900 hover:text-stone-900 hover:bg-gray-100 py-2 uppercase text-sm pr-28"
-                onClick={() => handleRedirectWithParams(`/auth/login?p=${router.asPath}`)}>
-                Iniciar Sesión
-              </span>
-              <span className="block pl-4 mb-5 cursor-pointer text-gray-900 hover:text-stone-900 hover:bg-gray-100 py-2 uppercase text-sm pr-28"
-                onClick={() => handleRedirectWithParams(`/auth/register/?p=${router.asPath}`)}>
-                Registrate
-              </span>
-            </div>
-          )}
-        </div>
-      </div >
-    )
-  }
-
   return (
     <div
-      className={`bg-luz pb-2 shadow-md  w-full z-[99] pt-1 ${scrollPosition >= 130 && "fixed top-0"
-        } space-y-1 static`}
+      className={`bg-white dark:bg-dark  pb-2 shadow-md  w-full z-[99] pt-1 ${scrollPosition >= 130 && "fixed top-0"
+        } space-y-1 `}
     >
       <div className="w-full px-10 lg:px-2 xl:px-28 2xl:px-28 text-xs">
         <nav className="flex max-h-16 justify-between items-center z-40">
@@ -218,7 +159,7 @@ const NavBar = () => {
                 badgeContent={wishList?.length}
                 color="primary"
                 onClick={() => handleRedirectClick("/mi-lista-de-deseos")}
-                className="mx-2"
+                className="mx-2 dark:text-white"
               >
                 <FavoriteBorderIcon />
               </Badge>
@@ -226,7 +167,7 @@ const NavBar = () => {
                 badgeContent={cart?.length}
                 color="primary"
                 onClick={() => handleRedirectClick("/mi-carrito")}
-                className="mr-5"
+                className="mr-5 dark:text-white"
               >
                 <ShoppingCartCheckoutIcon />
               </Badge>
@@ -239,7 +180,7 @@ const NavBar = () => {
                 title="Menú"
               >
                 <MenuIcon
-                  className="text-gray-600 text-[30px]"
+                  className="text-gray-600 text-[30px] dark:text-white"
                 />
               </button>
             ) : (
@@ -262,12 +203,12 @@ const NavBar = () => {
                   name !== 'Escuela' ? (
                     <span
                       onClick={() => handleRedirectClick(path)}
-                      className="text-[#333] border-transparent border-b-2 hover:text-[#888] mx-4 cursor-pointer  font-Poppins font-medium transition uppercase duration-700 ease-in-out">
+                      className="text-[#333] border-transparent border-b-2 hover:text-[#888] mx-4 cursor-pointer  font-Poppins font-medium transition uppercase duration-700 ease-in-out dark:text-white dark:hover:text-gray-400">
                       {name}
                     </span>
                   ) : (
                     <Link href={path} key={name} prefetch={false}>
-                      <a target="_blank" className="text-[#333] border-transparent border-b-2 hover:text-[#888] mx-4 cursor-pointer  font-Poppins font-medium transition uppercase duration-700 ease-in-out">
+                      <a target="_blank" className="text-[#333] border-transparent border-b-2 hover:text-[#888] mx-4 cursor-pointer  font-Poppins font-medium transition uppercase duration-700 ease-in-out dark:text-white dark:hover:text-gray-400">
                         {name}
                       </a>
                     </Link>
@@ -296,7 +237,7 @@ const NavBar = () => {
                     sx={{ color: "#333" }}
                     className="border-transparent border-b-2 mx-4 cursor-pointer text-lg font-['Poppins'] font-normal transition duration-700 ease-in-out"
                   >
-                    <AccountCircleIcon className="text-3xl" />
+                    <AccountCircleIcon className="text-3xl dark:text-white" />
                   </Button>
                   <Menu
                     id="basic-menu"
@@ -375,7 +316,7 @@ const NavBar = () => {
                       handleRedirectWithParams(`/auth/login?p=${router.asPath}`)
                     }
                     className="text-[#333] border-transparent border-b-2 hover:text-[#333] cursor-pointer  font-Poppins
-                    transition uppercase duration-700 ease-in-out min-w-[6rem] flex hover:text-[#888]"
+                    transition uppercase duration-700 ease-in-out min-w-[6rem] flex hover:text-[#888] dark:text-white dark:hover:text-gray-400"
                   >
                     Iniciar Sesión
                   </span>
@@ -383,7 +324,7 @@ const NavBar = () => {
                     onClick={() =>
                       handleRedirectWithParams(`/auth/register?p=${router.asPath}`)
                     }
-                    className="text-[#333] hover:text-[#888] border-transparent border-b-2 hover:text-[#333] cursor-pointer  font-Poppins transition uppercase duration-700 ease-in-out"
+                    className="text-[#333] hover:text-[#888] border-transparent border-b-2 hover:text-[#333] cursor-pointer  font-Poppins transition uppercase duration-700 ease-in-out dark:text-white dark:hover:text-gray-400"
                   >
                     Registrate
                   </span>
@@ -396,7 +337,7 @@ const NavBar = () => {
                   color="primary"
                   onClick={() => handleRedirectClick("/mi-lista-de-deseos")}
                 >
-                  <FavoriteBorderIcon />
+                  <FavoriteBorderIcon className="transition uppercase duration-700 ease-in-out dark:text-white dark:hover:text-gray-400"/>
                 </Badge>
               </span>
               <span className="flex items-center border-transparent border-b-2 cursor-pointer text-[#333] hover:text-[#888] font-['Poppins'] font-normal transition duration-700 ease-in-out">
@@ -405,7 +346,7 @@ const NavBar = () => {
                   color="primary"
                   onClick={() => handleRedirectClick("/mi-carrito")}
                 >
-                  <ShoppingCartCheckoutIcon />
+                  <ShoppingCartCheckoutIcon className="transition uppercase duration-700 ease-in-out dark:text-white dark:hover:text-gray-400"/>
                 </Badge>
               </span>
             </div>
@@ -419,7 +360,13 @@ const NavBar = () => {
           open={open}
           onClose={toggleDrawer}
         >
-          <DrawerOptions />
+          <DrawerOptions
+            logo={logo}
+            pages={pages}
+            logged={logged}
+            handleRedirectClick={handleRedirectClick}
+            handleRedirectWithParams={handleRedirectWithParams}
+          />
         </Drawer>
       </div>
       <div className="flex items-center justify-center">

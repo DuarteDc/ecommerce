@@ -1,5 +1,3 @@
-import Image from "next/image";
-import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   startLoadAdministrableAbout,
@@ -8,22 +6,18 @@ import {
 import Layout from "../../src/components/Layouts";
 import { BannerImage } from "../../src/components/ui";
 import { wrapper } from "../../src/store";
-import Cookie from "js-cookie";
-import {
-  addShoppingCartFromLocalStorage,
-  shoppingCartNotLoggedfromLocalStorage,
-} from "../../src/actions/shoppingCartActions";
 import { startLoadFaqsCategories } from "../../src/actions/faqsActions";
 import { startLoadCurrencies } from "../../src/actions/countryAcctions";
 
 const AboutPage = () => {
-  const dispatch = useDispatch();
+
   const { aboutUs, mission } = useSelector((state) => state.administrable);
-  const { logged } = useSelector((state) => state.auth);
-  const { categories } = useSelector((state) => state.faqs);
 
   return (
-    <>
+    <Layout
+      title="Wapizima - Acerca de"
+      robots="index, follow"
+    >
       <BannerImage title="Acerca de Nosotros" banner="bg-banner9            " />
       <section className="min-h-screen container mx-auto px-5 md:px-0">
         <div>
@@ -62,12 +56,12 @@ const AboutPage = () => {
               />
             </div>
             <div className="col-span-2">
-            <div className="flex">
+              <div className="flex">
                 <span className="bg-gray-100 uppercase font-Poppins w-full py-4 text-center text-2xl mb-5">
                   Nuestra Misión
                 </span>
               </div>
-              <div className="font-Poppins text-sm leading-7 text-[#888] pb-6" dangerouslySetInnerHTML={{ __html: mission.mission }}></div> 
+              <div className="font-Poppins text-sm leading-7 text-[#888] pb-6" dangerouslySetInnerHTML={{ __html: mission.mission }}></div>
             </div>
             <div className="block lg:hidden">
               <img
@@ -82,18 +76,6 @@ const AboutPage = () => {
           </div>
         </div>
       </section>
-    </>
-  );
-};
-
-AboutPage.getLayout = function getLayout(page, categories) {
-  return (
-    <Layout
-      title="Wapizima - Acerca de"
-      robots="noindex"
-      categories={categories}
-    >
-      {page}
     </Layout>
   );
 };

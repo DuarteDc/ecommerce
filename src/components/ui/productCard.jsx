@@ -50,7 +50,7 @@ export const ProductCard = memo(({ product }) => {
   };
 
   return (
-    <div className="mb-[30px] relative p-2 md:card animate__animated animate__zoomIn md:mx-2 shadow-md md:shadow-none">
+    <div className="mb-[30px] relative p-2 md:card animate__animated animate__zoomIn md:mx-2 shadow-md md:shadow-none dark:bg-[#222] mx-1 rounded-md">
       <div className="relative overflow-hidden ">
         <div className="w-full h-full relative cursor-pointer">
           {
@@ -98,7 +98,7 @@ export const ProductCard = memo(({ product }) => {
             >
               {product.discount > 0 && sale_price}
             </span>
-            <span className=" relative bg-gray-200 text-pink-500 text-left rounded-lg text-sm px-2 block">
+            <span className=" relative bg-gray-200 text-pink-500 text-left rounded-lg text-sm px-2 block dark:bg-container-dark dark:text-white">
               {sale_price_discount}
             </span>
           </div>
@@ -132,7 +132,7 @@ export const ProductCard = memo(({ product }) => {
         )}
 
         <div>
-          <h3 className="text-[#333] mb-2 text-xs md:text-[18px] md:font-semibold capitalize md:py-1 md:mt-1 mt-2 truncate cursor-pointer">
+          <h3 className="text-[#333] mb-2 text-xs md:text-[18px] md:font-semibold capitalize md:py-1 md:mt-1 mt-2 truncate cursor-pointer dark:text-white">
             {name}
           </h3>
           <div className="hidden md:block md:mt-[8px] md:mb-[12px]">
@@ -179,6 +179,9 @@ export const ProductCard = memo(({ product }) => {
                                         hover:bg-[#333]
                                         hover:text-white
                                         transition-all duration-700 ease-in-out
+                                        dark:bg-dark
+                                        dark:text-white
+                                        dark:border-dark
                                         "
                       >
                         <span

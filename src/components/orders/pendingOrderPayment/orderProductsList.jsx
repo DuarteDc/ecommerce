@@ -23,7 +23,7 @@ export const OrderProductsList = ({ product, handleOpenUploadImages, status, ord
                         <Zoom>
                             <picture>
                                 <img
-                                    src={productList?.multimedia[0]?.path}
+                                    src={dataProduct?.multimedia[0]?.path}
                                     className="min-w-[7rem] min-h-[7rem] h-[10rem] w-[10rem]"
                                 />
                             </picture>

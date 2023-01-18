@@ -87,33 +87,34 @@ const Show = () => {
       curren="MXN"
       structuredData={structuredData}
     >
-      <section className="container mx-auto mt-20 font-Poppins">
-        <Container>
+      <section className="container mx-auto mt-20 font-Poppins dark:text-white">
+        <Container className="dark:text-white">
           <div className="grid grid-cols-1">
             <Breadcrumbs
               aria-label="breadcrumb"
               separator={<NavigateNextIcon fontSize="small" />}
+              className="dark:text-white"
             >
               <Link href="/" passHref>
                 <div className="flex items-center justify-between cursor-pointer">
-                  <HomeIcon />
-                  <span className="text-lg font-Poppins ml-3 ">Inicio</span>
+                  <HomeIcon className="dark:text-white"/>
+                  <span className="text-lg font-Poppins ml-3 dark:text-white">Inicio</span>
                 </div>
               </Link>
               <Link href="/productos" passHref>
                 <div className="flex items-center justify-between cursor-pointer">
-                  <span className="text-lg font-Poppins ml-3 ">Productos</span>
+                  <span className="text-lg font-Poppins ml-3 dark:text-white">Productos</span>
                 </div>
               </Link>
               <Typography
                 variant="subtitle1"
-                className="text-base font-Poppins text-[#e91e63]"
+                className="text-base font-Poppins text-[#e91e63]  dark:text-dark-prink"
               >
                 {product?.name}
               </Typography>
             </Breadcrumbs>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 p-2 md:p-5 lg:p-10">
+          <div className="grid grid-cols-1 md:grid-cols-2 p-2 md:p-5 lg:p-10 dark:bg-container-dark dark:rounded-md">
             <div className="lg:pb-5 md:px-5">
               {product?.multimedia.length > 0 ? (
                 <ProductSliderShow
@@ -130,8 +131,8 @@ const Show = () => {
                 />
               )}
             </div>
-            <div className="mt-5 md:mt-0 p-2 md:pl-5 lg:pl-10">
-              <h1 className="text-[22px] font-Poppins font-normal capitalize leading-[1.5] text-[#212529]">
+            <div className="mt-5 md:mt-0 p-2 md:pl-5 lg:pl-10 dark:text-white">
+              <h1 className="text-[22px] font-Poppins font-normal capitalize leading-[1.5] text-[#212529] dark:text-white">
                 {product?.name}
               </h1>
               <div className="mt-5">
@@ -144,7 +145,7 @@ const Show = () => {
                   <p
                     className={`mr-12 ${product?.discount > 0
                       ? "line-through text-[#333] text-[18px] font-thin"
-                      : "text-[18px] text-[#333]"
+                      : "text-[18px] text-[#333] dark:text-[#ed4b82]"
                       }`}
                   >
                     {price}
@@ -156,32 +157,32 @@ const Show = () => {
               </div>
               <div className="mt-5">
                 <div className="flex items-center">
-                  <h3 className="text-[#666] text-[16px]">Marca:</h3>
+                  <h3 className="text-[#666] text-[16px] dark:text-white">Marca:</h3>
                   <p
-                    className="text-[#333] font-medium ml-2 cursor-pointer hover:text-gray-700 duration-500"
+                    className="text-[#333] font-medium ml-2 cursor-pointer hover:text-gray-700 duration-500 dark:text-gray-300"
                   >
                     {product?.brand?.name}
                   </p>
                 </div>
-                <div className="flex items-center">
-                  <h3 className="text-[#666] text-[16px]">Categoría:</h3>
+                <div className="flex items-center ">
+                  <h3 className="text-[#666] text-[16px] dark:text-white">Categoría:</h3>
                   <p
-                    className="text-[#333] font-medium ml-2 cursor-pointer hover:text-gray-700 duration-500"
+                    className="text-[#333] font-medium ml-2 cursor-pointer hover:text-gray-700 duration-500 dark:text-gray-300"
                   >
                     {product?.category?.name}
                   </p>
                 </div>
                 <div className="flex items-center">
-                  <h3 className="text-[#666] text-[16px]">Subcategoría:</h3>
+                  <h3 className="text-[#666] text-[16px] dark:text-white">Subcategoría:</h3>
                   <p
-                    className="text-[#333] font-medium ml-2 cursor-pointer hover:text-gray-700 duration-500"
+                    className="text-[#333] font-medium ml-2 cursor-pointer hover:text-gray-700 duration-500 dark:text-gray-300"
                   >
                     {product?.subcategory?.name}
                   </p>
                 </div>
                 {product?.tags.length > 0 && (
                   <div className="mt-2">
-                    <h3 className="text-[#666] text-[16px] leading-8">Tags:</h3>
+                    <h3 className="text-[#666] text-[16px] leading-8 dark:text-white">Tags:</h3>
                     <div className="flex">
                       {product?.tags.map((tag) => (
                         <div
@@ -232,7 +233,7 @@ const Show = () => {
                         product={product}
                       />
                       <button
-                        className="h-[45px] top-[-2px] relative cursor-pointer border-[1px] border-solid border-[#333] flex items-center px-[25px] rounded-none uppercase hover:bg-[#333] hover:text-secondary transition-all duration-700 ease-in-out text-xs ml-2 md:ml-5 md:text-[14px] md:text-xs"
+                        className="h-[45px] top-[-2px] relative cursor-pointer border-[1px] border-solid border-[#333] flex items-center px-[25px] rounded-none uppercase hover:bg-[#333] hover:text-secondary transition-all duration-700 ease-in-out text-xs ml-2 md:ml-5 md:text-[14px] md:text-xs"  
                         onClick={addProduct}
                       >
                         <ShoppingCartIcon />
@@ -258,15 +259,15 @@ const Show = () => {
             </div>
           </div>
           <div className="px-10 w-full break-words text-center">
-            <h3 className="inline-block text-[14px] relative pl-[18px] uppercase text-[#666]">
+            <h3 className="inline-block text-[14px] relative pl-[18px] uppercase text-[#666] dark:text-white">
               Descripción
             </h3>
             <hr />
-            <p className="text-left my-[20px] text-[#666] leading-[1.8] text-[14px]">
+            <p className="text-left my-[20px] text-[#666] leading-[1.8] text-[14px] dark:text-white">
               {product?.description || ""}
             </p>
           </div>
-          <div className="mb-[40px] text-center bg-[#f8f8f8] p-[15px]">
+          <div className="mb-[40px] text-center bg-[#f8f8f8] p-[15px] dark:bg-container-dark">
             <h3 className="mb-0 inline-block relative pl-[20px]  text-[20px] font-semibold">
               Productos Relacionados
             </h3>

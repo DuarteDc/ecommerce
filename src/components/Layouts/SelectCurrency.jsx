@@ -28,11 +28,13 @@ const SelectCurrency = memo(({ currencies, onChange, value }) => {
                 title="Pais"
                 className="p-0"
             >
-                <img src={value.image} width="20" height="10" className="mr-2" alt="pais"/>
-                <KeyboardArrowDownIcon sx={{
-                    color: '#333',
-                    fontSize: 20
-                }} />
+                <img src={value.image} width="20" height="10" className="mr-2" alt="pais" />
+                <KeyboardArrowDownIcon
+                    className="dark:text-white"
+                    sx={{
+                        color: '#333',
+                        fontSize: 20
+                    }} />
             </Button>
             <Menu
                 id="basic-menu"
@@ -42,12 +44,15 @@ const SelectCurrency = memo(({ currencies, onChange, value }) => {
                 MenuListProps={{
                     'aria-labelledby': 'basic-button',
                 }}
+                className="py-0 my-0"
             >
                 {
                     currencies.map(({ currency, image }) => (
                         <MenuItem
                             onClick={(e) => { handleClose(e); onChange(currency, image) }}
                             key={currency}
+                            className="dark:bg-[#333]"
+
                         >
                             <Image src={image} width="20" height="10" className="mr-2" alt="pais" /> {currency}
                         </MenuItem>

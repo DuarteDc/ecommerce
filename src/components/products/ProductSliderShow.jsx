@@ -2,6 +2,8 @@ import { useRef, useState } from 'react';
 
 import { Slide } from 'react-slideshow-image';
 import 'react-slideshow-image/dist/styles.css';
+import { Zoom as ZoomIndicators } from 'react-slideshow-image';
+
 
 import styles from './ProductSlideshow.module.css';
 
@@ -27,6 +29,10 @@ const ProductSliderShow = ({ slideImages, product }) => {
         }
     };
 
+
+    const indicators = (index) => (<div className="indicator">{index + 1}</div>);
+
+
     return (
         <>
             <Slide {...properties} ref={slideRef}>
@@ -35,7 +41,7 @@ const ProductSliderShow = ({ slideImages, product }) => {
                         <div>
                             <Zoom zoomMargin={45}>
                                 <picture>
-                                    <img src={slideImage.path} alt={product.name}  width="auto" height="auto" loading="lazy" />
+                                    <img src={slideImage.path} alt={product.name} width="auto" height="auto" loading="lazy" />
                                 </picture>
                             </Zoom>
                         </div>
@@ -47,7 +53,7 @@ const ProductSliderShow = ({ slideImages, product }) => {
                     product?.multimedia.map((multimedia, index) => (
                         <div key={index}
                             className="overflow-hidden border-2 border-gray-300 w-24 h-24 mr-2 cursor-pointer"
-                        >  
+                        >
                             <img
                                 src={multimedia?.images?.original}
                                 alt={product.name}

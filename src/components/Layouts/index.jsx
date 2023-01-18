@@ -6,7 +6,30 @@ import { Meta } from '../meta/meta';
 import Script from 'next/script';
 import 'react-toastify/dist/ReactToastify.css';
 
-const Layout = ({ children, canonical, title, keywords, description, ogTitle, ogType, ogUrl, ogImage, robots, categories, price, curren, structuredData }) => {
+import { useTheme } from "next-themes";
+import { SunIcon, MoonIcon } from "@heroicons/react/solid";
+
+const Layout = ({ children, canonical, title, keywords, description, ogTitle, ogType, ogUrl, ogImage, robots, price, curren, structuredData }) => {
+
+
+  const { systemTheme, theme, setTheme } = useTheme();
+
+  const renderThemeChanger = () => {
+
+    const currentTheme = theme === "system" ? systemTheme : theme;
+
+    if (currentTheme === "dark") {
+      return (
+        <SunIcon className="w-10 h-10 text-yellow-500 " role="button" onClick={() => setTheme('light')} />
+      )
+    }
+
+    else {
+      return (
+        <MoonIcon className="w-10 h-10 text-gray-900 " role="button" onClick={() => setTheme('dark')} />
+      )
+    }
+  };
 
   return (
     <>
@@ -25,8 +48,9 @@ const Layout = ({ children, canonical, title, keywords, description, ogTitle, og
         structuredData={structuredData}
       />
       <NavBar />
+      {renderThemeChanger()}
       {children}
-      <Footer categories={categories} />
+      <Footer />
       <ToastContainer
         position="top-right"
         autoClose={5000}

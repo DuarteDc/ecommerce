@@ -12,9 +12,13 @@ module.exports = {
           100: '#47000e',
         },
         'luz': '#FFFFFF',
-        'black':'#880e4f',
         'white-dg':'#f1f1f1',
-        'wine':'#ff0000'
+        'wine':'#ff0000',
+        'dark': "#121212",
+        'container-dark': "#222",
+        'hover-dark': "#333",
+        'dark-pink': "#e91e63",
+        'dark-pink-hover':"#ed4b82"
       },
       backgroundImage: {
         'register': "url('/assets/images/register.png')",
@@ -60,5 +64,6 @@ module.exports = {
       }
     },
   },
+  darkMode: "class",
   plugins: [],
 }

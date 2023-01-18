@@ -42,7 +42,7 @@ const Footer = ({ categories }) => {
 
 
   return (
-    <footer className="left-0 right-0 bottom-0 min-h-[250px] pt-[60px] pb-[20px] bg-[#333] text-luz mx-auto px-auto font-Poppins text-base font-thin">
+    <footer className="left-0 right-0 bottom-0 min-h-[250px] pt-[60px] pb-[20px] bg-[#333] mx-auto px-auto font-Poppins text-base dark:bg-dark text-white">
       <div className="max-w-[1200px] mx-auto px-3">
         <Grid container spacing={5}>
           <Grid item xs={12} sm={12} md={12} lg={5} xl={5}>
@@ -132,16 +132,16 @@ const Footer = ({ categories }) => {
                     onChange={formik.handleChange} className="bg-[#f5f5f5] w-full py-4 px-10 text-sm leading-normal text-[#222] border-none     rounded-none transition-all outline-none" />
                   <button
                     type="submit"
-                    className="ml-2 border-none bg-[#000] text-[#fff] px-2 py-1 md:px-5 text-[16px] transition-all"
+                    className="ml-2 border-none bg-[#000] text-[#fff] px-2 py-1 md:px-5 text-[16px] transition-all dark:bg-[#222] dark:hover:bg-[#333]"
                   >
                     Enviar
                   </button>
-                  {formik.touched.email && formik.errors.email ? (
+                </form>
+                  {/* {formik.touched.email && formik.errors.email ? (
                     <span className="text-red-500 text-sm">
                       {formik.errors.email}
                     </span>
-                  ) : null}
-                </form>
+                  ) : null} */}
               </div>
             </div>
           </Grid>

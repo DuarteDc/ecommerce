@@ -130,6 +130,7 @@ const Products = () => {
                     page={products.page}
                     renderItem={(item) => (
                       <PaginationItem
+                        className="dark:text-white"
                         components={{ previous: ArrowBackIcon, next: ArrowForwardIcon }}
                         {...item}
                       />

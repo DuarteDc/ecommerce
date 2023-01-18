@@ -27,7 +27,7 @@ import loadable from '@loadable/component';
 
 const ProductsAreaComponent = loadable(() => import('../src/components/home/ProductsArea'));
 const ProductsOfferAreaComponent = loadable(() => import('../src/components/home/ProductsOfferArea'));
-const PartnerAreaComponent = loadable(() => import('../src/components/home/PartnerArea'));
+// const PartnerAreaComponent = loadable(() => import('../src/components/home/PartnerArea'));
 const NewsletterComponent = loadable(() => import('../src/components/home/Newsletter'));
 const TestimonialAreaComponenet = loadable(() => import('../src/components/home/testimonialArea'));
 
@@ -83,7 +83,7 @@ export default function HomePage() {
       <ProductsMostSold productsMostSold={productsMostSold} />
       <ProductsAreaComponent products={products} />
       <ProductsOfferAreaComponent />
-      <PartnerAreaComponent />
+      {/* <PartnerAreaComponent /> */}
       <NewsletterComponent />
       <TestimonialAreaComponenet />
     </Layout>

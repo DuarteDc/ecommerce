@@ -1,24 +1,22 @@
 import { useEffect } from 'react';
 import { useRouter } from 'next/router';
 import { useDispatch } from 'react-redux';
-import { wrapper } from '../src/store';
+
+import { ThemeProvider as ThemeTailwind } from "next-themes";
+
 import '../src/assets/styles/globals.css';
 import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
 import 'animate.css';
-import * as ga from '../src/libs/ga';
 import { datadogRum } from '@datadog/browser-rum'
 
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-
-import { GoogleReCaptchaProvider } from 'react-google-recaptcha-v3';
-
 import { loadDimensionsOfBrowser } from '../src/actions/uiActions';
-
+import { wrapper } from '../src/store';
 
 const MyApp = ({ Component, pageProps }) => {
-  
+
   const router = useRouter();
   datadogRum.init({
     applicationId: '667e147b-7ddd-4c86-adfc-61290b72f9d1',
@@ -60,27 +58,29 @@ const MyApp = ({ Component, pageProps }) => {
     },
   });
 
-  useEffect(() => {
-    const handleRouteChange = (url) => {
-      ga.pageview(url)
-    }
-    //When the component is mounted, subscribe to router changes
-    //and log those page views
-    router.events.on('routeChangeComplete', handleRouteChange)
+  // useEffect(() => {
+  //   const handleRouteChange = (url) => {
+  //     ga.pageview(url)
+  //   }
+  //   //When the component is mounted, subscribe to router changes
+  //   //and log those page views
+  //   router.events.on('routeChangeComplete', handleRouteChange)
 
-    // If the component is unmounted, unsubscribe
-    // from the event with the `off` method
-    return () => {
-      router.events.off('routeChangeComplete', handleRouteChange)
-    }
-  }, [router.events])
+  //   // If the component is unmounted, unsubscribe
+  //   // from the event with the `off` method
+  //   return () => {
+  //     router.events.off('routeChangeComplete', handleRouteChange)
+  //   }
+  // }, [router.events])
 
-  const getLayout = Component.getLayout || ((page) => page);
+  // const getLayout = Component.getLayout || ((page) => page);
 
-  return getLayout(
-    <ThemeProvider theme={theme}>
-      <Component {...pageProps} />
-    </ThemeProvider>
+  return (
+    <ThemeTailwind enableSystem={true} attribute="class">
+      <ThemeProvider theme={theme}>
+        <Component {...pageProps} />
+      </ThemeProvider>
+    </ThemeTailwind>
   )
 
 }

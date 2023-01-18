@@ -136,14 +136,14 @@ const Distributor = () => {
           <InfoItem
             title="Proceder a pagar"
             text={<p className="md:text-lg">
-              Para pagar tendras 2 métodos de pago <b className="text-[#000]">(transferencia o pago con tarjeta)</b> y en el detalle de orden podras ver tus productos.
+              Para pagar tendras 2 métodos de pago <b className="text-[#000] dark:text-white">(transferencia o pago con tarjeta)</b> y en el detalle de orden podras ver tus productos.
             </p>}
             image="/assets/icons/wallet.png"
           />
         </div>
       </section>
       <section className="container mx-auto mb-20">
-        <h3 className="py-3 bg-gray-100 text-xl font-bold text-center uppercase">Productos</h3>
+        <h3 className="py-4 bg-gray-100 text-xl font-bold text-center uppercase dark:bg-[#222]">Productos</h3>
         <div className="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 mt-10 md:gap-4">
           {
             productsMostSold.map((product) => (
@@ -164,7 +164,6 @@ export const getServerSideProps = wrapper.getServerSideProps((store) => async (c
   await store.dispatch(startLoadCurrencies());
   await store.dispatch(startLoadBusinessRules());
   await store.dispatch(startLoadProductsMostSold(ctx.req?.cookies?.Currency || 'MXN'));
-  // await store.dispatch(startLoadBrands())
 });
 
 
