@@ -52,6 +52,9 @@ const Footer = ({ categories }) => {
                 <ul>
                   <li className="text-[12px] cursor-pointer" onClick={() => handleRedirectClick("/acerca-de-nosotros")}>Acerca de nostros</li>
                   <li className="text-[12px] cursor-pointer" onClick={() => handleRedirectClick("/permisos-de-exportacion")}>Permisos de exportación</li>
+                  <Link className="cursor-pointer"  href="Politicas_de_privacidad.pdf" passHref>
+                    <a className="text-[12px]">Políticas de privacidad</a>
+                  </Link>
                 </ul>
               </div>
               <div>

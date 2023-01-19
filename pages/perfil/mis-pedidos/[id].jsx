@@ -144,7 +144,7 @@ const ShowOrder = () => {
                                                 {product.quantity > 1 ? `${product.quantity} pzas` : `${product.quantity} pza`}
                                             </td>
                                             <td className="py-4 px-6">
-                                                {helpers.priceFormat(product.product.priceCurrency)}
+                                                {helpers.priceFormat(product.priceCurrency)}
                                             </td>
                                             {/* <td className="py-4 px-6">
                                                 <div className="flex items-center">
