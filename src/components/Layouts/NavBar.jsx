@@ -144,7 +144,7 @@ const NavBar = () => {
         {pages.map((route) => (
           route.name !== 'Escuela' ? (
             <div className="pl-4 mb-5 cursor-pointer text-gray-900 hover:text-stone-900 hover:bg-gray-100 py-2 uppercase text-sm"
-              onClick={() => handleClick(path)}
+              onClick={() => handleRedirectClick(route.path)}
             >
               <span>{route.icon}{route.name}</span>
             </div>
