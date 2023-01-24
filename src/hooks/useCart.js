@@ -18,10 +18,12 @@ export const useCart = (logged = false, currentQuantity = 1, product = {}, cart,
     const dispatch = useDispatch();
     const { existInShoppingCart, prepareCartDataForLocalStorage, prepareProductsToFussion } = helpers;
 
+    const [loading, setLoading] = useState(false);
     const [quantity, setQuantity] = useState(currentQuantity);
     const [updatedQuantity, setUpdatedQuantity] = useState(false);
     const [productInCart, setProductInCart] = useState(false);
     const update = useDebounce(quantity, timeToUpdate);
+    
 
     const currency = Cookies.get('Currency') || 'MXN';
 
@@ -74,10 +76,15 @@ export const useCart = (logged = false, currentQuantity = 1, product = {}, cart,
         dispatch(startRemoveProductsShoppingCartNotLogged(product._id));
     }
 
-    const addProduct = () => {
 
-        if (logged)
-            return dispatch(startAddProductShoppingCart({ product_id: product._id, quantity: quantity || 1 }, product, isAdd));
+    const addProduct = async() => {
+
+        if (logged){
+            setLoading(true)
+            await dispatch(startAddProductShoppingCart({ product_id: product._id, quantity: quantity || 1 }, product, isAdd));
+            return setLoading(false)
+        }
+
 
         const newCart = [];
         const product_id = prepareCartDataForLocalStorage(product);
@@ -108,5 +115,5 @@ export const useCart = (logged = false, currentQuantity = 1, product = {}, cart,
         }
     }, [update]);
 
-    return { updateProductQuantity, addProduct, removeProduct, handleChangeProductQuantity, quantity, productInCart }
+    return { updateProductQuantity, addProduct, removeProduct, handleChangeProductQuantity, quantity, productInCart, loading }
 }

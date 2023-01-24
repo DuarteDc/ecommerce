@@ -13,6 +13,7 @@ import { notify } from "../../helpers/helpers";
 
 import { useCart } from "../../hooks/useCart";
 import ButtonGroup from "./buttonGroup";
+import { CircularProgress } from '@mui/material';
 import Image from 'next/image';
 
 export const ProductCard = memo(({ product }) => {
@@ -22,7 +23,7 @@ export const ProductCard = memo(({ product }) => {
 
   const { _id, name, price, url, quantity, discount } = product;
 
-  const { addProduct, productInCart, updateProductQuantity, handleChangeProductQuantity, quantity: inputQuantity } = useCart(logged, 1, product, cart, undefined, true, 500);
+  const { addProduct, productInCart, updateProductQuantity, handleChangeProductQuantity, quantity: inputQuantity, loading } = useCart(logged, 1, product, cart, undefined, true, 500);
 
   const history = useRouter();
   const dispatch = useDispatch();
@@ -156,37 +157,45 @@ export const ProductCard = memo(({ product }) => {
                 product.quantity > 0 && (
                   <>
                     {!productInCart ? (
-                      <button
-                        onClick={addProduct}
-                        className="bg-[#fff]
-                                        py-[8px] 
-                                        md:py-[10px]
-                                        px-[10px]
-                                        btn-add
-                                        md:px-[20px] 
-                                        cursor-pointer 
-                                        text-[#333] 
-                                        border-[#333] 
-                                        border-[1px] 
-                                        border-solid 
-                                        leading-normal 
-                                        rounded-lg 
-                                        font-normal 
-                                        uppercase 
-                                        text-[10px]
-                                        md:text-[11px]
-                                        lg:text-sm
-                                        hover:bg-[#333]
-                                        hover:text-white
-                                        transition-all duration-700 ease-in-out
-                                        "
-                      >
-                        <span
-                          className="flex items-center font-Poppins"
+                      <>
+                      {
+                        loading ? (
+                          <CircularProgress />
+                        ):(
+                          <button
+                          onClick={addProduct}
+                          className="bg-[#fff]
+                                          py-[8px] 
+                                          md:py-[10px]
+                                          px-[10px]
+                                          btn-add
+                                          md:px-[20px] 
+                                          cursor-pointer 
+                                          text-[#333] 
+                                          border-[#333] 
+                                          border-[1px] 
+                                          border-solid 
+                                          leading-normal 
+                                          rounded-lg 
+                                          font-normal 
+                                          uppercase 
+                                          text-[10px]
+                                          md:text-[11px]
+                                          lg:text-sm
+                                          hover:bg-[#333]
+                                          hover:text-white
+                                          transition-all duration-700 ease-in-out
+                                          "
                         >
-                          Agregar
-                        </span>
-                      </button>
+                          <span
+                            className="flex items-center font-Poppins"
+                          >
+                            Agregar
+                          </span>
+                        </button>
+                        )
+                      }
+                      </>
                     ) : (
                       <div>
                         <ButtonGroup
