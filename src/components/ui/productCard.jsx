@@ -160,7 +160,9 @@ export const ProductCard = memo(({ product }) => {
                       <>
                       {
                         loading ? (
-                          <CircularProgress />
+                          <CircularProgress
+                            size={20}
+                         />
                         ):(
                           <button
                           onClick={addProduct}

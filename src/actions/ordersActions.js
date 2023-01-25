@@ -168,7 +168,7 @@ export const startGetOrder = (_id, token) => {
           Authorization: token,
         },
       });
-      dispatch(getOrder(data.order, data?.shipping));
+      dispatch(getOrder(data.order, data?.shipping, data?.payments ?? []));
       return true;
     } catch (error) {
       console.log(error);
@@ -177,9 +177,9 @@ export const startGetOrder = (_id, token) => {
   };
 };
 
-export const getOrder = (order, shipping) => ({
+export const getOrder = (order, shipping, payments) => ({
   type: types.loadOrderById,
-  payload: { order, shipping },
+  payload: { order, shipping,payments },
 });
 
 export const startInvoidedOrder = (order_id, status) => {

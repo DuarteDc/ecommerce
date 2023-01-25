@@ -5,6 +5,7 @@ const initialState = {
     canceledOrders: [],
     approvedOrders: [],
     shippedOrders: [],
+    payments:[],
     order_id: '',
     totalOrder: 0,
     totalPayments: 0,
@@ -69,7 +70,8 @@ export const ordersReducer = (state = initialState, { type, payload }) => {
             return {
                 ...state,
                 orderDetail: payload.order,
-                shippingDetail: payload?.shipping
+                shippingDetail: payload?.shipping,
+                payments:payload?.payments,
             }
 
         case types.invoiced_order: {

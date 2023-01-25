@@ -87,15 +87,17 @@ export const useCart = (logged = false, currentQuantity = 1, product = {}, cart,
 
 
         const newCart = [];
-        const product_id = prepareCartDataForLocalStorage(product);
+        setLoading(true)
+        const product_id = await prepareCartDataForLocalStorage(product);
 
-        dispatch(addProductToShoppingCart({ product_id, quantity: quantity || 1 }));
+        
+        await dispatch(addProductToShoppingCart({ product_id, quantity: quantity || 1 }));
         if (!productInCart)
             newCart = [...cart, { product_id, quantity: quantity || 1 }];
         else
             newCart = cart.map(cart => cart.product_id._id === product._id ? { ...cart, quantity: cart.quantity = quantity || 1 } : cart);
-
-        localStorage.setItem('cart', JSON.stringify(newCart));
+            localStorage.setItem('cart', JSON.stringify(newCart));
+            setLoading(false)
         if (!isAdd) successNotify('El producto ha sido agregado al carrito satisfactoriamente');
     }
 

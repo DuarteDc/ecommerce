@@ -1,4 +1,5 @@
 import { useDispatch, useSelector } from 'react-redux';
+import Image from 'next/image';
 
 import { startLoadAdministrableLogo } from '../../../src/actions/administrableActions';
 import { startLoadCurrencies } from '../../../src/actions/countryAcctions';
@@ -15,6 +16,11 @@ import VerticalAlignTopIcon from '@mui/icons-material/VerticalAlignTop';
 import { Modal } from "../../../src/components/ui/modal";
 import UploadImages from "../../../src/components/orders/UploadImages";
 import { useToggle } from "../../../src/hooks/useToggle";
+import Accordion from '@mui/material/Accordion';
+import AccordionSummary from '@mui/material/AccordionSummary';
+import AccordionDetails from '@mui/material/AccordionDetails';
+import Typography from '@mui/material/Typography';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 
 const ShowOrder = () => {
 
@@ -22,7 +28,7 @@ const ShowOrder = () => {
 
     const [openUploadImages, toggleUploadImages] = useToggle();
 
-    const { orderDetail, shippingDetail } = useSelector(state => state.orders);
+    const { orderDetail, shippingDetail, payments } = useSelector(state => state.orders);
 
     const handleOpenUploadImages = (product, order_id) => {
         toggleUploadImages();
@@ -188,18 +194,24 @@ const ShowOrder = () => {
                     </div>
                     <div className="grid grid-cols-1 lg:grid-cols-2">
                         <div className="md:w-10/12 px-6 w-full  shadow-md">
-                            {
-                                orderDetail.coupon && (
-                                    <span className="flex justify-between border-b-2 border-gray-200 py-2">
-                                        <p className="font-bold">Cupon:</p>
-                                        <p>NA</p>
-                                    </span>
-                                )
-                            }
+                            <p className='text-center  text-lg font-medium'>Total de orden </p>
+                            <span className='flex justify-between border-b-2 border-gray-2000 py-2'>
+                                <p className='font-bold'>Tipo:</p>
+                                <p>{`${orderDetail.type == 1
+                                    ? 'Tarjeta' : ' Transferencia'}`}</p>
+                            </span>
                             <span className="flex justify-between border-b-2 border-gray-200 py-2">
                                 <p className="font-bold">Subtotal:</p>
                                 <p>{subtotal}</p>
                             </span>
+                            {
+                                orderDetail.coupon_id && (
+                                    <span className="flex justify-between border-b-2 border-gray-200 py-2">
+                                        <p className="font-bold">Cupon:</p>
+                                        <p>{`-${orderDetail.coupon_id.discount}%`}</p>
+                                    </span>
+                                )
+                            }
                             <span className="flex justify-between border-b-2 border-gray-200 py-2">
                                 <p className="font-bold">Envío:</p>
                                 <p>{shippment}</p>
@@ -209,6 +221,32 @@ const ShowOrder = () => {
                                 <p>{total}</p>
                             </span>
                         </div>
+                        {
+                            orderDetail.type == 2 && (
+                                <div className='mt-10 lg:mt-0'>
+                                    <p className='text-center text-lg font-medium'>Pagos</p>
+                                    {payments?.map((payment) => (
+                                        <Accordion>
+                                            <AccordionSummary
+                                                expandIcon={<ExpandMoreIcon />}
+                                                aria-controls="panel1a-content"
+                                                id="panel1a-header"
+                                            >
+                                                Monto: {helpers.priceFormat(payment.amount)}
+                                            </AccordionSummary>
+                                            <AccordionDetails>
+                                                <Image
+                                                    src={payment.image}
+                                                    alt="Comprobante"
+                                                    width={500}
+                                                    height={500}
+                                                />
+                                            </AccordionDetails>
+                                        </Accordion>
+                                    ))}
+                                </div>
+                            )
+                        }
                     </div>
                 </div>
             </section>
@@ -231,6 +269,7 @@ export const getServerSideProps = wrapper.getServerSideProps((store) =>
         const isValid = await store.dispatch(startGetOrder(ctx.query.id, ctx.req.cookies.token));
         await store.dispatch(startLoadCurrencies());
         await store.dispatch(startLoadAdministrableLogo());
+        await store.dispatch(startGetOrder());
         if (!isValid) return { notFound: true };
     });
 
