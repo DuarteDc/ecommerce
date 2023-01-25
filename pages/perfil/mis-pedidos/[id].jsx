@@ -226,7 +226,7 @@ const ShowOrder = () => {
                                 <div className='mt-10 lg:mt-0'>
                                     <p className='text-center text-lg font-medium'>Pagos</p>
                                     {payments?.map((payment) => (
-                                        <Accordion>
+                                        <Accordion key={payment._id}>
                                             <AccordionSummary
                                                 expandIcon={<ExpandMoreIcon />}
                                                 aria-controls="panel1a-content"
