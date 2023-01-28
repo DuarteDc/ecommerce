@@ -3,6 +3,7 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import { useDispatch, useSelector } from "react-redux";
 import { wrapper } from '../../../src/store';
+import Swal from "sweetalert2";
 
 // actions
 import { startLoadFaqsCategories } from "../../../src/actions/faqsActions";
@@ -91,6 +92,27 @@ const MisPedidos = () => {
     }
   }, [success]);
 
+  useEffect(() => {
+    if (router.query.redirect_status === 'succeeded' || router.query.successTransfer === 'true') {
+      Cookies.remove("client_secret");
+      Swal.fire({
+        icon: "success",  
+        title: "Venta finalizada con éxito",
+        text: "Te invitamos a leer nuestras políticas de privacidad, para cualquier duda o aclaración.",
+        confirmButtonText: "Cerrar",
+        cancelButtonColor: "#1565c0",
+        allowOutsideClick: false,
+      }).then(() => {;
+        router.push(
+          {
+            pathname: router.path,
+          },
+          undefined,
+          { shallow: true },
+        );
+      });
+    }
+  }, []);
 
 
   const [valueTab, setValueTab] = useState(0);

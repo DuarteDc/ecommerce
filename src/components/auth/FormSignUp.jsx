@@ -12,7 +12,7 @@ import { GoogleLogin } from 'react-google-login';
 import { startRegister } from "../../actions/authActions";
 import LoadingScreen from "../LoadingScreen";
 
-import { TextField } from "@mui/material";
+import { TextField, Checkbox, FormControlLabel } from "@mui/material";
 
 import helpers from "../../helpers/helpers";
 import ErrorIcon from '@mui/icons-material/Error';
@@ -24,8 +24,12 @@ const FormSignUp = () => {
 
     const { cart } = useSelector(state => state.cart);
 
+    const label = { inputProps: { 'aria-label': 'Checkbox demo' } };
+
     const [error, setError] = useState(false);
     const [messageError, setMessageError] = useState('');
+
+    const [checked, setChecked] = useState(false);
 
     const router = useRouter();
     const dispatch = useDispatch();
@@ -60,6 +64,7 @@ const FormSignUp = () => {
         email: '',
         password: '',
         passwordConfirmation: '',
+        policies: false,
     }
 
     const validationSchema = {
@@ -67,6 +72,7 @@ const FormSignUp = () => {
         email: Yup.string().email("El correo no tiene un valido").required("El correo es requerido"),
         password: Yup.string().min(8, "La contraseña debe contener al menos 8 caracteres").required("La contraseña es requerida"),
         passwordConfirmation: Yup.string().required('Confirma la contraseña').oneOf([Yup.ref('password'), null], 'Las contraseñas no coinciden. vuelve a intentarlo'),
+        policies: Yup.bool().required("Es necesario aceptar las políticas para poder continuar con el registro").required("Las políticas son requeridas"),
         // phone: Yup.string().matches(phoneRegex, "El número de telefono no es valido").required("El numero de telefono es requerido")
     }
 
@@ -90,7 +96,7 @@ const FormSignUp = () => {
 
         setLoading(true)
         const { hasError, message, token } = await dispatch(startLoginGoogle(tokenId));
-
+  
         if (hasError) {
             setError(true);
             setMessageError(message);
@@ -213,6 +219,25 @@ const FormSignUp = () => {
                         </select>
                     </div>
                 </div> */}
+
+                    <div className="flex flex-col">
+                        <FormControlLabel
+                            control={
+                                <Checkbox 
+                                    required={true}
+                                    checked={checked}
+                                    onChange={(event) =>{formik.handleChange(event); setChecked(!checked)}}
+                                    error={formik.touched.policies && formik.errors.policies ? true : false} />
+                            }
+                            label={<>Acepto las <Link href="/Politicas_de_privacidad.pdf">Políticas de privacidad</Link></>
+                            } />
+                        {formik.touched.policies && formik.errors.policies ? (
+                            <span className="text-red-500 text-sm">
+                                {formik.errors.policies}
+                            </span>
+                        ) : null}
+                    </div>
+
                     <div className="mt-10">
                         <button className="bg-[#222] w-full text-white py-4 uppercase hover:bg-[#333] border-2 border-[#222] transition-all duration-700 ease-in-out"
                             type="submit"

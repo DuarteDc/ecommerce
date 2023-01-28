@@ -151,7 +151,7 @@ export const ProductCard = memo(({ product }) => {
             </span>
           </div>
 
-          <div className="flex flex-wrap justify-between">
+          <div className="flex flex-wrap justify-between items-center">
             <div className="btn-area">
               {
                 product.quantity > 0 && (
@@ -162,6 +162,7 @@ export const ProductCard = memo(({ product }) => {
                         loading ? (
                           <CircularProgress
                             size={20}
+                            className="ml-10"
                          />
                         ):(
                           <button

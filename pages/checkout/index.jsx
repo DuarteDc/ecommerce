@@ -12,7 +12,7 @@ import { Elements } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
 import { useToggle } from "../../src/hooks/useToggle";
 import { Modal } from "../../src/components/ui/modal";
-import { startLoadBanksAccounts, startLoadClientSecret } from "../../src/actions/checkoutActions";
+import { startfinaliceTransferCheckout, startLoadBanksAccounts, startLoadClientSecret } from "../../src/actions/checkoutActions";
 import { CheckoutTransfer } from "../../src/components/checkout/checkoutTransfer";
 import { ShoppingCartDetails } from "../../src/components/checkout/shoppingCartDetails";
 import { useRouter } from "next/router";
@@ -54,9 +54,10 @@ const Checkout = () => {
     }
   }, [bankAccountSelected]);
 
+
   useEffect(() => {
     if (success) {
-      router.push('/perfil/mis-pedidos');
+      router.push({ pathname: '/perfil/mis-pedidos', query: { successTransfer: true } })
       Cookie.remove('superTotal');
       Cookie.remove('withDiscount');
       Cookie.remove('withoutDiscount');
@@ -66,8 +67,7 @@ const Checkout = () => {
     }
   }, [success]);
 
-
-
+ 
   useEffect(() => {
     if (!Object.keys(superTotal).length) {
       const superTotal = Cookie.get('superTotal') ? JSON.parse(Cookie.get('superTotal')) : {};
@@ -159,7 +159,7 @@ const Checkout = () => {
       />
       <section className="max-w-[1480px] mx-auto my-20 px-2 md:px-[15px] w-full">
         <div className="grid grid-cols-1 lg:grid-cols-12  md:my-10">
-          <div className={`col-span-12 md:col-span-7 md:mx-4 overflow-y-auto ${ dimensions === 'sm' && styles.scrollbar}`}>
+          <div className={`col-span-12 md:col-span-7 md:mx-4 overflow-y-auto ${dimensions === 'sm' && styles.scrollbar}`}>
             <ShoppingCartDetails />
           </div>
           <div className=" col-span-12 lg:col-span-5 xl:col-span-5">
@@ -175,8 +175,8 @@ const Checkout = () => {
                   <button className="bg-[#008cdd] text-luz py-[15px] px-[20px] w-full uppercase text-[15px] hover:bg-[#1e90ff] mt-5 flex items-center justify-center"
                     onClick={() => handleOpenProofOfPayment()}
                   >
-                    <ImportExportIcon 
-                        className = "color-[#fff] text-[40px] mr-[30px]"
+                    <ImportExportIcon
+                      className="color-[#fff] text-[40px] mr-[30px]"
                     />
                     <span>Comprobante de pago</span>
                   </button>
@@ -211,7 +211,8 @@ const Checkout = () => {
               fullWidth={true}
               maxWidth={'xs'}
             >
-              <CheckoutTransfer
+              <CheckoutTransfer 
+                setLoadingForm = {setLoadingForm}
                 handleOpenTransfer={handleOpenTransfer}
               />
 
@@ -228,6 +229,7 @@ export const getServerSideProps = wrapper.getServerSideProps((store) => async ()
   await store.dispatch(startLoadAdministrableLogo());
   await store.dispatch(startLoadBanksAccounts());
   await store.dispatch(startLoadCurrencies());
+  await store.dispatch(startfinaliceTransferCheckout());
 });
 
 export default Checkout

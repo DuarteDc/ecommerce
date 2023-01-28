@@ -62,7 +62,7 @@ export const CheckoutForm = ({ setLoadingForm }) => {
       elements,
       confirmParams: {
         // Make sure to change this to your payment completion page
-        return_url: origin
+        return_url: origin + '/perfil/mis-pedidos'
       },
     });
 

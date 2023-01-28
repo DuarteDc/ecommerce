@@ -15,6 +15,7 @@ import ButtonGroup from "../../src/components/ui/buttonGroup";
 import Image from "next/image";
 import { Breadcrumbs, Container, Typography } from "@mui/material";
 import HomeIcon from '@mui/icons-material/Home';
+import { CircularProgress } from '@mui/material';
 
 import NavigateNextIcon from "@mui/icons-material/NavigateNext";
 import Link from "next/link";
@@ -30,7 +31,7 @@ const Show = () => {
   const { cart } = useSelector((state) => state.cart);
   const { logged } = useSelector((state) => state.auth);
 
-  const { addProduct, updateProductQuantity, handleChangeProductQuantity, quantity: inputQuantity } = useCart(logged, "", product, cart, 2, false);
+  const { addProduct, updateProductQuantity, handleChangeProductQuantity, quantity: inputQuantity, loading } = useCart(logged, "", product, cart, 2, false);
 
   const { totalWithDiscountApply } = helpers.calculatNewTotalToPay(
     product?.discount,
@@ -231,12 +232,15 @@ const Show = () => {
                         handleChangeQuantity={handleChangeProductQuantity}
                         product={product}
                       />
+
                       <button
                         className="h-[45px] top-[-2px] relative cursor-pointer border-[1px] border-solid border-[#333] flex items-center px-[25px] rounded-none uppercase hover:bg-[#333] hover:text-secondary transition-all duration-700 ease-in-out text-xs ml-2 md:ml-5 md:text-[14px] md:text-xs"
                         onClick={addProduct}
                       >
-                        <ShoppingCartIcon />
-                        Añadir a carrito
+                        {                          
+                          loading ? (<><CircularProgress size={25} /> <p className="ml-5">Agregando...</p></>)
+                            : (<><ShoppingCartIcon /> Añadir a carrito</>)
+                      }
                       </button>
                     </div>
                   )
