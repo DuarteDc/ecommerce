@@ -12,11 +12,12 @@ import { GoogleLogin } from 'react-google-login';
 import { startRegister } from "../../actions/authActions";
 import LoadingScreen from "../LoadingScreen";
 
-import { TextField, Checkbox, FormControlLabel } from "@mui/material";
+import { TextField, Checkbox, FormControlLabel, IconButton, InputAdornment } from "@mui/material";
 
 import helpers from "../../helpers/helpers";
-import ErrorIcon from '@mui/icons-material/Error';
+import {ErrorIcon, Visibility, VisibilityOff} from '@mui/icons-material';
 import { startShoppingCartFussion } from "../../actions/shoppingCartActions";
+
 
 const FormSignUp = () => {
 
@@ -30,6 +31,16 @@ const FormSignUp = () => {
     const [messageError, setMessageError] = useState('');
 
     const [checked, setChecked] = useState(false);
+
+    const [showPassword, setShowPassword] = useState({
+        password: false,
+        confirmPassword: false,
+    });
+
+    const handleClickShowPassword = (type) => {
+        if (type === 1) return setShowPassword({ ...showPassword, password: !showPassword.password });
+        setShowPassword({ ...showPassword, confirmPassword: !showPassword.confirmPassword });
+    };
 
     const router = useRouter();
     const dispatch = useDispatch();
@@ -96,7 +107,7 @@ const FormSignUp = () => {
 
         setLoading(true)
         const { hasError, message, token } = await dispatch(startLoginGoogle(tokenId));
-  
+
         if (hasError) {
             setError(true);
             setMessageError(message);
@@ -152,7 +163,7 @@ const FormSignUp = () => {
                     <div className="">
                         <label className="uppercase my-5 block">Contraseña</label>
                         <TextField
-                            type="password"
+                            type={showPassword.password ? "text" : "password"}
                             name="password"
                             onChange={formik.handleChange}
                             label="Contraseña"
@@ -162,12 +173,25 @@ const FormSignUp = () => {
                             error={formik.touched.password && formik.errors.password ? true : false}
                             helperText={formik.touched.password && formik.errors.password && formik.errors.password}
                             autoComplete={false}
+                            InputProps={{
+                                endAdornment: (
+                                    <InputAdornment position="end">
+                                        <IconButton
+                                            aria-label="toggle password visibility"
+                                            onClick={() => handleClickShowPassword(1)}
+                                        >
+                                            {showPassword.password ? <Visibility /> : <VisibilityOff />}
+                                        </IconButton>
+                                    </InputAdornment>
+                                )
+                            }}
                         />
+
                     </div>
                     <div className="">
                         <label className="uppercase my-5 block">Confirmar Contraseña</label>
                         <TextField
-                            type="password"
+                            type={showPassword.confirmPassword ? "text" : "password"}
                             name="passwordConfirmation"
                             onChange={formik.handleChange}
                             label="Confirmar contraseña"
@@ -177,7 +201,20 @@ const FormSignUp = () => {
                             error={formik.touched.passwordConfirmation && formik.errors.passwordConfirmation ? true : false}
                             helperText={formik.touched.passwordConfirmation && formik.errors.passwordConfirmation && formik.errors.passwordConfirmation}
                             autoComplete={false}
+                            InputProps={{
+                                endAdornment: (
+                                    <InputAdornment position="end">
+                                        <IconButton className="flex justify-end"
+                                            aria-label="toggle password visibility"
+                                            onClick={handleClickShowPassword}
+                                        >
+                                            {showPassword.confirmPassword ? <Visibility /> : <VisibilityOff />}
+                                        </IconButton>
+                                    </InputAdornment>
+                                ),
+                            }}
                         />
+
                     </div>
                     {
                         error &&
@@ -223,10 +260,10 @@ const FormSignUp = () => {
                     <div className="flex flex-col">
                         <FormControlLabel
                             control={
-                                <Checkbox 
+                                <Checkbox
                                     required={true}
                                     checked={checked}
-                                    onChange={(event) =>{formik.handleChange(event); setChecked(!checked)}}
+                                    onChange={(event) => { formik.handleChange(event); setChecked(!checked) }}
                                     error={formik.touched.policies && formik.errors.policies ? true : false} />
                             }
                             label={<>Acepto las <Link href="/Politicas_de_privacidad.pdf">Políticas de privacidad</Link></>

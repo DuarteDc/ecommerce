@@ -78,6 +78,7 @@ export const UploadProofOfPayment = ({ handleOpenProofOfPayment, setLoading }) =
             text: "Una vez enviado el comprobante , revisaremos que los datos de pago coincidan con el total del carrito",
             icon: "warning",
             showCancelButton: true,
+            cancelButtonText: 'Cancelar',
             confirmButtonColor: '#3085d6',
             cancelButtonColor: '#d33',
             confirmButtonText: 'Si, enviar!'

@@ -102,7 +102,7 @@ const MisPedidos = () => {
         confirmButtonText: "Cerrar",
         cancelButtonColor: "#1565c0",
         allowOutsideClick: false,
-      }).then(() => {;
+      }).then(() => {
         router.push(
           {
             pathname: router.path,
@@ -248,7 +248,54 @@ const MisPedidos = () => {
               )}
             </Tabs>
           </Box>
+          
           <TabPanel value={valueTab} index={0}>
+            {
+              !shippedOrders.length ?
+                <NotFoundOrders
+                  text="No cuentas con ordenes enviadas"
+                />
+                :
+                shippedOrders.map(order => (
+                  <PendingPaymentOrderIndex
+                    key={order._id}
+                    order={order}
+                    status={3}
+                    text_description="Pedido Enviado"
+                    text_color="text-[#333]"
+                    loading={loading}
+                    setLoading={setLoading}
+                    handleOpenProductDetail={handleOpenProductDetail}
+                    handleOpenUploadImages={handleOpenUploadImages}
+                  />
+                ))
+            }
+          </TabPanel>
+          <TabPanel value={valueTab} index={1}>
+            {
+              !approvedOrders.length ?
+                <NotFoundOrders
+                  text="No cuentas con ordenes aprobadas"
+                />
+                :
+                approvedOrders.map(order => (
+                  <PendingPaymentOrderIndex
+                    key={order._id}
+                    order={order}
+                    status={2}
+                    handleCancelInvoice={handleCancelInvoice}
+                    text_description="Pedido Aprobado"
+                    text_color="text-[#333]"
+                    loading={loading}
+                    setLoading={setLoading}
+                    handleOpenProductDetail={handleOpenProductDetail}
+                    handleOpenUploadImages={handleOpenUploadImages}
+                  />
+                ))
+
+            }
+          </TabPanel>
+          <TabPanel value={valueTab} index={2}>
             {
               !penddingOrders.length ?
                 <NotFoundOrders
@@ -274,7 +321,7 @@ const MisPedidos = () => {
             }
 
           </TabPanel>
-          <TabPanel value={valueTab} index={1}>
+          <TabPanel value={valueTab} index={3}>
             {
               !canceledOrders.length ?
                 <NotFoundOrders
@@ -296,52 +343,8 @@ const MisPedidos = () => {
                 ))
             }
           </TabPanel>
-          <TabPanel value={valueTab} index={2}>
-            {
-              !approvedOrders.length ?
-                <NotFoundOrders
-                  text="No cuentas con ordenes aprobadas"
-                />
-                :
-                approvedOrders.map(order => (
-                  <PendingPaymentOrderIndex
-                    key={order._id}
-                    order={order}
-                    status={2}
-                    handleCancelInvoice={handleCancelInvoice}
-                    text_description="Pedido Aprobado"
-                    text_color="text-[#333]"
-                    loading={loading}
-                    setLoading={setLoading}
-                    handleOpenProductDetail={handleOpenProductDetail}
-                    handleOpenUploadImages={handleOpenUploadImages}
-                  />
-                ))
 
-            }
-          </TabPanel>
-          <TabPanel value={valueTab} index={3}>
-            {
-              !shippedOrders.length ?
-                <NotFoundOrders
-                  text="No cuentas con ordenes enviadas"
-                />
-                :
-                shippedOrders.map(order => (
-                  <PendingPaymentOrderIndex
-                    key={order._id}
-                    order={order}
-                    status={3}
-                    text_description="Pedido Enviado"
-                    text_color="text-[#333]"
-                    loading={loading}
-                    setLoading={setLoading}
-                    handleOpenProductDetail={handleOpenProductDetail}
-                    handleOpenUploadImages={handleOpenUploadImages}
-                  />
-                ))
-            }
-          </TabPanel>
+
         </Box>
         {/* modal comprobante de pago */}
         <Modal

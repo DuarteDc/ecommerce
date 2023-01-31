@@ -14,11 +14,13 @@ import { startLoginGoogle } from "../../actions/authActions";
 import LoadingScreen from "../LoadingScreen";
 
 import { GoogleLogin } from 'react-google-login';
-import { TextField } from "@mui/material";
-import ErrorIcon from '@mui/icons-material/Error';
+import { TextField, IconButton, InputAdornment } from "@mui/material";
+import {ErrorIcon, Visibility, VisibilityOff} from '@mui/icons-material';
 
 import { helpers } from '../../helpers';
 import { startShoppingCartFussion } from "../../actions/shoppingCartActions";
+
+
 
 export const FormSignIn = () => {
 
@@ -28,6 +30,12 @@ export const FormSignIn = () => {
     const [loading, setLoading] = useState();
 
     const { cart } = useSelector(state => state.cart);
+
+    const [showPassword, setShowPassword] = useState(false);
+
+    const handleClickShowPassword = (type) => {
+        setShowPassword(!showPassword)
+    };
 
     const handleLoginUser = async (formData) => {
 
@@ -114,7 +122,7 @@ export const FormSignIn = () => {
                 <div className="pb-3">
                     <label className="uppercase my-5 w-full block">Contraseña</label>
                     <TextField
-                        type="password"
+                        type={showPassword ? "text" : "password"}
                         name="password"
                         required={true}
                         label="Contraseña"
@@ -123,6 +131,19 @@ export const FormSignIn = () => {
                         fullWidth
                         error={formik.touched.password && formik.errors.password ? true : false}
                         helperText={formik.touched.password && formik.errors.password && formik.errors.password}
+                        InputProps={{
+                            endAdornment: (
+                                <InputAdornment position="end">
+                                    <IconButton className="flex justify-end"
+                                        aria-label="toggle password visibility"
+                                        onClick={handleClickShowPassword}
+                                    >
+                                        {showPassword ? <Visibility /> : <VisibilityOff />}
+                                    </IconButton>
+                                </InputAdornment>
+                            ),
+                        }}
+
 
                     />
                 </div>
