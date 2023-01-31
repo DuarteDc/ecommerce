@@ -105,12 +105,14 @@ export const startUploadProofOfPayment = (data) => {
     try {
       const token = Cookies.get("token");
       let url = `payments/${order_id}`;
-      await client.post(url, data, {
+      const res = await client.post(url, data, {
         headers: {
           Authorization: token,
         },
       });
       successNotify("Comprobante de pago se ha subido correctamente");
+      if (res.data?.due > 0) successNotify(`El monto por pagar es: $${res.data.due}`);
+
       dispatch(uploadProofOfPayment(order_id, amount));
     } catch (error) {
       if (axios.isAxiosError(error)) {
@@ -179,7 +181,7 @@ export const startGetOrder = (_id, token) => {
 
 export const getOrder = (order, shipping, payments) => ({
   type: types.loadOrderById,
-  payload: { order, shipping,payments },
+  payload: { order, shipping, payments },
 });
 
 export const startInvoidedOrder = (order_id, status) => {

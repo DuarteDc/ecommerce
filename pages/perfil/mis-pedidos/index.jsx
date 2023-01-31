@@ -3,7 +3,7 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import { useDispatch, useSelector } from "react-redux";
 import { wrapper } from '../../../src/store';
-import Swal from "sweetalert2";
+import Swal from 'sweetalert2/dist/sweetalert2.js';
 
 // actions
 import { startLoadFaqsCategories } from "../../../src/actions/faqsActions";
