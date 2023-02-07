@@ -2,8 +2,6 @@ import { useState } from "react";
 
 import Link from "next/link";
 
-import Cookies from "js-cookie";
-
 import { useRouter } from "next/router";
 import { useDispatch, useSelector } from "react-redux";
 import { useFormik } from "formik";
@@ -15,7 +13,7 @@ import LoadingScreen from "../LoadingScreen";
 
 import { GoogleLogin } from 'react-google-login';
 import { TextField, IconButton, InputAdornment } from "@mui/material";
-import {ErrorIcon, Visibility, VisibilityOff} from '@mui/icons-material';
+import { Error as ErrorIcon, Visibility, VisibilityOff } from '@mui/icons-material';
 
 import { helpers } from '../../helpers';
 import { startShoppingCartFussion } from "../../actions/shoppingCartActions";
@@ -26,8 +24,8 @@ export const FormSignIn = () => {
 
     const router = useRouter()
     const dispatch = useDispatch();
-    const [error, setError] = useState();
-    const [loading, setLoading] = useState();
+    const [error, setError] = useState(false);
+    const [loading, setLoading] = useState(false);
 
     const { cart } = useSelector(state => state.cart);
 
@@ -51,7 +49,7 @@ export const FormSignIn = () => {
 
         const products = await helpers.prepareProductsToFussion(cart);
         await dispatch(startShoppingCartFussion(products, token))
-    
+
         const destination = router.query.p?.toString() || '';
         const newRoute = helpers.getLastRoute(destination);
         router.replace(newRoute);

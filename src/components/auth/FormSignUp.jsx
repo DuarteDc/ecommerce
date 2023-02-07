@@ -15,7 +15,7 @@ import LoadingScreen from "../LoadingScreen";
 import { TextField, Checkbox, FormControlLabel, IconButton, InputAdornment } from "@mui/material";
 
 import helpers from "../../helpers/helpers";
-import {ErrorIcon, Visibility, VisibilityOff} from '@mui/icons-material';
+import { Error as ErrorIcon, Visibility, VisibilityOff } from '@mui/icons-material';
 import { startShoppingCartFussion } from "../../actions/shoppingCartActions";
 
 

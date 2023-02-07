@@ -475,7 +475,7 @@ export const getServerSideProps = wrapper.getServerSideProps((store) =>
     await store.dispatch(startLoadOrdersCanceled(ctx.req.cookies.token));
     await store.dispatch(startLoadOrdersApproved(ctx.req.cookies.token));
     await store.dispatch(startLoadOrdersShipped(ctx.req.cookies.token));
-    await store.dispatch(startLoadFiscalAddress(ctx.req.cookies.token));
+    // await store.dispatch(startLoadFiscalAddress(ctx.req.cookies.token));
     await store.dispatch(startLoadCurrencies());
   })
 
