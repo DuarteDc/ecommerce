@@ -196,17 +196,40 @@ const NavBar = () => {
     >
       <div className="w-full px-10 lg:px-2 xl:px-28 2xl:px-28 text-xs">
         <nav className="flex max-h-16 justify-between items-center z-40">
-          <Image
-            src={logo}
-            priority={true}
-            fill={true}
-            alt="Wapizima"
-            width={100}
-            height={90}
-            onClick={() => handleRedirectClick('/')}
-            className="cursor-pointer"
-          />
-          <div className="flex items-center justify-center">
+        {!open ? (
+              <button
+                className="lg:hidden"
+                onClick={toggleDrawer}
+                title="Menú"
+              >
+                <MenuIcon
+                  className="text-gray-600 text-[30px]"
+                />
+              </button>
+            ) : (
+              <button
+                className="lg:hidden"
+                onClick={toggleDrawer}
+                title="Cerrar"
+              >
+                <CloseIcon
+                  className="text-gray-600 text-[30px]"
+                />
+              </button>
+            )}
+          <span className="hidden lg:flex">
+            <Image
+              src={logo}
+              priority={true}
+              fill={true}
+              alt="Wapizima"
+              width={100}
+              height={90}
+              onClick={() => handleRedirectClick('/')}
+              className="cursor-pointer"
+            />
+          </span>
+          <div className="flex items-center justify-center my-3">
             <span className="items-center border-transparent border-b-2 cursor-pointer flex text-[#888] font-['Poppins'] transition duration-700 ease-in-out lg:hidden">
               {
                 (!router.pathname.includes('/perfil') && !router.pathname.includes('/checkout')) && !router.pathname.includes('/distribuidor') &&
@@ -232,27 +255,7 @@ const NavBar = () => {
               </Badge>
             </span>
 
-            {!open ? (
-              <button
-                className="lg:hidden"
-                onClick={toggleDrawer}
-                title="Menú"
-              >
-                <MenuIcon
-                  className="text-gray-600 text-[30px]"
-                />
-              </button>
-            ) : (
-              <button
-                className="lg:hidden"
-                onClick={toggleDrawer}
-                title="Cerrar"
-              >
-                <CloseIcon
-                  className="text-gray-600 text-[30px]"
-                />
-              </button>
-            )}
+
           </div>
 
           <div className="hidden lg:flex justify-between items-center w-full p-0 mx-0">
@@ -374,7 +377,7 @@ const NavBar = () => {
                     onClick={() =>
                       handleRedirectWithParams(`/auth/login?p=${router.asPath}`)
                     }
-                    className="text-[#333] border-transparent border-b-2 hover:text-[#333] cursor-pointer  font-Poppins
+                    className="text-[#333] border-transparent border-b-2 cursor-pointer  font-Poppins
                     transition uppercase duration-700 ease-in-out min-w-[6rem] flex hover:text-[#888]"
                   >
                     Iniciar Sesión
@@ -383,7 +386,7 @@ const NavBar = () => {
                     onClick={() =>
                       handleRedirectWithParams(`/auth/register?p=${router.asPath}`)
                     }
-                    className="text-[#333] hover:text-[#888] border-transparent border-b-2 hover:text-[#333] cursor-pointer  font-Poppins transition uppercase duration-700 ease-in-out"
+                    className="text-[#333] hover:text-[#888] border-transparent border-b-2  cursor-pointer  font-Poppins transition uppercase duration-700 ease-in-out"
                   >
                     Registrate
                   </span>

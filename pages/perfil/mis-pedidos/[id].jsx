@@ -13,6 +13,8 @@ import { BannerImage } from '../../../src/components/ui/bannerImage';
 
 import VerticalAlignTopIcon from '@mui/icons-material/VerticalAlignTop';
 
+import Zoom from 'react-medium-image-zoom';
+
 import { Modal } from "../../../src/components/ui/modal";
 import UploadImages from "../../../src/components/orders/UploadImages";
 import { useToggle } from "../../../src/hooks/useToggle";
@@ -52,7 +54,7 @@ const ShowOrder = () => {
                         <span className="bg-amber-500 md:px-10 px-3 text-white rounded-lg">Aprobada - Pendiente de envío</span>
                     ) : status === 2 ? (
                         <span className="bg-blue-500 md:px-10 px-3 text-white rounded-lg">Pendiente de aprobación</span>
-                        ) : (
+                    ) : (
                         <span className="bg-green-500 md:px-10 px-3 text-white rounded-lg">Pedido cancelado</span>
                     )
                 }
@@ -235,12 +237,23 @@ const ShowOrder = () => {
                                                 Monto: {helpers.priceFormat(payment.amount)}
                                             </AccordionSummary>
                                             <AccordionDetails>
-                                                <Image
+                                                <Zoom zoomMargin={45}>
+                                                    <picture>
+                                                        <source media="(max-width: 10px)" srcSet={payment.image} />
+                                                        <img
+                                                            src={payment.image}
+                                                            alt={payment?.image}
+                                                            className="min-w-[6rem] min-h-[6rem] h-[6rem] w-[6rem]"
+                                                        />
+                                                    </picture>
+                                                </Zoom>
+                                                {/* <Image
+                                                    className='cursor-pointer'
                                                     src={payment.image}
                                                     alt="Comprobante"
-                                                    width={500}
-                                                    height={500}
-                                                />
+                                                    width={200}
+                                                    height={200}
+                                                /> */}
                                             </AccordionDetails>
                                         </Accordion>
                                     ))}
