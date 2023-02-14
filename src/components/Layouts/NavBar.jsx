@@ -143,13 +143,17 @@ const NavBar = () => {
         </figure>
         {pages.map((route) => (
           route.name !== 'Escuela' ? (
-            <div className="pl-4 mb-5 cursor-pointer text-gray-900 hover:text-stone-900 hover:bg-gray-100 py-2 uppercase text-sm"
+              <div className="pl-4 mb-5 cursor-pointer text-gray-900 hover:text-stone-900 hover:bg-gray-100 py-2 uppercase text-sm"
+              key={route.path}
               onClick={() => handleRedirectClick(route.path)}
             >
               <span>{route.icon}{route.name}</span>
             </div>
           ) : (
-            <div className="pl-4 mb-5 cursor-pointer text-gray-900 hover:text-stone-900 hover:bg-gray-100 py-2 uppercase text-sm">
+            <div 
+              className="pl-4 mb-5 cursor-pointer text-gray-900 hover:text-stone-900 hover:bg-gray-100 py-2 uppercase text-sm"
+              key={route.path}
+            >
               <Link href={route.path} key={route.path} prefetch={false}>
                 <a target="_blank">{route.icon}{route.name}</a>
               </Link>
@@ -196,27 +200,27 @@ const NavBar = () => {
     >
       <div className="w-full px-10 lg:px-2 xl:px-28 2xl:px-28 text-xs">
         <nav className="flex max-h-16 justify-between items-center z-40">
-        {!open ? (
-              <button
-                className="lg:hidden"
-                onClick={toggleDrawer}
-                title="Menú"
-              >
-                <MenuIcon
-                  className="text-gray-600 text-[30px]"
-                />
-              </button>
-            ) : (
-              <button
-                className="lg:hidden"
-                onClick={toggleDrawer}
-                title="Cerrar"
-              >
-                <CloseIcon
-                  className="text-gray-600 text-[30px]"
-                />
-              </button>
-            )}
+          {!open ? (
+            <button
+              className="lg:hidden"
+              onClick={toggleDrawer}
+              title="Menú"
+            >
+              <MenuIcon
+                className="text-gray-600 text-[30px]"
+              />
+            </button>
+          ) : (
+            <button
+              className="lg:hidden"
+              onClick={toggleDrawer}
+              title="Cerrar"
+            >
+              <CloseIcon
+                className="text-gray-600 text-[30px]"
+              />
+            </button>
+          )}
           <span className="hidden lg:flex">
             <Image
               src={logo}
@@ -262,19 +266,20 @@ const NavBar = () => {
             <div className="px-12 w-full flex flex-col justify-center items-center">
               <div className="w-full flex justify-center text-[10px] xl:text-[12px] items-center">
                 {pages.map(({ path, name }) => (
-                  name !== 'Escuela' ? (
+                    name !== 'Escuela' ? (
                     <span
                       onClick={() => handleRedirectClick(path)}
+                      key={path}
                       className="text-[#333] border-transparent border-b-2 hover:text-[#888] mx-4 cursor-pointer  font-Poppins font-medium transition uppercase duration-700 ease-in-out">
                       {name}
                     </span>
-                  ) : (
+                    ) : (
                     <Link href={path} key={name} prefetch={false}>
                       <a target="_blank" className="text-[#333] border-transparent border-b-2 hover:text-[#888] mx-4 cursor-pointer  font-Poppins font-medium transition uppercase duration-700 ease-in-out">
                         {name}
                       </a>
                     </Link>
-                  )
+                    )
                 ))}
               </div>
             </div>

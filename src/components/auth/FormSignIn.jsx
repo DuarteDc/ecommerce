@@ -13,13 +13,7 @@ import LoadingScreen from "../LoadingScreen";
 
 import { GoogleLogin } from 'react-google-login';
 import { TextField, IconButton, InputAdornment } from "@mui/material";
-<<<<<<< Updated upstream
 import { Error as ErrorIcon, Visibility, VisibilityOff } from '@mui/icons-material';
-=======
-import ErrorIcon from '@mui/icons-material/Error';
-
-import { Visibility, VisibilityOff} from '@mui/icons-material';
->>>>>>> Stashed changes
 
 import { helpers } from '../../helpers';
 import { startShoppingCartFussion } from "../../actions/shoppingCartActions";

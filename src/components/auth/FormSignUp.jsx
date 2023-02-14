@@ -12,15 +12,10 @@ import { GoogleLogin } from 'react-google-login';
 import { startRegister } from "../../actions/authActions";
 import LoadingScreen from "../LoadingScreen";
 
-import ErrorIcon from '@mui/icons-material/Error';
 import { TextField, Checkbox, FormControlLabel, IconButton, InputAdornment } from "@mui/material";
 
 import helpers from "../../helpers/helpers";
-<<<<<<< Updated upstream
 import { Error as ErrorIcon, Visibility, VisibilityOff } from '@mui/icons-material';
-=======
-import {Visibility, VisibilityOff} from '@mui/icons-material';
->>>>>>> Stashed changes
 import { startShoppingCartFussion } from "../../actions/shoppingCartActions";
 
 

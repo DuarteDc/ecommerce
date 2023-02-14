@@ -58,7 +58,7 @@ export const Meta = ({
       {price && <meta property="product:price:amount" content={price} />}
       {curren && <meta property="product:price:currency" content={curren} />}
       <link rel="canonical" href={canonical} />
-
+ 
 
       <script
         type="application/ld+json"
@@ -98,6 +98,22 @@ export const Meta = ({
           `,
         }}
       />
+
+      <script src="https://apis.google.com/js/platform.js?onload=renderBadge" async defer></script>
+
+      <script
+        dangerouslySetInnerHTML={{
+          __html: `
+          window.renderBadge = function() {
+            var ratingBadgeContainer = document.createElement("div");
+            document.body.appendChild(ratingBadgeContainer);
+            window.gapi.load('ratingbadge', function() {
+              window.gapi.ratingbadge.render(ratingBadgeContainer, {"merchant_id": 696172356, "position": "BOTTOM_LEFT"});
+            });
+          }
+          `}}
+      />
+
       <noscript
         dangerouslySetInnerHTML={{
           __html: `

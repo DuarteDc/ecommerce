@@ -49,13 +49,13 @@ const ShowOrder = () => {
             <div className="ml-2 md:text-sm text-[10px] flex items-center">
                 {
                     status === 0 ? (
-                        <span className="bg-reed-500 md:px-10 px-3 text-white rounded-lg">Pedido enviado</span>
+                        <span className="bg-red-500 md:px-10 px-3 text-white rounded-lg">Pedido cancelado</span>
                     ) : status === 1 ? (
-                        <span className="bg-amber-500 md:px-10 px-3 text-white rounded-lg">Aprobada - Pendiente de envío</span>
+                        <span className="bg-amber-500 md:px-10 px-3 text-white rounded-lg">Pendiente de aprobación</span>
                     ) : status === 2 ? (
-                        <span className="bg-blue-500 md:px-10 px-3 text-white rounded-lg">Pendiente de aprobación</span>
+                        <span className="bg-blue-500 md:px-10 px-3 text-white rounded-lg">Aprobada - Pendiente de envío</span>
                     ) : (
-                        <span className="bg-green-500 md:px-10 px-3 text-white rounded-lg">Pedido cancelado</span>
+                        <span className="bg-green-500 md:px-10 px-3 text-white rounded-lg">Pedido enviado</span>
                     )
                 }
             </div>
