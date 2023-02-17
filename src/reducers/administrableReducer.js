@@ -10,7 +10,8 @@ const initialState = {
     mission: {},
     countryPermissions: [],
     country: {},
-    acceptCookiesPoliticy: false
+    acceptCookiesPoliticy: false,
+    policie: {}
 }
 
 
@@ -51,6 +52,12 @@ export const administrableReducer = (state = initialState, { type, payload }) =>
                 ...state,
                 country: payload,
             }
+        
+            case types.load_policies:
+                return {
+                    ...state,
+                    policie: payload,
+                }
 
         default:
             return state;

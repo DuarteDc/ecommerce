@@ -16,12 +16,20 @@ const endpoint = '/brands/with/categories';
 
 /***************************************Components*************************************** */
 
+<<<<<<< Updated upstream
 // import ProductsMostSold from '../src/components/ui/ProductsMostSold';
 
 import loadable from '@loadable/component';
 
 import ProductsAreaComponent from '../src/components/home/ProductsArea';
 
+=======
+import ProductsMostSold from '../src/components/ui/ProductsMostSold';
+import ProductsAreaComponent from '../src/components/home/ProductsArea';
+
+import loadable from '@loadable/component';
+
+>>>>>>> Stashed changes
 // const ProductsAreaComponent = loadable(() => import('../src/components/home/ProductsArea'));
 const ProductsOfferAreaComponent = loadable(() => import('../src/components/home/ProductsOfferArea'));
 const PartnerAreaComponent = loadable(() => import('../src/components/home/PartnerArea'));

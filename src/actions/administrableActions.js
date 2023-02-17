@@ -96,3 +96,20 @@ export const startLoadMaintainment = async () => {
         console.log(error);
     }
 }
+
+export const startLoadPolicies = (type) => {
+    return async (dispatch) => {
+        try {
+            let url = `policies/show/${type}`;
+            const { data } = await client.get(url);
+            dispatch(loadPolicies(data.policie))
+        } catch (error) {
+            console.log(error);
+        }
+    }
+}
+
+export const loadPolicies = (policie) => ({
+    type: types.load_policies,
+    payload: policie,
+});
