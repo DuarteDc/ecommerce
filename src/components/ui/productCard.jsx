@@ -15,6 +15,7 @@ import { useCart } from "../../hooks/useCart";
 import ButtonGroup from "./buttonGroup";
 import { CircularProgress } from '@mui/material';
 import Image from 'next/image';
+import { useEffect } from 'react';
 
 export const ProductCard = memo(({ product }) => {
 
@@ -38,7 +39,7 @@ export const ProductCard = memo(({ product }) => {
   const handleShowProduct = () => {
     history.push(`/productos/${url}`);
   };
-
+ 
   const handleToogleWishList = (_id) => {
     const { message, existInWishList } = helpers.toggleWishListProducts(_id);
     setisInWhisList(!isInWhisList);
@@ -49,10 +50,10 @@ export const ProductCard = memo(({ product }) => {
       dispatch(addOneProduct(_id));
     }
   };
-
+  
   return (
     <div className="mb-[30px] relative p-2 md:card animate__animated animate__zoomIn md:mx-2 shadow-md md:shadow-none">
-      <div className="relative overflow-hidden ">
+      <div className="relative overflow-hidden">
         <div className="w-full h-full relative cursor-pointer">
           {
             product.multimedia.length > 0 ? (
@@ -61,8 +62,8 @@ export const ProductCard = memo(({ product }) => {
                 alt={product.name}
                 width="320"
                 height="320"
-                priority={true}
-                fill={true}
+                priority="true"
+                fill="true"
                 sizes="(max-width: 768px) 100vw,
                         (max-width: 1200px) 50vw,
                         33vw"

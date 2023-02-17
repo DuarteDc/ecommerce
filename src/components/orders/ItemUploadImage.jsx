@@ -36,7 +36,7 @@ const ItemUploadImage = ({ image, product, index }) => {
         const data = new FormData();
         data.append('image', image);
         data.append('product_id', product._id)
-        data.append('index', index); 0
+        data.append('index', index); 
         const isValid = await dispatch(getStartedSendImagesToCanvas(data));
         if (!isValid) return setLoading(false);
         onChangeImage(image.preview);

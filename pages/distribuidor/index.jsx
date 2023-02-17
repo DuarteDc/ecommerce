@@ -142,7 +142,7 @@ const Distributor = () => {
           />
         </div>
       </section>
-      <section className="container mx-auto mb-20">
+      {/* <section className="container mx-auto mb-20">
         <h3 className="py-3 bg-gray-100 text-xl font-bold text-center uppercase">Productos</h3>
         <div className="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 mt-10 md:gap-4">
           {
@@ -154,7 +154,7 @@ const Distributor = () => {
             ))
           }
         </div>
-      </section>
+      </section> */}
     </Layout>
   )
 }
@@ -163,7 +163,7 @@ export const getServerSideProps = wrapper.getServerSideProps((store) => async (c
   await store.dispatch(startLoadAdministrableLogo());
   await store.dispatch(startLoadCurrencies());
   await store.dispatch(startLoadBusinessRules());
-  await store.dispatch(startLoadProductsMostSold(ctx.req?.cookies?.Currency || 'MXN'));
+  // await store.dispatch(startLoadProductsMostSold(ctx.req?.cookies?.Currency || 'MXN'));
   // await store.dispatch(startLoadBrands())
 });
 

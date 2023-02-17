@@ -80,15 +80,12 @@ export const startCalculateTotalSale = (cart, logged) => {
 
       const { coupon, shipping_costs } = getState().cart;
 
-      const data = {};
+      let data = {};
       let subtotalCart = 0;
       let subtotalWithCoupon = 0;
       let total = 0;
 
-      if (logged)
-         data = helpers.calculateTotalOfCart(cart);
-      else
-         data = helpers.calculateTotalOfCart(cart);
+      data = helpers.calculateTotalOfCart(cart);
 
       subtotalCart = data.productsDiscount + data.productsWithoutDiscount + data.productsCanvas;
 

@@ -36,7 +36,7 @@ export const useQueryParams = (endpoint, { router }) => {
 
   const removeQueryParam = async (param = {}, endpoint = '') => {
 
-    const arrFiltered = [];
+    let arrFiltered = [];
     let currenQueries = Object.entries(router.query);
 
     if (param.type === 3 && router.query.hasOwnProperty('subcategory_id')) {

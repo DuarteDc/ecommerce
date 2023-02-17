@@ -9,7 +9,6 @@ import { infoNotify } from "../../helpers/helpers";
 
 import AddPhotoAlternateIcon from '@mui/icons-material/AddPhotoAlternate';
 
-
 export const UploadProofOfPayment = ({ handleOpenProofOfPayment, setLoading }) => {
     const dropRef = useRef();
     const fileInput = useRef(null);
@@ -31,11 +30,10 @@ export const UploadProofOfPayment = ({ handleOpenProofOfPayment, setLoading }) =
         reference: ''
     }
 
-    const regexAmount = /^\d*\.?\d*$/;
     const regexReference = /^[0-9]+$/;
 
     const validationSchema = {
-        amount: Yup.string().required("El monto es requerido").matches(regexAmount, "La cantidad no es valida"),
+        amount: Yup.number().typeError('El monto debe ser un numero valido').required("El monto es requerido"),
         reference: Yup.string().required("La referencia es requerida").matches(regexReference, "La referencia no es valida"),
     }
 
@@ -115,7 +113,7 @@ export const UploadProofOfPayment = ({ handleOpenProofOfPayment, setLoading }) =
     const handleDragIn = (e) => {
         e.preventDefault();
         e.stopPropagation();
-        setDragCounter(dragCounter++);
+        setDragCounter(prev => prev + 1);
         if (e.dataTransfer.items && e.dataTransfer.items.length > 0) {
             setDragging(true);
         }
@@ -124,7 +122,7 @@ export const UploadProofOfPayment = ({ handleOpenProofOfPayment, setLoading }) =
     const handleDragOut = (e) => {
         e.preventDefault();
         e.stopPropagation();
-        setDragCounter(dragCounter--);
+        setDragCounter(prev => prev - 1);
         if (dragCounter > 0) return;
         setDragging(false);
     }

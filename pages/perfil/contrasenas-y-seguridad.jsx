@@ -57,12 +57,12 @@ const PasswordAndSecurity = () =>{
 
     const [ isLoadImage , setIsLoadImage ] = useState(false);
     
-    const handleClickUpdateSessionSecurity = (type) =>{
+    const handleClickUpdateSessionSecurity = (typeOption) =>{
         toggle();
-        if(type){
-         setType(type);
+        if(typeOption){
+         setType(typeOption);
         }else{
-            setType(0);
+          setType(0);
         }
     }
 
@@ -139,7 +139,7 @@ const PasswordAndSecurity = () =>{
                   <div>
                     <button
                       className="bg-[#e7e9ec] cursor-pointer text-center text-[#333] py-2 px-5 font-Poppins rounded-sm border-[1px] border-solid border-[#8d9096] hover:bg-[#8d9096] hover:text-luz transition-all"
-                      onClick={()=>handleClickUpdateSessionSecurity(type=0)}
+                      onClick={()=>handleClickUpdateSessionSecurity(0)}
                     >
                         Modificar
                     </button>
@@ -153,7 +153,7 @@ const PasswordAndSecurity = () =>{
                   <div>
                     <button
                       className="bg-[#e7e9ec] cursor-pointer text-center text-[#333] py-2 px-5 font-Poppins rounded-sm border-[1px] border-solid border-[#8d9096] hover:bg-[#8d9096] hover:text-luz transition"
-                      onClick={()=>handleClickUpdateSessionSecurity(type=1)}
+                      onClick={()=>handleClickUpdateSessionSecurity(1)}
                     >
                         Modificar
                     </button>
@@ -167,7 +167,7 @@ const PasswordAndSecurity = () =>{
                   <div>
                     <button
                       className="bg-[#e7e9ec] cursor-pointer text-center text-[#333] py-2 px-5 font-Poppins rounded-sm border-[1px] border-solid border-[#8d9096] hover:bg-[#8d9096] hover:text-luz transition"
-                      onClick={()=>handleClickUpdateSessionSecurity(type=2)}
+                      onClick={()=>handleClickUpdateSessionSecurity(2)}
                     >
                         Modificar
                     </button>
@@ -180,7 +180,7 @@ const PasswordAndSecurity = () =>{
                   </div>
                     <button
                       className="bg-[#e7e9ec] cursor-pointer text-center text-[#333] py-2 px-5 font-Poppins rounded-sm border-[1px] border-solid border-[#8d9096] hover:bg-[#8d9096] hover:text-luz transition"
-                      onClick={()=>handleClickUpdateSessionSecurity(type=3)}
+                      onClick={()=>handleClickUpdateSessionSecurity(3)}
                     >
                         Modificar
                     </button>
@@ -193,7 +193,7 @@ const PasswordAndSecurity = () =>{
                   <div>
                     <button
                       className="bg-[#e7e9ec] cursor-pointer text-center text-[#333] py-2 px-5 font-Poppins rounded-sm border-[1px] border-solid border-[#8d9096] hover:bg-[#8d9096] hover:text-luz transition"
-                      onClick={()=>handleClickUpdateSessionSecurity(type=4)}
+                      onClick={()=>handleClickUpdateSessionSecurity(4)}
                     >
                         Modificar
                     </button>

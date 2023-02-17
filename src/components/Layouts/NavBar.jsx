@@ -169,7 +169,7 @@ const NavBar = () => {
                 onClick={() => handleRedirectClick('/perfil')}
               ><AccountCircleIcon className="mr-4" />Mi cuenta</span>
               <span className="block pl-4 mb-5 cursor-pointer text-gray-900 hover:text-stone-900 hover:bg-gray-100 py-2 uppercase text-sm pr-28" onClick={(e) => {
-                handleClose(e);
+                handleClose();
                 logoutSession();
               }} >
                 Cerrar Sesión
@@ -224,8 +224,8 @@ const NavBar = () => {
           <span className="hidden lg:flex">
             <Image
               src={logo}
-              priority={true}
-              fill={true}
+              priority="true"
+              fill="true"
               alt="Wapizima"
               width={100}
               height={90}
@@ -344,21 +344,21 @@ const NavBar = () => {
                     anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
                   >
                     <MenuItem
-                      onClick={(e) => { handleClose(e); handleRedirectClick('/perfil') }}
+                      onClick={(e) => { handleClose(); handleRedirectClick('/perfil') }}
                       sx={{ paddingRight: 15, fontSize: "14px" }}
                       className="hover:text-[#a31545]"
                     >
                       Mi Cuenta
                     </MenuItem>
                     <MenuItem
-                      onClick={(e) => { handleClose(e); handleRedirectClick('/perfil/mis-pedidos') }}
+                      onClick={(e) => { handleClose(); handleRedirectClick('/perfil/mis-pedidos') }}
                       sx={{ paddingRight: 15, fontSize: "14px" }}
                       className="hover:text-[#a31545]"
                     >
                       Mis Pedidos
                     </MenuItem>
                     <MenuItem
-                      onClick={(e) => { handleClose(e); handleRedirectClick('/perfil/direcciones') }}
+                      onClick={(e) => { handleClose(); handleRedirectClick('/perfil/direcciones') }}
                       sx={{ paddingRight: 15, fontSize: "14px" }}
                       className="hover:text-[#a31545]"
                     >
@@ -366,7 +366,7 @@ const NavBar = () => {
                     </MenuItem>
                     <MenuItem
                       onClick={(e) => {
-                        handleClose(e);
+                        handleClose();
                         logoutSession();
                       }}
                       sx={{ paddingRight: 15, fontSize: "14px" }}

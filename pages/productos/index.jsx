@@ -47,8 +47,8 @@ const Products = () => {
   const { categories, subcategories, showSubcategory } = useSelector((state) => state.categories);
   const { currencyPrices } = useSelector(state => state.countries);
 
-  const handelClickPage = async (e, value) => {
-    await startSearchByQueryParams({ page: value });
+  const handelClickPage = (e, value) => {
+    startSearchByQueryParams({ page: value });
     window.scrollTo({
       top: 0,
       behavior: "smooth",

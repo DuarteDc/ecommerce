@@ -115,25 +115,16 @@ export const types = {
     remove_one_product_from_wishList: '[WishList] remove one product from wishlist',
     search_product: '[WishList] search product',
 
-    loadSecretClientStripe: '[Checkout] load secret client stripe',
     loadSecretClientfromCookies: '[Checkout] load secret client from cookies',
     loadBanksAccounts: '[Checkout] load banks accounts',
     loadBankAccountSelected: '[Checkout] load bank account selected',
     loadSecretClientStripe: '[Checkout] load secret client stripe',
 
-    addProductShoppingCart: '[ShoppingCart] add product to shopping cart',
     loadShoppingCartFromCookies: '[ShoppingCart] load shopping cart from cookies',
-    updatedProductQuantity: '[ShoppingCart] updated quantity product in shoppingcart',
-    calculateTotalShoppingCart: '[ShoppingCart] calculate subtotal and total in shoppingCart',
-    finaliceCheckoutCart: '[ShoppingCart]  start finalice checkout cart',
-    loadTotalsFromCookies: '[ShoppingCart] load totals checkout from cookies',
     loadDirectionsShoppingCart: '[ShoppingCart] load shippingCart client',
     addDirectionInCart: '[ShoppingCart] add direction in cart',
     addAddressSelected: '[ShoppingCart] load shipping Address selected',
     successFinaliceTransfer: '[ShoppingCart] successFinaliceTrasfer',
-
-
-    loadWishListfromLocalStorage: '[WishList] load wishlist from localStorage',
 
 
     load_faqs: '[FAQS] load_faqs',

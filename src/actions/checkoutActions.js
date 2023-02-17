@@ -8,8 +8,10 @@ export const startLoadClientSecret = (token) => {
     return async (dispatch, getState) => {
 
         const { order_id } = getState().cart;
-        const typeOrder = Cookies.get('typeOrder');
+        
+        let typeOrder = Cookies.get('typeOrder');
         typeOrder = Number(typeOrder);
+
         try {
             let url = `/orders/stripe/clients/${order_id}`;
             const { data } = await client.post(url, { typeOrder }, {

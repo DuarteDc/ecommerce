@@ -285,7 +285,7 @@ export const FormFiscalAddressProfile = () => {
                 id="demo-select-small"
                 value={formik.values.state}
                 label="Estado"
-                onChange={(e) => { formik.handleChange(e), handleChangeState(e) }}
+                onChange={(e) => { formik.handleChange(e); handleChangeState(e) }}
                 name="state"
               >
                 {

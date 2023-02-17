@@ -99,7 +99,7 @@ export const Meta = ({
         }}
       />
 
-      <script src="https://apis.google.com/js/platform.js?onload=renderBadge" async defer></script>
+      {/* <script src="https://apis.google.com/js/platform.js?onload=renderBadge" async defer></script>
 
       <script
         dangerouslySetInnerHTML={{
@@ -112,7 +112,7 @@ export const Meta = ({
             });
           }
           `}}
-      />
+      /> */}
 
       <noscript
         dangerouslySetInnerHTML={{

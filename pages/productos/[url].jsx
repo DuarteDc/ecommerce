@@ -51,7 +51,7 @@ const Show = () => {
   };
 
   const structuredData = {
-    "@context": "http://www.schema.org",
+    "@context": "https://www.schema.org",
     "@type": "Product",
     "description": product?.description,
     "name": product?.name,

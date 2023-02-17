@@ -46,7 +46,7 @@ const SelectCurrency = memo(({ currencies, onChange, value }) => {
                 {
                     currencies.map(({ currency, image }) => (
                         <MenuItem
-                            onClick={(e) => { handleClose(e); onChange(currency, image) }}
+                            onClick={() => { handleClose(); onChange(currency, image) }}
                             key={currency}
                         >
                             <Image src={image} width="20" height="10" className="mr-2" alt="pais" /> {currency}
