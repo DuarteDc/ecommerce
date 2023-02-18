@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import { useEffect } from 'react'
 import Layout from '../../src/components/Layouts'
 import { useDispatch, useSelector } from 'react-redux';
 import { wrapper } from '../../src/store';
@@ -86,17 +86,6 @@ const ShoppingCart = () => {
           </div>
         </div>
       </section>
-
-      {/* <Modal
-        open={openAddress}
-        handleOpenCheckout={toggleAddress}
-        actions={false}
-        fullWidth={true}
-        maxWidth={'sm'}
-      >
-        <ListOfAddress />
-      </Modal> */}
-
       <Modal
         open={open}
         handleOpenCheckout={toggle}
@@ -122,7 +111,6 @@ const ShoppingCart = () => {
         fullWidth={true}
         maxWidth={'sm'}
       >
-        {/* <h2 className="font-bold uppercase text-xl mb-2">Descuentos</h2> */}
         <BusinessRules />
       </Modal>
     </Layout>

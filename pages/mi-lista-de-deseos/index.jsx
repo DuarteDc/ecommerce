@@ -81,7 +81,7 @@ const Wishlist = () => {
                                     name="email"
                                     placeholder="Buscar"
                                     className="w-full h-12 font-Poppins text-[13px] leading-[1.6] text-[#333] pr-[30px] pl-[15px] outline-0"
-                                    onChange={() => handleSeachProduct(event.target.value)}
+                                    onChange={(event) => handleSeachProduct(event.target.value)}
                                 />
                                 <SearchIcon className = "text-[25px] text-[#888] w-[20%]"/>
                             </div>

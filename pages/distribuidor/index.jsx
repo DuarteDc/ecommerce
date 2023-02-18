@@ -3,7 +3,7 @@ import Link from 'next/link';
 import { wrapper } from '../../src/store';
 
 import Layout from '../../src/components/Layouts'
-import { BannerImage, ProductCard } from '../../src/components/ui'
+import { BannerImage } from '../../src/components/ui'
 
 import { startLoadAdministrableLogo } from '../../src/actions/administrableActions'
 import { startLoadCurrencies } from '../../src/actions/countryAcctions'
@@ -11,31 +11,27 @@ import { startLoadBusinessRules } from '../../src/actions/shoppingCartActions'
 import { useSelector } from 'react-redux'
 
 import { helpers } from '../../src/helpers'
-import { startLoadProductsMostSold } from '../../src/actions/productsAction';
-import { startLoadBrands } from '../../src/actions/brandsActions';
+
 import InfoItem from '../../src/components/distribuidor/InfoItem';
 
 const Distributor = () => {
 
   const { BusinessRules } = useSelector(state => state.cart);
-  const { productsMostSold } = useSelector(state => state.products);
-  // const { brands } = useSelector(state => state.brands);
+
   const { priceFormat } = helpers;
+
+  const origin = typeof window === "undefined" ? "" : window.location.origin;
 
   return (
     <Layout
       title="Wapizima - Distribuidor"
       keywords="Wapizima"
-      // description={product?.description}
       ogTitle="Wapizima"
+      description="Forma parte de nuestra red de distribuidores y goza de los grandes beneficios que Wapizima tiene para ti."
       ogType="Product"
-    // ogUrl={origin}
-    // ogImage={product?.multimedia[0]?.path}
-    // robots="index, follow"
-    // canonical={origin}
-    // price={product?.price}
-    // curren="MXN"
-    // structuredData={structuredData}
+      ogUrl={origin}
+      robots="index, follow"
+      canonical={origin}
     >
       <BannerImage
         title=""
@@ -142,19 +138,6 @@ const Distributor = () => {
           />
         </div>
       </section>
-      {/* <section className="container mx-auto mb-20">
-        <h3 className="py-3 bg-gray-100 text-xl font-bold text-center uppercase">Productos</h3>
-        <div className="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 mt-10 md:gap-4">
-          {
-            productsMostSold.map((product) => (
-              <ProductCard
-                key={product.product._id}
-                product={product.product}
-              />
-            ))
-          }
-        </div>
-      </section> */}
     </Layout>
   )
 }
@@ -163,8 +146,6 @@ export const getServerSideProps = wrapper.getServerSideProps((store) => async (c
   await store.dispatch(startLoadAdministrableLogo());
   await store.dispatch(startLoadCurrencies());
   await store.dispatch(startLoadBusinessRules());
-  // await store.dispatch(startLoadProductsMostSold(ctx.req?.cookies?.Currency || 'MXN'));
-  // await store.dispatch(startLoadBrands())
 });
 
 

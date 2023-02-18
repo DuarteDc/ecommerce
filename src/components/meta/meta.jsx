@@ -58,7 +58,7 @@ export const Meta = ({
       {price && <meta property="product:price:amount" content={price} />}
       {curren && <meta property="product:price:currency" content={curren} />}
       <link rel="canonical" href={canonical} />
- 
+
 
       <script
         type="application/ld+json"
@@ -66,18 +66,18 @@ export const Meta = ({
       />
       <noscript
         dangerouslySetInnerHTML={{
-          __html: `<iframe src="https://www.googletagmanager.com/ns.html?id=GTM-W679KG2"
-          height="0" width="0" style={{display: 'none', visibility:'hidden'}}></iframe>`,
+          __html: `<iframe src="https://www.googletagmanager.com/ns.html?id=GTM-PHM5W8Z"
+          height="0" width="0" style="display:none;visibility:hidden"></iframe>`,
         }}
       ></noscript>
 
       <script
         dangerouslySetInnerHTML={{
           __html: ` (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-            new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-            j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-            'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-            })(window,document,'script','dataLayer','GTM-W679KG2');
+          new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+          j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+          'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+          })(window,document,'script','dataLayer','GTM-PHM5W8Z');
           `,
         }}
       />
@@ -99,7 +99,7 @@ export const Meta = ({
         }}
       />
 
-      {/* <script src="https://apis.google.com/js/platform.js?onload=renderBadge" async defer></script>
+      <script src="https://apis.google.com/js/platform.js?onload=renderBadge" async defer></script>
 
       <script
         dangerouslySetInnerHTML={{
@@ -112,7 +112,7 @@ export const Meta = ({
             });
           }
           `}}
-      /> */}
+      />
 
       <noscript
         dangerouslySetInnerHTML={{

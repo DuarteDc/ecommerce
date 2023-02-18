@@ -9,28 +9,18 @@ import { startLoadAdministrableLogo } from "../src/actions/administrableActions"
 /**Actions */
 import { startLoadReviews } from "../src/actions/reviewsActions";
 import { startLoadCurrencies } from "../src/actions/countryAcctions";
-import { startFilterProducts, startLoadProductsMostSold } from "../src/actions/productsAction";
+import { startFilterProducts } from "../src/actions/productsAction";
 
 const endpoint = '/brands/with/categories';
 
 
 /***************************************Components*************************************** */
 
-<<<<<<< Updated upstream
-// import ProductsMostSold from '../src/components/ui/ProductsMostSold';
 
 import loadable from '@loadable/component';
 
 import ProductsAreaComponent from '../src/components/home/ProductsArea';
 
-=======
-import ProductsMostSold from '../src/components/ui/ProductsMostSold';
-import ProductsAreaComponent from '../src/components/home/ProductsArea';
-
-import loadable from '@loadable/component';
-
->>>>>>> Stashed changes
-// const ProductsAreaComponent = loadable(() => import('../src/components/home/ProductsArea'));
 const ProductsOfferAreaComponent = loadable(() => import('../src/components/home/ProductsOfferArea'));
 const PartnerAreaComponent = loadable(() => import('../src/components/home/PartnerArea'));
 const NewsletterComponent = loadable(() => import('../src/components/home/Newsletter'));
@@ -40,7 +30,7 @@ const TestimonialAreaComponenet = loadable(() => import('../src/components/home/
 export default function HomePage() {
 
   const { logo } = useSelector((state) => state.administrable);
-  const { productsMostSold, products } = useSelector(state => state.products);
+  const { products } = useSelector(state => state.products);
 
   const origin = typeof window === "undefined" ? "" : window.location.origin;
 
@@ -56,9 +46,7 @@ export default function HomePage() {
       robots="index, follow"
       canonical={origin}
     >
-      {/* <Slider />
-      <FacilityArea /> */}
-      {/* <ProductsMostSold productsMostSold={productsMostSold} /> */}
+
       <ProductsAreaComponent products={products} />
       <ProductsOfferAreaComponent />
       <PartnerAreaComponent />
@@ -74,6 +62,4 @@ export const getServerSideProps = wrapper.getServerSideProps((store) => async (c
   await store.dispatch(startLoadCategoriesHome());
   await store.dispatch(startLoadReviews());
   await store.dispatch(startFilterProducts(endpoint, undefined, ctx.req?.cookies?.Currency || 'MXN'));
-  // await store.dispatch(startLoadProductsMostSold(ctx.req?.cookies?.Currency || 'MXN'));
-
 });

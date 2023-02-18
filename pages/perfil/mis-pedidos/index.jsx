@@ -7,7 +7,7 @@ import Swal from 'sweetalert2/dist/sweetalert2.js';
 
 // actions
 import { startLoadFaqsCategories } from "../../../src/actions/faqsActions";
-import { startLoadFiscalAddress } from "../../../src/actions/profileActions";
+
 import { startLoadAdministrableLogo } from '../../../src/actions/administrableActions';
 import { selectedOrderPendding, startLoadOrdersCanceled, startLoadPendingOrders, startLoadOrdersApproved, startLoadOrdersShipped, shippedOrders, loadProductDetail, getOrderId } from "../../../src/actions/ordersActions";
 
@@ -147,16 +147,6 @@ const MisPedidos = () => {
     }
   });
 
-  const filterOrdersByDate = ({ target }) => {
-    const date = target.value;
-    filterSearch({ router, date });
-  }
-
-  const handleClickOrder = (order) => {
-    setOpenProductDetail(true);
-    setOrder(order)
-  }
-
   const handleCancelInvoice = (id = '1') => {
     toggleCancelInvoice();
   }
@@ -182,7 +172,6 @@ const MisPedidos = () => {
     const modalTestimonialOpen = Cookies.get('modalTestimonialOpen');
     if (modalTestimonialOpen && modalTestimonialOpen === "false") {
       setTestimonialModal(false);
-      return;
     }
   }, []);
 
@@ -475,7 +464,6 @@ export const getServerSideProps = wrapper.getServerSideProps((store) =>
     await store.dispatch(startLoadOrdersCanceled(ctx.req.cookies.token));
     await store.dispatch(startLoadOrdersApproved(ctx.req.cookies.token));
     await store.dispatch(startLoadOrdersShipped(ctx.req.cookies.token));
-    // await store.dispatch(startLoadFiscalAddress(ctx.req.cookies.token));
     await store.dispatch(startLoadCurrencies());
   })
 

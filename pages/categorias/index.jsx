@@ -6,7 +6,6 @@ import { startLoadCategories } from '../../src/actions/categoryActions';
 import Layout from '../../src/components/Layouts';
 import CardProduct from '../../src/components/ui/cardProduct';
 import Newsletter from '../../src/components/home/Newsletter';
-import { BannerImage } from '../../src/components/ui/bannerImage';
 import { wrapper } from '../../src/store';
 import { startLoadFaqsCategories } from '../../src/actions/faqsActions';
 import { Breadcrumbs, Grid, Typography } from '@mui/material';
@@ -17,7 +16,6 @@ import { startLoadCurrencies } from '../../src/actions/countryAcctions';
 
 const Categories = () => {
     const history = useRouter();
-    const dispatch = useDispatch();
     const { logo } = useSelector((state) => state.administrable);
     const { categories } = useSelector((state) => state.categories);
     const { categories: categoriesFasq } = useSelector((state) => state.faqs);

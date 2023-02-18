@@ -2,14 +2,13 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import { wrapper } from "../../src/store";
 import Layout from "../../src/components/Layouts"
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 
 // actions
 import { startLoadBrands } from "../../src/actions/brandsActions";
 import { startLoadFaqsCategories } from "../../src/actions/faqsActions";
 import { startLoadAdministrableLogo } from "../../src/actions/administrableActions";
 
-import { BannerImage } from "../../src/components/ui";
 import CardProduct from "../../src/components/ui/cardProduct";
 import Newsletter from "../../src/components/home/Newsletter";
 import { Breadcrumbs, Grid, Typography } from "@mui/material";

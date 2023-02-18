@@ -21,7 +21,7 @@ import LocationOnIcon from '@mui/icons-material/LocationOn';
 import { startLoadCurrencies } from "../../src/actions/countryAcctions";
 
 const ContactUs = () => {
-  const dispatch = useDispatch();
+  
   const { logo } = useSelector((state) => state.administrable);
   const { categories } = useSelector((state) => state.faqs);
 
@@ -61,7 +61,6 @@ const ContactUs = () => {
     validationSchema: Yup.object(validationSchema),
     onSubmit: (formData, { resetForm }) => {
       handelSendMessage(formData, resetForm);
-      //alert(JSON.stringify(formData));
     }
   });
 

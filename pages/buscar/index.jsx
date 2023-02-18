@@ -12,7 +12,7 @@ import { wrapper } from '../../src/store';
 
 import Layout from '../../src/components/Layouts';
 import { ProductCard } from '../../src/components/ui';
-import ProductCardMobile from '../../src/components/ui/Mobile/ProductCard';
+
 import LoadingScreen from '../../src/components/LoadingScreen';
 
 const Search = () => {
@@ -35,8 +35,7 @@ const Search = () => {
   }, [router.query]);
 
   const { categories } = useSelector(state => state.faqs);
-  const { searchedProducts } = useSelector(state => state.products)
-  const { dimensions } = useSelector(state => state.ui);
+  const { searchedProducts } = useSelector(state => state.products);
 
   return (
     <Layout categories={categories}>

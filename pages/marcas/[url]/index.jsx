@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { useRouter } from 'next/router';
 import { useSelector } from 'react-redux';
 
@@ -6,17 +5,15 @@ import Layout from '../../../src/components/Layouts';
 import CategoriesList from '../../../src/components/categories/CategoriesList';
 
 import { wrapper } from '../../../src/store';
-import { startLoadSubcategories } from '../../../src/actions/brandsActions';
-import { startLoadCategories, startLoadCategoriesPerBrand, startLoadSubcategoriesPerBrand } from '../../../src/actions/categoryActions';
+import {  startLoadCategoriesPerBrand } from '../../../src/actions/categoryActions';
 
 import { startLoadAdministrableLogo } from '../../../src/actions/administrableActions';
 import { BannerImage, ProductCard } from '../../../src/components/ui';
-import ProductCardMobile from '../../../src/components/ui/Mobile/ProductCard';
 
 import AsideBar from '../../../src/components/categories/AsideBar';
 
 import LoadingScreen from '../../../src/components/LoadingScreen';
-import BrandFilter from '../../../src/components/brands/BrandFilter';
+
 import { startLoadFaqsCategories } from '../../../src/actions/faqsActions';
 import { useQueryParams } from '../../../src/hooks/useQueryParams';
 import { startFilterProducts } from '../../../src/actions/productsAction';
@@ -44,8 +41,8 @@ const Show = () => {
     const endpoint = `/products/filter-brand/products-paginated/${router.query.url}`;
     const { startSearchByQueryParams, starClearQueryParams, paramsFilters, loading, removeQueryParam } = useQueryParams(endpoint, { router });
 
-    const handelClickPage = async (e, value) => {
-        await startSearchByQueryParams({ page: value });
+    const handelClickPage = (e, value) => {
+        startSearchByQueryParams({ page: value });
         window.scrollTo({
             top: 0,
             behavior: 'smooth'
@@ -143,7 +140,6 @@ export const getServerSideProps = wrapper.getServerSideProps((store) =>
                 notFound: true
             }
         }
-        // await store.dispatch(startLoadSubcategoriesPerBrand(ctx.query.url));
         await store.dispatch(startLoadCategoriesPerBrand(ctx.query.url));
         await store.dispatch(startLoadPricesCurrencies(ctx.req.cookies?.Currency || 'MXN'));
         await store.dispatch(startLoadAdministrableLogo());

@@ -12,8 +12,6 @@ import { datadogRum } from '@datadog/browser-rum'
 
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 
-import { GoogleReCaptchaProvider } from 'react-google-recaptcha-v3';
-
 import { loadDimensionsOfBrowser } from '../src/actions/uiActions';
 
 

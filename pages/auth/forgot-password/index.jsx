@@ -5,7 +5,7 @@ import { forgotPassword } from "../../../src/actions/authActions";
 import { useFormik } from "formik";
 import * as Yup from 'yup';
 import { useState } from "react";
-import { errorNotify, successNotify } from "../../../src/helpers/helpers";
+import { successNotify } from "../../../src/helpers/helpers";
 import Link from "next/link";
 import { useRouter } from "next/router";
 
@@ -22,8 +22,6 @@ const ForgotPassword = () => {
   const { logo } = useSelector((state) => state.administrable);
   const { categories } = useSelector(state => state.faqs)
 
-
-  const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
   const [messageError, setMessageError] = useState('');
 
@@ -112,7 +110,6 @@ const ForgotPassword = () => {
               <button
                 className="w-full cursor-pointer text-center bg-[#222] text-white py-4 hover:bg-[#444] transition-all duration-700 ease-in-out mt-10"
                 type="submit"
-                disabled={loading && true}
               >
                 Enviar
               </button>

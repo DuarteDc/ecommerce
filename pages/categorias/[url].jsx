@@ -32,7 +32,6 @@ const Category = () => {
     const { category, subcategories } = useSelector((state) => state.categories);
     const { brands } = useSelector((state) => state.brands);
     const { categories } = useSelector((state) => state.faqs);
-    const { dimensions } = useSelector(state => state.ui);
     const { currencyPrices } = useSelector(state => state.countries);
     const { products } = useSelector((state) => state.products);
 
@@ -42,8 +41,8 @@ const Category = () => {
 
     const { startSearchByQueryParams, starClearQueryParams, paramsFilters, loading } = useQueryParams(endpoint, { router });
 
-    const handelClickPage = async (e, value) => {
-        await startSearchByQueryParams({ page: value });
+    const handelClickPage = (e, value) => {
+        startSearchByQueryParams({ page: value });
         window.scrollTo({
             top: 0,
             behavior: 'smooth'

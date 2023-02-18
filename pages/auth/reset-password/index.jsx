@@ -3,9 +3,9 @@ import { startLoadAdministrableLogo } from "../../../src/actions/administrableAc
 import { wrapper } from "../../../src/store";
 import { useFormik } from "formik";
 import * as Yup from 'yup';
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { successNotify } from "../../../src/helpers/helpers";
-import Link from "next/link";
+
 import { useRouter } from "next/router";
 
 import ErrorIcon from '@mui/icons-material/Error';
@@ -23,8 +23,7 @@ const ResetPassword = () => {
   const { categories } = useSelector(state => state.faqs)
 
   const router = useRouter();
-
-  const [loading, setLoading] = useState(false);
+  
   const [error, setError] = useState(false);
   const [messageError, setMessageError] = useState('');
 
@@ -131,8 +130,7 @@ const ResetPassword = () => {
               <button
                 className="w-full cursor-pointer text-center bg-[#222] text-white py-4 hover:bg-[#444] transition-all duration-700 ease-in-out mt-10"
                 type="submit"
-                disabled={loading && true}
-              >
+                >
                 Enviar
               </button>
             </form>

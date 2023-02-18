@@ -33,7 +33,6 @@ const Checkout = () => {
   const { dimensions } = useSelector((state) => state.ui);
   const { client_secret, bankAccountSelected, success } = useSelector((state) => state.checkout);
   const [isTransfer, setIsTransfer] = useState(false);
-  const [open, toggle] = useToggle();
   const [openTransfer, toggleTransfer] = useToggle();
   const [loadingForm, setLoadingForm] = useState(false);
 
@@ -67,7 +66,6 @@ const Checkout = () => {
     }
   }, [success]);
 
- 
   useEffect(() => {
     if (!Object.keys(superTotal).length) {
       const superTotal = Cookie.get('superTotal') ? JSON.parse(Cookie.get('superTotal')) : {};

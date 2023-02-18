@@ -74,7 +74,6 @@ export async function middleware(req) {
   }
 
   if (req.nextUrl.pathname.startsWith("/auth")) {
-    // const { token } = req.cookies;
 
     const token = req.cookies.get('token');
 

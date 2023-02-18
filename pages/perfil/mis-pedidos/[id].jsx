@@ -21,7 +21,7 @@ import { useToggle } from "../../../src/hooks/useToggle";
 import Accordion from '@mui/material/Accordion';
 import AccordionSummary from '@mui/material/AccordionSummary';
 import AccordionDetails from '@mui/material/AccordionDetails';
-import Typography from '@mui/material/Typography';
+
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 
 const ShowOrder = () => {
@@ -142,7 +142,7 @@ const ShowOrder = () => {
                                     products_list?.map((product) => (
                                         <tr className="cursor-pointer bg-white border-b hover:bg-gray-50" key={product._id}>
                                             <td scope="row" className="flex items-center py-4 px-6 text-gray-900 whitespace-nowrap">
-                                                <img src={product.product?.multimedia[0]?.path} alt="" className="w-10 h-10 rounded-full" />
+                                                <Image src={product.product?.multimedia[0]?.path} alt="" className="w-10 h-10 rounded-full" width="60" height="60" />
                                                 <div className="pl-3">
                                                     <div className="text-base font-semibold">{product.product?.name}</div>
                                                     <div className="font-normal text-gray-500 truncate max-w-[200px]">{product.product.description}</div>

@@ -33,8 +33,8 @@ export const UploadProofOfPayment = ({ handleOpenProofOfPayment, setLoading }) =
     const regexReference = /^[0-9]+$/;
 
     const validationSchema = {
-        amount: Yup.number().typeError('El monto debe ser un numero valido').required("El monto es requerido"),
-        reference: Yup.string().required("La referencia es requerida").matches(regexReference, "La referencia no es valida"),
+        amount: Yup.number().typeError('El monto debe ser un número valido').required("El monto es requerido"),
+        reference: Yup.number().typeError('La referencia debe ser un número valido').required("La referencia es requerida"),
     }
 
     const formik = useFormik({
