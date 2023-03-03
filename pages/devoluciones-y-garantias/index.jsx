@@ -2,7 +2,7 @@ import Link from 'next/link';
 import Layout from '../../src/components/Layouts';
 import { wrapper } from '../../src/store';
 
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 
 import { startLoadAdministrableLogo } from "../../src/actions/administrableActions";
 import { startLoadCurrencies } from "../../src/actions/countryAcctions";

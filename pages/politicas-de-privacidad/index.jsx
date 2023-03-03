@@ -2,7 +2,7 @@ import Link from 'next/link';
 import Layout from '../../src/components/Layouts';
 import { wrapper } from '../../src/store';
 
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 
 import { startLoadAdministrableLogo } from "../../src/actions/administrableActions";
 import { startLoadCurrencies } from "../../src/actions/countryAcctions";
@@ -15,9 +15,7 @@ import NavigateNextIcon from '@mui/icons-material/NavigateNext';
 
 const Policies = () => {
 
-    const { logo, policie } = useSelector((state) => state.administrable);
-
-    const origin = typeof window === "undefined" ? "" : window.location.href;
+    const {  policie } = useSelector((state) => state.administrable);
 
     return (
         <div className="container mx-auto my-20 px-5 lg:px-24 min-h-screen">
